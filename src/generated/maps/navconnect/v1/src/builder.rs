@@ -216,17 +216,6 @@ pub mod nav_connect_service {
             self.0.request.name = v.into();
             self
         }
-
-        /// Sets the value of [route_polyline_format][crate::model::GetTripRequest::route_polyline_format].
-        pub fn set_route_polyline_format<
-            T: Into<crate::model::get_trip_request::RoutePolylineFormat>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.route_polyline_format = v.into();
-            self
-        }
     }
 
     #[doc(hidden)]

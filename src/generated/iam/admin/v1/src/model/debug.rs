@@ -584,16 +584,3 @@ impl std::fmt::Debug for super::LintPolicyResponse {
         debug_struct.finish()
     }
 }
-
-impl std::fmt::Debug for super::WorkforcePoolAttributeSyncEventLog {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("WorkforcePoolAttributeSyncEventLog");
-        debug_struct.field("subject", &self.subject);
-        debug_struct.field("failure_reason", &self.failure_reason);
-        debug_struct.field("message", &self.message);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}

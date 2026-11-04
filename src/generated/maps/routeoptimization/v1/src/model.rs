@@ -89,9 +89,9 @@ pub struct OptimizeToursUriRequest {
     /// Format:
     ///
     /// * `projects/{project-id}`
-    /// * `projects/{project-id}/locations/-`
+    /// * `projects/{project-id}/locations/{location-id}`
     ///
-    /// Regional `{location-id}` values are not supported.
+    /// If no location is specified, a region will be chosen automatically.
     pub parent: std::string::String,
 
     /// Required. The URI of the Cloud Storage object containing the
@@ -292,9 +292,9 @@ pub struct BatchOptimizeToursRequest {
     /// Format:
     ///
     /// * `projects/{project-id}`
-    /// * `projects/{project-id}/locations/-`
+    /// * `projects/{project-id}/locations/{location-id}`
     ///
-    /// Regional `{location-id}` values are not supported.
+    /// If no location is specified, a region will be chosen automatically.
     pub parent: std::string::String,
 
     /// Required. Input/Output information each purchase model, such as file paths
@@ -539,9 +539,9 @@ pub struct OptimizeToursRequest {
     /// Format:
     ///
     /// * `projects/{project-id}`
-    /// * `projects/{project-id}/locations/-`
+    /// * `projects/{project-id}/locations/{location-id}`
     ///
-    /// Regional `{location-id}` values are not supported.
+    /// If no location is specified, a region will be chosen automatically.
     pub parent: std::string::String,
 
     /// If this timeout is set, the server returns a response before the timeout
@@ -1655,12 +1655,7 @@ pub mod optimize_tours_response {
         /// [google.maps.routeoptimization.v1.ShipmentRoute.metrics]: crate::model::ShipmentRoute::metrics
         pub aggregated_route_metrics: std::option::Option<crate::model::AggregatedMetrics>,
 
-        /// Number of high priority shipments skipped.
-        /// High priority shipments are those with an unset
-        /// [Shipment.penalty_cost][google.maps.routeoptimization.v1.Shipment.penalty_cost]
-        /// field.
-        ///
-        /// [google.maps.routeoptimization.v1.Shipment.penalty_cost]: crate::model::Shipment::penalty_cost
+        /// Number of mandatory shipments skipped.
         pub skipped_mandatory_shipment_count: i32,
 
         /// Number of vehicles used. Note: if a vehicle route is empty and
@@ -3029,14 +3024,14 @@ pub struct Shipment {
     /// considered as null.
     pub load_demands: std::collections::HashMap<std::string::String, crate::model::shipment::Load>,
 
-    /// Optional. If the shipment is not completed, this penalty is added to the
-    /// overall cost of the routes. A shipment is considered completed if one of
-    /// its pickup and delivery alternatives is visited. The cost may be expressed
-    /// in the same unit used for all other cost-related fields in the model and
-    /// must be non-negative.
+    /// If the shipment is not completed, this penalty is added to the overall
+    /// cost of the routes. A shipment is considered completed if one of its pickup
+    /// and delivery alternatives is visited. The cost may be expressed in the
+    /// same unit used for all other cost-related fields in the model and must be
+    /// positive.
     ///
-    /// *IMPORTANT*: If this penalty is not specified, it is considered higher
-    /// priority than shipments with a specified `penalty cost`.
+    /// *IMPORTANT*: If this penalty is not specified, it is considered infinite,
+    /// i.e. the shipment must be completed.
     pub penalty_cost: std::option::Option<f64>,
 
     /// The set of vehicles that may perform this shipment. If empty, all vehicles
@@ -4728,7 +4723,6 @@ impl Vehicle {
     /// use google_maps_routeoptimization_v1::model::vehicle::TravelMode;
     /// let x0 = Vehicle::new().set_travel_mode(TravelMode::Driving);
     /// let x1 = Vehicle::new().set_travel_mode(TravelMode::Walking);
-    /// let x2 = Vehicle::new().set_travel_mode(TravelMode::TwoWheeler);
     /// ```
     pub fn set_travel_mode<T: std::convert::Into<crate::model::vehicle::TravelMode>>(
         mut self,
@@ -5902,14 +5896,12 @@ pub mod vehicle {
         /// makes the route incur a cost, quadratic in the duration. This cost adds
         /// up to other costs defined in the model, with the same unit.
         ///
-        /// If `quadratic_soft_max_duration` is set, the following conditions must be
-        /// met:
+        /// If defined, `quadratic_soft_max_duration` must be nonnegative. If
+        /// `max_duration` is also defined, `quadratic_soft_max_duration` must be
+        /// less than `max_duration`, and the difference must be no larger than one
+        /// day:
         ///
-        /// * It must be non-negative.
-        /// * `max_duration` must be defined.
-        /// * `quadratic_soft_max_duration` must be less than `max_duration`.
-        /// * The difference must be no more than one day:
-        ///   `max_duration - quadratic_soft_max_duration <= 86400 seconds`
+        /// `max_duration - quadratic_soft_max_duration <= 86400 seconds`
         pub quadratic_soft_max_duration: std::option::Option<wkt::Duration>,
 
         /// Cost per square hour incurred if the
@@ -6145,12 +6137,6 @@ pub mod vehicle {
         Driving,
         /// Travel mode corresponding to walking directions.
         Walking,
-        /// Two-wheeled, motorized vehicle. For example, motorcycle. Note that this
-        /// differs from the BICYCLING travel mode which covers human-powered mode.
-        /// This travel mode is supported only in the countries listed at
-        /// [Countries and regions supported for two-wheeled
-        /// vehicles](https://developers.google.com/maps/documentation/routes/coverage-two-wheeled).
-        TwoWheeler,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [TravelMode::value] or
@@ -6176,7 +6162,6 @@ pub mod vehicle {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Driving => std::option::Option::Some(1),
                 Self::Walking => std::option::Option::Some(2),
-                Self::TwoWheeler => std::option::Option::Some(5),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -6190,7 +6175,6 @@ pub mod vehicle {
                 Self::Unspecified => std::option::Option::Some("TRAVEL_MODE_UNSPECIFIED"),
                 Self::Driving => std::option::Option::Some("DRIVING"),
                 Self::Walking => std::option::Option::Some("WALKING"),
-                Self::TwoWheeler => std::option::Option::Some("TWO_WHEELER"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -6215,7 +6199,6 @@ pub mod vehicle {
                 0 => Self::Unspecified,
                 1 => Self::Driving,
                 2 => Self::Walking,
-                5 => Self::TwoWheeler,
                 _ => Self::UnknownValue(travel_mode::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -6230,7 +6213,6 @@ pub mod vehicle {
                 "TRAVEL_MODE_UNSPECIFIED" => Self::Unspecified,
                 "DRIVING" => Self::Driving,
                 "WALKING" => Self::Walking,
-                "TWO_WHEELER" => Self::TwoWheeler,
                 _ => Self::UnknownValue(travel_mode::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -6247,7 +6229,6 @@ pub mod vehicle {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Driving => serializer.serialize_i32(1),
                 Self::Walking => serializer.serialize_i32(2),
-                Self::TwoWheeler => serializer.serialize_i32(5),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -8302,14 +8283,6 @@ pub mod shipment_route {
         /// [google.maps.routeoptimization.v1.Shipment.VisitRequest.avoid_u_turns]: crate::model::shipment::VisitRequest::avoid_u_turns
         pub injected_solution_location_token: std::option::Option<i32>,
 
-        /// Optional. Specifies the type of the visit.
-        /// Overrides the
-        /// [Visit.is_pickup][google.maps.routeoptimization.v1.ShipmentRoute.Visit.is_pickup]
-        /// field.
-        ///
-        /// [google.maps.routeoptimization.v1.ShipmentRoute.Visit.is_pickup]: crate::model::shipment_route::Visit::is_pickup
-        pub visit_type: crate::model::shipment_route::visit::VisitType,
-
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8503,173 +8476,11 @@ pub mod shipment_route {
             self.injected_solution_location_token = v.map(|x| x.into());
             self
         }
-
-        /// Sets the value of [visit_type][crate::model::shipment_route::Visit::visit_type].
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_maps_routeoptimization_v1::model::shipment_route::Visit;
-        /// use google_maps_routeoptimization_v1::model::shipment_route::visit::VisitType;
-        /// let x0 = Visit::new().set_visit_type(VisitType::PickupShipment);
-        /// let x1 = Visit::new().set_visit_type(VisitType::DeliverShipment);
-        /// ```
-        pub fn set_visit_type<
-            T: std::convert::Into<crate::model::shipment_route::visit::VisitType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.visit_type = v.into();
-            self
-        }
     }
 
     impl wkt::message::Message for Visit {
         fn typename() -> &'static str {
             "type.googleapis.com/google.maps.routeoptimization.v1.ShipmentRoute.Visit"
-        }
-    }
-
-    /// Defines additional types related to [Visit].
-    pub mod visit {
-        #[allow(unused_imports)]
-        use super::*;
-
-        /// Indicates whether the visit is a pickup, a delivery, or a visit to a
-        /// [Stop][google.maps.routeoptimization.v1.Stop]. Visits to a stop are used
-        /// only when multimodal optimization is enabled.
-        ///
-        /// # Working with unknown values
-        ///
-        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
-        /// additional enum variants at any time. Adding new variants is not considered
-        /// a breaking change. Applications should write their code in anticipation of:
-        ///
-        /// - New values appearing in future releases of the client library, **and**
-        /// - New values received dynamically, without application changes.
-        ///
-        /// Please consult the [Working with enums] section in the user guide for some
-        /// guidelines.
-        ///
-        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
-        #[derive(Clone, Debug, PartialEq)]
-        #[non_exhaustive]
-        pub enum VisitType {
-            /// Unspecified visit type.
-            Unspecified,
-            /// Visit corresponds to a shipment pickup.
-            PickupShipment,
-            /// Visit corresponds to a shipment delivery.
-            DeliverShipment,
-            /// If set, the enum was initialized with an unknown value.
-            ///
-            /// Applications can examine the value using [VisitType::value] or
-            /// [VisitType::name].
-            UnknownValue(visit_type::UnknownValue),
-        }
-
-        #[doc(hidden)]
-        pub mod visit_type {
-            #[allow(unused_imports)]
-            use super::*;
-            #[derive(Clone, Debug, PartialEq)]
-            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
-        }
-
-        impl VisitType {
-            /// Gets the enum value.
-            ///
-            /// Returns `None` if the enum contains an unknown value deserialized from
-            /// the string representation of enums.
-            pub fn value(&self) -> std::option::Option<i32> {
-                match self {
-                    Self::Unspecified => std::option::Option::Some(0),
-                    Self::PickupShipment => std::option::Option::Some(1),
-                    Self::DeliverShipment => std::option::Option::Some(2),
-                    Self::UnknownValue(u) => u.0.value(),
-                }
-            }
-
-            /// Gets the enum value as a string.
-            ///
-            /// Returns `None` if the enum contains an unknown value deserialized from
-            /// the integer representation of enums.
-            pub fn name(&self) -> std::option::Option<&str> {
-                match self {
-                    Self::Unspecified => std::option::Option::Some("VISIT_TYPE_UNSPECIFIED"),
-                    Self::PickupShipment => std::option::Option::Some("PICKUP_SHIPMENT"),
-                    Self::DeliverShipment => std::option::Option::Some("DELIVER_SHIPMENT"),
-                    Self::UnknownValue(u) => u.0.name(),
-                }
-            }
-        }
-
-        impl std::default::Default for VisitType {
-            fn default() -> Self {
-                use std::convert::From;
-                Self::from(0)
-            }
-        }
-
-        impl std::fmt::Display for VisitType {
-            fn fmt(
-                &self,
-                f: &mut std::fmt::Formatter<'_>,
-            ) -> std::result::Result<(), std::fmt::Error> {
-                wkt::internal::display_enum(f, self.name(), self.value())
-            }
-        }
-
-        impl std::convert::From<i32> for VisitType {
-            fn from(value: i32) -> Self {
-                match value {
-                    0 => Self::Unspecified,
-                    1 => Self::PickupShipment,
-                    2 => Self::DeliverShipment,
-                    _ => Self::UnknownValue(visit_type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::Integer(value),
-                    )),
-                }
-            }
-        }
-
-        impl std::convert::From<&str> for VisitType {
-            fn from(value: &str) -> Self {
-                use std::string::ToString;
-                match value {
-                    "VISIT_TYPE_UNSPECIFIED" => Self::Unspecified,
-                    "PICKUP_SHIPMENT" => Self::PickupShipment,
-                    "DELIVER_SHIPMENT" => Self::DeliverShipment,
-                    _ => Self::UnknownValue(visit_type::UnknownValue(
-                        wkt::internal::UnknownEnumValue::String(value.to_string()),
-                    )),
-                }
-            }
-        }
-
-        impl serde::ser::Serialize for VisitType {
-            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-            where
-                S: serde::Serializer,
-            {
-                match self {
-                    Self::Unspecified => serializer.serialize_i32(0),
-                    Self::PickupShipment => serializer.serialize_i32(1),
-                    Self::DeliverShipment => serializer.serialize_i32(2),
-                    Self::UnknownValue(u) => u.0.serialize(serializer),
-                }
-            }
-        }
-
-        impl<'de> serde::de::Deserialize<'de> for VisitType {
-            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-            where
-                D: serde::Deserializer<'de>,
-            {
-                deserializer.deserialize_any(wkt::internal::EnumVisitor::<VisitType>::new(
-                    ".google.maps.routeoptimization.v1.ShipmentRoute.Visit.VisitType",
-                ))
-            }
         }
     }
 
@@ -9852,7 +9663,7 @@ pub mod skipped_shipment {
 
 /// Aggregated metrics for
 /// [ShipmentRoute][google.maps.routeoptimization.v1.ShipmentRoute] (resp. for
-/// [OptimizeToursResponse][google.maps.routeoptimization.v1.OptimizeToursResponse])
+/// [OptimizeToursResponse][google.maps.routeoptimization.v1.OptimizeToursResponse]
 /// over all
 /// [Transition][google.maps.routeoptimization.v1.ShipmentRoute.Transition]
 /// and/or [Visit][google.maps.routeoptimization.v1.ShipmentRoute.Visit] (resp.
@@ -9870,14 +9681,9 @@ pub struct AggregatedMetrics {
     /// counts once.
     pub performed_shipment_count: i32,
 
-    /// Number of high priority shipments performed. High priority shipments are
-    /// those with an unset
-    /// [Shipment.penalty_cost][google.maps.routeoptimization.v1.Shipment.penalty_cost]
-    /// field.
+    /// Number of mandatory shipments performed.
     ///
     /// Experimental: This field's behavior or existence may change in future.
-    ///
-    /// [google.maps.routeoptimization.v1.Shipment.penalty_cost]: crate::model::Shipment::penalty_cost
     pub performed_mandatory_shipment_count: std::option::Option<i32>,
 
     /// The sum of the

@@ -85,18 +85,6 @@ impl serde::ser::Serialize for super::TripConfig {
         if self.pubsub_field_mask.is_some() {
             state.serialize_entry("pubsubFieldMask", &self.pubsub_field_mask)?;
         }
-        if !wkt::internal::is_default(&self.enable_remaining_route_reporting) {
-            state.serialize_entry(
-                "enableRemainingRouteReporting",
-                &self.enable_remaining_route_reporting,
-            )?;
-        }
-        if !wkt::internal::is_default(&self.enable_route_deviation_reporting) {
-            state.serialize_entry(
-                "enableRouteDeviationReporting",
-                &self.enable_route_deviation_reporting,
-            )?;
-        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -150,12 +138,6 @@ impl serde::ser::Serialize for super::TripExecution {
         if self.location.is_some() {
             state.serialize_entry("location", &self.location)?;
         }
-        if self.remaining_route.is_some() {
-            state.serialize_entry("remainingRoute", &self.remaining_route)?;
-        }
-        if self.last_route_deviation.is_some() {
-            state.serialize_entry("lastRouteDeviation", &self.last_route_deviation)?;
-        }
         if self.traveled_duration.is_some() {
             state.serialize_entry("traveledDuration", &self.traveled_duration)?;
         }
@@ -198,31 +180,6 @@ impl serde::ser::Serialize for super::TripExecution {
         }
         if self.stop_added_in_route.is_some() {
             state.serialize_entry("stopAddedInRoute", &self.stop_added_in_route)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for super::RouteDeviation {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.location.is_some() {
-            state.serialize_entry("location", &self.location)?;
-        }
-        if !wkt::internal::is_default(&self.source) {
-            state.serialize_entry("source", &self.source)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -284,127 +241,6 @@ impl serde::ser::Serialize for super::Location {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::SimplePolyline {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.points.is_empty() {
-            state.serialize_entry("points", &self.points)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for super::SpeedReadingInterval {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.start_polyline_point_index.is_some() {
-            struct __With<'a>(&'a std::option::Option<i32>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
-                        self.0, serializer,
-                    )
-                }
-            }
-            state.serialize_entry(
-                "startPolylinePointIndex",
-                &__With(&self.start_polyline_point_index),
-            )?;
-        }
-        if self.end_polyline_point_index.is_some() {
-            struct __With<'a>(&'a std::option::Option<i32>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
-                        self.0, serializer,
-                    )
-                }
-            }
-            state.serialize_entry(
-                "endPolylinePointIndex",
-                &__With(&self.end_polyline_point_index),
-            )?;
-        }
-        if !wkt::internal::is_default(&self.speed) {
-            state.serialize_entry("speed", &self.speed)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for super::Route {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if let Some(value) = self.simple_polyline() {
-            state.serialize_entry("simplePolyline", value)?;
-        }
-        if let Some(value) = self.encoded_polyline() {
-            state.serialize_entry("encodedPolyline", value)?;
-        }
-        if let Some(value) = self.s2_polyline() {
-            struct __With<'a>(&'a ::bytes::Bytes);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
-                }
-            }
-            state.serialize_entry("s2Polyline", &__With(value))?;
-        }
-        if let Some(value) = self.geo_json() {
-            state.serialize_entry("geoJson", value)?;
-        }
-        if !self.traffic_information.is_empty() {
-            state.serialize_entry("trafficInformation", &self.traffic_information)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
 impl serde::ser::Serialize for super::CreateTripRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -444,9 +280,6 @@ impl serde::ser::Serialize for super::GetTripRequest {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
-        }
-        if !wkt::internal::is_default(&self.route_polyline_format) {
-            state.serialize_entry("routePolylineFormat", &self.route_polyline_format)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

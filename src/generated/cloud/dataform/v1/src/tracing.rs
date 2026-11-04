@@ -826,20 +826,6 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn create_compilation_result_long_running(
-        &self,
-        req: crate::model::CreateCompilationResultRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::Dataform::create_compilation_result_long_running",
-            self.inner.create_compilation_result_long_running(req, options));
-        pending.await
-    }
-
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn query_compilation_result_actions(
         &self,
         req: crate::model::QueryCompilationResultActionsRequest,

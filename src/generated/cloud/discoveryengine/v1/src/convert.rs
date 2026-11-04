@@ -16,40 +16,6 @@
 
 use super::prost::google::cloud::discoveryengine::v1::*;
 
-impl gaxi::prost::ToProto<crate::prost::google::rpc::Status> for google_cloud_rpc::model::Status {
-    type Output = crate::prost::google::rpc::Status;
-    fn to_proto(
-        self,
-    ) -> std::result::Result<crate::prost::google::rpc::Status, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            code: self.code,
-            message: self.message,
-            details: self
-                .details
-                .into_iter()
-                .filter_map(gaxi::grpc::status::any_to_prost)
-                .collect(),
-        })
-    }
-}
-
-impl gaxi::prost::FromProto<google_cloud_rpc::model::Status> for crate::prost::google::rpc::Status {
-    fn cnv(
-        self,
-    ) -> std::result::Result<google_cloud_rpc::model::Status, gaxi::prost::ConvertError> {
-        let mut status = google_cloud_rpc::model::Status::new();
-        status = status.set_code(self.code);
-        status = status.set_message(self.message);
-        status = status.set_details(
-            self.details
-                .into_iter()
-                .filter_map(gaxi::grpc::status::any_from_prost)
-                .collect::<Vec<wkt::Any>>(),
-        );
-        Ok(status)
-    }
-}
-
 #[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
 impl gaxi::prost::ToProto<HarmCategory> for crate::model::HarmCategory {
     type Output = i32;
@@ -978,7 +944,6 @@ impl gaxi::prost::ToProto<assist_answer::Reply> for crate::model::assist_answer:
     type Output = assist_answer::Reply;
     fn to_proto(self) -> std::result::Result<assist_answer::Reply, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
             reply: self.reply.map(|v| v.to_proto()).transpose()?,
         })
     }
@@ -994,272 +959,7 @@ impl gaxi::prost::FromProto<crate::model::assist_answer::Reply> for assist_answe
         self,
     ) -> std::result::Result<crate::model::assist_answer::Reply, gaxi::prost::ConvertError> {
         Ok(crate::model::assist_answer::Reply::new()
-            .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
             .set_reply(self.reply.map(|v| v.cnv()).transpose()?))
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl gaxi::prost::ToProto<assist_answer::customer_policy_enforcement_result::BannedPhraseEnforcementResult> for crate::model::assist_answer::customer_policy_enforcement_result::BannedPhraseEnforcementResult {
-    type Output = assist_answer::customer_policy_enforcement_result::BannedPhraseEnforcementResult;
-    fn to_proto(self) -> std::result::Result<assist_answer::customer_policy_enforcement_result::BannedPhraseEnforcementResult, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            banned_phrases: self.banned_phrases
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-        })
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl gaxi::prost::FromProto<crate::model::assist_answer::customer_policy_enforcement_result::BannedPhraseEnforcementResult> for assist_answer::customer_policy_enforcement_result::BannedPhraseEnforcementResult {
-    fn cnv(self) -> std::result::Result<crate::model::assist_answer::customer_policy_enforcement_result::BannedPhraseEnforcementResult, gaxi::prost::ConvertError> {
-        Ok(
-            crate::model::assist_answer::customer_policy_enforcement_result::BannedPhraseEnforcementResult::new()
-                .set_banned_phrases(self.banned_phrases.into_iter().map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-        )
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl gaxi::prost::ToProto<assist_answer::customer_policy_enforcement_result::model_armor_enforcement_result::Result> for crate::model::assist_answer::customer_policy_enforcement_result::model_armor_enforcement_result::Result {
-    type Output = assist_answer::customer_policy_enforcement_result::model_armor_enforcement_result::Result;
-    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        match self {
-            Self::ModelArmorViolation(v) => Ok(Self::Output::ModelArmorViolation(v.to_proto()?)),
-            Self::Error(v) => Ok(Self::Output::Error((*v).to_proto()?)),
-        }
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl gaxi::prost::FromProto<crate::model::assist_answer::customer_policy_enforcement_result::model_armor_enforcement_result::Result> for assist_answer::customer_policy_enforcement_result::model_armor_enforcement_result::Result {
-    fn cnv(self) -> std::result::Result<crate::model::assist_answer::customer_policy_enforcement_result::model_armor_enforcement_result::Result, gaxi::prost::ConvertError> {
-        use crate::model::assist_answer::customer_policy_enforcement_result::model_armor_enforcement_result::Result as T;
-        match self {
-            Self::ModelArmorViolation(v) => Ok(T::ModelArmorViolation(v.cnv()?)),
-            Self::Error(v) => Ok(T::Error(std::boxed::Box::new(v.cnv()?))),
-        }
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl
-    gaxi::prost::ToProto<
-        assist_answer::customer_policy_enforcement_result::ModelArmorEnforcementResult,
-    >
-    for crate::model::assist_answer::customer_policy_enforcement_result::ModelArmorEnforcementResult
-{
-    type Output = assist_answer::customer_policy_enforcement_result::ModelArmorEnforcementResult;
-    fn to_proto(
-        self,
-    ) -> std::result::Result<
-        assist_answer::customer_policy_enforcement_result::ModelArmorEnforcementResult,
-        gaxi::prost::ConvertError,
-    > {
-        Ok(Self::Output {
-            result: self.result.map(|v| v.to_proto()).transpose()?,
-        })
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl gaxi::prost::FromProto<crate::model::assist_answer::customer_policy_enforcement_result::ModelArmorEnforcementResult> for assist_answer::customer_policy_enforcement_result::ModelArmorEnforcementResult {
-    fn cnv(self) -> std::result::Result<crate::model::assist_answer::customer_policy_enforcement_result::ModelArmorEnforcementResult, gaxi::prost::ConvertError> {
-        Ok(
-            crate::model::assist_answer::customer_policy_enforcement_result::ModelArmorEnforcementResult::new()
-                .set_result(self.result.map(|v| v.cnv()).transpose()?)
-        )
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl gaxi::prost::ToProto<assist_answer::customer_policy_enforcement_result::policy_enforcement_result::EnforcementResult> for crate::model::assist_answer::customer_policy_enforcement_result::policy_enforcement_result::EnforcementResult {
-    type Output = assist_answer::customer_policy_enforcement_result::policy_enforcement_result::EnforcementResult;
-    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        match self {
-            Self::BannedPhraseEnforcementResult(v) => Ok(Self::Output::BannedPhraseEnforcementResult((*v).to_proto()?)),
-            Self::ModelArmorEnforcementResult(v) => Ok(Self::Output::ModelArmorEnforcementResult((*v).to_proto()?)),
-        }
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl gaxi::prost::FromProto<crate::model::assist_answer::customer_policy_enforcement_result::policy_enforcement_result::EnforcementResult> for assist_answer::customer_policy_enforcement_result::policy_enforcement_result::EnforcementResult {
-    fn cnv(self) -> std::result::Result<crate::model::assist_answer::customer_policy_enforcement_result::policy_enforcement_result::EnforcementResult, gaxi::prost::ConvertError> {
-        use crate::model::assist_answer::customer_policy_enforcement_result::policy_enforcement_result::EnforcementResult as T;
-        match self {
-            Self::BannedPhraseEnforcementResult(v) => Ok(T::BannedPhraseEnforcementResult(std::boxed::Box::new(v.cnv()?))),
-            Self::ModelArmorEnforcementResult(v) => Ok(T::ModelArmorEnforcementResult(std::boxed::Box::new(v.cnv()?))),
-        }
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl
-    gaxi::prost::ToProto<assist_answer::customer_policy_enforcement_result::PolicyEnforcementResult>
-    for crate::model::assist_answer::customer_policy_enforcement_result::PolicyEnforcementResult
-{
-    type Output = assist_answer::customer_policy_enforcement_result::PolicyEnforcementResult;
-    fn to_proto(
-        self,
-    ) -> std::result::Result<
-        assist_answer::customer_policy_enforcement_result::PolicyEnforcementResult,
-        gaxi::prost::ConvertError,
-    > {
-        Ok(Self::Output {
-            enforcement_result: self.enforcement_result.map(|v| v.to_proto()).transpose()?,
-        })
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl
-    gaxi::prost::FromProto<
-        crate::model::assist_answer::customer_policy_enforcement_result::PolicyEnforcementResult,
-    > for assist_answer::customer_policy_enforcement_result::PolicyEnforcementResult
-{
-    fn cnv(
-        self,
-    ) -> std::result::Result<
-        crate::model::assist_answer::customer_policy_enforcement_result::PolicyEnforcementResult,
-        gaxi::prost::ConvertError,
-    > {
-        Ok(
-            crate::model::assist_answer::customer_policy_enforcement_result::PolicyEnforcementResult::new()
-                .set_enforcement_result(self.enforcement_result.map(|v| v.cnv()).transpose()?)
-        )
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl gaxi::prost::ToProto<assist_answer::customer_policy_enforcement_result::Verdict>
-    for crate::model::assist_answer::customer_policy_enforcement_result::Verdict
-{
-    type Output = i32;
-    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        self.value()
-            .ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue(
-                "crate::model::assist_answer::customer_policy_enforcement_result::Verdict",
-            ))
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl gaxi::prost::ToProto<assist_answer::customer_policy_enforcement_result::ViolationSource>
-    for crate::model::assist_answer::customer_policy_enforcement_result::ViolationSource
-{
-    type Output = i32;
-    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        self.value()
-            .ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue(
-                "crate::model::assist_answer::customer_policy_enforcement_result::ViolationSource",
-            ))
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl gaxi::prost::ToProto<assist_answer::CustomerPolicyEnforcementResult>
-    for crate::model::assist_answer::CustomerPolicyEnforcementResult
-{
-    type Output = assist_answer::CustomerPolicyEnforcementResult;
-    fn to_proto(
-        self,
-    ) -> std::result::Result<
-        assist_answer::CustomerPolicyEnforcementResult,
-        gaxi::prost::ConvertError,
-    > {
-        Ok(Self::Output {
-            verdict: self.verdict.to_proto()?,
-            policy_results: self
-                .policy_results
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            violation_source: self.violation_source.to_proto()?,
-        })
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl gaxi::prost::FromProto<crate::model::assist_answer::CustomerPolicyEnforcementResult>
-    for assist_answer::CustomerPolicyEnforcementResult
-{
-    fn cnv(
-        self,
-    ) -> std::result::Result<
-        crate::model::assist_answer::CustomerPolicyEnforcementResult,
-        gaxi::prost::ConvertError,
-    > {
-        Ok(
-            crate::model::assist_answer::CustomerPolicyEnforcementResult::new()
-                .set_verdict(self.verdict)
-                .set_policy_results(
-                    self.policy_results
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                )
-                .set_violation_source(self.violation_source),
-        )
     }
 }
 
@@ -1306,11 +1006,6 @@ impl gaxi::prost::ToProto<AssistAnswer> for crate::model::AssistAnswer {
         Ok(Self::Output {
             name: self.name.to_proto()?,
             state: self.state.to_proto()?,
-            connector_display_names: self
-                .connector_display_names
-                .into_iter()
-                .map(|(k, v)| gaxi::prost::pair_transpose(k.to_proto(), v.to_proto()))
-                .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             replies: self
                 .replies
                 .into_iter()
@@ -1321,10 +1016,6 @@ impl gaxi::prost::ToProto<AssistAnswer> for crate::model::AssistAnswer {
                 .into_iter()
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            customer_policy_enforcement_result: self
-                .customer_policy_enforcement_result
-                .map(|v| v.to_proto())
-                .transpose()?,
         })
     }
 }
@@ -1339,12 +1030,6 @@ impl gaxi::prost::FromProto<crate::model::AssistAnswer> for AssistAnswer {
         Ok(crate::model::AssistAnswer::new()
             .set_name(self.name)
             .set_state(self.state)
-            .set_connector_display_names(
-                self.connector_display_names
-                    .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
-                    .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            )
             .set_replies(
                 self.replies
                     .into_iter()
@@ -1355,11 +1040,6 @@ impl gaxi::prost::FromProto<crate::model::AssistAnswer> for AssistAnswer {
                 self.assist_skipped_reasons
                     .into_iter()
                     .map(crate::model::assist_answer::AssistSkippedReason::from),
-            )
-            .set_or_clear_customer_policy_enforcement_result(
-                self.customer_policy_enforcement_result
-                    .map(|v| v.cnv())
-                    .transpose()?,
             ))
     }
 }
@@ -1653,84 +1333,15 @@ impl
     feature = "conversational-search-service",
     feature = "session-service",
 ))]
-impl gaxi::prost::ToProto<assistant_grounded_content::text_grounding_metadata::VisualSegment>
-    for crate::model::assistant_grounded_content::text_grounding_metadata::VisualSegment
-{
-    type Output = assistant_grounded_content::text_grounding_metadata::VisualSegment;
-    fn to_proto(
-        self,
-    ) -> std::result::Result<
-        assistant_grounded_content::text_grounding_metadata::VisualSegment,
-        gaxi::prost::ConvertError,
-    > {
-        Ok(Self::Output {
-            reference_indices: self
-                .reference_indices
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            content_id: self.content_id.to_proto()?,
-        })
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl
-    gaxi::prost::FromProto<
-        crate::model::assistant_grounded_content::text_grounding_metadata::VisualSegment,
-    > for assistant_grounded_content::text_grounding_metadata::VisualSegment
-{
-    fn cnv(
-        self,
-    ) -> std::result::Result<
-        crate::model::assistant_grounded_content::text_grounding_metadata::VisualSegment,
-        gaxi::prost::ConvertError,
-    > {
-        Ok(
-            crate::model::assistant_grounded_content::text_grounding_metadata::VisualSegment::new()
-                .set_reference_indices(
-                    self.reference_indices
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                )
-                .set_content_id(self.content_id),
-        )
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl gaxi::prost::ToProto<assistant_grounded_content::text_grounding_metadata::reference::document_metadata::Language> for crate::model::assistant_grounded_content::text_grounding_metadata::reference::document_metadata::Language {
-    type Output = i32;
-    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::assistant_grounded_content::text_grounding_metadata::reference::document_metadata::Language"))
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
 impl gaxi::prost::ToProto<assistant_grounded_content::text_grounding_metadata::reference::DocumentMetadata> for crate::model::assistant_grounded_content::text_grounding_metadata::reference::DocumentMetadata {
     type Output = assistant_grounded_content::text_grounding_metadata::reference::DocumentMetadata;
     fn to_proto(self) -> std::result::Result<assistant_grounded_content::text_grounding_metadata::reference::DocumentMetadata, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            language: self.language.to_proto()?,
             document: self.document.map(|v| v.to_proto()).transpose()?,
             uri: self.uri.map(|v| v.to_proto()).transpose()?,
             title: self.title.map(|v| v.to_proto()).transpose()?,
             page_identifier: self.page_identifier.map(|v| v.to_proto()).transpose()?,
             domain: self.domain.map(|v| v.to_proto()).transpose()?,
-            mime_type: self.mime_type.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -1744,13 +1355,11 @@ impl gaxi::prost::FromProto<crate::model::assistant_grounded_content::text_groun
     fn cnv(self) -> std::result::Result<crate::model::assistant_grounded_content::text_grounding_metadata::reference::DocumentMetadata, gaxi::prost::ConvertError> {
         Ok(
             crate::model::assistant_grounded_content::text_grounding_metadata::reference::DocumentMetadata::new()
-                .set_language(self.language)
                 .set_or_clear_document(self.document.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_uri(self.uri.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_title(self.title.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_page_identifier(self.page_identifier.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_domain(self.domain.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_mime_type(self.mime_type.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -1772,9 +1381,7 @@ impl gaxi::prost::ToProto<assistant_grounded_content::text_grounding_metadata::R
     > {
         Ok(Self::Output {
             content: self.content.to_proto()?,
-            code_snippet: self.code_snippet.to_proto()?,
             document_metadata: self.document_metadata.map(|v| v.to_proto()).transpose()?,
-            chunk_metadata: self.chunk_metadata.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -1798,11 +1405,9 @@ impl
         Ok(
             crate::model::assistant_grounded_content::text_grounding_metadata::Reference::new()
                 .set_content(self.content)
-                .set_code_snippet(self.code_snippet)
                 .set_or_clear_document_metadata(
                     self.document_metadata.map(|v| v.cnv()).transpose()?,
-                )
-                .set_or_clear_chunk_metadata(self.chunk_metadata.map(|v| v.cnv()).transpose()?),
+                ),
         )
     }
 }
@@ -1825,11 +1430,6 @@ impl gaxi::prost::ToProto<assistant_grounded_content::TextGroundingMetadata>
         Ok(Self::Output {
             segments: self
                 .segments
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            visual_segments: self
-                .visual_segments
                 .into_iter()
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
@@ -1860,12 +1460,6 @@ impl gaxi::prost::FromProto<crate::model::assistant_grounded_content::TextGround
             crate::model::assistant_grounded_content::TextGroundingMetadata::new()
                 .set_segments(
                     self.segments
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                )
-                .set_visual_segments(
-                    self.visual_segments
                         .into_iter()
                         .map(|v| v.cnv())
                         .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
@@ -1931,7 +1525,6 @@ impl gaxi::prost::ToProto<AssistantGroundedContent> for crate::model::AssistantG
     fn to_proto(self) -> std::result::Result<AssistantGroundedContent, gaxi::prost::ConvertError> {
         Ok(Self::Output {
             content: self.content.map(|v| v.to_proto()).transpose()?,
-            citation_metadata: self.citation_metadata.map(|v| v.to_proto()).transpose()?,
             metadata: self.metadata.map(|v| v.to_proto()).transpose()?,
         })
     }
@@ -1949,7 +1542,6 @@ impl gaxi::prost::FromProto<crate::model::AssistantGroundedContent> for Assistan
     {
         Ok(crate::model::AssistantGroundedContent::new()
             .set_or_clear_content(self.content.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_citation_metadata(self.citation_metadata.map(|v| v.cnv()).transpose()?)
             .set_metadata(self.metadata.map(|v| v.cnv()).transpose()?))
     }
 }
@@ -2318,71 +1910,6 @@ impl gaxi::prost::FromProto<crate::model::stream_assist_response::SessionInfo>
 }
 
 #[cfg(feature = "assistant-service")]
-impl gaxi::prost::ToProto<stream_assist_response::InvokedSkill>
-    for crate::model::stream_assist_response::InvokedSkill
-{
-    type Output = stream_assist_response::InvokedSkill;
-    fn to_proto(
-        self,
-    ) -> std::result::Result<stream_assist_response::InvokedSkill, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            name: self.name.to_proto()?,
-            display_name: self.display_name.to_proto()?,
-        })
-    }
-}
-
-#[cfg(feature = "assistant-service")]
-impl gaxi::prost::FromProto<crate::model::stream_assist_response::InvokedSkill>
-    for stream_assist_response::InvokedSkill
-{
-    fn cnv(
-        self,
-    ) -> std::result::Result<
-        crate::model::stream_assist_response::InvokedSkill,
-        gaxi::prost::ConvertError,
-    > {
-        Ok(crate::model::stream_assist_response::InvokedSkill::new()
-            .set_name(self.name)
-            .set_display_name(self.display_name))
-    }
-}
-
-#[cfg(feature = "assistant-service")]
-impl gaxi::prost::ToProto<stream_assist_response::ConnectorAuthError>
-    for crate::model::stream_assist_response::ConnectorAuthError
-{
-    type Output = stream_assist_response::ConnectorAuthError;
-    fn to_proto(
-        self,
-    ) -> std::result::Result<stream_assist_response::ConnectorAuthError, gaxi::prost::ConvertError>
-    {
-        Ok(Self::Output {
-            data_connector: self.data_connector.to_proto()?,
-            error_message: self.error_message.to_proto()?,
-        })
-    }
-}
-
-#[cfg(feature = "assistant-service")]
-impl gaxi::prost::FromProto<crate::model::stream_assist_response::ConnectorAuthError>
-    for stream_assist_response::ConnectorAuthError
-{
-    fn cnv(
-        self,
-    ) -> std::result::Result<
-        crate::model::stream_assist_response::ConnectorAuthError,
-        gaxi::prost::ConvertError,
-    > {
-        Ok(
-            crate::model::stream_assist_response::ConnectorAuthError::new()
-                .set_data_connector(self.data_connector)
-                .set_error_message(self.error_message),
-        )
-    }
-}
-
-#[cfg(feature = "assistant-service")]
 impl gaxi::prost::ToProto<StreamAssistResponse> for crate::model::StreamAssistResponse {
     type Output = StreamAssistResponse;
     fn to_proto(self) -> std::result::Result<StreamAssistResponse, gaxi::prost::ConvertError> {
@@ -2390,21 +1917,6 @@ impl gaxi::prost::ToProto<StreamAssistResponse> for crate::model::StreamAssistRe
             answer: self.answer.map(|v| v.to_proto()).transpose()?,
             session_info: self.session_info.map(|v| v.to_proto()).transpose()?,
             assist_token: self.assist_token.to_proto()?,
-            invocation_tools: self
-                .invocation_tools
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            invoked_skills: self
-                .invoked_skills
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            connector_auth_errors: self
-                .connector_auth_errors
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
 }
@@ -2417,25 +1929,7 @@ impl gaxi::prost::FromProto<crate::model::StreamAssistResponse> for StreamAssist
         Ok(crate::model::StreamAssistResponse::new()
             .set_or_clear_answer(self.answer.map(|v| v.cnv()).transpose()?)
             .set_or_clear_session_info(self.session_info.map(|v| v.cnv()).transpose()?)
-            .set_assist_token(self.assist_token)
-            .set_invocation_tools(
-                self.invocation_tools
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_invoked_skills(
-                self.invoked_skills
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_connector_auth_errors(
-                self.connector_auth_errors
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            ))
+            .set_assist_token(self.assist_token))
     }
 }
 
@@ -2535,95 +2029,6 @@ impl gaxi::prost::FromProto<crate::model::Interval> for Interval {
 
 #[cfg(any(
     feature = "assistant-service",
-    feature = "completion-service",
-    feature = "conversational-search-service",
-    feature = "recommendation-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-    feature = "user-event-service",
-))]
-impl gaxi::prost::ToProto<user_info::precise_location::Location>
-    for crate::model::user_info::precise_location::Location
-{
-    type Output = user_info::precise_location::Location;
-    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        match self {
-            Self::Point(v) => Ok(Self::Output::Point((*v).to_proto()?)),
-            Self::Address(v) => Ok(Self::Output::Address(v.to_proto()?)),
-        }
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "completion-service",
-    feature = "conversational-search-service",
-    feature = "recommendation-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-    feature = "user-event-service",
-))]
-impl gaxi::prost::FromProto<crate::model::user_info::precise_location::Location>
-    for user_info::precise_location::Location
-{
-    fn cnv(
-        self,
-    ) -> std::result::Result<
-        crate::model::user_info::precise_location::Location,
-        gaxi::prost::ConvertError,
-    > {
-        use crate::model::user_info::precise_location::Location as T;
-        match self {
-            Self::Point(v) => Ok(T::Point(std::boxed::Box::new(v.cnv()?))),
-            Self::Address(v) => Ok(T::Address(v.cnv()?)),
-        }
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "completion-service",
-    feature = "conversational-search-service",
-    feature = "recommendation-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-    feature = "user-event-service",
-))]
-impl gaxi::prost::ToProto<user_info::PreciseLocation> for crate::model::user_info::PreciseLocation {
-    type Output = user_info::PreciseLocation;
-    fn to_proto(
-        self,
-    ) -> std::result::Result<user_info::PreciseLocation, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            location: self.location.map(|v| v.to_proto()).transpose()?,
-        })
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "completion-service",
-    feature = "conversational-search-service",
-    feature = "recommendation-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-    feature = "user-event-service",
-))]
-impl gaxi::prost::FromProto<crate::model::user_info::PreciseLocation>
-    for user_info::PreciseLocation
-{
-    fn cnv(
-        self,
-    ) -> std::result::Result<crate::model::user_info::PreciseLocation, gaxi::prost::ConvertError>
-    {
-        Ok(crate::model::user_info::PreciseLocation::new()
-            .set_location(self.location.map(|v| v.cnv()).transpose()?))
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "completion-service",
     feature = "conversational-search-service",
     feature = "recommendation-service",
     feature = "search-service",
@@ -2637,14 +2042,12 @@ impl gaxi::prost::ToProto<UserInfo> for crate::model::UserInfo {
             user_id: self.user_id.to_proto()?,
             user_agent: self.user_agent.to_proto()?,
             time_zone: self.time_zone.to_proto()?,
-            precise_location: self.precise_location.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
 
 #[cfg(any(
     feature = "assistant-service",
-    feature = "completion-service",
     feature = "conversational-search-service",
     feature = "recommendation-service",
     feature = "search-service",
@@ -2656,8 +2059,7 @@ impl gaxi::prost::FromProto<crate::model::UserInfo> for UserInfo {
         Ok(crate::model::UserInfo::new()
             .set_user_id(self.user_id)
             .set_user_agent(self.user_agent)
-            .set_time_zone(self.time_zone)
-            .set_or_clear_precise_location(self.precise_location.map(|v| v.cnv()).transpose()?))
+            .set_time_zone(self.time_zone))
     }
 }
 
@@ -3839,14 +3241,6 @@ impl gaxi::prost::FromProto<crate::model::GroundedGenerationContent> for Grounde
 }
 
 #[cfg(feature = "grounded-generation-service")]
-impl gaxi::prost::ToProto<generate_grounded_content_request::generation_spec::ProvisionedThroughputSetting> for crate::model::generate_grounded_content_request::generation_spec::ProvisionedThroughputSetting {
-    type Output = i32;
-    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::model::generate_grounded_content_request::generation_spec::ProvisionedThroughputSetting"))
-    }
-}
-
-#[cfg(feature = "grounded-generation-service")]
 impl gaxi::prost::ToProto<generate_grounded_content_request::GenerationSpec>
     for crate::model::generate_grounded_content_request::GenerationSpec
 {
@@ -3867,7 +3261,6 @@ impl gaxi::prost::ToProto<generate_grounded_content_request::GenerationSpec>
             seed: self.seed.map(|v| v.to_proto()).transpose()?,
             presence_penalty: self.presence_penalty.map(|v| v.to_proto()).transpose()?,
             max_output_tokens: self.max_output_tokens.map(|v| v.to_proto()).transpose()?,
-            provisioned_throughput_setting: self.provisioned_throughput_setting.to_proto()?,
         })
     }
 }
@@ -3896,8 +3289,7 @@ impl gaxi::prost::FromProto<crate::model::generate_grounded_content_request::Gen
                 .set_or_clear_presence_penalty(self.presence_penalty.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_max_output_tokens(
                     self.max_output_tokens.map(|v| v.cnv()).transpose()?,
-                )
-                .set_provisioned_throughput_setting(self.provisioned_throughput_setting),
+                ),
         )
     }
 }
@@ -4082,12 +3474,6 @@ impl gaxi::prost::ToProto<generate_grounded_content_request::grounding_source::G
                 .dynamic_retrieval_config
                 .map(|v| v.to_proto())
                 .transpose()?,
-            exclude_domains: self
-                .exclude_domains
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            blocking_confidence: self.blocking_confidence.to_proto()?,
         })
     }
 }
@@ -4107,9 +3493,6 @@ impl
         Ok(
             crate::model::generate_grounded_content_request::grounding_source::GoogleSearchSource::new()
                 .set_or_clear_dynamic_retrieval_config(self.dynamic_retrieval_config.map(|v| v.cnv()).transpose()?)
-                .set_exclude_domains(self.exclude_domains.into_iter().map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_blocking_confidence(self.blocking_confidence)
         )
     }
 }
@@ -4119,11 +3502,6 @@ impl gaxi::prost::ToProto<generate_grounded_content_request::grounding_source::E
     type Output = generate_grounded_content_request::grounding_source::EnterpriseWebRetrievalSource;
     fn to_proto(self) -> std::result::Result<generate_grounded_content_request::grounding_source::EnterpriseWebRetrievalSource, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            exclude_domains: self.exclude_domains
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            blocking_confidence: self.blocking_confidence.to_proto()?,
         })
     }
 }
@@ -4133,9 +3511,6 @@ impl gaxi::prost::FromProto<crate::model::generate_grounded_content_request::gro
     fn cnv(self) -> std::result::Result<crate::model::generate_grounded_content_request::grounding_source::EnterpriseWebRetrievalSource, gaxi::prost::ConvertError> {
         Ok(
             crate::model::generate_grounded_content_request::grounding_source::EnterpriseWebRetrievalSource::new()
-                .set_exclude_domains(self.exclude_domains.into_iter().map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_blocking_confidence(self.blocking_confidence)
         )
     }
 }
@@ -4452,7 +3827,6 @@ impl gaxi::prost::ToProto<generate_grounded_content_response::candidate::groundi
         Ok(Self::Output {
             uri: self.uri.to_proto()?,
             title: self.title.to_proto()?,
-            site_display_name: self.site_display_name.to_proto()?,
         })
     }
 }
@@ -4464,7 +3838,6 @@ impl gaxi::prost::FromProto<crate::model::generate_grounded_content_response::ca
             crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::WebsiteInfo::new()
                 .set_uri(self.uri)
                 .set_title(self.title)
-                .set_site_display_name(self.site_display_name)
         )
     }
 }
@@ -4518,26 +3891,6 @@ impl gaxi::prost::FromProto<crate::model::generate_grounded_content_response::ca
 }
 
 #[cfg(feature = "grounded-generation-service")]
-impl gaxi::prost::ToProto<generate_grounded_content_response::candidate::grounding_metadata::VideoMetadata> for crate::model::generate_grounded_content_response::candidate::grounding_metadata::VideoMetadata {
-    type Output = generate_grounded_content_response::candidate::grounding_metadata::VideoMetadata;
-    fn to_proto(self) -> std::result::Result<generate_grounded_content_response::candidate::grounding_metadata::VideoMetadata, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            youtube_external_id: self.youtube_external_id.to_proto()?,
-        })
-    }
-}
-
-#[cfg(feature = "grounded-generation-service")]
-impl gaxi::prost::FromProto<crate::model::generate_grounded_content_response::candidate::grounding_metadata::VideoMetadata> for generate_grounded_content_response::candidate::grounding_metadata::VideoMetadata {
-    fn cnv(self) -> std::result::Result<crate::model::generate_grounded_content_response::candidate::grounding_metadata::VideoMetadata, gaxi::prost::ConvertError> {
-        Ok(
-            crate::model::generate_grounded_content_response::candidate::grounding_metadata::VideoMetadata::new()
-                .set_youtube_external_id(self.youtube_external_id)
-        )
-    }
-}
-
-#[cfg(feature = "grounded-generation-service")]
 impl gaxi::prost::ToProto<generate_grounded_content_response::candidate::GroundingMetadata>
     for crate::model::generate_grounded_content_response::candidate::GroundingMetadata
 {
@@ -4572,11 +3925,6 @@ impl gaxi::prost::ToProto<generate_grounded_content_response::candidate::Groundi
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             images: self
                 .images
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            videos: self
-                .videos
                 .into_iter()
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
@@ -4627,12 +3975,6 @@ impl
                 )
                 .set_images(
                     self.images
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                )
-                .set_videos(
-                    self.videos
                         .into_iter()
                         .map(|v| v.cnv())
                         .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
@@ -4715,91 +4057,6 @@ impl gaxi::prost::FromProto<crate::model::GenerateGroundedContentResponse>
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl gaxi::prost::ToProto<CitationMetadata> for crate::model::CitationMetadata {
-    type Output = CitationMetadata;
-    fn to_proto(self) -> std::result::Result<CitationMetadata, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            citations: self
-                .citations
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-        })
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl gaxi::prost::FromProto<crate::model::CitationMetadata> for CitationMetadata {
-    fn cnv(self) -> std::result::Result<crate::model::CitationMetadata, gaxi::prost::ConvertError> {
-        Ok(crate::model::CitationMetadata::new().set_citations(
-            self.citations
-                .into_iter()
-                .map(|v| v.cnv())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-        ))
-    }
-}
-
-#[cfg(feature = "grounded-generation-service")]
-impl gaxi::prost::ToProto<citation::PhishBlockThreshold>
-    for crate::model::citation::PhishBlockThreshold
-{
-    type Output = i32;
-    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        self.value()
-            .ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue(
-                "crate::model::citation::PhishBlockThreshold",
-            ))
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "grounded-generation-service",
-    feature = "session-service",
-))]
-impl gaxi::prost::ToProto<Citation> for crate::model::Citation {
-    type Output = Citation;
-    fn to_proto(self) -> std::result::Result<Citation, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            start_index: self.start_index.to_proto()?,
-            end_index: self.end_index.to_proto()?,
-            uri: self.uri.to_proto()?,
-            title: self.title.to_proto()?,
-            license: self.license.to_proto()?,
-            publication_date: self.publication_date.map(|v| v.to_proto()).transpose()?,
-        })
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "grounded-generation-service",
-    feature = "session-service",
-))]
-impl gaxi::prost::FromProto<crate::model::Citation> for Citation {
-    fn cnv(self) -> std::result::Result<crate::model::Citation, gaxi::prost::ConvertError> {
-        Ok(crate::model::Citation::new()
-            .set_start_index(self.start_index)
-            .set_end_index(self.end_index)
-            .set_uri(self.uri)
-            .set_title(self.title)
-            .set_license(self.license)
-            .set_or_clear_publication_date(self.publication_date.map(|v| v.cnv()).transpose()?))
     }
 }
 
@@ -6762,7 +6019,6 @@ impl gaxi::prost::ToProto<session::Turn> for crate::model::session::Turn {
                 .into_iter()
                 .map(|(k, v)| gaxi::prost::pair_transpose(k.to_proto(), v.to_proto()))
                 .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            live: self.live.to_proto()?,
         })
     }
 }
@@ -6782,8 +6038,7 @@ impl gaxi::prost::FromProto<crate::model::session::Turn> for session::Turn {
                     .into_iter()
                     .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            )
-            .set_live(self.live))
+            ))
     }
 }
 
@@ -6820,7 +6075,6 @@ impl gaxi::prost::ToProto<Session> for crate::model::Session {
             start_time: self.start_time.map(|v| v.to_proto()).transpose()?,
             end_time: self.end_time.map(|v| v.to_proto()).transpose()?,
             is_pinned: self.is_pinned.to_proto()?,
-            pending_async_assist_operation_id: self.pending_async_assist_operation_id.to_proto()?,
         })
     }
 }
@@ -6847,17 +6101,14 @@ impl gaxi::prost::FromProto<crate::model::Session> for Session {
             )
             .set_or_clear_start_time(self.start_time.map(|v| v.cnv()).transpose()?)
             .set_or_clear_end_time(self.end_time.map(|v| v.cnv()).transpose()?)
-            .set_is_pinned(self.is_pinned)
-            .set_pending_async_assist_operation_id(self.pending_async_assist_operation_id))
+            .set_is_pinned(self.is_pinned))
     }
 }
 
 #[cfg(any(
     feature = "assistant-service",
     feature = "conversational-search-service",
-    feature = "recommendation-service",
     feature = "session-service",
-    feature = "user-event-service",
 ))]
 impl gaxi::prost::ToProto<query::Content> for crate::model::query::Content {
     type Output = query::Content;
@@ -6871,9 +6122,7 @@ impl gaxi::prost::ToProto<query::Content> for crate::model::query::Content {
 #[cfg(any(
     feature = "assistant-service",
     feature = "conversational-search-service",
-    feature = "recommendation-service",
     feature = "session-service",
-    feature = "user-event-service",
 ))]
 impl gaxi::prost::FromProto<crate::model::query::Content> for query::Content {
     fn cnv(self) -> std::result::Result<crate::model::query::Content, gaxi::prost::ConvertError> {
@@ -6887,9 +6136,7 @@ impl gaxi::prost::FromProto<crate::model::query::Content> for query::Content {
 #[cfg(any(
     feature = "assistant-service",
     feature = "conversational-search-service",
-    feature = "recommendation-service",
     feature = "session-service",
-    feature = "user-event-service",
 ))]
 impl gaxi::prost::ToProto<Query> for crate::model::Query {
     type Output = Query;
@@ -6904,100 +6151,12 @@ impl gaxi::prost::ToProto<Query> for crate::model::Query {
 #[cfg(any(
     feature = "assistant-service",
     feature = "conversational-search-service",
-    feature = "recommendation-service",
     feature = "session-service",
-    feature = "user-event-service",
 ))]
 impl gaxi::prost::FromProto<crate::model::Query> for Query {
     fn cnv(self) -> std::result::Result<crate::model::Query, gaxi::prost::ConvertError> {
         Ok(crate::model::Query::new()
             .set_query_id(self.query_id)
             .set_content(self.content.map(|v| v.cnv()).transpose()?))
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "completion-service",
-    feature = "conversational-search-service",
-    feature = "document-service",
-    feature = "grounded-generation-service",
-    feature = "license-config-service",
-    feature = "session-service",
-    feature = "user-event-service",
-))]
-impl gaxi::prost::ToProto<super::prost::google::r#type::Date> for google_cloud_type::model::Date {
-    type Output = super::prost::google::r#type::Date;
-    fn to_proto(
-        self,
-    ) -> std::result::Result<super::prost::google::r#type::Date, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            year: self.year.to_proto()?,
-            month: self.month.to_proto()?,
-            day: self.day.to_proto()?,
-        })
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "completion-service",
-    feature = "conversational-search-service",
-    feature = "document-service",
-    feature = "grounded-generation-service",
-    feature = "license-config-service",
-    feature = "session-service",
-    feature = "user-event-service",
-))]
-impl gaxi::prost::FromProto<google_cloud_type::model::Date> for super::prost::google::r#type::Date {
-    fn cnv(self) -> std::result::Result<google_cloud_type::model::Date, gaxi::prost::ConvertError> {
-        Ok(google_cloud_type::model::Date::new()
-            .set_year(self.year)
-            .set_month(self.month)
-            .set_day(self.day))
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "completion-service",
-    feature = "conversational-search-service",
-    feature = "recommendation-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-    feature = "user-event-service",
-))]
-impl gaxi::prost::ToProto<super::prost::google::r#type::LatLng>
-    for google_cloud_type::model::LatLng
-{
-    type Output = super::prost::google::r#type::LatLng;
-    fn to_proto(
-        self,
-    ) -> std::result::Result<super::prost::google::r#type::LatLng, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            latitude: self.latitude.to_proto()?,
-            longitude: self.longitude.to_proto()?,
-        })
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "completion-service",
-    feature = "conversational-search-service",
-    feature = "recommendation-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-    feature = "user-event-service",
-))]
-impl gaxi::prost::FromProto<google_cloud_type::model::LatLng>
-    for super::prost::google::r#type::LatLng
-{
-    fn cnv(
-        self,
-    ) -> std::result::Result<google_cloud_type::model::LatLng, gaxi::prost::ConvertError> {
-        Ok(google_cloud_type::model::LatLng::new()
-            .set_latitude(self.latitude)
-            .set_longitude(self.longitude))
     }
 }

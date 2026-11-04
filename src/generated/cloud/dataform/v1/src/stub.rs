@@ -637,17 +637,6 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Dataform::create_compilation_result_long_running].
-    fn create_compilation_result_long_running(
-        &self,
-        _req: crate::model::CreateCompilationResultRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
     /// Implements [super::client::Dataform::query_compilation_result_actions].
     fn query_compilation_result_actions(
         &self,

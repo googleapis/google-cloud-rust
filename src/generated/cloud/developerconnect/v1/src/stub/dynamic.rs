@@ -83,12 +83,6 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::FetchReadTokenResponse>>;
 
-    async fn open_git_repository_link_pull_request(
-        &self,
-        req: crate::model::OpenGitRepositoryLinkPullRequestRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::PullRequest>>;
-
     async fn fetch_linkable_git_repositories(
         &self,
         req: crate::model::FetchLinkableGitRepositoriesRequest,
@@ -106,60 +100,6 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         req: crate::model::FetchGitRefsRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::FetchGitRefsResponse>>;
-
-    async fn diff_git_repository_link_commit(
-        &self,
-        req: crate::model::DiffGitRepositoryLinkCommitRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::DiffGitRepositoryLinkCommitResponse>>;
-
-    async fn fetch_git_repository_link_commit(
-        &self,
-        req: crate::model::FetchGitRepositoryLinkCommitRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::FetchGitRepositoryLinkCommitResponse>>;
-
-    async fn fetch_git_repository_link_commit_list(
-        &self,
-        req: crate::model::FetchGitRepositoryLinkCommitListRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::FetchGitRepositoryLinkCommitListResponse>>;
-
-    async fn fetch_git_repository_link_file_blame(
-        &self,
-        req: crate::model::FetchGitRepositoryLinkFileBlameRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::FetchGitRepositoryLinkFileBlameResponse>>;
-
-    async fn fetch_git_repository_link_pull_request(
-        &self,
-        req: crate::model::FetchGitRepositoryLinkPullRequestRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::PullRequest>>;
-
-    async fn add_git_repository_link_pull_request_comment(
-        &self,
-        req: crate::model::AddGitRepositoryLinkPullRequestCommentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::PullRequestComment>>;
-
-    async fn add_git_repository_link_pull_request_review_comment(
-        &self,
-        req: crate::model::AddGitRepositoryLinkPullRequestReviewCommentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::PullRequestReviewComment>>;
-
-    async fn modify_git_repository_link_pull_request(
-        &self,
-        req: crate::model::ModifyGitRepositoryLinkPullRequestRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::PullRequest>>;
-
-    async fn fetch_git_repository_link_pull_request_list(
-        &self,
-        req: crate::model::FetchGitRepositoryLinkPullRequestListRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::FetchGitRepositoryLinkPullRequestListResponse>>;
 
     async fn list_account_connectors(
         &self,
@@ -388,15 +328,6 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
-    async fn open_git_repository_link_pull_request(
-        &self,
-        req: crate::model::OpenGitRepositoryLinkPullRequestRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::PullRequest>> {
-        T::open_git_repository_link_pull_request(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
     async fn fetch_linkable_git_repositories(
         &self,
         req: crate::model::FetchLinkableGitRepositoriesRequest,
@@ -421,89 +352,6 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::FetchGitRefsResponse>> {
         T::fetch_git_refs(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn diff_git_repository_link_commit(
-        &self,
-        req: crate::model::DiffGitRepositoryLinkCommitRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::DiffGitRepositoryLinkCommitResponse>> {
-        T::diff_git_repository_link_commit(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn fetch_git_repository_link_commit(
-        &self,
-        req: crate::model::FetchGitRepositoryLinkCommitRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::FetchGitRepositoryLinkCommitResponse>> {
-        T::fetch_git_repository_link_commit(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn fetch_git_repository_link_commit_list(
-        &self,
-        req: crate::model::FetchGitRepositoryLinkCommitListRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::FetchGitRepositoryLinkCommitListResponse>>
-    {
-        T::fetch_git_repository_link_commit_list(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn fetch_git_repository_link_file_blame(
-        &self,
-        req: crate::model::FetchGitRepositoryLinkFileBlameRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::FetchGitRepositoryLinkFileBlameResponse>> {
-        T::fetch_git_repository_link_file_blame(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn fetch_git_repository_link_pull_request(
-        &self,
-        req: crate::model::FetchGitRepositoryLinkPullRequestRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::PullRequest>> {
-        T::fetch_git_repository_link_pull_request(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn add_git_repository_link_pull_request_comment(
-        &self,
-        req: crate::model::AddGitRepositoryLinkPullRequestCommentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::PullRequestComment>> {
-        T::add_git_repository_link_pull_request_comment(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn add_git_repository_link_pull_request_review_comment(
-        &self,
-        req: crate::model::AddGitRepositoryLinkPullRequestReviewCommentRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::PullRequestReviewComment>> {
-        T::add_git_repository_link_pull_request_review_comment(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn modify_git_repository_link_pull_request(
-        &self,
-        req: crate::model::ModifyGitRepositoryLinkPullRequestRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::PullRequest>> {
-        T::modify_git_repository_link_pull_request(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn fetch_git_repository_link_pull_request_list(
-        &self,
-        req: crate::model::FetchGitRepositoryLinkPullRequestListRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::FetchGitRepositoryLinkPullRequestListResponse>>
-    {
-        T::fetch_git_repository_link_pull_request_list(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

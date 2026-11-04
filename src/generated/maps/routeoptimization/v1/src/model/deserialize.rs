@@ -5542,7 +5542,6 @@ impl<'de> serde::de::Deserialize<'de> for super::shipment_route::Visit {
             __shipment_label,
             __visit_label,
             __injected_solution_location_token,
-            __visit_type,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5584,8 +5583,6 @@ impl<'de> serde::de::Deserialize<'de> for super::shipment_route::Visit {
                             "injected_solution_location_token" => {
                                 Ok(__FieldTag::__injected_solution_location_token)
                             }
-                            "visitType" => Ok(__FieldTag::__visit_type),
-                            "visit_type" => Ok(__FieldTag::__visit_type),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5732,18 +5729,6 @@ impl<'de> serde::de::Deserialize<'de> for super::shipment_route::Visit {
                                 }
                             }
                             result.injected_solution_location_token = map.next_value::<__With>()?.0;
-                        }
-                        __FieldTag::__visit_type => {
-                            if !fields.insert(__FieldTag::__visit_type) {
-                                return std::result::Result::Err(A::Error::duplicate_field(
-                                    "multiple values for visit_type",
-                                ));
-                            }
-                            result.visit_type =
-                                map.next_value::<std::option::Option<
-                                    crate::model::shipment_route::visit::VisitType,
-                                >>()?
-                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

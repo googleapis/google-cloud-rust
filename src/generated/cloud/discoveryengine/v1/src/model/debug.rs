@@ -17,70 +17,6 @@
 #[allow(unused_imports)]
 use super::*;
 
-#[cfg(feature = "acl-config-service")]
-impl std::fmt::Debug for super::AclConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("AclConfig");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("idp_config", &self.idp_config);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "acl-config-service")]
-impl std::fmt::Debug for super::GetAclConfigRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetAclConfigRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "acl-config-service")]
-impl std::fmt::Debug for super::UpdateAclConfigRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UpdateAclConfigRequest");
-        debug_struct.field("acl_config", &self.acl_config);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "engine-service")]
-impl std::fmt::Debug for super::AgentGatewaySetting {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("AgentGatewaySetting");
-        debug_struct.field(
-            "default_egress_agent_gateway",
-            &self.default_egress_agent_gateway,
-        );
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "engine-service")]
-impl std::fmt::Debug for super::agent_gateway_setting::AgentGatewayReference {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("AgentGatewayReference");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 #[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
 impl std::fmt::Debug for super::Answer {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -367,13 +303,8 @@ impl std::fmt::Debug for super::AssistAnswer {
         let mut debug_struct = f.debug_struct("AssistAnswer");
         debug_struct.field("name", &self.name);
         debug_struct.field("state", &self.state);
-        debug_struct.field("connector_display_names", &self.connector_display_names);
         debug_struct.field("replies", &self.replies);
         debug_struct.field("assist_skipped_reasons", &self.assist_skipped_reasons);
-        debug_struct.field(
-            "customer_policy_enforcement_result",
-            &self.customer_policy_enforcement_result,
-        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -389,80 +320,7 @@ impl std::fmt::Debug for super::AssistAnswer {
 impl std::fmt::Debug for super::assist_answer::Reply {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Reply");
-        debug_struct.field("create_time", &self.create_time);
         debug_struct.field("reply", &self.reply);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl std::fmt::Debug for super::assist_answer::CustomerPolicyEnforcementResult {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CustomerPolicyEnforcementResult");
-        debug_struct.field("verdict", &self.verdict);
-        debug_struct.field("policy_results", &self.policy_results);
-        debug_struct.field("violation_source", &self.violation_source);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl std::fmt::Debug
-    for super::assist_answer::customer_policy_enforcement_result::BannedPhraseEnforcementResult
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("BannedPhraseEnforcementResult");
-        debug_struct.field("banned_phrases", &self.banned_phrases);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl std::fmt::Debug
-    for super::assist_answer::customer_policy_enforcement_result::ModelArmorEnforcementResult
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ModelArmorEnforcementResult");
-        debug_struct.field("result", &self.result);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl std::fmt::Debug
-    for super::assist_answer::customer_policy_enforcement_result::PolicyEnforcementResult
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("PolicyEnforcementResult");
-        debug_struct.field("enforcement_result", &self.enforcement_result);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -564,7 +422,6 @@ impl std::fmt::Debug for super::AssistantGroundedContent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AssistantGroundedContent");
         debug_struct.field("content", &self.content);
-        debug_struct.field("citation_metadata", &self.citation_metadata);
         debug_struct.field("metadata", &self.metadata);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -582,7 +439,6 @@ impl std::fmt::Debug for super::assistant_grounded_content::TextGroundingMetadat
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TextGroundingMetadata");
         debug_struct.field("segments", &self.segments);
-        debug_struct.field("visual_segments", &self.visual_segments);
         debug_struct.field("references", &self.references);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -616,30 +472,11 @@ impl std::fmt::Debug for super::assistant_grounded_content::text_grounding_metad
     feature = "conversational-search-service",
     feature = "session-service",
 ))]
-impl std::fmt::Debug for super::assistant_grounded_content::text_grounding_metadata::VisualSegment {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("VisualSegment");
-        debug_struct.field("reference_indices", &self.reference_indices);
-        debug_struct.field("content_id", &self.content_id);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
 impl std::fmt::Debug for super::assistant_grounded_content::text_grounding_metadata::Reference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Reference");
         debug_struct.field("content", &self.content);
-        debug_struct.field("code_snippet", &self.code_snippet);
         debug_struct.field("document_metadata", &self.document_metadata);
-        debug_struct.field("chunk_metadata", &self.chunk_metadata);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -657,13 +494,11 @@ impl std::fmt::Debug
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DocumentMetadata");
-        debug_struct.field("language", &self.language);
         debug_struct.field("document", &self.document);
         debug_struct.field("uri", &self.uri);
         debug_struct.field("title", &self.title);
         debug_struct.field("page_identifier", &self.page_identifier);
         debug_struct.field("domain", &self.domain);
-        debug_struct.field("mime_type", &self.mime_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -671,120 +506,33 @@ impl std::fmt::Debug
     }
 }
 
-#[cfg(feature = "assistant-service")]
+#[cfg(all(
+    feature = "assistant-service",
+    feature = "cmek-config-service",
+    feature = "completion-service",
+    feature = "control-service",
+    feature = "conversational-search-service",
+    feature = "data-store-service",
+    feature = "document-service",
+    feature = "engine-service",
+    feature = "grounded-generation-service",
+    feature = "identity-mapping-store-service",
+    feature = "project-service",
+    feature = "rank-service",
+    feature = "recommendation-service",
+    feature = "schema-service",
+    feature = "search-service",
+    feature = "search-tuning-service",
+    feature = "serving-config-service",
+    feature = "session-service",
+    feature = "site-search-engine-service",
+    feature = "user-event-service",
+    feature = "user-license-service",
+))]
 impl std::fmt::Debug for super::Assistant {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Assistant");
         debug_struct.field("name", &self.name);
-        debug_struct.field("display_name", &self.display_name);
-        debug_struct.field("description", &self.description);
-        debug_struct.field("generation_config", &self.generation_config);
-        debug_struct.field("web_grounding_type", &self.web_grounding_type);
-        debug_struct.field(
-            "default_web_grounding_toggle_off",
-            &self.default_web_grounding_toggle_off,
-        );
-        debug_struct.field("enabled_tools", &self.enabled_tools);
-        debug_struct.field("customer_policy", &self.customer_policy);
-        debug_struct.field("create_time", &self.create_time);
-        debug_struct.field("update_time", &self.update_time);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "assistant-service")]
-impl std::fmt::Debug for super::assistant::GenerationConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GenerationConfig");
-        debug_struct.field("default_model_id", &self.default_model_id);
-        debug_struct.field("allowed_model_ids", &self.allowed_model_ids);
-        debug_struct.field("system_instruction", &self.system_instruction);
-        debug_struct.field("default_language", &self.default_language);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "assistant-service")]
-impl std::fmt::Debug for super::assistant::generation_config::SystemInstruction {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SystemInstruction");
-        debug_struct.field(
-            "additional_system_instruction",
-            &self.additional_system_instruction,
-        );
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "assistant-service")]
-impl std::fmt::Debug for super::assistant::ToolInfo {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ToolInfo");
-        debug_struct.field("tool_name", &self.tool_name);
-        debug_struct.field("tool_display_name", &self.tool_display_name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "assistant-service")]
-impl std::fmt::Debug for super::assistant::ToolList {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ToolList");
-        debug_struct.field("tool_info", &self.tool_info);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "assistant-service")]
-impl std::fmt::Debug for super::assistant::CustomerPolicy {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CustomerPolicy");
-        debug_struct.field("banned_phrases", &self.banned_phrases);
-        debug_struct.field("model_armor_config", &self.model_armor_config);
-        debug_struct.field("data_protection_policy", &self.data_protection_policy);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "assistant-service")]
-impl std::fmt::Debug for super::assistant::customer_policy::BannedPhrase {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("BannedPhrase");
-        debug_struct.field("phrase", &self.phrase);
-        debug_struct.field("match_type", &self.match_type);
-        debug_struct.field("ignore_diacritics", &self.ignore_diacritics);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "assistant-service")]
-impl std::fmt::Debug for super::assistant::customer_policy::ModelArmorConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ModelArmorConfig");
-        debug_struct.field("user_prompt_template", &self.user_prompt_template);
-        debug_struct.field("response_template", &self.response_template);
-        debug_struct.field("failure_mode", &self.failure_mode);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -927,9 +675,6 @@ impl std::fmt::Debug for super::StreamAssistResponse {
         debug_struct.field("answer", &self.answer);
         debug_struct.field("session_info", &self.session_info);
         debug_struct.field("assist_token", &self.assist_token);
-        debug_struct.field("invocation_tools", &self.invocation_tools);
-        debug_struct.field("invoked_skills", &self.invoked_skills);
-        debug_struct.field("connector_auth_errors", &self.connector_auth_errors);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -942,110 +687,6 @@ impl std::fmt::Debug for super::stream_assist_response::SessionInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SessionInfo");
         debug_struct.field("session", &self.session);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "assistant-service")]
-impl std::fmt::Debug for super::stream_assist_response::InvokedSkill {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("InvokedSkill");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("display_name", &self.display_name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "assistant-service")]
-impl std::fmt::Debug for super::stream_assist_response::ConnectorAuthError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ConnectorAuthError");
-        debug_struct.field("data_connector", &self.data_connector);
-        debug_struct.field("error_message", &self.error_message);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "assistant-service")]
-impl std::fmt::Debug for super::CreateAssistantRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CreateAssistantRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("assistant", &self.assistant);
-        debug_struct.field("assistant_id", &self.assistant_id);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "assistant-service")]
-impl std::fmt::Debug for super::DeleteAssistantRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DeleteAssistantRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "assistant-service")]
-impl std::fmt::Debug for super::GetAssistantRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetAssistantRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "assistant-service")]
-impl std::fmt::Debug for super::ListAssistantsRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListAssistantsRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("page_size", &self.page_size);
-        debug_struct.field("page_token", &self.page_token);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "assistant-service")]
-impl std::fmt::Debug for super::ListAssistantsResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListAssistantsResponse");
-        debug_struct.field("assistants", &self.assistants);
-        debug_struct.field("next_page_token", &self.next_page_token);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "assistant-service")]
-impl std::fmt::Debug for super::UpdateAssistantRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UpdateAssistantRequest");
-        debug_struct.field("assistant", &self.assistant);
-        debug_struct.field("update_mask", &self.update_mask);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1081,7 +722,6 @@ impl std::fmt::Debug for super::chunk::DocumentMetadata {
         let mut debug_struct = f.debug_struct("DocumentMetadata");
         debug_struct.field("uri", &self.uri);
         debug_struct.field("title", &self.title);
-        debug_struct.field("mime_type", &self.mime_type);
         debug_struct.field("struct_data", &self.struct_data);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1170,7 +810,6 @@ impl std::fmt::Debug for super::GetCmekConfigRequest {
 #[cfg(any(
     feature = "cmek-config-service",
     feature = "data-store-service",
-    feature = "engine-service",
     feature = "identity-mapping-store-service",
 ))]
 impl std::fmt::Debug for super::SingleRegionKey {
@@ -1187,7 +826,6 @@ impl std::fmt::Debug for super::SingleRegionKey {
 #[cfg(any(
     feature = "cmek-config-service",
     feature = "data-store-service",
-    feature = "engine-service",
     feature = "identity-mapping-store-service",
 ))]
 impl std::fmt::Debug for super::CmekConfig {
@@ -1273,73 +911,6 @@ impl std::fmt::Debug for super::DeleteCmekConfigMetadata {
     }
 }
 
-#[cfg(all(
-    feature = "acl-config-service",
-    feature = "assistant-service",
-    feature = "cmek-config-service",
-    feature = "collection-service",
-    feature = "completion-service",
-    feature = "control-service",
-    feature = "conversational-search-service",
-    feature = "data-connector-service",
-    feature = "data-store-service",
-    feature = "document-service",
-    feature = "engine-service",
-    feature = "grounded-generation-service",
-    feature = "identity-mapping-store-service",
-    feature = "license-config-service",
-    feature = "project-service",
-    feature = "rank-service",
-    feature = "recommendation-service",
-    feature = "schema-service",
-    feature = "search-service",
-    feature = "search-tuning-service",
-    feature = "serving-config-service",
-    feature = "session-service",
-    feature = "site-search-engine-service",
-    feature = "user-event-service",
-    feature = "user-license-service",
-    feature = "user-store-service",
-    feature = "widget-config-service",
-))]
-impl std::fmt::Debug for super::Collection {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Collection");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("display_name", &self.display_name);
-        debug_struct.field("create_time", &self.create_time);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "collection-service")]
-impl std::fmt::Debug for super::DeleteCollectionRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DeleteCollectionRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "collection-service")]
-impl std::fmt::Debug for super::DeleteCollectionMetadata {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DeleteCollectionMetadata");
-        debug_struct.field("create_time", &self.create_time);
-        debug_struct.field("update_time", &self.update_time);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 #[cfg(any(
     feature = "assistant-service",
     feature = "conversational-search-service",
@@ -1373,7 +944,6 @@ impl std::fmt::Debug for super::CustomAttribute {
 
 #[cfg(any(
     feature = "assistant-service",
-    feature = "completion-service",
     feature = "conversational-search-service",
     feature = "recommendation-service",
     feature = "search-service",
@@ -1386,27 +956,6 @@ impl std::fmt::Debug for super::UserInfo {
         debug_struct.field("user_id", &self.user_id);
         debug_struct.field("user_agent", &self.user_agent);
         debug_struct.field("time_zone", &self.time_zone);
-        debug_struct.field("precise_location", &self.precise_location);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "completion-service",
-    feature = "conversational-search-service",
-    feature = "recommendation-service",
-    feature = "search-service",
-    feature = "serving-config-service",
-    feature = "user-event-service",
-))]
-impl std::fmt::Debug for super::user_info::PreciseLocation {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("PreciseLocation");
-        debug_struct.field("location", &self.location);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1426,33 +975,7 @@ impl std::fmt::Debug for super::DoubleList {
     }
 }
 
-#[cfg(feature = "acl-config-service")]
-impl std::fmt::Debug for super::IdpConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("IdpConfig");
-        debug_struct.field("idp_type", &self.idp_type);
-        debug_struct.field("external_idp_config", &self.external_idp_config);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "acl-config-service")]
-impl std::fmt::Debug for super::idp_config::ExternalIdpConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ExternalIdpConfig");
-        debug_struct.field("workforce_pool_name", &self.workforce_pool_name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 #[cfg(any(
-    feature = "completion-service",
     feature = "conversational-search-service",
     feature = "document-service",
     feature = "recommendation-service",
@@ -1469,11 +992,7 @@ impl std::fmt::Debug for super::Principal {
     }
 }
 
-#[cfg(any(
-    feature = "data-connector-service",
-    feature = "data-store-service",
-    feature = "widget-config-service",
-))]
+#[cfg(feature = "data-store-service")]
 impl std::fmt::Debug for super::HealthcareFhirConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HealthcareFhirConfig");
@@ -1485,7 +1004,6 @@ impl std::fmt::Debug for super::HealthcareFhirConfig {
             "enable_static_indexing_for_batch_ingestion",
             &self.enable_static_indexing_for_batch_ingestion,
         );
-        debug_struct.field("initial_filter_groups", &self.initial_filter_groups);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1507,68 +1025,6 @@ impl std::fmt::Debug for super::SearchLinkPromotion {
         debug_struct.field("image_uri", &self.image_uri);
         debug_struct.field("description", &self.description);
         debug_struct.field("enabled", &self.enabled);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "engine-service")]
-impl std::fmt::Debug for super::SessionConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SessionConfig");
-        debug_struct.field("session_management_policy", &self.session_management_policy);
-        debug_struct.field("session_ttl", &self.session_ttl);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "engine-service")]
-impl std::fmt::Debug for super::session_config::SessionTtl {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SessionTtl");
-        debug_struct.field("time_info", &self.time_info);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "data-connector-service",
-    feature = "data-store-service",
-    feature = "widget-config-service",
-))]
-impl std::fmt::Debug for super::DataProtectionPolicy {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DataProtectionPolicy");
-        debug_struct.field(
-            "sensitive_data_protection_policy",
-            &self.sensitive_data_protection_policy,
-        );
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "data-connector-service",
-    feature = "data-store-service",
-    feature = "widget-config-service",
-))]
-impl std::fmt::Debug for super::data_protection_policy::SensitiveDataProtectionPolicy {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SensitiveDataProtectionPolicy");
-        debug_struct.field("policy", &self.policy);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1641,146 +1097,6 @@ impl std::fmt::Debug for super::complete_query_response::QuerySuggestion {
         let mut debug_struct = f.debug_struct("QuerySuggestion");
         debug_struct.field("suggestion", &self.suggestion);
         debug_struct.field("completable_field_paths", &self.completable_field_paths);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "completion-service")]
-impl std::fmt::Debug for super::AdvancedCompleteQueryRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("AdvancedCompleteQueryRequest");
-        debug_struct.field("completion_config", &self.completion_config);
-        debug_struct.field("query", &self.query);
-        debug_struct.field("query_model", &self.query_model);
-        debug_struct.field("user_pseudo_id", &self.user_pseudo_id);
-        debug_struct.field("user_info", &self.user_info);
-        debug_struct.field("include_tail_suggestions", &self.include_tail_suggestions);
-        debug_struct.field("boost_spec", &self.boost_spec);
-        debug_struct.field("suggestion_types", &self.suggestion_types);
-        debug_struct.field("suggestion_type_specs", &self.suggestion_type_specs);
-        debug_struct.field("experiment_ids", &self.experiment_ids);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "completion-service")]
-impl std::fmt::Debug for super::advanced_complete_query_request::BoostSpec {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("BoostSpec");
-        debug_struct.field("condition_boost_specs", &self.condition_boost_specs);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "completion-service")]
-impl std::fmt::Debug for super::advanced_complete_query_request::boost_spec::ConditionBoostSpec {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ConditionBoostSpec");
-        debug_struct.field("condition", &self.condition);
-        debug_struct.field("boost", &self.boost);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "completion-service")]
-impl std::fmt::Debug for super::advanced_complete_query_request::SuggestionTypeSpec {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SuggestionTypeSpec");
-        debug_struct.field("suggestion_type", &self.suggestion_type);
-        debug_struct.field("max_suggestions", &self.max_suggestions);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "completion-service")]
-impl std::fmt::Debug for super::AdvancedCompleteQueryResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("AdvancedCompleteQueryResponse");
-        debug_struct.field("query_suggestions", &self.query_suggestions);
-        debug_struct.field("tail_match_triggered", &self.tail_match_triggered);
-        debug_struct.field("people_suggestions", &self.people_suggestions);
-        debug_struct.field("content_suggestions", &self.content_suggestions);
-        debug_struct.field("recent_search_suggestions", &self.recent_search_suggestions);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "completion-service")]
-impl std::fmt::Debug for super::advanced_complete_query_response::QuerySuggestion {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("QuerySuggestion");
-        debug_struct.field("suggestion", &self.suggestion);
-        debug_struct.field("completable_field_paths", &self.completable_field_paths);
-        debug_struct.field("data_store", &self.data_store);
-        debug_struct.field("score", &self.score);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "completion-service")]
-impl std::fmt::Debug for super::advanced_complete_query_response::PersonSuggestion {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("PersonSuggestion");
-        debug_struct.field("suggestion", &self.suggestion);
-        debug_struct.field("person_type", &self.person_type);
-        debug_struct.field("document", &self.document);
-        debug_struct.field("data_store", &self.data_store);
-        debug_struct.field("score", &self.score);
-        debug_struct.field("display_photo_uri", &self.display_photo_uri);
-        debug_struct.field("destination_uri", &self.destination_uri);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "completion-service")]
-impl std::fmt::Debug for super::advanced_complete_query_response::ContentSuggestion {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ContentSuggestion");
-        debug_struct.field("suggestion", &self.suggestion);
-        debug_struct.field("content_type", &self.content_type);
-        debug_struct.field("document", &self.document);
-        debug_struct.field("data_store", &self.data_store);
-        debug_struct.field("score", &self.score);
-        debug_struct.field("icon_uri", &self.icon_uri);
-        debug_struct.field("destination_uri", &self.destination_uri);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "completion-service")]
-impl std::fmt::Debug for super::advanced_complete_query_response::RecentSearchSuggestion {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("RecentSearchSuggestion");
-        debug_struct.field("suggestion", &self.suggestion);
-        debug_struct.field("recent_search_time", &self.recent_search_time);
-        debug_struct.field("score", &self.score);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2611,7 +1927,6 @@ impl std::fmt::Debug for super::CreateSessionRequest {
         let mut debug_struct = f.debug_struct("CreateSessionRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("session", &self.session);
-        debug_struct.field("session_id", &self.session_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2705,373 +2020,6 @@ impl std::fmt::Debug for super::CustomTuningModel {
     }
 }
 
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::DataConnector {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DataConnector");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("state", &self.state);
-        debug_struct.field("data_source", &self.data_source);
-        debug_struct.field("remove_param_keys", &self.remove_param_keys);
-        debug_struct.field("refresh_interval", &self.refresh_interval);
-        debug_struct.field("next_sync_time", &self.next_sync_time);
-        debug_struct.field("entities", &self.entities);
-        debug_struct.field("create_time", &self.create_time);
-        debug_struct.field("latest_pause_time", &self.latest_pause_time);
-        debug_struct.field("last_sync_time", &self.last_sync_time);
-        debug_struct.field("update_time", &self.update_time);
-        debug_struct.field("errors", &self.errors);
-        debug_struct.field("sync_mode", &self.sync_mode);
-        debug_struct.field("kms_key_name", &self.kms_key_name);
-        debug_struct.field("destination_configs", &self.destination_configs);
-        debug_struct.field("action_state", &self.action_state);
-        debug_struct.field("action_config", &self.action_config);
-        debug_struct.field("end_user_config", &self.end_user_config);
-        debug_struct.field("federated_config", &self.federated_config);
-        debug_struct.field("connector_modes", &self.connector_modes);
-        debug_struct.field("static_ip_enabled", &self.static_ip_enabled);
-        debug_struct.field("static_ip_addresses", &self.static_ip_addresses);
-        debug_struct.field("oauth_static_ip_addresses", &self.oauth_static_ip_addresses);
-        debug_struct.field("blocking_reasons", &self.blocking_reasons);
-        debug_struct.field("identity_schedule_config", &self.identity_schedule_config);
-        debug_struct.field(
-            "private_connectivity_project_id",
-            &self.private_connectivity_project_id,
-        );
-        debug_struct.field("bap_config", &self.bap_config);
-        debug_struct.field("connector_type", &self.connector_type);
-        debug_struct.field("realtime_state", &self.realtime_state);
-        debug_struct.field("alert_policy_configs", &self.alert_policy_configs);
-        debug_struct.field("realtime_sync_config", &self.realtime_sync_config);
-        debug_struct.field("acl_enabled", &self.acl_enabled);
-        debug_struct.field("create_eua_saas", &self.create_eua_saas);
-        debug_struct.field("auto_run_disabled", &self.auto_run_disabled);
-        debug_struct.field("incremental_sync_disabled", &self.incremental_sync_disabled);
-        debug_struct.field(
-            "incremental_refresh_interval",
-            &self.incremental_refresh_interval,
-        );
-        debug_struct.field("hybrid_ingestion_disabled", &self.hybrid_ingestion_disabled);
-        debug_struct.field("data_protection_policy", &self.data_protection_policy);
-        debug_struct.field("egress_fqdns", &self.egress_fqdns);
-        debug_struct.field("vpcsc_enabled", &self.vpcsc_enabled);
-        debug_struct.field("dynamic_tools", &self.dynamic_tools);
-        debug_struct.field("cli_config", &self.cli_config);
-        debug_struct.field("connector_source_id", &self.connector_source_id);
-        debug_struct.field("tag", &self.tag);
-        debug_struct.field("metadata", &self.metadata);
-        debug_struct.field("data_connector_params", &self.data_connector_params);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::data_connector::SourceEntity {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SourceEntity");
-        debug_struct.field("entity_name", &self.entity_name);
-        debug_struct.field("key_property_mappings", &self.key_property_mappings);
-        debug_struct.field("data_store", &self.data_store);
-        debug_struct.field("starting_schema", &self.starting_schema);
-        debug_struct.field("healthcare_fhir_config", &self.healthcare_fhir_config);
-        debug_struct.field("entity_params", &self.entity_params);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::data_connector::EndUserConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("EndUserConfig");
-        debug_struct.field("additional_params", &self.additional_params);
-        debug_struct.field("tenant", &self.tenant);
-        debug_struct.field("auth_config", &self.auth_config);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::data_connector::FederatedConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("FederatedConfig");
-        debug_struct.field("additional_params", &self.additional_params);
-        debug_struct.field("auth_config", &self.auth_config);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::data_connector::RealtimeSyncConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("RealtimeSyncConfig");
-        debug_struct.field("webhook_uri", &self.webhook_uri);
-        debug_struct.field("realtime_sync_secret", &self.realtime_sync_secret);
-        debug_struct.field("streaming_error", &self.streaming_error);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::data_connector::realtime_sync_config::StreamingError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("StreamingError");
-        debug_struct.field("streaming_error_reason", &self.streaming_error_reason);
-        debug_struct.field("error", &self.error);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::data_connector::ConnectorMetadata {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ConnectorMetadata");
-        debug_struct.field("title", &self.title);
-        debug_struct.field("description", &self.description);
-        debug_struct.field("short_description", &self.short_description);
-        debug_struct.field("author", &self.author);
-        debug_struct.field("note", &self.note);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::DestinationConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DestinationConfig");
-        debug_struct.field("key", &self.key);
-        debug_struct.field("destinations", &self.destinations);
-        debug_struct.field("destination_config_params", &self.destination_config_params);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::destination_config::Destination {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Destination");
-        debug_struct.field("port", &self.port);
-        debug_struct.field("destination", &self.destination);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::ActionConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ActionConfig");
-        debug_struct.field("is_action_configured", &self.is_action_configured);
-        debug_struct.field("service_name", &self.service_name);
-        debug_struct.field("use_static_secrets", &self.use_static_secrets);
-        debug_struct.field("create_bap_connection", &self.create_bap_connection);
-        debug_struct.field(
-            "user_defined_scopes_mapping",
-            &self.user_defined_scopes_mapping,
-        );
-        debug_struct.field("action_config_params", &self.action_config_params);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::action_config::ScopeList {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ScopeList");
-        debug_struct.field("scopes", &self.scopes);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::IdentityScheduleConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("IdentityScheduleConfig");
-        debug_struct.field("refresh_interval", &self.refresh_interval);
-        debug_struct.field("next_sync_time", &self.next_sync_time);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::BAPConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("BAPConfig");
-        debug_struct.field("supported_connector_modes", &self.supported_connector_modes);
-        debug_struct.field("enabled_actions", &self.enabled_actions);
-        debug_struct.field("toolspec_override", &self.toolspec_override);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::bap_config::ToolspecOverride {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ToolspecOverride");
-        debug_struct.field("tools", &self.tools);
-        debug_struct.field("base_version", &self.base_version);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::CliConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CliConfig");
-        debug_struct.field("enabled_actions", &self.enabled_actions);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::AlertPolicyConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("AlertPolicyConfig");
-        debug_struct.field("alert_policy_name", &self.alert_policy_name);
-        debug_struct.field("alert_enrollments", &self.alert_enrollments);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::alert_policy_config::AlertEnrollment {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("AlertEnrollment");
-        debug_struct.field("alert_id", &self.alert_id);
-        debug_struct.field("enroll_state", &self.enroll_state);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::Tenant {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Tenant");
-        debug_struct.field("id", &self.id);
-        debug_struct.field("uri", &self.uri);
-        debug_struct.field("display_name", &self.display_name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "data-connector-service", feature = "widget-config-service",))]
-impl std::fmt::Debug for super::DynamicTool {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DynamicTool");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("description", &self.description);
-        debug_struct.field("enabled", &self.enabled);
-        debug_struct.field("display_name", &self.display_name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "data-connector-service")]
-impl std::fmt::Debug for super::SetUpDataConnectorRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SetUpDataConnectorRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("collection_id", &self.collection_id);
-        debug_struct.field("collection_display_name", &self.collection_display_name);
-        debug_struct.field("data_connector", &self.data_connector);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "data-connector-service")]
-impl std::fmt::Debug for super::SetUpDataConnectorMetadata {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SetUpDataConnectorMetadata");
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "data-connector-service")]
-impl std::fmt::Debug for super::GetDataConnectorRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetDataConnectorRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "data-connector-service")]
-impl std::fmt::Debug for super::UpdateDataConnectorRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UpdateDataConnectorRequest");
-        debug_struct.field("data_connector", &self.data_connector);
-        debug_struct.field("update_mask", &self.update_mask);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 #[cfg(feature = "data-store-service")]
 impl std::fmt::Debug for super::DataStore {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -3102,19 +2050,7 @@ impl std::fmt::Debug for super::DataStore {
         );
         debug_struct.field("starting_schema", &self.starting_schema);
         debug_struct.field("healthcare_fhir_config", &self.healthcare_fhir_config);
-        debug_struct.field("serving_config_data_store", &self.serving_config_data_store);
         debug_struct.field("identity_mapping_store", &self.identity_mapping_store);
-        debug_struct.field("is_infobot_faq_data_store", &self.is_infobot_faq_data_store);
-        debug_struct.field("federated_search_config", &self.federated_search_config);
-        debug_struct.field(
-            "configurable_billing_approach",
-            &self.configurable_billing_approach,
-        );
-        debug_struct.field(
-            "configurable_billing_approach_update_time",
-            &self.configurable_billing_approach_update_time,
-        );
-        debug_struct.field("data_protection_policy", &self.data_protection_policy);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3138,103 +2074,6 @@ impl std::fmt::Debug for super::data_store::BillingEstimation {
             &self.unstructured_data_update_time,
         );
         debug_struct.field("website_data_update_time", &self.website_data_update_time);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "data-store-service")]
-impl std::fmt::Debug for super::data_store::ServingConfigDataStore {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ServingConfigDataStore");
-        debug_struct.field("disabled_for_serving", &self.disabled_for_serving);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "data-store-service")]
-impl std::fmt::Debug for super::data_store::FederatedSearchConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("FederatedSearchConfig");
-        debug_struct.field("data_source_config", &self.data_source_config);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "data-store-service")]
-impl std::fmt::Debug for super::data_store::federated_search_config::AlloyDbConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("AlloyDbConfig");
-        debug_struct.field("alloydb_connection_config", &self.alloydb_connection_config);
-        debug_struct.field("alloydb_ai_nl_config", &self.alloydb_ai_nl_config);
-        debug_struct.field("returned_fields", &self.returned_fields);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "data-store-service")]
-impl std::fmt::Debug
-    for super::data_store::federated_search_config::alloy_db_config::AlloyDbConnectionConfig
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("AlloyDbConnectionConfig");
-        debug_struct.field("instance", &self.instance);
-        debug_struct.field("database", &self.database);
-        debug_struct.field("user", &self.user);
-        debug_struct.field("password", &self.password);
-        debug_struct.field("auth_mode", &self.auth_mode);
-        debug_struct.field("enable_psvs", &self.enable_psvs);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "data-store-service")]
-impl std::fmt::Debug
-    for super::data_store::federated_search_config::alloy_db_config::AlloyDbAiNaturalLanguageConfig
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("AlloyDbAiNaturalLanguageConfig");
-        debug_struct.field("nl_config_id", &self.nl_config_id);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "data-store-service")]
-impl std::fmt::Debug for super::data_store::federated_search_config::ThirdPartyOauthConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ThirdPartyOauthConfig");
-        debug_struct.field("app_name", &self.app_name);
-        debug_struct.field("instance_name", &self.instance_name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "data-store-service")]
-impl std::fmt::Debug for super::data_store::federated_search_config::NotebooklmConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("NotebooklmConfig");
-        debug_struct.field("search_config", &self.search_config);
-        debug_struct.field("notebooks", &self.notebooks);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3400,7 +2239,6 @@ impl std::fmt::Debug for super::DeleteDataStoreMetadata {
 }
 
 #[cfg(any(
-    feature = "completion-service",
     feature = "conversational-search-service",
     feature = "document-service",
     feature = "recommendation-service",
@@ -3427,7 +2265,6 @@ impl std::fmt::Debug for super::Document {
 }
 
 #[cfg(any(
-    feature = "completion-service",
     feature = "conversational-search-service",
     feature = "document-service",
     feature = "recommendation-service",
@@ -3446,7 +2283,6 @@ impl std::fmt::Debug for super::document::Content {
 }
 
 #[cfg(any(
-    feature = "completion-service",
     feature = "conversational-search-service",
     feature = "document-service",
     feature = "recommendation-service",
@@ -3464,7 +2300,6 @@ impl std::fmt::Debug for super::document::AclInfo {
 }
 
 #[cfg(any(
-    feature = "completion-service",
     feature = "conversational-search-service",
     feature = "document-service",
     feature = "recommendation-service",
@@ -3483,7 +2318,6 @@ impl std::fmt::Debug for super::document::acl_info::AccessRestriction {
 }
 
 #[cfg(any(
-    feature = "completion-service",
     feature = "conversational-search-service",
     feature = "document-service",
     feature = "recommendation-service",
@@ -3589,15 +2423,10 @@ impl std::fmt::Debug for super::document_processing_config::parsing_config::Layo
         let mut debug_struct = f.debug_struct("LayoutParsingConfig");
         debug_struct.field("enable_table_annotation", &self.enable_table_annotation);
         debug_struct.field("enable_image_annotation", &self.enable_image_annotation);
-        debug_struct.field("enable_llm_layout_parsing", &self.enable_llm_layout_parsing);
         debug_struct.field("structured_content_types", &self.structured_content_types);
         debug_struct.field("exclude_html_elements", &self.exclude_html_elements);
         debug_struct.field("exclude_html_classes", &self.exclude_html_classes);
         debug_struct.field("exclude_html_ids", &self.exclude_html_ids);
-        debug_struct.field(
-            "enable_get_processed_document",
-            &self.enable_get_processed_document,
-        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3786,29 +2615,7 @@ impl std::fmt::Debug for super::Engine {
         debug_struct.field("solution_type", &self.solution_type);
         debug_struct.field("industry_vertical", &self.industry_vertical);
         debug_struct.field("common_config", &self.common_config);
-        debug_struct.field("knowledge_graph_config", &self.knowledge_graph_config);
-        debug_struct.field("app_type", &self.app_type);
         debug_struct.field("disable_analytics", &self.disable_analytics);
-        debug_struct.field("session_config", &self.session_config);
-        debug_struct.field("features", &self.features);
-        debug_struct.field("cmek_config", &self.cmek_config);
-        debug_struct.field(
-            "configurable_billing_approach",
-            &self.configurable_billing_approach,
-        );
-        debug_struct.field("model_configs", &self.model_configs);
-        debug_struct.field("observability_config", &self.observability_config);
-        debug_struct.field("connector_tenant_info", &self.connector_tenant_info);
-        debug_struct.field("agent_gateway_setting", &self.agent_gateway_setting);
-        debug_struct.field(
-            "marketplace_agent_visibility",
-            &self.marketplace_agent_visibility,
-        );
-        debug_struct.field(
-            "procurement_contact_emails",
-            &self.procurement_contact_emails,
-        );
-        debug_struct.field("associated_agent_registry", &self.associated_agent_registry);
         debug_struct.field("engine_config", &self.engine_config);
         debug_struct.field("engine_metadata", &self.engine_metadata);
         if !self._unknown_fields.is_empty() {
@@ -3823,10 +2630,6 @@ impl std::fmt::Debug for super::engine::SearchEngineConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchEngineConfig");
         debug_struct.field("search_tier", &self.search_tier);
-        debug_struct.field(
-            "required_subscription_tier",
-            &self.required_subscription_tier,
-        );
         debug_struct.field("search_add_ons", &self.search_add_ons);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -3951,61 +2754,6 @@ impl std::fmt::Debug for super::engine::CommonConfig {
 }
 
 #[cfg(feature = "engine-service")]
-impl std::fmt::Debug for super::engine::KnowledgeGraphConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("KnowledgeGraphConfig");
-        debug_struct.field(
-            "enable_cloud_knowledge_graph",
-            &self.enable_cloud_knowledge_graph,
-        );
-        debug_struct.field(
-            "cloud_knowledge_graph_types",
-            &self.cloud_knowledge_graph_types,
-        );
-        debug_struct.field(
-            "enable_private_knowledge_graph",
-            &self.enable_private_knowledge_graph,
-        );
-        debug_struct.field(
-            "private_knowledge_graph_types",
-            &self.private_knowledge_graph_types,
-        );
-        debug_struct.field("feature_config", &self.feature_config);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "engine-service")]
-impl std::fmt::Debug for super::engine::knowledge_graph_config::FeatureConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("FeatureConfig");
-        debug_struct.field(
-            "disable_private_kg_query_understanding",
-            &self.disable_private_kg_query_understanding,
-        );
-        debug_struct.field(
-            "disable_private_kg_enrichment",
-            &self.disable_private_kg_enrichment,
-        );
-        debug_struct.field(
-            "disable_private_kg_auto_complete",
-            &self.disable_private_kg_auto_complete,
-        );
-        debug_struct.field(
-            "disable_private_kg_query_ui_chips",
-            &self.disable_private_kg_query_ui_chips,
-        );
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "engine-service")]
 impl std::fmt::Debug for super::engine::ChatEngineMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ChatEngineMetadata");
@@ -4122,44 +2870,6 @@ impl std::fmt::Debug for super::UpdateEngineRequest {
     }
 }
 
-#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
-impl std::fmt::Debug for super::Feedback {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Feedback");
-        debug_struct.field("feedback_type", &self.feedback_type);
-        debug_struct.field("reasons", &self.reasons);
-        debug_struct.field("comment", &self.comment);
-        debug_struct.field("conversation_info", &self.conversation_info);
-        debug_struct.field("llm_model_version", &self.llm_model_version);
-        debug_struct.field("feedback_source", &self.feedback_source);
-        debug_struct.field("component_version", &self.component_version);
-        debug_struct.field("data_terms_accepted", &self.data_terms_accepted);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
-impl std::fmt::Debug for super::feedback::ConversationInfo {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ConversationInfo");
-        debug_struct.field("question_index", &self.question_index);
-        debug_struct.field("session", &self.session);
-        debug_struct.field("query", &self.query);
-        debug_struct.field("assist_token", &self.assist_token);
-        debug_struct.field("answer_query_token", &self.answer_query_token);
-        debug_struct.field("task_name", &self.task_name);
-        debug_struct.field("trajectory_id", &self.trajectory_id);
-        debug_struct.field("step_seq_num", &self.step_seq_num);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 #[cfg(feature = "grounded-generation-service")]
 impl std::fmt::Debug for super::GroundedGenerationContent {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -4215,10 +2925,6 @@ impl std::fmt::Debug for super::generate_grounded_content_request::GenerationSpe
         debug_struct.field("seed", &self.seed);
         debug_struct.field("presence_penalty", &self.presence_penalty);
         debug_struct.field("max_output_tokens", &self.max_output_tokens);
-        debug_struct.field(
-            "provisioned_throughput_setting",
-            &self.provisioned_throughput_setting,
-        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4298,8 +3004,6 @@ impl std::fmt::Debug
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GoogleSearchSource");
         debug_struct.field("dynamic_retrieval_config", &self.dynamic_retrieval_config);
-        debug_struct.field("exclude_domains", &self.exclude_domains);
-        debug_struct.field("blocking_confidence", &self.blocking_confidence);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4313,8 +3017,6 @@ impl std::fmt::Debug
 {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnterpriseWebRetrievalSource");
-        debug_struct.field("exclude_domains", &self.exclude_domains);
-        debug_struct.field("blocking_confidence", &self.blocking_confidence);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4371,7 +3073,6 @@ impl std::fmt::Debug for super::generate_grounded_content_response::candidate::G
         debug_struct.field("search_entry_point", &self.search_entry_point);
         debug_struct.field("grounding_support", &self.grounding_support);
         debug_struct.field("images", &self.images);
-        debug_struct.field("videos", &self.videos);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4475,7 +3176,6 @@ impl std::fmt::Debug for super::generate_grounded_content_response::candidate::g
         let mut debug_struct = f.debug_struct("WebsiteInfo");
         debug_struct.field("uri", &self.uri);
         debug_struct.field("title", &self.title);
-        debug_struct.field("site_display_name", &self.site_display_name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4490,20 +3190,6 @@ impl std::fmt::Debug for super::generate_grounded_content_response::candidate::g
         debug_struct.field("uri", &self.uri);
         debug_struct.field("width", &self.width);
         debug_struct.field("height", &self.height);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "grounded-generation-service")]
-impl std::fmt::Debug
-    for super::generate_grounded_content_response::candidate::grounding_metadata::VideoMetadata
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("VideoMetadata");
-        debug_struct.field("youtube_external_id", &self.youtube_external_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4584,44 +3270,6 @@ impl std::fmt::Debug for super::check_grounding_response::Claim {
     }
 }
 
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "session-service",
-))]
-impl std::fmt::Debug for super::CitationMetadata {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CitationMetadata");
-        debug_struct.field("citations", &self.citations);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(
-    feature = "assistant-service",
-    feature = "conversational-search-service",
-    feature = "grounded-generation-service",
-    feature = "session-service",
-))]
-impl std::fmt::Debug for super::Citation {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Citation");
-        debug_struct.field("start_index", &self.start_index);
-        debug_struct.field("end_index", &self.end_index);
-        debug_struct.field("uri", &self.uri);
-        debug_struct.field("title", &self.title);
-        debug_struct.field("license", &self.license);
-        debug_struct.field("publication_date", &self.publication_date);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 #[cfg(feature = "grounded-generation-service")]
 impl std::fmt::Debug for super::GroundingFact {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -4672,7 +3320,6 @@ impl std::fmt::Debug for super::IdentityMappingEntry {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IdentityMappingEntry");
         debug_struct.field("external_identity", &self.external_identity);
-        debug_struct.field("external_identity_name", &self.external_identity_name);
         debug_struct.field("identity_provider_id", &self.identity_provider_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -5283,171 +3930,6 @@ impl std::fmt::Debug for super::ImportCompletionSuggestionsMetadata {
     }
 }
 
-#[cfg(feature = "license-config-service")]
-impl std::fmt::Debug for super::LicenseConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("LicenseConfig");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("license_count", &self.license_count);
-        debug_struct.field("subscription_tier", &self.subscription_tier);
-        debug_struct.field("state", &self.state);
-        debug_struct.field("auto_renew", &self.auto_renew);
-        debug_struct.field("start_date", &self.start_date);
-        debug_struct.field("end_date", &self.end_date);
-        debug_struct.field("subscription_term", &self.subscription_term);
-        debug_struct.field("free_trial", &self.free_trial);
-        debug_struct.field("gemini_bundle", &self.gemini_bundle);
-        debug_struct.field("early_terminated", &self.early_terminated);
-        debug_struct.field("early_termination_date", &self.early_termination_date);
-        debug_struct.field("last_user_update_time", &self.last_user_update_time);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "license-config-service")]
-impl std::fmt::Debug for super::CreateLicenseConfigRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CreateLicenseConfigRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("license_config", &self.license_config);
-        debug_struct.field("license_config_id", &self.license_config_id);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "license-config-service")]
-impl std::fmt::Debug for super::UpdateLicenseConfigRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UpdateLicenseConfigRequest");
-        debug_struct.field("license_config", &self.license_config);
-        debug_struct.field("update_mask", &self.update_mask);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "license-config-service")]
-impl std::fmt::Debug for super::GetLicenseConfigRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetLicenseConfigRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "license-config-service")]
-impl std::fmt::Debug for super::ListLicenseConfigsRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListLicenseConfigsRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("page_size", &self.page_size);
-        debug_struct.field("page_token", &self.page_token);
-        debug_struct.field("filter", &self.filter);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "license-config-service")]
-impl std::fmt::Debug for super::ListLicenseConfigsResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListLicenseConfigsResponse");
-        debug_struct.field("license_configs", &self.license_configs);
-        debug_struct.field("next_page_token", &self.next_page_token);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "license-config-service")]
-impl std::fmt::Debug for super::DistributeLicenseConfigRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DistributeLicenseConfigRequest");
-        debug_struct.field(
-            "billing_account_license_config",
-            &self.billing_account_license_config,
-        );
-        debug_struct.field("project_number", &self.project_number);
-        debug_struct.field("location", &self.location);
-        debug_struct.field("license_count", &self.license_count);
-        debug_struct.field("license_config_id", &self.license_config_id);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "license-config-service")]
-impl std::fmt::Debug for super::DistributeLicenseConfigResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DistributeLicenseConfigResponse");
-        debug_struct.field("license_config", &self.license_config);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "license-config-service")]
-impl std::fmt::Debug for super::RetractLicenseConfigRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("RetractLicenseConfigRequest");
-        debug_struct.field(
-            "billing_account_license_config",
-            &self.billing_account_license_config,
-        );
-        debug_struct.field("license_config", &self.license_config);
-        debug_struct.field("full_retract", &self.full_retract);
-        debug_struct.field("license_count", &self.license_count);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "license-config-service")]
-impl std::fmt::Debug for super::RetractLicenseConfigResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("RetractLicenseConfigResponse");
-        debug_struct.field("license_config", &self.license_config);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(feature = "engine-service", feature = "project-service",))]
-impl std::fmt::Debug for super::ObservabilityConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ObservabilityConfig");
-        debug_struct.field("observability_enabled", &self.observability_enabled);
-        debug_struct.field("sensitive_logging_enabled", &self.sensitive_logging_enabled);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 #[cfg(feature = "project-service")]
 impl std::fmt::Debug for super::Project {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -5456,11 +3938,6 @@ impl std::fmt::Debug for super::Project {
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("provision_completion_time", &self.provision_completion_time);
         debug_struct.field("service_terms_map", &self.service_terms_map);
-        debug_struct.field("customer_provided_config", &self.customer_provided_config);
-        debug_struct.field(
-            "configurable_billing_status",
-            &self.configurable_billing_status,
-        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5485,172 +3962,12 @@ impl std::fmt::Debug for super::project::ServiceTerms {
 }
 
 #[cfg(feature = "project-service")]
-impl std::fmt::Debug for super::project::CustomerProvidedConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CustomerProvidedConfig");
-        debug_struct.field("notebooklm_config", &self.notebooklm_config);
-        debug_struct.field(
-            "resource_access_control_config",
-            &self.resource_access_control_config,
-        );
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "project-service")]
-impl std::fmt::Debug for super::project::customer_provided_config::NotebooklmConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("NotebooklmConfig");
-        debug_struct.field("model_armor_config", &self.model_armor_config);
-        debug_struct.field("opt_out_notebook_sharing", &self.opt_out_notebook_sharing);
-        debug_struct.field("data_protection_policy", &self.data_protection_policy);
-        debug_struct.field("observability_config", &self.observability_config);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "project-service")]
-impl std::fmt::Debug
-    for super::project::customer_provided_config::notebooklm_config::ModelArmorConfig
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ModelArmorConfig");
-        debug_struct.field("user_prompt_template", &self.user_prompt_template);
-        debug_struct.field("response_template", &self.response_template);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "project-service")]
-impl std::fmt::Debug
-    for super::project::customer_provided_config::notebooklm_config::DataProtectionPolicy
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DataProtectionPolicy");
-        debug_struct.field(
-            "sensitive_data_protection_policy",
-            &self.sensitive_data_protection_policy,
-        );
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "project-service")]
-impl std::fmt::Debug for super::project::customer_provided_config::notebooklm_config::data_protection_policy::SensitiveDataProtectionPolicy {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SensitiveDataProtectionPolicy");
-        debug_struct.field("policy", &self.policy);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "project-service")]
-impl std::fmt::Debug for super::project::customer_provided_config::ResourceAccessControlConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ResourceAccessControlConfig");
-        debug_struct.field(
-            "data_store_access_control_enabled",
-            &self.data_store_access_control_enabled,
-        );
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "project-service")]
-impl std::fmt::Debug for super::project::ConfigurableBillingStatus {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ConfigurableBillingStatus");
-        debug_struct.field(
-            "effective_search_qpm_threshold",
-            &self.effective_search_qpm_threshold,
-        );
-        debug_struct.field(
-            "effective_indexing_core_threshold",
-            &self.effective_indexing_core_threshold,
-        );
-        debug_struct.field("start_time", &self.start_time);
-        debug_struct.field("terminate_time", &self.terminate_time);
-        debug_struct.field(
-            "search_qpm_threshold_next_update_time",
-            &self.search_qpm_threshold_next_update_time,
-        );
-        debug_struct.field(
-            "indexing_core_threshold_next_update_time",
-            &self.indexing_core_threshold_next_update_time,
-        );
-        debug_struct.field("update_type", &self.update_type);
-        debug_struct.field(
-            "agent_search_token_subscription_statuses",
-            &self.agent_search_token_subscription_statuses,
-        );
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "project-service")]
-impl std::fmt::Debug
-    for super::project::configurable_billing_status::AgentSearchTokenSubscriptionStatus
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("AgentSearchTokenSubscriptionStatus");
-        debug_struct.field("model_version", &self.model_version);
-        debug_struct.field("effective_tpm_threshold", &self.effective_tpm_threshold);
-        debug_struct.field(
-            "tpm_threshold_next_update_time",
-            &self.tpm_threshold_next_update_time,
-        );
-        debug_struct.field("start_time", &self.start_time);
-        debug_struct.field("terminate_time", &self.terminate_time);
-        debug_struct.field("update_type", &self.update_type);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "project-service")]
 impl std::fmt::Debug for super::ProvisionProjectRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ProvisionProjectRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("accept_data_use_terms", &self.accept_data_use_terms);
         debug_struct.field("data_use_terms_version", &self.data_use_terms_version);
-        debug_struct.field("saas_params", &self.saas_params);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "project-service")]
-impl std::fmt::Debug for super::provision_project_request::SaasParams {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SaasParams");
-        debug_struct.field("accept_biz_qos", &self.accept_biz_qos);
-        debug_struct.field("is_biz", &self.is_biz);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5967,12 +4284,7 @@ impl std::fmt::Debug for super::SafetyRating {
     }
 }
 
-#[cfg(any(
-    feature = "data-connector-service",
-    feature = "data-store-service",
-    feature = "schema-service",
-    feature = "widget-config-service",
-))]
+#[cfg(any(feature = "data-store-service", feature = "schema-service",))]
 impl std::fmt::Debug for super::Schema {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Schema");
@@ -7209,7 +5521,6 @@ impl std::fmt::Debug for super::ServingConfig {
         debug_struct.field("replacement_control_ids", &self.replacement_control_ids);
         debug_struct.field("ignore_control_ids", &self.ignore_control_ids);
         debug_struct.field("promote_control_ids", &self.promote_control_ids);
-        debug_struct.field("answer_generation_spec", &self.answer_generation_spec);
         debug_struct.field("vertical_config", &self.vertical_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -7252,113 +5563,11 @@ impl std::fmt::Debug for super::serving_config::GenericConfig {
 }
 
 #[cfg(feature = "serving-config-service")]
-impl std::fmt::Debug for super::AnswerGenerationSpec {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("AnswerGenerationSpec");
-        debug_struct.field(
-            "user_defined_classifier_spec",
-            &self.user_defined_classifier_spec,
-        );
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "serving-config-service")]
-impl std::fmt::Debug for super::answer_generation_spec::UserDefinedClassifierSpec {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UserDefinedClassifierSpec");
-        debug_struct.field(
-            "enable_user_defined_classifier",
-            &self.enable_user_defined_classifier,
-        );
-        debug_struct.field("preamble", &self.preamble);
-        debug_struct.field("model_id", &self.model_id);
-        debug_struct.field("task_marker", &self.task_marker);
-        debug_struct.field("top_p", &self.top_p);
-        debug_struct.field("top_k", &self.top_k);
-        debug_struct.field("temperature", &self.temperature);
-        debug_struct.field("seed", &self.seed);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "serving-config-service")]
-impl std::fmt::Debug for super::CreateServingConfigRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CreateServingConfigRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("serving_config", &self.serving_config);
-        debug_struct.field("serving_config_id", &self.serving_config_id);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "serving-config-service")]
 impl std::fmt::Debug for super::UpdateServingConfigRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateServingConfigRequest");
         debug_struct.field("serving_config", &self.serving_config);
         debug_struct.field("update_mask", &self.update_mask);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "serving-config-service")]
-impl std::fmt::Debug for super::DeleteServingConfigRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DeleteServingConfigRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "serving-config-service")]
-impl std::fmt::Debug for super::GetServingConfigRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetServingConfigRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "serving-config-service")]
-impl std::fmt::Debug for super::ListServingConfigsRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListServingConfigsRequest");
-        debug_struct.field("parent", &self.parent);
-        debug_struct.field("page_size", &self.page_size);
-        debug_struct.field("page_token", &self.page_token);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "serving-config-service")]
-impl std::fmt::Debug for super::ListServingConfigsResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListServingConfigsResponse");
-        debug_struct.field("serving_configs", &self.serving_configs);
-        debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7379,10 +5588,6 @@ impl std::fmt::Debug for super::Session {
         debug_struct.field("start_time", &self.start_time);
         debug_struct.field("end_time", &self.end_time);
         debug_struct.field("is_pinned", &self.is_pinned);
-        debug_struct.field(
-            "pending_async_assist_operation_id",
-            &self.pending_async_assist_operation_id,
-        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7399,7 +5604,6 @@ impl std::fmt::Debug for super::session::Turn {
         debug_struct.field("detailed_answer", &self.detailed_answer);
         debug_struct.field("detailed_assist_answer", &self.detailed_assist_answer);
         debug_struct.field("query_config", &self.query_config);
-        debug_struct.field("live", &self.live);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7410,9 +5614,7 @@ impl std::fmt::Debug for super::session::Turn {
 #[cfg(any(
     feature = "assistant-service",
     feature = "conversational-search-service",
-    feature = "recommendation-service",
     feature = "session-service",
-    feature = "user-event-service",
 ))]
 impl std::fmt::Debug for super::Query {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -8032,8 +6234,6 @@ impl std::fmt::Debug for super::UserEvent {
         debug_struct.field("attributes", &self.attributes);
         debug_struct.field("media_info", &self.media_info);
         debug_struct.field("panels", &self.panels);
-        debug_struct.field("feedback", &self.feedback);
-        debug_struct.field("entity", &self.entity);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8193,19 +6393,6 @@ impl std::fmt::Debug for super::UserLicense {
 }
 
 #[cfg(feature = "user-license-service")]
-impl std::fmt::Debug for super::LicenseConfigUsageStats {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("LicenseConfigUsageStats");
-        debug_struct.field("license_config", &self.license_config);
-        debug_struct.field("used_license_count", &self.used_license_count);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "user-license-service")]
 impl std::fmt::Debug for super::ListUserLicensesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListUserLicensesRequest");
@@ -8213,7 +6400,6 @@ impl std::fmt::Debug for super::ListUserLicensesRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
-        debug_struct.field("order_by", &self.order_by);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8227,33 +6413,6 @@ impl std::fmt::Debug for super::ListUserLicensesResponse {
         let mut debug_struct = f.debug_struct("ListUserLicensesResponse");
         debug_struct.field("user_licenses", &self.user_licenses);
         debug_struct.field("next_page_token", &self.next_page_token);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "user-license-service")]
-impl std::fmt::Debug for super::ListLicenseConfigsUsageStatsRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListLicenseConfigsUsageStatsRequest");
-        debug_struct.field("parent", &self.parent);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "user-license-service")]
-impl std::fmt::Debug for super::ListLicenseConfigsUsageStatsResponse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ListLicenseConfigsUsageStatsResponse");
-        debug_struct.field(
-            "license_config_usage_stats",
-            &self.license_config_usage_stats,
-        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -8312,515 +6471,6 @@ impl std::fmt::Debug for super::BatchUpdateUserLicensesResponse {
         let mut debug_struct = f.debug_struct("BatchUpdateUserLicensesResponse");
         debug_struct.field("user_licenses", &self.user_licenses);
         debug_struct.field("error_samples", &self.error_samples);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "user-store-service")]
-impl std::fmt::Debug for super::UserStore {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UserStore");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("display_name", &self.display_name);
-        debug_struct.field("default_license_config", &self.default_license_config);
-        debug_struct.field(
-            "enable_license_auto_register",
-            &self.enable_license_auto_register,
-        );
-        debug_struct.field(
-            "enable_expired_license_auto_update",
-            &self.enable_expired_license_auto_update,
-        );
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "user-store-service")]
-impl std::fmt::Debug for super::GetUserStoreRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetUserStoreRequest");
-        debug_struct.field("name", &self.name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "user-store-service")]
-impl std::fmt::Debug for super::UpdateUserStoreRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UpdateUserStoreRequest");
-        debug_struct.field("user_store", &self.user_store);
-        debug_struct.field("update_mask", &self.update_mask);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::WidgetConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("WidgetConfig");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("display_name", &self.display_name);
-        debug_struct.field("create_time", &self.create_time);
-        debug_struct.field("update_time", &self.update_time);
-        debug_struct.field("data_store_type", &self.data_store_type);
-        debug_struct.field("config_id", &self.config_id);
-        debug_struct.field("solution_type", &self.solution_type);
-        debug_struct.field("industry_vertical", &self.industry_vertical);
-        debug_struct.field("llm_enabled", &self.llm_enabled);
-        debug_struct.field("enable_result_score", &self.enable_result_score);
-        debug_struct.field(
-            "minimum_data_term_accepted",
-            &self.minimum_data_term_accepted,
-        );
-        debug_struct.field("collection_components", &self.collection_components);
-        debug_struct.field("ui_settings", &self.ui_settings);
-        debug_struct.field("access_settings", &self.access_settings);
-        debug_struct.field("ui_branding", &self.ui_branding);
-        debug_struct.field("homepage_setting", &self.homepage_setting);
-        debug_struct.field("assistant_settings", &self.assistant_settings);
-        debug_struct.field("customer_provided_config", &self.customer_provided_config);
-        debug_struct.field(
-            "enable_private_knowledge_graph",
-            &self.enable_private_knowledge_graph,
-        );
-        debug_struct.field("gemini_bundle", &self.gemini_bundle);
-        debug_struct.field("batch_auth_statuses", &self.batch_auth_statuses);
-        debug_struct.field("nodes", &self.nodes);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::UIComponentField {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UIComponentField");
-        debug_struct.field("field", &self.field);
-        debug_struct.field("device_visibility", &self.device_visibility);
-        debug_struct.field("display_template", &self.display_template);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::FacetField {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("FacetField");
-        debug_struct.field("field", &self.field);
-        debug_struct.field("display_name", &self.display_name);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::DataStoreUiConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DataStoreUiConfig");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("id", &self.id);
-        debug_struct.field("facet_field", &self.facet_field);
-        debug_struct.field("fields_ui_components_map", &self.fields_ui_components_map);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::DataStoreComponent {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("DataStoreComponent");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("id", &self.id);
-        debug_struct.field("display_name", &self.display_name);
-        debug_struct.field("entity_name", &self.entity_name);
-        debug_struct.field("data_store_config_type", &self.data_store_config_type);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::ConnectorAuthState {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ConnectorAuthState");
-        debug_struct.field("auth_state", &self.auth_state);
-        debug_struct.field("authorization_uri", &self.authorization_uri);
-        debug_struct.field("update_time", &self.update_time);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::BatchAuthStatus {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("BatchAuthStatus");
-        debug_struct.field("placeholder", &self.placeholder);
-        debug_struct.field("batch_authorization_group", &self.batch_authorization_group);
-        debug_struct.field("connector_auth_state", &self.connector_auth_state);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::CollectionComponent {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CollectionComponent");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("id", &self.id);
-        debug_struct.field("display_name", &self.display_name);
-        debug_struct.field("data_store_components", &self.data_store_components);
-        debug_struct.field("data_source", &self.data_source);
-        debug_struct.field("data_source_version", &self.data_source_version);
-        debug_struct.field("data_source_display_name", &self.data_source_display_name);
-        debug_struct.field(
-            "data_source_end_user_display_name",
-            &self.data_source_end_user_display_name,
-        );
-        debug_struct.field("connector_icon_link", &self.connector_icon_link);
-        debug_struct.field("connector_auth_state", &self.connector_auth_state);
-        debug_struct.field("metadata", &self.metadata);
-        debug_struct.field("is_first_party", &self.is_first_party);
-        debug_struct.field("tag", &self.tag);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::UiSettings {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UiSettings");
-        debug_struct.field("interaction_type", &self.interaction_type);
-        debug_struct.field("generative_answer_config", &self.generative_answer_config);
-        debug_struct.field("result_description_type", &self.result_description_type);
-        debug_struct.field("enable_autocomplete", &self.enable_autocomplete);
-        debug_struct.field("enable_safe_search", &self.enable_safe_search);
-        debug_struct.field("enable_quality_feedback", &self.enable_quality_feedback);
-        debug_struct.field("enable_search_as_you_type", &self.enable_search_as_you_type);
-        debug_struct.field(
-            "default_search_request_order_by",
-            &self.default_search_request_order_by,
-        );
-        debug_struct.field("data_store_ui_configs", &self.data_store_ui_configs);
-        debug_struct.field(
-            "disable_user_events_collection",
-            &self.disable_user_events_collection,
-        );
-        debug_struct.field(
-            "enable_visual_content_summary",
-            &self.enable_visual_content_summary,
-        );
-        debug_struct.field("enable_people_search", &self.enable_people_search);
-        debug_struct.field(
-            "enable_create_agent_button",
-            &self.enable_create_agent_button,
-        );
-        debug_struct.field("features", &self.features);
-        debug_struct.field("model_configs", &self.model_configs);
-        debug_struct.field("search_addon_spec", &self.search_addon_spec);
-        debug_struct.field("onedrive_picker_enabled", &self.onedrive_picker_enabled);
-        debug_struct.field(
-            "google_drive_picker_enabled",
-            &self.google_drive_picker_enabled,
-        );
-        debug_struct.field("model_config_info", &self.model_config_info);
-        debug_struct.field(
-            "source_admin_display_name_enabled",
-            &self.source_admin_display_name_enabled,
-        );
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::ui_settings::GenerativeAnswerConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GenerativeAnswerConfig");
-        debug_struct.field("result_count", &self.result_count);
-        debug_struct.field("model_version", &self.model_version);
-        debug_struct.field("model_prompt_preamble", &self.model_prompt_preamble);
-        debug_struct.field("max_rephrase_steps", &self.max_rephrase_steps);
-        debug_struct.field("language_code", &self.language_code);
-        debug_struct.field("disable_related_questions", &self.disable_related_questions);
-        debug_struct.field(
-            "ignore_non_answer_seeking_query",
-            &self.ignore_non_answer_seeking_query,
-        );
-        debug_struct.field("ignore_adversarial_query", &self.ignore_adversarial_query);
-        debug_struct.field(
-            "ignore_low_relevant_content",
-            &self.ignore_low_relevant_content,
-        );
-        debug_struct.field("image_source", &self.image_source);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::ui_settings::ModelConfigInfo {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ModelConfigInfo");
-        debug_struct.field("resolved_models", &self.resolved_models);
-        debug_struct.field("default_model_id", &self.default_model_id);
-        debug_struct.field("auto_model_id", &self.auto_model_id);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::ui_settings::model_config_info::ResolvedModel {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("ResolvedModel");
-        debug_struct.field("model_id", &self.model_id);
-        debug_struct.field("display_name", &self.display_name);
-        debug_struct.field("icon", &self.icon);
-        debug_struct.field("description", &self.description);
-        debug_struct.field("is_preview", &self.is_preview);
-        debug_struct.field("label", &self.label);
-        debug_struct.field("admin_view", &self.admin_view);
-        debug_struct.field("promoted", &self.promoted);
-        debug_struct.field("icon_url", &self.icon_url);
-        debug_struct.field("family", &self.family);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug
-    for super::widget_config::ui_settings::model_config_info::resolved_model::AdminView
-{
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("AdminView");
-        debug_struct.field("admin_overridable", &self.admin_overridable);
-        debug_struct.field("enabled_by_default", &self.enabled_by_default);
-        debug_struct.field("regions", &self.regions);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::ui_settings::SearchAddonSpec {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SearchAddonSpec");
-        debug_struct.field("semantic_add_on_disabled", &self.semantic_add_on_disabled);
-        debug_struct.field(
-            "kpi_personalization_add_on_disabled",
-            &self.kpi_personalization_add_on_disabled,
-        );
-        debug_struct.field(
-            "generative_answer_add_on_disabled",
-            &self.generative_answer_add_on_disabled,
-        );
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::AccessSettings {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("AccessSettings");
-        debug_struct.field("allow_public_access", &self.allow_public_access);
-        debug_struct.field("allowlisted_domains", &self.allowlisted_domains);
-        debug_struct.field("enable_web_app", &self.enable_web_app);
-        debug_struct.field(
-            "workforce_identity_pool_provider",
-            &self.workforce_identity_pool_provider,
-        );
-        debug_struct.field("language_code", &self.language_code);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::Image {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Image");
-        debug_struct.field("storage_method", &self.storage_method);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::UiBrandingSettings {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UiBrandingSettings");
-        debug_struct.field("logo", &self.logo);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::HomepageSetting {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("HomepageSetting");
-        debug_struct.field("shortcuts", &self.shortcuts);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::homepage_setting::Shortcut {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Shortcut");
-        debug_struct.field("title", &self.title);
-        debug_struct.field("icon", &self.icon);
-        debug_struct.field("destination_uri", &self.destination_uri);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::AssistantSettings {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("AssistantSettings");
-        debug_struct.field("web_grounding_type", &self.web_grounding_type);
-        debug_struct.field(
-            "default_web_grounding_toggle_off",
-            &self.default_web_grounding_toggle_off,
-        );
-        debug_struct.field("disable_location_context", &self.disable_location_context);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::CustomerProvidedConfig {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CustomerProvidedConfig");
-        debug_struct.field("customer_type", &self.customer_type);
-        debug_struct.field("compliance_level", &self.compliance_level);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::widget_config::Node {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("Node");
-        debug_struct.field("display_name", &self.display_name);
-        debug_struct.field("icon_url", &self.icon_url);
-        debug_struct.field("description", &self.description);
-        debug_struct.field("parameter_schema", &self.parameter_schema);
-        debug_struct.field("output_schema", &self.output_schema);
-        debug_struct.field("r#type", &self.r#type);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::GetWidgetConfigRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetWidgetConfigRequest");
-        debug_struct.field("name", &self.name);
-        debug_struct.field("accept_cache", &self.accept_cache);
-        debug_struct.field(
-            "get_widget_config_request_option",
-            &self.get_widget_config_request_option,
-        );
-        debug_struct.field("language_code", &self.language_code);
-        debug_struct.field("model_info_view", &self.model_info_view);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::get_widget_config_request::GetWidgetConfigRequestOption {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetWidgetConfigRequestOption");
-        debug_struct.field(
-            "turn_off_collection_components",
-            &self.turn_off_collection_components,
-        );
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "widget-config-service")]
-impl std::fmt::Debug for super::UpdateWidgetConfigRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("UpdateWidgetConfigRequest");
-        debug_struct.field("widget_config", &self.widget_config);
-        debug_struct.field("update_mask", &self.update_mask);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

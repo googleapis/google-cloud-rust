@@ -513,34 +513,6 @@ impl serde::ser::Serialize for super::SecretPayload {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::CloudSqlSingleUserCredentials {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.instance_id.is_empty() {
-            state.serialize_entry("instanceId", &self.instance_id)?;
-        }
-        if !self.username.is_empty() {
-            state.serialize_entry("username", &self.username)?;
-        }
-        if !self.password.is_empty() {
-            state.serialize_entry("password", &self.password)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
 impl serde::ser::Serialize for super::ListSecretsRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -685,6 +657,36 @@ impl serde::ser::Serialize for super::EnableManagedRotationRequest {
         }
         if let Some(value) = self.cloud_sql_single_user_credentials() {
             state.serialize_entry("cloudSqlSingleUserCredentials", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::enable_managed_rotation_request::CloudSQLSingleUserCredentials
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.instance_id.is_empty() {
+            state.serialize_entry("instanceId", &self.instance_id)?;
+        }
+        if !self.username.is_empty() {
+            state.serialize_entry("username", &self.username)?;
+        }
+        if !self.password.is_empty() {
+            state.serialize_entry("password", &self.password)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

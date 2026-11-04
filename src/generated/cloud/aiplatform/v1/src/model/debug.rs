@@ -13902,20 +13902,6 @@ impl std::fmt::Debug for super::reasoning_engine_spec::source_code_spec::Develop
 }
 
 #[cfg(feature = "reasoning-engine-service")]
-impl std::fmt::Debug for super::reasoning_engine_spec::source_code_spec::GitSource {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GitSource");
-        debug_struct.field("url", &self.url);
-        debug_struct.field("dir", &self.dir);
-        debug_struct.field("revision", &self.revision);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "reasoning-engine-service")]
 impl std::fmt::Debug for super::reasoning_engine_spec::source_code_spec::PythonSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PythonSpec");

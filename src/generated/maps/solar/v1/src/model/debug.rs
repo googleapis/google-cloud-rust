@@ -70,19 +70,7 @@ impl std::fmt::Debug for super::building_insights::DetectedArrays {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DetectedArrays");
         debug_struct.field("detection_status", &self.detection_status);
-        debug_struct.field("arrays", &self.arrays);
         debug_struct.field("latest_capture_date", &self.latest_capture_date);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::building_insights::detected_arrays::SolarArray {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("SolarArray");
-        debug_struct.field("polygon_geojson", &self.polygon_geojson);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

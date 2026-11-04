@@ -537,12 +537,6 @@ pub struct Endpoint {
     /// projects/{project}/locations/{location}/privateConnections/{privateConnection}.
     pub dms_private_connection: std::string::String,
 
-    /// A [Datastream Private
-    /// Connection](https://docs.cloud.google.com/datastream/docs/reference/rest/v1/projects.locations.privateConnections)
-    /// name format:
-    /// projects/{project}/locations/{location}/privateConnections/{privateConnection}.
-    pub datastream_private_connection: std::string::String,
-
     /// A [Cloud Function](https://cloud.google.com/functions). Applicable only to
     /// source endpoint.
     pub cloud_function: std::option::Option<crate::model::endpoint::CloudFunctionEndpoint>,
@@ -830,21 +824,6 @@ impl Endpoint {
         v: T,
     ) -> Self {
         self.dms_private_connection = v.into();
-        self
-    }
-
-    /// Sets the value of [datastream_private_connection][crate::model::Endpoint::datastream_private_connection].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_networkmanagement_v1::model::Endpoint;
-    /// let x = Endpoint::new().set_datastream_private_connection("example");
-    /// ```
-    pub fn set_datastream_private_connection<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.datastream_private_connection = v.into();
         self
     }
 
@@ -3641,7 +3620,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_instance<T: std::convert::Into<std::boxed::Box<crate::model::InstanceInfo>>>(
         mut self,
@@ -3712,7 +3690,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_firewall<T: std::convert::Into<std::boxed::Box<crate::model::FirewallInfo>>>(
         mut self,
@@ -3783,7 +3760,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_route<T: std::convert::Into<std::boxed::Box<crate::model::RouteInfo>>>(
         mut self,
@@ -3853,7 +3829,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::EndpointInfo>>>(
         mut self,
@@ -3926,7 +3901,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_google_service<
         T: std::convert::Into<std::boxed::Box<crate::model::GoogleServiceInfo>>,
@@ -4001,7 +3975,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_forwarding_rule<
         T: std::convert::Into<std::boxed::Box<crate::model::ForwardingRuleInfo>>,
@@ -4076,7 +4049,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_hybrid_subnet<
         T: std::convert::Into<std::boxed::Box<crate::model::HybridSubnetInfo>>,
@@ -4151,7 +4123,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_vpn_gateway<T: std::convert::Into<std::boxed::Box<crate::model::VpnGatewayInfo>>>(
         mut self,
@@ -4222,7 +4193,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_vpn_tunnel<T: std::convert::Into<std::boxed::Box<crate::model::VpnTunnelInfo>>>(
         mut self,
@@ -4295,7 +4265,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_interconnect_attachment<
         T: std::convert::Into<std::boxed::Box<crate::model::InterconnectAttachmentInfo>>,
@@ -4371,7 +4340,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_vpc_connector<
         T: std::convert::Into<std::boxed::Box<crate::model::VpcConnectorInfo>>,
@@ -4448,7 +4416,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_direct_vpc_egress_connection<
         T: std::convert::Into<std::boxed::Box<crate::model::DirectVpcEgressConnectionInfo>>,
@@ -4526,7 +4493,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_serverless_external_connection<
         T: std::convert::Into<std::boxed::Box<crate::model::ServerlessExternalConnectionInfo>>,
@@ -4600,7 +4566,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_deliver<T: std::convert::Into<std::boxed::Box<crate::model::DeliverInfo>>>(
         mut self,
@@ -4670,7 +4635,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_forward<T: std::convert::Into<std::boxed::Box<crate::model::ForwardInfo>>>(
         mut self,
@@ -4740,7 +4704,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_abort<T: std::convert::Into<std::boxed::Box<crate::model::AbortInfo>>>(
         mut self,
@@ -4810,7 +4773,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_drop<T: std::convert::Into<std::boxed::Box<crate::model::DropInfo>>>(
         mut self,
@@ -4883,7 +4845,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     #[deprecated]
     pub fn set_load_balancer<
@@ -4957,7 +4918,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_network<T: std::convert::Into<std::boxed::Box<crate::model::NetworkInfo>>>(
         mut self,
@@ -5027,7 +4987,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_gke_master<T: std::convert::Into<std::boxed::Box<crate::model::GKEMasterInfo>>>(
         mut self,
@@ -5098,7 +5057,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_gke_pod<T: std::convert::Into<std::boxed::Box<crate::model::GkePodInfo>>>(
         mut self,
@@ -5170,7 +5128,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_ip_masquerading_skipped<
         T: std::convert::Into<std::boxed::Box<crate::model::IpMasqueradingSkippedInfo>>,
@@ -5246,7 +5203,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_gke_network_policy<
         T: std::convert::Into<std::boxed::Box<crate::model::GkeNetworkPolicyInfo>>,
@@ -5323,7 +5279,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_gke_network_policy_skipped<
         T: std::convert::Into<std::boxed::Box<crate::model::GkeNetworkPolicySkippedInfo>>,
@@ -5399,7 +5354,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_cloud_sql_instance<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudSQLInstanceInfo>>,
@@ -5474,7 +5428,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_redis_instance<
         T: std::convert::Into<std::boxed::Box<crate::model::RedisInstanceInfo>>,
@@ -5549,7 +5502,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_redis_cluster<
         T: std::convert::Into<std::boxed::Box<crate::model::RedisClusterInfo>>,
@@ -5624,7 +5576,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_cloud_function<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudFunctionInfo>>,
@@ -5699,7 +5650,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_app_engine_version<
         T: std::convert::Into<std::boxed::Box<crate::model::AppEngineVersionInfo>>,
@@ -5774,7 +5724,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_cloud_run_revision<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudRunRevisionInfo>>,
@@ -5849,7 +5798,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_cloud_run_job<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudRunJobInfo>>,
@@ -5922,7 +5870,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_nat<T: std::convert::Into<std::boxed::Box<crate::model::NatInfo>>>(
         mut self,
@@ -5994,7 +5941,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_proxy_connection<
         T: std::convert::Into<std::boxed::Box<crate::model::ProxyConnectionInfo>>,
@@ -6071,7 +6017,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_load_balancer_backend_info<
         T: std::convert::Into<std::boxed::Box<crate::model::LoadBalancerBackendInfo>>,
@@ -6147,7 +6092,6 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_storage_bucket<
         T: std::convert::Into<std::boxed::Box<crate::model::StorageBucketInfo>>,
@@ -6222,7 +6166,6 @@ impl Step {
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_serverless_neg<
         T: std::convert::Into<std::boxed::Box<crate::model::ServerlessNegInfo>>,
@@ -6297,7 +6240,6 @@ impl Step {
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.dms_private_connection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_ngfw_packet_inspection<
         T: std::convert::Into<std::boxed::Box<crate::model::NgfwPacketInspectionInfo>>,
@@ -6372,7 +6314,6 @@ impl Step {
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
-    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_dms_private_connection<
         T: std::convert::Into<std::boxed::Box<crate::model::PrivateConnectionInfo>>,
@@ -6382,84 +6323,6 @@ impl Step {
     ) -> Self {
         self.step_info =
             std::option::Option::Some(crate::model::step::StepInfo::DmsPrivateConnection(v.into()));
-        self
-    }
-
-    /// The value of [step_info][crate::model::Step::step_info]
-    /// if it holds a `DatastreamPrivateConnection`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn datastream_private_connection(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::PrivateConnectionInfo>> {
-        #[allow(unreachable_patterns)]
-        self.step_info.as_ref().and_then(|v| match v {
-            crate::model::step::StepInfo::DatastreamPrivateConnection(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// Sets the value of [step_info][crate::model::Step::step_info]
-    /// to hold a `DatastreamPrivateConnection`.
-    ///
-    /// Note that all the setters affecting `step_info` are
-    /// mutually exclusive.
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_networkmanagement_v1::model::Step;
-    /// use google_cloud_networkmanagement_v1::model::PrivateConnectionInfo;
-    /// let x = Step::new().set_datastream_private_connection(PrivateConnectionInfo::default()/* use setters */);
-    /// assert!(x.datastream_private_connection().is_some());
-    /// assert!(x.instance().is_none());
-    /// assert!(x.firewall().is_none());
-    /// assert!(x.route().is_none());
-    /// assert!(x.endpoint().is_none());
-    /// assert!(x.google_service().is_none());
-    /// assert!(x.forwarding_rule().is_none());
-    /// assert!(x.hybrid_subnet().is_none());
-    /// assert!(x.vpn_gateway().is_none());
-    /// assert!(x.vpn_tunnel().is_none());
-    /// assert!(x.interconnect_attachment().is_none());
-    /// assert!(x.vpc_connector().is_none());
-    /// assert!(x.direct_vpc_egress_connection().is_none());
-    /// assert!(x.serverless_external_connection().is_none());
-    /// assert!(x.deliver().is_none());
-    /// assert!(x.forward().is_none());
-    /// assert!(x.abort().is_none());
-    /// assert!(x.drop().is_none());
-    /// assert!(x.load_balancer().is_none());
-    /// assert!(x.network().is_none());
-    /// assert!(x.gke_master().is_none());
-    /// assert!(x.gke_pod().is_none());
-    /// assert!(x.ip_masquerading_skipped().is_none());
-    /// assert!(x.gke_network_policy().is_none());
-    /// assert!(x.gke_network_policy_skipped().is_none());
-    /// assert!(x.cloud_sql_instance().is_none());
-    /// assert!(x.redis_instance().is_none());
-    /// assert!(x.redis_cluster().is_none());
-    /// assert!(x.cloud_function().is_none());
-    /// assert!(x.app_engine_version().is_none());
-    /// assert!(x.cloud_run_revision().is_none());
-    /// assert!(x.cloud_run_job().is_none());
-    /// assert!(x.nat().is_none());
-    /// assert!(x.proxy_connection().is_none());
-    /// assert!(x.load_balancer_backend_info().is_none());
-    /// assert!(x.storage_bucket().is_none());
-    /// assert!(x.serverless_neg().is_none());
-    /// assert!(x.ngfw_packet_inspection().is_none());
-    /// assert!(x.dms_private_connection().is_none());
-    /// ```
-    pub fn set_datastream_private_connection<
-        T: std::convert::Into<std::boxed::Box<crate::model::PrivateConnectionInfo>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.step_info = std::option::Option::Some(
-            crate::model::step::StepInfo::DatastreamPrivateConnection(v.into()),
-        );
         self
     }
 }
@@ -6550,8 +6413,6 @@ pub mod step {
         StartFromServerlessNeg,
         /// Initial state: packet originating from a DMS Private Connection.
         StartFromDmsPrivateConnection,
-        /// Initial state: packet originating from a Datastream Private Connection.
-        StartFromDatastreamPrivateConnection,
         /// Config checking state: verify ingress firewall rule.
         ApplyIngressFirewallRule,
         /// Config checking state: verify egress firewall rule.
@@ -6666,7 +6527,6 @@ pub mod step {
                 Self::StartFromPscPublishedService => std::option::Option::Some(30),
                 Self::StartFromServerlessNeg => std::option::Option::Some(31),
                 Self::StartFromDmsPrivateConnection => std::option::Option::Some(48),
-                Self::StartFromDatastreamPrivateConnection => std::option::Option::Some(49),
                 Self::ApplyIngressFirewallRule => std::option::Option::Some(4),
                 Self::ApplyEgressFirewallRule => std::option::Option::Some(5),
                 Self::ApplyRoute => std::option::Option::Some(6),
@@ -6748,9 +6608,6 @@ pub mod step {
                 }
                 Self::StartFromDmsPrivateConnection => {
                     std::option::Option::Some("START_FROM_DMS_PRIVATE_CONNECTION")
-                }
-                Self::StartFromDatastreamPrivateConnection => {
-                    std::option::Option::Some("START_FROM_DATASTREAM_PRIVATE_CONNECTION")
                 }
                 Self::ApplyIngressFirewallRule => {
                     std::option::Option::Some("APPLY_INGRESS_FIREWALL_RULE")
@@ -6878,7 +6735,6 @@ pub mod step {
                 46 => Self::ApplyEgressGkeNetworkPolicy,
                 47 => Self::NgfwPacketInspection,
                 48 => Self::StartFromDmsPrivateConnection,
-                49 => Self::StartFromDatastreamPrivateConnection,
                 50 => Self::StartFromCloudRunJob,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
@@ -6909,9 +6765,6 @@ pub mod step {
                 "START_FROM_PSC_PUBLISHED_SERVICE" => Self::StartFromPscPublishedService,
                 "START_FROM_SERVERLESS_NEG" => Self::StartFromServerlessNeg,
                 "START_FROM_DMS_PRIVATE_CONNECTION" => Self::StartFromDmsPrivateConnection,
-                "START_FROM_DATASTREAM_PRIVATE_CONNECTION" => {
-                    Self::StartFromDatastreamPrivateConnection
-                }
                 "APPLY_INGRESS_FIREWALL_RULE" => Self::ApplyIngressFirewallRule,
                 "APPLY_EGRESS_FIREWALL_RULE" => Self::ApplyEgressFirewallRule,
                 "APPLY_ROUTE" => Self::ApplyRoute,
@@ -6973,7 +6826,6 @@ pub mod step {
                 Self::StartFromPscPublishedService => serializer.serialize_i32(30),
                 Self::StartFromServerlessNeg => serializer.serialize_i32(31),
                 Self::StartFromDmsPrivateConnection => serializer.serialize_i32(48),
-                Self::StartFromDatastreamPrivateConnection => serializer.serialize_i32(49),
                 Self::ApplyIngressFirewallRule => serializer.serialize_i32(4),
                 Self::ApplyEgressFirewallRule => serializer.serialize_i32(5),
                 Self::ApplyRoute => serializer.serialize_i32(6),
@@ -7114,8 +6966,6 @@ pub mod step {
         NgfwPacketInspection(std::boxed::Box<crate::model::NgfwPacketInspectionInfo>),
         /// Display information of a DMS Private Connection.
         DmsPrivateConnection(std::boxed::Box<crate::model::PrivateConnectionInfo>),
-        /// Display information of a Datastream Private Connection.
-        DatastreamPrivateConnection(std::boxed::Box<crate::model::PrivateConnectionInfo>),
     }
 }
 
@@ -11523,8 +11373,6 @@ pub mod deliver_info {
         CloudRunJob,
         /// Target is a DMS Private Connection. Used only for return traces.
         DmsPrivateConnection,
-        /// Target is a Datastream Private Connection. Used only for return traces.
-        DatastreamPrivateConnection,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Target::value] or
@@ -11568,7 +11416,6 @@ pub mod deliver_info {
                 Self::GkePod => std::option::Option::Some(19),
                 Self::CloudRunJob => std::option::Option::Some(20),
                 Self::DmsPrivateConnection => std::option::Option::Some(21),
-                Self::DatastreamPrivateConnection => std::option::Option::Some(22),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -11600,9 +11447,6 @@ pub mod deliver_info {
                 Self::GkePod => std::option::Option::Some("GKE_POD"),
                 Self::CloudRunJob => std::option::Option::Some("CLOUD_RUN_JOB"),
                 Self::DmsPrivateConnection => std::option::Option::Some("DMS_PRIVATE_CONNECTION"),
-                Self::DatastreamPrivateConnection => {
-                    std::option::Option::Some("DATASTREAM_PRIVATE_CONNECTION")
-                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -11645,7 +11489,6 @@ pub mod deliver_info {
                 19 => Self::GkePod,
                 20 => Self::CloudRunJob,
                 21 => Self::DmsPrivateConnection,
-                22 => Self::DatastreamPrivateConnection,
                 _ => Self::UnknownValue(target::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -11678,7 +11521,6 @@ pub mod deliver_info {
                 "GKE_POD" => Self::GkePod,
                 "CLOUD_RUN_JOB" => Self::CloudRunJob,
                 "DMS_PRIVATE_CONNECTION" => Self::DmsPrivateConnection,
-                "DATASTREAM_PRIVATE_CONNECTION" => Self::DatastreamPrivateConnection,
                 _ => Self::UnknownValue(target::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -11713,7 +11555,6 @@ pub mod deliver_info {
                 Self::GkePod => serializer.serialize_i32(19),
                 Self::CloudRunJob => serializer.serialize_i32(20),
                 Self::DmsPrivateConnection => serializer.serialize_i32(21),
-                Self::DatastreamPrivateConnection => serializer.serialize_i32(22),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -13079,8 +12920,6 @@ pub mod drop_info {
         DroppedInsideCloudSqlService,
         /// Packet was dropped inside DMS Private Connection.
         DroppedInsideDmsPrivateConnection,
-        /// Packet was dropped inside Datastream Private Connection.
-        DroppedInsideDatastreamPrivateConnection,
         /// Packet was dropped because there is no peering between the originating
         /// network and the Google Managed Services Network.
         GoogleManagedServiceNoPeering,
@@ -13354,7 +13193,6 @@ pub mod drop_info {
                 Self::DroppedInsideGkeService => std::option::Option::Some(18),
                 Self::DroppedInsideCloudSqlService => std::option::Option::Some(19),
                 Self::DroppedInsideDmsPrivateConnection => std::option::Option::Some(114),
-                Self::DroppedInsideDatastreamPrivateConnection => std::option::Option::Some(115),
                 Self::GoogleManagedServiceNoPeering => std::option::Option::Some(20),
                 Self::GoogleManagedServiceNoPscEndpoint => std::option::Option::Some(38),
                 Self::GkePscEndpointMissing => std::option::Option::Some(36),
@@ -13540,9 +13378,6 @@ pub mod drop_info {
                 }
                 Self::DroppedInsideDmsPrivateConnection => {
                     std::option::Option::Some("DROPPED_INSIDE_DMS_PRIVATE_CONNECTION")
-                }
-                Self::DroppedInsideDatastreamPrivateConnection => {
-                    std::option::Option::Some("DROPPED_INSIDE_DATASTREAM_PRIVATE_CONNECTION")
                 }
                 Self::GoogleManagedServiceNoPeering => {
                     std::option::Option::Some("GOOGLE_MANAGED_SERVICE_NO_PEERING")
@@ -13867,7 +13702,6 @@ pub mod drop_info {
                 111 => Self::PrivateConnectionNoRunningInstance,
                 113 => Self::CloudRunJobNotReady,
                 114 => Self::DroppedInsideDmsPrivateConnection,
-                115 => Self::DroppedInsideDatastreamPrivateConnection,
                 _ => Self::UnknownValue(cause::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -13939,9 +13773,6 @@ pub mod drop_info {
                 "DROPPED_INSIDE_GKE_SERVICE" => Self::DroppedInsideGkeService,
                 "DROPPED_INSIDE_CLOUD_SQL_SERVICE" => Self::DroppedInsideCloudSqlService,
                 "DROPPED_INSIDE_DMS_PRIVATE_CONNECTION" => Self::DroppedInsideDmsPrivateConnection,
-                "DROPPED_INSIDE_DATASTREAM_PRIVATE_CONNECTION" => {
-                    Self::DroppedInsideDatastreamPrivateConnection
-                }
                 "GOOGLE_MANAGED_SERVICE_NO_PEERING" => Self::GoogleManagedServiceNoPeering,
                 "GOOGLE_MANAGED_SERVICE_NO_PSC_ENDPOINT" => Self::GoogleManagedServiceNoPscEndpoint,
                 "GKE_PSC_ENDPOINT_MISSING" => Self::GkePscEndpointMissing,
@@ -14115,7 +13946,6 @@ pub mod drop_info {
                 Self::DroppedInsideGkeService => serializer.serialize_i32(18),
                 Self::DroppedInsideCloudSqlService => serializer.serialize_i32(19),
                 Self::DroppedInsideDmsPrivateConnection => serializer.serialize_i32(114),
-                Self::DroppedInsideDatastreamPrivateConnection => serializer.serialize_i32(115),
                 Self::GoogleManagedServiceNoPeering => serializer.serialize_i32(20),
                 Self::GoogleManagedServiceNoPscEndpoint => serializer.serialize_i32(38),
                 Self::GkePscEndpointMissing => serializer.serialize_i32(36),

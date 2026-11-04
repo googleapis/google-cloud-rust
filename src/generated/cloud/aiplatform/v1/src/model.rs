@@ -123407,7 +123407,6 @@ pub mod reasoning_engine_spec {
         /// let x = SourceCodeSpec::new().set_inline_source(InlineSource::default()/* use setters */);
         /// assert!(x.inline_source().is_some());
         /// assert!(x.developer_connect_source().is_none());
-        /// assert!(x.git_source().is_none());
         /// ```
         pub fn set_inline_source<
             T: std::convert::Into<
@@ -123457,61 +123456,12 @@ pub mod reasoning_engine_spec {
         /// let x = SourceCodeSpec::new().set_developer_connect_source(DeveloperConnectSource::default()/* use setters */);
         /// assert!(x.developer_connect_source().is_some());
         /// assert!(x.inline_source().is_none());
-        /// assert!(x.git_source().is_none());
         /// ```
         pub fn set_developer_connect_source<T: std::convert::Into<std::boxed::Box<crate::model::reasoning_engine_spec::source_code_spec::DeveloperConnectSource>>>(mut self, v: T) -> Self{
             self.source = std::option::Option::Some(
                 crate::model::reasoning_engine_spec::source_code_spec::Source::DeveloperConnectSource(
                     v.into()
                 )
-            );
-            self
-        }
-
-        /// The value of [source][crate::model::reasoning_engine_spec::SourceCodeSpec::source]
-        /// if it holds a `GitSource`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn git_source(
-            &self,
-        ) -> std::option::Option<
-            &std::boxed::Box<crate::model::reasoning_engine_spec::source_code_spec::GitSource>,
-        > {
-            #[allow(unreachable_patterns)]
-            self.source.as_ref().and_then(|v| match v {
-                crate::model::reasoning_engine_spec::source_code_spec::Source::GitSource(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
-        /// Sets the value of [source][crate::model::reasoning_engine_spec::SourceCodeSpec::source]
-        /// to hold a `GitSource`.
-        ///
-        /// Note that all the setters affecting `source` are
-        /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_aiplatform_v1::model::reasoning_engine_spec::SourceCodeSpec;
-        /// use google_cloud_aiplatform_v1::model::reasoning_engine_spec::source_code_spec::GitSource;
-        /// let x = SourceCodeSpec::new().set_git_source(GitSource::default()/* use setters */);
-        /// assert!(x.git_source().is_some());
-        /// assert!(x.inline_source().is_none());
-        /// assert!(x.developer_connect_source().is_none());
-        /// ```
-        pub fn set_git_source<
-            T: std::convert::Into<
-                    std::boxed::Box<
-                        crate::model::reasoning_engine_spec::source_code_spec::GitSource,
-                    >,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.source = std::option::Option::Some(
-                crate::model::reasoning_engine_spec::source_code_spec::Source::GitSource(v.into()),
             );
             self
         }
@@ -123886,79 +123836,6 @@ pub mod reasoning_engine_spec {
             }
         }
 
-        /// Specifies source code to be fetched from a public Git repository.
-        #[cfg(feature = "reasoning-engine-service")]
-        #[derive(Clone, Default, PartialEq)]
-        #[non_exhaustive]
-        pub struct GitSource {
-            /// Required. The HTTPS URL of the public Git repository to clone.
-            pub url: std::string::String,
-
-            /// Optional. Directory, relative to the source root, in which to run the
-            /// build.
-            pub dir: std::string::String,
-
-            /// Required. The revision to fetch from the Git repository: a branch, a
-            /// tag, or a full commit SHA. Abbreviated commit SHAs are not supported.
-            pub revision: std::string::String,
-
-            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-        }
-
-        #[cfg(feature = "reasoning-engine-service")]
-        impl GitSource {
-            /// Creates a new default instance.
-            pub fn new() -> Self {
-                std::default::Default::default()
-            }
-
-            /// Sets the value of [url][crate::model::reasoning_engine_spec::source_code_spec::GitSource::url].
-            ///
-            /// # Example
-            /// ```ignore,no_run
-            /// # use google_cloud_aiplatform_v1::model::reasoning_engine_spec::source_code_spec::GitSource;
-            /// let x = GitSource::new().set_url("example");
-            /// ```
-            pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.url = v.into();
-                self
-            }
-
-            /// Sets the value of [dir][crate::model::reasoning_engine_spec::source_code_spec::GitSource::dir].
-            ///
-            /// # Example
-            /// ```ignore,no_run
-            /// # use google_cloud_aiplatform_v1::model::reasoning_engine_spec::source_code_spec::GitSource;
-            /// let x = GitSource::new().set_dir("example");
-            /// ```
-            pub fn set_dir<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-                self.dir = v.into();
-                self
-            }
-
-            /// Sets the value of [revision][crate::model::reasoning_engine_spec::source_code_spec::GitSource::revision].
-            ///
-            /// # Example
-            /// ```ignore,no_run
-            /// # use google_cloud_aiplatform_v1::model::reasoning_engine_spec::source_code_spec::GitSource;
-            /// let x = GitSource::new().set_revision("example");
-            /// ```
-            pub fn set_revision<T: std::convert::Into<std::string::String>>(
-                mut self,
-                v: T,
-            ) -> Self {
-                self.revision = v.into();
-                self
-            }
-        }
-
-        #[cfg(feature = "reasoning-engine-service")]
-        impl wkt::message::Message for GitSource {
-            fn typename() -> &'static str {
-                "type.googleapis.com/google.cloud.aiplatform.v1.ReasoningEngineSpec.SourceCodeSpec.GitSource"
-            }
-        }
-
         /// Specification for running a Python application from source.
         #[cfg(feature = "reasoning-engine-service")]
         #[derive(Clone, Default, PartialEq)]
@@ -124077,10 +123954,6 @@ pub mod reasoning_engine_spec {
                 std::boxed::Box<
                     crate::model::reasoning_engine_spec::source_code_spec::DeveloperConnectSource,
                 >,
-            ),
-            /// Source code is in a public Git repository.
-            GitSource(
-                std::boxed::Box<crate::model::reasoning_engine_spec::source_code_spec::GitSource>,
             ),
         }
 

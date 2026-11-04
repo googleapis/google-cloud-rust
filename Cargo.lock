@@ -3335,7 +3335,6 @@ dependencies = [
  "google-cloud-api",
  "google-cloud-gax",
  "google-cloud-gax-internal",
- "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-rpc",
@@ -5172,7 +5171,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-secretmanager-v1"
-version = "2.0.0"
+version = "1.14.0"
 dependencies = [
  "anyhow",
  "async-trait",

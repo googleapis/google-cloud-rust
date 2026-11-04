@@ -73,7 +73,6 @@ impl std::fmt::Debug for super::ForecastDay {
         debug_struct.field("sun_events", &self.sun_events);
         debug_struct.field("moon_events", &self.moon_events);
         debug_struct.field("max_heat_index", &self.max_heat_index);
-        debug_struct.field("full_day_forecast", &self.full_day_forecast);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

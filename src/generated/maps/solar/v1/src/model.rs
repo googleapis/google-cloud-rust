@@ -641,9 +641,6 @@ pub mod building_insights {
         /// Indicates the detection status of solar arrays for this building.
         pub detection_status: crate::model::building_insights::detected_arrays::DetectionStatus,
 
-        /// A list of solar arrays detected on the building.
-        pub arrays: std::vec::Vec<crate::model::building_insights::detected_arrays::SolarArray>,
-
         /// The date indicating when the latest solar array data was captured.
         pub latest_capture_date: std::option::Option<google_cloud_type::model::Date>,
 
@@ -673,28 +670,6 @@ pub mod building_insights {
             v: T,
         ) -> Self {
             self.detection_status = v.into();
-            self
-        }
-
-        /// Sets the value of [arrays][crate::model::building_insights::DetectedArrays::arrays].
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_maps_solar_v1::model::building_insights::DetectedArrays;
-        /// use google_maps_solar_v1::model::building_insights::detected_arrays::SolarArray;
-        /// let x = DetectedArrays::new()
-        ///     .set_arrays([
-        ///         SolarArray::default()/* use setters */,
-        ///         SolarArray::default()/* use (different) setters */,
-        ///     ]);
-        /// ```
-        pub fn set_arrays<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::building_insights::detected_arrays::SolarArray>,
-        {
-            use std::iter::Iterator;
-            self.arrays = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -742,80 +717,6 @@ pub mod building_insights {
     pub mod detected_arrays {
         #[allow(unused_imports)]
         use super::*;
-
-        /// Details of a single detected solar array.
-        #[derive(Clone, Default, PartialEq)]
-        #[non_exhaustive]
-        pub struct SolarArray {
-            /// A GeoJSON representation of the building area where solar panels were
-            /// detected.
-            ///
-            /// The GeoJSON data must be in RFC 7946 format and represent a
-            /// Polygon for a single contiguous area.
-            ///
-            /// The Polygon will be represented by several loops when it
-            /// contains holes.
-            ///
-            /// Example:
-            ///
-            /// {
-            /// "type": "Polygon",
-            /// "coordinates": [
-            /// [
-            /// [-1, -1], [-1, 0], [0, 0], [-1, -1]
-            /// ]
-            /// ]
-            /// }
-            pub polygon_geojson: std::option::Option<wkt::Struct>,
-
-            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-        }
-
-        impl SolarArray {
-            /// Creates a new default instance.
-            pub fn new() -> Self {
-                std::default::Default::default()
-            }
-
-            /// Sets the value of [polygon_geojson][crate::model::building_insights::detected_arrays::SolarArray::polygon_geojson].
-            ///
-            /// # Example
-            /// ```ignore,no_run
-            /// # use google_maps_solar_v1::model::building_insights::detected_arrays::SolarArray;
-            /// use wkt::Struct;
-            /// let x = SolarArray::new().set_polygon_geojson(Struct::default()/* use setters */);
-            /// ```
-            pub fn set_polygon_geojson<T>(mut self, v: T) -> Self
-            where
-                T: std::convert::Into<wkt::Struct>,
-            {
-                self.polygon_geojson = std::option::Option::Some(v.into());
-                self
-            }
-
-            /// Sets or clears the value of [polygon_geojson][crate::model::building_insights::detected_arrays::SolarArray::polygon_geojson].
-            ///
-            /// # Example
-            /// ```ignore,no_run
-            /// # use google_maps_solar_v1::model::building_insights::detected_arrays::SolarArray;
-            /// use wkt::Struct;
-            /// let x = SolarArray::new().set_or_clear_polygon_geojson(Some(Struct::default()/* use setters */));
-            /// let x = SolarArray::new().set_or_clear_polygon_geojson(None::<Struct>);
-            /// ```
-            pub fn set_or_clear_polygon_geojson<T>(mut self, v: std::option::Option<T>) -> Self
-            where
-                T: std::convert::Into<wkt::Struct>,
-            {
-                self.polygon_geojson = v.map(|x| x.into());
-                self
-            }
-        }
-
-        impl wkt::message::Message for SolarArray {
-            fn typename() -> &'static str {
-                "type.googleapis.com/google.maps.solar.v1.BuildingInsights.DetectedArrays.SolarArray"
-            }
-        }
 
         /// Indicates the detection status of solar arrays for this building.
         ///

@@ -1342,31 +1342,3 @@ impl serde::ser::Serialize for super::LintPolicyResponse {
         state.end()
     }
 }
-
-#[doc(hidden)]
-impl serde::ser::Serialize for super::WorkforcePoolAttributeSyncEventLog {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.subject.is_empty() {
-            state.serialize_entry("subject", &self.subject)?;
-        }
-        if !self.failure_reason.is_empty() {
-            state.serialize_entry("failureReason", &self.failure_reason)?;
-        }
-        if !self.message.is_empty() {
-            state.serialize_entry("message", &self.message)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}

@@ -26,74 +26,6 @@
 
 pub(crate) mod dynamic;
 
-/// Defines the trait used to implement [super::client::AclConfigService].
-///
-/// Application developers may need to implement this trait to mock
-/// `client::AclConfigService`.  In other use-cases, application developers only
-/// use `client::AclConfigService` and need not be concerned with this trait or
-/// its implementations.
-///
-/// Services gain new RPCs routinely. Consequently, this trait gains new methods
-/// too. To avoid breaking applications the trait provides a default
-/// implementation of each method. Most of these implementations just return an
-/// error.
-#[cfg(feature = "acl-config-service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "acl-config-service")))]
-pub trait AclConfigService: std::fmt::Debug + Send + Sync {
-    /// Implements [super::client::AclConfigService::update_acl_config].
-    fn update_acl_config(
-        &self,
-        _req: crate::model::UpdateAclConfigRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::AclConfig>>> + Send
-    {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::AclConfigService::get_acl_config].
-    fn get_acl_config(
-        &self,
-        _req: crate::model::GetAclConfigRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::AclConfig>>> + Send
-    {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::AclConfigService::list_operations].
-    fn list_operations(
-        &self,
-        _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-        >,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::AclConfigService::get_operation].
-    fn get_operation(
-        &self,
-        _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::AclConfigService::cancel_operation].
-    fn cancel_operation(
-        &self,
-        _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-}
-
 /// Defines the trait used to implement [super::client::AssistantService].
 ///
 /// Application developers may need to implement this trait to mock
@@ -119,56 +51,6 @@ pub trait AssistantService: std::fmt::Debug + Send + Sync {
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_server_streaming_stub()
-    }
-
-    /// Implements [super::client::AssistantService::create_assistant].
-    fn create_assistant(
-        &self,
-        _req: crate::model::CreateAssistantRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Assistant>>> + Send
-    {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::AssistantService::delete_assistant].
-    fn delete_assistant(
-        &self,
-        _req: crate::model::DeleteAssistantRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::AssistantService::update_assistant].
-    fn update_assistant(
-        &self,
-        _req: crate::model::UpdateAssistantRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Assistant>>> + Send
-    {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::AssistantService::get_assistant].
-    fn get_assistant(
-        &self,
-        _req: crate::model::GetAssistantRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Assistant>>> + Send
-    {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::AssistantService::list_assistants].
-    fn list_assistants(
-        &self,
-        _req: crate::model::ListAssistantsRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::ListAssistantsResponse>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::AssistantService::list_operations].
@@ -330,121 +212,6 @@ pub trait CmekConfigService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [super::client::CollectionService].
-///
-/// Application developers may need to implement this trait to mock
-/// `client::CollectionService`.  In other use-cases, application developers only
-/// use `client::CollectionService` and need not be concerned with this trait or
-/// its implementations.
-///
-/// Services gain new RPCs routinely. Consequently, this trait gains new methods
-/// too. To avoid breaking applications the trait provides a default
-/// implementation of each method. Most of these implementations just return an
-/// error.
-#[cfg(feature = "collection-service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "collection-service")))]
-pub trait CollectionService: std::fmt::Debug + Send + Sync {
-    /// Implements [super::client::CollectionService::delete_collection].
-    fn delete_collection(
-        &self,
-        _req: crate::model::DeleteCollectionRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::CollectionService::get_iam_policy].
-    fn get_iam_policy(
-        &self,
-        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::CollectionService::set_iam_policy].
-    fn set_iam_policy(
-        &self,
-        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::CollectionService::list_operations].
-    fn list_operations(
-        &self,
-        _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-        >,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::CollectionService::get_operation].
-    fn get_operation(
-        &self,
-        _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::CollectionService::cancel_operation].
-    fn cancel_operation(
-        &self,
-        _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Returns the polling error policy.
-    ///
-    /// When mocking, this method is typically irrelevant. Do not try to verify
-    /// it is called by your mocks.
-    fn get_polling_error_policy(
-        &self,
-        _options: &crate::RequestOptions,
-    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
-    }
-
-    /// Returns the polling backoff policy.
-    ///
-    /// When mocking, this method is typically irrelevant. Do not try to verify
-    /// it is called by your mocks.
-    fn get_polling_backoff_policy(
-        &self,
-        _options: &crate::RequestOptions,
-    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
-    }
-
-    #[doc(hidden)]
-    /// Returns the poller options.
-    ///
-    /// When mocking, this method is typically irrelevant. Do not try to verify
-    /// it is called by your mocks.
-    fn get_poller_options(
-        &self,
-        _options: &crate::RequestOptions,
-    ) -> google_cloud_lro::PollerOptions {
-        google_cloud_lro::PollerOptions::default()
-    }
-}
-
 /// Defines the trait used to implement [super::client::CompletionService].
 ///
 /// Application developers may need to implement this trait to mock
@@ -466,17 +233,6 @@ pub trait CompletionService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::CompleteQueryResponse>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::CompletionService::advanced_complete_query].
-    fn advanced_complete_query(
-        &self,
-        _req: crate::model::AdvancedCompleteQueryRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::AdvancedCompleteQueryResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -887,121 +643,6 @@ pub trait ConversationalSearchService: std::fmt::Debug + Send + Sync {
     }
 }
 
-/// Defines the trait used to implement [super::client::DataConnectorService].
-///
-/// Application developers may need to implement this trait to mock
-/// `client::DataConnectorService`.  In other use-cases, application developers only
-/// use `client::DataConnectorService` and need not be concerned with this trait or
-/// its implementations.
-///
-/// Services gain new RPCs routinely. Consequently, this trait gains new methods
-/// too. To avoid breaking applications the trait provides a default
-/// implementation of each method. Most of these implementations just return an
-/// error.
-#[cfg(feature = "data-connector-service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "data-connector-service")))]
-pub trait DataConnectorService: std::fmt::Debug + Send + Sync {
-    /// Implements [super::client::DataConnectorService::set_up_data_connector].
-    fn set_up_data_connector(
-        &self,
-        _req: crate::model::SetUpDataConnectorRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::DataConnectorService::get_data_connector].
-    fn get_data_connector(
-        &self,
-        _req: crate::model::GetDataConnectorRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::DataConnector>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::DataConnectorService::update_data_connector].
-    fn update_data_connector(
-        &self,
-        _req: crate::model::UpdateDataConnectorRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::DataConnector>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::DataConnectorService::list_operations].
-    fn list_operations(
-        &self,
-        _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-        >,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::DataConnectorService::get_operation].
-    fn get_operation(
-        &self,
-        _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::DataConnectorService::cancel_operation].
-    fn cancel_operation(
-        &self,
-        _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Returns the polling error policy.
-    ///
-    /// When mocking, this method is typically irrelevant. Do not try to verify
-    /// it is called by your mocks.
-    fn get_polling_error_policy(
-        &self,
-        _options: &crate::RequestOptions,
-    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
-        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
-    }
-
-    /// Returns the polling backoff policy.
-    ///
-    /// When mocking, this method is typically irrelevant. Do not try to verify
-    /// it is called by your mocks.
-    fn get_polling_backoff_policy(
-        &self,
-        _options: &crate::RequestOptions,
-    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
-        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
-    }
-
-    #[doc(hidden)]
-    /// Returns the poller options.
-    ///
-    /// When mocking, this method is typically irrelevant. Do not try to verify
-    /// it is called by your mocks.
-    fn get_poller_options(
-        &self,
-        _options: &crate::RequestOptions,
-    ) -> google_cloud_lro::PollerOptions {
-        google_cloud_lro::PollerOptions::default()
-    }
-}
-
 /// Defines the trait used to implement [super::client::DataStoreService].
 ///
 /// Application developers may need to implement this trait to mock
@@ -1066,28 +707,6 @@ pub trait DataStoreService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::DataStore>>> + Send
     {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::DataStoreService::get_iam_policy].
-    fn get_iam_policy(
-        &self,
-        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::DataStoreService::set_iam_policy].
-    fn set_iam_policy(
-        &self,
-        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
-    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -1387,28 +1006,6 @@ pub trait EngineService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::ListEnginesResponse>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::EngineService::get_iam_policy].
-    fn get_iam_policy(
-        &self,
-        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::EngineService::set_iam_policy].
-    fn set_iam_policy(
-        &self,
-        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1718,120 +1315,6 @@ pub trait IdentityMappingStoreService: std::fmt::Debug + Send + Sync {
         _options: &crate::RequestOptions,
     ) -> google_cloud_lro::PollerOptions {
         google_cloud_lro::PollerOptions::default()
-    }
-}
-
-/// Defines the trait used to implement [super::client::LicenseConfigService].
-///
-/// Application developers may need to implement this trait to mock
-/// `client::LicenseConfigService`.  In other use-cases, application developers only
-/// use `client::LicenseConfigService` and need not be concerned with this trait or
-/// its implementations.
-///
-/// Services gain new RPCs routinely. Consequently, this trait gains new methods
-/// too. To avoid breaking applications the trait provides a default
-/// implementation of each method. Most of these implementations just return an
-/// error.
-#[cfg(feature = "license-config-service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "license-config-service")))]
-pub trait LicenseConfigService: std::fmt::Debug + Send + Sync {
-    /// Implements [super::client::LicenseConfigService::create_license_config].
-    fn create_license_config(
-        &self,
-        _req: crate::model::CreateLicenseConfigRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::LicenseConfig>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::LicenseConfigService::update_license_config].
-    fn update_license_config(
-        &self,
-        _req: crate::model::UpdateLicenseConfigRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::LicenseConfig>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::LicenseConfigService::get_license_config].
-    fn get_license_config(
-        &self,
-        _req: crate::model::GetLicenseConfigRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::LicenseConfig>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::LicenseConfigService::list_license_configs].
-    fn list_license_configs(
-        &self,
-        _req: crate::model::ListLicenseConfigsRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::ListLicenseConfigsResponse>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::LicenseConfigService::distribute_license_config].
-    fn distribute_license_config(
-        &self,
-        _req: crate::model::DistributeLicenseConfigRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::DistributeLicenseConfigResponse>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::LicenseConfigService::retract_license_config].
-    fn retract_license_config(
-        &self,
-        _req: crate::model::RetractLicenseConfigRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::RetractLicenseConfigResponse>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::LicenseConfigService::list_operations].
-    fn list_operations(
-        &self,
-        _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-        >,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::LicenseConfigService::get_operation].
-    fn get_operation(
-        &self,
-        _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::LicenseConfigService::cancel_operation].
-    fn cancel_operation(
-        &self,
-        _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
     }
 }
 
@@ -2370,26 +1853,6 @@ pub trait SearchTuningService: std::fmt::Debug + Send + Sync {
 #[cfg(feature = "serving-config-service")]
 #[cfg_attr(docsrs, doc(cfg(feature = "serving-config-service")))]
 pub trait ServingConfigService: std::fmt::Debug + Send + Sync {
-    /// Implements [super::client::ServingConfigService::create_serving_config].
-    fn create_serving_config(
-        &self,
-        _req: crate::model::CreateServingConfigRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::ServingConfig>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::ServingConfigService::delete_serving_config].
-    fn delete_serving_config(
-        &self,
-        _req: crate::model::DeleteServingConfigRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
     /// Implements [super::client::ServingConfigService::update_serving_config].
     fn update_serving_config(
         &self,
@@ -2397,28 +1860,6 @@ pub trait ServingConfigService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::ServingConfig>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::ServingConfigService::get_serving_config].
-    fn get_serving_config(
-        &self,
-        _req: crate::model::GetServingConfigRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::ServingConfig>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::ServingConfigService::list_serving_configs].
-    fn list_serving_configs(
-        &self,
-        _req: crate::model::ListServingConfigsRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::ListServingConfigsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -2953,17 +2394,6 @@ pub trait UserLicenseService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::UserLicenseService::list_license_configs_usage_stats].
-    fn list_license_configs_usage_stats(
-        &self,
-        _req: crate::model::ListLicenseConfigsUsageStatsRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::ListLicenseConfigsUsageStatsResponse>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
     /// Implements [super::client::UserLicenseService::batch_update_user_licenses].
     fn batch_update_user_licenses(
         &self,
@@ -3040,143 +2470,5 @@ pub trait UserLicenseService: std::fmt::Debug + Send + Sync {
         _options: &crate::RequestOptions,
     ) -> google_cloud_lro::PollerOptions {
         google_cloud_lro::PollerOptions::default()
-    }
-}
-
-/// Defines the trait used to implement [super::client::UserStoreService].
-///
-/// Application developers may need to implement this trait to mock
-/// `client::UserStoreService`.  In other use-cases, application developers only
-/// use `client::UserStoreService` and need not be concerned with this trait or
-/// its implementations.
-///
-/// Services gain new RPCs routinely. Consequently, this trait gains new methods
-/// too. To avoid breaking applications the trait provides a default
-/// implementation of each method. Most of these implementations just return an
-/// error.
-#[cfg(feature = "user-store-service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "user-store-service")))]
-pub trait UserStoreService: std::fmt::Debug + Send + Sync {
-    /// Implements [super::client::UserStoreService::get_user_store].
-    fn get_user_store(
-        &self,
-        _req: crate::model::GetUserStoreRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::UserStore>>> + Send
-    {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::UserStoreService::update_user_store].
-    fn update_user_store(
-        &self,
-        _req: crate::model::UpdateUserStoreRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::UserStore>>> + Send
-    {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::UserStoreService::list_operations].
-    fn list_operations(
-        &self,
-        _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-        >,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::UserStoreService::get_operation].
-    fn get_operation(
-        &self,
-        _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::UserStoreService::cancel_operation].
-    fn cancel_operation(
-        &self,
-        _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-}
-
-/// Defines the trait used to implement [super::client::WidgetConfigService].
-///
-/// Application developers may need to implement this trait to mock
-/// `client::WidgetConfigService`.  In other use-cases, application developers only
-/// use `client::WidgetConfigService` and need not be concerned with this trait or
-/// its implementations.
-///
-/// Services gain new RPCs routinely. Consequently, this trait gains new methods
-/// too. To avoid breaking applications the trait provides a default
-/// implementation of each method. Most of these implementations just return an
-/// error.
-#[cfg(feature = "widget-config-service")]
-#[cfg_attr(docsrs, doc(cfg(feature = "widget-config-service")))]
-pub trait WidgetConfigService: std::fmt::Debug + Send + Sync {
-    /// Implements [super::client::WidgetConfigService::get_widget_config].
-    fn get_widget_config(
-        &self,
-        _req: crate::model::GetWidgetConfigRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::WidgetConfig>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::WidgetConfigService::update_widget_config].
-    fn update_widget_config(
-        &self,
-        _req: crate::model::UpdateWidgetConfigRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::WidgetConfig>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::WidgetConfigService::list_operations].
-    fn list_operations(
-        &self,
-        _req: google_cloud_longrunning::model::ListOperationsRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<
-            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
-        >,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::WidgetConfigService::get_operation].
-    fn get_operation(
-        &self,
-        _req: google_cloud_longrunning::model::GetOperationRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::WidgetConfigService::cancel_operation].
-    fn cancel_operation(
-        &self,
-        _req: google_cloud_longrunning::model::CancelOperationRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
-        gaxi::unimplemented::unimplemented_stub()
     }
 }
