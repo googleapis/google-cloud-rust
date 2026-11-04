@@ -232,6 +232,20 @@ pub struct ListObjectsResponse {
 }
 #[allow(clippy::all)]
 #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
+pub struct DeleteObjectRequest {
+    #[prost(string, tag = "1")]
+    pub bucket: ::prost::alloc::string::String,
+    #[prost(string, tag = "2")]
+    pub object: ::prost::alloc::string::String,
+    /// 0 = latest generation
+    #[prost(int64, tag = "3")]
+    pub generation: i64,
+    /// Unset or < 0 = no precondition
+    #[prost(int64, optional, tag = "4")]
+    pub if_generation_match: ::core::option::Option<i64>,
+}
+#[allow(clippy::all)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ListBucketsRequest {
     #[prost(string, tag = "1")]
     pub project: ::prost::alloc::string::String,
@@ -628,6 +642,28 @@ pub mod gcs_core_client {
                 .insert(GrpcMethod::new("gcscore.v1.GcsCore", "ListBuckets"));
             self.inner.unary(req, path, codec).await
         }
+        /// Deletes an object (a specific generation when `generation` > 0).
+        pub async fn delete_object(
+            &mut self,
+            request: impl tonic::IntoRequest<super::DeleteObjectRequest>,
+        ) -> std::result::Result<tonic::Response<super::Empty>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::unknown(
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic_prost::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/gcscore.v1.GcsCore/DeleteObject",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("gcscore.v1.GcsCore", "DeleteObject"));
+            self.inner.unary(req, path, codec).await
+        }
         /// Linux shared-memory zero-copy read data plane: the client obtains a sealed
         /// memfd over the companion `<socket>.shm` SCM_RIGHTS channel and mmaps it;
         /// the server writes object bytes directly into the shared mapping and streams
@@ -846,6 +882,11 @@ pub mod gcs_core_server {
             tonic::Response<super::ListBucketsResponse>,
             tonic::Status,
         >;
+        /// Deletes an object (a specific generation when `generation` > 0).
+        async fn delete_object(
+            &self,
+            request: tonic::Request<super::DeleteObjectRequest>,
+        ) -> std::result::Result<tonic::Response<super::Empty>, tonic::Status>;
         /// Server streaming response type for the ReadObjectShm method.
         type ReadObjectShmStream: tonic::codegen::tokio_stream::Stream<
                 Item = std::result::Result<super::ShmChunk, tonic::Status>,
@@ -1316,6 +1357,51 @@ pub mod gcs_core_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ListBucketsSvc(inner);
+                        let codec = tonic_prost::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/gcscore.v1.GcsCore/DeleteObject" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteObjectSvc<T: GcsCore>(pub Arc<T>);
+                    impl<
+                        T: GcsCore,
+                    > tonic::server::UnaryService<super::DeleteObjectRequest>
+                    for DeleteObjectSvc<T> {
+                        type Response = super::Empty;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteObjectRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GcsCore>::delete_object(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteObjectSvc(inner);
                         let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(

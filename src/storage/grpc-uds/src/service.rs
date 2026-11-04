@@ -788,6 +788,27 @@ impl GcsCore for GcsCoreService {
         }))
     }
 
+    async fn delete_object(
+        &self,
+        req: Request<pb::DeleteObjectRequest>,
+    ) -> Result<Response<pb::Empty>, Status> {
+        self.shared.touch();
+        let (_, control) = self.pick(&req).await?;
+        let r = req.into_inner();
+        let mut q = control
+            .delete_object()
+            .set_bucket(bucket_name(&r.bucket))
+            .set_object(r.object);
+        if r.generation > 0 {
+            q = q.set_generation(r.generation);
+        }
+        if let Some(g) = r.if_generation_match.filter(|&g| g >= 0) {
+            q = q.set_if_generation_match(g);
+        }
+        q.send().await.map_err(to_status)?;
+        Ok(Response::new(pb::Empty {}))
+    }
+
     async fn stats(
         &self,
         req: Request<pb::StatsRequest>,

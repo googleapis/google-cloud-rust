@@ -60,6 +60,7 @@ Instead of proxying `google.storage.v2.Storage` 1:1 over UDS, [`proto/gcscore.pr
 | `ReadObjectShm` | Server-streaming | **Linux Zero-Copy Read:** Clients connect to `<socket>.shm` to receive a 16-byte little-endian header `[region_id: u64, region_size: u64]` + sealed `memfd` via `SCM_RIGHTS`. `ReadObjectShm` writes payload directly into the client's `memfd` and returns a `ShmChunk` `(offset, len, meta)` descriptor. |
 | `WriteObject` | Client-streaming | First message carries `WriteHeader` (bucket, object, content-type, optional preconditions/known size, transport); subsequent messages stream `bytes data`. Uses `open_appendable_object` (`BidiWriteObject`) when built with `--cfg google_cloud_unstable_storage_bidi` (falling back to buffered `write_object` if a regional bucket returns `UNIMPLEMENTED`) and reports the actual transport used in `WriteObjectResponse.transport_used`. |
 | `ListObjects` / `ListBuckets` | Unary | Single-page control-plane listing via `StorageControl`, matching thin-client page iterators. |
+| `DeleteObject` | Unary | Deletes an object (optionally a specific generation, with an optional `if_generation_match`) via `StorageControl`. |
 | `CreateSession` / `UpdateToken` / `CloseSession` | Unary | Per-caller OAuth2 bearer token lending bound to kernel-verified `(uid, pid)`. |
 | `Stats` / `Shutdown` | Unary | Returns process CPU (`getrusage`) and RSS/VmHWM (`/proc/self/status`) telemetry, or triggers graceful shutdown. |
 

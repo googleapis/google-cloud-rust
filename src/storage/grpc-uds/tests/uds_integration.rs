@@ -1067,3 +1067,94 @@ async fn inproc_with_args_lifecycle_and_errors() -> anyhow::Result<()> {
     assert!(inproc_last_error().contains("argc"));
     Ok(())
 }
+
+/// `DeleteObject` forwards bucket, object, generation and the optional precondition to
+/// `StorageControl::delete_object`, so thin clients can clean up through the same server instead
+/// of keeping a second, native client just for deletes. An unset precondition is not sent.
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn delete_object_via_grpc_mock() -> anyhow::Result<()> {
+    let mut mock = MockStorage::new();
+    mock.expect_delete_object()
+        .withf(|r| {
+            let r = r.get_ref();
+            r.bucket == "projects/_/buckets/del-bucket"
+                && r.object == "with-precondition"
+                && r.generation == 42
+                && r.if_generation_match == Some(42)
+        })
+        .times(1)
+        .returning(|_| Ok(tonic::Response::new(())));
+    mock.expect_delete_object()
+        .withf(|r| {
+            let r = r.get_ref();
+            r.object == "plain" && r.generation == 0 && r.if_generation_match.is_none()
+        })
+        .times(1)
+        .returning(|_| Ok(tonic::Response::new(())));
+    mock.expect_delete_object()
+        .withf(|r| r.get_ref().object == "missing")
+        .times(1)
+        .returning(|_| Err(tonic::Status::not_found("no such object")));
+
+    let (mock_endpoint, _mock_srv) = start_grpc_mock("127.0.0.1:0", mock).await?;
+    let dir = tempfile::tempdir()?;
+    let sock_path = dir.path().join("delete.sock");
+    let args = Args {
+        socket: sock_path.to_string_lossy().to_string(),
+        idle_secs: 0,
+        shm_size: 0,
+        endpoint: Some(mock_endpoint),
+        ..Default::default()
+    };
+    let listener = bind_uds_listener(&args.socket)
+        .map_err(|e| anyhow::anyhow!("bind_uds_listener failed: {e}"))?;
+    let srv_handle = tokio::spawn(async move {
+        let _ = serve_with_listener(args, listener, Shared::new()).await;
+    });
+    let mut client = connect_uds(sock_path.clone()).await?;
+    let sess = client
+        .create_session(CreateSessionRequest {
+            access_token: "test-bearer-delete".to_string(),
+            expiry_unix_secs: 0,
+            quota_project: String::new(),
+        })
+        .await?
+        .into_inner();
+    let with_session = |r: DeleteObjectRequest| -> anyhow::Result<tonic::Request<_>> {
+        let mut req = tonic::Request::new(r);
+        req.metadata_mut()
+            .insert("x-session", sess.session_id.parse()?);
+        Ok(req)
+    };
+
+    client
+        .delete_object(with_session(DeleteObjectRequest {
+            bucket: "del-bucket".to_string(),
+            object: "with-precondition".to_string(),
+            generation: 42,
+            if_generation_match: Some(42),
+        })?)
+        .await?;
+    client
+        .delete_object(with_session(DeleteObjectRequest {
+            bucket: "del-bucket".to_string(),
+            object: "plain".to_string(),
+            generation: 0,
+            if_generation_match: None,
+        })?)
+        .await?;
+    let missing = client
+        .delete_object(with_session(DeleteObjectRequest {
+            bucket: "del-bucket".to_string(),
+            object: "missing".to_string(),
+            generation: 0,
+            if_generation_match: None,
+        })?)
+        .await
+        .expect_err("NOT_FOUND from the service is surfaced");
+    assert_eq!(missing.code(), tonic::Code::NotFound);
+
+    client.shutdown(Empty {}).await?;
+    srv_handle.await?;
+    Ok(())
+}

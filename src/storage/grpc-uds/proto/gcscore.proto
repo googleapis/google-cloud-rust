@@ -44,6 +44,9 @@ service GcsCore {
   rpc ListObjects(ListObjectsRequest) returns (ListObjectsResponse);
   rpc ListBuckets(ListBucketsRequest) returns (ListBucketsResponse);
 
+  // Deletes an object (a specific generation when `generation` > 0).
+  rpc DeleteObject(DeleteObjectRequest) returns (Empty);
+
   // Linux shared-memory zero-copy read data plane: the client obtains a sealed
   // memfd over the companion `<socket>.shm` SCM_RIGHTS channel and mmaps it;
   // the server writes object bytes directly into the shared mapping and streams
@@ -186,6 +189,13 @@ message ListObjectsResponse {
   repeated ListedObject items = 1;
   repeated string prefixes = 2;
   string next_page_token = 3;
+}
+
+message DeleteObjectRequest {
+  string bucket = 1;
+  string object = 2;
+  int64 generation = 3;                    // 0 = latest generation
+  optional int64 if_generation_match = 4;  // Unset or < 0 = no precondition
 }
 
 message ListBucketsRequest {
