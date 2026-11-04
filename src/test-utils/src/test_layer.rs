@@ -24,7 +24,20 @@ use uuid::Uuid;
 /// Contains the unique test ID and the tracing subscriber guard.
 pub struct TestLayerGuard {
     test_id: String,
+    span: tracing::Span,
     _guard: tracing::span::EnteredSpan,
+}
+
+impl TestLayerGuard {
+    /// Returns a clone of the root `test_layer` span for instrumenting async tasks.
+    pub fn span(&self) -> tracing::Span {
+        self.span.clone()
+    }
+
+    /// Returns the unique test ID for this guard.
+    pub fn test_id(&self) -> &str {
+        &self.test_id
+    }
 }
 
 /// Represents the value of a captured tracing attribute.
@@ -275,12 +288,18 @@ impl TestLayer {
             let subscriber = tracing_subscriber::registry().with(layer);
             tracing::subscriber::set_global_default(subscriber)
                 .expect("Failed to set global default subscriber");
+            tracing::callsite::rebuild_interest_cache();
         });
+        tracing::callsite::rebuild_interest_cache();
         let test_id = Uuid::new_v4().to_string();
         SPAN_LOG.clear_by_test_id(&test_id);
-        let _guard =
-            tracing::span!(tracing::Level::INFO, "test_layer", test_id = test_id).entered();
-        TestLayerGuard { test_id, _guard }
+        let span = tracing::span!(tracing::Level::INFO, "test_layer", test_id = test_id);
+        let _guard = span.clone().entered();
+        TestLayerGuard {
+            test_id,
+            span,
+            _guard,
+        }
     }
 
     /// Retrieves all spans captured for the given `TestLayerGuard`.
@@ -331,7 +350,7 @@ where
     /// Updates the attributes of the existing captured span.
     fn on_record(&self, id: &span::Id, values: &span::Record<'_>, _ctx: Context<'_, S>) {
         let mut spans = SPAN_LOG.spans.lock().unwrap();
-        if let Some(captured_span) = spans.iter_mut().find(|s| s.id == *id) {
+        if let Some(captured_span) = spans.iter_mut().rfind(|s| s.id == *id) {
             let mut visitor = TestVisitor(&mut captured_span.attributes);
             values.record(&mut visitor);
         }
@@ -348,7 +367,7 @@ where
             return;
         };
         let mut spans = SPAN_LOG.spans.lock().unwrap();
-        if let Some(captured_span) = spans.iter_mut().find(|s| s.id == *id) {
+        if let Some(captured_span) = spans.iter_mut().rfind(|s| s.id == *id) {
             captured_span.events += 1;
         }
     }
