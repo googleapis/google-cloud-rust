@@ -263,7 +263,7 @@ impl super::stub::AcceleratorTypes for AcceleratorTypes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -342,7 +342,7 @@ impl super::stub::AcceleratorTypes for AcceleratorTypes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -435,7 +435,7 @@ impl super::stub::AcceleratorTypes for AcceleratorTypes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -554,7 +554,7 @@ impl super::stub::Addresses for Addresses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -646,7 +646,7 @@ impl super::stub::Addresses for Addresses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -734,7 +734,7 @@ impl super::stub::Addresses for Addresses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -815,7 +815,7 @@ impl super::stub::Addresses for Addresses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -908,7 +908,7 @@ impl super::stub::Addresses for Addresses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1000,7 +1000,7 @@ impl super::stub::Addresses for Addresses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1080,7 +1080,7 @@ impl super::stub::Addresses for Addresses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1159,7 +1159,7 @@ impl super::stub::Addresses for Addresses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1369,7 +1369,7 @@ impl super::stub::Advice for Advice {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1447,7 +1447,7 @@ impl super::stub::Advice for Advice {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1525,7 +1525,7 @@ impl super::stub::Advice for Advice {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1647,7 +1647,7 @@ impl super::stub::Autoscalers for Autoscalers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1739,7 +1739,7 @@ impl super::stub::Autoscalers for Autoscalers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1827,7 +1827,7 @@ impl super::stub::Autoscalers for Autoscalers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1908,7 +1908,7 @@ impl super::stub::Autoscalers for Autoscalers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2001,7 +2001,7 @@ impl super::stub::Autoscalers for Autoscalers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2086,7 +2086,7 @@ impl super::stub::Autoscalers for Autoscalers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2165,7 +2165,7 @@ impl super::stub::Autoscalers for Autoscalers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2250,7 +2250,7 @@ impl super::stub::Autoscalers for Autoscalers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2454,7 +2454,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2543,7 +2543,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2625,7 +2625,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2698,7 +2698,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2776,7 +2776,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2860,7 +2860,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -2925,7 +2925,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3002,7 +3002,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3083,7 +3083,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3165,7 +3165,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3237,7 +3237,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3315,7 +3315,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3386,7 +3386,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3468,7 +3468,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3661,7 +3661,7 @@ impl super::stub::BackendServices for BackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3750,7 +3750,7 @@ impl super::stub::BackendServices for BackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3832,7 +3832,7 @@ impl super::stub::BackendServices for BackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3905,7 +3905,7 @@ impl super::stub::BackendServices for BackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -3983,7 +3983,7 @@ impl super::stub::BackendServices for BackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4056,7 +4056,7 @@ impl super::stub::BackendServices for BackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4133,7 +4133,7 @@ impl super::stub::BackendServices for BackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4217,7 +4217,7 @@ impl super::stub::BackendServices for BackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4285,7 +4285,7 @@ impl super::stub::BackendServices for BackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4365,7 +4365,7 @@ impl super::stub::BackendServices for BackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4446,7 +4446,7 @@ impl super::stub::BackendServices for BackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4528,7 +4528,7 @@ impl super::stub::BackendServices for BackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4600,7 +4600,7 @@ impl super::stub::BackendServices for BackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4678,7 +4678,7 @@ impl super::stub::BackendServices for BackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4750,7 +4750,7 @@ impl super::stub::BackendServices for BackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4821,7 +4821,7 @@ impl super::stub::BackendServices for BackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -4903,7 +4903,7 @@ impl super::stub::BackendServices for BackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5110,7 +5110,7 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5192,7 +5192,7 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5264,7 +5264,7 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5344,7 +5344,7 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5446,7 +5446,7 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5653,7 +5653,7 @@ impl super::stub::DiskTypes for DiskTypes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5741,7 +5741,7 @@ impl super::stub::DiskTypes for DiskTypes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5834,7 +5834,7 @@ impl super::stub::DiskTypes for DiskTypes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -5957,7 +5957,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6043,7 +6043,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6124,7 +6124,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6210,7 +6210,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6306,7 +6306,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6397,7 +6397,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6484,7 +6484,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6578,7 +6578,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6663,7 +6663,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6756,7 +6756,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6836,7 +6836,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -6928,7 +6928,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7016,7 +7016,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7108,7 +7108,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7188,7 +7188,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7280,7 +7280,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7362,7 +7362,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7441,7 +7441,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7548,7 +7548,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7640,7 +7640,7 @@ impl super::stub::Disks for Disks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7844,7 +7844,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7915,7 +7915,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -7983,7 +7983,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8063,7 +8063,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8134,7 +8134,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8207,7 +8207,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8393,7 +8393,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8465,7 +8465,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8543,7 +8543,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8615,7 +8615,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8683,7 +8683,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8747,7 +8747,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8821,7 +8821,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8893,7 +8893,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -8948,7 +8948,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9015,7 +9015,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9073,7 +9073,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9149,7 +9149,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9221,7 +9221,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9297,7 +9297,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9362,7 +9362,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9438,7 +9438,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9506,7 +9506,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9574,7 +9574,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9769,7 +9769,7 @@ impl super::stub::Firewalls for Firewalls {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9846,7 +9846,7 @@ impl super::stub::Firewalls for Firewalls {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9911,7 +9911,7 @@ impl super::stub::Firewalls for Firewalls {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -9988,7 +9988,7 @@ impl super::stub::Firewalls for Firewalls {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10069,7 +10069,7 @@ impl super::stub::Firewalls for Firewalls {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10147,7 +10147,7 @@ impl super::stub::Firewalls for Firewalls {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10228,7 +10228,7 @@ impl super::stub::Firewalls for Firewalls {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10438,7 +10438,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10518,7 +10518,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10598,7 +10598,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10680,7 +10680,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10774,7 +10774,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10854,7 +10854,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -10934,7 +10934,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11014,7 +11014,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11235,7 +11235,7 @@ impl super::stub::FutureReservations for FutureReservations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11315,7 +11315,7 @@ impl super::stub::FutureReservations for FutureReservations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11395,7 +11395,7 @@ impl super::stub::FutureReservations for FutureReservations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11474,7 +11474,7 @@ impl super::stub::FutureReservations for FutureReservations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11556,7 +11556,7 @@ impl super::stub::FutureReservations for FutureReservations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11650,7 +11650,7 @@ impl super::stub::FutureReservations for FutureReservations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11733,7 +11733,7 @@ impl super::stub::FutureReservations for FutureReservations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -11946,7 +11946,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12023,7 +12023,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12088,7 +12088,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12165,7 +12165,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12247,7 +12247,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12325,7 +12325,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12403,7 +12403,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12606,7 +12606,7 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12688,7 +12688,7 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12756,7 +12756,7 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12836,7 +12836,7 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12918,7 +12918,7 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -12996,7 +12996,7 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -13068,7 +13068,7 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -13253,7 +13253,7 @@ impl super::stub::GlobalFrontendSettings for GlobalFrontendSettings {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -13333,7 +13333,7 @@ impl super::stub::GlobalFrontendSettings for GlobalFrontendSettings {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -13438,7 +13438,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -13510,7 +13510,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -13582,7 +13582,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -13653,7 +13653,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -13721,7 +13721,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -13801,7 +13801,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -13878,7 +13878,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -14085,7 +14085,7 @@ impl super::stub::GlobalOperations for GlobalOperations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -14162,7 +14162,7 @@ impl super::stub::GlobalOperations for GlobalOperations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -14245,7 +14245,7 @@ impl super::stub::GlobalOperations for GlobalOperations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -14322,7 +14322,7 @@ impl super::stub::GlobalOperations for GlobalOperations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -14400,7 +14400,7 @@ impl super::stub::GlobalOperations for GlobalOperations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -14501,7 +14501,7 @@ impl super::stub::GlobalOrganizationOperations for GlobalOrganizationOperations 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -14575,7 +14575,7 @@ impl super::stub::GlobalOrganizationOperations for GlobalOrganizationOperations 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -14642,7 +14642,7 @@ impl super::stub::GlobalOrganizationOperations for GlobalOrganizationOperations 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -14747,7 +14747,7 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -14818,7 +14818,7 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -14886,7 +14886,7 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -14966,7 +14966,7 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -15038,7 +15038,7 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -15250,7 +15250,7 @@ impl super::stub::GlobalVmExtensionPolicies for GlobalVmExtensionPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -15322,7 +15322,7 @@ impl super::stub::GlobalVmExtensionPolicies for GlobalVmExtensionPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -15393,7 +15393,7 @@ impl super::stub::GlobalVmExtensionPolicies for GlobalVmExtensionPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -15461,7 +15461,7 @@ impl super::stub::GlobalVmExtensionPolicies for GlobalVmExtensionPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -15541,7 +15541,7 @@ impl super::stub::GlobalVmExtensionPolicies for GlobalVmExtensionPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -15613,7 +15613,7 @@ impl super::stub::GlobalVmExtensionPolicies for GlobalVmExtensionPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -15823,7 +15823,7 @@ impl super::stub::HealthChecks for HealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -15905,7 +15905,7 @@ impl super::stub::HealthChecks for HealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -15983,7 +15983,7 @@ impl super::stub::HealthChecks for HealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -16048,7 +16048,7 @@ impl super::stub::HealthChecks for HealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -16125,7 +16125,7 @@ impl super::stub::HealthChecks for HealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -16207,7 +16207,7 @@ impl super::stub::HealthChecks for HealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -16278,7 +16278,7 @@ impl super::stub::HealthChecks for HealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -16360,7 +16360,7 @@ impl super::stub::HealthChecks for HealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -16577,7 +16577,7 @@ impl super::stub::Hosts for Hosts {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -16663,7 +16663,7 @@ impl super::stub::Hosts for Hosts {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -16767,7 +16767,7 @@ impl super::stub::Hosts for Hosts {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -16981,7 +16981,7 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -17059,7 +17059,7 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -17127,7 +17127,7 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -17207,7 +17207,7 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -17289,7 +17289,7 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -17360,7 +17360,7 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -17442,7 +17442,7 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -17649,7 +17649,7 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -17731,7 +17731,7 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -17799,7 +17799,7 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -17879,7 +17879,7 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -17965,7 +17965,7 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -18036,7 +18036,7 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -18122,7 +18122,7 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -18331,7 +18331,7 @@ impl super::stub::ImageFamilyViews for ImageFamilyViews {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -18452,7 +18452,7 @@ impl super::stub::ImageViews for ImageViews {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -18545,7 +18545,7 @@ impl super::stub::ImageViews for ImageViews {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -18659,7 +18659,7 @@ impl super::stub::Images for Images {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -18741,7 +18741,7 @@ impl super::stub::Images for Images {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -18818,7 +18818,7 @@ impl super::stub::Images for Images {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -18895,7 +18895,7 @@ impl super::stub::Images for Images {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -18979,7 +18979,7 @@ impl super::stub::Images for Images {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -19048,7 +19048,7 @@ impl super::stub::Images for Images {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -19125,7 +19125,7 @@ impl super::stub::Images for Images {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -19206,7 +19206,7 @@ impl super::stub::Images for Images {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -19284,7 +19284,7 @@ impl super::stub::Images for Images {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -19362,7 +19362,7 @@ impl super::stub::Images for Images {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -19440,7 +19440,7 @@ impl super::stub::Images for Images {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -19651,7 +19651,7 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -19741,7 +19741,7 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -19830,7 +19830,7 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -19912,7 +19912,7 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -19997,7 +19997,7 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -20211,7 +20211,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -20301,7 +20301,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -20382,7 +20382,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -20462,7 +20462,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -20543,7 +20543,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -20624,7 +20624,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -20705,7 +20705,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -20784,7 +20784,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -20866,7 +20866,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -20960,7 +20960,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -21043,7 +21043,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -21129,7 +21129,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -21215,7 +21215,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -21295,7 +21295,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -21377,7 +21377,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -21460,7 +21460,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -21541,7 +21541,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -21621,7 +21621,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -21703,7 +21703,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -21783,7 +21783,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -21863,7 +21863,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -21944,7 +21944,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -22026,7 +22026,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -22108,7 +22108,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -22320,7 +22320,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -22409,7 +22409,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -22501,7 +22501,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -22589,7 +22589,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -22670,7 +22670,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -22763,7 +22763,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -22846,7 +22846,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -22926,7 +22926,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -23006,7 +23006,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -23085,7 +23085,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -23294,7 +23294,7 @@ impl super::stub::InstanceSettings for InstanceSettings {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -23387,7 +23387,7 @@ impl super::stub::InstanceSettings for InstanceSettings {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -23608,7 +23608,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -23690,7 +23690,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -23768,7 +23768,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -23840,7 +23840,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -23908,7 +23908,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -23988,7 +23988,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -24059,7 +24059,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -24130,7 +24130,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -24332,7 +24332,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -24412,7 +24412,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -24492,7 +24492,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -24578,7 +24578,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -24674,7 +24674,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -24756,7 +24756,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -24851,7 +24851,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -24933,7 +24933,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -25014,7 +25014,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -25107,7 +25107,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -25195,7 +25195,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -25275,7 +25275,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -25356,7 +25356,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -25450,7 +25450,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -25538,7 +25538,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -25634,7 +25634,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -25713,7 +25713,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -25803,7 +25803,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -25896,7 +25896,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -26000,7 +26000,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -26080,7 +26080,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -26160,7 +26160,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -26240,7 +26240,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -26332,7 +26332,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -26424,7 +26424,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -26503,7 +26503,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -26590,7 +26590,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -26672,7 +26672,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -26760,7 +26760,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -26852,7 +26852,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -26932,7 +26932,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -27012,7 +27012,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -27104,7 +27104,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -27184,7 +27184,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -27276,7 +27276,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -27356,7 +27356,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -27436,7 +27436,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -27516,7 +27516,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -27598,7 +27598,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -27690,7 +27690,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -27771,7 +27771,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -27863,7 +27863,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -27943,7 +27943,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -28041,7 +28041,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -28136,7 +28136,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -28215,7 +28215,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -28320,7 +28320,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -28401,7 +28401,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -28481,7 +28481,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -28562,7 +28562,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -28644,7 +28644,7 @@ impl super::stub::Instances for Instances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -28856,7 +28856,7 @@ impl super::stub::InstantSnapshotGroups for InstantSnapshotGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -28935,7 +28935,7 @@ impl super::stub::InstantSnapshotGroups for InstantSnapshotGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -29015,7 +29015,7 @@ impl super::stub::InstantSnapshotGroups for InstantSnapshotGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -29103,7 +29103,7 @@ impl super::stub::InstantSnapshotGroups for InstantSnapshotGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -29197,7 +29197,7 @@ impl super::stub::InstantSnapshotGroups for InstantSnapshotGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -29276,7 +29276,7 @@ impl super::stub::InstantSnapshotGroups for InstantSnapshotGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -29357,7 +29357,7 @@ impl super::stub::InstantSnapshotGroups for InstantSnapshotGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -29578,7 +29578,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -29658,7 +29658,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -29737,7 +29737,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -29817,7 +29817,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -29898,7 +29898,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -29991,7 +29991,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -30070,7 +30070,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -30150,7 +30150,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -30229,7 +30229,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -30433,7 +30433,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -30504,7 +30504,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -30578,7 +30578,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -30653,7 +30653,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -30722,7 +30722,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -30803,7 +30803,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -30878,7 +30878,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -30951,7 +30951,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -31024,7 +31024,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -31237,7 +31237,7 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -31317,7 +31317,7 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -31396,7 +31396,7 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -31482,7 +31482,7 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -31576,7 +31576,7 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -31656,7 +31656,7 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -31736,7 +31736,7 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -31939,7 +31939,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -32025,7 +32025,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -32107,7 +32107,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -32179,7 +32179,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -32252,7 +32252,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -32320,7 +32320,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -32400,7 +32400,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -32498,7 +32498,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -32569,7 +32569,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -32640,7 +32640,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -32832,7 +32832,7 @@ impl super::stub::InterconnectLocations for InterconnectLocations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -32912,7 +32912,7 @@ impl super::stub::InterconnectLocations for InterconnectLocations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -33016,7 +33016,7 @@ impl super::stub::InterconnectRemoteLocations for InterconnectRemoteLocations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -33097,7 +33097,7 @@ impl super::stub::InterconnectRemoteLocations for InterconnectRemoteLocations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -33212,7 +33212,7 @@ impl super::stub::Interconnects for Interconnects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -33290,7 +33290,7 @@ impl super::stub::Interconnects for Interconnects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -33361,7 +33361,7 @@ impl super::stub::Interconnects for Interconnects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -33432,7 +33432,7 @@ impl super::stub::Interconnects for Interconnects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -33497,7 +33497,7 @@ impl super::stub::Interconnects for Interconnects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -33574,7 +33574,7 @@ impl super::stub::Interconnects for Interconnects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -33656,7 +33656,7 @@ impl super::stub::Interconnects for Interconnects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -33734,7 +33734,7 @@ impl super::stub::Interconnects for Interconnects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -33816,7 +33816,7 @@ impl super::stub::Interconnects for Interconnects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -34015,7 +34015,7 @@ impl super::stub::LicenseCodes for LicenseCodes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -34099,7 +34099,7 @@ impl super::stub::LicenseCodes for LicenseCodes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -34177,7 +34177,7 @@ impl super::stub::LicenseCodes for LicenseCodes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -34248,7 +34248,7 @@ impl super::stub::LicenseCodes for LicenseCodes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -34362,7 +34362,7 @@ impl super::stub::Licenses for Licenses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -34439,7 +34439,7 @@ impl super::stub::Licenses for Licenses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -34523,7 +34523,7 @@ impl super::stub::Licenses for Licenses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -34588,7 +34588,7 @@ impl super::stub::Licenses for Licenses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -34665,7 +34665,7 @@ impl super::stub::Licenses for Licenses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -34743,7 +34743,7 @@ impl super::stub::Licenses for Licenses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -34821,7 +34821,7 @@ impl super::stub::Licenses for Licenses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -34914,7 +34914,7 @@ impl super::stub::Licenses for Licenses {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -35117,7 +35117,7 @@ impl super::stub::MachineImages for MachineImages {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -35195,7 +35195,7 @@ impl super::stub::MachineImages for MachineImages {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -35279,7 +35279,7 @@ impl super::stub::MachineImages for MachineImages {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -35347,7 +35347,7 @@ impl super::stub::MachineImages for MachineImages {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -35424,7 +35424,7 @@ impl super::stub::MachineImages for MachineImages {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -35502,7 +35502,7 @@ impl super::stub::MachineImages for MachineImages {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -35580,7 +35580,7 @@ impl super::stub::MachineImages for MachineImages {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -35651,7 +35651,7 @@ impl super::stub::MachineImages for MachineImages {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -35861,7 +35861,7 @@ impl super::stub::MachineTypes for MachineTypes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -35949,7 +35949,7 @@ impl super::stub::MachineTypes for MachineTypes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -36042,7 +36042,7 @@ impl super::stub::MachineTypes for MachineTypes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -36153,7 +36153,7 @@ impl super::stub::ManagedRulesets for ManagedRulesets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -36233,7 +36233,7 @@ impl super::stub::ManagedRulesets for ManagedRulesets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -36355,7 +36355,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -36435,7 +36435,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -36514,7 +36514,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -36594,7 +36594,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -36676,7 +36676,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -36770,7 +36770,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -36850,7 +36850,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -36929,7 +36929,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -37008,7 +37008,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -37232,7 +37232,7 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -37312,7 +37312,7 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -37391,7 +37391,7 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -37477,7 +37477,7 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -37561,7 +37561,7 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -37783,7 +37783,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -37865,7 +37865,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -37945,7 +37945,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -38027,7 +38027,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -38106,7 +38106,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -38188,7 +38188,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -38282,7 +38282,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -38367,7 +38367,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -38448,7 +38448,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -38655,7 +38655,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -38731,7 +38731,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -38805,7 +38805,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -38896,7 +38896,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -38969,7 +38969,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -39051,7 +39051,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -39129,7 +39129,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -39203,7 +39203,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -39275,7 +39275,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -39349,7 +39349,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -39421,7 +39421,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -39489,7 +39489,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -39569,7 +39569,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -39651,7 +39651,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -39726,7 +39726,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -39799,7 +39799,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -39874,7 +39874,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -39949,7 +39949,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -40022,7 +40022,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -40093,7 +40093,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -40166,7 +40166,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -40365,7 +40365,7 @@ impl super::stub::NetworkProfiles for NetworkProfiles {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -40445,7 +40445,7 @@ impl super::stub::NetworkProfiles for NetworkProfiles {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -40560,7 +40560,7 @@ impl super::stub::Networks for Networks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -40632,7 +40632,7 @@ impl super::stub::Networks for Networks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -40713,7 +40713,7 @@ impl super::stub::Networks for Networks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -40790,7 +40790,7 @@ impl super::stub::Networks for Networks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -40861,7 +40861,7 @@ impl super::stub::Networks for Networks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -40926,7 +40926,7 @@ impl super::stub::Networks for Networks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -41003,7 +41003,7 @@ impl super::stub::Networks for Networks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -41109,7 +41109,7 @@ impl super::stub::Networks for Networks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -41190,7 +41190,7 @@ impl super::stub::Networks for Networks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -41272,7 +41272,7 @@ impl super::stub::Networks for Networks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -41354,7 +41354,7 @@ impl super::stub::Networks for Networks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -41436,7 +41436,7 @@ impl super::stub::Networks for Networks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -41518,7 +41518,7 @@ impl super::stub::Networks for Networks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -41731,7 +41731,7 @@ impl super::stub::NodeGroups for NodeGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -41817,7 +41817,7 @@ impl super::stub::NodeGroups for NodeGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -41909,7 +41909,7 @@ impl super::stub::NodeGroups for NodeGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -41989,7 +41989,7 @@ impl super::stub::NodeGroups for NodeGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -42077,7 +42077,7 @@ impl super::stub::NodeGroups for NodeGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -42157,7 +42157,7 @@ impl super::stub::NodeGroups for NodeGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -42239,7 +42239,7 @@ impl super::stub::NodeGroups for NodeGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -42332,7 +42332,7 @@ impl super::stub::NodeGroups for NodeGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -42436,7 +42436,7 @@ impl super::stub::NodeGroups for NodeGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -42528,7 +42528,7 @@ impl super::stub::NodeGroups for NodeGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -42608,7 +42608,7 @@ impl super::stub::NodeGroups for NodeGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -42687,7 +42687,7 @@ impl super::stub::NodeGroups for NodeGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -42767,7 +42767,7 @@ impl super::stub::NodeGroups for NodeGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -42847,7 +42847,7 @@ impl super::stub::NodeGroups for NodeGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -42926,7 +42926,7 @@ impl super::stub::NodeGroups for NodeGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -43147,7 +43147,7 @@ impl super::stub::NodeTemplates for NodeTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -43239,7 +43239,7 @@ impl super::stub::NodeTemplates for NodeTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -43327,7 +43327,7 @@ impl super::stub::NodeTemplates for NodeTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -43407,7 +43407,7 @@ impl super::stub::NodeTemplates for NodeTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -43488,7 +43488,7 @@ impl super::stub::NodeTemplates for NodeTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -43581,7 +43581,7 @@ impl super::stub::NodeTemplates for NodeTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -43660,7 +43660,7 @@ impl super::stub::NodeTemplates for NodeTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -43739,7 +43739,7 @@ impl super::stub::NodeTemplates for NodeTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -43957,7 +43957,7 @@ impl super::stub::NodeTypes for NodeTypes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -44045,7 +44045,7 @@ impl super::stub::NodeTypes for NodeTypes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -44138,7 +44138,7 @@ impl super::stub::NodeTypes for NodeTypes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -44238,7 +44238,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -44310,7 +44310,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -44390,7 +44390,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -44462,7 +44462,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -44530,7 +44530,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -44596,7 +44596,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -44668,7 +44668,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -44723,7 +44723,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -44790,7 +44790,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -44845,7 +44845,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -44917,7 +44917,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -44993,7 +44993,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -45065,7 +45065,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -45143,7 +45143,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -45210,7 +45210,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -45288,7 +45288,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -45491,7 +45491,7 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -45571,7 +45571,7 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -45650,7 +45650,7 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -45732,7 +45732,7 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -45826,7 +45826,7 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -45906,7 +45906,7 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -45985,7 +45985,7 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -46195,7 +46195,7 @@ impl super::stub::PreviewFeatures for PreviewFeatures {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -46275,7 +46275,7 @@ impl super::stub::PreviewFeatures for PreviewFeatures {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -46357,7 +46357,7 @@ impl super::stub::PreviewFeatures for PreviewFeatures {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -46555,7 +46555,7 @@ impl super::stub::ProjectViews for ProjectViews {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -46653,7 +46653,7 @@ impl super::stub::Projects for Projects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -46718,7 +46718,7 @@ impl super::stub::Projects for Projects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -46783,7 +46783,7 @@ impl super::stub::Projects for Projects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -46848,7 +46848,7 @@ impl super::stub::Projects for Projects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -46909,7 +46909,7 @@ impl super::stub::Projects for Projects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -46970,7 +46970,7 @@ impl super::stub::Projects for Projects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -47047,7 +47047,7 @@ impl super::stub::Projects for Projects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -47124,7 +47124,7 @@ impl super::stub::Projects for Projects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -47189,7 +47189,7 @@ impl super::stub::Projects for Projects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -47254,7 +47254,7 @@ impl super::stub::Projects for Projects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -47319,7 +47319,7 @@ impl super::stub::Projects for Projects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -47387,7 +47387,7 @@ impl super::stub::Projects for Projects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -47452,7 +47452,7 @@ impl super::stub::Projects for Projects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -47517,7 +47517,7 @@ impl super::stub::Projects for Projects {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -47710,7 +47710,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -47782,7 +47782,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -47853,7 +47853,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -47922,7 +47922,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -48003,7 +48003,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -48075,7 +48075,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -48147,7 +48147,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -48360,7 +48360,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -48440,7 +48440,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -48520,7 +48520,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -48599,7 +48599,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -48681,7 +48681,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -48775,7 +48775,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -48855,7 +48855,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -48935,7 +48935,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -49159,7 +49159,7 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -49247,7 +49247,7 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -49328,7 +49328,7 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -49421,7 +49421,7 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -49506,7 +49506,7 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -49585,7 +49585,7 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -49670,7 +49670,7 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -49882,7 +49882,7 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -49961,7 +49961,7 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -50041,7 +50041,7 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -50123,7 +50123,7 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -50217,7 +50217,7 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -50311,7 +50311,7 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -50391,7 +50391,7 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -50470,7 +50470,7 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -50551,7 +50551,7 @@ impl super::stub::RegionBackendBuckets for RegionBackendBuckets {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -50763,7 +50763,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -50842,7 +50842,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -50921,7 +50921,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -51001,7 +51001,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -51083,7 +51083,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -51177,7 +51177,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -51271,7 +51271,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -51351,7 +51351,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -51430,7 +51430,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -51512,7 +51512,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -51593,7 +51593,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -51673,7 +51673,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -51894,7 +51894,7 @@ impl super::stub::RegionCommitments for RegionCommitments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -51982,7 +51982,7 @@ impl super::stub::RegionCommitments for RegionCommitments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -52063,7 +52063,7 @@ impl super::stub::RegionCommitments for RegionCommitments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -52156,7 +52156,7 @@ impl super::stub::RegionCommitments for RegionCommitments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -52264,7 +52264,7 @@ impl super::stub::RegionCommitments for RegionCommitments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -52488,7 +52488,7 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -52568,7 +52568,7 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -52647,7 +52647,7 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -52726,7 +52726,7 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -52808,7 +52808,7 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -52902,7 +52902,7 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -52982,7 +52982,7 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -53063,7 +53063,7 @@ impl super::stub::RegionCompositeHealthChecks for RegionCompositeHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -53283,7 +53283,7 @@ impl super::stub::RegionDiskTypes for RegionDiskTypes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -53376,7 +53376,7 @@ impl super::stub::RegionDiskTypes for RegionDiskTypes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -53489,7 +53489,7 @@ impl super::stub::RegionDisks for RegionDisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -53571,7 +53571,7 @@ impl super::stub::RegionDisks for RegionDisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -53663,7 +53663,7 @@ impl super::stub::RegionDisks for RegionDisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -53754,7 +53754,7 @@ impl super::stub::RegionDisks for RegionDisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -53841,7 +53841,7 @@ impl super::stub::RegionDisks for RegionDisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -53935,7 +53935,7 @@ impl super::stub::RegionDisks for RegionDisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -54020,7 +54020,7 @@ impl super::stub::RegionDisks for RegionDisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -54113,7 +54113,7 @@ impl super::stub::RegionDisks for RegionDisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -54193,7 +54193,7 @@ impl super::stub::RegionDisks for RegionDisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -54285,7 +54285,7 @@ impl super::stub::RegionDisks for RegionDisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -54373,7 +54373,7 @@ impl super::stub::RegionDisks for RegionDisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -54465,7 +54465,7 @@ impl super::stub::RegionDisks for RegionDisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -54545,7 +54545,7 @@ impl super::stub::RegionDisks for RegionDisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -54625,7 +54625,7 @@ impl super::stub::RegionDisks for RegionDisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -54697,7 +54697,7 @@ impl super::stub::RegionDisks for RegionDisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -54776,7 +54776,7 @@ impl super::stub::RegionDisks for RegionDisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -54883,7 +54883,7 @@ impl super::stub::RegionDisks for RegionDisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -54975,7 +54975,7 @@ impl super::stub::RegionDisks for RegionDisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -55199,7 +55199,7 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -55281,7 +55281,7 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -55360,7 +55360,7 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -55444,7 +55444,7 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -55538,7 +55538,7 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -55618,7 +55618,7 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -55697,7 +55697,7 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -55920,7 +55920,7 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -56000,7 +56000,7 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -56079,7 +56079,7 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -56161,7 +56161,7 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -56255,7 +56255,7 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -56335,7 +56335,7 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -56416,7 +56416,7 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -56640,7 +56640,7 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -56728,7 +56728,7 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -56809,7 +56809,7 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -56902,7 +56902,7 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -56994,7 +56994,7 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -57073,7 +57073,7 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -57165,7 +57165,7 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -57386,7 +57386,7 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -57478,7 +57478,7 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -57566,7 +57566,7 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -57645,7 +57645,7 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -57726,7 +57726,7 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -57819,7 +57819,7 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -57911,7 +57911,7 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -57992,7 +57992,7 @@ impl super::stub::RegionHealthSources for RegionHealthSources {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -58216,7 +58216,7 @@ impl super::stub::RegionInstanceGroupManagerResizeRequests
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -58306,7 +58306,7 @@ impl super::stub::RegionInstanceGroupManagerResizeRequests
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -58395,7 +58395,7 @@ impl super::stub::RegionInstanceGroupManagerResizeRequests
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -58477,7 +58477,7 @@ impl super::stub::RegionInstanceGroupManagerResizeRequests
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -58563,7 +58563,7 @@ impl super::stub::RegionInstanceGroupManagerResizeRequests
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -58777,7 +58777,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -58856,7 +58856,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -58938,7 +58938,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -59019,7 +59019,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -59102,7 +59102,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -59181,7 +59181,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -59260,7 +59260,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -59342,7 +59342,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -59436,7 +59436,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -59521,7 +59521,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -59607,7 +59607,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -59691,7 +59691,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -59771,7 +59771,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -59851,7 +59851,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -59934,7 +59934,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -60015,7 +60015,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -60097,7 +60097,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -60179,7 +60179,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -60261,7 +60261,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -60343,7 +60343,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -60426,7 +60426,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -60508,7 +60508,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -60588,7 +60588,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -60799,7 +60799,7 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -60893,7 +60893,7 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -60976,7 +60976,7 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -61056,7 +61056,7 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -61137,7 +61137,7 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -61349,7 +61349,7 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -61428,7 +61428,7 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -61510,7 +61510,7 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -61604,7 +61604,7 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -61818,7 +61818,7 @@ impl super::stub::RegionInstances for RegionInstances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -62030,7 +62030,7 @@ impl super::stub::RegionInstantSnapshotGroups for RegionInstantSnapshotGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -62109,7 +62109,7 @@ impl super::stub::RegionInstantSnapshotGroups for RegionInstantSnapshotGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -62191,7 +62191,7 @@ impl super::stub::RegionInstantSnapshotGroups for RegionInstantSnapshotGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -62279,7 +62279,7 @@ impl super::stub::RegionInstantSnapshotGroups for RegionInstantSnapshotGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -62373,7 +62373,7 @@ impl super::stub::RegionInstantSnapshotGroups for RegionInstantSnapshotGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -62454,7 +62454,7 @@ impl super::stub::RegionInstantSnapshotGroups for RegionInstantSnapshotGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -62535,7 +62535,7 @@ impl super::stub::RegionInstantSnapshotGroups for RegionInstantSnapshotGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -62747,7 +62747,7 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -62826,7 +62826,7 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -62906,7 +62906,7 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -62988,7 +62988,7 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -63082,7 +63082,7 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -63161,7 +63161,7 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -63241,7 +63241,7 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -63322,7 +63322,7 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -63534,7 +63534,7 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -63614,7 +63614,7 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -63694,7 +63694,7 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -63773,7 +63773,7 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -63855,7 +63855,7 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -63949,7 +63949,7 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -64034,7 +64034,7 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -64250,7 +64250,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -64332,7 +64332,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -64415,7 +64415,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -64495,7 +64495,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -64574,7 +64574,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -64656,7 +64656,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -64730,7 +64730,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -64812,7 +64812,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -64892,7 +64892,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -64974,7 +64974,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -65068,7 +65068,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -65148,7 +65148,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -65230,7 +65230,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -65313,7 +65313,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -65396,7 +65396,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -65479,7 +65479,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -65560,7 +65560,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -65641,7 +65641,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -65865,7 +65865,7 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -65945,7 +65945,7 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -66024,7 +66024,7 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -66106,7 +66106,7 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -66200,7 +66200,7 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -66281,7 +66281,7 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -66501,7 +66501,7 @@ impl super::stub::RegionOperations for RegionOperations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -66595,7 +66595,7 @@ impl super::stub::RegionOperations for RegionOperations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -66688,7 +66688,7 @@ impl super::stub::RegionOperations for RegionOperations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -66776,7 +66776,7 @@ impl super::stub::RegionOperations for RegionOperations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -66889,7 +66889,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -66969,7 +66969,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -67048,7 +67048,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -67128,7 +67128,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -67214,7 +67214,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -67308,7 +67308,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -67391,7 +67391,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -67475,7 +67475,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -67555,7 +67555,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -67635,7 +67635,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -67845,7 +67845,7 @@ impl super::stub::RegionSnapshotSettings for RegionSnapshotSettings {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -67939,7 +67939,7 @@ impl super::stub::RegionSnapshotSettings for RegionSnapshotSettings {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -68163,7 +68163,7 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -68251,7 +68251,7 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -68331,7 +68331,7 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -68412,7 +68412,7 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -68505,7 +68505,7 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -68584,7 +68584,7 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -68664,7 +68664,7 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -68743,7 +68743,7 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -68823,7 +68823,7 @@ impl super::stub::RegionSnapshots for RegionSnapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -69035,7 +69035,7 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -69114,7 +69114,7 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -69196,7 +69196,7 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -69290,7 +69290,7 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -69514,7 +69514,7 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -69602,87 +69602,7 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
-            .header(
-                "x-goog-api-client",
-                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
-    }
-
-    async fn get_iam_policy(
-        &self,
-        req: crate::model::region_ssl_policies::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Policy>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
-        use gaxi::path_parameter::PathMismatchBuilder;
-        use gaxi::path_parameter::try_match;
-        use gaxi::routing_parameter::Segment;
-        use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
-        .or_else(|| {
-            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
-            let var_region = try_match(Some(&req).map(|m| &m.region).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
-            let var_resource = try_match(Some(&req).map(|m| &m.resource).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
-            let path = format!(
-                "/compute/v1/projects/{}/regions/{}/sslPolicies/{}/getIamPolicy",
-                var_project,
-                var_region,
-                var_resource,
-            );
-            let path_template = "/compute/v1/projects/{project}/regions/{region}/sslPolicies/{resource}/getIamPolicy";
-
-            let resource_name = format!(
-                "//compute.googleapis.com/projects/{}/regions/{}/sslPolicies/{}",
-                var_project,
-                var_region,
-                var_resource,
-            );
-            let builder = self.inner.builder(Method::GET, path);
-            let builder = req.options_requested_policy_version.iter().fold(builder, |builder, p| builder.query(&[("optionsRequestedPolicyVersion", p)]));
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
-        })
-        .ok_or_else(|| {
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                    &[Segment::SingleWildcard],
-                    "project",
-                    "*");
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
-                    &[Segment::SingleWildcard],
-                    "region",
-                    "*");
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[Segment::SingleWildcard],
-                    "resource",
-                    "*");
-                paths.push(builder.build());
-            }
-            google_cloud_gax::error::Error::binding(BindingError { paths })
-        })??;
-        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
-            recorder.on_client_request(
-                gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionSslPolicies/getIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
-            );
-        }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
-        let builder = builder
-            .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -69763,7 +69683,7 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -69856,7 +69776,7 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -69933,7 +69853,7 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -70025,165 +69945,7 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
-            .header(
-                "x-goog-api-client",
-                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
-    }
-
-    async fn set_iam_policy(
-        &self,
-        req: crate::model::region_ssl_policies::SetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Policy>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
-        use gaxi::path_parameter::PathMismatchBuilder;
-        use gaxi::path_parameter::try_match;
-        use gaxi::routing_parameter::Segment;
-        use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
-        .or_else(|| {
-            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
-            let var_region = try_match(Some(&req).map(|m| &m.region).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
-            let var_resource = try_match(Some(&req).map(|m| &m.resource).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
-            let path = format!(
-                "/compute/v1/projects/{}/regions/{}/sslPolicies/{}/setIamPolicy",
-                var_project,
-                var_region,
-                var_resource,
-            );
-            let path_template = "/compute/v1/projects/{project}/regions/{region}/sslPolicies/{resource}/setIamPolicy";
-
-            let resource_name = format!(
-                "//compute.googleapis.com/projects/{}/regions/{}/sslPolicies/{}",
-                var_project,
-                var_region,
-                var_resource,
-            );
-            let builder = self.inner.builder(Method::POST, path);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-        })
-        .ok_or_else(|| {
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                    &[Segment::SingleWildcard],
-                    "project",
-                    "*");
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
-                    &[Segment::SingleWildcard],
-                    "region",
-                    "*");
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[Segment::SingleWildcard],
-                    "resource",
-                    "*");
-                paths.push(builder.build());
-            }
-            google_cloud_gax::error::Error::binding(BindingError { paths })
-        })??;
-        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
-            recorder.on_client_request(
-                gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionSslPolicies/setIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
-            );
-        }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
-        let builder = builder
-            .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
-            .header(
-                "x-goog-api-client",
-                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
-    }
-
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::region_ssl_policies::TestIamPermissionsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
-        use gaxi::path_parameter::PathMismatchBuilder;
-        use gaxi::path_parameter::try_match;
-        use gaxi::routing_parameter::Segment;
-        use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
-        .or_else(|| {
-            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
-            let var_region = try_match(Some(&req).map(|m| &m.region).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
-            let var_resource = try_match(Some(&req).map(|m| &m.resource).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
-            let path = format!(
-                "/compute/v1/projects/{}/regions/{}/sslPolicies/{}/testIamPermissions",
-                var_project,
-                var_region,
-                var_resource,
-            );
-            let path_template = "/compute/v1/projects/{project}/regions/{region}/sslPolicies/{resource}/testIamPermissions";
-
-            let resource_name = format!(
-                "//compute.googleapis.com/projects/{}/regions/{}/sslPolicies/{}",
-                var_project,
-                var_region,
-                var_resource,
-            );
-            let builder = self.inner.builder(Method::POST, path);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-        })
-        .ok_or_else(|| {
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                    &[Segment::SingleWildcard],
-                    "project",
-                    "*");
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.region).map(|s| s.as_str()),
-                    &[Segment::SingleWildcard],
-                    "region",
-                    "*");
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[Segment::SingleWildcard],
-                    "resource",
-                    "*");
-                paths.push(builder.build());
-            }
-            google_cloud_gax::error::Error::binding(BindingError { paths })
-        })??;
-        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
-            recorder.on_client_request(
-                gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.regionSslPolicies/testIamPermissions")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
-            );
-        }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
-        let builder = builder
-            .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -70395,7 +70157,7 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -70474,7 +70236,7 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -70556,7 +70318,7 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -70650,7 +70412,7 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -70730,7 +70492,7 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -70942,7 +70704,7 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -71021,7 +70783,7 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -71103,7 +70865,7 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -71197,7 +70959,7 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -71277,7 +71039,7 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -71359,7 +71121,7 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -71439,7 +71201,7 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -71651,7 +71413,7 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -71730,7 +71492,7 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -71812,7 +71574,7 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -71906,7 +71668,7 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -72130,7 +71892,7 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -72218,7 +71980,7 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -72299,7 +72061,7 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -72392,7 +72154,7 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -72484,7 +72246,7 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -72576,7 +72338,7 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -72664,7 +72426,7 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -72889,7 +72651,7 @@ impl super::stub::RegionZones for RegionZones {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -72999,7 +72761,7 @@ impl super::stub::Regions for Regions {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -73076,7 +72838,7 @@ impl super::stub::Regions for Regions {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -73187,7 +72949,7 @@ impl super::stub::ReliabilityRisks for ReliabilityRisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -73267,7 +73029,7 @@ impl super::stub::ReliabilityRisks for ReliabilityRisks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -73388,7 +73150,7 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -73476,7 +73238,7 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -73559,7 +73321,7 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -73647,7 +73409,7 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -73734,7 +73496,7 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -73821,7 +73583,7 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -74038,7 +73800,7 @@ impl super::stub::ReservationSlots for ReservationSlots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -74124,7 +73886,7 @@ impl super::stub::ReservationSlots for ReservationSlots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -74210,7 +73972,7 @@ impl super::stub::ReservationSlots for ReservationSlots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -74314,7 +74076,7 @@ impl super::stub::ReservationSlots for ReservationSlots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -74402,7 +74164,7 @@ impl super::stub::ReservationSlots for ReservationSlots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -74620,7 +74382,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -74706,7 +74468,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -74792,7 +74554,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -74874,7 +74636,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -74962,7 +74724,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -75048,7 +74810,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -75133,7 +74895,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -75220,7 +74982,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -75441,7 +75203,7 @@ impl super::stub::Reservations for Reservations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -75533,7 +75295,7 @@ impl super::stub::Reservations for Reservations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -75621,7 +75383,7 @@ impl super::stub::Reservations for Reservations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -75701,7 +75463,7 @@ impl super::stub::Reservations for Reservations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -75782,7 +75544,7 @@ impl super::stub::Reservations for Reservations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -75875,7 +75637,7 @@ impl super::stub::Reservations for Reservations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -75955,7 +75717,7 @@ impl super::stub::Reservations for Reservations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -76047,7 +75809,7 @@ impl super::stub::Reservations for Reservations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -76126,7 +75888,7 @@ impl super::stub::Reservations for Reservations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -76205,7 +75967,7 @@ impl super::stub::Reservations for Reservations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -76313,7 +76075,7 @@ impl super::stub::Reservations for Reservations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -76534,7 +76296,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -76614,7 +76376,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -76693,7 +76455,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -76773,7 +76535,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -76855,7 +76617,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -76949,7 +76711,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -77032,7 +76794,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -77111,7 +76873,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -77190,7 +76952,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -77404,7 +77166,7 @@ impl super::stub::RolloutPlans for RolloutPlans {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -77482,7 +77244,7 @@ impl super::stub::RolloutPlans for RolloutPlans {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -77547,7 +77309,7 @@ impl super::stub::RolloutPlans for RolloutPlans {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -77624,7 +77386,7 @@ impl super::stub::RolloutPlans for RolloutPlans {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -77830,7 +77592,7 @@ impl super::stub::Rollouts for Rollouts {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -77915,7 +77677,7 @@ impl super::stub::Rollouts for Rollouts {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -77996,7 +77758,7 @@ impl super::stub::Rollouts for Rollouts {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -78073,7 +77835,7 @@ impl super::stub::Rollouts for Rollouts {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -78150,7 +77912,7 @@ impl super::stub::Rollouts for Rollouts {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -78236,7 +77998,7 @@ impl super::stub::Rollouts for Rollouts {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -78322,7 +78084,7 @@ impl super::stub::Rollouts for Rollouts {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -78529,7 +78291,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -78621,7 +78383,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -78702,7 +78464,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -78783,7 +78545,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -78871,7 +78633,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -78963,7 +78725,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -79055,7 +78817,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -79139,7 +78901,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -79219,7 +78981,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -79298,7 +79060,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -79379,7 +79141,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -79472,7 +79234,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -79560,7 +79322,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -79643,7 +79405,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -79726,7 +79488,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -79818,7 +79580,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -79898,7 +79660,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -79978,7 +79740,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -80066,7 +79828,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -80158,7 +79920,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -80238,7 +80000,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -80318,7 +80080,7 @@ impl super::stub::Routers for Routers {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -80531,7 +80293,7 @@ impl super::stub::Routes for Routes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -80608,7 +80370,7 @@ impl super::stub::Routes for Routes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -80673,7 +80435,7 @@ impl super::stub::Routes for Routes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -80750,7 +80512,7 @@ impl super::stub::Routes for Routes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -80828,7 +80590,7 @@ impl super::stub::Routes for Routes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -81021,7 +80783,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -81110,7 +80872,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -81192,7 +80954,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -81270,7 +81032,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -81342,7 +81104,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -81414,7 +81176,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -81494,7 +81256,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -81565,7 +81327,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -81659,7 +81421,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -81735,7 +81497,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -81807,7 +81569,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -81885,7 +81647,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -82095,7 +81857,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -82175,7 +81937,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -82255,7 +82017,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -82335,7 +82097,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -82417,7 +82179,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -82511,7 +82273,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -82591,7 +82353,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -82670,7 +82432,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -82749,7 +82511,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -82945,7 +82707,7 @@ impl super::stub::SnapshotSettings for SnapshotSettings {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -83025,7 +82787,7 @@ impl super::stub::SnapshotSettings for SnapshotSettings {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -83227,7 +82989,7 @@ impl super::stub::Snapshots for Snapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -83304,7 +83066,7 @@ impl super::stub::Snapshots for Snapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -83388,7 +83150,7 @@ impl super::stub::Snapshots for Snapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -83453,7 +83215,7 @@ impl super::stub::Snapshots for Snapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -83530,7 +83292,7 @@ impl super::stub::Snapshots for Snapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -83608,7 +83370,7 @@ impl super::stub::Snapshots for Snapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -83686,7 +83448,7 @@ impl super::stub::Snapshots for Snapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -83764,7 +83526,7 @@ impl super::stub::Snapshots for Snapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -83846,7 +83608,7 @@ impl super::stub::Snapshots for Snapshots {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -84056,7 +83818,7 @@ impl super::stub::SslCertificates for SslCertificates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -84138,7 +83900,7 @@ impl super::stub::SslCertificates for SslCertificates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -84216,7 +83978,7 @@ impl super::stub::SslCertificates for SslCertificates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -84284,7 +84046,7 @@ impl super::stub::SslCertificates for SslCertificates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -84364,7 +84126,7 @@ impl super::stub::SslCertificates for SslCertificates {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -84574,7 +84336,7 @@ impl super::stub::SslPolicies for SslPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -84656,7 +84418,7 @@ impl super::stub::SslPolicies for SslPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -84734,91 +84496,7 @@ impl super::stub::SslPolicies for SslPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
-            .header(
-                "x-goog-api-client",
-                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
-    }
-
-    async fn get_iam_policy(
-        &self,
-        req: crate::model::ssl_policies::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Policy>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
-        use gaxi::path_parameter::PathMismatchBuilder;
-        use gaxi::path_parameter::try_match;
-        use gaxi::routing_parameter::Segment;
-        use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
-            .or_else(|| {
-                let var_project = try_match(
-                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                    &[Segment::SingleWildcard],
-                )?;
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/compute/v1/projects/{}/global/sslPolicies/{}/getIamPolicy",
-                    var_project, var_resource,
-                );
-                let path_template =
-                    "/compute/v1/projects/{project}/global/sslPolicies/{resource}/getIamPolicy";
-
-                let resource_name = format!(
-                    "//compute.googleapis.com/projects/{}/global/sslPolicies/{}",
-                    var_project, var_resource,
-                );
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = req
-                    .options_requested_policy_version
-                    .iter()
-                    .fold(builder, |builder, p| {
-                        builder.query(&[("optionsRequestedPolicyVersion", p)])
-                    });
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "resource",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
-        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
-            recorder.on_client_request(
-                gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.sslPolicies/getIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
-            );
-        }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
-        let builder = builder
-            .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -84883,7 +84561,7 @@ impl super::stub::SslPolicies for SslPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -84960,7 +84638,7 @@ impl super::stub::SslPolicies for SslPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -85041,7 +84719,7 @@ impl super::stub::SslPolicies for SslPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -85123,156 +84801,7 @@ impl super::stub::SslPolicies for SslPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
-            .header(
-                "x-goog-api-client",
-                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
-    }
-
-    async fn set_iam_policy(
-        &self,
-        req: crate::model::ssl_policies::SetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Policy>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
-        use gaxi::path_parameter::PathMismatchBuilder;
-        use gaxi::path_parameter::try_match;
-        use gaxi::routing_parameter::Segment;
-        use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
-            .or_else(|| {
-                let var_project = try_match(
-                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                    &[Segment::SingleWildcard],
-                )?;
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/compute/v1/projects/{}/global/sslPolicies/{}/setIamPolicy",
-                    var_project, var_resource,
-                );
-                let path_template =
-                    "/compute/v1/projects/{project}/global/sslPolicies/{resource}/setIamPolicy";
-
-                let resource_name = format!(
-                    "//compute.googleapis.com/projects/{}/global/sslPolicies/{}",
-                    var_project, var_resource,
-                );
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "resource",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
-        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
-            recorder.on_client_request(
-                gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.sslPolicies/setIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
-            );
-        }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
-        let builder = builder
-            .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
-            .header(
-                "x-goog-api-client",
-                HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
-            );
-        let body = gaxi::http::handle_empty(req.body, &method);
-        self.inner.execute(builder, body, options).await
-    }
-
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::ssl_policies::TestIamPermissionsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
-        use gaxi::http::reqwest::{HeaderValue, Method};
-        use gaxi::path_parameter::PathMismatchBuilder;
-        use gaxi::path_parameter::try_match;
-        use gaxi::routing_parameter::Segment;
-        use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
-        .or_else(|| {
-            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
-            let var_resource = try_match(Some(&req).map(|m| &m.resource).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
-            let path = format!(
-                "/compute/v1/projects/{}/global/sslPolicies/{}/testIamPermissions",
-                var_project,
-                var_resource,
-            );
-            let path_template = "/compute/v1/projects/{project}/global/sslPolicies/{resource}/testIamPermissions";
-
-            let resource_name = format!(
-                "//compute.googleapis.com/projects/{}/global/sslPolicies/{}",
-                var_project,
-                var_resource,
-            );
-            let builder = self.inner.builder(Method::POST, path);
-            let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
-        })
-        .ok_or_else(|| {
-            let mut paths = Vec::new();
-            {
-                let builder = PathMismatchBuilder::default();
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                    &[Segment::SingleWildcard],
-                    "project",
-                    "*");
-                let builder = builder.maybe_add(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[Segment::SingleWildcard],
-                    "resource",
-                    "*");
-                paths.push(builder.build());
-            }
-            google_cloud_gax::error::Error::binding(BindingError { paths })
-        })??;
-        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
-            recorder.on_client_request(
-                gaxi::observability::ClientRequestAttributes::default()
-                    .set_rpc_method("google.cloud.compute.v1.sslPolicies/testIamPermissions")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
-            );
-        }
-        let options = google_cloud_gax::options::internal::set_default_idempotency(
-            options,
-            gaxi::http::default_idempotency(&method),
-        );
-        let builder = builder
-            .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -85482,7 +85011,7 @@ impl super::stub::StoragePoolTypes for StoragePoolTypes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -85561,7 +85090,7 @@ impl super::stub::StoragePoolTypes for StoragePoolTypes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -85654,7 +85183,7 @@ impl super::stub::StoragePoolTypes for StoragePoolTypes {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -85776,7 +85305,7 @@ impl super::stub::StoragePools for StoragePools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -85868,7 +85397,7 @@ impl super::stub::StoragePools for StoragePools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -85956,7 +85485,7 @@ impl super::stub::StoragePools for StoragePools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -86036,7 +85565,7 @@ impl super::stub::StoragePools for StoragePools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -86117,7 +85646,7 @@ impl super::stub::StoragePools for StoragePools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -86210,7 +85739,7 @@ impl super::stub::StoragePools for StoragePools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -86293,7 +85822,7 @@ impl super::stub::StoragePools for StoragePools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -86372,7 +85901,7 @@ impl super::stub::StoragePools for StoragePools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -86451,7 +85980,7 @@ impl super::stub::StoragePools for StoragePools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -86555,7 +86084,7 @@ impl super::stub::StoragePools for StoragePools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -86780,7 +86309,7 @@ impl super::stub::Subnetworks for Subnetworks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -86872,7 +86401,7 @@ impl super::stub::Subnetworks for Subnetworks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -86952,7 +86481,7 @@ impl super::stub::Subnetworks for Subnetworks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -87044,7 +86573,7 @@ impl super::stub::Subnetworks for Subnetworks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -87124,7 +86653,7 @@ impl super::stub::Subnetworks for Subnetworks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -87205,7 +86734,7 @@ impl super::stub::Subnetworks for Subnetworks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -87302,7 +86831,7 @@ impl super::stub::Subnetworks for Subnetworks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -87386,7 +86915,7 @@ impl super::stub::Subnetworks for Subnetworks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -87484,7 +87013,7 @@ impl super::stub::Subnetworks for Subnetworks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -87563,7 +87092,7 @@ impl super::stub::Subnetworks for Subnetworks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -87643,7 +87172,7 @@ impl super::stub::Subnetworks for Subnetworks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -87722,7 +87251,7 @@ impl super::stub::Subnetworks for Subnetworks {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -87936,7 +87465,7 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -88014,7 +87543,7 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -88082,7 +87611,7 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -88162,7 +87691,7 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -88244,7 +87773,7 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -88454,7 +87983,7 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -88536,7 +88065,7 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -88614,7 +88143,7 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -88682,7 +88211,7 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -88762,7 +88291,7 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -88844,7 +88373,7 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -88916,7 +88445,7 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -89126,7 +88655,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -89212,7 +88741,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -89294,7 +88823,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -89362,7 +88891,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -89442,7 +88971,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -89528,7 +89057,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -89600,7 +89129,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -89672,7 +89201,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -89744,7 +89273,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -89816,7 +89345,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -89888,7 +89417,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -90098,7 +89627,7 @@ impl super::stub::TargetInstances for TargetInstances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -90190,7 +89719,7 @@ impl super::stub::TargetInstances for TargetInstances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -90278,7 +89807,7 @@ impl super::stub::TargetInstances for TargetInstances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -90359,7 +89888,7 @@ impl super::stub::TargetInstances for TargetInstances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -90452,7 +89981,7 @@ impl super::stub::TargetInstances for TargetInstances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -90532,7 +90061,7 @@ impl super::stub::TargetInstances for TargetInstances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -90611,7 +90140,7 @@ impl super::stub::TargetInstances for TargetInstances {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -90823,7 +90352,7 @@ impl super::stub::TargetPools for TargetPools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -90903,7 +90432,7 @@ impl super::stub::TargetPools for TargetPools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -90992,7 +90521,7 @@ impl super::stub::TargetPools for TargetPools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -91084,7 +90613,7 @@ impl super::stub::TargetPools for TargetPools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -91172,7 +90701,7 @@ impl super::stub::TargetPools for TargetPools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -91251,7 +90780,7 @@ impl super::stub::TargetPools for TargetPools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -91332,7 +90861,7 @@ impl super::stub::TargetPools for TargetPools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -91425,7 +90954,7 @@ impl super::stub::TargetPools for TargetPools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -91505,7 +91034,7 @@ impl super::stub::TargetPools for TargetPools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -91585,7 +91114,7 @@ impl super::stub::TargetPools for TargetPools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -91666,7 +91195,7 @@ impl super::stub::TargetPools for TargetPools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -91746,7 +91275,7 @@ impl super::stub::TargetPools for TargetPools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -91825,7 +91354,7 @@ impl super::stub::TargetPools for TargetPools {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -92039,7 +91568,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -92117,7 +91646,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -92185,7 +91714,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -92265,7 +91794,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -92337,7 +91866,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -92409,7 +91938,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -92481,7 +92010,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -92553,7 +92082,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -92625,7 +92154,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -92696,7 +92225,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -92906,7 +92435,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -92988,7 +92517,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -93066,7 +92595,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -93134,7 +92663,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -93214,7 +92743,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -93286,7 +92815,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -93358,7 +92887,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -93429,7 +92958,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -93639,7 +93168,7 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -93719,7 +93248,7 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -93798,7 +93327,7 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -93880,7 +93409,7 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -93974,7 +93503,7 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -94054,7 +93583,7 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -94272,7 +93801,7 @@ impl super::stub::UrlMaps for UrlMaps {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -94353,7 +93882,7 @@ impl super::stub::UrlMaps for UrlMaps {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -94430,7 +93959,7 @@ impl super::stub::UrlMaps for UrlMaps {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -94495,7 +94024,7 @@ impl super::stub::UrlMaps for UrlMaps {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -94577,7 +94106,7 @@ impl super::stub::UrlMaps for UrlMaps {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -94654,7 +94183,7 @@ impl super::stub::UrlMaps for UrlMaps {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -94735,7 +94264,7 @@ impl super::stub::UrlMaps for UrlMaps {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -94813,7 +94342,7 @@ impl super::stub::UrlMaps for UrlMaps {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -94894,7 +94423,7 @@ impl super::stub::UrlMaps for UrlMaps {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -94972,7 +94501,7 @@ impl super::stub::UrlMaps for UrlMaps {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -95182,7 +94711,7 @@ impl super::stub::VpnGateways for VpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -95274,7 +94803,7 @@ impl super::stub::VpnGateways for VpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -95362,7 +94891,7 @@ impl super::stub::VpnGateways for VpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -95441,7 +94970,7 @@ impl super::stub::VpnGateways for VpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -95522,7 +95051,7 @@ impl super::stub::VpnGateways for VpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -95615,7 +95144,7 @@ impl super::stub::VpnGateways for VpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -95695,7 +95224,7 @@ impl super::stub::VpnGateways for VpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -95774,7 +95303,7 @@ impl super::stub::VpnGateways for VpnGateways {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -95992,7 +95521,7 @@ impl super::stub::VpnTunnels for VpnTunnels {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -96084,7 +95613,7 @@ impl super::stub::VpnTunnels for VpnTunnels {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -96172,7 +95701,7 @@ impl super::stub::VpnTunnels for VpnTunnels {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -96253,7 +95782,7 @@ impl super::stub::VpnTunnels for VpnTunnels {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -96346,7 +95875,7 @@ impl super::stub::VpnTunnels for VpnTunnels {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -96426,7 +95955,7 @@ impl super::stub::VpnTunnels for VpnTunnels {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -96638,7 +96167,7 @@ impl super::stub::WireGroups for WireGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -96717,7 +96246,7 @@ impl super::stub::WireGroups for WireGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -96790,7 +96319,7 @@ impl super::stub::WireGroups for WireGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -96865,7 +96394,7 @@ impl super::stub::WireGroups for WireGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -96949,7 +96478,7 @@ impl super::stub::WireGroups for WireGroups {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -97158,7 +96687,7 @@ impl super::stub::ZoneOperations for ZoneOperations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -97252,7 +96781,7 @@ impl super::stub::ZoneOperations for ZoneOperations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -97345,7 +96874,7 @@ impl super::stub::ZoneOperations for ZoneOperations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -97433,7 +96962,7 @@ impl super::stub::ZoneOperations for ZoneOperations {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -97546,7 +97075,7 @@ impl super::stub::ZoneVmExtensionPolicies for ZoneVmExtensionPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -97625,7 +97154,7 @@ impl super::stub::ZoneVmExtensionPolicies for ZoneVmExtensionPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -97707,7 +97236,7 @@ impl super::stub::ZoneVmExtensionPolicies for ZoneVmExtensionPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -97801,7 +97330,7 @@ impl super::stub::ZoneVmExtensionPolicies for ZoneVmExtensionPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -97881,7 +97410,7 @@ impl super::stub::ZoneVmExtensionPolicies for ZoneVmExtensionPolicies {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -98085,7 +97614,7 @@ impl super::stub::Zones for Zones {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -98162,7 +97691,7 @@ impl super::stub::Zones for Zones {
         );
         let builder = builder
             .query(&[("$alt", "json")])
-            .query(&[("$apiVersion", "2026-11-01")])
+            .query(&[("$apiVersion", "2026-09-01")])
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

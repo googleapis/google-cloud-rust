@@ -12208,16 +12208,6 @@ pub trait RegionSslPolicies: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::RegionSslPolicies::get_iam_policy].
-    fn get_iam_policy(
-        &self,
-        _req: crate::model::region_ssl_policies::GetIamPolicyRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
-    {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
     /// Implements [super::client::RegionSslPolicies::insert].
     fn insert(
         &self,
@@ -12259,27 +12249,6 @@ pub trait RegionSslPolicies: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
     {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::RegionSslPolicies::set_iam_policy].
-    fn set_iam_policy(
-        &self,
-        _req: crate::model::region_ssl_policies::SetIamPolicyRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
-    {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::RegionSslPolicies::test_iam_permissions].
-    fn test_iam_permissions(
-        &self,
-        _req: crate::model::region_ssl_policies::TestIamPermissionsRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::TestPermissionsResponse>>,
-    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -14954,16 +14923,6 @@ pub trait SslPolicies: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::SslPolicies::get_iam_policy].
-    fn get_iam_policy(
-        &self,
-        _req: crate::model::ssl_policies::GetIamPolicyRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
-    {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
     /// Implements [super::client::SslPolicies::insert].
     fn insert(
         &self,
@@ -15005,27 +14964,6 @@ pub trait SslPolicies: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
     {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::SslPolicies::set_iam_policy].
-    fn set_iam_policy(
-        &self,
-        _req: crate::model::ssl_policies::SetIamPolicyRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
-    {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::SslPolicies::test_iam_permissions].
-    fn test_iam_permissions(
-        &self,
-        _req: crate::model::ssl_policies::TestIamPermissionsRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::TestPermissionsResponse>>,
-    > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 

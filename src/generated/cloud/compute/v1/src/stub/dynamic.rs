@@ -15627,12 +15627,6 @@ pub trait RegionSslPolicies: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::SslPolicy>>;
 
-    async fn get_iam_policy(
-        &self,
-        req: crate::model::region_ssl_policies::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Policy>>;
-
     async fn insert(
         &self,
         req: crate::model::region_ssl_policies::InsertRequest,
@@ -15656,18 +15650,6 @@ pub trait RegionSslPolicies: std::fmt::Debug + Send + Sync {
         req: crate::model::region_ssl_policies::PatchRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>>;
-
-    async fn set_iam_policy(
-        &self,
-        req: crate::model::region_ssl_policies::SetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Policy>>;
-
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::region_ssl_policies::TestIamPermissionsRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>>;
 
     async fn get_operation(
         &self,
@@ -15714,15 +15696,6 @@ impl<T: super::RegionSslPolicies> RegionSslPolicies for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
-    async fn get_iam_policy(
-        &self,
-        req: crate::model::region_ssl_policies::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Policy>> {
-        T::get_iam_policy(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
     async fn insert(
         &self,
         req: crate::model::region_ssl_policies::InsertRequest,
@@ -15757,24 +15730,6 @@ impl<T: super::RegionSslPolicies> RegionSslPolicies for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::patch(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn set_iam_policy(
-        &self,
-        req: crate::model::region_ssl_policies::SetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Policy>> {
-        T::set_iam_policy(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::region_ssl_policies::TestIamPermissionsRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>> {
-        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -19092,12 +19047,6 @@ pub trait SslPolicies: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::SslPolicy>>;
 
-    async fn get_iam_policy(
-        &self,
-        req: crate::model::ssl_policies::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Policy>>;
-
     async fn insert(
         &self,
         req: crate::model::ssl_policies::InsertRequest,
@@ -19121,18 +19070,6 @@ pub trait SslPolicies: std::fmt::Debug + Send + Sync {
         req: crate::model::ssl_policies::PatchRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>>;
-
-    async fn set_iam_policy(
-        &self,
-        req: crate::model::ssl_policies::SetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Policy>>;
-
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::ssl_policies::TestIamPermissionsRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>>;
 
     async fn get_operation(
         &self,
@@ -19188,15 +19125,6 @@ impl<T: super::SslPolicies> SslPolicies for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
-    async fn get_iam_policy(
-        &self,
-        req: crate::model::ssl_policies::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Policy>> {
-        T::get_iam_policy(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
     async fn insert(
         &self,
         req: crate::model::ssl_policies::InsertRequest,
@@ -19231,24 +19159,6 @@ impl<T: super::SslPolicies> SslPolicies for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::patch(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn set_iam_policy(
-        &self,
-        req: crate::model::ssl_policies::SetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Policy>> {
-        T::set_iam_policy(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::ssl_policies::TestIamPermissionsRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>> {
-        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

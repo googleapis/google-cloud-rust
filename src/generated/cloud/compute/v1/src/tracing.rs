@@ -17127,20 +17127,6 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn get_iam_policy(
-        &self,
-        req: crate::model::region_ssl_policies::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Policy>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::RegionSslPolicies::get_iam_policy",
-            self.inner.get_iam_policy(req, options));
-        pending.await
-    }
-
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn insert(
         &self,
         req: crate::model::region_ssl_policies::InsertRequest,
@@ -17193,34 +17179,6 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::RegionSslPolicies::patch",
             self.inner.patch(req, options));
-        pending.await
-    }
-
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn set_iam_policy(
-        &self,
-        req: crate::model::region_ssl_policies::SetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Policy>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::RegionSslPolicies::set_iam_policy",
-            self.inner.set_iam_policy(req, options));
-        pending.await
-    }
-
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::region_ssl_policies::TestIamPermissionsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::RegionSslPolicies::test_iam_permissions",
-            self.inner.test_iam_permissions(req, options));
         pending.await
     }
 
@@ -20962,20 +20920,6 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn get_iam_policy(
-        &self,
-        req: crate::model::ssl_policies::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Policy>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::SslPolicies::get_iam_policy",
-            self.inner.get_iam_policy(req, options));
-        pending.await
-    }
-
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn insert(
         &self,
         req: crate::model::ssl_policies::InsertRequest,
@@ -21028,34 +20972,6 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::SslPolicies::patch",
             self.inner.patch(req, options));
-        pending.await
-    }
-
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn set_iam_policy(
-        &self,
-        req: crate::model::ssl_policies::SetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Policy>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::SslPolicies::set_iam_policy",
-            self.inner.set_iam_policy(req, options));
-        pending.await
-    }
-
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::ssl_policies::TestIamPermissionsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::SslPolicies::test_iam_permissions",
-            self.inner.test_iam_permissions(req, options));
         pending.await
     }
 
