@@ -31,7 +31,7 @@ pub mod session;
 pub mod shm;
 
 use clap::Parser;
-use std::ffi::{CStr, c_char};
+use std::ffi::{CStr, c_char, c_int};
 use std::path::PathBuf;
 use std::pin::Pin;
 use std::sync::Arc;
@@ -494,53 +494,80 @@ static INPROC_SERVERS: std::sync::LazyLock<
     std::sync::Mutex<std::collections::HashMap<String, InprocHandle>>,
 > = std::sync::LazyLock::new(|| std::sync::Mutex::new(std::collections::HashMap::new()));
 
-/// C-FFI entry point for launching the gRPC-over-UDS server **in-process** on a background
-/// Tokio runtime thread. Returns `0` once the UDS listener is bound and ready to accept connections,
-/// or `-1` on error.
+thread_local! {
+    /// Why the last `gcs_core_start_inproc*` call on this thread failed.
+    static INPROC_LAST_ERROR: std::cell::RefCell<String> =
+        const { std::cell::RefCell::new(String::new()) };
+}
+
+fn set_inproc_last_error(message: String) {
+    INPROC_LAST_ERROR.with(|e| *e.borrow_mut() = message);
+}
+
+/// Parses the flags of an in-process server: the same flags as `gcs-core-server`, without a
+/// program name.
 ///
-/// # Safety
-/// `socket_path` must be a valid, non-null, NUL-terminated C string pointer.
-#[unsafe(no_mangle)]
-pub unsafe extern "C" fn gcs_core_start_inproc(socket_path: *const c_char) -> i32 {
-    std::panic::catch_unwind(|| {
-        if socket_path.is_null() {
-            return -1;
-        }
-        // SAFETY: The caller guarantees `socket_path` is a non-null, NUL-terminated C string.
-        let sock = match unsafe { CStr::from_ptr(socket_path) }.to_str() {
-            Ok(s) => s.to_owned(),
-            Err(_) => return -1,
-        };
-        let shared = Shared::new();
-        let srv_shared = shared.clone();
-        let args = Args {
-            socket: sock.clone(),
-            idle_secs: 0,
-            ..Default::default()
-        };
-        let (tx, rx) = std::sync::mpsc::sync_channel::<i32>(1);
-        let join = std::thread::spawn(move || {
-            let rt = match build_runtime(&args, "gcs-core-inproc") {
-                Ok(rt) => rt,
-                Err(_) => {
-                    let _ = tx.send(-1);
+/// Differences from the binary, each because the server lives inside someone else's process:
+/// `--socket` is required so an embedded server never claims the daemon's default path;
+/// `--idle-secs` defaults to 0 because an idle exit would stop a server the host still owns;
+/// `--pdeathsig` (a property of a child process) and `--tcp` (a network listener inside the host)
+/// are rejected.
+pub fn parse_inproc_args<I, T>(flags: I) -> Result<Args, String>
+where
+    I: IntoIterator<Item = T>,
+    T: Into<std::ffi::OsString> + Clone,
+{
+    use clap::parser::ValueSource;
+    use clap::{CommandFactory, FromArgMatches};
+
+    let flags: Vec<std::ffi::OsString> = flags.into_iter().map(Into::into).collect();
+    // This crate builds clap without `error-context`, so its messages do not name the offending
+    // flag; include the flags so a caller across the C ABI can see what was rejected.
+    let invalid = |e: clap::Error| format!("invalid in-process server flags {flags:?}: {e}");
+    let matches = Args::command()
+        .no_binary_name(true)
+        .try_get_matches_from(flags.clone())
+        .map_err(invalid)?;
+    let mut args = Args::from_arg_matches(&matches).map_err(invalid)?;
+    let on_command_line = |id: &str| matches.value_source(id) == Some(ValueSource::CommandLine);
+    if !on_command_line("socket") {
+        return Err("--socket is required for an in-process server".to_string());
+    }
+    if on_command_line("pdeathsig") {
+        return Err("--pdeathsig applies only to a separate gcs-core-server process".to_string());
+    }
+    if args.tcp.is_some() {
+        return Err("--tcp is not supported for an in-process server".to_string());
+    }
+    if !on_command_line("idle_secs") {
+        args.idle_secs = 0;
+    }
+    Ok(args)
+}
+
+/// Starts `args` on a background runtime thread and registers it for `gcs_core_stop_inproc`.
+/// Returns once the listener is bound, or why it could not be.
+fn start_inproc(args: Args) -> Result<(), String> {
+    let sock = args.socket.clone();
+    let rt = build_runtime(&args, "gcs-core-inproc").map_err(|e| format!("tokio runtime: {e}"))?;
+    let shared = Shared::new();
+    let srv_shared = shared.clone();
+    let (tx, rx) = std::sync::mpsc::sync_channel::<Result<(), String>>(1);
+    let join = std::thread::spawn(move || {
+        rt.block_on(async move {
+            let listener = match bind_uds_listener(&args.socket) {
+                Ok(l) => l,
+                Err(e) => {
+                    let _ = tx.send(Err(format!("bind {}: {e}", args.socket)));
                     return;
                 }
             };
-            rt.block_on(async move {
-                let listener = match bind_uds_listener(&args.socket) {
-                    Ok(l) => l,
-                    Err(_) => {
-                        let _ = tx.send(-1);
-                        return;
-                    }
-                };
-                let _ = tx.send(0);
-                let _ = serve_with_listener(args, listener, srv_shared).await;
-            });
+            let _ = tx.send(Ok(()));
+            let _ = serve_with_listener(args, listener, srv_shared).await;
         });
-        let rc = rx.recv().unwrap_or(-1);
-        if rc == 0 {
+    });
+    match rx.recv() {
+        Ok(Ok(())) => {
             INPROC_SERVERS.lock().unwrap().insert(
                 sock,
                 InprocHandle {
@@ -548,10 +575,128 @@ pub unsafe extern "C" fn gcs_core_start_inproc(socket_path: *const c_char) -> i3
                     join: Some(join),
                 },
             );
+            Ok(())
         }
-        rc
+        Ok(Err(e)) => {
+            let _ = join.join();
+            Err(e)
+        }
+        Err(_) => {
+            let _ = join.join();
+            Err("in-process server thread exited before binding".to_string())
+        }
+    }
+}
+
+fn inproc_result(result: Result<(), String>) -> i32 {
+    match result {
+        Ok(()) => 0,
+        Err(e) => {
+            set_inproc_last_error(e);
+            -1
+        }
+    }
+}
+
+/// C-FFI entry point for launching the gRPC-over-UDS server **in-process** on a background
+/// Tokio runtime thread with default flags. Returns `0` once the UDS listener is bound and ready
+/// to accept connections, or `-1` on error (see [`gcs_core_inproc_last_error`]).
+///
+/// # Safety
+/// `socket_path` must be a valid, non-null, NUL-terminated C string pointer.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn gcs_core_start_inproc(socket_path: *const c_char) -> i32 {
+    std::panic::catch_unwind(|| {
+        if socket_path.is_null() {
+            return inproc_result(Err("socket_path is null".to_string()));
+        }
+        // SAFETY: The caller guarantees `socket_path` is a non-null, NUL-terminated C string.
+        let sock = match unsafe { CStr::from_ptr(socket_path) }.to_str() {
+            Ok(s) => s.to_owned(),
+            Err(_) => return inproc_result(Err("socket_path is not UTF-8".to_string())),
+        };
+        inproc_result(start_inproc(Args {
+            socket: sock,
+            idle_secs: 0,
+            ..Default::default()
+        }))
     })
     .unwrap_or(-1)
+}
+
+/// Collects `argv[0..argc)` into owned strings.
+///
+/// # Safety
+/// `argv` must point to `argc` valid NUL-terminated C strings when `argc > 0`.
+unsafe fn c_flags(argc: c_int, argv: *const *const c_char) -> Result<Vec<String>, String> {
+    let count = usize::try_from(argc).map_err(|_| format!("argc is negative ({argc})"))?;
+    if count == 0 {
+        return Ok(Vec::new());
+    }
+    if argv.is_null() {
+        return Err("argv is null".to_string());
+    }
+    // SAFETY: The caller guarantees `argv` points to `argc` elements.
+    let pointers = unsafe { std::slice::from_raw_parts(argv, count) };
+    pointers
+        .iter()
+        .enumerate()
+        .map(|(i, &p)| {
+            if p.is_null() {
+                return Err(format!("argv[{i}] is null"));
+            }
+            // SAFETY: The caller guarantees each element is a NUL-terminated C string.
+            unsafe { CStr::from_ptr(p) }
+                .to_str()
+                .map(str::to_owned)
+                .map_err(|_| format!("argv[{i}] is not UTF-8"))
+        })
+        .collect()
+}
+
+/// C-FFI entry point for launching the in-process server with the same flags as
+/// `gcs-core-server` (see [`parse_inproc_args`]); `argv` holds flags only, no program name.
+/// Returns `0` once the UDS listener is bound, or `-1` on error (see
+/// [`gcs_core_inproc_last_error`]). Stop it with [`gcs_core_stop_inproc`] and the `--socket` value.
+///
+/// # Safety
+/// `argv` must point to `argc` valid NUL-terminated C strings when `argc > 0`.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn gcs_core_start_inproc_with_args(
+    argc: c_int,
+    argv: *const *const c_char,
+) -> i32 {
+    std::panic::catch_unwind(|| {
+        // SAFETY: Forwarded caller guarantee.
+        let result = unsafe { c_flags(argc, argv) }
+            .and_then(parse_inproc_args)
+            .and_then(start_inproc);
+        inproc_result(result)
+    })
+    .unwrap_or(-1)
+}
+
+/// Copies the message of the last failed `gcs_core_start_inproc*` call on the calling thread into
+/// `buf` (truncated to `cap - 1` bytes and NUL-terminated) and returns the full message length.
+/// Pass a null `buf` or `cap == 0` to query the length only.
+///
+/// # Safety
+/// `buf` must be null or point to `cap` writable bytes.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn gcs_core_inproc_last_error(buf: *mut c_char, cap: usize) -> usize {
+    INPROC_LAST_ERROR.with(|e| {
+        let message = e.borrow();
+        if !buf.is_null() && cap > 0 {
+            let n = message.len().min(cap - 1);
+            // SAFETY: `buf` has `cap` writable bytes and `n < cap`; source and destination do not
+            // overlap because `message` is owned by this module.
+            unsafe {
+                std::ptr::copy_nonoverlapping(message.as_ptr().cast::<c_char>(), buf, n);
+                *buf.add(n) = 0;
+            }
+        }
+        message.len()
+    })
 }
 
 /// C-FFI entry point for stopping an in-process gRPC-over-UDS server previously started via

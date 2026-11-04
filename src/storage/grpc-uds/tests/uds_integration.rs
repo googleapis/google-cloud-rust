@@ -931,3 +931,139 @@ fn worker_threads_sizes_the_runtime() -> anyhow::Result<()> {
     }
     Ok(())
 }
+
+/// In-process servers accept the same flags as `gcs-core-server`, so an embedded server can be
+/// configured exactly like the sidecar it is compared with. `--socket` is required (an embedded
+/// server must never claim the daemon's default path), `--idle-secs` defaults to 0 (idle exit
+/// would stop a server the host still owns), and process-only or network-exposing flags are
+/// rejected.
+#[test]
+fn parse_inproc_args_accepts_server_flags_and_rejects_process_only_ones() {
+    use storage_grpc_uds::parse_inproc_args;
+
+    let args = parse_inproc_args([
+        "--socket",
+        "@gcs-core-test",
+        "--grpc-subchannels",
+        "4",
+        "--worker-threads",
+        "2",
+        "--chunk-size",
+        "65536",
+        "--default-transport",
+        "grpc",
+        "--shm-size",
+        "0",
+    ])
+    .expect("server flags are accepted in-process");
+    assert_eq!(args.socket, "@gcs-core-test");
+    assert_eq!(args.grpc_subchannels, 4);
+    assert_eq!(args.worker_threads, 2);
+    assert_eq!(args.chunk_size, 65536);
+    assert_eq!(args.default_transport, "grpc");
+    assert_eq!(args.shm_size, 0);
+    assert_eq!(
+        args.idle_secs, 0,
+        "in-process servers never idle-exit by default"
+    );
+
+    let explicit_idle = parse_inproc_args(["--socket", "/tmp/x.sock", "--idle-secs", "5"])
+        .expect("an explicit --idle-secs is honoured");
+    assert_eq!(explicit_idle.idle_secs, 5);
+
+    let missing_socket = parse_inproc_args(Vec::<String>::new()).unwrap_err();
+    assert!(missing_socket.contains("--socket"), "{missing_socket}");
+
+    let pdeathsig =
+        parse_inproc_args(["--socket", "/tmp/x.sock", "--pdeathsig", "false"]).unwrap_err();
+    assert!(pdeathsig.contains("--pdeathsig"), "{pdeathsig}");
+
+    let tcp = parse_inproc_args(["--socket", "/tmp/x.sock", "--tcp", "127.0.0.1:0"]).unwrap_err();
+    assert!(tcp.contains("--tcp"), "{tcp}");
+
+    let unknown = parse_inproc_args(["--socket", "/tmp/x.sock", "--no-such-flag"]).unwrap_err();
+    assert!(unknown.contains("--no-such-flag"), "{unknown}");
+}
+
+/// Reads the calling thread's last in-process start error through the C ABI.
+fn inproc_last_error() -> String {
+    let mut buf = vec![0 as std::ffi::c_char; 512];
+    let n = unsafe { storage_grpc_uds::gcs_core_inproc_last_error(buf.as_mut_ptr(), buf.len()) };
+    assert!(
+        n < buf.len(),
+        "test buffer too small for a {n}-byte message"
+    );
+    unsafe { std::ffi::CStr::from_ptr(buf.as_ptr()) }
+        .to_string_lossy()
+        .into_owned()
+}
+
+/// `gcs_core_start_inproc_with_args` starts the same server as the binary from an `argv`-style
+/// flag list, `gcs_core_stop_inproc` stops it, and invalid input fails with a readable message
+/// instead of starting anything.
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn inproc_with_args_lifecycle_and_errors() -> anyhow::Result<()> {
+    use std::ffi::{CString, c_char, c_int};
+
+    let dir = tempfile::tempdir()?;
+    let sock = dir.path().join("inproc-args.sock");
+    let flags: Vec<CString> = [
+        "--socket",
+        &sock.to_string_lossy(),
+        "--grpc-subchannels",
+        "4",
+        "--worker-threads",
+        "2",
+        "--shm-size",
+        "0",
+    ]
+    .iter()
+    .map(|s| CString::new(*s))
+    .collect::<Result<_, _>>()?;
+    let argv: Vec<*const c_char> = flags.iter().map(|s| s.as_ptr()).collect();
+    let rc = unsafe {
+        storage_grpc_uds::gcs_core_start_inproc_with_args(argv.len() as c_int, argv.as_ptr())
+    };
+    assert_eq!(rc, 0, "start failed: {}", inproc_last_error());
+    {
+        let mut client = connect_uds(sock.clone()).await?;
+        let pong = client
+            .ping(PingRequest {
+                payload: Bytes::from_static(b"with-args"),
+            })
+            .await?
+            .into_inner();
+        assert_eq!(pong.payload, Bytes::from_static(b"with-args"));
+    }
+    let c_sock = CString::new(sock.to_string_lossy().as_bytes())?;
+    assert_eq!(
+        unsafe { storage_grpc_uds::gcs_core_stop_inproc(c_sock.as_ptr()) },
+        0
+    );
+    assert!(!sock.exists(), "socket removed after stop");
+
+    // A process-only flag is rejected before anything binds.
+    let bad: Vec<CString> = ["--socket", "/tmp/never-bound.sock", "--pdeathsig", "true"]
+        .iter()
+        .map(|s| CString::new(*s))
+        .collect::<Result<_, _>>()?;
+    let bad_argv: Vec<*const c_char> = bad.iter().map(|s| s.as_ptr()).collect();
+    let rc = unsafe {
+        storage_grpc_uds::gcs_core_start_inproc_with_args(
+            bad_argv.len() as c_int,
+            bad_argv.as_ptr(),
+        )
+    };
+    assert_eq!(rc, -1);
+    assert!(inproc_last_error().contains("--pdeathsig"));
+    assert!(!std::path::Path::new("/tmp/never-bound.sock").exists());
+
+    // Malformed argv arrays are rejected without dereferencing anything.
+    let rc = unsafe { storage_grpc_uds::gcs_core_start_inproc_with_args(1, std::ptr::null()) };
+    assert_eq!(rc, -1);
+    assert!(inproc_last_error().contains("argv"));
+    let rc = unsafe { storage_grpc_uds::gcs_core_start_inproc_with_args(-1, argv.as_ptr()) };
+    assert_eq!(rc, -1);
+    assert!(inproc_last_error().contains("argc"));
+    Ok(())
+}

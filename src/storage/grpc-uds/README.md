@@ -44,7 +44,7 @@ Thin language veneers (Go, Python, Java, C++, Node.js) connect to `gcs-core-serv
 | :--- | :--- | :--- |
 | **1. `N:1` Shared Host Daemon** *(Default)* | `gcs-core-server --socket /run/user/$UID/gcs-core.sock --idle-secs 300` | Multiple thin-client processes share one daemon and one warm GCS gRPC subchannel pool. `TrackedUnixStream` tracks active UDS connections (`active_conns`), and the daemon exits only after `--idle-secs` with `0` active connections. |
 | **2. `1:1` Per-Process Child Sidecar** | `gcs-core-server --socket /tmp/gcs-$PID.sock --pdeathsig true --idle-secs 0` | Dedicated child process per application. On Linux, `--pdeathsig true` sets `prctl(PR_SET_PDEATHSIG, SIGTERM)` (with immediate `getppid() == 1` TOCTOU verification) so the sidecar terminates immediately if its parent crashes (`SIGKILL`). |
-| **3. Single-Process (In-Process UDS)** | Call `gcs_core_start_inproc(socket_path)` / `gcs_core_stop_inproc(socket_path)` via C-FFI ([`include/gcs_core_uds.h`](include/gcs_core_uds.h)) | Runs the Tonic UDS server on a background Tokio thread inside the host process. All data RPCs still flow over standard UDS sockets (avoiding per-RPC FFI/`cgo` transitions). |
+| **3. Single-Process (In-Process UDS)** | Call `gcs_core_start_inproc(socket_path)` (default flags) or `gcs_core_start_inproc_with_args(argc, argv)` (same flags as the binary, e.g. `--socket @gcs-core-123 --grpc-subchannels 4`), then `gcs_core_stop_inproc(socket_path)`, via C-FFI ([`include/gcs_core_uds.h`](include/gcs_core_uds.h)) | Runs the Tonic UDS server on a background Tokio thread inside the host process. All data RPCs still flow over standard UDS sockets (avoiding per-RPC FFI/`cgo` transitions). |
 
 ---
 
