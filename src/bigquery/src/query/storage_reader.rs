@@ -141,19 +141,19 @@ impl crate::query::arrow::RecordBatchSource for StorageReader {
 // TODO(#7039): wire into StorageReader once concurrent stream reading lands.
 #[allow(dead_code)]
 #[derive(Debug, PartialEq, Eq)]
-pub(crate) struct MultiStreamSession {
+pub(crate) struct ReadSessionInfo {
     pub(crate) streams: Vec<String>,
     pub(crate) arrow_schema: Option<bytes::Bytes>,
 }
 
 // TODO(#7039): wire into StorageReader once concurrent stream reading lands.
 #[allow(dead_code)]
-pub(crate) async fn try_create_multi_stream_session(
+pub(crate) async fn try_create_read_session(
     read_client: &ReadClient,
     job_service: &JobService,
     job_ref: &JobReference,
     options: &RequestOptions,
-) -> Result<Option<MultiStreamSession>, RowError> {
+) -> Result<Option<ReadSessionInfo>, RowError> {
     let Some(get_job) = build_get_job(job_service, job_ref, options) else {
         return Ok(None);
     };
@@ -202,10 +202,6 @@ pub(crate) async fn try_create_multi_stream_session(
         .send()
         .await?;
 
-    if session.streams.len() <= 1 {
-        return Ok(None);
-    }
-
     let arrow_schema = match session.schema {
         Some(ReadSessionSchema::ArrowSchema(schema)) if !schema.serialized_schema.is_empty() => {
             Some(schema.serialized_schema)
@@ -213,7 +209,7 @@ pub(crate) async fn try_create_multi_stream_session(
         _ => None,
     };
     let streams = session.streams.into_iter().map(|s| s.name).collect();
-    Ok(Some(MultiStreamSession {
+    Ok(Some(ReadSessionInfo {
         streams,
         arrow_schema,
     }))
@@ -448,8 +444,13 @@ mod tests {
         )
     }
 
+    #[test_case::test_case(0; "zero streams")]
+    #[test_case::test_case(1; "single stream")]
+    #[test_case::test_case(2; "multiple streams")]
     #[tokio::test]
-    async fn test_try_create_multi_stream_session_creates_arrow_lz4_session() -> TestResult {
+    async fn test_try_create_read_session_creates_arrow_lz4_session(
+        stream_count: usize,
+    ) -> TestResult {
         let mut mock_job = MockJobService::new();
         mock_job.expect_get_job().times(1).returning(|req, opts| {
             assert_eq!(req.project_id, "billing-proj");
@@ -463,6 +464,10 @@ mod tests {
             )))
         });
 
+        let expected_streams: Vec<String> = (0..stream_count)
+            .map(|i| format!("sessions/s1/streams/{i}"))
+            .collect();
+        let streams_for_mock = expected_streams.clone();
         let schema_bytes = bytes::Bytes::from_static(b"arrow-schema-bytes");
         let expected_schema = schema_bytes.clone();
         let mut mock_read = MockRead::new();
@@ -484,12 +489,12 @@ mod tests {
                     .expect("arrow_serialization_options must be set");
                 assert_eq!(arrow_opts.buffer_compression, CompressionCodec::Lz4Frame);
 
+                let streams = streams_for_mock
+                    .into_iter()
+                    .map(|name| ReadStream::new().set_name(name));
                 let session = ReadSession::new()
                     .set_arrow_schema(ArrowSchema::new().set_serialized_schema(schema_bytes))
-                    .set_streams([
-                        ReadStream::new().set_name("sessions/s1/streams/0"),
-                        ReadStream::new().set_name("sessions/s1/streams/1"),
-                    ]);
+                    .set_streams(streams);
                 Ok(Response::from(session))
             });
 
@@ -503,31 +508,25 @@ mod tests {
         options.set_quota_project("quota-proj");
 
         let result =
-            try_create_multi_stream_session(&read_client, &job_service, &job_ref, &options).await?;
+            try_create_read_session(&read_client, &job_service, &job_ref, &options).await?;
 
         assert_eq!(
             result,
-            Some(MultiStreamSession {
-                streams: vec![
-                    "sessions/s1/streams/0".to_string(),
-                    "sessions/s1/streams/1".to_string(),
-                ],
+            Some(ReadSessionInfo {
+                streams: expected_streams,
                 arrow_schema: Some(expected_schema),
             })
         );
         Ok(())
     }
 
-    #[test_case::test_case(JobReference::new(), None, None; "empty job reference")]
-    #[test_case::test_case(JobReference::new().set_project_id("p1").set_job_id("j1"), Some(Job::new()), None; "no destination table")]
-    #[test_case::test_case(JobReference::new().set_project_id("p1").set_job_id("j1"), Some(job_with_dest_table("p1", "ds1", "")), None; "empty destination table id")]
-    #[test_case::test_case(JobReference::new().set_project_id("p1").set_job_id("j1"), Some(job_with_dest_table("p1", "ds1", "t1")), Some(0); "zero session streams")]
-    #[test_case::test_case(JobReference::new().set_project_id("p1").set_job_id("j1"), Some(job_with_dest_table("p1", "ds1", "t1")), Some(1); "single session stream")]
+    #[test_case::test_case(JobReference::new(), None; "empty job reference")]
+    #[test_case::test_case(JobReference::new().set_project_id("p1").set_job_id("j1"), Some(Job::new()); "no destination table")]
+    #[test_case::test_case(JobReference::new().set_project_id("p1").set_job_id("j1"), Some(job_with_dest_table("p1", "ds1", "")); "empty destination table id")]
     #[tokio::test]
-    async fn test_try_create_multi_stream_session_returns_none_when_unavailable(
+    async fn test_try_create_read_session_returns_none_without_destination_table(
         job_ref: JobReference,
         job_response: Option<Job>,
-        session_stream_count: Option<usize>,
     ) -> TestResult {
         let mut mock_job = MockJobService::new();
         match job_response {
@@ -543,25 +542,11 @@ mod tests {
         }
 
         let mut mock_read = MockRead::new();
-        match session_stream_count {
-            Some(count) => {
-                mock_read
-                    .expect_create_read_session()
-                    .times(1)
-                    .return_once(move |_, _| {
-                        let streams =
-                            (0..count).map(|i| ReadStream::new().set_name(format!("streams/{i}")));
-                        Ok(Response::from(ReadSession::new().set_streams(streams)))
-                    });
-            }
-            None => {
-                mock_read.expect_create_read_session().never();
-            }
-        }
+        mock_read.expect_create_read_session().never();
 
         let job_service = create_job_service(mock_job);
         let read_client = crate::client::Read::from_stub(mock_read);
-        let result = try_create_multi_stream_session(
+        let result = try_create_read_session(
             &read_client,
             &job_service,
             &job_ref,
@@ -576,9 +561,7 @@ mod tests {
     #[test_case::test_case(true; "get_job rpc error")]
     #[test_case::test_case(false; "create_read_session rpc error")]
     #[tokio::test]
-    async fn test_try_create_multi_stream_session_propagates_rpc_errors(
-        fail_get_job: bool,
-    ) -> TestResult {
+    async fn test_try_create_read_session_propagates_rpc_errors(fail_get_job: bool) -> TestResult {
         let mut mock_job = MockJobService::new();
         let mut mock_read = MockRead::new();
         let denied = |msg: &str| {
@@ -609,7 +592,7 @@ mod tests {
         let job_service = create_job_service(mock_job);
         let read_client = crate::client::Read::from_stub(mock_read);
         let job_ref = JobReference::new().set_project_id("p1").set_job_id("j1");
-        let err = try_create_multi_stream_session(
+        let err = try_create_read_session(
             &read_client,
             &job_service,
             &job_ref,
