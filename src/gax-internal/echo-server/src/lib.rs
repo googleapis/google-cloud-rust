@@ -18,7 +18,7 @@
 //! to some helper functions.
 
 use axum::{
-    extract::Query,
+    extract::{Query, State},
     http::{HeaderMap, StatusCode},
 };
 use google_cloud_auth::credentials::Credentials;
@@ -117,8 +117,12 @@ pub fn make_status() -> anyhow::Result<Status> {
     Ok(status)
 }
 
+// Axum route handlers require each parameter to implement `FromRequestParts`.
+// Foreign types like `watch::Sender<usize>` and `HashMap<String, String>` must
+// be wrapped in Axum's `State` and `Query` tuple-struct extractors, which we
+// destructure inline to pass the inner values directly to `echo_impl`.
 async fn echo(
-    axum::extract::State(active_sleeps): axum::extract::State<watch::Sender<usize>>,
+    State(active_sleeps): State<watch::Sender<usize>>,
     Query(query): Query<HashMap<String, String>>,
     headers: HeaderMap,
 ) -> (StatusCode, String) {
