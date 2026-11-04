@@ -31415,6 +31415,9 @@ impl serde::ser::Serialize for super::reasoning_engine_spec::SourceCodeSpec {
         if let Some(value) = self.developer_connect_source() {
             state.serialize_entry("developerConnectSource", value)?;
         }
+        if let Some(value) = self.git_source() {
+            state.serialize_entry("gitSource", value)?;
+        }
         if let Some(value) = self.python_spec() {
             state.serialize_entry("pythonSpec", value)?;
         }
@@ -31531,6 +31534,35 @@ impl serde::ser::Serialize
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.config.is_some() {
             state.serialize_entry("config", &self.config)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::reasoning_engine_spec::source_code_spec::GitSource {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.url.is_empty() {
+            state.serialize_entry("url", &self.url)?;
+        }
+        if !self.dir.is_empty() {
+            state.serialize_entry("dir", &self.dir)?;
+        }
+        if !self.revision.is_empty() {
+            state.serialize_entry("revision", &self.revision)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -27,16 +27,20 @@
 //!
 //! # Available Clients
 //!
+//! * [AclConfigService](client/struct.AclConfigService.html)
 //! * [AssistantService](client/struct.AssistantService.html)
 //! * [CmekConfigService](client/struct.CmekConfigService.html)
+//! * [CollectionService](client/struct.CollectionService.html)
 //! * [CompletionService](client/struct.CompletionService.html)
 //! * [ControlService](client/struct.ControlService.html)
 //! * [ConversationalSearchService](client/struct.ConversationalSearchService.html)
+//! * [DataConnectorService](client/struct.DataConnectorService.html)
 //! * [DataStoreService](client/struct.DataStoreService.html)
 //! * [DocumentService](client/struct.DocumentService.html)
 //! * [EngineService](client/struct.EngineService.html)
 //! * [GroundedGenerationService](client/struct.GroundedGenerationService.html)
 //! * [IdentityMappingStoreService](client/struct.IdentityMappingStoreService.html)
+//! * [LicenseConfigService](client/struct.LicenseConfigService.html)
 //! * [ProjectService](client/struct.ProjectService.html)
 //! * [RankService](client/struct.RankService.html)
 //! * [RecommendationService](client/struct.RecommendationService.html)
@@ -48,6 +52,8 @@
 //! * [SiteSearchEngineService](client/struct.SiteSearchEngineService.html)
 //! * [UserEventService](client/struct.UserEventService.html)
 //! * [UserLicenseService](client/struct.UserLicenseService.html)
+//! * [UserStoreService](client/struct.UserStoreService.html)
+//! * [WidgetConfigService](client/struct.WidgetConfigService.html)
 //!
 //! # Features
 //!
@@ -80,14 +86,14 @@ pub mod stub;
 ///
 /// # Example
 /// ```
-/// # use google_cloud_discoveryengine_v1::client::CmekConfigService;
+/// # use google_cloud_discoveryengine_v1::client::AclConfigService;
 /// async fn sample(
 ///    project_id: &str,
 ///    location_id: &str,
 /// ) -> anyhow::Result<()> {
-///     let client = CmekConfigService::builder().build().await?;
-///     let response = client.get_cmek_config()
-///         .set_name(format!("projects/{project_id}/locations/{location_id}/cmekConfig"))
+///     let client = AclConfigService::builder().build().await?;
+///     let response = client.get_acl_config()
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/aclConfig"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
 ///     Ok(())
@@ -132,16 +138,20 @@ pub(crate) mod convert;
 
 /// The default host used by the service.
 #[cfg(any(
+    feature = "acl-config-service",
     feature = "assistant-service",
     feature = "cmek-config-service",
+    feature = "collection-service",
     feature = "completion-service",
     feature = "control-service",
     feature = "conversational-search-service",
+    feature = "data-connector-service",
     feature = "data-store-service",
     feature = "document-service",
     feature = "engine-service",
     feature = "grounded-generation-service",
     feature = "identity-mapping-store-service",
+    feature = "license-config-service",
     feature = "project-service",
     feature = "rank-service",
     feature = "recommendation-service",
@@ -153,20 +163,26 @@ pub(crate) mod convert;
     feature = "site-search-engine-service",
     feature = "user-event-service",
     feature = "user-license-service",
+    feature = "user-store-service",
+    feature = "widget-config-service",
 ))]
 const DEFAULT_HOST: &str = "https://discoveryengine.googleapis.com/";
 
 #[cfg(any(
+    feature = "acl-config-service",
     feature = "assistant-service",
     feature = "cmek-config-service",
+    feature = "collection-service",
     feature = "completion-service",
     feature = "control-service",
     feature = "conversational-search-service",
+    feature = "data-connector-service",
     feature = "data-store-service",
     feature = "document-service",
     feature = "engine-service",
     feature = "grounded-generation-service",
     feature = "identity-mapping-store-service",
+    feature = "license-config-service",
     feature = "project-service",
     feature = "rank-service",
     feature = "recommendation-service",
@@ -178,6 +194,8 @@ const DEFAULT_HOST: &str = "https://discoveryengine.googleapis.com/";
     feature = "site-search-engine-service",
     feature = "user-event-service",
     feature = "user-license-service",
+    feature = "user-store-service",
+    feature = "widget-config-service",
 ))]
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");

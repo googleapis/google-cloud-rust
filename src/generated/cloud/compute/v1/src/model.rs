@@ -3433,6 +3433,24 @@ pub struct AccessConfig {
     /// external IPv6 range.
     pub external_ipv_6_prefix_length: std::option::Option<i32>,
 
+    /// Reference to the source of external IPv4 addresses,
+    /// like a PublicDelegatedPrefix (PDP) for BYOIP.
+    /// The PDP must support enhanced IPv4 allocations.
+    ///
+    /// Use one of the following formats to specify a PDP when allocating an
+    /// external IPv4 address using BYOIP.
+    ///
+    /// - Full resource URL, as in<https://www.googleapis.com/compute/v1/projects/projectId/regions/region/publicDelegatedPrefixes/pdp-name>
+    ///
+    /// - Partial URL, as in
+    ///
+    ///
+    /// ```norust
+    ///  - projects/projectId/regions/region/publicDelegatedPrefixes/pdp-name
+    ///  - regions/region/publicDelegatedPrefixes/pdp-name
+    /// ```
+    pub ip_collection: std::option::Option<std::string::String>,
+
     /// Output only. [Output Only] Type of the resource. Alwayscompute#accessConfig for access configs.
     pub kind: std::option::Option<std::string::String>,
 
@@ -3557,6 +3575,37 @@ impl AccessConfig {
         T: std::convert::Into<i32>,
     {
         self.external_ipv_6_prefix_length = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ip_collection][crate::model::AccessConfig::ip_collection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::AccessConfig;
+    /// let x = AccessConfig::new().set_ip_collection("example");
+    /// ```
+    pub fn set_ip_collection<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.ip_collection = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ip_collection][crate::model::AccessConfig::ip_collection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::AccessConfig;
+    /// let x = AccessConfig::new().set_or_clear_ip_collection(Some("example"));
+    /// let x = AccessConfig::new().set_or_clear_ip_collection(None::<String>);
+    /// ```
+    pub fn set_or_clear_ip_collection<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.ip_collection = v.map(|x| x.into());
         self
     }
 
@@ -4240,6 +4289,11 @@ pub struct Address {
     /// only be used with INTERNAL type with theVPC_PEERING purpose.
     pub network: std::option::Option<std::string::String>,
 
+    /// Optional. The URL of the network attachment that this address comes from in the
+    /// following format:
+    /// projects/{project}/regions/{region_name}/networkAttachments/{network_attachment_name}.
+    pub network_attachment: std::option::Option<std::string::String>,
+
     /// This signifies the networking tier used for configuring this address and
     /// can only take the following values: PREMIUM orSTANDARD. Internal IP addresses are always Premium Tier;
     /// global external IP addresses are always Premium Tier; regional external IP
@@ -4293,6 +4347,11 @@ pub struct Address {
 
     /// [Output Only] Server-defined URL for the resource.
     pub self_link: std::option::Option<std::string::String>,
+
+    /// Optional. Producer Service's Service class ID for the region of this address. Can
+    /// only be used with network_attachment. It is not possible to use on its own;
+    /// however, network_attachment can be used without service_class_id.
+    pub service_class_id: std::option::Option<std::string::String>,
 
     /// Output only. [Output Only] The status of the address, which can be one ofRESERVING, RESERVED, or IN_USE.
     /// An address that is RESERVING is currently in the process of
@@ -4722,6 +4781,37 @@ impl Address {
         self
     }
 
+    /// Sets the value of [network_attachment][crate::model::Address::network_attachment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::Address;
+    /// let x = Address::new().set_network_attachment("example");
+    /// ```
+    pub fn set_network_attachment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.network_attachment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [network_attachment][crate::model::Address::network_attachment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::Address;
+    /// let x = Address::new().set_or_clear_network_attachment(Some("example"));
+    /// let x = Address::new().set_or_clear_network_attachment(None::<String>);
+    /// ```
+    pub fn set_or_clear_network_attachment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.network_attachment = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [network_tier][crate::model::Address::network_tier].
     ///
     /// # Example
@@ -4886,6 +4976,37 @@ impl Address {
         T: std::convert::Into<std::string::String>,
     {
         self.self_link = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [service_class_id][crate::model::Address::service_class_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::Address;
+    /// let x = Address::new().set_service_class_id("example");
+    /// ```
+    pub fn set_service_class_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.service_class_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service_class_id][crate::model::Address::service_class_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::Address;
+    /// let x = Address::new().set_or_clear_service_class_id(Some("example"));
+    /// let x = Address::new().set_or_clear_service_class_id(None::<String>);
+    /// ```
+    pub fn set_or_clear_service_class_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.service_class_id = v.map(|x| x.into());
         self
     }
 
@@ -5445,6 +5566,14 @@ pub mod address {
         IpsecInterconnect,
         /// External IP automatically reserved for Cloud NAT.
         NatAuto,
+        /// The global external address can only be assigned to Global External
+        /// Passthrough Network Load Balancer forwarding rules, as an Availability
+        /// Group 0 address.
+        PassthroughLoadBalancerAvailabilityGroup0,
+        /// The global external address can only be assigned to Global External
+        /// Passthrough Network Load Balancer forwarding rules, as an Availability
+        /// Group 1 address.
+        PassthroughLoadBalancerAvailabilityGroup1,
         /// A private network IP address that can be used to configure Private
         /// Service Connect. This purpose can be specified only forGLOBAL addresses of Type INTERNAL
         PrivateServiceConnect,
@@ -5479,6 +5608,12 @@ pub mod address {
                 Self::GceEndpoint => std::option::Option::Some("GCE_ENDPOINT"),
                 Self::IpsecInterconnect => std::option::Option::Some("IPSEC_INTERCONNECT"),
                 Self::NatAuto => std::option::Option::Some("NAT_AUTO"),
+                Self::PassthroughLoadBalancerAvailabilityGroup0 => {
+                    std::option::Option::Some("PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP0")
+                }
+                Self::PassthroughLoadBalancerAvailabilityGroup1 => {
+                    std::option::Option::Some("PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP1")
+                }
                 Self::PrivateServiceConnect => std::option::Option::Some("PRIVATE_SERVICE_CONNECT"),
                 Self::Serverless => std::option::Option::Some("SERVERLESS"),
                 Self::SharedLoadbalancerVip => std::option::Option::Some("SHARED_LOADBALANCER_VIP"),
@@ -5504,6 +5639,12 @@ pub mod address {
                 "GCE_ENDPOINT" => Self::GceEndpoint,
                 "IPSEC_INTERCONNECT" => Self::IpsecInterconnect,
                 "NAT_AUTO" => Self::NatAuto,
+                "PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP0" => {
+                    Self::PassthroughLoadBalancerAvailabilityGroup0
+                }
+                "PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP1" => {
+                    Self::PassthroughLoadBalancerAvailabilityGroup1
+                }
                 "PRIVATE_SERVICE_CONNECT" => Self::PrivateServiceConnect,
                 "SERVERLESS" => Self::Serverless,
                 "SHARED_LOADBALANCER_VIP" => Self::SharedLoadbalancerVip,
@@ -5526,6 +5667,12 @@ pub mod address {
                 Self::GceEndpoint => serializer.serialize_str("GCE_ENDPOINT"),
                 Self::IpsecInterconnect => serializer.serialize_str("IPSEC_INTERCONNECT"),
                 Self::NatAuto => serializer.serialize_str("NAT_AUTO"),
+                Self::PassthroughLoadBalancerAvailabilityGroup0 => {
+                    serializer.serialize_str("PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP0")
+                }
+                Self::PassthroughLoadBalancerAvailabilityGroup1 => {
+                    serializer.serialize_str("PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP1")
+                }
                 Self::PrivateServiceConnect => serializer.serialize_str("PRIVATE_SERVICE_CONNECT"),
                 Self::Serverless => serializer.serialize_str("SERVERLESS"),
                 Self::SharedLoadbalancerVip => serializer.serialize_str("SHARED_LOADBALANCER_VIP"),
@@ -13251,12 +13398,14 @@ pub mod attached_disk_initialize_params {
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
 ))]
@@ -13300,12 +13449,14 @@ pub struct AuditConfig {
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
 ))]
@@ -13395,12 +13546,14 @@ impl AuditConfig {
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
 ))]
@@ -13457,12 +13610,14 @@ impl wkt::message::Message for AuditConfig {
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
 ))]
@@ -13506,12 +13661,14 @@ pub struct AuditLogConfig {
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
 ))]
@@ -13602,12 +13759,14 @@ impl AuditLogConfig {
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
 ))]
@@ -13644,12 +13803,14 @@ impl wkt::message::Message for AuditLogConfig {
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
 ))]
@@ -13700,12 +13861,14 @@ pub mod audit_log_config {
         feature = "region-instant-snapshots",
         feature = "region-network-firewall-policies",
         feature = "region-snapshots",
+        feature = "region-ssl-policies",
         feature = "reservation-blocks",
         feature = "reservation-sub-blocks",
         feature = "reservations",
         feature = "resource-policies",
         feature = "service-attachments",
         feature = "snapshots",
+        feature = "ssl-policies",
         feature = "storage-pools",
         feature = "subnetworks",
     ))]
@@ -13753,12 +13916,14 @@ pub mod audit_log_config {
         feature = "region-instant-snapshots",
         feature = "region-network-firewall-policies",
         feature = "region-snapshots",
+        feature = "region-ssl-policies",
         feature = "reservation-blocks",
         feature = "reservation-sub-blocks",
         feature = "reservations",
         feature = "resource-policies",
         feature = "service-attachments",
         feature = "snapshots",
+        feature = "ssl-policies",
         feature = "storage-pools",
         feature = "subnetworks",
     ))]
@@ -13795,12 +13960,14 @@ pub mod audit_log_config {
         feature = "region-instant-snapshots",
         feature = "region-network-firewall-policies",
         feature = "region-snapshots",
+        feature = "region-ssl-policies",
         feature = "reservation-blocks",
         feature = "reservation-sub-blocks",
         feature = "reservations",
         feature = "resource-policies",
         feature = "service-attachments",
         feature = "snapshots",
+        feature = "ssl-policies",
         feature = "storage-pools",
         feature = "subnetworks",
     ))]
@@ -13843,12 +14010,14 @@ pub mod audit_log_config {
         feature = "region-instant-snapshots",
         feature = "region-network-firewall-policies",
         feature = "region-snapshots",
+        feature = "region-ssl-policies",
         feature = "reservation-blocks",
         feature = "reservation-sub-blocks",
         feature = "reservations",
         feature = "resource-policies",
         feature = "service-attachments",
         feature = "snapshots",
+        feature = "ssl-policies",
         feature = "storage-pools",
         feature = "subnetworks",
     ))]
@@ -13884,12 +14053,14 @@ pub mod audit_log_config {
         feature = "region-instant-snapshots",
         feature = "region-network-firewall-policies",
         feature = "region-snapshots",
+        feature = "region-ssl-policies",
         feature = "reservation-blocks",
         feature = "reservation-sub-blocks",
         feature = "reservations",
         feature = "resource-policies",
         feature = "service-attachments",
         feature = "snapshots",
+        feature = "ssl-policies",
         feature = "storage-pools",
         feature = "subnetworks",
     ))]
@@ -13934,12 +14105,14 @@ pub mod audit_log_config {
         feature = "region-instant-snapshots",
         feature = "region-network-firewall-policies",
         feature = "region-snapshots",
+        feature = "region-ssl-policies",
         feature = "reservation-blocks",
         feature = "reservation-sub-blocks",
         feature = "reservations",
         feature = "resource-policies",
         feature = "service-attachments",
         feature = "snapshots",
+        feature = "ssl-policies",
         feature = "storage-pools",
         feature = "subnetworks",
     ))]
@@ -13984,12 +14157,14 @@ pub mod audit_log_config {
         feature = "region-instant-snapshots",
         feature = "region-network-firewall-policies",
         feature = "region-snapshots",
+        feature = "region-ssl-policies",
         feature = "reservation-blocks",
         feature = "reservation-sub-blocks",
         feature = "reservations",
         feature = "resource-policies",
         feature = "service-attachments",
         feature = "snapshots",
+        feature = "ssl-policies",
         feature = "storage-pools",
         feature = "subnetworks",
     ))]
@@ -25199,6 +25374,11 @@ pub struct BackendService {
     /// create the resource.
     pub description: std::option::Option<std::string::String>,
 
+    /// Dynamic forwarding configuration. This field is used to configure the
+    /// backend service with dynamic forwarding feature which together with Service
+    /// Extension allows customized and complex routing logic.
+    pub dynamic_forwarding: std::option::Option<crate::model::BackendServiceDynamicForwarding>,
+
     /// [Output Only] The resource URL for the edge security policy associated with
     /// this backend service.
     pub edge_security_policy: std::option::Option<std::string::String>,
@@ -26007,6 +26187,39 @@ impl BackendService {
         self
     }
 
+    /// Sets the value of [dynamic_forwarding][crate::model::BackendService::dynamic_forwarding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::BackendService;
+    /// use google_cloud_compute_v1::model::BackendServiceDynamicForwarding;
+    /// let x = BackendService::new().set_dynamic_forwarding(BackendServiceDynamicForwarding::default()/* use setters */);
+    /// ```
+    pub fn set_dynamic_forwarding<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BackendServiceDynamicForwarding>,
+    {
+        self.dynamic_forwarding = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dynamic_forwarding][crate::model::BackendService::dynamic_forwarding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::BackendService;
+    /// use google_cloud_compute_v1::model::BackendServiceDynamicForwarding;
+    /// let x = BackendService::new().set_or_clear_dynamic_forwarding(Some(BackendServiceDynamicForwarding::default()/* use setters */));
+    /// let x = BackendService::new().set_or_clear_dynamic_forwarding(None::<BackendServiceDynamicForwarding>);
+    /// ```
+    pub fn set_or_clear_dynamic_forwarding<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BackendServiceDynamicForwarding>,
+    {
+        self.dynamic_forwarding = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [edge_security_policy][crate::model::BackendService::edge_security_policy].
     ///
     /// # Example
@@ -26394,8 +26607,8 @@ impl BackendService {
     /// # use google_cloud_compute_v1::model::BackendService;
     /// use google_cloud_compute_v1::model::backend_service::LoadBalancingScheme;
     /// let x0 = BackendService::new().set_load_balancing_scheme(LoadBalancingScheme::ExternalManaged);
-    /// let x1 = BackendService::new().set_load_balancing_scheme(LoadBalancingScheme::Internal);
-    /// let x2 = BackendService::new().set_load_balancing_scheme(LoadBalancingScheme::InternalManaged);
+    /// let x1 = BackendService::new().set_load_balancing_scheme(LoadBalancingScheme::ExternalPassthrough);
+    /// let x2 = BackendService::new().set_load_balancing_scheme(LoadBalancingScheme::Internal);
     /// ```
     pub fn set_load_balancing_scheme<T>(mut self, v: T) -> Self
     where
@@ -26412,8 +26625,8 @@ impl BackendService {
     /// # use google_cloud_compute_v1::model::BackendService;
     /// use google_cloud_compute_v1::model::backend_service::LoadBalancingScheme;
     /// let x0 = BackendService::new().set_or_clear_load_balancing_scheme(Some(LoadBalancingScheme::ExternalManaged));
-    /// let x1 = BackendService::new().set_or_clear_load_balancing_scheme(Some(LoadBalancingScheme::Internal));
-    /// let x2 = BackendService::new().set_or_clear_load_balancing_scheme(Some(LoadBalancingScheme::InternalManaged));
+    /// let x1 = BackendService::new().set_or_clear_load_balancing_scheme(Some(LoadBalancingScheme::ExternalPassthrough));
+    /// let x2 = BackendService::new().set_or_clear_load_balancing_scheme(Some(LoadBalancingScheme::Internal));
     /// let x_none = BackendService::new().set_or_clear_load_balancing_scheme(None::<LoadBalancingScheme>);
     /// ```
     pub fn set_or_clear_load_balancing_scheme<T>(mut self, v: std::option::Option<T>) -> Self
@@ -27607,6 +27820,9 @@ pub mod backend_service {
         /// Balancers, regional external Application Load Balancers, or regional
         /// external proxy Network Load Balancers.
         ExternalManaged,
+        /// Signifies that this will be used for global external passthrough Network
+        /// Load Balancers.
+        ExternalPassthrough,
         /// Signifies that this will be used for internal passthrough Network Load
         /// Balancers.
         Internal,
@@ -27638,6 +27854,7 @@ pub mod backend_service {
             match self {
                 Self::External => std::option::Option::Some("EXTERNAL"),
                 Self::ExternalManaged => std::option::Option::Some("EXTERNAL_MANAGED"),
+                Self::ExternalPassthrough => std::option::Option::Some("EXTERNAL_PASSTHROUGH"),
                 Self::Internal => std::option::Option::Some("INTERNAL"),
                 Self::InternalManaged => std::option::Option::Some("INTERNAL_MANAGED"),
                 Self::InternalSelfManaged => std::option::Option::Some("INTERNAL_SELF_MANAGED"),
@@ -27663,6 +27880,7 @@ pub mod backend_service {
             match value {
                 "EXTERNAL" => Self::External,
                 "EXTERNAL_MANAGED" => Self::ExternalManaged,
+                "EXTERNAL_PASSTHROUGH" => Self::ExternalPassthrough,
                 "INTERNAL" => Self::Internal,
                 "INTERNAL_MANAGED" => Self::InternalManaged,
                 "INTERNAL_SELF_MANAGED" => Self::InternalSelfManaged,
@@ -27683,6 +27901,7 @@ pub mod backend_service {
             match self {
                 Self::External => serializer.serialize_str("EXTERNAL"),
                 Self::ExternalManaged => serializer.serialize_str("EXTERNAL_MANAGED"),
+                Self::ExternalPassthrough => serializer.serialize_str("EXTERNAL_PASSTHROUGH"),
                 Self::Internal => serializer.serialize_str("INTERNAL"),
                 Self::InternalManaged => serializer.serialize_str("INTERNAL_MANAGED"),
                 Self::InternalSelfManaged => serializer.serialize_str("INTERNAL_SELF_MANAGED"),
@@ -30316,6 +30535,367 @@ impl BackendServiceCustomMetric {
 impl wkt::message::Message for BackendServiceCustomMetric {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.BackendServiceCustomMetric"
+    }
+}
+
+/// Defines a dynamic forwarding configuration for the backend service.
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BackendServiceDynamicForwarding {
+    /// Dynamic Forwarding Proxy configuration.
+    pub forward_proxy:
+        std::option::Option<crate::model::BackendServiceDynamicForwardingForwardProxy>,
+
+    /// IP:PORT based dynamic forwarding configuration.
+    pub ip_port_selection:
+        std::option::Option<crate::model::BackendServiceDynamicForwardingIpPortSelection>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+impl BackendServiceDynamicForwarding {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [forward_proxy][crate::model::BackendServiceDynamicForwarding::forward_proxy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::BackendServiceDynamicForwarding;
+    /// use google_cloud_compute_v1::model::BackendServiceDynamicForwardingForwardProxy;
+    /// let x = BackendServiceDynamicForwarding::new().set_forward_proxy(BackendServiceDynamicForwardingForwardProxy::default()/* use setters */);
+    /// ```
+    pub fn set_forward_proxy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BackendServiceDynamicForwardingForwardProxy>,
+    {
+        self.forward_proxy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [forward_proxy][crate::model::BackendServiceDynamicForwarding::forward_proxy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::BackendServiceDynamicForwarding;
+    /// use google_cloud_compute_v1::model::BackendServiceDynamicForwardingForwardProxy;
+    /// let x = BackendServiceDynamicForwarding::new().set_or_clear_forward_proxy(Some(BackendServiceDynamicForwardingForwardProxy::default()/* use setters */));
+    /// let x = BackendServiceDynamicForwarding::new().set_or_clear_forward_proxy(None::<BackendServiceDynamicForwardingForwardProxy>);
+    /// ```
+    pub fn set_or_clear_forward_proxy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BackendServiceDynamicForwardingForwardProxy>,
+    {
+        self.forward_proxy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ip_port_selection][crate::model::BackendServiceDynamicForwarding::ip_port_selection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::BackendServiceDynamicForwarding;
+    /// use google_cloud_compute_v1::model::BackendServiceDynamicForwardingIpPortSelection;
+    /// let x = BackendServiceDynamicForwarding::new().set_ip_port_selection(BackendServiceDynamicForwardingIpPortSelection::default()/* use setters */);
+    /// ```
+    pub fn set_ip_port_selection<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BackendServiceDynamicForwardingIpPortSelection>,
+    {
+        self.ip_port_selection = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ip_port_selection][crate::model::BackendServiceDynamicForwarding::ip_port_selection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::BackendServiceDynamicForwarding;
+    /// use google_cloud_compute_v1::model::BackendServiceDynamicForwardingIpPortSelection;
+    /// let x = BackendServiceDynamicForwarding::new().set_or_clear_ip_port_selection(Some(BackendServiceDynamicForwardingIpPortSelection::default()/* use setters */));
+    /// let x = BackendServiceDynamicForwarding::new().set_or_clear_ip_port_selection(None::<BackendServiceDynamicForwardingIpPortSelection>);
+    /// ```
+    pub fn set_or_clear_ip_port_selection<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BackendServiceDynamicForwardingIpPortSelection>,
+    {
+        self.ip_port_selection = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+impl wkt::message::Message for BackendServiceDynamicForwarding {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.BackendServiceDynamicForwarding"
+    }
+}
+
+/// Defines Dynamic Forwarding Proxy configuration.
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BackendServiceDynamicForwardingForwardProxy {
+    /// A boolean flag enabling dynamic forwarding proxy.
+    pub enabled: std::option::Option<bool>,
+
+    /// Determines the dynamic forwarding proxy mode.
+    pub proxy_mode: std::option::Option<
+        crate::model::backend_service_dynamic_forwarding_forward_proxy::ProxyMode,
+    >,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+impl BackendServiceDynamicForwardingForwardProxy {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::BackendServiceDynamicForwardingForwardProxy::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::BackendServiceDynamicForwardingForwardProxy;
+    /// let x = BackendServiceDynamicForwardingForwardProxy::new().set_enabled(true);
+    /// ```
+    pub fn set_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enabled][crate::model::BackendServiceDynamicForwardingForwardProxy::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::BackendServiceDynamicForwardingForwardProxy;
+    /// let x = BackendServiceDynamicForwardingForwardProxy::new().set_or_clear_enabled(Some(false));
+    /// let x = BackendServiceDynamicForwardingForwardProxy::new().set_or_clear_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enabled = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [proxy_mode][crate::model::BackendServiceDynamicForwardingForwardProxy::proxy_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::BackendServiceDynamicForwardingForwardProxy;
+    /// use google_cloud_compute_v1::model::backend_service_dynamic_forwarding_forward_proxy::ProxyMode;
+    /// let x0 = BackendServiceDynamicForwardingForwardProxy::new().set_proxy_mode(ProxyMode::DirectForwarding);
+    /// ```
+    pub fn set_proxy_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<
+                crate::model::backend_service_dynamic_forwarding_forward_proxy::ProxyMode,
+            >,
+    {
+        self.proxy_mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [proxy_mode][crate::model::BackendServiceDynamicForwardingForwardProxy::proxy_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::BackendServiceDynamicForwardingForwardProxy;
+    /// use google_cloud_compute_v1::model::backend_service_dynamic_forwarding_forward_proxy::ProxyMode;
+    /// let x0 = BackendServiceDynamicForwardingForwardProxy::new().set_or_clear_proxy_mode(Some(ProxyMode::DirectForwarding));
+    /// let x_none = BackendServiceDynamicForwardingForwardProxy::new().set_or_clear_proxy_mode(None::<ProxyMode>);
+    /// ```
+    pub fn set_or_clear_proxy_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<
+                crate::model::backend_service_dynamic_forwarding_forward_proxy::ProxyMode,
+            >,
+    {
+        self.proxy_mode = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+impl wkt::message::Message for BackendServiceDynamicForwardingForwardProxy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.BackendServiceDynamicForwardingForwardProxy"
+    }
+}
+
+/// Defines additional types related to [BackendServiceDynamicForwardingForwardProxy].
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+pub mod backend_service_dynamic_forwarding_forward_proxy {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [proxyMode][google.cloud.compute.v1.BackendServiceDynamicForwardingForwardProxy.proxyMode] field.
+    ///
+    /// [google.cloud.compute.v1.BackendServiceDynamicForwardingForwardProxy.proxyMode]: crate::model::backend_service_dynamic_forwarding_forward_proxy::ProxyMode
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ProxyMode {
+        /// Dynamic forwarding directly to Cloud Run services.
+        CloudRun,
+        /// Dynamic forwarding based on the Http Host header.
+        DirectForwarding,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ProxyMode::name].
+        UnknownValue(proxy_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+    pub mod proxy_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+    impl ProxyMode {
+        /// Gets the enum value as a string.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::CloudRun => std::option::Option::Some("CLOUD_RUN"),
+                Self::DirectForwarding => std::option::Option::Some("DIRECT_FORWARDING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+    impl std::fmt::Display for ProxyMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
+        }
+    }
+
+    #[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+    impl std::convert::From<&str> for ProxyMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CLOUD_RUN" => Self::CloudRun,
+                "DIRECT_FORWARDING" => Self::DirectForwarding,
+                _ => Self::UnknownValue(proxy_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+    impl serde::ser::Serialize for ProxyMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::CloudRun => serializer.serialize_str("CLOUD_RUN"),
+                Self::DirectForwarding => serializer.serialize_str("DIRECT_FORWARDING"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+    impl<'de> serde::de::Deserialize<'de> for ProxyMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<ProxyMode>::new(
+                ".google.cloud.compute.v1.BackendServiceDynamicForwardingForwardProxy.proxyMode",
+            ))
+        }
+    }
+}
+
+/// Defines a IP:PORT based dynamic forwarding configuration for the backend
+/// service. Some ranges are restricted: Restricted
+/// ranges.
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BackendServiceDynamicForwardingIpPortSelection {
+    /// A boolean flag enabling IP:PORT based dynamic forwarding.
+    pub enabled: std::option::Option<bool>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+impl BackendServiceDynamicForwardingIpPortSelection {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::BackendServiceDynamicForwardingIpPortSelection::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::BackendServiceDynamicForwardingIpPortSelection;
+    /// let x = BackendServiceDynamicForwardingIpPortSelection::new().set_enabled(true);
+    /// ```
+    pub fn set_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enabled][crate::model::BackendServiceDynamicForwardingIpPortSelection::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::BackendServiceDynamicForwardingIpPortSelection;
+    /// let x = BackendServiceDynamicForwardingIpPortSelection::new().set_or_clear_enabled(Some(false));
+    /// let x = BackendServiceDynamicForwardingIpPortSelection::new().set_or_clear_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enabled = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+impl wkt::message::Message for BackendServiceDynamicForwardingIpPortSelection {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.BackendServiceDynamicForwardingIpPortSelection"
     }
 }
 
@@ -37736,12 +38316,14 @@ impl wkt::message::Message for BgpRouteNetworkLayerReachabilityInformation {
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
 ))]
@@ -37880,12 +38462,14 @@ pub struct Binding {
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
 ))]
@@ -38003,12 +38587,14 @@ impl Binding {
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
 ))]
@@ -40381,6 +40967,14 @@ impl wkt::message::Message for BundledLocalSsds {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CacheInvalidationRule {
+    /// If set, this invalidation rule will only apply to requests routed to the
+    /// given backend service or backend bucket.
+    /// For example, for a backend bucket `bb1` in the same scope as the URL map,
+    /// the path would be `projects/my-project/global/backendBuckets/bb1`; and
+    /// for a backend service `bs1` in the same scope as the URL map, the path
+    /// would be `projects/my-project/global/backendServices/bs1`.
+    pub backend_service: std::option::Option<std::string::String>,
+
     /// A list of cache tags used to identify cached objects.
     ///
     /// - Cache tags are specified when the response is first cached, by setting
@@ -40393,11 +40987,20 @@ pub struct CacheInvalidationRule {
     /// Up to 10 tags can be specified in a single invalidation request.
     pub cache_tags: std::vec::Vec<std::string::String>,
 
+    /// If set, this invalidation rule will only apply to responses with the given
+    /// content-type. Parameters are not allowed and are ignored from the response
+    /// when matching. Wildcards are not allowed.
+    pub content_type: std::option::Option<std::string::String>,
+
     /// If set, this invalidation rule will only apply to requests with a Host
     /// header matching host. This field also accepts wildcards (*) to replace the
     /// leftmost (or first) label of a hostname. For example, *.example.com will
     /// match www.example.com, but not sub1.dev.example.com.
     pub host: std::option::Option<std::string::String>,
+
+    /// If set, this invalidation rule will only apply to responses with the
+    /// given HTTP status. Valid range is 200-599.
+    pub http_status: std::option::Option<i32>,
 
     #[allow(missing_docs)]
     pub path: std::option::Option<std::string::String>,
@@ -40410,6 +41013,37 @@ impl CacheInvalidationRule {
     /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [backend_service][crate::model::CacheInvalidationRule::backend_service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::CacheInvalidationRule;
+    /// let x = CacheInvalidationRule::new().set_backend_service("example");
+    /// ```
+    pub fn set_backend_service<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.backend_service = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backend_service][crate::model::CacheInvalidationRule::backend_service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::CacheInvalidationRule;
+    /// let x = CacheInvalidationRule::new().set_or_clear_backend_service(Some("example"));
+    /// let x = CacheInvalidationRule::new().set_or_clear_backend_service(None::<String>);
+    /// ```
+    pub fn set_or_clear_backend_service<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.backend_service = v.map(|x| x.into());
+        self
     }
 
     /// Sets the value of [cache_tags][crate::model::CacheInvalidationRule::cache_tags].
@@ -40426,6 +41060,37 @@ impl CacheInvalidationRule {
     {
         use std::iter::Iterator;
         self.cache_tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [content_type][crate::model::CacheInvalidationRule::content_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::CacheInvalidationRule;
+    /// let x = CacheInvalidationRule::new().set_content_type("example");
+    /// ```
+    pub fn set_content_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.content_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [content_type][crate::model::CacheInvalidationRule::content_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::CacheInvalidationRule;
+    /// let x = CacheInvalidationRule::new().set_or_clear_content_type(Some("example"));
+    /// let x = CacheInvalidationRule::new().set_or_clear_content_type(None::<String>);
+    /// ```
+    pub fn set_or_clear_content_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.content_type = v.map(|x| x.into());
         self
     }
 
@@ -40457,6 +41122,37 @@ impl CacheInvalidationRule {
         T: std::convert::Into<std::string::String>,
     {
         self.host = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [http_status][crate::model::CacheInvalidationRule::http_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::CacheInvalidationRule;
+    /// let x = CacheInvalidationRule::new().set_http_status(42);
+    /// ```
+    pub fn set_http_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.http_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [http_status][crate::model::CacheInvalidationRule::http_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::CacheInvalidationRule;
+    /// let x = CacheInvalidationRule::new().set_or_clear_http_status(Some(42));
+    /// let x = CacheInvalidationRule::new().set_or_clear_http_status(None::<i32>);
+    /// ```
+    pub fn set_or_clear_http_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.http_status = v.map(|x| x.into());
         self
     }
 
@@ -40887,8 +41583,9 @@ impl CachePolicy {
     /// ```ignore,no_run
     /// # use google_cloud_compute_v1::model::CachePolicy;
     /// use google_cloud_compute_v1::model::cache_policy::CacheMode;
-    /// let x0 = CachePolicy::new().set_cache_mode(CacheMode::ForceCacheAll);
-    /// let x1 = CachePolicy::new().set_cache_mode(CacheMode::UseOriginHeaders);
+    /// let x0 = CachePolicy::new().set_cache_mode(CacheMode::CacheAllStatic);
+    /// let x1 = CachePolicy::new().set_cache_mode(CacheMode::ForceCacheAll);
+    /// let x2 = CachePolicy::new().set_cache_mode(CacheMode::UseOriginHeaders);
     /// ```
     pub fn set_cache_mode<T>(mut self, v: T) -> Self
     where
@@ -40904,8 +41601,9 @@ impl CachePolicy {
     /// ```ignore,no_run
     /// # use google_cloud_compute_v1::model::CachePolicy;
     /// use google_cloud_compute_v1::model::cache_policy::CacheMode;
-    /// let x0 = CachePolicy::new().set_or_clear_cache_mode(Some(CacheMode::ForceCacheAll));
-    /// let x1 = CachePolicy::new().set_or_clear_cache_mode(Some(CacheMode::UseOriginHeaders));
+    /// let x0 = CachePolicy::new().set_or_clear_cache_mode(Some(CacheMode::CacheAllStatic));
+    /// let x1 = CachePolicy::new().set_or_clear_cache_mode(Some(CacheMode::ForceCacheAll));
+    /// let x2 = CachePolicy::new().set_or_clear_cache_mode(Some(CacheMode::UseOriginHeaders));
     /// let x_none = CachePolicy::new().set_or_clear_cache_mode(None::<CacheMode>);
     /// ```
     pub fn set_or_clear_cache_mode<T>(mut self, v: std::option::Option<T>) -> Self
@@ -41167,6 +41865,9 @@ pub mod cache_policy {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CacheMode {
+        /// Bypasses the cache for this route. All requests are forwarded to the
+        /// origin, and responses are not cached.
+        BypassCache,
         /// Automatically cache static content, including common image formats,
         /// media (video and audio), and web assets (JavaScript and CSS).
         /// Requests and responses that are marked as uncacheable, as well as
@@ -41202,6 +41903,7 @@ pub mod cache_policy {
         /// Gets the enum value as a string.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
+                Self::BypassCache => std::option::Option::Some("BYPASS_CACHE"),
                 Self::CacheAllStatic => std::option::Option::Some("CACHE_ALL_STATIC"),
                 Self::ForceCacheAll => std::option::Option::Some("FORCE_CACHE_ALL"),
                 Self::UseOriginHeaders => std::option::Option::Some("USE_ORIGIN_HEADERS"),
@@ -41222,6 +41924,7 @@ pub mod cache_policy {
         fn from(value: &str) -> Self {
             use std::string::ToString;
             match value {
+                "BYPASS_CACHE" => Self::BypassCache,
                 "CACHE_ALL_STATIC" => Self::CacheAllStatic,
                 "FORCE_CACHE_ALL" => Self::ForceCacheAll,
                 "USE_ORIGIN_HEADERS" => Self::UseOriginHeaders,
@@ -41239,6 +41942,7 @@ pub mod cache_policy {
             S: serde::Serializer,
         {
             match self {
+                Self::BypassCache => serializer.serialize_str("BYPASS_CACHE"),
                 Self::CacheAllStatic => serializer.serialize_str("CACHE_ALL_STATIC"),
                 Self::ForceCacheAll => serializer.serialize_str("FORCE_CACHE_ALL"),
                 Self::UseOriginHeaders => serializer.serialize_str("USE_ORIGIN_HEADERS"),
@@ -45985,6 +46689,16 @@ pub mod commitment {
         MemoryOptimizedX496012T,
         /// CUD bucket for X4 machine with 960 vCPUs and 16TB of memory.
         MemoryOptimizedX496016T,
+        /// CUD bucket for X5 machine with 1376 vCPUs and 24TB of memory.
+        MemoryOptimizedX5137624T,
+        /// CUD bucket for X5 machine with 1376 vCPUs and 32TB of memory.
+        MemoryOptimizedX5137632T,
+        /// CUD bucket for X5 machine with 2064 vCPUs and 48TB of memory.
+        MemoryOptimizedX5206448T,
+        /// CUD bucket for X5 machine with 688 vCPUs and 12TB of memory.
+        MemoryOptimizedX568812T,
+        /// CUD bucket for X5 machine with 688 vCPUs and 16TB of memory.
+        MemoryOptimizedX568816T,
         /// CUD bucket for C4N (dual Diorite) machines.
         NetworkOptimizedC4N,
         /// CUD bucket for NETWORK_OPTIMIZED_U4C machines.
@@ -46100,6 +46814,21 @@ pub mod commitment {
                 Self::MemoryOptimizedX496016T => {
                     std::option::Option::Some("MEMORY_OPTIMIZED_X4_960_16T")
                 }
+                Self::MemoryOptimizedX5137624T => {
+                    std::option::Option::Some("MEMORY_OPTIMIZED_X5_1376_24T")
+                }
+                Self::MemoryOptimizedX5137632T => {
+                    std::option::Option::Some("MEMORY_OPTIMIZED_X5_1376_32T")
+                }
+                Self::MemoryOptimizedX5206448T => {
+                    std::option::Option::Some("MEMORY_OPTIMIZED_X5_2064_48T")
+                }
+                Self::MemoryOptimizedX568812T => {
+                    std::option::Option::Some("MEMORY_OPTIMIZED_X5_688_12T")
+                }
+                Self::MemoryOptimizedX568816T => {
+                    std::option::Option::Some("MEMORY_OPTIMIZED_X5_688_16T")
+                }
                 Self::NetworkOptimizedC4N => std::option::Option::Some("NETWORK_OPTIMIZED_C4N"),
                 Self::NetworkOptimizedU4C => std::option::Option::Some("NETWORK_OPTIMIZED_U4C"),
                 Self::NetworkOptimizedU4P => std::option::Option::Some("NETWORK_OPTIMIZED_U4P"),
@@ -46168,6 +46897,11 @@ pub mod commitment {
                 "MEMORY_OPTIMIZED_X4_480_8T" => Self::MemoryOptimizedX44808T,
                 "MEMORY_OPTIMIZED_X4_960_12T" => Self::MemoryOptimizedX496012T,
                 "MEMORY_OPTIMIZED_X4_960_16T" => Self::MemoryOptimizedX496016T,
+                "MEMORY_OPTIMIZED_X5_1376_24T" => Self::MemoryOptimizedX5137624T,
+                "MEMORY_OPTIMIZED_X5_1376_32T" => Self::MemoryOptimizedX5137632T,
+                "MEMORY_OPTIMIZED_X5_2064_48T" => Self::MemoryOptimizedX5206448T,
+                "MEMORY_OPTIMIZED_X5_688_12T" => Self::MemoryOptimizedX568812T,
+                "MEMORY_OPTIMIZED_X5_688_16T" => Self::MemoryOptimizedX568816T,
                 "NETWORK_OPTIMIZED_C4N" => Self::NetworkOptimizedC4N,
                 "NETWORK_OPTIMIZED_U4C" => Self::NetworkOptimizedU4C,
                 "NETWORK_OPTIMIZED_U4P" => Self::NetworkOptimizedU4P,
@@ -46256,6 +46990,21 @@ pub mod commitment {
                 }
                 Self::MemoryOptimizedX496016T => {
                     serializer.serialize_str("MEMORY_OPTIMIZED_X4_960_16T")
+                }
+                Self::MemoryOptimizedX5137624T => {
+                    serializer.serialize_str("MEMORY_OPTIMIZED_X5_1376_24T")
+                }
+                Self::MemoryOptimizedX5137632T => {
+                    serializer.serialize_str("MEMORY_OPTIMIZED_X5_1376_32T")
+                }
+                Self::MemoryOptimizedX5206448T => {
+                    serializer.serialize_str("MEMORY_OPTIMIZED_X5_2064_48T")
+                }
+                Self::MemoryOptimizedX568812T => {
+                    serializer.serialize_str("MEMORY_OPTIMIZED_X5_688_12T")
+                }
+                Self::MemoryOptimizedX568816T => {
+                    serializer.serialize_str("MEMORY_OPTIMIZED_X5_688_16T")
                 }
                 Self::NetworkOptimizedC4N => serializer.serialize_str("NETWORK_OPTIMIZED_C4N"),
                 Self::NetworkOptimizedU4C => serializer.serialize_str("NETWORK_OPTIMIZED_U4C"),
@@ -51933,7 +52682,13 @@ pub struct ConfidentialInstanceConfig {
     pub confidential_instance_type:
         std::option::Option<crate::model::confidential_instance_config::ConfidentialInstanceType>,
 
+    /// Defines a set of Confidential Paravisor (SVSM) options.
+    pub confidential_paravisor_config:
+        std::option::Option<crate::model::ConfidentialParavisorConfig>,
+
     /// Defines whether the instance should have confidential compute enabled.
+    /// When enabled, the technology used defaults to
+    /// AMD SEV unless confidentialInstanceType is specified.
     pub enable_confidential_compute: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -51986,6 +52741,42 @@ impl ConfidentialInstanceConfig {
         T: std::convert::Into<crate::model::confidential_instance_config::ConfidentialInstanceType>,
     {
         self.confidential_instance_type = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [confidential_paravisor_config][crate::model::ConfidentialInstanceConfig::confidential_paravisor_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::ConfidentialInstanceConfig;
+    /// use google_cloud_compute_v1::model::ConfidentialParavisorConfig;
+    /// let x = ConfidentialInstanceConfig::new().set_confidential_paravisor_config(ConfidentialParavisorConfig::default()/* use setters */);
+    /// ```
+    pub fn set_confidential_paravisor_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfidentialParavisorConfig>,
+    {
+        self.confidential_paravisor_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [confidential_paravisor_config][crate::model::ConfidentialInstanceConfig::confidential_paravisor_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::ConfidentialInstanceConfig;
+    /// use google_cloud_compute_v1::model::ConfidentialParavisorConfig;
+    /// let x = ConfidentialInstanceConfig::new().set_or_clear_confidential_paravisor_config(Some(ConfidentialParavisorConfig::default()/* use setters */));
+    /// let x = ConfidentialInstanceConfig::new().set_or_clear_confidential_paravisor_config(None::<ConfidentialParavisorConfig>);
+    /// ```
+    pub fn set_or_clear_confidential_paravisor_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::ConfidentialParavisorConfig>,
+    {
+        self.confidential_paravisor_config = v.map(|x| x.into());
         self
     }
 
@@ -52210,6 +53001,432 @@ pub mod confidential_instance_config {
                     ".google.cloud.compute.v1.ConfidentialInstanceConfig.confidentialInstanceType",
                 ),
             )
+        }
+    }
+}
+
+/// A set of Confidential Paravisor (SVSM) options.
+#[cfg(any(
+    feature = "instance-templates",
+    feature = "instances",
+    feature = "machine-images",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ConfidentialParavisorConfig {
+    /// Defines the type of TPM to use for the confidential instance.
+    pub confidential_tpm_type:
+        std::option::Option<crate::model::confidential_paravisor_config::ConfidentialTpmType>,
+
+    /// Defines the IRQ mode to use for the confidential instance.
+    pub sev_snp_irq_mode:
+        std::option::Option<crate::model::confidential_paravisor_config::SevSnpIrqMode>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(
+    feature = "instance-templates",
+    feature = "instances",
+    feature = "machine-images",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl ConfidentialParavisorConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [confidential_tpm_type][crate::model::ConfidentialParavisorConfig::confidential_tpm_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::ConfidentialParavisorConfig;
+    /// use google_cloud_compute_v1::model::confidential_paravisor_config::ConfidentialTpmType;
+    /// let x0 = ConfidentialParavisorConfig::new().set_confidential_tpm_type(ConfidentialTpmType::Ephemeral);
+    /// let x1 = ConfidentialParavisorConfig::new().set_confidential_tpm_type(ConfidentialTpmType::NoCcTpm);
+    /// ```
+    pub fn set_confidential_tpm_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::confidential_paravisor_config::ConfidentialTpmType>,
+    {
+        self.confidential_tpm_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [confidential_tpm_type][crate::model::ConfidentialParavisorConfig::confidential_tpm_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::ConfidentialParavisorConfig;
+    /// use google_cloud_compute_v1::model::confidential_paravisor_config::ConfidentialTpmType;
+    /// let x0 = ConfidentialParavisorConfig::new().set_or_clear_confidential_tpm_type(Some(ConfidentialTpmType::Ephemeral));
+    /// let x1 = ConfidentialParavisorConfig::new().set_or_clear_confidential_tpm_type(Some(ConfidentialTpmType::NoCcTpm));
+    /// let x_none = ConfidentialParavisorConfig::new().set_or_clear_confidential_tpm_type(None::<ConfidentialTpmType>);
+    /// ```
+    pub fn set_or_clear_confidential_tpm_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::confidential_paravisor_config::ConfidentialTpmType>,
+    {
+        self.confidential_tpm_type = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [sev_snp_irq_mode][crate::model::ConfidentialParavisorConfig::sev_snp_irq_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::ConfidentialParavisorConfig;
+    /// use google_cloud_compute_v1::model::confidential_paravisor_config::SevSnpIrqMode;
+    /// let x0 = ConfidentialParavisorConfig::new().set_sev_snp_irq_mode(SevSnpIrqMode::Unspecified);
+    /// let x1 = ConfidentialParavisorConfig::new().set_sev_snp_irq_mode(SevSnpIrqMode::Unrestricted);
+    /// ```
+    pub fn set_sev_snp_irq_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::confidential_paravisor_config::SevSnpIrqMode>,
+    {
+        self.sev_snp_irq_mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sev_snp_irq_mode][crate::model::ConfidentialParavisorConfig::sev_snp_irq_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::ConfidentialParavisorConfig;
+    /// use google_cloud_compute_v1::model::confidential_paravisor_config::SevSnpIrqMode;
+    /// let x0 = ConfidentialParavisorConfig::new().set_or_clear_sev_snp_irq_mode(Some(SevSnpIrqMode::Unspecified));
+    /// let x1 = ConfidentialParavisorConfig::new().set_or_clear_sev_snp_irq_mode(Some(SevSnpIrqMode::Unrestricted));
+    /// let x_none = ConfidentialParavisorConfig::new().set_or_clear_sev_snp_irq_mode(None::<SevSnpIrqMode>);
+    /// ```
+    pub fn set_or_clear_sev_snp_irq_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::confidential_paravisor_config::SevSnpIrqMode>,
+    {
+        self.sev_snp_irq_mode = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(any(
+    feature = "instance-templates",
+    feature = "instances",
+    feature = "machine-images",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+impl wkt::message::Message for ConfidentialParavisorConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.ConfidentialParavisorConfig"
+    }
+}
+
+/// Defines additional types related to [ConfidentialParavisorConfig].
+#[cfg(any(
+    feature = "instance-templates",
+    feature = "instances",
+    feature = "machine-images",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+pub mod confidential_paravisor_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [confidentialTpmType][google.cloud.compute.v1.ConfidentialParavisorConfig.confidentialTpmType] field.
+    ///
+    /// [google.cloud.compute.v1.ConfidentialParavisorConfig.confidentialTpmType]: crate::model::confidential_paravisor_config::ConfidentialTpmType
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ConfidentialTpmType {
+        /// No TPM type specified. Do not use this value.
+        Unspecified,
+        /// An ephemeral vTPM running in the paravisor (SVSM).
+        Ephemeral,
+        /// No confidential computing vTPM is used in the paravisor (SVSM).
+        NoCcTpm,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ConfidentialTpmType::name].
+        UnknownValue(confidential_tpm_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    pub mod confidential_tpm_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl ConfidentialTpmType {
+        /// Gets the enum value as a string.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CONFIDENTIAL_TPM_TYPE_UNSPECIFIED"),
+                Self::Ephemeral => std::option::Option::Some("EPHEMERAL"),
+                Self::NoCcTpm => std::option::Option::Some("NO_CC_TPM"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl std::fmt::Display for ConfidentialTpmType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
+        }
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl std::convert::From<&str> for ConfidentialTpmType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CONFIDENTIAL_TPM_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "EPHEMERAL" => Self::Ephemeral,
+                "NO_CC_TPM" => Self::NoCcTpm,
+                _ => Self::UnknownValue(confidential_tpm_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl serde::ser::Serialize for ConfidentialTpmType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_str("CONFIDENTIAL_TPM_TYPE_UNSPECIFIED"),
+                Self::Ephemeral => serializer.serialize_str("EPHEMERAL"),
+                Self::NoCcTpm => serializer.serialize_str("NO_CC_TPM"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl<'de> serde::de::Deserialize<'de> for ConfidentialTpmType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_str(
+                wkt::internal::StringEnumVisitor::<ConfidentialTpmType>::new(
+                    ".google.cloud.compute.v1.ConfidentialParavisorConfig.confidentialTpmType",
+                ),
+            )
+        }
+    }
+
+    /// The enumerated type for the [sevSnpIrqMode][google.cloud.compute.v1.ConfidentialParavisorConfig.sevSnpIrqMode] field.
+    ///
+    /// [google.cloud.compute.v1.ConfidentialParavisorConfig.sevSnpIrqMode]: crate::model::confidential_paravisor_config::SevSnpIrqMode
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SevSnpIrqMode {
+        /// Restricted interrupt injection.
+        Restricted,
+        /// No IRQ mode specified. Do not use this value.
+        Unspecified,
+        /// Unrestricted interrupt injection.
+        Unrestricted,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SevSnpIrqMode::name].
+        UnknownValue(sev_snp_irq_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    pub mod sev_snp_irq_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl SevSnpIrqMode {
+        /// Gets the enum value as a string.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Restricted => std::option::Option::Some("RESTRICTED"),
+                Self::Unspecified => std::option::Option::Some("SEV_SNP_IRQ_MODE_UNSPECIFIED"),
+                Self::Unrestricted => std::option::Option::Some("UNRESTRICTED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl std::fmt::Display for SevSnpIrqMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
+        }
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl std::convert::From<&str> for SevSnpIrqMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RESTRICTED" => Self::Restricted,
+                "SEV_SNP_IRQ_MODE_UNSPECIFIED" => Self::Unspecified,
+                "UNRESTRICTED" => Self::Unrestricted,
+                _ => Self::UnknownValue(sev_snp_irq_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl serde::ser::Serialize for SevSnpIrqMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Restricted => serializer.serialize_str("RESTRICTED"),
+                Self::Unspecified => serializer.serialize_str("SEV_SNP_IRQ_MODE_UNSPECIFIED"),
+                Self::Unrestricted => serializer.serialize_str("UNRESTRICTED"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl<'de> serde::de::Deserialize<'de> for SevSnpIrqMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<SevSnpIrqMode>::new(
+                ".google.cloud.compute.v1.ConfidentialParavisorConfig.sevSnpIrqMode",
+            ))
         }
     }
 }
@@ -55811,6 +57028,36 @@ pub struct Disk {
     /// version of the instant snapshot that was used.
     pub source_instant_snapshot_id: std::option::Option<std::string::String>,
 
+    /// The machine image to create the disk from. You can provide this as a
+    /// partial or full URL to the resource. For example, the following are valid
+    /// values:
+    ///
+    /// ```norust
+    ///  - https://www.googleapis.com/compute/v1/projects/project/global/machineImages/machineImage
+    /// ```
+    ///
+    /// - projects/project/global/machineImages/machineImage
+    ///   - global/machineImages/machineImage
+    pub source_machine_image: std::option::Option<std::string::String>,
+
+    /// The device name of a disk within a given machine image. The
+    /// source_machine_image must be specified.
+    pub source_machine_image_disk_device_name: std::option::Option<std::string::String>,
+
+    /// Thecustomer-supplied
+    /// encryption key of the source machine image. Required if the source
+    /// machine image is protected by a customer-supplied encryption key.
+    pub source_machine_image_encryption_key:
+        std::option::Option<crate::model::CustomerEncryptionKey>,
+
+    /// Output only. [Output Only] The unique ID of the machine image used to create this disk.
+    /// This value identifies the exact machine image that was used to create this
+    /// persistent disk. For example, if you created the persistent disk from a
+    /// machine image that was later deleted and recreated under the same name, the
+    /// source machine image ID would identify the exact version of the machine
+    /// image that was used.
+    pub source_machine_image_id: std::option::Option<std::string::String>,
+
     /// The source snapshot used to create this disk. You can provide this as a
     /// partial or full URL to the resource. For example, the following are valid
     /// values:
@@ -57100,6 +58347,138 @@ impl Disk {
         T: std::convert::Into<std::string::String>,
     {
         self.source_instant_snapshot_id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source_machine_image][crate::model::Disk::source_machine_image].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::Disk;
+    /// let x = Disk::new().set_source_machine_image("example");
+    /// ```
+    pub fn set_source_machine_image<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_machine_image = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_machine_image][crate::model::Disk::source_machine_image].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::Disk;
+    /// let x = Disk::new().set_or_clear_source_machine_image(Some("example"));
+    /// let x = Disk::new().set_or_clear_source_machine_image(None::<String>);
+    /// ```
+    pub fn set_or_clear_source_machine_image<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_machine_image = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source_machine_image_disk_device_name][crate::model::Disk::source_machine_image_disk_device_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::Disk;
+    /// let x = Disk::new().set_source_machine_image_disk_device_name("example");
+    /// ```
+    pub fn set_source_machine_image_disk_device_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_machine_image_disk_device_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_machine_image_disk_device_name][crate::model::Disk::source_machine_image_disk_device_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::Disk;
+    /// let x = Disk::new().set_or_clear_source_machine_image_disk_device_name(Some("example"));
+    /// let x = Disk::new().set_or_clear_source_machine_image_disk_device_name(None::<String>);
+    /// ```
+    pub fn set_or_clear_source_machine_image_disk_device_name<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_machine_image_disk_device_name = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source_machine_image_encryption_key][crate::model::Disk::source_machine_image_encryption_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::Disk;
+    /// use google_cloud_compute_v1::model::CustomerEncryptionKey;
+    /// let x = Disk::new().set_source_machine_image_encryption_key(CustomerEncryptionKey::default()/* use setters */);
+    /// ```
+    pub fn set_source_machine_image_encryption_key<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomerEncryptionKey>,
+    {
+        self.source_machine_image_encryption_key = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_machine_image_encryption_key][crate::model::Disk::source_machine_image_encryption_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::Disk;
+    /// use google_cloud_compute_v1::model::CustomerEncryptionKey;
+    /// let x = Disk::new().set_or_clear_source_machine_image_encryption_key(Some(CustomerEncryptionKey::default()/* use setters */));
+    /// let x = Disk::new().set_or_clear_source_machine_image_encryption_key(None::<CustomerEncryptionKey>);
+    /// ```
+    pub fn set_or_clear_source_machine_image_encryption_key<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomerEncryptionKey>,
+    {
+        self.source_machine_image_encryption_key = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source_machine_image_id][crate::model::Disk::source_machine_image_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::Disk;
+    /// let x = Disk::new().set_source_machine_image_id("example");
+    /// ```
+    pub fn set_source_machine_image_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_machine_image_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_machine_image_id][crate::model::Disk::source_machine_image_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::Disk;
+    /// let x = Disk::new().set_or_clear_source_machine_image_id(Some("example"));
+    /// let x = Disk::new().set_or_clear_source_machine_image_id(None::<String>);
+    /// ```
+    pub fn set_or_clear_source_machine_image_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_machine_image_id = v.map(|x| x.into());
         self
     }
 
@@ -64695,6 +66074,175 @@ impl wkt::message::Message for Duration {
     }
 }
 
+/// Dynamic compression policy for this URL Map's route.
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DynamicCompressionPolicy {
+    /// Compress text responses using Brotli or gzip compression, based on
+    /// the client's Accept-Encoding header.
+    pub compression_mode:
+        std::option::Option<crate::model::dynamic_compression_policy::CompressionMode>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+impl DynamicCompressionPolicy {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [compression_mode][crate::model::DynamicCompressionPolicy::compression_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::DynamicCompressionPolicy;
+    /// use google_cloud_compute_v1::model::dynamic_compression_policy::CompressionMode;
+    /// let x0 = DynamicCompressionPolicy::new().set_compression_mode(CompressionMode::Disabled);
+    /// ```
+    pub fn set_compression_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::dynamic_compression_policy::CompressionMode>,
+    {
+        self.compression_mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [compression_mode][crate::model::DynamicCompressionPolicy::compression_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::DynamicCompressionPolicy;
+    /// use google_cloud_compute_v1::model::dynamic_compression_policy::CompressionMode;
+    /// let x0 = DynamicCompressionPolicy::new().set_or_clear_compression_mode(Some(CompressionMode::Disabled));
+    /// let x_none = DynamicCompressionPolicy::new().set_or_clear_compression_mode(None::<CompressionMode>);
+    /// ```
+    pub fn set_or_clear_compression_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::dynamic_compression_policy::CompressionMode>,
+    {
+        self.compression_mode = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+impl wkt::message::Message for DynamicCompressionPolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.DynamicCompressionPolicy"
+    }
+}
+
+/// Defines additional types related to [DynamicCompressionPolicy].
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+pub mod dynamic_compression_policy {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [compressionMode][google.cloud.compute.v1.DynamicCompressionPolicy.compressionMode] field.
+    ///
+    /// [google.cloud.compute.v1.DynamicCompressionPolicy.compressionMode]: crate::model::dynamic_compression_policy::CompressionMode
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CompressionMode {
+        /// Automatically uses the best compression based on the Accept-Encoding
+        /// header sent by the client.
+        Automatic,
+        /// Disables compression. Existing compressed responses cached by
+        /// Cloud CDN will not be served to clients.
+        Disabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CompressionMode::name].
+        UnknownValue(compression_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+    pub mod compression_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+    impl CompressionMode {
+        /// Gets the enum value as a string.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Automatic => std::option::Option::Some("AUTOMATIC"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+    impl std::fmt::Display for CompressionMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
+        }
+    }
+
+    #[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+    impl std::convert::From<&str> for CompressionMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AUTOMATIC" => Self::Automatic,
+                "DISABLED" => Self::Disabled,
+                _ => Self::UnknownValue(compression_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+    impl serde::ser::Serialize for CompressionMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Automatic => serializer.serialize_str("AUTOMATIC"),
+                Self::Disabled => serializer.serialize_str("DISABLED"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+    impl<'de> serde::de::Deserialize<'de> for CompressionMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<CompressionMode>::new(
+                ".google.cloud.compute.v1.DynamicCompressionPolicy.compressionMode",
+            ))
+        }
+    }
+}
+
 /// Describes the cause of the error with structured details.
 ///
 /// Example of an error when contacting the "pubsub.googleapis.com" API when it
@@ -66392,6 +67940,7 @@ pub mod exchanged_peering_routes_list {
     feature = "region-network-firewall-policies",
     feature = "region-security-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -66400,6 +67949,7 @@ pub mod exchanged_peering_routes_list {
     feature = "security-policies",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
 ))]
@@ -66454,6 +68004,7 @@ pub struct Expr {
     feature = "region-network-firewall-policies",
     feature = "region-security-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -66462,6 +68013,7 @@ pub struct Expr {
     feature = "security-policies",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
 ))]
@@ -66624,6 +68176,7 @@ impl Expr {
     feature = "region-network-firewall-policies",
     feature = "region-security-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -66632,6 +68185,7 @@ impl Expr {
     feature = "security-policies",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
 ))]
@@ -71587,6 +73141,18 @@ pub struct FirewallPolicy {
     /// This field is not applicable to network firewall policies.
     pub parent: std::option::Option<std::string::String>,
 
+    /// Indicates the source of this Firewall Policy. This field is optional on
+    /// creation and defaults to USER_DEFINED.
+    ///
+    /// The USER_DEFINED value indicates a regular firewall policy.
+    ///
+    /// The SYSTEM value indicates a system-level policy managed by an
+    /// internal service like GKE. This SYSTEM value is reserved for
+    /// internal services and cannot be set by users during policy creation.
+    /// Policies with a SYSTEM source cannot be modified or deleted by
+    /// users.
+    pub policy_source: std::option::Option<crate::model::firewall_policy::PolicySource>,
+
     /// The type of the firewall policy. This field can be one of
     /// VPC_POLICY, RDMA_ROCE_POLICY or ULL_POLICY.
     ///
@@ -71935,6 +73501,39 @@ impl FirewallPolicy {
         self
     }
 
+    /// Sets the value of [policy_source][crate::model::FirewallPolicy::policy_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::FirewallPolicy;
+    /// use google_cloud_compute_v1::model::firewall_policy::PolicySource;
+    /// let x0 = FirewallPolicy::new().set_policy_source(PolicySource::UserDefined);
+    /// ```
+    pub fn set_policy_source<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::firewall_policy::PolicySource>,
+    {
+        self.policy_source = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [policy_source][crate::model::FirewallPolicy::policy_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::FirewallPolicy;
+    /// use google_cloud_compute_v1::model::firewall_policy::PolicySource;
+    /// let x0 = FirewallPolicy::new().set_or_clear_policy_source(Some(PolicySource::UserDefined));
+    /// let x_none = FirewallPolicy::new().set_or_clear_policy_source(None::<PolicySource>);
+    /// ```
+    pub fn set_or_clear_policy_source<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::firewall_policy::PolicySource>,
+    {
+        self.policy_source = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [policy_type][crate::model::FirewallPolicy::policy_type].
     ///
     /// # Example
@@ -72168,6 +73767,136 @@ impl wkt::message::Message for FirewallPolicy {
 pub mod firewall_policy {
     #[allow(unused_imports)]
     use super::*;
+
+    /// The enumerated type for the [policySource][google.cloud.compute.v1.FirewallPolicy.policySource] field.
+    ///
+    /// [google.cloud.compute.v1.FirewallPolicy.policySource]: crate::model::firewall_policy::PolicySource
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(any(
+        feature = "firewall-policies",
+        feature = "network-firewall-policies",
+        feature = "region-network-firewall-policies",
+    ))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PolicySource {
+        /// A system-level policy managed by an internal service like GKE. This value
+        /// is reserved for internal services and cannot be set by users during
+        /// policy creation. Policies with a SYSTEM source cannot be modified or
+        /// deleted by users.
+        System,
+        /// A regular firewall policy.
+        UserDefined,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PolicySource::name].
+        UnknownValue(policy_source::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(
+        feature = "firewall-policies",
+        feature = "network-firewall-policies",
+        feature = "region-network-firewall-policies",
+    ))]
+    pub mod policy_source {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(
+        feature = "firewall-policies",
+        feature = "network-firewall-policies",
+        feature = "region-network-firewall-policies",
+    ))]
+    impl PolicySource {
+        /// Gets the enum value as a string.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::System => std::option::Option::Some("SYSTEM"),
+                Self::UserDefined => std::option::Option::Some("USER_DEFINED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "firewall-policies",
+        feature = "network-firewall-policies",
+        feature = "region-network-firewall-policies",
+    ))]
+    impl std::fmt::Display for PolicySource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
+        }
+    }
+
+    #[cfg(any(
+        feature = "firewall-policies",
+        feature = "network-firewall-policies",
+        feature = "region-network-firewall-policies",
+    ))]
+    impl std::convert::From<&str> for PolicySource {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SYSTEM" => Self::System,
+                "USER_DEFINED" => Self::UserDefined,
+                _ => Self::UnknownValue(policy_source::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "firewall-policies",
+        feature = "network-firewall-policies",
+        feature = "region-network-firewall-policies",
+    ))]
+    impl serde::ser::Serialize for PolicySource {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::System => serializer.serialize_str("SYSTEM"),
+                Self::UserDefined => serializer.serialize_str("USER_DEFINED"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "firewall-policies",
+        feature = "network-firewall-policies",
+        feature = "region-network-firewall-policies",
+    ))]
+    impl<'de> serde::de::Deserialize<'de> for PolicySource {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<PolicySource>::new(
+                ".google.cloud.compute.v1.FirewallPolicy.policySource",
+            ))
+        }
+    }
 
     /// The enumerated type for the [policyType][google.cloud.compute.v1.FirewallPolicy.policyType] field.
     ///
@@ -76251,6 +77980,59 @@ pub struct ForwardingRule {
     /// forwarding rules set the IPAddress field instead. Refer to theavailabilityGroup field for further details.
     pub ip_address: std::option::Option<std::string::String>,
 
+    /// IP addresses for which this forwarding rule accepts traffic. All IP
+    /// addresses must have the same IP version, IPv4 or IPv6. When a client sends
+    /// traffic that matches one of the specified IP addresses, protocol and ports,
+    /// the forwarding rule directs the traffic to the referencedbackendService. All IP addresses are served by the same set of
+    /// backends, and they share the target capacities specified in the backend
+    /// service fairly.
+    ///
+    /// Global external Passthrough Network Load Balancer requires two IP addresses
+    /// for each forwarding rule to provide high availability when both IP
+    /// addresses are used to serve client requests. The two IP addresses must come
+    /// from global IP pools that belong to two distinct Availability
+    /// Groups, represented by the purposePASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP0 andPASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP1. TheIPAddresses field specifies zero, one, or two IP addresses:
+    ///
+    /// - If omitted, Google Cloud assigns two ephemeral IP addresses, one from
+    ///   each Availability Group.
+    /// - If you specify one IP address that references an existing static IP
+    ///   address resource from one Availability Group, Google Cloud assigns an
+    ///   ephemeral IP address from the other Availability Group.
+    /// - If you specify two IP addresses that reference existing static IP
+    ///   address resources, they are required to be from different Availability
+    ///   Groups.
+    ///
+    /// For global external Passthrough Network Load Balancer, each IP address can be one of the following:
+    ///
+    /// - A static or ephemeral IPv4 address from a Google-owned IP pool.
+    /// - A static IPv4 address from a global public delegated prefix.
+    /// - A static or ephemeral IPv6 /96 prefix from a Google-owned IP pool.
+    ///
+    /// For global external Passthrough Network Load Balancer, the two IP addresses
+    /// can be of different types. One IP address can be from a BYOIP prefix while
+    /// the other is from a Google-owned IP pool. One IP address can be static
+    /// while the other is ephemeral. However, both IP addresses must have the same
+    /// IP version, IPv4 or IPv6.
+    ///
+    /// The IP addresses can only be set at creation and cannot be updated.
+    ///
+    /// When creating a global external Passthrough Network Load Balancer
+    /// forwarding rule (a parent forwarding rule), you must use theIPAddresses field, but the Google Cloud-generated child
+    /// forwarding rules set the IPAddress field instead. Refer to theavailabilityGroup field for further details.
+    ///
+    /// Refer to the IPAddress field for the formats that can be used
+    /// to specify IP addresses while creating a forwarding rule.
+    ///
+    /// Because Passthrough Network Load Balancers do not terminate or translate
+    /// traffic, the backend stack types must be compatible with the forwarding
+    /// rule IP version:
+    ///
+    /// - If the forwarding rule IP version is IPv4, backends should be
+    ///   configured as dual-stack or IPv4-only.
+    /// - If the forwarding rule IP version is IPv6, backends should be
+    ///   configured as dual-stack or IPv6-only.
+    pub ip_addresses: std::vec::Vec<std::string::String>,
+
     /// The IP protocol to which this rule applies.
     ///
     /// For protocol forwarding, valid
@@ -76294,6 +78076,31 @@ pub struct ForwardingRule {
     /// Output only. [Output Only]. The extensions that are attached to this ForwardingRule.
     pub attached_extensions: std::vec::Vec<crate::model::ForwardingRuleAttachedExtension>,
 
+    /// Output only. [Output Only] Specifies the load balancing availability group, one of the
+    /// two that collectively provide high availability.
+    ///
+    /// Specifies the availability group of the forwarding rule. This
+    /// field is for use by global external passthrough load balancers (load
+    /// balancing scheme EXTERNAL_PASSTHROUGH) and is set for the
+    /// child forwarding rules only. The possible values are:
+    ///
+    /// - AVAILABILITY_GROUP0: Set for the child forwarding rule
+    ///   that is programmed on the AVAILABILITY_GROUP0 load balancing
+    ///   stack. The child forwarding rule has the same IP protocol, port, and
+    ///   backend service settings as the parent forwarding rule, but has only one of
+    ///   the two IP addresses of the parent forwarding rule, the one with the
+    ///   purpose PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP0.
+    /// - AVAILABILITY_GROUP1: Set for the child forwarding rule
+    ///   that is programmed on the AVAILABILITY_GROUP1 load balancing
+    ///   stack. The child forwarding rule has the same IP protocol, port and backend
+    ///   service settings as the parent forwarding rule, but has only one of the two
+    ///   IP addresses of the parent forwarding rule, the one with the purposePASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP1.
+    ///
+    /// For each global external Passthrough Network Load Balancer forwarding rule
+    /// (a parent forwarding rule) that you create, Google Cloud generates two
+    /// output-only child forwarding rules, one forAVAILABILITY_GROUP0 and one forAVAILABILITY_GROUP1.
+    pub availability_group: std::option::Option<crate::model::forwarding_rule::AvailabilityGroup>,
+
     /// Identifies the backend service to which the forwarding rule sends traffic.
     ///
     /// It is a required field for the following load balancers:
@@ -76314,6 +78121,16 @@ pub struct ForwardingRule {
     /// Always empty if the current forwarding rule does not have sourceIPRanges
     /// specified.
     pub base_forwarding_rule: std::option::Option<std::string::String>,
+
+    /// Output only. [Output Only] The resource URLs for the child forwarding rules.
+    ///
+    /// Applicable only to the parent forwarding rule of global
+    /// external passthrough load balancers. This field contains the list of child
+    /// forwarding rule URLs associated with the parent forwarding rule: one for
+    /// each availability group. AVAILABILITY_GROUP0 will be the first element, and
+    /// AVAILABILITY_GROUP1 will be the second element. Refer to theavailabilityGroup field for further details. It cannot be set
+    /// by any other forwarding rules.
+    pub child_forwarding_rules: std::vec::Vec<std::string::String>,
 
     /// Output only. [Output Only] Creation timestamp inRFC3339
     /// text format.
@@ -76483,6 +78300,13 @@ pub struct ForwardingRule {
     /// try to auto-generate a DNS zone or not. Non-PSC forwarding rules do not use
     /// this field. Once set, this field is not mutable.
     pub no_automate_dns_zone: std::option::Option<bool>,
+
+    /// Output only. [Output Only] The resource URL for the parent forwarding rule.
+    ///
+    /// Applicable only to the child forwarding rules of global external
+    /// passthrough load balancers. This field contains the URL of the parent
+    /// forwarding rule.
+    pub parent_forwarding_rule: std::option::Option<std::string::String>,
 
     /// The ports, portRange, and allPorts
     /// fields are mutually exclusive. Only packets addressed to ports in the
@@ -76666,6 +78490,23 @@ impl ForwardingRule {
         self
     }
 
+    /// Sets the value of [ip_addresses][crate::model::ForwardingRule::ip_addresses].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::ForwardingRule;
+    /// let x = ForwardingRule::new().set_ip_addresses(["a", "b", "c"]);
+    /// ```
+    pub fn set_ip_addresses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.ip_addresses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [ip_protocol][crate::model::ForwardingRule::ip_protocol].
     ///
     /// # Example
@@ -76818,6 +78659,41 @@ impl ForwardingRule {
         self
     }
 
+    /// Sets the value of [availability_group][crate::model::ForwardingRule::availability_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::ForwardingRule;
+    /// use google_cloud_compute_v1::model::forwarding_rule::AvailabilityGroup;
+    /// let x0 = ForwardingRule::new().set_availability_group(AvailabilityGroup::AvailabilityGroup1);
+    /// let x1 = ForwardingRule::new().set_availability_group(AvailabilityGroup::Unspecified);
+    /// ```
+    pub fn set_availability_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::forwarding_rule::AvailabilityGroup>,
+    {
+        self.availability_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [availability_group][crate::model::ForwardingRule::availability_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::ForwardingRule;
+    /// use google_cloud_compute_v1::model::forwarding_rule::AvailabilityGroup;
+    /// let x0 = ForwardingRule::new().set_or_clear_availability_group(Some(AvailabilityGroup::AvailabilityGroup1));
+    /// let x1 = ForwardingRule::new().set_or_clear_availability_group(Some(AvailabilityGroup::Unspecified));
+    /// let x_none = ForwardingRule::new().set_or_clear_availability_group(None::<AvailabilityGroup>);
+    /// ```
+    pub fn set_or_clear_availability_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::forwarding_rule::AvailabilityGroup>,
+    {
+        self.availability_group = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [backend_service][crate::model::ForwardingRule::backend_service].
     ///
     /// # Example
@@ -76877,6 +78753,23 @@ impl ForwardingRule {
         T: std::convert::Into<std::string::String>,
     {
         self.base_forwarding_rule = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [child_forwarding_rules][crate::model::ForwardingRule::child_forwarding_rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::ForwardingRule;
+    /// let x = ForwardingRule::new().set_child_forwarding_rules(["a", "b", "c"]);
+    /// ```
+    pub fn set_child_forwarding_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.child_forwarding_rules = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -77271,8 +79164,8 @@ impl ForwardingRule {
     /// # use google_cloud_compute_v1::model::ForwardingRule;
     /// use google_cloud_compute_v1::model::forwarding_rule::LoadBalancingScheme;
     /// let x0 = ForwardingRule::new().set_load_balancing_scheme(LoadBalancingScheme::ExternalManaged);
-    /// let x1 = ForwardingRule::new().set_load_balancing_scheme(LoadBalancingScheme::Internal);
-    /// let x2 = ForwardingRule::new().set_load_balancing_scheme(LoadBalancingScheme::InternalManaged);
+    /// let x1 = ForwardingRule::new().set_load_balancing_scheme(LoadBalancingScheme::ExternalPassthrough);
+    /// let x2 = ForwardingRule::new().set_load_balancing_scheme(LoadBalancingScheme::Internal);
     /// ```
     pub fn set_load_balancing_scheme<T>(mut self, v: T) -> Self
     where
@@ -77289,8 +79182,8 @@ impl ForwardingRule {
     /// # use google_cloud_compute_v1::model::ForwardingRule;
     /// use google_cloud_compute_v1::model::forwarding_rule::LoadBalancingScheme;
     /// let x0 = ForwardingRule::new().set_or_clear_load_balancing_scheme(Some(LoadBalancingScheme::ExternalManaged));
-    /// let x1 = ForwardingRule::new().set_or_clear_load_balancing_scheme(Some(LoadBalancingScheme::Internal));
-    /// let x2 = ForwardingRule::new().set_or_clear_load_balancing_scheme(Some(LoadBalancingScheme::InternalManaged));
+    /// let x1 = ForwardingRule::new().set_or_clear_load_balancing_scheme(Some(LoadBalancingScheme::ExternalPassthrough));
+    /// let x2 = ForwardingRule::new().set_or_clear_load_balancing_scheme(Some(LoadBalancingScheme::Internal));
     /// let x_none = ForwardingRule::new().set_or_clear_load_balancing_scheme(None::<LoadBalancingScheme>);
     /// ```
     pub fn set_or_clear_load_balancing_scheme<T>(mut self, v: std::option::Option<T>) -> Self
@@ -77450,6 +79343,37 @@ impl ForwardingRule {
         T: std::convert::Into<bool>,
     {
         self.no_automate_dns_zone = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [parent_forwarding_rule][crate::model::ForwardingRule::parent_forwarding_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::ForwardingRule;
+    /// let x = ForwardingRule::new().set_parent_forwarding_rule("example");
+    /// ```
+    pub fn set_parent_forwarding_rule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.parent_forwarding_rule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [parent_forwarding_rule][crate::model::ForwardingRule::parent_forwarding_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::ForwardingRule;
+    /// let x = ForwardingRule::new().set_or_clear_parent_forwarding_rule(Some("example"));
+    /// let x = ForwardingRule::new().set_or_clear_parent_forwarding_rule(None::<String>);
+    /// ```
+    pub fn set_or_clear_parent_forwarding_rule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.parent_forwarding_rule = v.map(|x| x.into());
         self
     }
 
@@ -77963,6 +79887,112 @@ pub mod forwarding_rule {
         }
     }
 
+    /// The enumerated type for the [availabilityGroup][google.cloud.compute.v1.ForwardingRule.availabilityGroup] field.
+    ///
+    /// [google.cloud.compute.v1.ForwardingRule.availabilityGroup]: crate::model::forwarding_rule::AvailabilityGroup
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(any(feature = "forwarding-rules", feature = "global-forwarding-rules",))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AvailabilityGroup {
+        #[allow(missing_docs)]
+        AvailabilityGroup0,
+        #[allow(missing_docs)]
+        AvailabilityGroup1,
+        #[allow(missing_docs)]
+        Unspecified,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AvailabilityGroup::name].
+        UnknownValue(availability_group::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(feature = "forwarding-rules", feature = "global-forwarding-rules",))]
+    pub mod availability_group {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(feature = "forwarding-rules", feature = "global-forwarding-rules",))]
+    impl AvailabilityGroup {
+        /// Gets the enum value as a string.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::AvailabilityGroup0 => std::option::Option::Some("AVAILABILITY_GROUP0"),
+                Self::AvailabilityGroup1 => std::option::Option::Some("AVAILABILITY_GROUP1"),
+                Self::Unspecified => std::option::Option::Some("AVAILABILITY_GROUP_UNSPECIFIED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(feature = "forwarding-rules", feature = "global-forwarding-rules",))]
+    impl std::fmt::Display for AvailabilityGroup {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
+        }
+    }
+
+    #[cfg(any(feature = "forwarding-rules", feature = "global-forwarding-rules",))]
+    impl std::convert::From<&str> for AvailabilityGroup {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AVAILABILITY_GROUP0" => Self::AvailabilityGroup0,
+                "AVAILABILITY_GROUP1" => Self::AvailabilityGroup1,
+                "AVAILABILITY_GROUP_UNSPECIFIED" => Self::Unspecified,
+                _ => Self::UnknownValue(availability_group::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(feature = "forwarding-rules", feature = "global-forwarding-rules",))]
+    impl serde::ser::Serialize for AvailabilityGroup {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::AvailabilityGroup0 => serializer.serialize_str("AVAILABILITY_GROUP0"),
+                Self::AvailabilityGroup1 => serializer.serialize_str("AVAILABILITY_GROUP1"),
+                Self::Unspecified => serializer.serialize_str("AVAILABILITY_GROUP_UNSPECIFIED"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(feature = "forwarding-rules", feature = "global-forwarding-rules",))]
+    impl<'de> serde::de::Deserialize<'de> for AvailabilityGroup {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_str(
+                wkt::internal::StringEnumVisitor::<AvailabilityGroup>::new(
+                    ".google.cloud.compute.v1.ForwardingRule.availabilityGroup",
+                ),
+            )
+        }
+    }
+
     /// The enumerated type for the [externalManagedBackendBucketMigrationState][google.cloud.compute.v1.ForwardingRule.externalManagedBackendBucketMigrationState] field.
     ///
     /// [google.cloud.compute.v1.ForwardingRule.externalManagedBackendBucketMigrationState]: crate::model::forwarding_rule::ExternalManagedBackendBucketMigrationState
@@ -78198,6 +80228,8 @@ pub mod forwarding_rule {
         #[allow(missing_docs)]
         ExternalManaged,
         #[allow(missing_docs)]
+        ExternalPassthrough,
+        #[allow(missing_docs)]
         Internal,
         #[allow(missing_docs)]
         InternalManaged,
@@ -78227,6 +80259,7 @@ pub mod forwarding_rule {
             match self {
                 Self::External => std::option::Option::Some("EXTERNAL"),
                 Self::ExternalManaged => std::option::Option::Some("EXTERNAL_MANAGED"),
+                Self::ExternalPassthrough => std::option::Option::Some("EXTERNAL_PASSTHROUGH"),
                 Self::Internal => std::option::Option::Some("INTERNAL"),
                 Self::InternalManaged => std::option::Option::Some("INTERNAL_MANAGED"),
                 Self::InternalSelfManaged => std::option::Option::Some("INTERNAL_SELF_MANAGED"),
@@ -78250,6 +80283,7 @@ pub mod forwarding_rule {
             match value {
                 "EXTERNAL" => Self::External,
                 "EXTERNAL_MANAGED" => Self::ExternalManaged,
+                "EXTERNAL_PASSTHROUGH" => Self::ExternalPassthrough,
                 "INTERNAL" => Self::Internal,
                 "INTERNAL_MANAGED" => Self::InternalManaged,
                 "INTERNAL_SELF_MANAGED" => Self::InternalSelfManaged,
@@ -78270,6 +80304,7 @@ pub mod forwarding_rule {
             match self {
                 Self::External => serializer.serialize_str("EXTERNAL"),
                 Self::ExternalManaged => serializer.serialize_str("EXTERNAL_MANAGED"),
+                Self::ExternalPassthrough => serializer.serialize_str("EXTERNAL_PASSTHROUGH"),
                 Self::Internal => serializer.serialize_str("INTERNAL"),
                 Self::InternalManaged => serializer.serialize_str("INTERNAL_MANAGED"),
                 Self::InternalSelfManaged => serializer.serialize_str("INTERNAL_SELF_MANAGED"),
@@ -96534,6 +98569,7 @@ impl wkt::message::Message for GlobalSetLabelsRequest {
     feature = "machine-images",
     feature = "network-firewall-policies",
     feature = "snapshots",
+    feature = "ssl-policies",
 ))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -96566,6 +98602,7 @@ pub struct GlobalSetPolicyRequest {
     feature = "machine-images",
     feature = "network-firewall-policies",
     feature = "snapshots",
+    feature = "ssl-policies",
 ))]
 impl GlobalSetPolicyRequest {
     /// Creates a new default instance.
@@ -96672,6 +98709,7 @@ impl GlobalSetPolicyRequest {
     feature = "machine-images",
     feature = "network-firewall-policies",
     feature = "snapshots",
+    feature = "ssl-policies",
 ))]
 impl wkt::message::Message for GlobalSetPolicyRequest {
     fn typename() -> &'static str {
@@ -121938,6 +123976,10 @@ pub struct HttpRouteAction {
     /// Not supported when the URL map is bound to a target gRPC proxy.
     pub cors_policy: std::option::Option<crate::model::CorsPolicy>,
 
+    /// Dynamic compression policy for this URL Map's route. Available only for
+    /// Global EXTERNAL_MANAGED load balancer schemes.
+    pub dynamic_compression_policy: std::option::Option<crate::model::DynamicCompressionPolicy>,
+
     /// The specification for fault injection introduced into traffic to test
     /// the resiliency of clients to backend service failure. As part of fault
     /// injection, when clients send requests to a backend service, delays can be
@@ -121953,6 +123995,12 @@ pub struct HttpRouteAction {
     ///    see Load
     ///    balancing: Routing and traffic management features.
     pub fault_injection_policy: std::option::Option<crate::model::HttpFaultInjection>,
+
+    /// Image optimization policy for this URL Map's route. Available only for
+    /// Global EXTERNAL_MANAGED load balancer schemes.
+    /// Either Cloud CDN must be enabled on the backend service or backend bucket
+    /// serving the route, or cache policy must be configured on the same route
+    pub image_optimization_policy: std::option::Option<crate::model::ImageOptimizationPolicy>,
 
     /// Specifies the maximum duration (timeout) for streams on the selected route.
     /// Unlike the timeout field where the timeout duration starts
@@ -122090,6 +124138,39 @@ impl HttpRouteAction {
         self
     }
 
+    /// Sets the value of [dynamic_compression_policy][crate::model::HttpRouteAction::dynamic_compression_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::HttpRouteAction;
+    /// use google_cloud_compute_v1::model::DynamicCompressionPolicy;
+    /// let x = HttpRouteAction::new().set_dynamic_compression_policy(DynamicCompressionPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_dynamic_compression_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DynamicCompressionPolicy>,
+    {
+        self.dynamic_compression_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [dynamic_compression_policy][crate::model::HttpRouteAction::dynamic_compression_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::HttpRouteAction;
+    /// use google_cloud_compute_v1::model::DynamicCompressionPolicy;
+    /// let x = HttpRouteAction::new().set_or_clear_dynamic_compression_policy(Some(DynamicCompressionPolicy::default()/* use setters */));
+    /// let x = HttpRouteAction::new().set_or_clear_dynamic_compression_policy(None::<DynamicCompressionPolicy>);
+    /// ```
+    pub fn set_or_clear_dynamic_compression_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DynamicCompressionPolicy>,
+    {
+        self.dynamic_compression_policy = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [fault_injection_policy][crate::model::HttpRouteAction::fault_injection_policy].
     ///
     /// # Example
@@ -122120,6 +124201,39 @@ impl HttpRouteAction {
         T: std::convert::Into<crate::model::HttpFaultInjection>,
     {
         self.fault_injection_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [image_optimization_policy][crate::model::HttpRouteAction::image_optimization_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::HttpRouteAction;
+    /// use google_cloud_compute_v1::model::ImageOptimizationPolicy;
+    /// let x = HttpRouteAction::new().set_image_optimization_policy(ImageOptimizationPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_image_optimization_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageOptimizationPolicy>,
+    {
+        self.image_optimization_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [image_optimization_policy][crate::model::HttpRouteAction::image_optimization_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::HttpRouteAction;
+    /// use google_cloud_compute_v1::model::ImageOptimizationPolicy;
+    /// let x = HttpRouteAction::new().set_or_clear_image_optimization_policy(Some(ImageOptimizationPolicy::default()/* use setters */));
+    /// let x = HttpRouteAction::new().set_or_clear_image_optimization_policy(None::<ImageOptimizationPolicy>);
+    /// ```
+    pub fn set_or_clear_image_optimization_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ImageOptimizationPolicy>,
+    {
+        self.image_optimization_policy = v.map(|x| x.into());
         self
     }
 
@@ -127227,6 +129341,199 @@ pub mod image_list {
                     ".google.cloud.compute.v1.ImageList.warning.code",
                 ))
             }
+        }
+    }
+}
+
+/// The configuration for Cloud CDN's image optimization feature. This feature
+/// dynamically processes and delivers images from the network edge.
+/// Image Optimization is only available for Global External Application Load
+/// Balancers.
+/// Either Cloud CDN must be enabled on the backend service or backend bucket
+/// serving the route, or cache policy must be configured on the same route.
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ImageOptimizationPolicy {
+    /// Specifies whether to interpret query parameters for image optimization.
+    pub query_parameter_interpretation:
+        std::option::Option<crate::model::image_optimization_policy::QueryParameterInterpretation>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+impl ImageOptimizationPolicy {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [query_parameter_interpretation][crate::model::ImageOptimizationPolicy::query_parameter_interpretation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::ImageOptimizationPolicy;
+    /// use google_cloud_compute_v1::model::image_optimization_policy::QueryParameterInterpretation;
+    /// let x0 = ImageOptimizationPolicy::new().set_query_parameter_interpretation(QueryParameterInterpretation::Enabled);
+    /// let x1 = ImageOptimizationPolicy::new().set_query_parameter_interpretation(QueryParameterInterpretation::Unspecified);
+    /// ```
+    pub fn set_query_parameter_interpretation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<
+                crate::model::image_optimization_policy::QueryParameterInterpretation,
+            >,
+    {
+        self.query_parameter_interpretation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [query_parameter_interpretation][crate::model::ImageOptimizationPolicy::query_parameter_interpretation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::ImageOptimizationPolicy;
+    /// use google_cloud_compute_v1::model::image_optimization_policy::QueryParameterInterpretation;
+    /// let x0 = ImageOptimizationPolicy::new().set_or_clear_query_parameter_interpretation(Some(QueryParameterInterpretation::Enabled));
+    /// let x1 = ImageOptimizationPolicy::new().set_or_clear_query_parameter_interpretation(Some(QueryParameterInterpretation::Unspecified));
+    /// let x_none = ImageOptimizationPolicy::new().set_or_clear_query_parameter_interpretation(None::<QueryParameterInterpretation>);
+    /// ```
+    pub fn set_or_clear_query_parameter_interpretation<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<
+                crate::model::image_optimization_policy::QueryParameterInterpretation,
+            >,
+    {
+        self.query_parameter_interpretation = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+impl wkt::message::Message for ImageOptimizationPolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.ImageOptimizationPolicy"
+    }
+}
+
+/// Defines additional types related to [ImageOptimizationPolicy].
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+pub mod image_optimization_policy {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [queryParameterInterpretation][google.cloud.compute.v1.ImageOptimizationPolicy.queryParameterInterpretation] field.
+    ///
+    /// [google.cloud.compute.v1.ImageOptimizationPolicy.queryParameterInterpretation]: crate::model::image_optimization_policy::QueryParameterInterpretation
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum QueryParameterInterpretation {
+        /// Query parameters for image optimization are ignored.
+        Disabled,
+        /// Query parameters for image optimization are interpreted.
+        Enabled,
+        /// Default value. This field value translates to the
+        /// default behavior, which is to ignore query parameters for image
+        /// optimization.
+        Unspecified,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [QueryParameterInterpretation::name].
+        UnknownValue(query_parameter_interpretation::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+    pub mod query_parameter_interpretation {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+    impl QueryParameterInterpretation {
+        /// Gets the enum value as a string.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::Enabled => std::option::Option::Some("ENABLED"),
+                Self::Unspecified => {
+                    std::option::Option::Some("QUERY_PARAMETER_INTERPRETATION_UNSPECIFIED")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+    impl std::fmt::Display for QueryParameterInterpretation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
+        }
+    }
+
+    #[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+    impl std::convert::From<&str> for QueryParameterInterpretation {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DISABLED" => Self::Disabled,
+                "ENABLED" => Self::Enabled,
+                "QUERY_PARAMETER_INTERPRETATION_UNSPECIFIED" => Self::Unspecified,
+                _ => Self::UnknownValue(query_parameter_interpretation::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+    impl serde::ser::Serialize for QueryParameterInterpretation {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Disabled => serializer.serialize_str("DISABLED"),
+                Self::Enabled => serializer.serialize_str("ENABLED"),
+                Self::Unspecified => {
+                    serializer.serialize_str("QUERY_PARAMETER_INTERPRETATION_UNSPECIFIED")
+                }
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+    impl<'de> serde::de::Deserialize<'de> for QueryParameterInterpretation {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<
+                QueryParameterInterpretation,
+            >::new(
+                ".google.cloud.compute.v1.ImageOptimizationPolicy.queryParameterInterpretation",
+            ))
         }
     }
 }
@@ -142111,8 +144418,8 @@ impl InstanceGroupManagerStatusAcceleratorTopology {
     /// # use google_cloud_compute_v1::model::InstanceGroupManagerStatusAcceleratorTopology;
     /// use google_cloud_compute_v1::model::instance_group_manager_status_accelerator_topology::State;
     /// let x0 = InstanceGroupManagerStatusAcceleratorTopology::new().set_state(State::Active);
-    /// let x1 = InstanceGroupManagerStatusAcceleratorTopology::new().set_state(State::Deactivating);
-    /// let x2 = InstanceGroupManagerStatusAcceleratorTopology::new().set_state(State::Failed);
+    /// let x1 = InstanceGroupManagerStatusAcceleratorTopology::new().set_state(State::ActiveDegraded);
+    /// let x2 = InstanceGroupManagerStatusAcceleratorTopology::new().set_state(State::Deactivating);
     /// ```
     pub fn set_state<T>(mut self, v: T) -> Self
     where
@@ -142131,8 +144438,8 @@ impl InstanceGroupManagerStatusAcceleratorTopology {
     /// # use google_cloud_compute_v1::model::InstanceGroupManagerStatusAcceleratorTopology;
     /// use google_cloud_compute_v1::model::instance_group_manager_status_accelerator_topology::State;
     /// let x0 = InstanceGroupManagerStatusAcceleratorTopology::new().set_or_clear_state(Some(State::Active));
-    /// let x1 = InstanceGroupManagerStatusAcceleratorTopology::new().set_or_clear_state(Some(State::Deactivating));
-    /// let x2 = InstanceGroupManagerStatusAcceleratorTopology::new().set_or_clear_state(Some(State::Failed));
+    /// let x1 = InstanceGroupManagerStatusAcceleratorTopology::new().set_or_clear_state(Some(State::ActiveDegraded));
+    /// let x2 = InstanceGroupManagerStatusAcceleratorTopology::new().set_or_clear_state(Some(State::Deactivating));
     /// let x_none = InstanceGroupManagerStatusAcceleratorTopology::new().set_or_clear_state(None::<State>);
     /// ```
     pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
@@ -142224,6 +144531,8 @@ pub mod instance_group_manager_status_accelerator_topology {
         Activating,
         /// The accelerator topology is active.
         Active,
+        /// The accelerator topology is active but operating in degraded mode.
+        ActiveDegraded,
         /// The accelerator topology is being deactivated.
         Deactivating,
         /// The accelerator topology failed.
@@ -142261,6 +144570,7 @@ pub mod instance_group_manager_status_accelerator_topology {
             match self {
                 Self::Activating => std::option::Option::Some("ACTIVATING"),
                 Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::ActiveDegraded => std::option::Option::Some("ACTIVE_DEGRADED"),
                 Self::Deactivating => std::option::Option::Some("DEACTIVATING"),
                 Self::Failed => std::option::Option::Some("FAILED"),
                 Self::Incomplete => std::option::Option::Some("INCOMPLETE"),
@@ -142290,6 +144600,7 @@ pub mod instance_group_manager_status_accelerator_topology {
             match value {
                 "ACTIVATING" => Self::Activating,
                 "ACTIVE" => Self::Active,
+                "ACTIVE_DEGRADED" => Self::ActiveDegraded,
                 "DEACTIVATING" => Self::Deactivating,
                 "FAILED" => Self::Failed,
                 "INCOMPLETE" => Self::Incomplete,
@@ -142313,6 +144624,7 @@ pub mod instance_group_manager_status_accelerator_topology {
             match self {
                 Self::Activating => serializer.serialize_str("ACTIVATING"),
                 Self::Active => serializer.serialize_str("ACTIVE"),
+                Self::ActiveDegraded => serializer.serialize_str("ACTIVE_DEGRADED"),
                 Self::Deactivating => serializer.serialize_str("DEACTIVATING"),
                 Self::Failed => serializer.serialize_str("FAILED"),
                 Self::Incomplete => serializer.serialize_str("INCOMPLETE"),
@@ -196211,6 +198523,14 @@ pub mod machine_image_list {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MachineImageParams {
+    /// Input only. Specifies the list of disk device names that must be excluded from the
+    /// new machine image.
+    pub excluded_disks: std::vec::Vec<std::string::String>,
+
+    /// Input only. Specifies the list of disk device names that must be included with the
+    /// new machine image.
+    pub included_disks: std::vec::Vec<std::string::String>,
+
     /// Input only. Resource manager tags to be bound to the machine image. Tag keys and values
     /// have the same definition as resource
     /// manager tags. Keys and values can be either in numeric format,
@@ -196228,6 +198548,40 @@ impl MachineImageParams {
     /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [excluded_disks][crate::model::MachineImageParams::excluded_disks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::MachineImageParams;
+    /// let x = MachineImageParams::new().set_excluded_disks(["a", "b", "c"]);
+    /// ```
+    pub fn set_excluded_disks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.excluded_disks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [included_disks][crate::model::MachineImageParams::included_disks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::MachineImageParams;
+    /// let x = MachineImageParams::new().set_included_disks(["a", "b", "c"]);
+    /// ```
+    pub fn set_included_disks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.included_disks = v.into_iter().map(|i| i.into()).collect();
+        self
     }
 
     /// Sets the value of [resource_manager_tags][crate::model::MachineImageParams::resource_manager_tags].
@@ -204457,6 +206811,9 @@ pub struct Network {
     #[deprecated]
     pub i_pv_4_range: std::option::Option<std::string::String>,
 
+    /// Output only. [Output Only] Additional tags for this resource.
+    pub additional_tags: std::vec::Vec<std::string::String>,
+
     /// Must be set to create a VPC network. If not set, a legacy network is
     /// created.
     ///
@@ -204598,6 +206955,23 @@ impl Network {
         T: std::convert::Into<std::string::String>,
     {
         self.i_pv_4_range = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [additional_tags][crate::model::Network::additional_tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::Network;
+    /// let x = Network::new().set_additional_tags(["a", "b", "c"]);
+    /// ```
+    pub fn set_additional_tags<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.additional_tags = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -207074,6 +209448,9 @@ pub mod network_attachment_connected_endpoint {
         Pending,
         /// The consumer prohibits traffic from the producer to reach its VPC.
         Rejected,
+        /// There is no traffic flowing in this state, only the address is
+        /// reserved.
+        Reserved,
         #[allow(missing_docs)]
         Unspecified,
         /// If set, the enum was initialized with an unknown value.
@@ -207101,6 +209478,7 @@ pub mod network_attachment_connected_endpoint {
                 Self::NeedsAttention => std::option::Option::Some("NEEDS_ATTENTION"),
                 Self::Pending => std::option::Option::Some("PENDING"),
                 Self::Rejected => std::option::Option::Some("REJECTED"),
+                Self::Reserved => std::option::Option::Some("RESERVED"),
                 Self::Unspecified => std::option::Option::Some("STATUS_UNSPECIFIED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -207124,6 +209502,7 @@ pub mod network_attachment_connected_endpoint {
                 "NEEDS_ATTENTION" => Self::NeedsAttention,
                 "PENDING" => Self::Pending,
                 "REJECTED" => Self::Rejected,
+                "RESERVED" => Self::Reserved,
                 "STATUS_UNSPECIFIED" => Self::Unspecified,
                 _ => Self::UnknownValue(status::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
@@ -207144,6 +209523,7 @@ pub mod network_attachment_connected_endpoint {
                 Self::NeedsAttention => serializer.serialize_str("NEEDS_ATTENTION"),
                 Self::Pending => serializer.serialize_str("PENDING"),
                 Self::Rejected => serializer.serialize_str("REJECTED"),
+                Self::Reserved => serializer.serialize_str("RESERVED"),
                 Self::Unspecified => serializer.serialize_str("STATUS_UNSPECIFIED"),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
@@ -223470,6 +225850,14 @@ pub mod network_profile_network_features {
         IpsecInterconnect,
         /// External IP automatically reserved for Cloud NAT.
         NatAuto,
+        /// The global external address can only be assigned to Global External
+        /// Passthrough Network Load Balancer forwarding rules, as an Availability
+        /// Group 0 address.
+        PassthroughLoadBalancerAvailabilityGroup0,
+        /// The global external address can only be assigned to Global External
+        /// Passthrough Network Load Balancer forwarding rules, as an Availability
+        /// Group 1 address.
+        PassthroughLoadBalancerAvailabilityGroup1,
         /// A private network IP address that can be used to configure Private
         /// Service Connect. This purpose can be specified only forGLOBAL addresses of Type INTERNAL
         PrivateServiceConnect,
@@ -223504,6 +225892,12 @@ pub mod network_profile_network_features {
                 Self::GceEndpoint => std::option::Option::Some("GCE_ENDPOINT"),
                 Self::IpsecInterconnect => std::option::Option::Some("IPSEC_INTERCONNECT"),
                 Self::NatAuto => std::option::Option::Some("NAT_AUTO"),
+                Self::PassthroughLoadBalancerAvailabilityGroup0 => {
+                    std::option::Option::Some("PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP0")
+                }
+                Self::PassthroughLoadBalancerAvailabilityGroup1 => {
+                    std::option::Option::Some("PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP1")
+                }
                 Self::PrivateServiceConnect => std::option::Option::Some("PRIVATE_SERVICE_CONNECT"),
                 Self::Serverless => std::option::Option::Some("SERVERLESS"),
                 Self::SharedLoadbalancerVip => std::option::Option::Some("SHARED_LOADBALANCER_VIP"),
@@ -223529,6 +225923,12 @@ pub mod network_profile_network_features {
                 "GCE_ENDPOINT" => Self::GceEndpoint,
                 "IPSEC_INTERCONNECT" => Self::IpsecInterconnect,
                 "NAT_AUTO" => Self::NatAuto,
+                "PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP0" => {
+                    Self::PassthroughLoadBalancerAvailabilityGroup0
+                }
+                "PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP1" => {
+                    Self::PassthroughLoadBalancerAvailabilityGroup1
+                }
                 "PRIVATE_SERVICE_CONNECT" => Self::PrivateServiceConnect,
                 "SERVERLESS" => Self::Serverless,
                 "SHARED_LOADBALANCER_VIP" => Self::SharedLoadbalancerVip,
@@ -223551,6 +225951,12 @@ pub mod network_profile_network_features {
                 Self::GceEndpoint => serializer.serialize_str("GCE_ENDPOINT"),
                 Self::IpsecInterconnect => serializer.serialize_str("IPSEC_INTERCONNECT"),
                 Self::NatAuto => serializer.serialize_str("NAT_AUTO"),
+                Self::PassthroughLoadBalancerAvailabilityGroup0 => {
+                    serializer.serialize_str("PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP0")
+                }
+                Self::PassthroughLoadBalancerAvailabilityGroup1 => {
+                    serializer.serialize_str("PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP1")
+                }
                 Self::PrivateServiceConnect => serializer.serialize_str("PRIVATE_SERVICE_CONNECT"),
                 Self::Serverless => serializer.serialize_str("SERVERLESS"),
                 Self::SharedLoadbalancerVip => serializer.serialize_str("SHARED_LOADBALANCER_VIP"),
@@ -259545,12 +261951,14 @@ pub mod periodic_partial_maintenance_schedule {
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
 ))]
@@ -259641,12 +262049,14 @@ pub struct Policy {
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
 ))]
@@ -259789,12 +262199,14 @@ impl Policy {
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
 ))]
@@ -266627,6 +269039,33 @@ pub struct PublicDelegatedPrefix {
     pub public_delegated_sub_prefixs:
         std::vec::Vec<crate::model::PublicDelegatedPrefixPublicDelegatedSubPrefix>,
 
+    /// Immutable. The purpose of the public delegated prefix.
+    ///
+    /// This field can only be set for the top-level global public delegated
+    /// prefix. It is an output-only field for the sub-delegates that inherit the
+    /// value from the top-level global public delegated prefix. Once the value is
+    /// set, it cannot be changed.
+    ///
+    /// The field cannot be set for regional public delegated prefixes.
+    ///
+    /// The supported values are:
+    ///
+    /// ```norust
+    ///  - APPLICATION_AND_PROXY_LOAD_BALANCERS: The global public
+    ///  delegated prefix can only be used by Global External Application and
+    ///  Proxy Load Balancers to allocate addresses for forwarding rules. This is
+    ///  the default value.
+    ///  - PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP0: The
+    ///  global public delegated prefix can only be used by Global External
+    ///  Passthrough Network Load Balancers to allocate Availability Group 0
+    ///  addresses for forwarding rules.
+    ///  - PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP1: The
+    ///  global public delegated prefix can only be used by Global External
+    ///  Passthrough Network Load Balancers to allocate Availability Group 1
+    ///  addresses for forwarding rules.
+    /// ```
+    pub purpose: std::option::Option<crate::model::public_delegated_prefix::Purpose>,
+
     /// Output only. [Output Only] URL of the region where the public delegated prefix resides.
     /// This field applies only to the region resource. You must specify this
     /// field as part of the HTTP request URL. It is not settable as a field in
@@ -267130,6 +269569,41 @@ impl PublicDelegatedPrefix {
     {
         use std::iter::Iterator;
         self.public_delegated_sub_prefixs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [purpose][crate::model::PublicDelegatedPrefix::purpose].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::PublicDelegatedPrefix;
+    /// use google_cloud_compute_v1::model::public_delegated_prefix::Purpose;
+    /// let x0 = PublicDelegatedPrefix::new().set_purpose(Purpose::PassthroughLoadBalancerAvailabilityGroup0);
+    /// let x1 = PublicDelegatedPrefix::new().set_purpose(Purpose::PassthroughLoadBalancerAvailabilityGroup1);
+    /// ```
+    pub fn set_purpose<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::public_delegated_prefix::Purpose>,
+    {
+        self.purpose = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [purpose][crate::model::PublicDelegatedPrefix::purpose].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::PublicDelegatedPrefix;
+    /// use google_cloud_compute_v1::model::public_delegated_prefix::Purpose;
+    /// let x0 = PublicDelegatedPrefix::new().set_or_clear_purpose(Some(Purpose::PassthroughLoadBalancerAvailabilityGroup0));
+    /// let x1 = PublicDelegatedPrefix::new().set_or_clear_purpose(Some(Purpose::PassthroughLoadBalancerAvailabilityGroup1));
+    /// let x_none = PublicDelegatedPrefix::new().set_or_clear_purpose(None::<Purpose>);
+    /// ```
+    pub fn set_or_clear_purpose<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::public_delegated_prefix::Purpose>,
+    {
+        self.purpose = v.map(|x| x.into());
         self
     }
 
@@ -267647,6 +270121,153 @@ pub mod public_delegated_prefix {
         {
             deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<Mode>::new(
                 ".google.cloud.compute.v1.PublicDelegatedPrefix.mode",
+            ))
+        }
+    }
+
+    /// The enumerated type for the [purpose][google.cloud.compute.v1.PublicDelegatedPrefix.purpose] field.
+    ///
+    /// [google.cloud.compute.v1.PublicDelegatedPrefix.purpose]: crate::model::public_delegated_prefix::Purpose
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(any(
+        feature = "global-public-delegated-prefixes",
+        feature = "public-delegated-prefixes",
+    ))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Purpose {
+        /// The global public delegated prefix can only be used by Global External
+        /// Application and Proxy Load Balancers to allocate addresses for forwarding
+        /// rules. This is the default value.
+        ApplicationAndProxyLoadBalancers,
+        /// The global public delegated prefix can only be used by Global External
+        /// Passthrough Network Load Balancers to allocate Availability Group 0
+        /// addresses for forwarding rules.
+        PassthroughLoadBalancerAvailabilityGroup0,
+        /// The global public delegated prefix can only be used by Global External
+        /// Passthrough Network Load Balancers to allocate Availability Group 1
+        /// addresses for forwarding rules.
+        PassthroughLoadBalancerAvailabilityGroup1,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Purpose::name].
+        UnknownValue(purpose::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(
+        feature = "global-public-delegated-prefixes",
+        feature = "public-delegated-prefixes",
+    ))]
+    pub mod purpose {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(
+        feature = "global-public-delegated-prefixes",
+        feature = "public-delegated-prefixes",
+    ))]
+    impl Purpose {
+        /// Gets the enum value as a string.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::ApplicationAndProxyLoadBalancers => {
+                    std::option::Option::Some("APPLICATION_AND_PROXY_LOAD_BALANCERS")
+                }
+                Self::PassthroughLoadBalancerAvailabilityGroup0 => {
+                    std::option::Option::Some("PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP0")
+                }
+                Self::PassthroughLoadBalancerAvailabilityGroup1 => {
+                    std::option::Option::Some("PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP1")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "global-public-delegated-prefixes",
+        feature = "public-delegated-prefixes",
+    ))]
+    impl std::fmt::Display for Purpose {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
+        }
+    }
+
+    #[cfg(any(
+        feature = "global-public-delegated-prefixes",
+        feature = "public-delegated-prefixes",
+    ))]
+    impl std::convert::From<&str> for Purpose {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "APPLICATION_AND_PROXY_LOAD_BALANCERS" => Self::ApplicationAndProxyLoadBalancers,
+                "PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP0" => {
+                    Self::PassthroughLoadBalancerAvailabilityGroup0
+                }
+                "PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP1" => {
+                    Self::PassthroughLoadBalancerAvailabilityGroup1
+                }
+                _ => Self::UnknownValue(purpose::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "global-public-delegated-prefixes",
+        feature = "public-delegated-prefixes",
+    ))]
+    impl serde::ser::Serialize for Purpose {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::ApplicationAndProxyLoadBalancers => {
+                    serializer.serialize_str("APPLICATION_AND_PROXY_LOAD_BALANCERS")
+                }
+                Self::PassthroughLoadBalancerAvailabilityGroup0 => {
+                    serializer.serialize_str("PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP0")
+                }
+                Self::PassthroughLoadBalancerAvailabilityGroup1 => {
+                    serializer.serialize_str("PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP1")
+                }
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "global-public-delegated-prefixes",
+        feature = "public-delegated-prefixes",
+    ))]
+    impl<'de> serde::de::Deserialize<'de> for Purpose {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<Purpose>::new(
+                ".google.cloud.compute.v1.PublicDelegatedPrefix.purpose",
             ))
         }
     }
@@ -269579,6 +272200,12 @@ pub struct PublicDelegatedPrefixPublicDelegatedSubPrefix {
     /// The name of the sub public delegated prefix.
     pub name: std::option::Option<std::string::String>,
 
+    /// Output only. [Output Only] The purpose of the sub public delegated prefix. Inherited
+    /// from parent prefix.
+    pub purpose: std::option::Option<
+        crate::model::public_delegated_prefix_public_delegated_sub_prefix::Purpose,
+    >,
+
     /// Output only. [Output Only] The region of the sub public delegated prefix if it is
     /// regional. If absent, the sub prefix is global.
     pub region: std::option::Option<std::string::String>,
@@ -269896,6 +272523,45 @@ impl PublicDelegatedPrefixPublicDelegatedSubPrefix {
         T: std::convert::Into<std::string::String>,
     {
         self.name = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [purpose][crate::model::PublicDelegatedPrefixPublicDelegatedSubPrefix::purpose].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::PublicDelegatedPrefixPublicDelegatedSubPrefix;
+    /// use google_cloud_compute_v1::model::public_delegated_prefix_public_delegated_sub_prefix::Purpose;
+    /// let x0 = PublicDelegatedPrefixPublicDelegatedSubPrefix::new().set_purpose(Purpose::PassthroughLoadBalancerAvailabilityGroup0);
+    /// let x1 = PublicDelegatedPrefixPublicDelegatedSubPrefix::new().set_purpose(Purpose::PassthroughLoadBalancerAvailabilityGroup1);
+    /// ```
+    pub fn set_purpose<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<
+                crate::model::public_delegated_prefix_public_delegated_sub_prefix::Purpose,
+            >,
+    {
+        self.purpose = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [purpose][crate::model::PublicDelegatedPrefixPublicDelegatedSubPrefix::purpose].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::PublicDelegatedPrefixPublicDelegatedSubPrefix;
+    /// use google_cloud_compute_v1::model::public_delegated_prefix_public_delegated_sub_prefix::Purpose;
+    /// let x0 = PublicDelegatedPrefixPublicDelegatedSubPrefix::new().set_or_clear_purpose(Some(Purpose::PassthroughLoadBalancerAvailabilityGroup0));
+    /// let x1 = PublicDelegatedPrefixPublicDelegatedSubPrefix::new().set_or_clear_purpose(Some(Purpose::PassthroughLoadBalancerAvailabilityGroup1));
+    /// let x_none = PublicDelegatedPrefixPublicDelegatedSubPrefix::new().set_or_clear_purpose(None::<Purpose>);
+    /// ```
+    pub fn set_or_clear_purpose<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<
+                crate::model::public_delegated_prefix_public_delegated_sub_prefix::Purpose,
+            >,
+    {
+        self.purpose = v.map(|x| x.into());
         self
     }
 
@@ -270258,6 +272924,153 @@ pub mod public_delegated_prefix_public_delegated_sub_prefix {
         {
             deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<Mode>::new(
                 ".google.cloud.compute.v1.PublicDelegatedPrefixPublicDelegatedSubPrefix.mode",
+            ))
+        }
+    }
+
+    /// The enumerated type for the [purpose][google.cloud.compute.v1.PublicDelegatedPrefixPublicDelegatedSubPrefix.purpose] field.
+    ///
+    /// [google.cloud.compute.v1.PublicDelegatedPrefixPublicDelegatedSubPrefix.purpose]: crate::model::public_delegated_prefix_public_delegated_sub_prefix::Purpose
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(any(
+        feature = "global-public-delegated-prefixes",
+        feature = "public-delegated-prefixes",
+    ))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Purpose {
+        /// The global public delegated prefix can only be used by Global External
+        /// Application and Proxy Load Balancers to allocate addresses for forwarding
+        /// rules. This is the default value.
+        ApplicationAndProxyLoadBalancers,
+        /// The global public delegated prefix can only be used by Global External
+        /// Passthrough Network Load Balancers to allocate Availability Group 0
+        /// addresses for forwarding rules.
+        PassthroughLoadBalancerAvailabilityGroup0,
+        /// The global public delegated prefix can only be used by Global External
+        /// Passthrough Network Load Balancers to allocate Availability Group 1
+        /// addresses for forwarding rules.
+        PassthroughLoadBalancerAvailabilityGroup1,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Purpose::name].
+        UnknownValue(purpose::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(
+        feature = "global-public-delegated-prefixes",
+        feature = "public-delegated-prefixes",
+    ))]
+    pub mod purpose {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(
+        feature = "global-public-delegated-prefixes",
+        feature = "public-delegated-prefixes",
+    ))]
+    impl Purpose {
+        /// Gets the enum value as a string.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::ApplicationAndProxyLoadBalancers => {
+                    std::option::Option::Some("APPLICATION_AND_PROXY_LOAD_BALANCERS")
+                }
+                Self::PassthroughLoadBalancerAvailabilityGroup0 => {
+                    std::option::Option::Some("PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP0")
+                }
+                Self::PassthroughLoadBalancerAvailabilityGroup1 => {
+                    std::option::Option::Some("PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP1")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "global-public-delegated-prefixes",
+        feature = "public-delegated-prefixes",
+    ))]
+    impl std::fmt::Display for Purpose {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
+        }
+    }
+
+    #[cfg(any(
+        feature = "global-public-delegated-prefixes",
+        feature = "public-delegated-prefixes",
+    ))]
+    impl std::convert::From<&str> for Purpose {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "APPLICATION_AND_PROXY_LOAD_BALANCERS" => Self::ApplicationAndProxyLoadBalancers,
+                "PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP0" => {
+                    Self::PassthroughLoadBalancerAvailabilityGroup0
+                }
+                "PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP1" => {
+                    Self::PassthroughLoadBalancerAvailabilityGroup1
+                }
+                _ => Self::UnknownValue(purpose::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "global-public-delegated-prefixes",
+        feature = "public-delegated-prefixes",
+    ))]
+    impl serde::ser::Serialize for Purpose {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::ApplicationAndProxyLoadBalancers => {
+                    serializer.serialize_str("APPLICATION_AND_PROXY_LOAD_BALANCERS")
+                }
+                Self::PassthroughLoadBalancerAvailabilityGroup0 => {
+                    serializer.serialize_str("PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP0")
+                }
+                Self::PassthroughLoadBalancerAvailabilityGroup1 => {
+                    serializer.serialize_str("PASSTHROUGH_LOAD_BALANCER_AVAILABILITY_GROUP1")
+                }
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "global-public-delegated-prefixes",
+        feature = "public-delegated-prefixes",
+    ))]
+    impl<'de> serde::de::Deserialize<'de> for Purpose {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<Purpose>::new(
+                ".google.cloud.compute.v1.PublicDelegatedPrefixPublicDelegatedSubPrefix.purpose",
             ))
         }
     }
@@ -284587,6 +287400,7 @@ impl wkt::message::Message for RegionSetLabelsRequest {
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "resource-policies",
     feature = "service-attachments",
     feature = "subnetworks",
@@ -284620,6 +287434,7 @@ pub struct RegionSetPolicyRequest {
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "resource-policies",
     feature = "service-attachments",
     feature = "subnetworks",
@@ -284727,6 +287542,7 @@ impl RegionSetPolicyRequest {
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "resource-policies",
     feature = "service-attachments",
     feature = "subnetworks",
@@ -305070,6 +307886,12 @@ pub struct ResourceStatusScheduling {
     /// process, in RFC3339 text format.
     pub graceful_shutdown_timestamp: std::option::Option<std::string::String>,
 
+    /// Output only. Protection tier for the workload which specifies the workload
+    /// expectations in the event of infrastructure failures at data center
+    /// (e.g. power and/or cooling failures).
+    pub protection_tier:
+        std::option::Option<crate::model::resource_status_scheduling::ProtectionTier>,
+
     /// Time in future when the instance will be terminated inRFC3339 text format.
     pub termination_timestamp: std::option::Option<std::string::String>,
 
@@ -305145,6 +307967,41 @@ impl ResourceStatusScheduling {
         self
     }
 
+    /// Sets the value of [protection_tier][crate::model::ResourceStatusScheduling::protection_tier].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::ResourceStatusScheduling;
+    /// use google_cloud_compute_v1::model::resource_status_scheduling::ProtectionTier;
+    /// let x0 = ResourceStatusScheduling::new().set_protection_tier(ProtectionTier::Standard);
+    /// let x1 = ResourceStatusScheduling::new().set_protection_tier(ProtectionTier::Unspecified);
+    /// ```
+    pub fn set_protection_tier<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::resource_status_scheduling::ProtectionTier>,
+    {
+        self.protection_tier = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [protection_tier][crate::model::ResourceStatusScheduling::protection_tier].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::ResourceStatusScheduling;
+    /// use google_cloud_compute_v1::model::resource_status_scheduling::ProtectionTier;
+    /// let x0 = ResourceStatusScheduling::new().set_or_clear_protection_tier(Some(ProtectionTier::Standard));
+    /// let x1 = ResourceStatusScheduling::new().set_or_clear_protection_tier(Some(ProtectionTier::Unspecified));
+    /// let x_none = ResourceStatusScheduling::new().set_or_clear_protection_tier(None::<ProtectionTier>);
+    /// ```
+    pub fn set_or_clear_protection_tier<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::resource_status_scheduling::ProtectionTier>,
+    {
+        self.protection_tier = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [termination_timestamp][crate::model::ResourceStatusScheduling::termination_timestamp].
     ///
     /// # Example
@@ -305181,6 +308038,129 @@ impl ResourceStatusScheduling {
 impl wkt::message::Message for ResourceStatusScheduling {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.ResourceStatusScheduling"
+    }
+}
+
+/// Defines additional types related to [ResourceStatusScheduling].
+#[cfg(feature = "instances")]
+pub mod resource_status_scheduling {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [protectionTier][google.cloud.compute.v1.ResourceStatusScheduling.protectionTier] field.
+    ///
+    /// [google.cloud.compute.v1.ResourceStatusScheduling.protectionTier]: crate::model::resource_status_scheduling::ProtectionTier
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(feature = "instances")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ProtectionTier {
+        /// CAPACITY_OPTIMIZED capacity leverages redundancies (e.g. power,
+        /// cooling) at the data center during normal operating conditions. In the
+        /// event of infrastructure failures at data center (e.g. power and/or
+        /// cooling failures), this workload may be disrupted. As a consequence, it
+        /// has a weaker availability SLO than STANDARD.
+        CapacityOptimized,
+        /// STANDARD protection for workload that should be protected by
+        /// redundancies (e.g. power, cooling) at the data center level. In the
+        /// event of infrastructure failures at data center (e.g. power and/or
+        /// cooling failures), this workload is expected to continue as normal
+        /// using the redundancies.
+        Standard,
+        /// Unspecified protection tier.
+        Unspecified,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ProtectionTier::name].
+        UnknownValue(protection_tier::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "instances")]
+    pub mod protection_tier {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "instances")]
+    impl ProtectionTier {
+        /// Gets the enum value as a string.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::CapacityOptimized => {
+                    std::option::Option::Some("PROTECTION_TIER_CAPACITY_OPTIMIZED")
+                }
+                Self::Standard => std::option::Option::Some("PROTECTION_TIER_STANDARD"),
+                Self::Unspecified => std::option::Option::Some("PROTECTION_TIER_UNSPECIFIED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "instances")]
+    impl std::fmt::Display for ProtectionTier {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
+        }
+    }
+
+    #[cfg(feature = "instances")]
+    impl std::convert::From<&str> for ProtectionTier {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PROTECTION_TIER_CAPACITY_OPTIMIZED" => Self::CapacityOptimized,
+                "PROTECTION_TIER_STANDARD" => Self::Standard,
+                "PROTECTION_TIER_UNSPECIFIED" => Self::Unspecified,
+                _ => Self::UnknownValue(protection_tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "instances")]
+    impl serde::ser::Serialize for ProtectionTier {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::CapacityOptimized => {
+                    serializer.serialize_str("PROTECTION_TIER_CAPACITY_OPTIMIZED")
+                }
+                Self::Standard => serializer.serialize_str("PROTECTION_TIER_STANDARD"),
+                Self::Unspecified => serializer.serialize_str("PROTECTION_TIER_UNSPECIFIED"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "instances")]
+    impl<'de> serde::de::Deserialize<'de> for ProtectionTier {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<ProtectionTier>::new(
+                ".google.cloud.compute.v1.ResourceStatusScheduling.protectionTier",
+            ))
+        }
     }
 }
 
@@ -322065,6 +325045,9 @@ pub struct RouterStatusBgpPeerStatus {
     #[allow(missing_docs)]
     pub bfd_status: std::option::Option<crate::model::BfdStatus>,
 
+    /// Output only. [Output Only] Indicates whether the BGP peer is in a depreferenced state.
+    pub depreferenced: std::option::Option<bool>,
+
     /// Output only. Enable IPv4 traffic over BGP Peer.
     /// It is enabled by default if the peerIpAddress is version 4.
     pub enable_ipv_4: std::option::Option<bool>,
@@ -322192,6 +325175,37 @@ impl RouterStatusBgpPeerStatus {
         T: std::convert::Into<crate::model::BfdStatus>,
     {
         self.bfd_status = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [depreferenced][crate::model::RouterStatusBgpPeerStatus::depreferenced].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::RouterStatusBgpPeerStatus;
+    /// let x = RouterStatusBgpPeerStatus::new().set_depreferenced(true);
+    /// ```
+    pub fn set_depreferenced<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.depreferenced = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [depreferenced][crate::model::RouterStatusBgpPeerStatus::depreferenced].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::RouterStatusBgpPeerStatus;
+    /// let x = RouterStatusBgpPeerStatus::new().set_or_clear_depreferenced(Some(false));
+    /// let x = RouterStatusBgpPeerStatus::new().set_or_clear_depreferenced(None::<bool>);
+    /// ```
+    pub fn set_or_clear_depreferenced<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.depreferenced = v.map(|x| x.into());
         self
     }
 
@@ -329247,6 +332261,11 @@ pub struct Scheduling {
     /// there will be no wait before the G2 Soft Off signal is triggered.
     pub preemption_notice_duration: std::option::Option<crate::model::Duration>,
 
+    /// Protection tier for the workload which specifies the workload
+    /// expectations in the event of infrastructure failures at data center
+    /// (e.g. power and/or cooling failures).
+    pub protection_tier: std::option::Option<crate::model::scheduling::ProtectionTier>,
+
     /// Specifies the provisioning model of the instance.
     pub provisioning_model: std::option::Option<crate::model::scheduling::ProvisioningModel>,
 
@@ -329750,6 +332769,41 @@ impl Scheduling {
         self
     }
 
+    /// Sets the value of [protection_tier][crate::model::Scheduling::protection_tier].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::Scheduling;
+    /// use google_cloud_compute_v1::model::scheduling::ProtectionTier;
+    /// let x0 = Scheduling::new().set_protection_tier(ProtectionTier::Standard);
+    /// let x1 = Scheduling::new().set_protection_tier(ProtectionTier::Unspecified);
+    /// ```
+    pub fn set_protection_tier<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::scheduling::ProtectionTier>,
+    {
+        self.protection_tier = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [protection_tier][crate::model::Scheduling::protection_tier].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::Scheduling;
+    /// use google_cloud_compute_v1::model::scheduling::ProtectionTier;
+    /// let x0 = Scheduling::new().set_or_clear_protection_tier(Some(ProtectionTier::Standard));
+    /// let x1 = Scheduling::new().set_or_clear_protection_tier(Some(ProtectionTier::Unspecified));
+    /// let x_none = Scheduling::new().set_or_clear_protection_tier(None::<ProtectionTier>);
+    /// ```
+    pub fn set_or_clear_protection_tier<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::scheduling::ProtectionTier>,
+    {
+        self.protection_tier = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [provisioning_model][crate::model::Scheduling::provisioning_model].
     ///
     /// # Example
@@ -330172,6 +333226,164 @@ pub mod scheduling {
                     ".google.cloud.compute.v1.Scheduling.onHostMaintenance",
                 ),
             )
+        }
+    }
+
+    /// The enumerated type for the [protectionTier][google.cloud.compute.v1.Scheduling.protectionTier] field.
+    ///
+    /// [google.cloud.compute.v1.Scheduling.protectionTier]: crate::model::scheduling::ProtectionTier
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ProtectionTier {
+        /// CAPACITY_OPTIMIZED capacity leverages redundancies (e.g. power,
+        /// cooling) at the data center during normal operating conditions. In the
+        /// event of infrastructure failures at data center (e.g. power and/or
+        /// cooling failures), this workload may be disrupted. As a consequence, it
+        /// has a weaker availability SLO than STANDARD.
+        CapacityOptimized,
+        /// STANDARD protection for workload that should be protected by
+        /// redundancies (e.g. power, cooling) at the data center level. In the
+        /// event of infrastructure failures at data center (e.g. power and/or
+        /// cooling failures), this workload is expected to continue as normal
+        /// using the redundancies.
+        Standard,
+        /// Unspecified protection tier.
+        Unspecified,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ProtectionTier::name].
+        UnknownValue(protection_tier::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    pub mod protection_tier {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl ProtectionTier {
+        /// Gets the enum value as a string.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::CapacityOptimized => {
+                    std::option::Option::Some("PROTECTION_TIER_CAPACITY_OPTIMIZED")
+                }
+                Self::Standard => std::option::Option::Some("PROTECTION_TIER_STANDARD"),
+                Self::Unspecified => std::option::Option::Some("PROTECTION_TIER_UNSPECIFIED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl std::fmt::Display for ProtectionTier {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
+        }
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl std::convert::From<&str> for ProtectionTier {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PROTECTION_TIER_CAPACITY_OPTIMIZED" => Self::CapacityOptimized,
+                "PROTECTION_TIER_STANDARD" => Self::Standard,
+                "PROTECTION_TIER_UNSPECIFIED" => Self::Unspecified,
+                _ => Self::UnknownValue(protection_tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl serde::ser::Serialize for ProtectionTier {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::CapacityOptimized => {
+                    serializer.serialize_str("PROTECTION_TIER_CAPACITY_OPTIMIZED")
+                }
+                Self::Standard => serializer.serialize_str("PROTECTION_TIER_STANDARD"),
+                Self::Unspecified => serializer.serialize_str("PROTECTION_TIER_UNSPECIFIED"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl<'de> serde::de::Deserialize<'de> for ProtectionTier {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<ProtectionTier>::new(
+                ".google.cloud.compute.v1.Scheduling.protectionTier",
+            ))
         }
     }
 
@@ -347857,7 +351069,8 @@ pub struct Snapshot {
     /// of snapshot group feature is restricted.
     pub snapshot_group_name: std::option::Option<std::string::String>,
 
-    /// Indicates the type of the snapshot.
+    /// Indicates the type of the snapshot. Valid values are ARCHIVE
+    /// or STANDARD. The default is STANDARD.
     pub snapshot_type: std::option::Option<crate::model::snapshot::SnapshotType>,
 
     /// The source disk used to create this snapshot.
@@ -349379,9 +352592,11 @@ pub mod snapshot {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum SnapshotType {
-        #[allow(missing_docs)]
+        /// Indicates an archive snapshot, which is recommended for long-term
+        /// retention and compliance.
         Archive,
-        #[allow(missing_docs)]
+        /// Indicates a standard snapshot, which is recommended for frequent
+        /// restores.
         Standard,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -381322,7 +384537,7 @@ pub struct TargetHttpsProxy {
     /// Certificate Manager Certificates accepted formats are:
     ///
     /// - //certificatemanager.googleapis.com/projects/{project}/locations/{location}/certificates/{resourceName}.
-    /// - <https://certificatemanager.googleapis.com/v1alpha1/projects/{project}/locations/{location}/certificates/{resourceName}>.
+    /// - https://certificatemanager.{universeDomain}/v1alpha1/projects/{project}/locations/{location}/certificates/{resourceName}.
     pub ssl_certificates: std::vec::Vec<std::string::String>,
 
     /// URL of SslPolicy resource that will be associated with the TargetHttpsProxy
@@ -398395,6 +401610,7 @@ impl wkt::message::Message for TestFailure {
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -398402,6 +401618,7 @@ impl wkt::message::Message for TestFailure {
     feature = "routes",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
     feature = "target-instances",
@@ -398466,6 +401683,7 @@ pub struct TestPermissionsRequest {
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -398473,6 +401691,7 @@ pub struct TestPermissionsRequest {
     feature = "routes",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
     feature = "target-instances",
@@ -398551,6 +401770,7 @@ impl TestPermissionsRequest {
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -398558,6 +401778,7 @@ impl TestPermissionsRequest {
     feature = "routes",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
     feature = "target-instances",
@@ -398619,6 +401840,7 @@ impl wkt::message::Message for TestPermissionsRequest {
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -398626,6 +401848,7 @@ impl wkt::message::Message for TestPermissionsRequest {
     feature = "routes",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
     feature = "target-instances",
@@ -398690,6 +401913,7 @@ pub struct TestPermissionsResponse {
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -398697,6 +401921,7 @@ pub struct TestPermissionsResponse {
     feature = "routes",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
     feature = "target-instances",
@@ -398775,6 +402000,7 @@ impl TestPermissionsResponse {
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-snapshots",
+    feature = "region-ssl-policies",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -398782,6 +402008,7 @@ impl TestPermissionsResponse {
     feature = "routes",
     feature = "service-attachments",
     feature = "snapshots",
+    feature = "ssl-policies",
     feature = "storage-pools",
     feature = "subnetworks",
     feature = "target-instances",
@@ -399137,9 +402364,9 @@ impl UpcomingMaintenance {
     /// # use google_cloud_compute_v1::model::UpcomingMaintenance;
     /// use google_cloud_compute_v1::model::upcoming_maintenance::MaintenanceReasons;
     /// let x = UpcomingMaintenance::new().set_maintenance_reasons([
+    ///     MaintenanceReasons::FailureDisk,
     ///     MaintenanceReasons::FailureGpu,
     ///     MaintenanceReasons::FailureGpuMultipleFaultyHostsCustomerReported,
-    ///     MaintenanceReasons::FailureGpuNvlinkSwitchCustomerReported,
     /// ]);
     /// ```
     pub fn set_maintenance_reasons<T, V>(mut self, v: T) -> Self
@@ -399342,6 +402569,9 @@ pub mod upcoming_maintenance {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum MaintenanceReasons {
+        /// Maintenance due to a fault reported by the customer via the R&R
+        /// (Report-and-Replace) API.
+        FailureCustomerReported,
         /// Maintenance due to disk errors.
         FailureDisk,
         /// Maintenance due to GPU errors.
@@ -399412,6 +402642,9 @@ pub mod upcoming_maintenance {
         /// Gets the enum value as a string.
         pub fn name(&self) -> std::option::Option<&str> {
             match self {
+                Self::FailureCustomerReported => {
+                    std::option::Option::Some("FAILURE_CUSTOMER_REPORTED")
+                }
                 Self::FailureDisk => std::option::Option::Some("FAILURE_DISK"),
                 Self::FailureGpu => std::option::Option::Some("FAILURE_GPU"),
                 Self::FailureGpuMultipleFaultyHostsCustomerReported => {
@@ -399470,6 +402703,7 @@ pub mod upcoming_maintenance {
         fn from(value: &str) -> Self {
             use std::string::ToString;
             match value {
+                "FAILURE_CUSTOMER_REPORTED" => Self::FailureCustomerReported,
                 "FAILURE_DISK" => Self::FailureDisk,
                 "FAILURE_GPU" => Self::FailureGpu,
                 "FAILURE_GPU_MULTIPLE_FAULTY_HOSTS_CUSTOMER_REPORTED" => {
@@ -399512,6 +402746,9 @@ pub mod upcoming_maintenance {
             S: serde::Serializer,
         {
             match self {
+                Self::FailureCustomerReported => {
+                    serializer.serialize_str("FAILURE_CUSTOMER_REPORTED")
+                }
                 Self::FailureDisk => serializer.serialize_str("FAILURE_DISK"),
                 Self::FailureGpu => serializer.serialize_str("FAILURE_GPU"),
                 Self::FailureGpuMultipleFaultyHostsCustomerReported => {
@@ -400054,6 +403291,9 @@ pub struct UrlMap {
     /// [Output Only] Server-defined URL for the resource.
     pub self_link: std::option::Option<std::string::String>,
 
+    /// Output only. [Output Only] The status of the URL map.
+    pub status: std::option::Option<crate::model::UrlMapStatus>,
+
     /// The list of expected URL mapping tests. Request to update theUrlMap succeeds only if all test cases pass. You can specify a
     /// maximum of 100 tests per UrlMap.
     ///
@@ -400526,6 +403766,39 @@ impl UrlMap {
         T: std::convert::Into<std::string::String>,
     {
         self.self_link = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [status][crate::model::UrlMap::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::UrlMap;
+    /// use google_cloud_compute_v1::model::UrlMapStatus;
+    /// let x = UrlMap::new().set_status(UrlMapStatus::default()/* use setters */);
+    /// ```
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::UrlMapStatus>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status][crate::model::UrlMap::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::UrlMap;
+    /// use google_cloud_compute_v1::model::UrlMapStatus;
+    /// let x = UrlMap::new().set_or_clear_status(Some(UrlMapStatus::default()/* use setters */));
+    /// let x = UrlMap::new().set_or_clear_status(None::<UrlMapStatus>);
+    /// ```
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::UrlMapStatus>,
+    {
+        self.status = v.map(|x| x.into());
         self
     }
 
@@ -401378,6 +404651,97 @@ pub mod url_map_list {
     }
 }
 
+/// Message representing the quota usage for a UrlMap.
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UrlMapQuotaUsage {
+    /// Output only. The number of forwarding rules that uses this UrlMap.
+    pub forwarding_rules: std::option::Option<i32>,
+
+    /// Output only. The number of quota units calculated for this UrlMap.
+    pub units: std::option::Option<i64>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+impl UrlMapQuotaUsage {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [forwarding_rules][crate::model::UrlMapQuotaUsage::forwarding_rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::UrlMapQuotaUsage;
+    /// let x = UrlMapQuotaUsage::new().set_forwarding_rules(42);
+    /// ```
+    pub fn set_forwarding_rules<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.forwarding_rules = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [forwarding_rules][crate::model::UrlMapQuotaUsage::forwarding_rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::UrlMapQuotaUsage;
+    /// let x = UrlMapQuotaUsage::new().set_or_clear_forwarding_rules(Some(42));
+    /// let x = UrlMapQuotaUsage::new().set_or_clear_forwarding_rules(None::<i32>);
+    /// ```
+    pub fn set_or_clear_forwarding_rules<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.forwarding_rules = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [units][crate::model::UrlMapQuotaUsage::units].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::UrlMapQuotaUsage;
+    /// let x = UrlMapQuotaUsage::new().set_units(42);
+    /// ```
+    pub fn set_units<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.units = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [units][crate::model::UrlMapQuotaUsage::units].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::UrlMapQuotaUsage;
+    /// let x = UrlMapQuotaUsage::new().set_or_clear_units(Some(42));
+    /// let x = UrlMapQuotaUsage::new().set_or_clear_units(None::<i32>);
+    /// ```
+    pub fn set_or_clear_units<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.units = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+impl wkt::message::Message for UrlMapQuotaUsage {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.UrlMapQuotaUsage"
+    }
+}
+
 #[allow(missing_docs)]
 #[cfg(any(
     feature = "region-target-http-proxies",
@@ -401447,6 +404811,65 @@ impl UrlMapReference {
 impl wkt::message::Message for UrlMapReference {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.UrlMapReference"
+    }
+}
+
+/// [Output Only] The status of the URL map.
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UrlMapStatus {
+    /// Output only. Summary of quota usage for given UrlMap.
+    pub quota_usage: std::option::Option<crate::model::UrlMapQuotaUsage>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+impl UrlMapStatus {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [quota_usage][crate::model::UrlMapStatus::quota_usage].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::UrlMapStatus;
+    /// use google_cloud_compute_v1::model::UrlMapQuotaUsage;
+    /// let x = UrlMapStatus::new().set_quota_usage(UrlMapQuotaUsage::default()/* use setters */);
+    /// ```
+    pub fn set_quota_usage<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::UrlMapQuotaUsage>,
+    {
+        self.quota_usage = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [quota_usage][crate::model::UrlMapStatus::quota_usage].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::UrlMapStatus;
+    /// use google_cloud_compute_v1::model::UrlMapQuotaUsage;
+    /// let x = UrlMapStatus::new().set_or_clear_quota_usage(Some(UrlMapQuotaUsage::default()/* use setters */));
+    /// let x = UrlMapStatus::new().set_or_clear_quota_usage(None::<UrlMapQuotaUsage>);
+    /// ```
+    pub fn set_or_clear_quota_usage<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::UrlMapQuotaUsage>,
+    {
+        self.quota_usage = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+impl wkt::message::Message for UrlMapStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.compute.v1.UrlMapStatus"
     }
 }
 
@@ -401830,6 +405253,9 @@ pub struct UrlMapValidationResult {
     /// If false, 'loadErrors' indicates the reasons.
     pub load_succeeded: std::option::Option<bool>,
 
+    /// Output only. Summary of quota usage for given UrlMap.
+    pub quota_usage: std::option::Option<crate::model::UrlMapQuotaUsage>,
+
     #[allow(missing_docs)]
     pub test_failures: std::vec::Vec<crate::model::TestFailure>,
 
@@ -401892,6 +405318,39 @@ impl UrlMapValidationResult {
         T: std::convert::Into<bool>,
     {
         self.load_succeeded = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [quota_usage][crate::model::UrlMapValidationResult::quota_usage].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::UrlMapValidationResult;
+    /// use google_cloud_compute_v1::model::UrlMapQuotaUsage;
+    /// let x = UrlMapValidationResult::new().set_quota_usage(UrlMapQuotaUsage::default()/* use setters */);
+    /// ```
+    pub fn set_quota_usage<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::UrlMapQuotaUsage>,
+    {
+        self.quota_usage = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [quota_usage][crate::model::UrlMapValidationResult::quota_usage].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::UrlMapValidationResult;
+    /// use google_cloud_compute_v1::model::UrlMapQuotaUsage;
+    /// let x = UrlMapValidationResult::new().set_or_clear_quota_usage(Some(UrlMapQuotaUsage::default()/* use setters */));
+    /// let x = UrlMapValidationResult::new().set_or_clear_quota_usage(None::<UrlMapQuotaUsage>);
+    /// ```
+    pub fn set_or_clear_quota_usage<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::UrlMapQuotaUsage>,
+    {
+        self.quota_usage = v.map(|x| x.into());
         self
     }
 
@@ -420544,6 +424003,9 @@ pub struct WireProperties {
     ///   pseudowires.
     pub fault_response: std::option::Option<crate::model::wire_properties::FaultResponse>,
 
+    /// The flow management configuration for the wire.
+    pub flow_management: std::option::Option<crate::model::wire_properties::FlowManagement>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -420648,6 +424110,39 @@ impl WireProperties {
         T: std::convert::Into<crate::model::wire_properties::FaultResponse>,
     {
         self.fault_response = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [flow_management][crate::model::WireProperties::flow_management].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::WireProperties;
+    /// use google_cloud_compute_v1::model::wire_properties::FlowManagement;
+    /// let x0 = WireProperties::new().set_flow_management(FlowManagement::FixedPath);
+    /// ```
+    pub fn set_flow_management<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::wire_properties::FlowManagement>,
+    {
+        self.flow_management = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [flow_management][crate::model::WireProperties::flow_management].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::WireProperties;
+    /// use google_cloud_compute_v1::model::wire_properties::FlowManagement;
+    /// let x0 = WireProperties::new().set_or_clear_flow_management(Some(FlowManagement::FixedPath));
+    /// let x_none = WireProperties::new().set_or_clear_flow_management(None::<FlowManagement>);
+    /// ```
+    pub fn set_or_clear_flow_management<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::wire_properties::FlowManagement>,
+    {
+        self.flow_management = v.map(|x| x.into());
         self
     }
 }
@@ -420870,6 +424365,105 @@ pub mod wire_properties {
             ))
         }
     }
+
+    /// The enumerated type for the [flowManagement][google.cloud.compute.v1.WireProperties.flowManagement] field.
+    ///
+    /// [google.cloud.compute.v1.WireProperties.flowManagement]: crate::model::wire_properties::FlowManagement
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(feature = "wire-groups")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum FlowManagement {
+        /// The wire uses dynamic paths.
+        DynamicPath,
+        /// The wire uses fixed paths.
+        FixedPath,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [FlowManagement::name].
+        UnknownValue(flow_management::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "wire-groups")]
+    pub mod flow_management {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "wire-groups")]
+    impl FlowManagement {
+        /// Gets the enum value as a string.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::DynamicPath => std::option::Option::Some("DYNAMIC_PATH"),
+                Self::FixedPath => std::option::Option::Some("FIXED_PATH"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "wire-groups")]
+    impl std::fmt::Display for FlowManagement {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
+        }
+    }
+
+    #[cfg(feature = "wire-groups")]
+    impl std::convert::From<&str> for FlowManagement {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DYNAMIC_PATH" => Self::DynamicPath,
+                "FIXED_PATH" => Self::FixedPath,
+                _ => Self::UnknownValue(flow_management::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "wire-groups")]
+    impl serde::ser::Serialize for FlowManagement {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::DynamicPath => serializer.serialize_str("DYNAMIC_PATH"),
+                Self::FixedPath => serializer.serialize_str("FIXED_PATH"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "wire-groups")]
+    impl<'de> serde::de::Deserialize<'de> for FlowManagement {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<FlowManagement>::new(
+                ".google.cloud.compute.v1.WireProperties.flowManagement",
+            ))
+        }
+    }
 }
 
 #[allow(missing_docs)]
@@ -420888,6 +424482,9 @@ pub struct WorkloadIdentityConfig {
 
     #[allow(missing_docs)]
     pub identity_certificate_enabled: std::option::Option<bool>,
+
+    #[allow(missing_docs)]
+    pub identity_type: std::option::Option<crate::model::workload_identity_config::IdentityType>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -420966,6 +424563,41 @@ impl WorkloadIdentityConfig {
         self.identity_certificate_enabled = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [identity_type][crate::model::WorkloadIdentityConfig::identity_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::WorkloadIdentityConfig;
+    /// use google_cloud_compute_v1::model::workload_identity_config::IdentityType;
+    /// let x0 = WorkloadIdentityConfig::new().set_identity_type(IdentityType::Unspecified);
+    /// let x1 = WorkloadIdentityConfig::new().set_identity_type(IdentityType::ServiceAccount);
+    /// ```
+    pub fn set_identity_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::workload_identity_config::IdentityType>,
+    {
+        self.identity_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [identity_type][crate::model::WorkloadIdentityConfig::identity_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_compute_v1::model::WorkloadIdentityConfig;
+    /// use google_cloud_compute_v1::model::workload_identity_config::IdentityType;
+    /// let x0 = WorkloadIdentityConfig::new().set_or_clear_identity_type(Some(IdentityType::Unspecified));
+    /// let x1 = WorkloadIdentityConfig::new().set_or_clear_identity_type(Some(IdentityType::ServiceAccount));
+    /// let x_none = WorkloadIdentityConfig::new().set_or_clear_identity_type(None::<IdentityType>);
+    /// ```
+    pub fn set_or_clear_identity_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::workload_identity_config::IdentityType>,
+    {
+        self.identity_type = v.map(|x| x.into());
+        self
+    }
 }
 
 #[cfg(any(
@@ -420978,6 +424610,165 @@ impl WorkloadIdentityConfig {
 impl wkt::message::Message for WorkloadIdentityConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.compute.v1.WorkloadIdentityConfig"
+    }
+}
+
+/// Defines additional types related to [WorkloadIdentityConfig].
+#[cfg(any(
+    feature = "instance-templates",
+    feature = "instances",
+    feature = "machine-images",
+    feature = "region-instance-templates",
+    feature = "region-instances",
+))]
+pub mod workload_identity_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The enumerated type for the [identityType][google.cloud.compute.v1.WorkloadIdentityConfig.identityType] field.
+    ///
+    /// [google.cloud.compute.v1.WorkloadIdentityConfig.identityType]: crate::model::workload_identity_config::IdentityType
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum IdentityType {
+        #[allow(missing_docs)]
+        AgentIdentity,
+        #[allow(missing_docs)]
+        Unspecified,
+        #[allow(missing_docs)]
+        ServiceAccount,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [IdentityType::name].
+        UnknownValue(identity_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    pub mod identity_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl IdentityType {
+        /// Gets the enum value as a string.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::AgentIdentity => std::option::Option::Some("AGENT_IDENTITY"),
+                Self::Unspecified => std::option::Option::Some("IDENTITY_TYPE_UNSPECIFIED"),
+                Self::ServiceAccount => std::option::Option::Some("SERVICE_ACCOUNT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl std::fmt::Display for IdentityType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), std::option::Option::None)
+        }
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl std::convert::From<&str> for IdentityType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AGENT_IDENTITY" => Self::AgentIdentity,
+                "IDENTITY_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "SERVICE_ACCOUNT" => Self::ServiceAccount,
+                _ => Self::UnknownValue(identity_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl serde::ser::Serialize for IdentityType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::AgentIdentity => serializer.serialize_str("AGENT_IDENTITY"),
+                Self::Unspecified => serializer.serialize_str("IDENTITY_TYPE_UNSPECIFIED"),
+                Self::ServiceAccount => serializer.serialize_str("SERVICE_ACCOUNT"),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "instance-templates",
+        feature = "instances",
+        feature = "machine-images",
+        feature = "region-instance-templates",
+        feature = "region-instances",
+    ))]
+    impl<'de> serde::de::Deserialize<'de> for IdentityType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_str(wkt::internal::StringEnumVisitor::<IdentityType>::new(
+                ".google.cloud.compute.v1.WorkloadIdentityConfig.identityType",
+            ))
+        }
     }
 }
 
@@ -531027,6 +534818,106 @@ pub mod region_ssl_policies {
         }
     }
 
+    /// Synthetic request message for the [getIamPolicy()][google.cloud.compute.v1.regionSslPolicies.getIamPolicy] method.
+    ///
+    /// [google.cloud.compute.v1.regionSslPolicies.getIamPolicy]: crate::client::RegionSslPolicies::get_iam_policy
+    #[cfg(feature = "region-ssl-policies")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GetIamPolicyRequest {
+        /// Requested IAM Policy version.
+        pub options_requested_policy_version: std::option::Option<i32>,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// The name of the region for this request.
+        pub region: std::string::String,
+
+        /// Name or id of the resource for this request.
+        pub resource: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "region-ssl-policies")]
+    impl GetIamPolicyRequest {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [options_requested_policy_version][crate::model::region_ssl_policies::GetIamPolicyRequest::options_requested_policy_version].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::region_ssl_policies::GetIamPolicyRequest;
+        /// let x = GetIamPolicyRequest::new().set_options_requested_policy_version(42);
+        /// ```
+        pub fn set_options_requested_policy_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.options_requested_policy_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options_requested_policy_version][crate::model::region_ssl_policies::GetIamPolicyRequest::options_requested_policy_version].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::region_ssl_policies::GetIamPolicyRequest;
+        /// let x = GetIamPolicyRequest::new().set_or_clear_options_requested_policy_version(Some(42));
+        /// let x = GetIamPolicyRequest::new().set_or_clear_options_requested_policy_version(None::<i32>);
+        /// ```
+        pub fn set_or_clear_options_requested_policy_version<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.options_requested_policy_version = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::region_ssl_policies::GetIamPolicyRequest::project].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::region_ssl_policies::GetIamPolicyRequest;
+        /// let x = GetIamPolicyRequest::new().set_project("example");
+        /// ```
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_ssl_policies::GetIamPolicyRequest::region].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::region_ssl_policies::GetIamPolicyRequest;
+        /// let x = GetIamPolicyRequest::new().set_region("example");
+        /// ```
+        pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.region = v.into();
+            self
+        }
+
+        /// Sets the value of [resource][crate::model::region_ssl_policies::GetIamPolicyRequest::resource].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::region_ssl_policies::GetIamPolicyRequest;
+        /// let x = GetIamPolicyRequest::new().set_resource("example");
+        /// ```
+        pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.resource = v.into();
+            self
+        }
+    }
+
     /// Synthetic request message for the [insert()][google.cloud.compute.v1.regionSslPolicies.insert] method.
     ///
     /// [google.cloud.compute.v1.regionSslPolicies.insert]: crate::client::RegionSslPolicies::insert
@@ -531823,6 +535714,208 @@ pub mod region_ssl_policies {
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SslPolicy>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [setIamPolicy()][google.cloud.compute.v1.regionSslPolicies.setIamPolicy] method.
+    ///
+    /// [google.cloud.compute.v1.regionSslPolicies.setIamPolicy]: crate::client::RegionSslPolicies::set_iam_policy
+    #[cfg(feature = "region-ssl-policies")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SetIamPolicyRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// The name of the region for this request.
+        pub region: std::string::String,
+
+        /// Name or id of the resource for this request.
+        pub resource: std::string::String,
+
+        /// Synthetic request body field for the [setIamPolicy()][google.cloud.compute.v1.regionSslPolicies.setIamPolicy] method.
+        ///
+        /// [google.cloud.compute.v1.regionSslPolicies.setIamPolicy]: crate::client::RegionSslPolicies::set_iam_policy
+        pub body: std::option::Option<crate::model::RegionSetPolicyRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "region-ssl-policies")]
+    impl SetIamPolicyRequest {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::region_ssl_policies::SetIamPolicyRequest::project].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::region_ssl_policies::SetIamPolicyRequest;
+        /// let x = SetIamPolicyRequest::new().set_project("example");
+        /// ```
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_ssl_policies::SetIamPolicyRequest::region].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::region_ssl_policies::SetIamPolicyRequest;
+        /// let x = SetIamPolicyRequest::new().set_region("example");
+        /// ```
+        pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.region = v.into();
+            self
+        }
+
+        /// Sets the value of [resource][crate::model::region_ssl_policies::SetIamPolicyRequest::resource].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::region_ssl_policies::SetIamPolicyRequest;
+        /// let x = SetIamPolicyRequest::new().set_resource("example");
+        /// ```
+        pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_ssl_policies::SetIamPolicyRequest::body].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::region_ssl_policies::SetIamPolicyRequest;
+        /// use google_cloud_compute_v1::model::RegionSetPolicyRequest;
+        /// let x = SetIamPolicyRequest::new().set_body(RegionSetPolicyRequest::default()/* use setters */);
+        /// ```
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionSetPolicyRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_ssl_policies::SetIamPolicyRequest::body].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::region_ssl_policies::SetIamPolicyRequest;
+        /// use google_cloud_compute_v1::model::RegionSetPolicyRequest;
+        /// let x = SetIamPolicyRequest::new().set_or_clear_body(Some(RegionSetPolicyRequest::default()/* use setters */));
+        /// let x = SetIamPolicyRequest::new().set_or_clear_body(None::<RegionSetPolicyRequest>);
+        /// ```
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RegionSetPolicyRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [testIamPermissions()][google.cloud.compute.v1.regionSslPolicies.testIamPermissions] method.
+    ///
+    /// [google.cloud.compute.v1.regionSslPolicies.testIamPermissions]: crate::client::RegionSslPolicies::test_iam_permissions
+    #[cfg(feature = "region-ssl-policies")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TestIamPermissionsRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// The name of the region for this request.
+        pub region: std::string::String,
+
+        /// Name or id of the resource for this request.
+        pub resource: std::string::String,
+
+        /// Synthetic request body field for the [testIamPermissions()][google.cloud.compute.v1.regionSslPolicies.testIamPermissions] method.
+        ///
+        /// [google.cloud.compute.v1.regionSslPolicies.testIamPermissions]: crate::client::RegionSslPolicies::test_iam_permissions
+        pub body: std::option::Option<crate::model::TestPermissionsRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "region-ssl-policies")]
+    impl TestIamPermissionsRequest {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::region_ssl_policies::TestIamPermissionsRequest::project].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::region_ssl_policies::TestIamPermissionsRequest;
+        /// let x = TestIamPermissionsRequest::new().set_project("example");
+        /// ```
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [region][crate::model::region_ssl_policies::TestIamPermissionsRequest::region].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::region_ssl_policies::TestIamPermissionsRequest;
+        /// let x = TestIamPermissionsRequest::new().set_region("example");
+        /// ```
+        pub fn set_region<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.region = v.into();
+            self
+        }
+
+        /// Sets the value of [resource][crate::model::region_ssl_policies::TestIamPermissionsRequest::resource].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::region_ssl_policies::TestIamPermissionsRequest;
+        /// let x = TestIamPermissionsRequest::new().set_resource("example");
+        /// ```
+        pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::region_ssl_policies::TestIamPermissionsRequest::body].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::region_ssl_policies::TestIamPermissionsRequest;
+        /// use google_cloud_compute_v1::model::TestPermissionsRequest;
+        /// let x = TestIamPermissionsRequest::new().set_body(TestPermissionsRequest::default()/* use setters */);
+        /// ```
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TestPermissionsRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::region_ssl_policies::TestIamPermissionsRequest::body].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::region_ssl_policies::TestIamPermissionsRequest;
+        /// use google_cloud_compute_v1::model::TestPermissionsRequest;
+        /// let x = TestIamPermissionsRequest::new().set_or_clear_body(Some(TestPermissionsRequest::default()/* use setters */));
+        /// let x = TestIamPermissionsRequest::new().set_or_clear_body(None::<TestPermissionsRequest>);
+        /// ```
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TestPermissionsRequest>,
         {
             self.body = v.map(|x| x.into());
             self
@@ -554142,6 +558235,91 @@ pub mod ssl_policies {
         }
     }
 
+    /// Synthetic request message for the [getIamPolicy()][google.cloud.compute.v1.sslPolicies.getIamPolicy] method.
+    ///
+    /// [google.cloud.compute.v1.sslPolicies.getIamPolicy]: crate::client::SslPolicies::get_iam_policy
+    #[cfg(feature = "ssl-policies")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GetIamPolicyRequest {
+        /// Requested IAM Policy version.
+        pub options_requested_policy_version: std::option::Option<i32>,
+
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// Name or id of the resource for this request.
+        pub resource: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "ssl-policies")]
+    impl GetIamPolicyRequest {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [options_requested_policy_version][crate::model::ssl_policies::GetIamPolicyRequest::options_requested_policy_version].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::ssl_policies::GetIamPolicyRequest;
+        /// let x = GetIamPolicyRequest::new().set_options_requested_policy_version(42);
+        /// ```
+        pub fn set_options_requested_policy_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.options_requested_policy_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options_requested_policy_version][crate::model::ssl_policies::GetIamPolicyRequest::options_requested_policy_version].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::ssl_policies::GetIamPolicyRequest;
+        /// let x = GetIamPolicyRequest::new().set_or_clear_options_requested_policy_version(Some(42));
+        /// let x = GetIamPolicyRequest::new().set_or_clear_options_requested_policy_version(None::<i32>);
+        /// ```
+        pub fn set_or_clear_options_requested_policy_version<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.options_requested_policy_version = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [project][crate::model::ssl_policies::GetIamPolicyRequest::project].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::ssl_policies::GetIamPolicyRequest;
+        /// let x = GetIamPolicyRequest::new().set_project("example");
+        /// ```
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [resource][crate::model::ssl_policies::GetIamPolicyRequest::resource].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::ssl_policies::GetIamPolicyRequest;
+        /// let x = GetIamPolicyRequest::new().set_resource("example");
+        /// ```
+        pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.resource = v.into();
+            self
+        }
+    }
+
     /// Synthetic request message for the [insert()][google.cloud.compute.v1.sslPolicies.insert] method.
     ///
     /// [google.cloud.compute.v1.sslPolicies.insert]: crate::client::SslPolicies::insert
@@ -554878,6 +559056,178 @@ pub mod ssl_policies {
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::SslPolicy>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [setIamPolicy()][google.cloud.compute.v1.sslPolicies.setIamPolicy] method.
+    ///
+    /// [google.cloud.compute.v1.sslPolicies.setIamPolicy]: crate::client::SslPolicies::set_iam_policy
+    #[cfg(feature = "ssl-policies")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SetIamPolicyRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// Name or id of the resource for this request.
+        pub resource: std::string::String,
+
+        /// Synthetic request body field for the [setIamPolicy()][google.cloud.compute.v1.sslPolicies.setIamPolicy] method.
+        ///
+        /// [google.cloud.compute.v1.sslPolicies.setIamPolicy]: crate::client::SslPolicies::set_iam_policy
+        pub body: std::option::Option<crate::model::GlobalSetPolicyRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "ssl-policies")]
+    impl SetIamPolicyRequest {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::ssl_policies::SetIamPolicyRequest::project].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::ssl_policies::SetIamPolicyRequest;
+        /// let x = SetIamPolicyRequest::new().set_project("example");
+        /// ```
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [resource][crate::model::ssl_policies::SetIamPolicyRequest::resource].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::ssl_policies::SetIamPolicyRequest;
+        /// let x = SetIamPolicyRequest::new().set_resource("example");
+        /// ```
+        pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::ssl_policies::SetIamPolicyRequest::body].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::ssl_policies::SetIamPolicyRequest;
+        /// use google_cloud_compute_v1::model::GlobalSetPolicyRequest;
+        /// let x = SetIamPolicyRequest::new().set_body(GlobalSetPolicyRequest::default()/* use setters */);
+        /// ```
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GlobalSetPolicyRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::ssl_policies::SetIamPolicyRequest::body].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::ssl_policies::SetIamPolicyRequest;
+        /// use google_cloud_compute_v1::model::GlobalSetPolicyRequest;
+        /// let x = SetIamPolicyRequest::new().set_or_clear_body(Some(GlobalSetPolicyRequest::default()/* use setters */));
+        /// let x = SetIamPolicyRequest::new().set_or_clear_body(None::<GlobalSetPolicyRequest>);
+        /// ```
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GlobalSetPolicyRequest>,
+        {
+            self.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    /// Synthetic request message for the [testIamPermissions()][google.cloud.compute.v1.sslPolicies.testIamPermissions] method.
+    ///
+    /// [google.cloud.compute.v1.sslPolicies.testIamPermissions]: crate::client::SslPolicies::test_iam_permissions
+    #[cfg(feature = "ssl-policies")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TestIamPermissionsRequest {
+        /// Project ID for this request.
+        pub project: std::string::String,
+
+        /// Name or id of the resource for this request.
+        pub resource: std::string::String,
+
+        /// Synthetic request body field for the [testIamPermissions()][google.cloud.compute.v1.sslPolicies.testIamPermissions] method.
+        ///
+        /// [google.cloud.compute.v1.sslPolicies.testIamPermissions]: crate::client::SslPolicies::test_iam_permissions
+        pub body: std::option::Option<crate::model::TestPermissionsRequest>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "ssl-policies")]
+    impl TestIamPermissionsRequest {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [project][crate::model::ssl_policies::TestIamPermissionsRequest::project].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::ssl_policies::TestIamPermissionsRequest;
+        /// let x = TestIamPermissionsRequest::new().set_project("example");
+        /// ```
+        pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.project = v.into();
+            self
+        }
+
+        /// Sets the value of [resource][crate::model::ssl_policies::TestIamPermissionsRequest::resource].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::ssl_policies::TestIamPermissionsRequest;
+        /// let x = TestIamPermissionsRequest::new().set_resource("example");
+        /// ```
+        pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::ssl_policies::TestIamPermissionsRequest::body].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::ssl_policies::TestIamPermissionsRequest;
+        /// use google_cloud_compute_v1::model::TestPermissionsRequest;
+        /// let x = TestIamPermissionsRequest::new().set_body(TestPermissionsRequest::default()/* use setters */);
+        /// ```
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TestPermissionsRequest>,
+        {
+            self.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::ssl_policies::TestIamPermissionsRequest::body].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_compute_v1::model::ssl_policies::TestIamPermissionsRequest;
+        /// use google_cloud_compute_v1::model::TestPermissionsRequest;
+        /// let x = TestIamPermissionsRequest::new().set_or_clear_body(Some(TestPermissionsRequest::default()/* use setters */));
+        /// let x = TestIamPermissionsRequest::new().set_or_clear_body(None::<TestPermissionsRequest>);
+        /// ```
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TestPermissionsRequest>,
         {
             self.body = v.map(|x| x.into());
             self

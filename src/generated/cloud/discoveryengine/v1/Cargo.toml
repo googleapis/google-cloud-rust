@@ -59,16 +59,22 @@ default = [
 # cryptography (such as exclusively using the [ring] crate) should disable this
 # default and call `rustls::crypto::CryptoProvider::install_default()`.
 default-rustls-provider = ["gaxi/_default-rustls-provider"]
+# Enables `client::AclConfigService` and all the types it depends on.
+acl-config-service = []
 # Enables `client::AssistantService` and all the types it depends on.
 assistant-service = []
 # Enables `client::CmekConfigService` and all the types it depends on.
 cmek-config-service = []
+# Enables `client::CollectionService` and all the types it depends on.
+collection-service = []
 # Enables `client::CompletionService` and all the types it depends on.
 completion-service = []
 # Enables `client::ControlService` and all the types it depends on.
 control-service = []
 # Enables `client::ConversationalSearchService` and all the types it depends on.
 conversational-search-service = []
+# Enables `client::DataConnectorService` and all the types it depends on.
+data-connector-service = []
 # Enables `client::DataStoreService` and all the types it depends on.
 data-store-service = []
 # Enables `client::DocumentService` and all the types it depends on.
@@ -79,6 +85,8 @@ engine-service = []
 grounded-generation-service = []
 # Enables `client::IdentityMappingStoreService` and all the types it depends on.
 identity-mapping-store-service = []
+# Enables `client::LicenseConfigService` and all the types it depends on.
+license-config-service = []
 # Enables `client::ProjectService` and all the types it depends on.
 project-service = []
 # Enables `client::RankService` and all the types it depends on.
@@ -101,6 +109,10 @@ site-search-engine-service = []
 user-event-service = []
 # Enables `client::UserLicenseService` and all the types it depends on.
 user-license-service = []
+# Enables `client::UserStoreService` and all the types it depends on.
+user-store-service = []
+# Enables `client::WidgetConfigService` and all the types it depends on.
+widget-config-service = []
 
 [package.metadata.docs.rs]
 all-features = true
@@ -111,6 +123,7 @@ bytes.workspace                    = true
 gaxi                               = { workspace = true, features = ["_internal-grpc-client", "_internal-http-client"] }
 google-cloud-api.workspace         = true
 google-cloud-gax.workspace         = true
+google-cloud-iam-v1.workspace      = true
 google-cloud-longrunning.workspace = true
 google-cloud-lro.workspace         = true
 google-cloud-rpc.workspace         = true

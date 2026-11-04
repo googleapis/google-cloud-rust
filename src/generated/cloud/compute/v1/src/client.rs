@@ -35,7 +35,7 @@
 ///
 /// Service for the `acceleratorTypes` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -163,7 +163,7 @@ impl AcceleratorTypes {
 ///
 /// Service for the `addresses` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -322,7 +322,7 @@ impl Addresses {
 ///
 /// Service for the `advice` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -450,7 +450,7 @@ impl Advice {
 ///
 /// Service for the `autoscalers` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -612,7 +612,7 @@ impl Autoscalers {
 ///
 /// Service for the `backendBuckets` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -811,7 +811,7 @@ impl BackendBuckets {
 ///
 /// Service for the `backendServices` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -1042,7 +1042,7 @@ impl BackendServices {
 ///
 /// Service for the `crossSiteNetworks` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -1185,7 +1185,7 @@ impl CrossSiteNetworks {
 ///
 /// Service for the `diskTypes` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -1312,7 +1312,7 @@ impl DiskTypes {
 ///
 /// Service for the `disks` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -1553,7 +1553,7 @@ impl Disks {
 ///
 /// Service for the `externalVpnGateways` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -1704,7 +1704,7 @@ impl ExternalVpnGateways {
 ///
 /// Service for the `firewallPolicies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -1913,7 +1913,7 @@ impl FirewallPolicies {
 ///
 /// Service for the `firewalls` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -2069,7 +2069,7 @@ impl Firewalls {
 ///
 /// Service for the `forwardingRules` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -2234,7 +2234,7 @@ impl ForwardingRules {
 ///
 /// Service for the `futureReservations` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -2387,7 +2387,7 @@ impl FutureReservations {
 ///
 /// Service for the `globalAddresses` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -2537,7 +2537,7 @@ impl GlobalAddresses {
 ///
 /// Service for the `globalForwardingRules` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -2696,7 +2696,7 @@ impl GlobalForwardingRules {
 ///
 /// Service for the `globalFrontendSettings` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -2815,7 +2815,7 @@ impl GlobalFrontendSettings {
 ///
 /// Service for the `globalNetworkEndpointGroups` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -2991,7 +2991,7 @@ impl GlobalNetworkEndpointGroups {
 ///
 /// Service for the `globalOperations` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -3146,7 +3146,7 @@ impl GlobalOperations {
 ///
 /// Service for the `globalOrganizationOperations` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -3273,7 +3273,7 @@ impl GlobalOrganizationOperations {
 ///
 /// Service for the `globalPublicDelegatedPrefixes` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -3417,7 +3417,7 @@ impl GlobalPublicDelegatedPrefixes {
 ///
 /// Service for the `globalVmExtensionPolicies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -3571,7 +3571,7 @@ impl GlobalVmExtensionPolicies {
 ///
 /// Service for the `healthChecks` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -3734,7 +3734,7 @@ impl HealthChecks {
 ///
 /// Service for the `hosts` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -3862,7 +3862,7 @@ impl Hosts {
 ///
 /// Service for the `httpHealthChecks` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -4017,7 +4017,7 @@ impl HttpHealthChecks {
 ///
 /// Service for the `httpsHealthChecks` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -4172,7 +4172,7 @@ impl HttpsHealthChecks {
 ///
 /// Service for the `imageFamilyViews` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -4287,7 +4287,7 @@ impl ImageFamilyViews {
 ///
 /// Service for the `imageViews` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -4407,7 +4407,7 @@ impl ImageViews {
 ///
 /// Service for the `images` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -4591,7 +4591,7 @@ impl Images {
 ///
 /// Service for the `instanceGroupManagerResizeRequests` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -4744,7 +4744,7 @@ impl InstanceGroupManagerResizeRequests {
 ///
 /// Service for the `instanceGroupManagers` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -5190,7 +5190,7 @@ impl InstanceGroupManagers {
 ///
 /// Service for the `instanceGroups` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -5382,7 +5382,7 @@ impl InstanceGroups {
 ///
 /// Service for the `instanceSettings` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -5506,7 +5506,7 @@ impl InstanceSettings {
 ///
 /// Service for the `instanceTemplates` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -5673,7 +5673,7 @@ impl InstanceTemplates {
 ///
 /// Service for the `instances` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -6133,7 +6133,7 @@ impl Instances {
 ///
 /// Service for the `instantSnapshotGroups` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -6287,7 +6287,7 @@ impl InstantSnapshotGroups {
 ///
 /// Service for the `instantSnapshots` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -6461,7 +6461,7 @@ impl InstantSnapshots {
 ///
 /// Service for the `interconnectAttachmentGroups` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -6635,7 +6635,7 @@ impl InterconnectAttachmentGroups {
 ///
 /// Service for the `interconnectAttachments` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -6794,7 +6794,7 @@ impl InterconnectAttachments {
 ///
 /// Service for the `interconnectGroups` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -6968,7 +6968,7 @@ impl InterconnectGroups {
 ///
 /// Service for the `interconnectLocations` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -7089,7 +7089,7 @@ impl InterconnectLocations {
 ///
 /// Service for the `interconnectRemoteLocations` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -7211,7 +7211,7 @@ impl InterconnectRemoteLocations {
 ///
 /// Service for the `interconnects` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -7386,7 +7386,7 @@ impl Interconnects {
 ///
 /// Service for the `licenseCodes` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -7529,7 +7529,7 @@ impl LicenseCodes {
 ///
 /// Service for the `licenses` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -7713,7 +7713,7 @@ impl Licenses {
 ///
 /// Service for the `machineImages` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -7875,7 +7875,7 @@ impl MachineImages {
 ///
 /// Service for the `machineTypes` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -8002,7 +8002,7 @@ impl MachineTypes {
 ///
 /// Service for the `managedRulesets` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -8120,7 +8120,7 @@ impl ManagedRulesets {
 ///
 /// Service for the `networkAttachments` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -8289,7 +8289,7 @@ impl NetworkAttachments {
 ///
 /// Service for the `networkEdgeSecurityServices` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -8436,7 +8436,7 @@ impl NetworkEdgeSecurityServices {
 ///
 /// Service for the `networkEndpointGroups` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -8623,7 +8623,7 @@ impl NetworkEndpointGroups {
 ///
 /// Service for the `networkFirewallPolicies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -8864,7 +8864,7 @@ impl NetworkFirewallPolicies {
 ///
 /// Service for the `networkProfiles` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -8983,7 +8983,7 @@ impl NetworkProfiles {
 ///
 /// Service for the `networks` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -9170,7 +9170,7 @@ impl Networks {
 ///
 /// Service for the `nodeGroups` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -9371,7 +9371,7 @@ impl NodeGroups {
 ///
 /// Service for the `nodeTemplates` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -9531,7 +9531,7 @@ impl NodeTemplates {
 ///
 /// Service for the `nodeTypes` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -9658,7 +9658,7 @@ impl NodeTypes {
 ///
 /// Service for the `organizationSecurityPolicies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -9940,7 +9940,7 @@ impl OrganizationSecurityPolicies {
 ///
 /// Service for the `packetMirrorings` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -10097,7 +10097,7 @@ impl PacketMirrorings {
 ///
 /// Service for the `previewFeatures` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -10226,7 +10226,7 @@ impl PreviewFeatures {
 ///
 /// Service for the `projectViews` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -10346,7 +10346,7 @@ impl ProjectViews {
 ///
 /// Service for the `projects` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -10573,7 +10573,7 @@ impl Projects {
 ///
 /// Service for the `publicAdvertisedPrefixes` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -10727,7 +10727,7 @@ impl PublicAdvertisedPrefixes {
 ///
 /// Service for the `publicDelegatedPrefixes` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -10889,7 +10889,7 @@ impl PublicDelegatedPrefixes {
 ///
 /// Service for the `regionAutoscalers` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -11044,7 +11044,7 @@ impl RegionAutoscalers {
 ///
 /// Service for the `regionBackendBuckets` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -11213,7 +11213,7 @@ impl RegionBackendBuckets {
 ///
 /// Service for the `regionBackendServices` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -11409,7 +11409,7 @@ impl RegionBackendServices {
 ///
 /// Service for the `regionCommitments` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -11555,7 +11555,7 @@ impl RegionCommitments {
 ///
 /// Service for the `regionCompositeHealthChecks` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -11723,7 +11723,7 @@ impl RegionCompositeHealthChecks {
 ///
 /// Service for the `regionDiskTypes` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -11841,7 +11841,7 @@ impl RegionDiskTypes {
 ///
 /// Service for the `regionDisks` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -12064,7 +12064,7 @@ impl RegionDisks {
 ///
 /// Service for the `regionHealthAggregationPolicies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -12232,7 +12232,7 @@ impl RegionHealthAggregationPolicies {
 ///
 /// Service for the `regionHealthCheckServices` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -12393,7 +12393,7 @@ impl RegionHealthCheckServices {
 ///
 /// Service for the `regionHealthChecks` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -12548,7 +12548,7 @@ impl RegionHealthChecks {
 ///
 /// Service for the `regionHealthSources` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -12713,7 +12713,7 @@ impl RegionHealthSources {
 ///
 /// Service for the `regionInstanceGroupManagerResizeRequests` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -12878,7 +12878,7 @@ impl RegionInstanceGroupManagerResizeRequests {
 ///
 /// Service for the `regionInstanceGroupManagers` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -13323,7 +13323,7 @@ impl RegionInstanceGroupManagers {
 ///
 /// Service for the `regionInstanceGroups` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -13468,7 +13468,7 @@ impl RegionInstanceGroups {
 ///
 /// Service for the `regionInstanceTemplates` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -13605,7 +13605,7 @@ impl RegionInstanceTemplates {
 ///
 /// Service for the `regionInstances` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -13724,7 +13724,7 @@ impl RegionInstances {
 ///
 /// Service for the `regionInstantSnapshotGroups` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -13880,7 +13880,7 @@ impl RegionInstantSnapshotGroups {
 ///
 /// Service for the `regionInstantSnapshots` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -14048,7 +14048,7 @@ impl RegionInstantSnapshots {
 ///
 /// Service for the `regionNetworkEndpointGroups` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -14224,7 +14224,7 @@ impl RegionNetworkEndpointGroups {
 ///
 /// Service for the `regionNetworkFirewallPolicies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -14448,7 +14448,7 @@ impl RegionNetworkFirewallPolicies {
 ///
 /// Service for the `regionNotificationEndpoints` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -14597,7 +14597,7 @@ impl RegionNotificationEndpoints {
 ///
 /// Service for the `regionOperations` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -14744,7 +14744,7 @@ impl RegionOperations {
 ///
 /// Service for the `regionSecurityPolicies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -14917,7 +14917,7 @@ impl RegionSecurityPolicies {
 ///
 /// Service for the `regionSnapshotSettings` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -15041,7 +15041,7 @@ impl RegionSnapshotSettings {
 ///
 /// Service for the `regionSnapshots` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -15213,7 +15213,7 @@ impl RegionSnapshots {
 ///
 /// Service for the `regionSslCertificates` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -15351,7 +15351,7 @@ impl RegionSslCertificates {
 ///
 /// Service for the `regionSslPolicies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -15454,6 +15454,12 @@ impl RegionSslPolicies {
         super::builder::region_ssl_policies::Get::new(self.inner.clone())
     }
 
+    /// Gets the access control policy for a resource. May be empty if no such
+    /// policy or resource exists.
+    pub fn get_iam_policy(&self) -> super::builder::region_ssl_policies::GetIamPolicy {
+        super::builder::region_ssl_policies::GetIamPolicy::new(self.inner.clone())
+    }
+
     /// Creates a new policy in the specified project and region using the data
     /// included in the request.
     pub fn insert(&self) -> super::builder::region_ssl_policies::Insert {
@@ -15479,6 +15485,17 @@ impl RegionSslPolicies {
         super::builder::region_ssl_policies::Patch::new(self.inner.clone())
     }
 
+    /// Sets the access control policy on the specified resource.
+    /// Replaces any existing policy.
+    pub fn set_iam_policy(&self) -> super::builder::region_ssl_policies::SetIamPolicy {
+        super::builder::region_ssl_policies::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::region_ssl_policies::TestIamPermissions {
+        super::builder::region_ssl_policies::TestIamPermissions::new(self.inner.clone())
+    }
+
     /// Retrieves the specified region-specific Operations resource.
     pub fn get_operation(&self) -> super::builder::region_ssl_policies::GetOperation {
         super::builder::region_ssl_policies::GetOperation::new(self.inner.clone())
@@ -15502,7 +15519,7 @@ impl RegionSslPolicies {
 ///
 /// Service for the `regionTargetHttpProxies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -15643,7 +15660,7 @@ impl RegionTargetHttpProxies {
 ///
 /// Service for the `regionTargetHttpsProxies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -15800,7 +15817,7 @@ impl RegionTargetHttpsProxies {
 ///
 /// Service for the `regionTargetTcpProxies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -15936,7 +15953,7 @@ impl RegionTargetTcpProxies {
 ///
 /// Service for the `regionUrlMaps` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -16092,7 +16109,7 @@ impl RegionUrlMaps {
 ///
 /// Service for the `regionZones` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -16206,7 +16223,7 @@ impl RegionZones {
 ///
 /// Service for the `regions` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -16359,7 +16376,7 @@ impl Regions {
 ///
 /// Service for the `reliabilityRisks` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -16478,7 +16495,7 @@ impl ReliabilityRisks {
 ///
 /// Service for the `reservationBlocks` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -16624,7 +16641,7 @@ impl ReservationBlocks {
 ///
 /// Service for the `reservationSlots` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -16763,7 +16780,7 @@ impl ReservationSlots {
 ///
 /// Service for the `reservationSubBlocks` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -16923,7 +16940,7 @@ impl ReservationSubBlocks {
 ///
 /// Service for the `reservations` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -17100,7 +17117,7 @@ impl Reservations {
 ///
 /// Service for the `resourcePolicies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -17265,7 +17282,7 @@ impl ResourcePolicies {
 ///
 /// Service for the `rolloutPlans` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -17398,7 +17415,7 @@ impl RolloutPlans {
 ///
 /// Service for the `rollouts` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -17546,7 +17563,7 @@ impl Rollouts {
 ///
 /// Service for the `routers` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -17782,7 +17799,7 @@ impl Routers {
 ///
 /// Service for the `routes` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -17921,7 +17938,7 @@ impl Routes {
 ///
 /// Service for the `securityPolicies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -18110,7 +18127,7 @@ impl SecurityPolicies {
 ///
 /// Service for the `serviceAttachments` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -18279,7 +18296,7 @@ impl ServiceAttachments {
 ///
 /// Service for the `snapshotSettings` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -18403,7 +18420,7 @@ impl SnapshotSettings {
 ///
 /// Service for the `snapshots` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -18577,7 +18594,7 @@ impl Snapshots {
 ///
 /// Service for the `sslCertificates` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -18721,7 +18738,7 @@ impl SslCertificates {
 ///
 /// Service for the `sslPolicies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -18832,6 +18849,12 @@ impl SslPolicies {
         super::builder::ssl_policies::Get::new(self.inner.clone())
     }
 
+    /// Gets the access control policy for a resource. May be empty if no such
+    /// policy or resource exists.
+    pub fn get_iam_policy(&self) -> super::builder::ssl_policies::GetIamPolicy {
+        super::builder::ssl_policies::GetIamPolicy::new(self.inner.clone())
+    }
+
     /// Returns the specified SSL policy resource.
     pub fn insert(&self) -> super::builder::ssl_policies::Insert {
         super::builder::ssl_policies::Insert::new(self.inner.clone())
@@ -18852,6 +18875,17 @@ impl SslPolicies {
     /// Patches the specified SSL policy with the data included in the request.
     pub fn patch(&self) -> super::builder::ssl_policies::Patch {
         super::builder::ssl_policies::Patch::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource.
+    /// Replaces any existing policy.
+    pub fn set_iam_policy(&self) -> super::builder::ssl_policies::SetIamPolicy {
+        super::builder::ssl_policies::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::ssl_policies::TestIamPermissions {
+        super::builder::ssl_policies::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
@@ -18877,7 +18911,7 @@ impl SslPolicies {
 ///
 /// Service for the `storagePoolTypes` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -19005,7 +19039,7 @@ impl StoragePoolTypes {
 ///
 /// Service for the `storagePools` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -19184,7 +19218,7 @@ impl StoragePools {
 ///
 /// Service for the `subnetworks` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -19371,7 +19405,7 @@ impl Subnetworks {
 ///
 /// Service for the `targetGrpcProxies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -19514,7 +19548,7 @@ impl TargetGrpcProxies {
 ///
 /// Service for the `targetHttpProxies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -19672,7 +19706,7 @@ impl TargetHttpProxies {
 ///
 /// Service for the `targetHttpsProxies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -19853,7 +19887,7 @@ impl TargetHttpsProxies {
 ///
 /// Service for the `targetInstances` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -20008,7 +20042,7 @@ impl TargetInstances {
 ///
 /// Service for the `targetPools` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -20194,7 +20228,7 @@ impl TargetPools {
 ///
 /// Service for the `targetSslProxies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -20363,7 +20397,7 @@ impl TargetSslProxies {
 ///
 /// Service for the `targetTcpProxies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -20523,7 +20557,7 @@ impl TargetTcpProxies {
 ///
 /// Service for the `targetVpnGateways` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -20673,7 +20707,7 @@ impl TargetVpnGateways {
 ///
 /// Service for the `urlMaps` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -20852,7 +20886,7 @@ impl UrlMaps {
 ///
 /// Service for the `vpnGateways` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -21011,7 +21045,7 @@ impl VpnGateways {
 ///
 /// Service for the `vpnTunnels` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -21160,7 +21194,7 @@ impl VpnTunnels {
 ///
 /// Service for the `wireGroups` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -21302,7 +21336,7 @@ impl WireGroups {
 ///
 /// Service for the `zoneOperations` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -21447,7 +21481,7 @@ impl ZoneOperations {
 ///
 /// Service for the `zoneVmExtensionPolicies` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
@@ -21586,7 +21620,7 @@ impl ZoneVmExtensionPolicies {
 ///
 /// Service for the `zones` resource.
 ///
-/// The client library was generated with API version 2026-09-01.
+/// The client library was generated with API version 2026-11-01.
 ///
 /// # Configuration
 ///
