@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #![cfg(google_cloud_unstable_storage_bidi)]
+#![recursion_limit = "256"]
 
 use gaxi::grpc::tonic::{Response as TonicResponse, Result as TonicResult, Status as TonicStatus};
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;

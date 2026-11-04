@@ -24,11 +24,13 @@ mod tests {
     use google_cloud_gax_internal::attempt_interceptor::AttemptInterceptor;
     use google_cloud_gax_internal::grpc;
     use google_cloud_gax_internal::options::ClientConfig;
+    use grpc_server::transport::{EchoTransport, transport_builder};
     use grpc_server::{
-        builder, google, start_echo_server, start_echo_server_with_address,
+        both_transports, builder, google, start_echo_server, start_echo_server_with_address,
         start_echo_server_with_mtls, start_echo_server_with_tls,
     };
     use http::{HeaderMap, HeaderName, HeaderValue};
+    use pretty_assertions::assert_eq;
     use std::sync::{Arc, Mutex};
     use std::time::Instant;
     use tonic::transport::{Certificate, ClientTlsConfig, Identity};
@@ -45,15 +47,41 @@ mod tests {
         let _ = rustls::crypto::aws_lc_rs::default_provider().install_default();
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn default_endpoint() -> anyhow::Result<()> {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        default_endpoint
+    );
+    async fn default_endpoint<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
+        let client = transport_builder::<C>(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
 
+        // Act & Assert
+        check_simple_request(client).await
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn default_user_agent() -> anyhow::Result<()> {
+        // Arrange
+        let (endpoint, _server) = start_echo_server().await?;
         let client = builder(endpoint)
             .with_credentials(test_credentials())
             .build()
             .await?;
-        check_simple_request(client).await
+
+        // Act
+        let response = send_request(client, "test message", "").await?;
+
+        // Assert
+        let got_user_agent = response
+            .metadata
+            .get("user-agent")
+            .expect("user-agent header present");
+        assert!(got_user_agent.contains("tonic/"), "{got_user_agent:?}");
+        Ok(())
     }
 
     fn ipv6_loopback_available() -> bool {
@@ -66,8 +94,9 @@ mod tests {
         std::net::TcpStream::connect_timeout(&addr, std::time::Duration::from_millis(100)).is_ok()
     }
 
-    #[tokio::test]
-    async fn non_default_endpoint_ipv6() -> anyhow::Result<()> {
+    both_transports!(non_default_endpoint_ipv6);
+    async fn non_default_endpoint_ipv6<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         if !ipv6_loopback_available() {
             eprintln!(
                 "Skipping non_default_endpoint_ipv6: IPv6 loopback is not available on this host/container"
@@ -75,36 +104,46 @@ mod tests {
             return Ok(());
         }
         let (endpoint, _server) = start_echo_server_with_address("[::]:0").await?;
-
-        let client = builder("https://storage.googleapis.com")
+        let client = transport_builder::<C>("https://storage.googleapis.com")
             .with_endpoint(endpoint)
             .with_credentials(test_credentials())
             .build()
             .await?;
+
+        // Act & Assert
         check_simple_request(client).await
     }
 
-    #[tokio::test]
-    async fn non_default_endpoint_ipv4() -> anyhow::Result<()> {
+    both_transports!(non_default_endpoint_ipv4);
+    async fn non_default_endpoint_ipv4<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server_with_address("0.0.0.0:0").await?;
-
-        let client = builder("https://storage.googleapis.com")
+        let client = transport_builder::<C>("https://storage.googleapis.com")
             .with_endpoint(endpoint)
             .with_credentials(test_credentials())
             .build()
             .await?;
+
+        // Act & Assert
         check_simple_request(client).await
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn no_request_params() -> anyhow::Result<()> {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        no_request_params
+    );
+    async fn no_request_params<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(test_credentials())
             .build()
             .await?;
+
+        // Act
         let response = send_request(client, "test message", "").await?;
+
+        // Assert
         assert_eq!(&response.message, "test message");
         assert_eq!(
             response
@@ -117,16 +156,20 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn override_endpoint() -> anyhow::Result<()> {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        override_endpoint
+    );
+    async fn override_endpoint<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-
-        let client = builder("https://test-only.googleapis.com")
+        let client = transport_builder::<C>("https://test-only.googleapis.com")
             .with_endpoint(endpoint)
             .with_credentials(test_credentials())
             .build()
             .await?;
 
+        // Act & Assert
         check_simple_request(client).await
     }
 
@@ -209,17 +252,23 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn request_error() -> anyhow::Result<()> {
+    both_transports!(
+        #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+        request_error
+    );
+    async fn request_error<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(test_credentials())
             .build()
             .await?;
 
+        // Act
         let response = send_request(client, "", "").await;
-        let err = response.unwrap_err();
+
+        // Assert
+        let err = response.expect_err("an empty message should be rejected");
         assert_eq!(err.status().map(|s| s.code), Some(Code::InvalidArgument));
         Ok(())
     }
@@ -436,19 +485,11 @@ mod tests {
         Ok(())
     }
 
-    async fn send_request(
-        client: grpc::Client,
+    async fn send_request<C: EchoTransport>(
+        client: C,
         msg: &str,
         request_params: &str,
     ) -> google_cloud_gax::Result<google::test::v1::EchoResponse> {
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.test.v1.EchoServices",
-                "Echo",
-            ));
-            e
-        };
         let request = google::test::v1::EchoRequest {
             message: msg.into(),
             ..google::test::v1::EchoRequest::default()
@@ -459,19 +500,12 @@ mod tests {
             o
         };
         client
-            .execute(
-                extensions,
-                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
-                request,
-                request_options,
-                "test-only-api-client/1.0",
-                request_params,
-            )
+            .echo(request, request_options, request_params)
             .await
             .map(tonic::Response::into_inner)
     }
 
-    async fn check_simple_request(client: grpc::Client) -> anyhow::Result<()> {
+    async fn check_simple_request<C: EchoTransport>(client: C) -> anyhow::Result<()> {
         let response = send_request(client, "test message", "name=test-only").await?;
         assert_eq!(&response.message, "test message");
         assert_eq!(
@@ -488,11 +522,6 @@ mod tests {
                 .map(String::as_str),
             Some("name=test-only")
         );
-        let got_user_agent = response
-            .metadata
-            .get("user-agent")
-            .expect("user-agent header present");
-        assert!(got_user_agent.contains("tonic/"), "{got_user_agent:?}");
         Ok(())
     }
 
