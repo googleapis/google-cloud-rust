@@ -863,6 +863,7 @@ libraries:
         - site-search-engine-service
         - user-event-service
         - user-license-service
+      quickstart_service_override: CmekConfigService
   - name: google-cloud-dns-v1
     version: 2.1.0
     copyright_year: "2026"

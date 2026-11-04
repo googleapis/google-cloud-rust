@@ -86,14 +86,14 @@ pub mod stub;
 ///
 /// # Example
 /// ```
-/// # use google_cloud_discoveryengine_v1::client::AclConfigService;
+/// # use google_cloud_discoveryengine_v1::client::CmekConfigService;
 /// async fn sample(
 ///    project_id: &str,
 ///    location_id: &str,
 /// ) -> anyhow::Result<()> {
-///     let client = AclConfigService::builder().build().await?;
-///     let response = client.get_acl_config()
-///         .set_name(format!("projects/{project_id}/locations/{location_id}/aclConfig"))
+///     let client = CmekConfigService::builder().build().await?;
+///     let response = client.get_cmek_config()
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/cmekConfig"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
 ///     Ok(())
