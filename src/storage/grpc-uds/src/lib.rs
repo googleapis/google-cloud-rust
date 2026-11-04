@@ -305,23 +305,79 @@ pub async fn run(args: Args) -> Result<(), Box<dyn std::error::Error + Send + Sy
             }
         });
     }
+    // `READY` tells a spawner it can connect, so it waits for the upstream clients: a server
+    // that cannot build them (e.g. bad credentials) must fail its start, not its first RPC.
+    let prepared = match prepare_service(&args, &shared).await {
+        Ok(p) => p,
+        Err(e) => {
+            remove_socket_files(&args.socket);
+            return Err(e);
+        }
+    };
     eprintln!(
         "gcs-core-server pid={} listening on {}",
         std::process::id(),
         args.socket
     );
     println!("READY {}", args.socket);
-    serve_with_listener(args, listener, shared).await
+    serve_prepared(args, listener, shared, prepared).await
 }
 
-/// Serves `GcsCore` on an already-bound `UnixListener`. Used directly by integration tests
-/// and in-process server launches.
+/// The `GcsCore` service with its upstream clients built, ready to serve.
+pub struct PreparedService {
+    svc: service::GcsCoreService,
+    shm: Arc<shm::Registry>,
+}
+
+/// Builds the upstream `Storage` / `StorageControl` clients. Separate from serving so that
+/// callers can report a failure here as a failed start; see [`run`].
+pub async fn prepare_service(
+    args: &Args,
+    shared: &Arc<Shared>,
+) -> Result<PreparedService, Box<dyn std::error::Error + Send + Sync>> {
+    let shm = Arc::new(shm::Registry::new());
+    let svc = service::GcsCoreService::new(args, shared.clone(), shm.clone()).await?;
+    Ok(PreparedService { svc, shm })
+}
+
+/// `error` and its sources, outermost first. The credentials errors keep the useful part
+/// (e.g. which file was missing) in a source, which `Display` alone omits.
+fn error_chain(error: &(dyn std::error::Error + 'static)) -> String {
+    let mut out = error.to_string();
+    let mut source = error.source();
+    while let Some(e) = source {
+        out.push_str(": ");
+        out.push_str(&e.to_string());
+        source = e.source();
+    }
+    out
+}
+
+fn remove_socket_files(sock: &str) {
+    if !sock.starts_with('@') {
+        let _ = std::fs::remove_file(sock);
+        let _ = std::fs::remove_file(format!("{sock}.shm"));
+    }
+}
+
+/// Serves `GcsCore` on an already-bound `UnixListener`. Used directly by integration tests.
 pub async fn serve_with_listener(
     args: Args,
     listener: UnixListener,
     shared: Arc<Shared>,
 ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
-    let shm = Arc::new(shm::Registry::new());
+    let prepared = prepare_service(&args, &shared).await?;
+    serve_prepared(args, listener, shared, prepared).await
+}
+
+/// Serves an already-prepared `GcsCore` service on an already-bound `UnixListener`.
+pub async fn serve_prepared(
+    args: Args,
+    listener: UnixListener,
+    shared: Arc<Shared>,
+    prepared: PreparedService,
+) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+    let PreparedService { svc, shm } = prepared;
     if args.shm_size > 0 && !args.socket.starts_with('@') {
         let r = shm.clone();
         let p = format!("{}.shm", args.socket);
@@ -345,7 +401,6 @@ pub async fn serve_with_listener(
         });
     }
 
-    let svc = service::GcsCoreService::new(&args, shared.clone(), shm).await?;
     let reaper_sessions = svc.sessions();
     let reaper_handles = svc.handles();
     // SAFETY: `getuid()` is always safe to call and cannot fail.
@@ -478,10 +533,7 @@ pub async fn serve_with_listener(
         uds.await?;
     }
 
-    if !sock.starts_with('@') {
-        let _ = std::fs::remove_file(&sock);
-        let _ = std::fs::remove_file(format!("{sock}.shm"));
-    }
+    remove_socket_files(&sock);
     Ok(())
 }
 
@@ -562,8 +614,23 @@ fn start_inproc(args: Args) -> Result<(), String> {
                     return;
                 }
             };
+            // Ready means serving, as for `READY` in `run`: a failure to build the upstream
+            // clients is a failed start, reported to the caller with its reason.
+            let prepared = match prepare_service(&args, &srv_shared).await {
+                Ok(p) => p,
+                Err(e) => {
+                    remove_socket_files(&args.socket);
+                    let _ = tx.send(Err(format!(
+                        "building the storage clients: {}",
+                        error_chain(e.as_ref())
+                    )));
+                    return;
+                }
+            };
             let _ = tx.send(Ok(()));
-            let _ = serve_with_listener(args, listener, srv_shared).await;
+            if let Err(e) = serve_prepared(args, listener, srv_shared, prepared).await {
+                tracing::error!("in-process server stopped: {e}");
+            }
         });
     });
     match rx.recv() {

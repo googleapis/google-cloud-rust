@@ -1158,3 +1158,31 @@ async fn delete_object_via_grpc_mock() -> anyhow::Result<()> {
     srv_handle.await?;
     Ok(())
 }
+
+/// `READY` promises a server that can serve, so it must not be printed until
+/// the upstream clients are built. A server that cannot build them (here:
+/// Application Default Credentials point at a missing file) exits non-zero
+/// without ever printing `READY`, and says why.
+#[test]
+fn ready_is_printed_only_after_clients_are_built() -> anyhow::Result<()> {
+    let dir = tempfile::tempdir()?;
+    let sock = dir.path().join("no-creds.sock");
+    let output = std::process::Command::new(env!("CARGO_BIN_EXE_gcs-core-server"))
+        .arg(format!("--socket={}", sock.display()))
+        .args(["--endpoint=http://127.0.0.1:1", "--shm-size=0"])
+        .env(
+            "GOOGLE_APPLICATION_CREDENTIALS",
+            dir.path().join("missing.json"),
+        )
+        .output()?;
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    let stderr = String::from_utf8_lossy(&output.stderr);
+    assert!(!output.status.success(), "{stderr}");
+    assert!(!stdout.contains("READY"), "stdout: {stdout}");
+    assert!(
+        stderr.contains("GOOGLE_APPLICATION_CREDENTIALS"),
+        "{stderr}"
+    );
+    assert!(!sock.exists(), "the socket of a failed start is removed");
+    Ok(())
+}
