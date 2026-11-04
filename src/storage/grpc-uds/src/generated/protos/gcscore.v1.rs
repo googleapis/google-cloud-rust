@@ -237,10 +237,10 @@ pub struct DeleteObjectRequest {
     pub bucket: ::prost::alloc::string::String,
     #[prost(string, tag = "2")]
     pub object: ::prost::alloc::string::String,
-    /// 0 = latest generation
+    /// 0 = latest generation; < 0 rejected
     #[prost(int64, tag = "3")]
     pub generation: i64,
-    /// Unset or < 0 = no precondition
+    /// Unset = no precondition; 0 = DoesNotExist; < 0 rejected
     #[prost(int64, optional, tag = "4")]
     pub if_generation_match: ::core::option::Option<i64>,
 }

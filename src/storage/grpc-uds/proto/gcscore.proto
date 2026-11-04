@@ -194,8 +194,8 @@ message ListObjectsResponse {
 message DeleteObjectRequest {
   string bucket = 1;
   string object = 2;
-  int64 generation = 3;                    // 0 = latest generation
-  optional int64 if_generation_match = 4;  // Unset or < 0 = no precondition
+  int64 generation = 3;                    // 0 = latest generation; < 0 rejected
+  optional int64 if_generation_match = 4;  // Unset = no precondition; 0 = DoesNotExist; < 0 rejected
 }
 
 message ListBucketsRequest {

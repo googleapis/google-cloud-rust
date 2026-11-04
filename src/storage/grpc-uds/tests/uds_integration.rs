@@ -1154,6 +1154,27 @@ async fn delete_object_via_grpc_mock() -> anyhow::Result<()> {
         .expect_err("NOT_FOUND from the service is surfaced");
     assert_eq!(missing.code(), tonic::Code::NotFound);
 
+    for bad_req in [
+        DeleteObjectRequest {
+            bucket: "del-bucket".to_string(),
+            object: "neg-gen".to_string(),
+            generation: -1,
+            if_generation_match: None,
+        },
+        DeleteObjectRequest {
+            bucket: "del-bucket".to_string(),
+            object: "neg-precond".to_string(),
+            generation: 0,
+            if_generation_match: Some(-1),
+        },
+    ] {
+        let err = client
+            .delete_object(with_session(bad_req)?)
+            .await
+            .expect_err("negative generation/precondition must fail");
+        assert_eq!(err.code(), tonic::Code::InvalidArgument);
+    }
+
     client.shutdown(Empty {}).await?;
     srv_handle.await?;
     Ok(())
@@ -1184,5 +1205,40 @@ fn ready_is_printed_only_after_clients_are_built() -> anyhow::Result<()> {
         "{stderr}"
     );
     assert!(!sock.exists(), "the socket of a failed start is removed");
+    Ok(())
+}
+
+/// When `prepare_service` fails inside `gcs_core_start_inproc_with_args` after binding the
+/// socket (for example, an invalid upstream endpoint URI), the bound socket is removed, no
+/// registry entry remains, and `gcs_core_inproc_last_error` reports the reason.
+#[test]
+fn inproc_reports_client_build_failure_and_cleans_up_socket() -> anyhow::Result<()> {
+    use std::ffi::{CString, c_char, c_int};
+
+    let dir = tempfile::tempdir()?;
+    let sock = dir.path().join("inproc-bad-endpoint.sock");
+    let flags: Vec<CString> = [
+        "--socket",
+        &sock.to_string_lossy(),
+        "--endpoint",
+        "http://[::1",
+        "--shm-size",
+        "0",
+        "--worker-threads",
+        "1",
+    ]
+    .iter()
+    .map(|s| CString::new(*s))
+    .collect::<Result<_, _>>()?;
+    let argv: Vec<*const c_char> = flags.iter().map(|s| s.as_ptr()).collect();
+    let rc = unsafe {
+        storage_grpc_uds::gcs_core_start_inproc_with_args(argv.len() as c_int, argv.as_ptr())
+    };
+    assert_eq!(rc, -1);
+    assert!(!inproc_last_error().is_empty());
+    assert!(
+        !sock.exists(),
+        "bound socket must be cleaned up on init failure"
+    );
     Ok(())
 }

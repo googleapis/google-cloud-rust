@@ -241,7 +241,7 @@ fn read_range(offset: i64, length: i64) -> Option<ReadRange> {
     if offset == 0 && length < 0 {
         None
     } else if offset < 0 {
-        Some(ReadRange::tail((-offset) as u64))
+        Some(ReadRange::tail(offset.unsigned_abs()))
     } else if length < 0 {
         Some(ReadRange::offset(offset as u64))
     } else {
@@ -379,6 +379,9 @@ impl GcsCore for GcsCoreService {
         if base.saturating_add(cap) > reg.size {
             return Err(Status::out_of_range("base_offset+capacity > region size"));
         }
+        if r.generation < 0 {
+            return Err(Status::invalid_argument("generation must be >= 0"));
+        }
         let range = read_range(r.offset, r.length);
         let bucket = bucket_name(&r.bucket);
         let (tx, rx) = mpsc::channel(16);
@@ -482,6 +485,9 @@ impl GcsCore for GcsCoreService {
         self.shared.touch();
         let (storage, _) = self.pick(&req).await?;
         let r = req.into_inner();
+        if r.generation < 0 {
+            return Err(Status::invalid_argument("generation must be >= 0"));
+        }
         let chunk = self.chunk(r.chunk_size);
         let range = read_range(r.offset, r.length);
         let bucket = bucket_name(&r.bucket);
@@ -527,6 +533,9 @@ impl GcsCore for GcsCoreService {
         let (uid, pid) = Self::peer(&req);
         let (storage, _) = self.pick(&req).await?;
         let r = req.into_inner();
+        if r.generation < 0 {
+            return Err(Status::invalid_argument("generation must be >= 0"));
+        }
         let mut open = storage.open_object(bucket_name(&r.bucket), r.object);
         if r.generation > 0 {
             open = open.set_generation(r.generation);
@@ -795,6 +804,9 @@ impl GcsCore for GcsCoreService {
         self.shared.touch();
         let (_, control) = self.pick(&req).await?;
         let r = req.into_inner();
+        if r.generation < 0 {
+            return Err(Status::invalid_argument("generation must be >= 0"));
+        }
         let mut q = control
             .delete_object()
             .set_bucket(bucket_name(&r.bucket))
@@ -802,7 +814,10 @@ impl GcsCore for GcsCoreService {
         if r.generation > 0 {
             q = q.set_generation(r.generation);
         }
-        if let Some(g) = r.if_generation_match.filter(|&g| g >= 0) {
+        if let Some(g) = r.if_generation_match {
+            if g < 0 {
+                return Err(Status::invalid_argument("if_generation_match must be >= 0"));
+            }
             q = q.set_if_generation_match(g);
         }
         q.send().await.map_err(to_status)?;
@@ -903,5 +918,18 @@ impl GcsCore for GcsCoreService {
     async fn shutdown(&self, _req: Request<pb::Empty>) -> Result<Response<pb::Empty>, Status> {
         self.shared.trigger_shutdown();
         Ok(Response::new(pb::Empty {}))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn read_range_handles_i64_min_without_overflow() {
+        assert_eq!(
+            read_range(i64::MIN, -1),
+            Some(ReadRange::tail(i64::MIN.unsigned_abs()))
+        );
     }
 }

@@ -252,6 +252,41 @@ pub fn bind_uds_listener(
         }
     } else {
         let p = PathBuf::from(sock);
+        if let Some(dir) = p.parent()
+            && !dir.as_os_str().is_empty()
+        {
+            std::fs::create_dir_all(dir)?;
+        }
+        // Serialize the probe-remove-bind sequence across concurrent daemon
+        // spawners so a loser never unlinks a winner's newly bound listener
+        // when both observe a stale socket file.
+        #[cfg(unix)]
+        let _lock_guard = {
+            use std::os::fd::AsRawFd;
+            use std::os::unix::fs::OpenOptionsExt;
+            let mut lock_os = p.as_os_str().to_os_string();
+            lock_os.push(".lock");
+            let lock_file = std::fs::OpenOptions::new()
+                .create(true)
+                .truncate(false)
+                .read(true)
+                .write(true)
+                .mode(0o600)
+                .open(PathBuf::from(lock_os))?;
+            loop {
+                // SAFETY: `lock_file` is an open file descriptor owned for the
+                // duration of `_lock_guard`, and `LOCK_EX` takes no pointers.
+                let rc = unsafe { libc::flock(lock_file.as_raw_fd(), libc::LOCK_EX) };
+                if rc == 0 {
+                    break;
+                }
+                let err = std::io::Error::last_os_error();
+                if err.kind() != std::io::ErrorKind::Interrupted {
+                    return Err(err.into());
+                }
+            }
+            lock_file
+        };
         if let Ok(meta) = std::fs::symlink_metadata(&p) {
             #[cfg(unix)]
             {
@@ -269,11 +304,6 @@ pub fn bind_uds_listener(
                     std::fs::remove_file(&p)?;
                 }
             }
-        }
-        if let Some(dir) = p.parent()
-            && !dir.as_os_str().is_empty()
-        {
-            std::fs::create_dir_all(dir)?;
         }
         let l = UnixListener::bind(&p)?;
         #[cfg(unix)]
