@@ -98,8 +98,8 @@ mod tests {
 
     type TestResult = anyhow::Result<()>;
 
-    #[ignore = "TODO(#5249) - disabled because it was flaky"]
     #[tokio::test]
+    #[serial]
     async fn test_fetch_client_email_and_cache() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -109,7 +109,12 @@ mod tests {
         );
         let mock = MockCredentials::new();
         let creds = Credentials::from(mock);
-        let client = MDSClient::new(Some(format!("http://{}", server.addr())));
+        let endpoint = server
+            .url("/")
+            .to_string()
+            .trim_end_matches('/')
+            .to_string();
+        let client = MDSClient::new(Some(endpoint));
         let signer = MDSSigner::new(client, creds);
 
         let client_email = signer.client_email().await?;
