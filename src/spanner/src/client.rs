@@ -2218,7 +2218,7 @@ mod tests {
         }
     }
 
-    #[tokio_test_no_panics]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn transaction_timeout_respected() -> anyhow::Result<()> {
         use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
         use spanner_grpc_mock::google::spanner::v1::Transaction;
@@ -2337,7 +2337,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn transaction_timeout_ticks_down() -> anyhow::Result<()> {
         use spanner_grpc_mock::google::spanner::v1::Transaction;
 
@@ -2442,6 +2442,9 @@ mod tests {
             .run(async |tx| {
                 let stmt = Statement::builder("SELECT 1").build();
                 tx.execute_update(stmt).await?;
+                // With `start_paused = true`, Tokio's clock does not advance during socket I/O.
+                // Advance virtual time before returning so `commit` sees a smaller remaining timeout.
+                tokio::time::advance(Duration::from_millis(10)).await;
                 Ok(())
             })
             .await;
