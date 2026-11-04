@@ -56,9 +56,24 @@ mod tests {
         check_simple_request(client).await
     }
 
-    #[ignore = "TODO(#3928) - enable IPv6 testing in GCB"]
+    fn ipv6_loopback_available() -> bool {
+        let Ok(listener) = std::net::TcpListener::bind("[::1]:0") else {
+            return false;
+        };
+        let Ok(addr) = listener.local_addr() else {
+            return false;
+        };
+        std::net::TcpStream::connect_timeout(&addr, std::time::Duration::from_millis(100)).is_ok()
+    }
+
     #[tokio::test]
     async fn non_default_endpoint_ipv6() -> anyhow::Result<()> {
+        if !ipv6_loopback_available() {
+            eprintln!(
+                "Skipping non_default_endpoint_ipv6: IPv6 loopback is not available on this host/container"
+            );
+            return Ok(());
+        }
         let (endpoint, _server) = start_echo_server_with_address("[::]:0").await?;
 
         let client = builder("https://storage.googleapis.com")
