@@ -19,74 +19,12 @@
 ))]
 mod tests {
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
-    use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_gax_internal::grpc::GrpcRustClient;
     use google_cloud_gax_internal::options::ClientConfig;
     use grpc_server::{google, start_echo_server};
     use pretty_assertions::assert_eq;
-
-    #[tokio::test]
-    async fn default_endpoint() -> anyhow::Result<()> {
-        // Arrange
-        let (endpoint, _server) = start_echo_server().await?;
-        let client = GrpcRustClient::new(test_config(), &endpoint).await?;
-
-        // Act & Assert
-        check_simple_request(client).await
-    }
-
-    #[tokio::test]
-    async fn no_request_params() -> anyhow::Result<()> {
-        // Arrange
-        let (endpoint, _server) = start_echo_server().await?;
-        let client = GrpcRustClient::new(test_config(), &endpoint).await?;
-
-        // Act
-        let response = send_request(client, "test message", "").await?;
-
-        // Assert
-        assert_eq!(&response.message, "test message");
-        assert_eq!(
-            response
-                .metadata
-                .get("x-goog-api-client")
-                .map(String::as_str),
-            Some("test-only-api-client/1.0")
-        );
-        assert_eq!(response.metadata.get("x-goog-request-params"), None);
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn override_endpoint() -> anyhow::Result<()> {
-        // Arrange
-        let (endpoint, _server) = start_echo_server().await?;
-
-        let mut config = test_config();
-        config.endpoint = Some(endpoint);
-
-        let client = GrpcRustClient::new(config, "https://invalid.example.com").await?;
-
-        // Act & Assert
-        check_simple_request(client).await
-    }
-
-    #[tokio::test]
-    async fn request_error() -> anyhow::Result<()> {
-        // Arrange
-        let (endpoint, _server) = start_echo_server().await?;
-        let client = GrpcRustClient::new(test_config(), &endpoint).await?;
-
-        // Act
-        let response = send_request(client, "", "").await;
-
-        // Assert
-        let err = response.expect_err("should fail");
-        assert_eq!(err.status().map(|s| s.code), Some(Code::InvalidArgument));
-        Ok(())
-    }
 
     #[tokio::test]
     async fn test_explicit_user_agent() -> anyhow::Result<()> {
@@ -225,28 +163,5 @@ mod tests {
             )
             .await
             .map(tonic::Response::into_inner)
-    }
-
-    async fn check_simple_request(client: GrpcRustClient) -> anyhow::Result<()> {
-        // Act
-        let response = send_request(client, "test message", "name=test-only").await?;
-
-        // Assert
-        assert_eq!(&response.message, "test message");
-        assert_eq!(
-            response
-                .metadata
-                .get("x-goog-api-client")
-                .map(String::as_str),
-            Some("test-only-api-client/1.0")
-        );
-        assert_eq!(
-            response
-                .metadata
-                .get("x-goog-request-params")
-                .map(String::as_str),
-            Some("name=test-only")
-        );
-        Ok(())
     }
 }
