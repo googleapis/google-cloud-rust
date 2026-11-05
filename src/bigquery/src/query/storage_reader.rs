@@ -16,7 +16,7 @@ use crate::RequestOptions;
 use crate::client::Read as ReadClient;
 use crate::error::RowError;
 use crate::model::{
-    ArrowSerializationOptions, CreateReadSessionRequest, DataFormat, ReadRowsResponse, ReadSession,
+    ArrowSerializationOptions, DataFormat, ReadRowsResponse, ReadSession,
     arrow_serialization_options::CompressionCodec, read_rows_response::Rows,
     read_rows_response::Schema as ReadRowsResponseSchema,
     read_session::Schema as ReadSessionSchema, read_session::TableReadOptions,
@@ -181,7 +181,9 @@ pub(crate) async fn try_create_read_session(
         dest_table.project_id, dest_table.dataset_id, dest_table.table_id
     );
 
-    let session_req = CreateReadSessionRequest::new()
+    let session = read_client
+        .create_read_session()
+        .with_options(options.clone())
         .set_parent(format!("projects/{}", job_ref.project_id))
         .set_read_session(
             ReadSession::new()
@@ -193,12 +195,7 @@ pub(crate) async fn try_create_read_session(
                             .set_buffer_compression(CompressionCodec::Lz4Frame),
                     ),
                 ),
-        );
-
-    let session = read_client
-        .create_read_session()
-        .with_options(options.clone())
-        .with_request(session_req)
+        )
         .send()
         .await?;
 
