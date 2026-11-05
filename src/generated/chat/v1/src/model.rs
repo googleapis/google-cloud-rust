@@ -3897,6 +3897,322 @@ pub mod mark_as_do_not_disturb_request {
     }
 }
 
+/// Citations are inline references that can provide users more detailed
+/// information about the inline reference. Corresponding inline citations
+/// should be present in the message text in a markup format of
+/// `<chat-citation data-id="{id}">{text}</chat-citation>`. Citations are
+/// only supported when the message's `markup_syntax` is set to `MARKDOWN`.
+///
+/// Unreferenced citations in `Elements.citations` (those without a matching
+/// `<chat-citation>` tag in the message text) are ignored and do not cause the
+/// message to be rejected.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Citation {
+    /// Required. The ID of the citation. This ID is defined by the app creating
+    /// the citation and must match the `data-id` attribute of the
+    /// `<chat-citation>` tag in the message text. Must contain only ASCII letters
+    /// and numbers, and less than 63 characters.
+    pub id: std::string::String,
+
+    /// Optional. A list of sources that are relevant to the citation. Sources are
+    /// displayed in the citation hover card.
+    pub cited_sources: std::vec::Vec<crate::model::CitedSource>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Citation {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [id][crate::model::Citation::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::Citation;
+    /// let x = Citation::new().set_id("example");
+    /// ```
+    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [cited_sources][crate::model::Citation::cited_sources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::Citation;
+    /// use google_chat_v1::model::CitedSource;
+    /// let x = Citation::new()
+    ///     .set_cited_sources([
+    ///         CitedSource::default()/* use setters */,
+    ///         CitedSource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_cited_sources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CitedSource>,
+    {
+        use std::iter::Iterator;
+        self.cited_sources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Citation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.chat.v1.Citation"
+    }
+}
+
+/// A reference to a source of information.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CitedSource {
+    /// Required. The plaintext title of the `CitedSource`. Does not support
+    /// markdown format.
+    pub title: std::string::String,
+
+    /// Required. The URI pointing to the resource referenced by this
+    /// `CitedSource`.
+    pub uri: std::string::String,
+
+    /// Optional. Snippet containing information directly from the source.
+    pub snippet: std::option::Option<crate::model::cited_source::Snippet>,
+
+    /// Optional. Additional information to show alongside the snippet in the form
+    /// of a footer.
+    pub footer: std::option::Option<crate::model::cited_source::Footer>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CitedSource {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [title][crate::model::CitedSource::title].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::CitedSource;
+    /// let x = CitedSource::new().set_title("example");
+    /// ```
+    pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.title = v.into();
+        self
+    }
+
+    /// Sets the value of [uri][crate::model::CitedSource::uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::CitedSource;
+    /// let x = CitedSource::new().set_uri("example");
+    /// ```
+    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uri = v.into();
+        self
+    }
+
+    /// Sets the value of [snippet][crate::model::CitedSource::snippet].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::CitedSource;
+    /// use google_chat_v1::model::cited_source::Snippet;
+    /// let x = CitedSource::new().set_snippet(Snippet::default()/* use setters */);
+    /// ```
+    pub fn set_snippet<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::cited_source::Snippet>,
+    {
+        self.snippet = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [snippet][crate::model::CitedSource::snippet].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::CitedSource;
+    /// use google_chat_v1::model::cited_source::Snippet;
+    /// let x = CitedSource::new().set_or_clear_snippet(Some(Snippet::default()/* use setters */));
+    /// let x = CitedSource::new().set_or_clear_snippet(None::<Snippet>);
+    /// ```
+    pub fn set_or_clear_snippet<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::cited_source::Snippet>,
+    {
+        self.snippet = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [footer][crate::model::CitedSource::footer].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::CitedSource;
+    /// use google_chat_v1::model::cited_source::Footer;
+    /// let x = CitedSource::new().set_footer(Footer::default()/* use setters */);
+    /// ```
+    pub fn set_footer<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::cited_source::Footer>,
+    {
+        self.footer = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [footer][crate::model::CitedSource::footer].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::CitedSource;
+    /// use google_chat_v1::model::cited_source::Footer;
+    /// let x = CitedSource::new().set_or_clear_footer(Some(Footer::default()/* use setters */));
+    /// let x = CitedSource::new().set_or_clear_footer(None::<Footer>);
+    /// ```
+    pub fn set_or_clear_footer<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::cited_source::Footer>,
+    {
+        self.footer = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CitedSource {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.chat.v1.CitedSource"
+    }
+}
+
+/// Defines additional types related to [CitedSource].
+pub mod cited_source {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A snippet object representing an excerpt from a larger corpus.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Snippet {
+        /// Optional. A short plaintext excerpt directly from the corpus that is
+        /// rendered in the citation hover card or source preview. When footer
+        /// sources are automatically populated from inline `citations` (because
+        /// `Elements.cited_sources` is not set), snippets are omitted from the
+        /// deduplicated footer sources. Does not support markdown format, and must
+        /// not exceed 1,000 characters.
+        pub text: std::string::String,
+
+        /// Optional. Image preview of the snippet provided as an input when creating
+        /// the citation.
+        pub image_preview: std::option::Option<crate::model::ElementsImage>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Snippet {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [text][crate::model::cited_source::Snippet::text].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::cited_source::Snippet;
+        /// let x = Snippet::new().set_text("example");
+        /// ```
+        pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.text = v.into();
+            self
+        }
+
+        /// Sets the value of [image_preview][crate::model::cited_source::Snippet::image_preview].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::cited_source::Snippet;
+        /// use google_chat_v1::model::ElementsImage;
+        /// let x = Snippet::new().set_image_preview(ElementsImage::default()/* use setters */);
+        /// ```
+        pub fn set_image_preview<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ElementsImage>,
+        {
+            self.image_preview = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [image_preview][crate::model::cited_source::Snippet::image_preview].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::cited_source::Snippet;
+        /// use google_chat_v1::model::ElementsImage;
+        /// let x = Snippet::new().set_or_clear_image_preview(Some(ElementsImage::default()/* use setters */));
+        /// let x = Snippet::new().set_or_clear_image_preview(None::<ElementsImage>);
+        /// ```
+        pub fn set_or_clear_image_preview<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ElementsImage>,
+        {
+            self.image_preview = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for Snippet {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.chat.v1.CitedSource.Snippet"
+        }
+    }
+
+    /// A footer for a source, used for attribution.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Footer {
+        /// Optional. The plaintext to display in the footer. Does not support
+        /// markdown format.
+        pub text: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Footer {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [text][crate::model::cited_source::Footer::text].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_chat_v1::model::cited_source::Footer;
+        /// let x = Footer::new().set_text("example");
+        /// ```
+        pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.text = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Footer {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.chat.v1.CitedSource.Footer"
+        }
+    }
+}
+
 /// The markup for developers to specify the contents of a contextual AddOn.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -4661,6 +4977,179 @@ pub mod deletion_metadata {
                 ".google.chat.v1.DeletionMetadata.DeletionType",
             ))
         }
+    }
+}
+
+/// Elements are additional message components,
+/// including inline `citations` (where each citation is associated with a
+/// specific portion of the message text) and `cited_sources` (which are general
+/// references used to generate the response and are not directly linked to
+/// specific segments of the text). Both `citations` and `cited_sources` can be
+/// provided as input when creating or updating a message and are populated on
+/// output when reading a message.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Elements {
+    /// Optional. A list of sources to be displayed under the message as footer
+    /// links. These are not referenced inline. For inline references, use
+    /// `citations`.
+    pub cited_sources: std::vec::Vec<crate::model::CitedSource>,
+
+    /// Optional. A list of inline citations referenced within the message text
+    /// (via
+    /// `<chat-citation>` tags) that render as interactive hover cards.
+    pub citations: std::vec::Vec<crate::model::Citation>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Elements {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cited_sources][crate::model::Elements::cited_sources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::Elements;
+    /// use google_chat_v1::model::CitedSource;
+    /// let x = Elements::new()
+    ///     .set_cited_sources([
+    ///         CitedSource::default()/* use setters */,
+    ///         CitedSource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_cited_sources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CitedSource>,
+    {
+        use std::iter::Iterator;
+        self.cited_sources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [citations][crate::model::Elements::citations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::Elements;
+    /// use google_chat_v1::model::Citation;
+    /// let x = Elements::new()
+    ///     .set_citations([
+    ///         Citation::default()/* use setters */,
+    ///         Citation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_citations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Citation>,
+    {
+        use std::iter::Iterator;
+        self.citations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Elements {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.chat.v1.Elements"
+    }
+}
+
+/// An object encapsulating different ways of representing an image.
+/// Currently supported representations:
+///
+/// * An image fetched from a URI.
+///
+/// Additional representations might be supported in the future.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ElementsImage {
+    /// Required. One of the supported image representations.
+    pub image: std::option::Option<crate::model::elements_image::Image>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ElementsImage {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [image][crate::model::ElementsImage::image].
+    ///
+    /// Note that all the setters affecting `image` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::ElementsImage;
+    /// use google_chat_v1::model::elements_image::Image;
+    /// let x = ElementsImage::new().set_image(Some(Image::ImageUri("example".to_string())));
+    /// ```
+    pub fn set_image<
+        T: std::convert::Into<std::option::Option<crate::model::elements_image::Image>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.image = v.into();
+        self
+    }
+
+    /// The value of [image][crate::model::ElementsImage::image]
+    /// if it holds a `ImageUri`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn image_uri(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.image.as_ref().and_then(|v| match v {
+            crate::model::elements_image::Image::ImageUri(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [image][crate::model::ElementsImage::image]
+    /// to hold a `ImageUri`.
+    ///
+    /// Note that all the setters affecting `image` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::ElementsImage;
+    /// let x = ElementsImage::new().set_image_uri("example");
+    /// assert!(x.image_uri().is_some());
+    /// ```
+    pub fn set_image_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.image =
+            std::option::Option::Some(crate::model::elements_image::Image::ImageUri(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for ElementsImage {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.chat.v1.ElementsImage"
+    }
+}
+
+/// Defines additional types related to [ElementsImage].
+pub mod elements_image {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Required. One of the supported image representations.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Image {
+        /// Required. The URI of the image. Must be a publicly accessible URI so that
+        /// Chat can fetch and display it.
+        ImageUri(std::string::String),
     }
 }
 
@@ -7394,6 +7883,22 @@ pub struct Message {
     /// (<https://developers.google.com/workspace/chat/authenticate-authorize-chat-app>).
     pub accessory_widgets: std::vec::Vec<crate::model::AccessoryWidget>,
 
+    /// Optional. Additional message components, including inline `citations`
+    /// (where each citation is associated with a specific portion of the message
+    /// text) and `cited_sources` (which are general references used to generate
+    /// the response and are not directly linked to specific segments of the text).
+    ///
+    /// On input, provide `elements` when creating or updating a message. On
+    /// output, both `citations` and `cited_sources` are populated when reading a
+    /// message that contains them. Callers can read structured citation metadata
+    /// from `elements`, while `formatted_text` also includes inline citation tags
+    /// or source links depending on `markup_syntax`.
+    ///
+    /// These differ from `annotations`, which are output-only and offer
+    /// supplementary information tied to message fragments or the entire message
+    /// text.
+    pub elements: std::option::Option<crate::model::Elements>,
+
     /// Optional. Specifies how the server interprets the message `text` field
     /// content.
     pub markup_syntax: crate::model::MarkupSyntax,
@@ -8056,6 +8561,39 @@ impl Message {
     {
         use std::iter::Iterator;
         self.accessory_widgets = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [elements][crate::model::Message::elements].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::Message;
+    /// use google_chat_v1::model::Elements;
+    /// let x = Message::new().set_elements(Elements::default()/* use setters */);
+    /// ```
+    pub fn set_elements<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Elements>,
+    {
+        self.elements = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [elements][crate::model::Message::elements].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_chat_v1::model::Message;
+    /// use google_chat_v1::model::Elements;
+    /// let x = Message::new().set_or_clear_elements(Some(Elements::default()/* use setters */));
+    /// let x = Message::new().set_or_clear_elements(None::<Elements>);
+    /// ```
+    pub fn set_or_clear_elements<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Elements>,
+    {
+        self.elements = v.map(|x| x.into());
         self
     }
 
@@ -15012,7 +15550,7 @@ pub mod space {
         /// Optional. A description of the space. For example, describe the space's
         /// discussion topic, functional purpose, or participants.
         ///
-        /// Supports up to 150 characters.
+        /// Supports up to 4,096 characters.
         pub description: std::string::String,
 
         /// Optional. The space's rules, expectations, and etiquette.

@@ -14,6 +14,11 @@
 
 //! Google Cloud Client Libraries for Rust - Spanner
 //!
+//! **NOTE:** While the version is still `0.x`, we believe the APIs to be stable.
+//! We plan to release a `1.0` version of this crate in an upcoming release.
+//!
+//! We welcome feedback about the APIs, documentation, missing features, bugs, etc.
+//!
 //! This crate contains traits, types, and functions to interact with
 //! [Google Cloud Spanner][spanner]. Cloud Spanner is a fully managed,
 //! mission-critical, relational database service that offers transactional

@@ -32,7 +32,7 @@ In this guide, you will learn:
 
 This guide is specifically for mocking the `Storage` client. For a generic
 mocking guide (which applies to the `StorageControl` client), see
-[How to write tests using a client](../mock_a_client.md).
+[How to write tests using a client](https://docs.cloud.google.com/rust/docs/mocking).
 
 ## Testable interfaces
 

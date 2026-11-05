@@ -24,7 +24,20 @@ use uuid::Uuid;
 /// Contains the unique test ID and the tracing subscriber guard.
 pub struct TestLayerGuard {
     test_id: String,
+    span: tracing::Span,
     _guard: tracing::span::EnteredSpan,
+}
+
+impl TestLayerGuard {
+    /// Returns a clone of the root `test_layer` span for instrumenting async tasks.
+    pub fn span(&self) -> tracing::Span {
+        self.span.clone()
+    }
+
+    /// Returns the unique test ID for this guard.
+    pub fn test_id(&self) -> &str {
+        &self.test_id
+    }
 }
 
 /// Represents the value of a captured tracing attribute.
@@ -278,9 +291,13 @@ impl TestLayer {
         });
         let test_id = Uuid::new_v4().to_string();
         SPAN_LOG.clear_by_test_id(&test_id);
-        let _guard =
-            tracing::span!(tracing::Level::INFO, "test_layer", test_id = test_id).entered();
-        TestLayerGuard { test_id, _guard }
+        let span = tracing::span!(tracing::Level::INFO, "test_layer", test_id = test_id);
+        let _guard = span.clone().entered();
+        TestLayerGuard {
+            test_id,
+            span,
+            _guard,
+        }
     }
 
     /// Retrieves all spans captured for the given `TestLayerGuard`.

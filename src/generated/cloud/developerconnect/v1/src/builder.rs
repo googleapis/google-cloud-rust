@@ -1334,6 +1334,95 @@ pub mod developer_connect {
         }
     }
 
+    /// The request builder for [DeveloperConnect::open_git_repository_link_pull_request][crate::client::DeveloperConnect::open_git_repository_link_pull_request] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::OpenGitRepositoryLinkPullRequest;
+    /// # async fn sample() -> google_cloud_developerconnect_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> OpenGitRepositoryLinkPullRequest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct OpenGitRepositoryLinkPullRequest(
+        RequestBuilder<crate::model::OpenGitRepositoryLinkPullRequestRequest>,
+    );
+
+    impl OpenGitRepositoryLinkPullRequest {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::OpenGitRepositoryLinkPullRequestRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::PullRequest> {
+            (*self.0.stub)
+                .open_git_repository_link_pull_request(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::OpenGitRepositoryLinkPullRequestRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [pull_request][crate::model::OpenGitRepositoryLinkPullRequestRequest::pull_request].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_pull_request<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PullRequest>,
+        {
+            self.0.request.pull_request = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [pull_request][crate::model::OpenGitRepositoryLinkPullRequestRequest::pull_request].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_pull_request<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PullRequest>,
+        {
+            self.0.request.pull_request = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for OpenGitRepositoryLinkPullRequest {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [DeveloperConnect::fetch_linkable_git_repositories][crate::client::DeveloperConnect::fetch_linkable_git_repositories] calls.
     ///
     /// # Example
@@ -1592,6 +1681,912 @@ pub mod developer_connect {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for FetchGitRefs {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DeveloperConnect::diff_git_repository_link_commit][crate::client::DeveloperConnect::diff_git_repository_link_commit] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::DiffGitRepositoryLinkCommit;
+    /// # async fn sample() -> google_cloud_developerconnect_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DiffGitRepositoryLinkCommit {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DiffGitRepositoryLinkCommit(
+        RequestBuilder<crate::model::DiffGitRepositoryLinkCommitRequest>,
+    );
+
+    impl DiffGitRepositoryLinkCommit {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DiffGitRepositoryLinkCommitRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::DiffGitRepositoryLinkCommitResponse> {
+            (*self.0.stub)
+                .diff_git_repository_link_commit(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::DiffGitRepositoryLinkCommitRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [base_sha][crate::model::DiffGitRepositoryLinkCommitRequest::base_sha].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_base_sha<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.base_sha = v.into();
+            self
+        }
+
+        /// Sets the value of [head_sha][crate::model::DiffGitRepositoryLinkCommitRequest::head_sha].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_head_sha<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.head_sha = v.into();
+            self
+        }
+
+        /// Sets the value of [path_filters][crate::model::DiffGitRepositoryLinkCommitRequest::path_filters].
+        pub fn set_path_filters<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.path_filters = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DiffGitRepositoryLinkCommit {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DeveloperConnect::fetch_git_repository_link_commit][crate::client::DeveloperConnect::fetch_git_repository_link_commit] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::FetchGitRepositoryLinkCommit;
+    /// # async fn sample() -> google_cloud_developerconnect_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> FetchGitRepositoryLinkCommit {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct FetchGitRepositoryLinkCommit(
+        RequestBuilder<crate::model::FetchGitRepositoryLinkCommitRequest>,
+    );
+
+    impl FetchGitRepositoryLinkCommit {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::FetchGitRepositoryLinkCommitRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::FetchGitRepositoryLinkCommitResponse> {
+            (*self.0.stub)
+                .fetch_git_repository_link_commit(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::FetchGitRepositoryLinkCommitRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [commit_sha][crate::model::FetchGitRepositoryLinkCommitRequest::commit_sha].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_commit_sha<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.commit_sha = v.into();
+            self
+        }
+
+        /// Sets the value of [view][crate::model::FetchGitRepositoryLinkCommitRequest::view].
+        pub fn set_view<T: Into<crate::model::CommitView>>(mut self, v: T) -> Self {
+            self.0.request.view = v.into();
+            self
+        }
+
+        /// Sets the value of [path_filters][crate::model::FetchGitRepositoryLinkCommitRequest::path_filters].
+        pub fn set_path_filters<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.path_filters = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for FetchGitRepositoryLinkCommit {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DeveloperConnect::fetch_git_repository_link_commit_list][crate::client::DeveloperConnect::fetch_git_repository_link_commit_list] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::FetchGitRepositoryLinkCommitList;
+    /// # async fn sample() -> google_cloud_developerconnect_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> FetchGitRepositoryLinkCommitList {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct FetchGitRepositoryLinkCommitList(
+        RequestBuilder<crate::model::FetchGitRepositoryLinkCommitListRequest>,
+    );
+
+    impl FetchGitRepositoryLinkCommitList {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::FetchGitRepositoryLinkCommitListRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::FetchGitRepositoryLinkCommitListResponse> {
+            (*self.0.stub)
+                .fetch_git_repository_link_commit_list(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::FetchGitRepositoryLinkCommitListResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::FetchGitRepositoryLinkCommitListResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][crate::model::FetchGitRepositoryLinkCommitListRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [r#ref][crate::model::FetchGitRepositoryLinkCommitListRequest::ref].
+        pub fn set_ref<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.r#ref = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::FetchGitRepositoryLinkCommitListRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::FetchGitRepositoryLinkCommitListRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [view][crate::model::FetchGitRepositoryLinkCommitListRequest::view].
+        pub fn set_view<T: Into<crate::model::CommitView>>(mut self, v: T) -> Self {
+            self.0.request.view = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for FetchGitRepositoryLinkCommitList {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DeveloperConnect::fetch_git_repository_link_file_blame][crate::client::DeveloperConnect::fetch_git_repository_link_file_blame] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::FetchGitRepositoryLinkFileBlame;
+    /// # async fn sample() -> google_cloud_developerconnect_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> FetchGitRepositoryLinkFileBlame {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct FetchGitRepositoryLinkFileBlame(
+        RequestBuilder<crate::model::FetchGitRepositoryLinkFileBlameRequest>,
+    );
+
+    impl FetchGitRepositoryLinkFileBlame {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::FetchGitRepositoryLinkFileBlameRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::FetchGitRepositoryLinkFileBlameResponse> {
+            (*self.0.stub)
+                .fetch_git_repository_link_file_blame(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::FetchGitRepositoryLinkFileBlameRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [r#ref][crate::model::FetchGitRepositoryLinkFileBlameRequest::ref].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_ref<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.r#ref = v.into();
+            self
+        }
+
+        /// Sets the value of [path][crate::model::FetchGitRepositoryLinkFileBlameRequest::path].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_path<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.path = v.into();
+            self
+        }
+
+        /// Sets the value of [first_line][crate::model::FetchGitRepositoryLinkFileBlameRequest::first_line].
+        pub fn set_first_line<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.first_line = v.into();
+            self
+        }
+
+        /// Sets the value of [last_line][crate::model::FetchGitRepositoryLinkFileBlameRequest::last_line].
+        pub fn set_last_line<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.last_line = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for FetchGitRepositoryLinkFileBlame {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DeveloperConnect::fetch_git_repository_link_pull_request][crate::client::DeveloperConnect::fetch_git_repository_link_pull_request] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::FetchGitRepositoryLinkPullRequest;
+    /// # async fn sample() -> google_cloud_developerconnect_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> FetchGitRepositoryLinkPullRequest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct FetchGitRepositoryLinkPullRequest(
+        RequestBuilder<crate::model::FetchGitRepositoryLinkPullRequestRequest>,
+    );
+
+    impl FetchGitRepositoryLinkPullRequest {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::FetchGitRepositoryLinkPullRequestRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::PullRequest> {
+            (*self.0.stub)
+                .fetch_git_repository_link_pull_request(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::FetchGitRepositoryLinkPullRequestRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [pull_request_id][crate::model::FetchGitRepositoryLinkPullRequestRequest::pull_request_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_pull_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.pull_request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for FetchGitRepositoryLinkPullRequest {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DeveloperConnect::add_git_repository_link_pull_request_comment][crate::client::DeveloperConnect::add_git_repository_link_pull_request_comment] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::AddGitRepositoryLinkPullRequestComment;
+    /// # async fn sample() -> google_cloud_developerconnect_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> AddGitRepositoryLinkPullRequestComment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct AddGitRepositoryLinkPullRequestComment(
+        RequestBuilder<crate::model::AddGitRepositoryLinkPullRequestCommentRequest>,
+    );
+
+    impl AddGitRepositoryLinkPullRequestComment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::AddGitRepositoryLinkPullRequestCommentRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::PullRequestComment> {
+            (*self.0.stub)
+                .add_git_repository_link_pull_request_comment(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::AddGitRepositoryLinkPullRequestCommentRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [pull_request_id][crate::model::AddGitRepositoryLinkPullRequestCommentRequest::pull_request_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_pull_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.pull_request_id = v.into();
+            self
+        }
+
+        /// Sets the value of [comment][crate::model::AddGitRepositoryLinkPullRequestCommentRequest::comment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_comment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PullRequestComment>,
+        {
+            self.0.request.comment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [comment][crate::model::AddGitRepositoryLinkPullRequestCommentRequest::comment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_comment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PullRequestComment>,
+        {
+            self.0.request.comment = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for AddGitRepositoryLinkPullRequestComment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DeveloperConnect::add_git_repository_link_pull_request_review_comment][crate::client::DeveloperConnect::add_git_repository_link_pull_request_review_comment] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::AddGitRepositoryLinkPullRequestReviewComment;
+    /// # async fn sample() -> google_cloud_developerconnect_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> AddGitRepositoryLinkPullRequestReviewComment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct AddGitRepositoryLinkPullRequestReviewComment(
+        RequestBuilder<crate::model::AddGitRepositoryLinkPullRequestReviewCommentRequest>,
+    );
+
+    impl AddGitRepositoryLinkPullRequestReviewComment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::AddGitRepositoryLinkPullRequestReviewCommentRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::PullRequestReviewComment> {
+            (*self.0.stub)
+                .add_git_repository_link_pull_request_review_comment(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::AddGitRepositoryLinkPullRequestReviewCommentRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [pull_request_id][crate::model::AddGitRepositoryLinkPullRequestReviewCommentRequest::pull_request_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_pull_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.pull_request_id = v.into();
+            self
+        }
+
+        /// Sets the value of [comment][crate::model::AddGitRepositoryLinkPullRequestReviewCommentRequest::comment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_comment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PullRequestReviewComment>,
+        {
+            self.0.request.comment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [comment][crate::model::AddGitRepositoryLinkPullRequestReviewCommentRequest::comment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_comment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PullRequestReviewComment>,
+        {
+            self.0.request.comment = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [commit_id][crate::model::AddGitRepositoryLinkPullRequestReviewCommentRequest::commit_id].
+        pub fn set_commit_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.commit_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for AddGitRepositoryLinkPullRequestReviewComment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DeveloperConnect::modify_git_repository_link_pull_request][crate::client::DeveloperConnect::modify_git_repository_link_pull_request] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::ModifyGitRepositoryLinkPullRequest;
+    /// # async fn sample() -> google_cloud_developerconnect_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ModifyGitRepositoryLinkPullRequest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ModifyGitRepositoryLinkPullRequest(
+        RequestBuilder<crate::model::ModifyGitRepositoryLinkPullRequestRequest>,
+    );
+
+    impl ModifyGitRepositoryLinkPullRequest {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ModifyGitRepositoryLinkPullRequestRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::PullRequest> {
+            (*self.0.stub)
+                .modify_git_repository_link_pull_request(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::ModifyGitRepositoryLinkPullRequestRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [pull_request_id][crate::model::ModifyGitRepositoryLinkPullRequestRequest::pull_request_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_pull_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.pull_request_id = v.into();
+            self
+        }
+
+        /// Sets the value of [title][crate::model::ModifyGitRepositoryLinkPullRequestRequest::title].
+        pub fn set_title<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.title = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::ModifyGitRepositoryLinkPullRequestRequest::body].
+        pub fn set_body<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.body = v.into();
+            self
+        }
+
+        /// Sets the value of [base_ref][crate::model::ModifyGitRepositoryLinkPullRequestRequest::base_ref].
+        pub fn set_base_ref<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.base_ref = v.into();
+            self
+        }
+
+        /// Sets the value of [state][crate::model::ModifyGitRepositoryLinkPullRequestRequest::state].
+        pub fn set_state<
+            T: Into<crate::model::modify_git_repository_link_pull_request_request::State>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.state = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ModifyGitRepositoryLinkPullRequest {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DeveloperConnect::fetch_git_repository_link_pull_request_list][crate::client::DeveloperConnect::fetch_git_repository_link_pull_request_list] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::FetchGitRepositoryLinkPullRequestList;
+    /// # async fn sample() -> google_cloud_developerconnect_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> FetchGitRepositoryLinkPullRequestList {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct FetchGitRepositoryLinkPullRequestList(
+        RequestBuilder<crate::model::FetchGitRepositoryLinkPullRequestListRequest>,
+    );
+
+    impl FetchGitRepositoryLinkPullRequestList {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::FetchGitRepositoryLinkPullRequestListRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::FetchGitRepositoryLinkPullRequestListResponse> {
+            (*self.0.stub)
+                .fetch_git_repository_link_pull_request_list(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::FetchGitRepositoryLinkPullRequestListResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::FetchGitRepositoryLinkPullRequestListResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][crate::model::FetchGitRepositoryLinkPullRequestListRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::FetchGitRepositoryLinkPullRequestListRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::FetchGitRepositoryLinkPullRequestListRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::FetchGitRepositoryLinkPullRequestListRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for FetchGitRepositoryLinkPullRequestList {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

@@ -158,6 +158,16 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::DeveloperConnect::open_git_repository_link_pull_request].
+    fn open_git_repository_link_pull_request(
+        &self,
+        _req: crate::model::OpenGitRepositoryLinkPullRequestRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::PullRequest>>>
+    + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::DeveloperConnect::fetch_linkable_git_repositories].
     fn fetch_linkable_git_repositories(
         &self,
@@ -187,6 +197,109 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::FetchGitRefsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DeveloperConnect::diff_git_repository_link_commit].
+    fn diff_git_repository_link_commit(
+        &self,
+        _req: crate::model::DiffGitRepositoryLinkCommitRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::DiffGitRepositoryLinkCommitResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DeveloperConnect::fetch_git_repository_link_commit].
+    fn fetch_git_repository_link_commit(
+        &self,
+        _req: crate::model::FetchGitRepositoryLinkCommitRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::FetchGitRepositoryLinkCommitResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DeveloperConnect::fetch_git_repository_link_commit_list].
+    fn fetch_git_repository_link_commit_list(
+        &self,
+        _req: crate::model::FetchGitRepositoryLinkCommitListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::FetchGitRepositoryLinkCommitListResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DeveloperConnect::fetch_git_repository_link_file_blame].
+    fn fetch_git_repository_link_file_blame(
+        &self,
+        _req: crate::model::FetchGitRepositoryLinkFileBlameRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::FetchGitRepositoryLinkFileBlameResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DeveloperConnect::fetch_git_repository_link_pull_request].
+    fn fetch_git_repository_link_pull_request(
+        &self,
+        _req: crate::model::FetchGitRepositoryLinkPullRequestRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::PullRequest>>>
+    + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DeveloperConnect::add_git_repository_link_pull_request_comment].
+    fn add_git_repository_link_pull_request_comment(
+        &self,
+        _req: crate::model::AddGitRepositoryLinkPullRequestCommentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::PullRequestComment>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DeveloperConnect::add_git_repository_link_pull_request_review_comment].
+    fn add_git_repository_link_pull_request_review_comment(
+        &self,
+        _req: crate::model::AddGitRepositoryLinkPullRequestReviewCommentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::PullRequestReviewComment>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DeveloperConnect::modify_git_repository_link_pull_request].
+    fn modify_git_repository_link_pull_request(
+        &self,
+        _req: crate::model::ModifyGitRepositoryLinkPullRequestRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::PullRequest>>>
+    + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DeveloperConnect::fetch_git_repository_link_pull_request_list].
+    fn fetch_git_repository_link_pull_request_list(
+        &self,
+        _req: crate::model::FetchGitRepositoryLinkPullRequestListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::FetchGitRepositoryLinkPullRequestListResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
