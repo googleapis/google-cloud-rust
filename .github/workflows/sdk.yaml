@@ -24,7 +24,7 @@ on:
 env:
   GHA_GO_VERSIONS: '{ "go:current": "1.27.3" }'
   # Define the unstable flags once
-  UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_trust_boundaries --cfg google_cloud_unstable_storage_bidi --cfg google_cloud_unstable_grpc_server_streaming --cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_bigquery_arrow --cfg google_cloud_unstable_bigquery_storage_read'
+  UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_trust_boundaries --cfg google_cloud_unstable_storage_bidi --cfg google_cloud_unstable_grpc_server_streaming --cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_bigquery_arrow --cfg google_cloud_unstable_bigquery_storage_read --cfg google_cloud_unstable_storage_parallel_upload'
 
 jobs:
   build:

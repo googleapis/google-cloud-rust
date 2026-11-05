@@ -134,6 +134,7 @@ mod tests {
     use crate::options::InstrumentationClientInfo;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::error::Error;
+    use google_cloud_test_utils::test_layer::TestLayer;
     use grpc_server::google::test::v1::{EchoRequest, EchoResponse};
     use httptest::matchers::request::method_path;
     use httptest::responders::status_code;
@@ -188,7 +189,14 @@ mod tests {
             .await
             .map_err(Error::io)
             .inspect_err(|e| recorder.on_http_error(e))?;
-        tokio::time::sleep(TEST_REQUEST_DURATION).await;
+        // Advance Tokio's clock only after network I/O completes. Running real
+        // socket I/O with a paused clock causes Tokio to auto-advance internal
+        // hyper/h2 timers while waiting on the OS socket, and a real
+        // `tokio::time::sleep` would both slow down the test suite and risk
+        // oversleeping the [0.5s, 1.0s) histogram bucket under CI load.
+        tokio::time::pause();
+        tokio::time::advance(TEST_REQUEST_DURATION).await;
+        tokio::time::resume();
         recorder.on_http_response(&response);
         Err(Error::http(
             response.status().as_u16(),
@@ -209,8 +217,7 @@ mod tests {
         recorded_request_transport_client(url).await
     }
 
-    #[tokio::test(start_paused = true)]
-    #[ignore = "TODO(#6077) - disabled because it is flaky"]
+    #[tokio::test]
     async fn client_request() -> anyhow::Result<()> {
         const PATH: &str = "/v1/projects/test-only:test_method";
 
@@ -387,8 +394,6 @@ mod tests {
             ..Default::default()
         };
 
-        tokio::time::sleep(TEST_REQUEST_DURATION).await;
-
         let response: Result<tonic::Response<EchoResponse>, google_cloud_gax::error::Error> =
             client
                 .execute::<EchoRequest, EchoResponse>(
@@ -403,6 +408,12 @@ mod tests {
                     "",
                 )
                 .await;
+
+        // Advance Tokio's clock after network I/O completes (see comment in
+        // `recorded_request_transport_client`).
+        tokio::time::pause();
+        tokio::time::advance(TEST_REQUEST_DURATION).await;
+        tokio::time::resume();
 
         response.map(|_| "SUCCESS".to_string())
     }
@@ -492,8 +503,6 @@ mod tests {
             ..Default::default()
         };
 
-        tokio::time::sleep(TEST_REQUEST_DURATION).await;
-
         let response: Result<tonic::Response<EchoResponse>, google_cloud_gax::error::Error> =
             client
                 .execute::<EchoRequest, EchoResponse>(
@@ -506,13 +515,18 @@ mod tests {
                 )
                 .await;
 
+        // Advance Tokio's clock after network I/O completes (see comment in
+        // `recorded_request_transport_client`).
+        tokio::time::pause();
+        tokio::time::advance(TEST_REQUEST_DURATION).await;
+        tokio::time::resume();
+
         response.map(|_| "SUCCESS".to_string())
     }
 
     #[cfg(feature = "_internal-grpc-client")]
     #[tokio::test]
     async fn grpc_client_request() -> anyhow::Result<()> {
-        tokio::time::pause();
         let (endpoint, _server) = grpc_server::start_echo_server().await?;
         let signals = SignalProviders::new();
 
@@ -605,9 +619,7 @@ mod tests {
 
     #[cfg(feature = "_internal-grpc-client")]
     #[tokio::test]
-    #[ignore = "TODO(#6023) - disable flaky test"]
     async fn grpc_client_request_retry() -> anyhow::Result<()> {
-        tokio::time::pause();
         let (endpoint, _server) = grpc_server::start_fixed_responses(vec![
             Err(tonic::Status::unavailable("try again")),
             Ok(tonic::Response::new(EchoResponse {
@@ -654,10 +666,8 @@ mod tests {
 
     #[cfg(feature = "_internal-grpc-client")]
     #[tokio::test]
-    #[ignore = "TODO(#6023) - disable flaky test"]
     async fn grpc_client_request_success() -> anyhow::Result<()> {
         let (endpoint, _server) = grpc_server::start_echo_server().await?;
-        tokio::time::pause();
         let signals = SignalProviders::new();
 
         let metric = DurationMetric::new_with_provider(
@@ -757,19 +767,24 @@ mod tests {
     }
 
     pub struct SignalProviders {
+        // To make the tests hermetic we need to avoid the global `tracing` subscriber. This is a
+        // per-thread guard. It works as long as all the tests are single-threaded (the default).
+        // Must be the first field so it is dropped before the OpenTelemetry providers shut down.
+        pub _guard: DefaultGuard,
         pub trace_exporter: InMemorySpanExporter,
         pub trace_provider: SdkTracerProvider,
         pub logs_exporter: InMemoryLogExporter,
         pub logs_provider: SdkLoggerProvider,
         pub metric_exporter: InMemoryMetricExporter,
         pub metric_provider: SdkMeterProvider,
-        // To make the tests hermetic we need to avoid the global `tracing` subscriber. This is a
-        // per-thread guard. It works as long as all the tests are single-threaded (the default).
-        pub _guard: DefaultGuard,
     }
 
     impl SignalProviders {
         pub fn new() -> Self {
+            // Ensure the global TestLayer subscriber is initialized so that
+            // tracing_core's global callsite interest and max level stay at TRACE.
+            let _ = TestLayer::initialize();
+
             // We need a tracing exporter and provider or the traces get no trace ids.
             let trace_exporter = InMemorySpanExporter::default();
             let trace_provider = SdkTracerProvider::builder()
@@ -798,13 +813,13 @@ mod tests {
                 .build();
 
             SignalProviders {
+                _guard: guard,
                 trace_exporter,
                 trace_provider,
                 logs_exporter,
                 logs_provider,
                 metric_exporter,
                 metric_provider,
-                _guard: guard,
             }
         }
 

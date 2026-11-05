@@ -232,6 +232,7 @@ impl SqlBackupRunsService {
 ///
 /// # Service Description
 ///
+/// Service for managing database backups for Cloud SQL instances.
 ///
 /// # Configuration
 ///
@@ -1214,6 +1215,7 @@ impl SqlFlagsService {
 ///
 /// # Service Description
 ///
+/// Service to manage Cloud SQL instances.
 ///
 /// # Configuration
 ///

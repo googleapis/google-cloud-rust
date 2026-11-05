@@ -622,6 +622,18 @@ pub mod audit_manager {
             self.0.request.validate_only = v.into();
             self
         }
+
+        /// Sets the value of [parameter_overrides][crate::model::GenerateAuditScopeReportRequest::parameter_overrides].
+        pub fn set_parameter_overrides<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::ParameterOverrides>,
+        {
+            self.0.request.parameter_overrides =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -768,6 +780,18 @@ pub mod audit_manager {
         /// This is a **required** field for requests.
         pub fn set_compliance_framework<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.compliance_framework = v.into();
+            self
+        }
+
+        /// Sets the value of [parameter_overrides][crate::model::GenerateAuditReportRequest::parameter_overrides].
+        pub fn set_parameter_overrides<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::ParameterOverrides>,
+        {
+            self.0.request.parameter_overrides =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 

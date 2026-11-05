@@ -445,6 +445,333 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::BackupDR::create_auto_protection_policy].
+    fn create_auto_protection_policy(
+        &self,
+        _req: crate::model::CreateAutoProtectionPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::list_auto_protection_policies].
+    fn list_auto_protection_policies(
+        &self,
+        _req: crate::model::ListAutoProtectionPoliciesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListAutoProtectionPoliciesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::get_auto_protection_policy].
+    fn get_auto_protection_policy(
+        &self,
+        _req: crate::model::GetAutoProtectionPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::AutoProtectionPolicy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::update_auto_protection_policy].
+    fn update_auto_protection_policy(
+        &self,
+        _req: crate::model::UpdateAutoProtectionPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::delete_auto_protection_policy].
+    fn delete_auto_protection_policy(
+        &self,
+        _req: crate::model::DeleteAutoProtectionPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::create_auto_protection_policy_binding].
+    fn create_auto_protection_policy_binding(
+        &self,
+        _req: crate::model::CreateAutoProtectionPolicyBindingRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::get_auto_protection_policy_binding].
+    fn get_auto_protection_policy_binding(
+        &self,
+        _req: crate::model::GetAutoProtectionPolicyBindingRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::AutoProtectionPolicyBinding>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::list_auto_protection_policy_bindings].
+    fn list_auto_protection_policy_bindings(
+        &self,
+        _req: crate::model::ListAutoProtectionPolicyBindingsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::ListAutoProtectionPolicyBindingsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::list_applied_auto_protection_policies].
+    fn list_applied_auto_protection_policies(
+        &self,
+        _req: crate::model::ListAppliedAutoProtectionPoliciesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::ListAppliedAutoProtectionPoliciesResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::initiate_delete_auto_protection_policy_binding].
+    fn initiate_delete_auto_protection_policy_binding(
+        &self,
+        _req: crate::model::InitiateDeleteAutoProtectionPolicyBindingRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::list_binding_matching_resources].
+    fn list_binding_matching_resources(
+        &self,
+        _req: crate::model::ListBindingMatchingResourcesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListBindingMatchingResourcesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::create_restore_template].
+    fn create_restore_template(
+        &self,
+        _req: crate::model::CreateRestoreTemplateRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::get_restore_template].
+    fn get_restore_template(
+        &self,
+        _req: crate::model::GetRestoreTemplateRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::RestoreTemplate>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::list_restore_templates].
+    fn list_restore_templates(
+        &self,
+        _req: crate::model::ListRestoreTemplatesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListRestoreTemplatesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::update_restore_template].
+    fn update_restore_template(
+        &self,
+        _req: crate::model::UpdateRestoreTemplateRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::delete_restore_template].
+    fn delete_restore_template(
+        &self,
+        _req: crate::model::DeleteRestoreTemplateRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::run_restore_template].
+    fn run_restore_template(
+        &self,
+        _req: crate::model::RunRestoreTemplateRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::get_restore_template_execution].
+    fn get_restore_template_execution(
+        &self,
+        _req: crate::model::GetRestoreTemplateExecutionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::RestoreTemplateExecution>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::list_restore_template_executions].
+    fn list_restore_template_executions(
+        &self,
+        _req: crate::model::ListRestoreTemplateExecutionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::ListRestoreTemplateExecutionsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::trigger_restore_cleanup].
+    fn trigger_restore_cleanup(
+        &self,
+        _req: crate::model::TriggerRestoreCleanupRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::create_restore_verification_plan].
+    fn create_restore_verification_plan(
+        &self,
+        _req: crate::model::CreateRestoreVerificationPlanRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::create_restore_verification_plan_association].
+    fn create_restore_verification_plan_association(
+        &self,
+        _req: crate::model::CreateRestoreVerificationPlanAssociationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::get_restore_verification_plan_association].
+    fn get_restore_verification_plan_association(
+        &self,
+        _req: crate::model::GetRestoreVerificationPlanAssociationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::RestoreVerificationPlanAssociation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::list_restore_verification_plan_associations].
+    fn list_restore_verification_plan_associations(
+        &self,
+        _req: crate::model::ListRestoreVerificationPlanAssociationsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::ListRestoreVerificationPlanAssociationsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::delete_restore_verification_plan_association].
+    fn delete_restore_verification_plan_association(
+        &self,
+        _req: crate::model::DeleteRestoreVerificationPlanAssociationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::trigger_restore_verification].
+    fn trigger_restore_verification(
+        &self,
+        _req: crate::model::TriggerRestoreVerificationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::get_restore_verification_plan].
+    fn get_restore_verification_plan(
+        &self,
+        _req: crate::model::GetRestoreVerificationPlanRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::RestoreVerificationPlan>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::list_restore_verification_plans].
+    fn list_restore_verification_plans(
+        &self,
+        _req: crate::model::ListRestoreVerificationPlansRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListRestoreVerificationPlansResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::BackupDR::delete_restore_verification_plan].
+    fn delete_restore_verification_plan(
+        &self,
+        _req: crate::model::DeleteRestoreVerificationPlanRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::BackupDR::list_locations].
     fn list_locations(
         &self,
