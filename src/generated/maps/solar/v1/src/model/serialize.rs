@@ -144,8 +144,33 @@ impl serde::ser::Serialize for super::building_insights::DetectedArrays {
         if !wkt::internal::is_default(&self.detection_status) {
             state.serialize_entry("detectionStatus", &self.detection_status)?;
         }
+        if !self.arrays.is_empty() {
+            state.serialize_entry("arrays", &self.arrays)?;
+        }
         if self.latest_capture_date.is_some() {
             state.serialize_entry("latestCaptureDate", &self.latest_capture_date)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::building_insights::detected_arrays::SolarArray {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.polygon_geojson.is_some() {
+            state.serialize_entry("polygonGeojson", &self.polygon_geojson)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

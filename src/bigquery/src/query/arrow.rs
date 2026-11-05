@@ -51,7 +51,6 @@ impl ArrowStreamDecoder {
     }
 
     /// Decodes a single Arrow IPC record batch frame from [`bytes::Bytes`].
-    #[cfg_attr(not(test), allow(dead_code))]
     pub(crate) fn decode_batch(
         &mut self,
         batch_bytes: bytes::Bytes,
@@ -130,8 +129,6 @@ impl RecordBatchSource for ArrowResponseReader {
 #[derive(Debug)]
 pub(crate) enum ArrowReader {
     Response(ArrowResponseReader),
-    #[cfg(google_cloud_unstable_bigquery_storage_read)]
-    #[allow(dead_code)]
     Storage(crate::query::storage_reader::StorageReader),
 }
 
@@ -139,7 +136,6 @@ impl RecordBatchSource for ArrowReader {
     async fn next_record_batch(&mut self) -> Result<Option<RecordBatch>, RowError> {
         match self {
             Self::Response(r) => r.next_record_batch().await,
-            #[cfg(google_cloud_unstable_bigquery_storage_read)]
             Self::Storage(r) => r.next_record_batch().await,
         }
     }
