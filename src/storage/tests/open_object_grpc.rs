@@ -401,12 +401,22 @@ fn assert_request_metadata(
             .and_then(|value| value.to_str().ok()),
         Some(expected_quota_project)
     );
+    let api_client = metadata
+        .get("x-goog-api-client")
+        .and_then(|value| value.to_str().ok())
+        .expect("x-goog-api-client should be set");
+    // `google_cloud_unstable_grpc_rust` switches `Storage` from Tonic to grpc-rust.
+    let want_transport = if cfg!(google_cloud_unstable_grpc_rust) {
+        "-grpc-rust"
+    } else {
+        "-tonic"
+    };
+    assert!(api_client.contains("gccl/"), "{api_client}");
     assert!(
-        metadata
-            .get("x-goog-api-client")
-            .and_then(|value| value.to_str().ok())
-            .is_some_and(|value| value.contains("gccl/")),
-        "{metadata:?}"
+        api_client
+            .split(' ')
+            .any(|value| value.starts_with("grpc/") && value.ends_with(want_transport)),
+        "{api_client}"
     );
     assert_eq!(
         metadata

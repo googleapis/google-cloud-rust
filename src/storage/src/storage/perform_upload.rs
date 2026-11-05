@@ -16,7 +16,7 @@ use super::client::{StorageInner, apply_customer_supplied_encryption_headers};
 use crate::model::Object;
 use crate::retry_policy::ContinueOn308;
 use crate::storage::checksum::details::ChecksummedSource;
-use crate::storage::info::X_GOOG_API_CLIENT_HEADER;
+use crate::storage::info::X_GOOG_API_CLIENT_REST_HEADER;
 use crate::storage::v1;
 use crate::streaming_source::{IterSource, Seek, SizeHint, StreamingSource};
 use crate::{Error, Result};
@@ -114,7 +114,7 @@ impl<S> PerformUpload<S> {
             .header("content-type", "application/json")
             .header(
                 "x-goog-api-client",
-                HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
+                HeaderValue::from_static(&X_GOOG_API_CLIENT_REST_HEADER),
             );
 
         let builder = self.apply_preconditions(builder);
@@ -145,7 +145,7 @@ impl<S> PerformUpload<S> {
             .header("content-length", 0)
             .header(
                 "x-goog-api-client",
-                HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
+                HeaderValue::from_static(&X_GOOG_API_CLIENT_REST_HEADER),
             );
         let response = builder
             .send(options, AttemptInfo::new(attempt_count))

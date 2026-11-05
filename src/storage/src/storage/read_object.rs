@@ -566,7 +566,7 @@ impl Reader {
             .query("alt", "media")
             .header(
                 "x-goog-api-client",
-                HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
+                HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_REST_HEADER),
             );
 
         let builder = if self.options.automatic_decompression {
@@ -1423,7 +1423,13 @@ mod tests {
             "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
         );
 
-        let want = [("accept-encoding", "gzip")];
+        let want = [
+            ("accept-encoding", "gzip"),
+            (
+                "x-goog-api-client",
+                crate::storage::info::X_GOOG_API_CLIENT_REST_HEADER.as_str(),
+            ),
+        ];
         let headers = request.headers();
         for (name, value) in want {
             assert_eq!(

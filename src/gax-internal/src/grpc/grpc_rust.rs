@@ -99,7 +99,7 @@ impl GrpcRustClient {
         Response: prost::Message + Default,
     {
         Self::note_ignored_extensions(&extensions);
-        let headers = grpc_helpers::make_headers(
+        let headers = grpc_helpers::make_grpc_rust_headers(
             &self.inner.extensions,
             api_client_header,
             request_params,
@@ -268,7 +268,7 @@ impl GrpcRustClient {
         Response: prost::Message + Default + Send + 'static,
     {
         Self::note_ignored_extensions(&extensions);
-        let headers = grpc_helpers::make_headers(
+        let headers = grpc_helpers::make_grpc_rust_headers(
             &self.inner.extensions,
             api_client_header,
             request_params,
