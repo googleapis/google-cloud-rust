@@ -27,4 +27,3 @@ limitations under the License.
 - [Working with Optimistic Concurrency Control (OCC)](occ.md)
 - [Working with enums](working_with_enums.md)
 - [Troubleshooting](troubleshooting.md)
-- [How to write tests for long-running operations](mocking_lros.md)
