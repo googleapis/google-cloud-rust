@@ -361,6 +361,7 @@ members = [
   "src/storage/benchmarks/w1r3",
   "src/storage/benchmarks/write_object",
   "src/storage/examples",
+  "src/storage/grpc-uds",
   "src/storage/tests/scenarios",
   "src/wkt",
   "tests/auto-populated",
@@ -519,6 +520,7 @@ axum              = { default-features = false, version = "0.8" }
 flate2            = { default-features = false, version = "1.1.9" }
 hmac              = { default-features = false, version = "0.13.0" }
 httptest          = { default-features = false, version = "0.16.4" }
+hyper-util        = { default-features = false, version = "0.1.20" }
 md5               = { default-features = false, version = "0.8" }
 mockall           = { default-features = false, version = "0.15" }
 multer            = { default-features = false, version = "3" }

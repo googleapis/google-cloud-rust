@@ -9638,6 +9638,34 @@ dependencies = [
 ]
 
 [[package]]
+name = "storage-grpc-uds"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "bytes",
+ "clap",
+ "google-cloud-auth",
+ "google-cloud-gax",
+ "google-cloud-storage",
+ "http",
+ "httptest",
+ "hyper-util",
+ "libc",
+ "prost",
+ "serde_json",
+ "storage-grpc-mock",
+ "tempfile",
+ "tokio",
+ "tokio-stream",
+ "tonic",
+ "tonic-prost",
+ "tonic-prost-build",
+ "tower",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "storage-random"
 version = "0.0.0"
 dependencies = [
