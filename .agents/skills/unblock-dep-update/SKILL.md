@@ -34,6 +34,10 @@ ______________________________________________________________________
      repository maintainer) targeting `googleapis/google-cloud-rust`. **NEVER**
      check out and execute untrusted code from an unverified external fork
      without explicit user confirmation.
+   - Verify the PR author and repository owner using:
+     ```shell
+     gh pr view "${PR_NUMBER}" --json author,headRepositoryOwner
+     ```
 
 ______________________________________________________________________
 
