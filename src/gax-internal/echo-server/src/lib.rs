@@ -18,7 +18,7 @@
 //! to some helper functions.
 
 use axum::{
-    extract::Query,
+    extract::{Query, State},
     http::{HeaderMap, StatusCode},
 };
 use google_cloud_auth::credentials::Credentials;
@@ -28,17 +28,71 @@ use google_cloud_gax::error::rpc::{Code, Status, StatusDetails};
 use google_cloud_rpc::model::{BadRequest, bad_request::FieldViolation};
 use serde_json::json;
 use std::collections::HashMap;
+use tokio::sync::watch;
 use tokio::task::JoinHandle;
 
+/// Guard that tracks when an echo handler is sleeping in `tokio::time::sleep`.
+///
+/// In `#[tokio::test(start_paused = true)]` tests, Tokio auto-advances the
+/// virtual clock whenever the runtime run queue is empty and `epoll_wait(..., 0)`
+/// returns no ready events. Over a real OS loopback TCP socket (`127.0.0.1`),
+/// the kernel may defer loopback packet delivery to `ksoftirqd`, causing
+/// `epoll_wait(..., 0)` to return 0 while TCP segments are in flight.
+///
+/// When `start_with_paused_time` is used, the server loop yields
+/// (`tokio::task::yield_now()`) whenever no handler is actively sleeping
+/// (`active_sleeps == 0`), keeping the Tokio run queue non-empty during TCP
+/// handshake and request/response I/O so virtual time only advances during the
+/// handler's intentional `delay_ms` sleep.
+struct ActiveSleepGuard(watch::Sender<usize>);
+
+impl ActiveSleepGuard {
+    fn enter(tx: &watch::Sender<usize>) -> Self {
+        tx.send_modify(|n| *n += 1);
+        Self(tx.clone())
+    }
+}
+
+impl Drop for ActiveSleepGuard {
+    fn drop(&mut self) {
+        self.0.send_modify(|n| *n -= 1);
+    }
+}
+
 pub async fn start() -> anyhow::Result<(String, JoinHandle<()>)> {
+    start_internal(false).await
+}
+
+pub async fn start_with_paused_time() -> anyhow::Result<(String, JoinHandle<()>)> {
+    start_internal(true).await
+}
+
+async fn start_internal(paused_time: bool) -> anyhow::Result<(String, JoinHandle<()>)> {
+    let (active_sleeps_tx, mut active_sleeps_rx) = watch::channel(0usize);
     let app = axum::Router::new()
         .route("/echo", axum::routing::get(echo))
         .route("/error", axum::routing::get(error))
-        .route("/stream", axum::routing::get(stream));
+        .route("/stream", axum::routing::get(stream))
+        .with_state(active_sleeps_tx);
     let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
     let addr = listener.local_addr()?;
-    let server = tokio::spawn(async {
-        axum::serve(listener, app).await.unwrap();
+    let server = tokio::spawn(async move {
+        let mut serve = std::pin::pin!(axum::serve(listener, app).into_future());
+        loop {
+            tokio::select! {
+                r = &mut serve => {
+                    r.unwrap();
+                    break;
+                }
+                _ = async {
+                    if *active_sleeps_rx.borrow_and_update() == 0 {
+                        tokio::task::yield_now().await;
+                    } else {
+                        let _ = active_sleeps_rx.changed().await;
+                    }
+                }, if paused_time => {}
+            }
+        }
     });
 
     Ok((format!("http://{}:{}", addr.ip(), addr.port()), server))
@@ -64,24 +118,34 @@ pub fn make_status() -> anyhow::Result<Status> {
     Ok(status)
 }
 
+// Axum route handlers require each parameter to implement `FromRequestParts`.
+// Foreign types like `watch::Sender<usize>` and `HashMap<String, String>` must
+// be wrapped in Axum's `State` and `Query` tuple-struct extractors, which we
+// destructure inline to pass the inner values directly to `echo_impl`.
 async fn echo(
+    State(active_sleeps): State<watch::Sender<usize>>,
     Query(query): Query<HashMap<String, String>>,
     headers: HeaderMap,
 ) -> (StatusCode, String) {
-    let response = echo_impl(query, headers).await;
+    let response = echo_impl(active_sleeps, query, headers).await;
     match response {
         Err(e) => internal_error(e),
         Ok(s) => (StatusCode::OK, s),
     }
 }
 
-async fn echo_impl(query: HashMap<String, String>, headers: HeaderMap) -> anyhow::Result<String> {
+async fn echo_impl(
+    active_sleeps: watch::Sender<usize>,
+    query: HashMap<String, String>,
+    headers: HeaderMap,
+) -> anyhow::Result<String> {
     if let Some(delay) = query
         .get("delay_ms")
         .map(|s| s.parse::<u64>())
         .transpose()?
         .map(tokio::time::Duration::from_millis)
     {
+        let _guard = ActiveSleepGuard::enter(&active_sleeps);
         tokio::time::sleep(delay).await;
     }
     let query = serde_json::Value::Object(

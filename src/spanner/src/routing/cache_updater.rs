@@ -27,7 +27,7 @@ use crate::routing::key_recipe_cache::KeyRecipeCache;
 use gaxi::options::ClientConfig;
 use std::fmt::{self, Debug, Formatter};
 use std::sync::atomic::{AtomicU64, Ordering};
-use std::sync::{Arc, PoisonError, RwLock, RwLockReadGuard, RwLockWriteGuard};
+use std::sync::{Arc, Mutex, MutexGuard, PoisonError, RwLock, RwLockReadGuard, RwLockWriteGuard};
 
 /// Orchestrates updates to the location-aware routing caches.
 ///
@@ -42,6 +42,7 @@ pub(crate) struct CacheUpdater {
     client_config: Arc<ClientConfig>,
     database_id: AtomicU64,
     update_lock: RwLock<()>,
+    address_sync_lock: Mutex<()>,
 }
 
 impl Debug for CacheUpdater {
@@ -79,6 +80,7 @@ impl CacheUpdater {
             client_config: Arc::new(client_config),
             database_id: AtomicU64::new(0),
             update_lock: RwLock::new(()),
+            address_sync_lock: Mutex::new(()),
         }
     }
 
@@ -104,6 +106,19 @@ impl CacheUpdater {
     fn write_update_lock(&self) -> RwLockWriteGuard<'_, ()> {
         self.update_lock
             .write()
+            .unwrap_or_else(PoisonError::into_inner)
+    }
+
+    /// Acquires an exclusive lock on the active address synchronization guard, recovering from lock poisoning via `into_inner()`.
+    ///
+    /// # Poison Recovery Rationale
+    /// `address_sync_lock` protects a zero-sized `()` token used solely to serialize the
+    /// `active_addresses()` snapshot and `update_active_addresses()` registration across concurrent
+    /// incremental updates so an older snapshot cannot overwrite a newer one. Because the guarded
+    /// type is `()`, there is no internal state that can be left inconsistent by an unwinding panic.
+    fn lock_address_sync(&self) -> MutexGuard<'_, ()> {
+        self.address_sync_lock
+            .lock()
             .unwrap_or_else(PoisonError::into_inner)
     }
 
@@ -165,15 +180,13 @@ impl CacheUpdater {
             self.key_recipe_cache.update_from_recipe_list(key_recipes);
         }
 
-        if !cache_update.group.is_empty() || !cache_update.range.is_empty() {
-            self.key_range_cache.add_ranges(&cache_update);
-        }
-
-        if !cache_update.group.is_empty() {
-            let active_addresses = self.key_range_cache.active_addresses();
-            let newly_registered = self
-                .endpoint_lifecycle_manager
-                .update_active_addresses(&self.database_scope, active_addresses);
+        if self.key_range_cache.add_ranges(&cache_update) {
+            let newly_registered = {
+                let _address_guard = self.lock_address_sync();
+                let active_addresses = self.key_range_cache.active_addresses();
+                self.endpoint_lifecycle_manager
+                    .update_active_addresses(&self.database_scope, active_addresses)
+            };
             self.endpoint_lifecycle_manager
                 .prewarm_endpoints(&newly_registered);
         }
@@ -221,6 +234,7 @@ mod tests {
     use crate::model::{Group, KeyRecipe, Range, RecipeList, Tablet};
     use crate::routing::server_connection::ServerConnection;
     use crate::test::test_client_config;
+    use bytes::Bytes;
     use std::panic::{AssertUnwindSafe, catch_unwind};
     use std::time::{Duration, Instant};
     use tokio::time::sleep;
@@ -234,28 +248,51 @@ mod tests {
     fn cache_updater_recovers_from_poisoned_write_lock() {
         let updater = make_test_updater();
 
-        // Intentionally poison update_lock by panicking while holding an exclusive write lock.
+        // Intentionally poison update_lock and address_sync_lock by panicking while holding them.
         let panic_result = catch_unwind(AssertUnwindSafe(|| {
-            let _guard = updater
+            let _update_guard = updater
                 .update_lock
                 .write()
                 .expect("lock update_lock for panic test");
-            panic!("deliberately poisoning update_lock for test");
+            let _address_guard = updater
+                .address_sync_lock
+                .lock()
+                .expect("lock address_sync_lock for panic test");
+            panic!("deliberately poisoning locks for test");
         }));
         assert!(panic_result.is_err(), "catch_unwind must capture panic");
         assert!(
             updater.update_lock.is_poisoned(),
             "update_lock must be poisoned after write lock panic"
         );
+        assert!(
+            updater.address_sync_lock.is_poisoned(),
+            "address_sync_lock must be poisoned after lock panic"
+        );
 
-        // 1. Initial database ID transition exercises write_update_lock() under poisoned lock.
+        // 1. Initial database ID transition exercises write_update_lock() and lock_address_sync() under poisoned locks.
         let users_recipe = KeyRecipe::new().set_table_name("Users");
         let initial_recipe_list = RecipeList::new()
-            .set_schema_generation(bytes::Bytes::from("gen1"))
+            .set_schema_generation(Bytes::from("gen1"))
             .set_recipe(vec![users_recipe]);
+        let initial_group = Group::new()
+            .set_group_uid(1_u64)
+            .set_generation(Bytes::from("1"))
+            .set_tablets(vec![
+                Tablet::new()
+                    .set_tablet_uid(1_u64)
+                    .set_server_address("10.0.0.1:2020"),
+            ]);
+        let initial_range = Range::new()
+            .set_start_key(b"a".to_vec())
+            .set_limit_key(b"m".to_vec())
+            .set_group_uid(1_u64)
+            .set_generation(Bytes::from("1"));
         let initial_update = CacheUpdate::new()
             .set_database_id(1_u64)
-            .set_key_recipes(initial_recipe_list);
+            .set_key_recipes(initial_recipe_list)
+            .set_group(vec![initial_group])
+            .set_range(vec![initial_range]);
         updater.process_cache_update(initial_update);
 
         assert_eq!(
@@ -270,15 +307,28 @@ mod tests {
                 .is_some(),
             "table recipe must be cached despite poisoned lock"
         );
+        assert!(
+            updater
+                .endpoint_lifecycle_manager()
+                .is_managed("10.0.0.1:2020"),
+            "endpoint must be registered despite poisoned address_sync_lock"
+        );
 
-        // 2. Incremental update with matching database ID exercises read_update_lock() under poisoned lock.
+        // 2. Incremental update with matching database ID and a range referencing the existing group
+        // exercises read_update_lock() under poisoned lock and the unchanged-groups fast path.
         let index_recipe = KeyRecipe::new().set_index_name("UsersByEmail");
         let incremental_recipe_list = RecipeList::new()
-            .set_schema_generation(bytes::Bytes::from("gen1"))
+            .set_schema_generation(Bytes::from("gen1"))
             .set_recipe(vec![index_recipe]);
+        let adjacent_range = Range::new()
+            .set_start_key(b"m".to_vec())
+            .set_limit_key(b"z".to_vec())
+            .set_group_uid(1_u64)
+            .set_generation(Bytes::from("1"));
         let incremental_update = CacheUpdate::new()
             .set_database_id(1_u64)
-            .set_key_recipes(incremental_recipe_list);
+            .set_key_recipes(incremental_recipe_list)
+            .set_range(vec![adjacent_range]);
         updater.process_cache_update(incremental_update);
 
         assert!(
@@ -633,6 +683,148 @@ mod tests {
             updater.connection_cache().len(),
             2,
             "connection cache should have 2 connections"
+        );
+    }
+
+    #[tokio::test]
+    async fn cache_updater_evicts_stale_endpoint_when_range_reassigned() {
+        let updater = make_test_updater();
+
+        let group1 = Group::new()
+            .set_group_uid(100u64)
+            .set_generation(vec![1])
+            .set_tablets(vec![
+                Tablet::default()
+                    .set_tablet_uid(10u64)
+                    .set_server_address("10.0.0.1:15000"),
+            ]);
+        let range1 = Range::new()
+            .set_group_uid(100u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09])
+            .set_generation(vec![1]);
+        let update1 = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![group1])
+            .set_range(vec![range1]);
+
+        updater.process_cache_update(update1);
+        wait_for_connections(&updater, 2).await;
+        assert!(
+            updater
+                .connection_cache()
+                .get_if_present("10.0.0.1:15000")
+                .is_some(),
+            "initial endpoint must be cached after prewarming"
+        );
+
+        let group2 = Group::new()
+            .set_group_uid(200u64)
+            .set_generation(vec![2])
+            .set_tablets(vec![
+                Tablet::default()
+                    .set_tablet_uid(20u64)
+                    .set_server_address("10.0.0.2:15000"),
+            ]);
+        let range2 = Range::new()
+            .set_group_uid(200u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x09])
+            .set_generation(vec![2]);
+        let update2 = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![group2])
+            .set_range(vec![range2]);
+
+        updater.process_cache_update(update2);
+        wait_for_connections(&updater, 2).await;
+
+        assert!(
+            updater
+                .connection_cache()
+                .get_if_present("10.0.0.1:15000")
+                .is_none(),
+            "obsolete endpoint must be evicted from connection cache"
+        );
+        assert!(
+            updater
+                .connection_cache()
+                .get_if_present("10.0.0.2:15000")
+                .is_some(),
+            "newly active endpoint must be cached after prewarming"
+        );
+    }
+
+    #[tokio::test]
+    async fn cache_updater_evicts_obsolete_endpoint_on_range_only_reassignment_update() {
+        let updater = make_test_updater();
+
+        let group_100 = Group::new()
+            .set_group_uid(100u64)
+            .set_generation(vec![0x01])
+            .set_tablets(vec![
+                Tablet::default()
+                    .set_tablet_uid(10u64)
+                    .set_server_address("10.0.0.1:15000"),
+            ]);
+        let group_200 = Group::new()
+            .set_group_uid(200u64)
+            .set_generation(vec![0x01])
+            .set_tablets(vec![
+                Tablet::default()
+                    .set_tablet_uid(20u64)
+                    .set_server_address("10.0.0.2:15000"),
+            ]);
+        let range_1 = Range::new()
+            .set_group_uid(100u64)
+            .set_start_key(vec![0x01])
+            .set_limit_key(vec![0x05])
+            .set_generation(vec![0x01]);
+        let range_2 = Range::new()
+            .set_group_uid(200u64)
+            .set_start_key(vec![0x05])
+            .set_limit_key(vec![0x09])
+            .set_generation(vec![0x01]);
+
+        let initial_update = CacheUpdate::new()
+            .set_database_id(1u64)
+            .set_group(vec![group_100, group_200])
+            .set_range(vec![range_1, range_2]);
+        updater.process_cache_update(initial_update);
+
+        wait_for_connections(&updater, 3).await;
+        assert!(
+            updater
+                .connection_cache()
+                .get_if_present("10.0.0.1:15000")
+                .is_some(),
+            "10.0.0.1:15000 must be cached initially"
+        );
+
+        // Range-only update reassigns [0x01, 0x05) to already-cached group 200,
+        // dropping group 100's reference count to 0 without sending any group entries.
+        let range_only_update = CacheUpdate::new().set_database_id(1u64).set_range(vec![
+            Range::new()
+                .set_group_uid(200u64)
+                .set_start_key(vec![0x01])
+                .set_limit_key(vec![0x05])
+                .set_generation(vec![0x02]),
+        ]);
+        updater.process_cache_update(range_only_update);
+
+        assert!(
+            updater
+                .connection_cache()
+                .get_if_present("10.0.0.1:15000")
+                .is_none(),
+            "obsolete endpoint 10.0.0.1:15000 must be evicted after range-only reassignment"
+        );
+        assert!(
+            updater
+                .connection_cache()
+                .get_if_present("10.0.0.2:15000")
+                .is_some(),
+            "still-active endpoint 10.0.0.2:15000 must remain cached"
         );
     }
 

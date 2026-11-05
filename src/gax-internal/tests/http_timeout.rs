@@ -29,116 +29,87 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn test_no_timeout() -> Result<()> {
-        let (endpoint, server) = echo_server::start().await?;
+        let (endpoint, _server) = echo_server::start_with_paused_time().await?;
         let config = test_config();
         let client = ReqwestClient::new(config, &endpoint).await?;
 
         let delay = Duration::from_millis(200);
-        let mut interval = tokio::time::interval(Duration::from_millis(10));
         let builder = client
             .builder(reqwest::Method::GET, "/echo".into())
             .query(&[("delay_ms", format!("{}", delay.as_millis()))]);
-        let response = client.execute::<serde_json::Value, serde_json::Value>(
-            builder,
-            Some(json!({})),
-            RequestOptions::default(),
+        let start = tokio::time::Instant::now();
+        let response = client
+            .execute::<serde_json::Value, serde_json::Value>(
+                builder,
+                Some(json!({})),
+                RequestOptions::default(),
+            )
+            .await?
+            .into_body();
+        assert_eq!(
+            get_query_value(&response, "delay_ms"),
+            Some("200".to_string())
         );
-
-        tokio::pin!(server);
-        tokio::pin!(response);
-        loop {
-            tokio::select! {
-                _ = &mut server => { },
-                r = &mut response => {
-                    let response = r?.into_body();
-                    assert_eq!(
-                        get_query_value(&response, "delay_ms"),
-                        Some("200".to_string())
-                    );
-                    break;
-                },
-                _ = interval.tick() => { },
-            }
-        }
+        assert_eq!(start.elapsed(), delay);
 
         Ok(())
     }
 
     #[tokio::test(start_paused = true)]
     async fn test_timeout_does_not_expire() -> Result<()> {
-        let (endpoint, server) = echo_server::start().await?;
+        let (endpoint, _server) = echo_server::start_with_paused_time().await?;
         let config = test_config();
         let client = ReqwestClient::new(config, &endpoint).await?;
 
         let delay = Duration::from_millis(200);
         let timeout = Duration::from_millis(2000);
-        let mut interval = tokio::time::interval(Duration::from_millis(10));
         let builder = client
             .builder(reqwest::Method::GET, "/echo".into())
             .query(&[("delay_ms", format!("{}", delay.as_millis()))]);
-        let response = client.execute::<serde_json::Value, serde_json::Value>(
-            builder,
-            Some(json!({})),
-            test_options(&timeout),
+        let start = tokio::time::Instant::now();
+        let response = client
+            .execute::<serde_json::Value, serde_json::Value>(
+                builder,
+                Some(json!({})),
+                test_options(&timeout),
+            )
+            .await?
+            .into_body();
+        assert_eq!(
+            get_query_value(&response, "delay_ms"),
+            Some("200".to_string())
         );
-
-        tokio::pin!(server);
-        tokio::pin!(response);
-        loop {
-            tokio::select! {
-                _ = &mut server => {  },
-                r = &mut response => {
-                    let response = r?.into_body();
-                    assert_eq!(
-                        get_query_value(&response, "delay_ms"),
-                        Some("200".to_string())
-                    );
-                    break;
-                },
-                _ = interval.tick() => { },
-            }
-        }
+        assert_eq!(start.elapsed(), delay);
 
         Ok(())
     }
 
     #[tokio::test(start_paused = true)]
     async fn test_timeout_expires() -> Result<()> {
-        let (endpoint, server) = echo_server::start().await?;
+        let (endpoint, _server) = echo_server::start_with_paused_time().await?;
         let config = test_config();
         let client = ReqwestClient::new(config, &endpoint).await?;
 
         let delay = Duration::from_millis(200);
         let timeout = Duration::from_millis(150);
-        let mut interval = tokio::time::interval(Duration::from_millis(10));
         let builder = client
             .builder(reqwest::Method::GET, "/echo".into())
             .query(&[("delay_ms", format!("{}", delay.as_millis()))]);
-        let response = client.execute::<serde_json::Value, serde_json::Value>(
-            builder,
-            Some(json!({})),
-            test_options(&timeout),
-        );
-
         let start = tokio::time::Instant::now();
-        tokio::pin!(server);
-        tokio::pin!(response);
-        loop {
-            tokio::select! {
-                _ = &mut server => {  },
-                r = &mut response => {
-                    assert!(
-                        r.is_err(),
-                        "expected an error when timeout={}, got={r:?}",
-                        timeout.as_millis()
-                    );
-                    let err = r.unwrap_err();
-                    assert!(err.is_timeout(), "{err:?}");
-                    break;
-                },
-                _ = interval.tick() => { },
-            }
-        }
+        let r = client
+            .execute::<serde_json::Value, serde_json::Value>(
+                builder,
+                Some(json!({})),
+                test_options(&timeout),
+            )
+            .await;
+        assert!(
+            r.is_err(),
+            "expected an error when timeout={}, got={r:?}",
+            timeout.as_millis()
+        );
+        let err = r.unwrap_err();
+        assert!(err.is_timeout(), "{err:?}");
 
         let elapsed = start.elapsed();
         assert_eq!(elapsed, timeout);
@@ -257,7 +228,7 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn test_effective_timeout() -> Result<()> {
-        let (endpoint, server) = echo_server::start().await?;
+        let (endpoint, _server) = echo_server::start_with_paused_time().await?;
         let config = test_config();
         let client = ReqwestClient::new(config, &endpoint).await?;
 
@@ -267,7 +238,6 @@ mod tests {
         let delay = Duration::from_millis(2000);
         let attempt_timeout = Duration::from_millis(100);
         let overall_timeout = Duration::from_millis(150);
-        let mut interval = tokio::time::interval(Duration::from_millis(10));
         let builder = client
             .builder(reqwest::Method::GET, "/echo".into())
             .query(&[("delay_ms", format!("{}", delay.as_millis()))]);
@@ -297,30 +267,17 @@ mod tests {
         });
         disable_throttling(&mut request_options);
 
-        let response = client.execute::<serde_json::Value, serde_json::Value>(
-            builder,
-            Some(json!({})),
-            request_options,
-        );
-
         let start = tokio::time::Instant::now();
-        tokio::pin!(server);
-        tokio::pin!(response);
-        loop {
-            tokio::select! {
-                _ = &mut server => {  },
-                r = &mut response => {
-                    assert!(
-                        r.is_err(),
-                        "expected a timeout error, got={r:?}",
-                    );
-                    let err = r.unwrap_err();
-                    assert!(err.is_timeout(), "{err:?}");
-                    break;
-                },
-                _ = interval.tick() => { },
-            }
-        }
+        let r = client
+            .execute::<serde_json::Value, serde_json::Value>(
+                builder,
+                Some(json!({})),
+                request_options,
+            )
+            .await;
+        assert!(r.is_err(), "expected a timeout error, got={r:?}",);
+        let err = r.unwrap_err();
+        assert!(err.is_timeout(), "{err:?}");
 
         // Verify the time at which we expect the initial attempt to complete
         let elapsed = elapsed_on_failure
@@ -344,7 +301,7 @@ mod tests {
 
         #[tokio::test(start_paused = true)]
         async fn test_timeout_expires_with_tracing_on() -> Result<()> {
-            let (endpoint, _server) = echo_server::start().await?;
+            let (endpoint, _server) = echo_server::start_with_paused_time().await?;
             let mut config = test_config();
             config.tracing = true;
             let guard = TestLayer::initialize();
