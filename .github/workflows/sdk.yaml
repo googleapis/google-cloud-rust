@@ -31,7 +31,7 @@ jobs:
     if: github.repository == 'googleapis/google-cloud-rust'
     strategy:
       matrix:
-        os: ['macos-14', 'windows-2025']
+        os: ['macos-15', 'windows-2025']
         rust-version: ['rust:current']
     runs-on: ${{ matrix.os }}
     steps:
@@ -43,7 +43,7 @@ jobs:
           path: |
             ~/.cargo
           key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', '.github/workflows/sdk.yaml') }}
-        if: matrix.os != 'macos-14' && github.event_name != 'release'
+        if: matrix.os != 'macos-15' && github.event_name != 'release'
       - name: Setup Rust ${{ matrix.rust-version }}
         # Installs the toolchain pinned in `rust-toolchain.toml`.
         run: rustup toolchain install
