@@ -1704,9 +1704,7 @@ mod tests {
         Ok(())
     }
 
-    // TODO(https://github.com/googleapis/google-cloud-rust/issues/5953): Fix lease expiration test flakiness in tokio paused time.
     #[tokio_test_no_panics(start_paused = true)]
-    #[ignore]
     async fn basic_lease_expiration() -> anyhow::Result<()> {
         const MAX_LEASE_EXTENSION: Duration = Duration::from_secs(10);
         const MAX_LEASE: Duration = Duration::from_secs(30);
@@ -1743,28 +1741,30 @@ mod tests {
             .await
             .expect("stream should yield a message")?;
 
-        // Advance the clock well past the expected message expiration,
-        // recording the time at which we sent the last lease extension.
-        let start_time = Instant::now();
-        let mut latest = None;
-        for _ in 0..MAX_LEASE.as_secs() * 2 {
-            while let Ok(r) = extend_rx.try_recv() {
-                assert_ne!(r.ack_deadline_seconds, 0, "unexpectedly received a nack");
-                latest = Some(start_time.elapsed());
-            }
-            tokio::time::advance(Duration::from_secs(1)).await;
-            tokio::task::yield_now().await;
-        }
+        // Wait for the first lease extension RPC to arrive so we verify that
+        // `set_max_lease_extension` (10s) was wired through without racing the
+        // paused clock against loopback TCP I/O.
+        let r = extend_rx
+            .recv()
+            .await
+            .expect("should receive a lease extension");
+        assert_eq!(r.ack_deadline_seconds, 10);
+        assert_eq!(r.ack_ids, test_ids(0..1));
 
-        // Verify when we stop sending lease extensions.
-        let expected_range = (MAX_LEASE - MAX_LEASE_EXTENSION)..=MAX_LEASE;
-        assert!(
-            latest.is_some_and(|t| expected_range.contains(&t)),
-            "{latest:?}"
-        );
+        // Advance the clock past the configured `MAX_LEASE` (30s), while
+        // remaining well below the default `max_lease` (600s).
+        tokio::time::advance(MAX_LEASE + Duration::from_secs(5)).await;
+        tokio::task::yield_now().await;
 
-        // Close the stream, to make sure pending operations complete.
+        // Close the stream. With `ShutdownBehavior::NackImmediately`, any
+        // message still under lease management at shutdown is nacked
+        // (`ack_deadline_seconds == 0`). Because `MAX_LEASE` (30s) overrode the
+        // default (600s), the message has already expired and must not be
+        // nacked on shutdown.
         stream.shutdown_token().shutdown().await;
+        while let Ok(r) = extend_rx.try_recv() {
+            assert_ne!(r.ack_deadline_seconds, 0, "unexpectedly received a nack");
+        }
 
         Ok(())
     }

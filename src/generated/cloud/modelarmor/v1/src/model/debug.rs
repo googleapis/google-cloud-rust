@@ -284,6 +284,19 @@ impl std::fmt::Debug for super::FilterConfig {
             &self.malicious_uri_filter_settings,
         );
         debug_struct.field("filter_rule_settings", &self.filter_rule_settings);
+        debug_struct.field("csam_filter_settings", &self.csam_filter_settings);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CsamFilterSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CsamFilterSettings");
+        debug_struct.field("filter_enforcement", &self.filter_enforcement);
+        debug_struct.field("confidence_level", &self.confidence_level);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

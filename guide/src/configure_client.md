@@ -50,11 +50,12 @@ export https_proxy="http://proxy.example.com:3128"
 
 ## 5. Configuring retries
 
-See [Configuring retry policies](configuring_retry_policies.md).
+See [Configuring retry policies][configure-retry-policies].
 
 [adc]: https://cloud.google.com/docs/authentication/application-default-credentials
-[authentication]: https://docs.cloud.google.com/rust/override-default-authentication
+[authentication]: https://docs.cloud.google.com/rust/docs/override-default-authentication
 [client-builder]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/client_builder/struct.ClientBuilder.html
-[enable-logging]: https://docs.cloud.google.com/rust/enable-logging
+[configure-retry-policies]: https://docs.cloud.google.com/rust/docs/configure-retry-policies
+[enable-logging]: https://docs.cloud.google.com/rust/docs/enable-logging
 [envvars]: https://docs.rs/reqwest/latest/reqwest/index.html#proxies
-[override-endpoint]: https://docs.cloud.google.com/rust/override-default-endpoint
+[override-endpoint]: https://docs.cloud.google.com/rust/docs/override-default-endpoint

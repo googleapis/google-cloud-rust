@@ -242,6 +242,19 @@ impl std::fmt::Debug for super::SecretPayload {
     }
 }
 
+impl std::fmt::Debug for super::CloudSqlSingleUserCredentials {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloudSqlSingleUserCredentials");
+        debug_struct.field("instance_id", &self.instance_id);
+        debug_struct.field("username", &self.username);
+        debug_struct.field("password", &self.password);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::ListSecretsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListSecretsRequest");
@@ -298,20 +311,7 @@ impl std::fmt::Debug for super::EnableManagedRotationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("EnableManagedRotationRequest");
         debug_struct.field("parent", &self.parent);
-        debug_struct.field("credentials", &self.credentials);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-impl std::fmt::Debug for super::enable_managed_rotation_request::CloudSQLSingleUserCredentials {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("CloudSQLSingleUserCredentials");
-        debug_struct.field("instance_id", &self.instance_id);
-        debug_struct.field("username", &self.username);
-        debug_struct.field("password", &self.password);
+        debug_struct.field("credential", &self.credential);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
