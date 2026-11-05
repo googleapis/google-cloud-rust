@@ -732,6 +732,9 @@ pub async fn run_client_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running storage_custom_headers example");
     client::custom_headers::sample(&id).await?;
 
+    tracing::info!("running storage_enable_otel_tracing example");
+    client::enable_otel_tracing::sample(&id).await?;
+
     Ok(())
 }
 

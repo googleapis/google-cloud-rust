@@ -26,8 +26,8 @@ these helpers hide. This guide shows how to do that.
 
 This guide assumes you are familiar with the previous chapters:
 
-- [Working with long-running operations](working_with_long_running_operations.md)
-- [How to write tests using a client](mock_a_client.md)
+- [Working with long-running operations](https://docs.cloud.google.com/rust/docs/long-running-operations)
+- [How to write tests using a client](https://docs.cloud.google.com/rust/docs/mocking)
 
 ## Tests for automatic polling
 

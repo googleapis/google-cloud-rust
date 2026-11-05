@@ -478,7 +478,7 @@ pub mod trip {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TripConfig {
-    /// Optional. Whether to enable high frequency trip updates.
+    /// Optional. Whether to enable high-frequency trip updates.
     ///
     /// NOTE: Enabling this feature logs the trip under Enterprise Tier usage, and
     /// is subject to Enterprise Tier rates.
@@ -502,6 +502,18 @@ pub struct TripConfig {
     ///
     /// NOTE: This field is ignored if `enable_pubsub` is false.
     pub pubsub_field_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. Whether to enable remaining route reporting for the trip.
+    ///
+    /// NOTE: Enabling this feature logs the trip under Enterprise Tier usage, and
+    /// is subject to Enterprise Tier rates.
+    pub enable_remaining_route_reporting: bool,
+
+    /// Optional. Whether to enable route deviation reporting for the trip.
+    ///
+    /// NOTE: Enabling this feature logs the trip under Enterprise Tier usage, and
+    /// is subject to Enterprise Tier rates.
+    pub enable_route_deviation_reporting: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -566,6 +578,36 @@ impl TripConfig {
         T: std::convert::Into<wkt::FieldMask>,
     {
         self.pubsub_field_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [enable_remaining_route_reporting][crate::model::TripConfig::enable_remaining_route_reporting].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::TripConfig;
+    /// let x = TripConfig::new().set_enable_remaining_route_reporting(true);
+    /// ```
+    pub fn set_enable_remaining_route_reporting<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.enable_remaining_route_reporting = v.into();
+        self
+    }
+
+    /// Sets the value of [enable_route_deviation_reporting][crate::model::TripConfig::enable_route_deviation_reporting].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::TripConfig;
+    /// let x = TripConfig::new().set_enable_route_deviation_reporting(true);
+    /// ```
+    pub fn set_enable_route_deviation_reporting<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.enable_route_deviation_reporting = v.into();
         self
     }
 }
@@ -663,6 +705,13 @@ pub struct TripExecution {
     /// Output only. The location signal representing the last known location of
     /// the transporter. This will be the road snapped location if available.
     pub location: std::option::Option<crate::model::Location>,
+
+    /// Output only. Provides the polyline for the remaining portion of the route.
+    pub remaining_route: std::option::Option<crate::model::Route>,
+
+    /// Output only. The most recent route deviation event captured during the
+    /// trip.
+    pub last_route_deviation: std::option::Option<crate::model::RouteDeviation>,
 
     /// Output only. Time traveled thus far.
     pub traveled_duration: std::option::Option<wkt::Duration>,
@@ -784,6 +833,72 @@ impl TripExecution {
         T: std::convert::Into<crate::model::Location>,
     {
         self.location = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [remaining_route][crate::model::TripExecution::remaining_route].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::TripExecution;
+    /// use google_maps_navconnect_v1::model::Route;
+    /// let x = TripExecution::new().set_remaining_route(Route::default()/* use setters */);
+    /// ```
+    pub fn set_remaining_route<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Route>,
+    {
+        self.remaining_route = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [remaining_route][crate::model::TripExecution::remaining_route].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::TripExecution;
+    /// use google_maps_navconnect_v1::model::Route;
+    /// let x = TripExecution::new().set_or_clear_remaining_route(Some(Route::default()/* use setters */));
+    /// let x = TripExecution::new().set_or_clear_remaining_route(None::<Route>);
+    /// ```
+    pub fn set_or_clear_remaining_route<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Route>,
+    {
+        self.remaining_route = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [last_route_deviation][crate::model::TripExecution::last_route_deviation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::TripExecution;
+    /// use google_maps_navconnect_v1::model::RouteDeviation;
+    /// let x = TripExecution::new().set_last_route_deviation(RouteDeviation::default()/* use setters */);
+    /// ```
+    pub fn set_last_route_deviation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RouteDeviation>,
+    {
+        self.last_route_deviation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_route_deviation][crate::model::TripExecution::last_route_deviation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::TripExecution;
+    /// use google_maps_navconnect_v1::model::RouteDeviation;
+    /// let x = TripExecution::new().set_or_clear_last_route_deviation(Some(RouteDeviation::default()/* use setters */));
+    /// let x = TripExecution::new().set_or_clear_last_route_deviation(None::<RouteDeviation>);
+    /// ```
+    pub fn set_or_clear_last_route_deviation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RouteDeviation>,
+    {
+        self.last_route_deviation = v.map(|x| x.into());
         self
     }
 
@@ -950,6 +1065,224 @@ impl TripExecution {
 impl wkt::message::Message for TripExecution {
     fn typename() -> &'static str {
         "type.googleapis.com/google.maps.navconnect.v1.TripExecution"
+    }
+}
+
+/// Route deviation information.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RouteDeviation {
+    /// Output only. Location where the deviation occurred.
+    pub location: std::option::Option<crate::model::Location>,
+
+    /// Output only. Source for the deviation trigger.
+    pub source: crate::model::route_deviation::TriggerSource,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RouteDeviation {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [location][crate::model::RouteDeviation::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::RouteDeviation;
+    /// use google_maps_navconnect_v1::model::Location;
+    /// let x = RouteDeviation::new().set_location(Location::default()/* use setters */);
+    /// ```
+    pub fn set_location<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Location>,
+    {
+        self.location = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [location][crate::model::RouteDeviation::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::RouteDeviation;
+    /// use google_maps_navconnect_v1::model::Location;
+    /// let x = RouteDeviation::new().set_or_clear_location(Some(Location::default()/* use setters */));
+    /// let x = RouteDeviation::new().set_or_clear_location(None::<Location>);
+    /// ```
+    pub fn set_or_clear_location<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Location>,
+    {
+        self.location = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source][crate::model::RouteDeviation::source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::RouteDeviation;
+    /// use google_maps_navconnect_v1::model::route_deviation::TriggerSource;
+    /// let x0 = RouteDeviation::new().set_source(TriggerSource::DriverInitiatedReroute);
+    /// let x1 = RouteDeviation::new().set_source(TriggerSource::SystemInitiatedReroute);
+    /// ```
+    pub fn set_source<T: std::convert::Into<crate::model::route_deviation::TriggerSource>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RouteDeviation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.maps.navconnect.v1.RouteDeviation"
+    }
+}
+
+/// Defines additional types related to [RouteDeviation].
+pub mod route_deviation {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The source that triggered the route deviation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum TriggerSource {
+        /// The trigger source is unspecified.
+        Unspecified,
+        /// The route deviation was triggered by the driver (e.g. wrong turn).
+        DriverInitiatedReroute,
+        /// The route deviation was triggered by the system (e.g. traffic closure).
+        SystemInitiatedReroute,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [TriggerSource::value] or
+        /// [TriggerSource::name].
+        UnknownValue(trigger_source::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod trigger_source {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl TriggerSource {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::DriverInitiatedReroute => std::option::Option::Some(1),
+                Self::SystemInitiatedReroute => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TRIGGER_SOURCE_UNSPECIFIED"),
+                Self::DriverInitiatedReroute => {
+                    std::option::Option::Some("DRIVER_INITIATED_REROUTE")
+                }
+                Self::SystemInitiatedReroute => {
+                    std::option::Option::Some("SYSTEM_INITIATED_REROUTE")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for TriggerSource {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for TriggerSource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for TriggerSource {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::DriverInitiatedReroute,
+                2 => Self::SystemInitiatedReroute,
+                _ => Self::UnknownValue(trigger_source::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for TriggerSource {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TRIGGER_SOURCE_UNSPECIFIED" => Self::Unspecified,
+                "DRIVER_INITIATED_REROUTE" => Self::DriverInitiatedReroute,
+                "SYSTEM_INITIATED_REROUTE" => Self::SystemInitiatedReroute,
+                _ => Self::UnknownValue(trigger_source::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for TriggerSource {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::DriverInitiatedReroute => serializer.serialize_i32(1),
+                Self::SystemInitiatedReroute => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for TriggerSource {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<TriggerSource>::new(
+                ".google.maps.navconnect.v1.RouteDeviation.TriggerSource",
+            ))
+        }
     }
 }
 
@@ -1138,6 +1471,554 @@ impl wkt::message::Message for Location {
     }
 }
 
+/// Represents a polyline using a simple list of points.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SimplePolyline {
+    /// Output only. Ordered list of points representing the polyline.
+    pub points: std::vec::Vec<google_cloud_type::model::LatLng>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SimplePolyline {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [points][crate::model::SimplePolyline::points].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::SimplePolyline;
+    /// use google_cloud_type::model::LatLng;
+    /// let x = SimplePolyline::new()
+    ///     .set_points([
+    ///         LatLng::default()/* use setters */,
+    ///         LatLng::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_points<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<google_cloud_type::model::LatLng>,
+    {
+        use std::iter::Iterator;
+        self.points = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SimplePolyline {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.maps.navconnect.v1.SimplePolyline"
+    }
+}
+
+/// Traffic density indicator on a contiguous segment of a path. Given a path
+/// with points P_0, P_1, ... , P_N (zero-based index), the SpeedReadingInterval
+/// defines an interval and describes its traffic using the `Speed` categories.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SpeedReadingInterval {
+    /// Output only. The starting index of this interval in the path.
+    pub start_polyline_point_index: std::option::Option<i32>,
+
+    /// Output only. The ending index of this interval in the path.
+    pub end_polyline_point_index: std::option::Option<i32>,
+
+    /// Output only. Traffic speed in this interval.
+    pub speed: crate::model::speed_reading_interval::Speed,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SpeedReadingInterval {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [start_polyline_point_index][crate::model::SpeedReadingInterval::start_polyline_point_index].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::SpeedReadingInterval;
+    /// let x = SpeedReadingInterval::new().set_start_polyline_point_index(42);
+    /// ```
+    pub fn set_start_polyline_point_index<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.start_polyline_point_index = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_polyline_point_index][crate::model::SpeedReadingInterval::start_polyline_point_index].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::SpeedReadingInterval;
+    /// let x = SpeedReadingInterval::new().set_or_clear_start_polyline_point_index(Some(42));
+    /// let x = SpeedReadingInterval::new().set_or_clear_start_polyline_point_index(None::<i32>);
+    /// ```
+    pub fn set_or_clear_start_polyline_point_index<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.start_polyline_point_index = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_polyline_point_index][crate::model::SpeedReadingInterval::end_polyline_point_index].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::SpeedReadingInterval;
+    /// let x = SpeedReadingInterval::new().set_end_polyline_point_index(42);
+    /// ```
+    pub fn set_end_polyline_point_index<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.end_polyline_point_index = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_polyline_point_index][crate::model::SpeedReadingInterval::end_polyline_point_index].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::SpeedReadingInterval;
+    /// let x = SpeedReadingInterval::new().set_or_clear_end_polyline_point_index(Some(42));
+    /// let x = SpeedReadingInterval::new().set_or_clear_end_polyline_point_index(None::<i32>);
+    /// ```
+    pub fn set_or_clear_end_polyline_point_index<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.end_polyline_point_index = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [speed][crate::model::SpeedReadingInterval::speed].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::SpeedReadingInterval;
+    /// use google_maps_navconnect_v1::model::speed_reading_interval::Speed;
+    /// let x0 = SpeedReadingInterval::new().set_speed(Speed::Normal);
+    /// let x1 = SpeedReadingInterval::new().set_speed(Speed::Slow);
+    /// let x2 = SpeedReadingInterval::new().set_speed(Speed::TrafficJam);
+    /// ```
+    pub fn set_speed<T: std::convert::Into<crate::model::speed_reading_interval::Speed>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.speed = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SpeedReadingInterval {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.maps.navconnect.v1.SpeedReadingInterval"
+    }
+}
+
+/// Defines additional types related to [SpeedReadingInterval].
+pub mod speed_reading_interval {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The classification of polyline speed based on traffic data.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Speed {
+        /// The speed is unspecified.
+        Unspecified,
+        /// Normal speed, no traffic delays.
+        Normal,
+        /// Slowdown detected, light to medium amount of traffic.
+        Slow,
+        /// Traffic delays, including standstill traffic.
+        TrafficJam,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Speed::value] or
+        /// [Speed::name].
+        UnknownValue(speed::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod speed {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Speed {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Normal => std::option::Option::Some(1),
+                Self::Slow => std::option::Option::Some(2),
+                Self::TrafficJam => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SPEED_UNSPECIFIED"),
+                Self::Normal => std::option::Option::Some("NORMAL"),
+                Self::Slow => std::option::Option::Some("SLOW"),
+                Self::TrafficJam => std::option::Option::Some("TRAFFIC_JAM"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Speed {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Speed {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Speed {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Normal,
+                2 => Self::Slow,
+                3 => Self::TrafficJam,
+                _ => Self::UnknownValue(speed::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Speed {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SPEED_UNSPECIFIED" => Self::Unspecified,
+                "NORMAL" => Self::Normal,
+                "SLOW" => Self::Slow,
+                "TRAFFIC_JAM" => Self::TrafficJam,
+                _ => Self::UnknownValue(speed::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Speed {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Normal => serializer.serialize_i32(1),
+                Self::Slow => serializer.serialize_i32(2),
+                Self::TrafficJam => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Speed {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Speed>::new(
+                ".google.maps.navconnect.v1.SpeedReadingInterval.Speed",
+            ))
+        }
+    }
+}
+
+/// A route polyline.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Route {
+    /// Output only. Traffic information on the polyline described as speed reading
+    /// intervals.
+    ///
+    /// NOTES:
+    ///
+    /// * The intervals are non-overlapping.
+    /// * The intervals are contiguous.
+    /// * The intervals cover the entire polyline.
+    /// * The intervals are sorted by increasing index.
+    /// * Speed is specified for each interval.
+    pub traffic_information: std::vec::Vec<crate::model::SpeedReadingInterval>,
+
+    /// The route format.
+    ///
+    /// The format populated is controlled by the `route_polyline_format`
+    /// parameter. If not set, it defaults to a simple polyline.
+    pub format: std::option::Option<crate::model::route::Format>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Route {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [traffic_information][crate::model::Route::traffic_information].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::Route;
+    /// use google_maps_navconnect_v1::model::SpeedReadingInterval;
+    /// let x = Route::new()
+    ///     .set_traffic_information([
+    ///         SpeedReadingInterval::default()/* use setters */,
+    ///         SpeedReadingInterval::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_traffic_information<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SpeedReadingInterval>,
+    {
+        use std::iter::Iterator;
+        self.traffic_information = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [format][crate::model::Route::format].
+    ///
+    /// Note that all the setters affecting `format` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::Route;
+    /// use google_maps_navconnect_v1::model::route::Format;
+    /// let x = Route::new().set_format(Some(Format::EncodedPolyline("example".to_string())));
+    /// ```
+    pub fn set_format<T: std::convert::Into<std::option::Option<crate::model::route::Format>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.format = v.into();
+        self
+    }
+
+    /// The value of [format][crate::model::Route::format]
+    /// if it holds a `SimplePolyline`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn simple_polyline(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SimplePolyline>> {
+        #[allow(unreachable_patterns)]
+        self.format.as_ref().and_then(|v| match v {
+            crate::model::route::Format::SimplePolyline(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [format][crate::model::Route::format]
+    /// to hold a `SimplePolyline`.
+    ///
+    /// Note that all the setters affecting `format` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::Route;
+    /// use google_maps_navconnect_v1::model::SimplePolyline;
+    /// let x = Route::new().set_simple_polyline(SimplePolyline::default()/* use setters */);
+    /// assert!(x.simple_polyline().is_some());
+    /// assert!(x.encoded_polyline().is_none());
+    /// assert!(x.s2_polyline().is_none());
+    /// assert!(x.geo_json().is_none());
+    /// ```
+    pub fn set_simple_polyline<
+        T: std::convert::Into<std::boxed::Box<crate::model::SimplePolyline>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.format =
+            std::option::Option::Some(crate::model::route::Format::SimplePolyline(v.into()));
+        self
+    }
+
+    /// The value of [format][crate::model::Route::format]
+    /// if it holds a `EncodedPolyline`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn encoded_polyline(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.format.as_ref().and_then(|v| match v {
+            crate::model::route::Format::EncodedPolyline(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [format][crate::model::Route::format]
+    /// to hold a `EncodedPolyline`.
+    ///
+    /// Note that all the setters affecting `format` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::Route;
+    /// let x = Route::new().set_encoded_polyline("example");
+    /// assert!(x.encoded_polyline().is_some());
+    /// assert!(x.simple_polyline().is_none());
+    /// assert!(x.s2_polyline().is_none());
+    /// assert!(x.geo_json().is_none());
+    /// ```
+    pub fn set_encoded_polyline<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.format =
+            std::option::Option::Some(crate::model::route::Format::EncodedPolyline(v.into()));
+        self
+    }
+
+    /// The value of [format][crate::model::Route::format]
+    /// if it holds a `S2Polyline`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn s2_polyline(&self) -> std::option::Option<&::bytes::Bytes> {
+        #[allow(unreachable_patterns)]
+        self.format.as_ref().and_then(|v| match v {
+            crate::model::route::Format::S2Polyline(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [format][crate::model::Route::format]
+    /// to hold a `S2Polyline`.
+    ///
+    /// Note that all the setters affecting `format` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::Route;
+    /// let x = Route::new().set_s2_polyline(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.s2_polyline().is_some());
+    /// assert!(x.simple_polyline().is_none());
+    /// assert!(x.encoded_polyline().is_none());
+    /// assert!(x.geo_json().is_none());
+    /// ```
+    pub fn set_s2_polyline<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.format = std::option::Option::Some(crate::model::route::Format::S2Polyline(v.into()));
+        self
+    }
+
+    /// The value of [format][crate::model::Route::format]
+    /// if it holds a `GeoJson`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn geo_json(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
+        #[allow(unreachable_patterns)]
+        self.format.as_ref().and_then(|v| match v {
+            crate::model::route::Format::GeoJson(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [format][crate::model::Route::format]
+    /// to hold a `GeoJson`.
+    ///
+    /// Note that all the setters affecting `format` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::Route;
+    /// use wkt::Struct;
+    /// let x = Route::new().set_geo_json(Struct::default()/* use setters */);
+    /// assert!(x.geo_json().is_some());
+    /// assert!(x.simple_polyline().is_none());
+    /// assert!(x.encoded_polyline().is_none());
+    /// assert!(x.s2_polyline().is_none());
+    /// ```
+    pub fn set_geo_json<T: std::convert::Into<std::boxed::Box<wkt::Struct>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.format = std::option::Option::Some(crate::model::route::Format::GeoJson(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for Route {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.maps.navconnect.v1.Route"
+    }
+}
+
+/// Defines additional types related to [Route].
+pub mod route {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The route format.
+    ///
+    /// The format populated is controlled by the `route_polyline_format`
+    /// parameter. If not set, it defaults to a simple polyline.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Format {
+        /// Output only. The route as a simple list of latlngs.
+        SimplePolyline(std::boxed::Box<crate::model::SimplePolyline>),
+        /// Output only. The route as an encoded polyline.
+        /// See
+        /// <https://developers.google.com/maps/documentation/utilities/polylinealgorithm>.
+        EncodedPolyline(std::string::String),
+        /// Output only. The route as an encoded S2Polyline.
+        /// See <https://s2geometry.io/devguide/basic_types.html>.
+        S2Polyline(::bytes::Bytes),
+        /// Output only. The route as a GeoJSON LineString.
+        /// See <https://tools.ietf.org/html/rfc7946#section-3.1.4>.
+        GeoJson(std::boxed::Box<wkt::Struct>),
+    }
+}
+
 /// Request message for NavConnectService.CreateTrip.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -1236,6 +2117,10 @@ pub struct GetTripRequest {
     /// Format: projects/{project}/trips/{trip_id}
     pub name: std::string::String,
 
+    /// Optional. The format of the route polyline to return.
+    /// If not set, `SIMPLE` route polyline will be returned.
+    pub route_polyline_format: crate::model::get_trip_request::RoutePolylineFormat,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1258,10 +2143,187 @@ impl GetTripRequest {
         self.name = v.into();
         self
     }
+
+    /// Sets the value of [route_polyline_format][crate::model::GetTripRequest::route_polyline_format].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_navconnect_v1::model::GetTripRequest;
+    /// use google_maps_navconnect_v1::model::get_trip_request::RoutePolylineFormat;
+    /// let x0 = GetTripRequest::new().set_route_polyline_format(RoutePolylineFormat::Simple);
+    /// let x1 = GetTripRequest::new().set_route_polyline_format(RoutePolylineFormat::Encoded);
+    /// let x2 = GetTripRequest::new().set_route_polyline_format(RoutePolylineFormat::S2Encoded);
+    /// ```
+    pub fn set_route_polyline_format<
+        T: std::convert::Into<crate::model::get_trip_request::RoutePolylineFormat>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.route_polyline_format = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for GetTripRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.maps.navconnect.v1.GetTripRequest"
+    }
+}
+
+/// Defines additional types related to [GetTripRequest].
+pub mod get_trip_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Specifies the format of the route polyline.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RoutePolylineFormat {
+        /// The route polyline format is unspecified.
+        Unspecified,
+        /// The route polyline is returned as a simple array of points represented as
+        /// `google.type.LatLng`.
+        Simple,
+        /// The route polyline is returned as an encoded string.
+        /// See
+        /// <https://developers.google.com/maps/documentation/utilities/polylinealgorithm>.
+        Encoded,
+        /// The route polyline is encoded as a S2Polyline.
+        /// See <https://s2geometry.io/devguide/basic_types.html>.
+        S2Encoded,
+        /// The route polyline is returned as a GeoJSON LineString.
+        /// See <https://tools.ietf.org/html/rfc7946#section-3.1.4>.
+        GeoJson,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RoutePolylineFormat::value] or
+        /// [RoutePolylineFormat::name].
+        UnknownValue(route_polyline_format::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod route_polyline_format {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl RoutePolylineFormat {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Simple => std::option::Option::Some(1),
+                Self::Encoded => std::option::Option::Some(4),
+                Self::S2Encoded => std::option::Option::Some(2),
+                Self::GeoJson => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ROUTE_POLYLINE_FORMAT_UNSPECIFIED"),
+                Self::Simple => std::option::Option::Some("SIMPLE"),
+                Self::Encoded => std::option::Option::Some("ENCODED"),
+                Self::S2Encoded => std::option::Option::Some("S2ENCODED"),
+                Self::GeoJson => std::option::Option::Some("GEO_JSON"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for RoutePolylineFormat {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RoutePolylineFormat {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RoutePolylineFormat {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Simple,
+                2 => Self::S2Encoded,
+                3 => Self::GeoJson,
+                4 => Self::Encoded,
+                _ => Self::UnknownValue(route_polyline_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RoutePolylineFormat {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ROUTE_POLYLINE_FORMAT_UNSPECIFIED" => Self::Unspecified,
+                "SIMPLE" => Self::Simple,
+                "ENCODED" => Self::Encoded,
+                "S2ENCODED" => Self::S2Encoded,
+                "GEO_JSON" => Self::GeoJson,
+                _ => Self::UnknownValue(route_polyline_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RoutePolylineFormat {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Simple => serializer.serialize_i32(1),
+                Self::Encoded => serializer.serialize_i32(4),
+                Self::S2Encoded => serializer.serialize_i32(2),
+                Self::GeoJson => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RoutePolylineFormat {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RoutePolylineFormat>::new(
+                ".google.maps.navconnect.v1.GetTripRequest.RoutePolylineFormat",
+            ))
+        }
     }
 }
