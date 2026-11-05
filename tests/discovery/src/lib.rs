@@ -14,17 +14,18 @@
 
 use anyhow::Result;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-use google_cloud_compute_v1::client::{Images, Instances, MachineTypes, Zones};
+use google_cloud_compute_v1::client::{
+    Images, InstanceGroups, Instances, MachineTypes, RegionHealthChecks, Zones,
+};
 use google_cloud_compute_v1::model::{
-    AttachedDisk, AttachedDiskInitializeParams, Duration as ComputeDuration, Instance,
-    NetworkInterface, Scheduling, ServiceAccount, scheduling::InstanceTerminationAction,
-    scheduling::ProvisioningModel,
+    AttachedDisk, AttachedDiskInitializeParams, HealthCheck, Instance, InstanceGroup,
+    NetworkInterface, ServiceAccount, TCPHealthCheck, health_check,
 };
 use google_cloud_gax::error::rpc::{Code, StatusDetails};
 use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy, RetryPolicyExt};
 use google_cloud_lro::Poller;
-use google_cloud_test_utils::resource_names::{random_image_name, random_vm_id, random_vm_prefix};
+use google_cloud_test_utils::resource_names::{PREFIX, random_image_name, random_vm_id};
 use google_cloud_test_utils::runtime_config::{
     project_id, region_id, test_service_account, zone_id,
 };
@@ -325,37 +326,68 @@ pub async fn images() -> Result<()> {
     Ok(())
 }
 
-pub async fn instances() -> Result<()> {
-    let client = Instances::builder().with_tracing().build().await?;
+pub async fn cleanup_stale_instance_groups(
+    client: &InstanceGroups,
+    project_id: &str,
+    zone_id: &str,
+) -> Result<()> {
+    use std::time::{Duration, SystemTime, UNIX_EPOCH};
+    let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
+    let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
+    let stale_deadline = Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
+
+    let mut items = client
+        .list()
+        .set_project(project_id)
+        .set_zone(zone_id)
+        .by_item();
+    while let Some(item) = items.next().await.transpose()? {
+        let Some(name) = item.name.filter(|n| n.starts_with(PREFIX)) else {
+            continue;
+        };
+        if item
+            .creation_timestamp
+            .and_then(|v| Timestamp::try_from(&v).ok())
+            .is_none_or(|t| t > stale_deadline)
+        {
+            continue;
+        }
+        let _ = client
+            .delete()
+            .set_project(project_id)
+            .set_zone(zone_id)
+            .set_instance_group(name.clone())
+            .poller()
+            .until_done()
+            .await
+            .inspect_err(|e| eprintln!("error cleaning up instance group {name}: {e:?}"))
+            .map(|op| {
+                op.to_result()
+                    .inspect_err(|e| eprintln!("error cleaning up instance group {name}: {e:?}"))
+            });
+    }
+    Ok(())
+}
+
+pub async fn instance_groups() -> Result<()> {
+    let client = InstanceGroups::builder()
+        .with_tracing()
+        .with_retry_policy(retry_policy())
+        .build()
+        .await?;
     let project_id = project_id()?;
-    let service_account = test_service_account()?;
     let zone_id = zone_id();
 
-    let id = random_vm_id();
-    let body = Instance::new()
-        .set_machine_type(format!("zones/{zone_id}/machineTypes/f1-micro"))
-        .set_name(&id)
-        .set_description("A test VM created by the Rust client library.")
-        .set_disks([AttachedDisk::new()
-            .set_initialize_params(
-                AttachedDiskInitializeParams::new()
-                    .set_source_image("projects/cos-cloud/global/images/family/cos-stable"),
-            )
-            .set_boot(true)
-            .set_auto_delete(true)])
-        .set_network_interfaces([NetworkInterface::new().set_network("global/networks/default")])
-        .set_service_accounts([ServiceAccount::new()
-            .set_email(&service_account)
-            .set_scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])]);
-    // Automatically shutdown and delete the instance after 15m.
-    let body = body.set_scheduling(
-        Scheduling::new()
-            .set_provisioning_model(ProvisioningModel::Standard)
-            .set_instance_termination_action(InstanceTerminationAction::Delete)
-            .set_max_run_duration(ComputeDuration::new().set_seconds(15 * 60)),
-    );
+    if let Err(e) = cleanup_stale_instance_groups(&client, &project_id, &zone_id).await {
+        tracing::error!("Error cleaning up stale test instance groups: {e:?}");
+    }
 
-    tracing::info!("Starting new instance.");
+    let id = random_vm_id();
+    let body = InstanceGroup::new()
+        .set_name(&id)
+        .set_description("A test InstanceGroup created by the Rust client library.");
+
+    tracing::info!("Testing InstanceGroups::insert()");
     let operation = client
         .insert()
         .set_project(&project_id)
@@ -365,28 +397,46 @@ pub async fn instances() -> Result<()> {
         .until_done()
         .await?
         .to_result()?;
-    tracing::info!("Operation completed with = {operation:?}");
+    tracing::info!("InstanceGroups::insert() completed with = {operation:?}");
 
-    tracing::info!("Getting instance details.");
-    let instance = client
+    tracing::info!("Testing InstanceGroups::get()");
+    let group = client
         .get()
         .set_project(&project_id)
         .set_zone(&zone_id)
-        .set_instance(&id)
+        .set_instance_group(&id)
         .send()
         .await?;
-    tracing::info!("instance = {instance:?}");
+    assert_eq!(group.name.as_deref(), Some(id.as_str()), "group={group:?}");
+    tracing::info!("group = {group:?}");
 
-    tracing::info!("Testing Instances::list()");
+    tracing::info!("Testing InstanceGroups::list()");
     let mut items = client
         .list()
         .set_project(&project_id)
         .set_zone(&zone_id)
         .by_item();
-    while let Some(instance) = items.next().await.transpose()? {
-        tracing::info!("instance = {instance:?}");
+    let mut found = false;
+    while let Some(item) = items.next().await.transpose()? {
+        tracing::info!("item = {item:?}");
+        if item.name.as_deref() == Some(id.as_str()) {
+            found = true;
+        }
     }
-    tracing::info!("DONE Instances::list()");
+    assert!(found, "expected to find instance group {id} in list()");
+    tracing::info!("DONE InstanceGroups::list()");
+
+    tracing::info!("Testing InstanceGroups::delete()");
+    let operation = client
+        .delete()
+        .set_project(&project_id)
+        .set_zone(&zone_id)
+        .set_instance_group(&id)
+        .poller()
+        .until_done()
+        .await?
+        .to_result()?;
+    tracing::info!("InstanceGroups::delete() completed with = {operation:?}");
 
     Ok(())
 }
@@ -444,46 +494,73 @@ pub async fn lro_errors() -> Result<()> {
     Ok(())
 }
 
-pub async fn region_instances() -> Result<()> {
-    use google_cloud_compute_v1::client::RegionInstances;
-    use google_cloud_compute_v1::model::{BulkInsertInstanceResource, InstanceProperties};
+pub async fn cleanup_stale_region_health_checks(
+    client: &RegionHealthChecks,
+    project_id: &str,
+    region_id: &str,
+) -> Result<()> {
+    use std::time::{Duration, SystemTime, UNIX_EPOCH};
+    let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
+    let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
+    let stale_deadline = Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
-    let client = RegionInstances::builder().with_tracing().build().await?;
+    let mut items = client
+        .list()
+        .set_project(project_id)
+        .set_region(region_id)
+        .by_item();
+    while let Some(item) = items.next().await.transpose()? {
+        let Some(name) = item.name.filter(|n| n.starts_with(PREFIX)) else {
+            continue;
+        };
+        if item
+            .creation_timestamp
+            .and_then(|v| Timestamp::try_from(&v).ok())
+            .is_none_or(|t| t > stale_deadline)
+        {
+            continue;
+        }
+        let _ = client
+            .delete()
+            .set_project(project_id)
+            .set_region(region_id)
+            .set_health_check(name.clone())
+            .poller()
+            .until_done()
+            .await
+            .inspect_err(|e| eprintln!("error cleaning up region health check {name}: {e:?}"))
+            .map(|op| {
+                op.to_result().inspect_err(|e| {
+                    eprintln!("error cleaning up region health check {name}: {e:?}")
+                })
+            });
+    }
+    Ok(())
+}
+
+pub async fn region_health_checks() -> Result<()> {
+    let client = RegionHealthChecks::builder()
+        .with_tracing()
+        .with_retry_policy(retry_policy())
+        .build()
+        .await?;
     let project_id = project_id()?;
-    let service_account = test_service_account()?;
     let region_id = region_id();
 
-    let instance_properties = InstanceProperties::new()
-        .set_description("A test VM created by the Rust client library.")
-        .set_machine_type("f1-micro")
-        .set_disks([AttachedDisk::new()
-            .set_initialize_params(
-                AttachedDiskInitializeParams::new()
-                    .set_source_image("projects/cos-cloud/global/images/family/cos-stable"),
-            )
-            .set_boot(true)
-            .set_auto_delete(true)])
-        .set_network_interfaces([NetworkInterface::new().set_network("global/networks/default")])
-        .set_service_accounts([ServiceAccount::new()
-            .set_email(&service_account)
-            .set_scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])]);
-    // Automatically shutdown and delete the instance after 15m.
-    let instance_properties = instance_properties.set_scheduling(
-        Scheduling::new()
-            .set_provisioning_model(ProvisioningModel::Standard)
-            .set_instance_termination_action(InstanceTerminationAction::Delete)
-            .set_max_run_duration(ComputeDuration::new().set_seconds(15 * 60)),
-    );
+    if let Err(e) = cleanup_stale_region_health_checks(&client, &project_id, &region_id).await {
+        tracing::error!("Error cleaning up stale test region health checks: {e:?}");
+    }
 
-    let id = random_vm_prefix(16);
-    let body = BulkInsertInstanceResource::new()
-        .set_count(1)
-        .set_name_pattern(format!("{id}-####"))
-        .set_instance_properties(instance_properties);
+    let id = random_vm_id();
+    let body = HealthCheck::new()
+        .set_name(&id)
+        .set_description("A test HealthCheck created by the Rust client library.")
+        .set_type(health_check::Type::Tcp)
+        .set_tcp_health_check(TCPHealthCheck::new().set_port(80));
 
-    tracing::info!("Starting new instance.");
+    tracing::info!("Testing RegionHealthChecks::insert()");
     let operation = client
-        .bulk_insert()
+        .insert()
         .set_project(&project_id)
         .set_region(&region_id)
         .set_body(body)
@@ -491,7 +568,50 @@ pub async fn region_instances() -> Result<()> {
         .until_done()
         .await?
         .to_result()?;
-    tracing::info!("Operation completed with = {operation:?}");
+    tracing::info!("RegionHealthChecks::insert() completed with = {operation:?}");
+
+    tracing::info!("Testing RegionHealthChecks::get()");
+    let health_check = client
+        .get()
+        .set_project(&project_id)
+        .set_region(&region_id)
+        .set_health_check(&id)
+        .send()
+        .await?;
+    assert_eq!(
+        health_check.name.as_deref(),
+        Some(id.as_str()),
+        "health_check={health_check:?}"
+    );
+    tracing::info!("health_check = {health_check:?}");
+
+    tracing::info!("Testing RegionHealthChecks::list()");
+    let mut items = client
+        .list()
+        .set_project(&project_id)
+        .set_region(&region_id)
+        .by_item();
+    let mut found = false;
+    while let Some(item) = items.next().await.transpose()? {
+        tracing::info!("item = {item:?}");
+        if item.name.as_deref() == Some(id.as_str()) {
+            found = true;
+        }
+    }
+    assert!(found, "expected to find region health check {id} in list()");
+    tracing::info!("DONE RegionHealthChecks::list()");
+
+    tracing::info!("Testing RegionHealthChecks::delete()");
+    let operation = client
+        .delete()
+        .set_project(&project_id)
+        .set_region(&region_id)
+        .set_health_check(&id)
+        .poller()
+        .until_done()
+        .await?
+        .to_result()?;
+    tracing::info!("RegionHealthChecks::delete() completed with = {operation:?}");
 
     Ok(())
 }
