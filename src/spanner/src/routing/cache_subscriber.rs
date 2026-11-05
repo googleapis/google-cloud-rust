@@ -135,7 +135,9 @@ impl CacheSubscriberBuilder {
         cache_updater: Arc<CacheUpdater>,
     ) -> Self {
         let request_options = HeaderValue::from_str(&database)
-            .map(|prefix| DatabaseClient::amend_options(&prefix, RequestOptions::default()))
+            .map(|prefix| {
+                DatabaseClient::attach_resource_prefix_header(&prefix, RequestOptions::default())
+            })
             .unwrap_or_default();
         Self {
             database,
@@ -780,8 +782,8 @@ mod tests {
         let (prefix_sender, mut prefix_receiver) = mpsc::channel(4);
 
         let mut mock = MockSpanner::new();
-        mock.expect_fetch_cache_update().returning(move |req| {
-            let prefix = req
+        mock.expect_fetch_cache_update().returning(move |request| {
+            let prefix = request
                 .metadata()
                 .get("google-cloud-resource-prefix")
                 .and_then(|value| value.to_str().ok())
@@ -799,7 +801,11 @@ mod tests {
             .recv()
             .await
             .expect("FetchCacheUpdate must be called");
-        assert_eq!(prefix.as_deref(), Some(DATABASE));
+        assert_eq!(
+            prefix.as_deref(),
+            Some(DATABASE),
+            "FetchCacheUpdate must carry google-cloud-resource-prefix"
+        );
 
         subscriber.wait_for_shutdown().await;
     }

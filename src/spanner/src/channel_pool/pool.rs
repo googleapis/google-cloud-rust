@@ -417,7 +417,9 @@ impl PrimeSession {
         let options = session_name
             .split_once("/sessions/")
             .and_then(|(database, _)| HeaderValue::from_str(database).ok())
-            .map(|prefix| DatabaseClient::amend_options(&prefix, RequestOptions::default()))
+            .map(|prefix| {
+                DatabaseClient::attach_resource_prefix_header(&prefix, RequestOptions::default())
+            })
             .unwrap_or_default();
         Self {
             session_name,
@@ -612,7 +614,11 @@ mod tests {
             .get_extension::<HeaderMap>()
             .and_then(|headers| headers.get("google-cloud-resource-prefix"))
             .and_then(|value| value.to_str().ok());
-        assert_eq!(prefix, Some("projects/p/instances/i/databases/d"));
+        assert_eq!(
+            prefix,
+            Some("projects/p/instances/i/databases/d"),
+            "prime session must set resource prefix from valid session name"
+        );
 
         let prime = PrimeSession::new("not-a-session-name".to_string());
         let prefix = prime
