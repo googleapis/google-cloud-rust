@@ -356,7 +356,7 @@ pub async fn cleanup_stale_instance_groups(
             .delete()
             .set_project(project_id)
             .set_zone(zone_id)
-            .set_instance_group(name.clone())
+            .set_instance_group(&name)
             .poller()
             .until_done()
             .await
@@ -524,7 +524,7 @@ pub async fn cleanup_stale_region_health_checks(
             .delete()
             .set_project(project_id)
             .set_region(region_id)
-            .set_health_check(name.clone())
+            .set_health_check(&name)
             .poller()
             .until_done()
             .await
