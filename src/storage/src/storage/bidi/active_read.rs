@@ -227,7 +227,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "current_thread")]
+    #[tokio::test]
     #[serial_test::serial]
     async fn interrupted() {
         let (tx, mut rx) = tokio::sync::mpsc::channel(1);
