@@ -1547,6 +1547,15 @@
       "Product": "Cloud Run Admin API"
     }
   ],
+  "google-cloud-saasplatform-saasservicemgmt-v1": [
+    {
+      "PkgName": "google-cloud-saasplatform-saasservicemgmt-v1",
+      "Language": "Rust",
+      "DocsURL": "https://docs.rs/google-cloud-saasplatform-saasservicemgmt-v1/latest",
+      "APIShortname": "saasservicemgmt",
+      "Product": "App Lifecycle Manager API"
+    }
+  ],
   "google-cloud-scheduler-v1": [
     {
       "PkgName": "google-cloud-scheduler-v1",
