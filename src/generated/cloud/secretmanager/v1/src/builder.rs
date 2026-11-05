@@ -1371,26 +1371,31 @@ pub mod secret_manager_service {
             self
         }
 
-        /// Sets the value of [credentials][crate::model::EnableManagedRotationRequest::credentials].
+        /// Sets the value of [credential][crate::model::EnableManagedRotationRequest::credential].
         ///
-        /// Note that all the setters affecting `credentials` are
+        /// Note that all the setters affecting `credential` are
         /// mutually exclusive.
-        pub fn set_credentials<
-            T: Into<Option<crate::model::enable_managed_rotation_request::Credentials>>,
+        pub fn set_credential<
+            T: Into<Option<crate::model::enable_managed_rotation_request::Credential>>,
         >(
             mut self,
             v: T,
         ) -> Self {
-            self.0.request.credentials = v.into();
+            self.0.request.credential = v.into();
             self
         }
 
-        /// Sets the value of [credentials][crate::model::EnableManagedRotationRequest::credentials]
+        /// Sets the value of [credential][crate::model::EnableManagedRotationRequest::credential]
         /// to hold a `CloudSqlSingleUserCredentials`.
         ///
-        /// Note that all the setters affecting `credentials` are
+        /// Note that all the setters affecting `credential` are
         /// mutually exclusive.
-        pub fn set_cloud_sql_single_user_credentials<T: std::convert::Into<std::boxed::Box<crate::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials>>>(mut self, v: T) -> Self{
+        pub fn set_cloud_sql_single_user_credentials<
+            T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlSingleUserCredentials>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_cloud_sql_single_user_credentials(v);
             self
         }

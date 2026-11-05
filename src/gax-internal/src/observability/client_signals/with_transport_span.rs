@@ -160,8 +160,7 @@ mod tests {
     use pretty_assertions::assert_eq;
     use std::collections::BTreeSet;
 
-    #[tokio::test(start_paused = true)]
-    #[ignore = "TODO(#6077) - disabled because it is flaky"]
+    #[tokio::test]
     async fn poll_ok() -> anyhow::Result<()> {
         let providers = SignalProviders::new();
 
@@ -225,8 +224,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
-    #[ignore = "TODO(#6077) - disabled because it is flaky"]
+    #[tokio::test]
     async fn poll_err() -> anyhow::Result<()> {
         let providers = SignalProviders::new();
 
@@ -282,8 +280,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
-    #[ignore = "TODO(#6077) - disabled because it is flaky"]
+    #[tokio::test]
     async fn poll_ok_retry() -> anyhow::Result<()> {
         let providers = SignalProviders::new();
 
@@ -344,8 +341,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
-    #[ignore = "TODO(#6077) - disabled because it is flaky"]
+    #[tokio::test]
     async fn poll_without_recorder() -> anyhow::Result<()> {
         let providers = SignalProviders::new();
 
