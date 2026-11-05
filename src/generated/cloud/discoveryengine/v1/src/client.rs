@@ -22,13 +22,244 @@
 ///
 /// # Example
 /// ```
+/// # use google_cloud_discoveryengine_v1::client::AclConfigService;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = AclConfigService::builder().build().await?;
+///     let response = client.get_acl_config()
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/aclConfig"))
+///         .send().await?;
+///     println!("response {:?}", response);
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing Acl Configuration.
+///
+/// # Configuration
+///
+/// To configure `AclConfigService` use the `with_*` methods in the type returned
+/// by [builder()][AclConfigService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://discoveryengine.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::acl_config_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::acl_config_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `AclConfigService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `AclConfigService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "acl-config-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "acl-config-service")))]
+#[derive(Clone, Debug)]
+pub struct AclConfigService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::AclConfigService>,
+}
+
+#[cfg(feature = "acl-config-service")]
+impl AclConfigService {
+    /// Returns a builder for [AclConfigService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_discoveryengine_v1::client::AclConfigService;
+    /// let client = AclConfigService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::acl_config_service::ClientBuilder {
+        crate::new_client_builder(super::builder::acl_config_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::AclConfigService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::AclConfigService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::AclConfigService> {
+        super::transport::AclConfigService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::AclConfigService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::AclConfigService::new)
+    }
+
+    /// Default ACL configuration for use in a location of a customer's project.
+    /// Updates will only reflect to new data stores. Existing data stores will
+    /// still use the old value.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::AclConfigService;
+    /// use google_cloud_discoveryengine_v1::model::AclConfig;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AclConfigService, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_acl_config()
+    ///         .set_acl_config(
+    ///             AclConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/aclConfig"))/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_acl_config(&self) -> super::builder::acl_config_service::UpdateAclConfig {
+        super::builder::acl_config_service::UpdateAclConfig::new(self.inner.clone())
+    }
+
+    /// Gets the [AclConfig][google.cloud.discoveryengine.v1.AclConfig].
+    ///
+    /// [google.cloud.discoveryengine.v1.AclConfig]: crate::model::AclConfig
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::AclConfigService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AclConfigService, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_acl_config()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/aclConfig"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_acl_config(&self) -> super::builder::acl_config_service::GetAclConfig {
+        super::builder::acl_config_service::GetAclConfig::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::AclConfigService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AclConfigService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::acl_config_service::ListOperations {
+        super::builder::acl_config_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::AclConfigService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AclConfigService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::acl_config_service::GetOperation {
+        super::builder::acl_config_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::AclConfigService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AclConfigService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::acl_config_service::CancelOperation {
+        super::builder::acl_config_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Discovery Engine API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_discoveryengine_v1::client::AssistantService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    collection_id: &str,
+///    engine_id: &str,
 /// ) -> anyhow::Result<()> {
 ///     let client = AssistantService::builder().build().await?;
-///     let mut list = client.list_operations()
-///         /* set fields */
+///     let mut list = client.list_assistants()
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/engines/{engine_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
@@ -151,6 +382,131 @@ impl AssistantService {
     /// ```
     pub fn stream_assist(&self) -> super::builder::assistant_service::StreamAssist {
         super::builder::assistant_service::StreamAssist::new(self.inner.clone())
+    }
+
+    /// Creates an [Assistant][google.cloud.discoveryengine.v1.Assistant].
+    ///
+    /// [google.cloud.discoveryengine.v1.Assistant]: crate::model::Assistant
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::AssistantService;
+    /// use google_cloud_discoveryengine_v1::model::Assistant;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AssistantService, project_id: &str, location_id: &str, collection_id: &str, engine_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_assistant()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/engines/{engine_id}"))
+    ///         .set_assistant_id("assistant_id_value")
+    ///         .set_assistant(
+    ///             Assistant::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_assistant(&self) -> super::builder::assistant_service::CreateAssistant {
+        super::builder::assistant_service::CreateAssistant::new(self.inner.clone())
+    }
+
+    /// Deletes an [Assistant][google.cloud.discoveryengine.v1.Assistant].
+    ///
+    /// [google.cloud.discoveryengine.v1.Assistant]: crate::model::Assistant
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::AssistantService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AssistantService, project_id: &str, location_id: &str, collection_id: &str, engine_id: &str, assistant_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_assistant()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/engines/{engine_id}/assistants/{assistant_id}"))
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_assistant(&self) -> super::builder::assistant_service::DeleteAssistant {
+        super::builder::assistant_service::DeleteAssistant::new(self.inner.clone())
+    }
+
+    /// Updates an [Assistant][google.cloud.discoveryengine.v1.Assistant]
+    ///
+    /// [google.cloud.discoveryengine.v1.Assistant]: crate::model::Assistant
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::AssistantService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_discoveryengine_v1::model::Assistant;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AssistantService, project_id: &str, location_id: &str, collection_id: &str, engine_id: &str, assistant_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_assistant()
+    ///         .set_assistant(
+    ///             Assistant::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/engines/{engine_id}/assistants/{assistant_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_assistant(&self) -> super::builder::assistant_service::UpdateAssistant {
+        super::builder::assistant_service::UpdateAssistant::new(self.inner.clone())
+    }
+
+    /// Gets an [Assistant][google.cloud.discoveryengine.v1.Assistant].
+    ///
+    /// [google.cloud.discoveryengine.v1.Assistant]: crate::model::Assistant
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::AssistantService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AssistantService, project_id: &str, location_id: &str, collection_id: &str, engine_id: &str, assistant_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_assistant()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/engines/{engine_id}/assistants/{assistant_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_assistant(&self) -> super::builder::assistant_service::GetAssistant {
+        super::builder::assistant_service::GetAssistant::new(self.inner.clone())
+    }
+
+    /// Lists all [Assistant][google.cloud.discoveryengine.v1.Assistant]s under an
+    /// [Engine][google.cloud.discoveryengine.v1.Engine].
+    ///
+    /// [google.cloud.discoveryengine.v1.Assistant]: crate::model::Assistant
+    /// [google.cloud.discoveryengine.v1.Engine]: crate::model::Engine
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::AssistantService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AssistantService, project_id: &str, location_id: &str, collection_id: &str, engine_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_assistants()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/engines/{engine_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_assistants(&self) -> super::builder::assistant_service::ListAssistants {
+        super::builder::assistant_service::ListAssistants::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -518,6 +874,281 @@ impl CmekConfigService {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_discoveryengine_v1::client::CollectionService;
+/// use google_cloud_lro::Poller;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    collection_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = CollectionService::builder().build().await?;
+///     client.delete_collection()
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"))
+///         .poller().until_done().await?;
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing
+/// [Collection][google.cloud.discoveryengine.v1.Collection]s.
+///
+/// [google.cloud.discoveryengine.v1.Collection]: crate::model::Collection
+///
+/// # Configuration
+///
+/// To configure `CollectionService` use the `with_*` methods in the type returned
+/// by [builder()][CollectionService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://discoveryengine.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::collection_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::collection_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `CollectionService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `CollectionService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "collection-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "collection-service")))]
+#[derive(Clone, Debug)]
+pub struct CollectionService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::CollectionService>,
+}
+
+#[cfg(feature = "collection-service")]
+impl CollectionService {
+    /// Returns a builder for [CollectionService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_discoveryengine_v1::client::CollectionService;
+    /// let client = CollectionService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::collection_service::ClientBuilder {
+        crate::new_client_builder(super::builder::collection_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::CollectionService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::CollectionService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::CollectionService> {
+        super::transport::CollectionService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::CollectionService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::CollectionService::new)
+    }
+
+    /// Deletes a [Collection][google.cloud.discoveryengine.v1.Collection].
+    ///
+    /// [google.cloud.discoveryengine.v1.Collection]: crate::model::Collection
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::CollectionService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &CollectionService, project_id: &str, location_id: &str, collection_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_collection()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_collection(&self) -> super::builder::collection_service::DeleteCollection {
+        super::builder::collection_service::DeleteCollection::new(self.inner.clone())
+    }
+
+    /// Gets the IAM access control policy for a
+    /// [Collection][google.cloud.discoveryengine.v1.Collection]. A `NOT_FOUND`
+    /// error is returned if the resource does not exist. An empty policy is
+    /// returned if the resource exists but does not have a policy set on it.
+    ///
+    /// [google.cloud.discoveryengine.v1.Collection]: crate::model::Collection
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::CollectionService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &CollectionService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::collection_service::GetIamPolicy {
+        super::builder::collection_service::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Sets the IAM access control policy for a
+    /// [Collection][google.cloud.discoveryengine.v1.Collection]. A `NOT_FOUND`
+    /// error is returned if the resource does not exist.
+    ///
+    /// **Important:** When setting a policy directly on a Collection resource,
+    /// the only recommended roles in the bindings are:
+    /// `roles/discoveryengine.admin`
+    /// `roles/discoveryengine.agentspaceAdmin`
+    /// `roles/discoveryengine.viewer`
+    /// `roles/discoveryengine.agentspaceViewer`
+    /// `roles/discoveryengine.user`
+    /// `roles/discoveryengine.agentspaceUser`
+    /// Attempting to grant any other role will result in a warning in logging.
+    ///
+    /// [google.cloud.discoveryengine.v1.Collection]: crate::model::Collection
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::CollectionService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &CollectionService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::collection_service::SetIamPolicy {
+        super::builder::collection_service::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::CollectionService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &CollectionService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::collection_service::ListOperations {
+        super::builder::collection_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::CollectionService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &CollectionService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::collection_service::GetOperation {
+        super::builder::collection_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::CollectionService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &CollectionService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::collection_service::CancelOperation {
+        super::builder::collection_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Discovery Engine API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_discoveryengine_v1::client::CompletionService;
 /// use google_cloud_lro::Poller;
 /// async fn sample(
@@ -642,6 +1273,28 @@ impl CompletionService {
     /// ```
     pub fn complete_query(&self) -> super::builder::completion_service::CompleteQuery {
         super::builder::completion_service::CompleteQuery::new(self.inner.clone())
+    }
+
+    /// Completes the user input with advanced keyword suggestions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::CompletionService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &CompletionService
+    /// ) -> Result<()> {
+    ///     let response = client.advanced_complete_query()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn advanced_complete_query(
+        &self,
+    ) -> super::builder::completion_service::AdvancedCompleteQuery {
+        super::builder::completion_service::AdvancedCompleteQuery::new(self.inner.clone())
     }
 
     /// Imports all
@@ -1552,6 +2205,7 @@ impl ConversationalSearchService {
     /// ) -> Result<()> {
     ///     let response = client.create_session()
     ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
+    ///         .set_session_id("session_id_value")
     ///         .set_session(
     ///             Session::new()/* set fields */
     ///         )
@@ -1741,14 +2395,296 @@ impl ConversationalSearchService {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_discoveryengine_v1::client::DataConnectorService;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    collection_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = DataConnectorService::builder().build().await?;
+///     let response = client.get_data_connector()
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/dataConnector"))
+///         .send().await?;
+///     println!("response {:?}", response);
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for data connector management.
+///
+/// # Configuration
+///
+/// To configure `DataConnectorService` use the `with_*` methods in the type returned
+/// by [builder()][DataConnectorService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://discoveryengine.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::data_connector_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::data_connector_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `DataConnectorService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `DataConnectorService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "data-connector-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "data-connector-service")))]
+#[derive(Clone, Debug)]
+pub struct DataConnectorService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::DataConnectorService>,
+}
+
+#[cfg(feature = "data-connector-service")]
+impl DataConnectorService {
+    /// Returns a builder for [DataConnectorService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_discoveryengine_v1::client::DataConnectorService;
+    /// let client = DataConnectorService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::data_connector_service::ClientBuilder {
+        crate::new_client_builder(super::builder::data_connector_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::DataConnectorService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::DataConnectorService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::DataConnectorService> {
+        super::transport::DataConnectorService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::DataConnectorService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::DataConnectorService::new)
+    }
+
+    /// Creates a [Collection][google.cloud.discoveryengine.v1.Collection] and sets
+    /// up the [DataConnector][google.cloud.discoveryengine.v1.DataConnector] for
+    /// it. To stop a
+    /// [DataConnector][google.cloud.discoveryengine.v1.DataConnector] after setup,
+    /// use the
+    /// [CollectionService.DeleteCollection][google.cloud.discoveryengine.v1.CollectionService.DeleteCollection]
+    /// method.
+    ///
+    /// [google.cloud.discoveryengine.v1.Collection]: crate::model::Collection
+    /// [google.cloud.discoveryengine.v1.CollectionService.DeleteCollection]: crate::client::CollectionService::delete_collection
+    /// [google.cloud.discoveryengine.v1.DataConnector]: crate::model::DataConnector
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DataConnectorService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &DataConnectorService
+    /// ) -> Result<()> {
+    ///     let response = client.set_up_data_connector()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_up_data_connector(
+        &self,
+    ) -> super::builder::data_connector_service::SetUpDataConnector {
+        super::builder::data_connector_service::SetUpDataConnector::new(self.inner.clone())
+    }
+
+    /// Gets the [DataConnector][google.cloud.discoveryengine.v1.DataConnector].
+    /// [DataConnector][google.cloud.discoveryengine.v1.DataConnector] is a
+    /// singleton resource for each
+    /// [Collection][google.cloud.discoveryengine.v1.Collection].
+    ///
+    /// [google.cloud.discoveryengine.v1.Collection]: crate::model::Collection
+    /// [google.cloud.discoveryengine.v1.DataConnector]: crate::model::DataConnector
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DataConnectorService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &DataConnectorService, project_id: &str, location_id: &str, collection_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_data_connector()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/dataConnector"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_data_connector(&self) -> super::builder::data_connector_service::GetDataConnector {
+        super::builder::data_connector_service::GetDataConnector::new(self.inner.clone())
+    }
+
+    /// Updates a [DataConnector][google.cloud.discoveryengine.v1.DataConnector].
+    ///
+    /// [google.cloud.discoveryengine.v1.DataConnector]: crate::model::DataConnector
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DataConnectorService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_discoveryengine_v1::model::DataConnector;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &DataConnectorService, project_id: &str, location_id: &str, collection_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_data_connector()
+    ///         .set_data_connector(
+    ///             DataConnector::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/dataConnector"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_data_connector(
+        &self,
+    ) -> super::builder::data_connector_service::UpdateDataConnector {
+        super::builder::data_connector_service::UpdateDataConnector::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DataConnectorService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &DataConnectorService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::data_connector_service::ListOperations {
+        super::builder::data_connector_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DataConnectorService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &DataConnectorService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::data_connector_service::GetOperation {
+        super::builder::data_connector_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DataConnectorService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &DataConnectorService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::data_connector_service::CancelOperation {
+        super::builder::data_connector_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Discovery Engine API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_discoveryengine_v1::client::DataStoreService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// async fn sample(
-///    parent: &str,
+///    project_id: &str,
+///    location_id: &str,
+///    collection_id: &str,
 /// ) -> anyhow::Result<()> {
 ///     let client = DataStoreService::builder().build().await?;
 ///     let mut list = client.list_data_stores()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
@@ -1882,10 +2818,10 @@ impl DataStoreService {
     /// use google_cloud_discoveryengine_v1::model::DataStore;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &DataStoreService, parent: &str
+    ///    client: &DataStoreService, project_id: &str, location_id: &str, collection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_data_store()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"))
     ///         .set_data_store(
     ///             DataStore::new()/* set fields */
     ///         )
@@ -1931,10 +2867,10 @@ impl DataStoreService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &DataStoreService, parent: &str
+    ///    client: &DataStoreService, project_id: &str, location_id: &str, collection_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_data_stores()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2004,6 +2940,65 @@ impl DataStoreService {
     /// ```
     pub fn update_data_store(&self) -> super::builder::data_store_service::UpdateDataStore {
         super::builder::data_store_service::UpdateDataStore::new(self.inner.clone())
+    }
+
+    /// Gets the IAM access control policy for a
+    /// [DataStore][google.cloud.discoveryengine.v1.DataStore]. A `NOT_FOUND` error
+    /// is returned if the resource does not exist. An empty policy is returned if
+    /// the resource exists but does not have a policy set on it.
+    ///
+    /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DataStoreService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &DataStoreService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::data_store_service::GetIamPolicy {
+        super::builder::data_store_service::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Sets the IAM access control policy for a
+    /// [DataStore][google.cloud.discoveryengine.v1.DataStore]. A `NOT_FOUND` error
+    /// is returned if the resource does not exist.
+    ///
+    /// **Important:** When setting a policy directly on a DataStore resource,
+    /// the only recommended roles in the bindings are:
+    /// `roles/discoveryengine.admin`
+    /// `roles/discoveryengine.agentspaceAdmin`
+    /// `roles/discoveryengine.viewer`
+    /// `roles/discoveryengine.agentspaceViewer`
+    /// `roles/discoveryengine.user`
+    /// `roles/discoveryengine.agentspaceUser`
+    /// Attempting to grant any other role will result in a warning in logging.
+    ///
+    /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DataStoreService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &DataStoreService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::data_store_service::SetIamPolicy {
+        super::builder::data_store_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2505,11 +3500,13 @@ impl DocumentService {
 /// # use google_cloud_discoveryengine_v1::client::EngineService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// async fn sample(
-///    parent: &str,
+///    project_id: &str,
+///    location_id: &str,
+///    collection_id: &str,
 /// ) -> anyhow::Result<()> {
 ///     let client = EngineService::builder().build().await?;
 ///     let mut list = client.list_engines()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
@@ -2613,7 +3610,7 @@ impl EngineService {
             .map(super::tracing::EngineService::new)
     }
 
-    /// Creates a [Engine][google.cloud.discoveryengine.v1.Engine].
+    /// Creates an [Engine][google.cloud.discoveryengine.v1.Engine].
     ///
     /// [google.cloud.discoveryengine.v1.Engine]: crate::model::Engine
     ///
@@ -2634,10 +3631,10 @@ impl EngineService {
     /// use google_cloud_discoveryengine_v1::model::Engine;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &EngineService, parent: &str
+    ///    client: &EngineService, project_id: &str, location_id: &str, collection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_engine()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"))
     ///         .set_engine_id("engine_id_value")
     ///         .set_engine(
     ///             Engine::new()/* set fields */
@@ -2651,7 +3648,7 @@ impl EngineService {
         super::builder::engine_service::CreateEngine::new(self.inner.clone())
     }
 
-    /// Deletes a [Engine][google.cloud.discoveryengine.v1.Engine].
+    /// Deletes an [Engine][google.cloud.discoveryengine.v1.Engine].
     ///
     /// [google.cloud.discoveryengine.v1.Engine]: crate::model::Engine
     ///
@@ -2711,7 +3708,7 @@ impl EngineService {
         super::builder::engine_service::UpdateEngine::new(self.inner.clone())
     }
 
-    /// Gets a [Engine][google.cloud.discoveryengine.v1.Engine].
+    /// Gets an [Engine][google.cloud.discoveryengine.v1.Engine].
     ///
     /// [google.cloud.discoveryengine.v1.Engine]: crate::model::Engine
     ///
@@ -2744,10 +3741,10 @@ impl EngineService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &EngineService, parent: &str
+    ///    client: &EngineService, project_id: &str, location_id: &str, collection_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_engines()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2757,6 +3754,65 @@ impl EngineService {
     /// ```
     pub fn list_engines(&self) -> super::builder::engine_service::ListEngines {
         super::builder::engine_service::ListEngines::new(self.inner.clone())
+    }
+
+    /// Gets the IAM access control policy for an
+    /// [Engine][google.cloud.discoveryengine.v1.Engine]. A `NOT_FOUND` error is
+    /// returned if the resource does not exist. An empty policy is returned if the
+    /// resource exists but does not have a policy set on it.
+    ///
+    /// [google.cloud.discoveryengine.v1.Engine]: crate::model::Engine
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::EngineService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &EngineService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::engine_service::GetIamPolicy {
+        super::builder::engine_service::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Sets the IAM access control policy for an
+    /// [Engine][google.cloud.discoveryengine.v1.Engine]. A `NOT_FOUND` error is
+    /// returned if the resource does not exist.
+    ///
+    /// **Important:** When setting a policy directly on an Engine resource,
+    /// the only recommended roles in the bindings are:
+    /// `roles/discoveryengine.admin`,
+    /// `roles/discoveryengine.agentspaceAdmin`,
+    /// `roles/discoveryengine.user`,
+    /// `roles/discoveryengine.agentspaceUser`,
+    /// `roles/discoveryengine.viewer`,
+    /// `roles/discoveryengine.agentspaceViewer`.
+    /// Attempting to grant any other role will result in a warning in logging.
+    ///
+    /// [google.cloud.discoveryengine.v1.Engine]: crate::model::Engine
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::EngineService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &EngineService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::engine_service::SetIamPolicy {
+        super::builder::engine_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -3475,6 +4531,351 @@ impl IdentityMappingStoreService {
         &self,
     ) -> super::builder::identity_mapping_store_service::CancelOperation {
         super::builder::identity_mapping_store_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Discovery Engine API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_discoveryengine_v1::client::LicenseConfigService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = LicenseConfigService::builder().build().await?;
+///     let mut list = client.list_license_configs()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing license config related resources.
+///
+/// # Configuration
+///
+/// To configure `LicenseConfigService` use the `with_*` methods in the type returned
+/// by [builder()][LicenseConfigService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://discoveryengine.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::license_config_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::license_config_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `LicenseConfigService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `LicenseConfigService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "license-config-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "license-config-service")))]
+#[derive(Clone, Debug)]
+pub struct LicenseConfigService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::LicenseConfigService>,
+}
+
+#[cfg(feature = "license-config-service")]
+impl LicenseConfigService {
+    /// Returns a builder for [LicenseConfigService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_discoveryengine_v1::client::LicenseConfigService;
+    /// let client = LicenseConfigService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::license_config_service::ClientBuilder {
+        crate::new_client_builder(super::builder::license_config_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::LicenseConfigService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::LicenseConfigService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::LicenseConfigService> {
+        super::transport::LicenseConfigService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::LicenseConfigService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::LicenseConfigService::new)
+    }
+
+    /// Creates a [LicenseConfig][google.cloud.discoveryengine.v1.LicenseConfig]
+    /// This method should only be used for creating NotebookLm licenses or Gemini
+    /// Enterprise free trial licenses.
+    ///
+    /// [google.cloud.discoveryengine.v1.LicenseConfig]: crate::model::LicenseConfig
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::LicenseConfigService;
+    /// use google_cloud_discoveryengine_v1::model::LicenseConfig;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &LicenseConfigService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_license_config()
+    ///         .set_parent(parent)
+    ///         .set_license_config(
+    ///             LicenseConfig::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_license_config(
+        &self,
+    ) -> super::builder::license_config_service::CreateLicenseConfig {
+        super::builder::license_config_service::CreateLicenseConfig::new(self.inner.clone())
+    }
+
+    /// Updates the [LicenseConfig][google.cloud.discoveryengine.v1.LicenseConfig]
+    ///
+    /// [google.cloud.discoveryengine.v1.LicenseConfig]: crate::model::LicenseConfig
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::LicenseConfigService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_discoveryengine_v1::model::LicenseConfig;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &LicenseConfigService, project_id: &str, location_id: &str, license_config_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_license_config()
+    ///         .set_license_config(
+    ///             LicenseConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/licenseConfigs/{license_config_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_license_config(
+        &self,
+    ) -> super::builder::license_config_service::UpdateLicenseConfig {
+        super::builder::license_config_service::UpdateLicenseConfig::new(self.inner.clone())
+    }
+
+    /// Gets a [LicenseConfig][google.cloud.discoveryengine.v1.LicenseConfig].
+    ///
+    /// [google.cloud.discoveryengine.v1.LicenseConfig]: crate::model::LicenseConfig
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::LicenseConfigService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &LicenseConfigService, project_id: &str, location_id: &str, license_config_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_license_config()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/licenseConfigs/{license_config_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_license_config(&self) -> super::builder::license_config_service::GetLicenseConfig {
+        super::builder::license_config_service::GetLicenseConfig::new(self.inner.clone())
+    }
+
+    /// Lists all the
+    /// [LicenseConfig][google.cloud.discoveryengine.v1.LicenseConfig]s associated
+    /// with the project.
+    ///
+    /// [google.cloud.discoveryengine.v1.LicenseConfig]: crate::model::LicenseConfig
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::LicenseConfigService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &LicenseConfigService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_license_configs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_license_configs(
+        &self,
+    ) -> super::builder::license_config_service::ListLicenseConfigs {
+        super::builder::license_config_service::ListLicenseConfigs::new(self.inner.clone())
+    }
+
+    /// Distributes a
+    /// [LicenseConfig][google.cloud.discoveryengine.v1.LicenseConfig] from billing
+    /// account level to project level.
+    ///
+    /// [google.cloud.discoveryengine.v1.LicenseConfig]: crate::model::LicenseConfig
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::LicenseConfigService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &LicenseConfigService
+    /// ) -> Result<()> {
+    ///     let response = client.distribute_license_config()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn distribute_license_config(
+        &self,
+    ) -> super::builder::license_config_service::DistributeLicenseConfig {
+        super::builder::license_config_service::DistributeLicenseConfig::new(self.inner.clone())
+    }
+
+    /// This method is called from the billing account side to retract the
+    /// [LicenseConfig][google.cloud.discoveryengine.v1.LicenseConfig] from the
+    /// given project back to the billing account.
+    ///
+    /// [google.cloud.discoveryengine.v1.LicenseConfig]: crate::model::LicenseConfig
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::LicenseConfigService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &LicenseConfigService
+    /// ) -> Result<()> {
+    ///     let response = client.retract_license_config()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn retract_license_config(
+        &self,
+    ) -> super::builder::license_config_service::RetractLicenseConfig {
+        super::builder::license_config_service::RetractLicenseConfig::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::LicenseConfigService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &LicenseConfigService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::license_config_service::ListOperations {
+        super::builder::license_config_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::LicenseConfigService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &LicenseConfigService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::license_config_service::GetOperation {
+        super::builder::license_config_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::LicenseConfigService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &LicenseConfigService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::license_config_service::CancelOperation {
+        super::builder::license_config_service::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -4903,23 +6304,19 @@ impl SearchTuningService {
 /// # Example
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::ServingConfigService;
-/// # extern crate wkt as google_cloud_wkt;
-/// use google_cloud_wkt::FieldMask;
-/// use google_cloud_discoveryengine_v1::model::ServingConfig;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
 /// async fn sample(
 ///    project_id: &str,
 ///    location_id: &str,
 ///    data_store_id: &str,
-///    serving_config_id: &str,
 /// ) -> anyhow::Result<()> {
 ///     let client = ServingConfigService::builder().build().await?;
-///     let response = client.update_serving_config()
-///         .set_serving_config(
-///             ServingConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/servingConfigs/{serving_config_id}"))/* set fields */
-///         )
-///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
-///         .send().await?;
-///     println!("response {:?}", response);
+///     let mut list = client.list_serving_configs()
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 ///     Ok(())
 /// }
 /// ```
@@ -5020,6 +6417,66 @@ impl ServingConfigService {
             .map(super::tracing::ServingConfigService::new)
     }
 
+    /// Creates a ServingConfig.
+    ///
+    /// Note: The Google Cloud console works only with the default serving config.
+    /// Additional ServingConfigs can be created and managed only via the API.
+    ///
+    /// A maximum of 100
+    /// [ServingConfig][google.cloud.discoveryengine.v1.ServingConfig]s are allowed
+    /// in an [Engine][google.cloud.discoveryengine.v1.Engine], otherwise a
+    /// RESOURCE_EXHAUSTED error is returned.
+    ///
+    /// [google.cloud.discoveryengine.v1.Engine]: crate::model::Engine
+    /// [google.cloud.discoveryengine.v1.ServingConfig]: crate::model::ServingConfig
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ServingConfigService;
+    /// use google_cloud_discoveryengine_v1::model::ServingConfig;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &ServingConfigService, project_id: &str, location_id: &str, data_store_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_serving_config()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
+    ///         .set_serving_config(
+    ///             ServingConfig::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_serving_config(
+        &self,
+    ) -> super::builder::serving_config_service::CreateServingConfig {
+        super::builder::serving_config_service::CreateServingConfig::new(self.inner.clone())
+    }
+
+    /// Deletes a ServingConfig.
+    ///
+    /// Returns a NOT_FOUND error if the ServingConfig does not exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ServingConfigService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &ServingConfigService, project_id: &str, location_id: &str, data_store_id: &str, serving_config_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_serving_config()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/servingConfigs/{serving_config_id}"))
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_serving_config(
+        &self,
+    ) -> super::builder::serving_config_service::DeleteServingConfig {
+        super::builder::serving_config_service::DeleteServingConfig::new(self.inner.clone())
+    }
+
     /// Updates a ServingConfig.
     ///
     /// Returns a NOT_FOUND error if the ServingConfig does not exist.
@@ -5048,6 +6505,53 @@ impl ServingConfigService {
         &self,
     ) -> super::builder::serving_config_service::UpdateServingConfig {
         super::builder::serving_config_service::UpdateServingConfig::new(self.inner.clone())
+    }
+
+    /// Gets a ServingConfig.
+    ///
+    /// Returns a NotFound error if the ServingConfig does not exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ServingConfigService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &ServingConfigService, project_id: &str, location_id: &str, data_store_id: &str, serving_config_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_serving_config()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/servingConfigs/{serving_config_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_serving_config(&self) -> super::builder::serving_config_service::GetServingConfig {
+        super::builder::serving_config_service::GetServingConfig::new(self.inner.clone())
+    }
+
+    /// Lists all ServingConfigs linked to this dataStore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ServingConfigService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &ServingConfigService, project_id: &str, location_id: &str, data_store_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_serving_configs()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_serving_configs(
+        &self,
+    ) -> super::builder::serving_config_service::ListServingConfigs {
+        super::builder::serving_config_service::ListServingConfigs::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -5250,6 +6754,7 @@ impl SessionService {
     /// ) -> Result<()> {
     ///     let response = client.create_session()
     ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
+    ///         .set_session_id("session_id_value")
     ///         .set_session(
     ///             Session::new()/* set fields */
     ///         )
@@ -6522,6 +8027,32 @@ impl UserLicenseService {
         super::builder::user_license_service::ListUserLicenses::new(self.inner.clone())
     }
 
+    /// Lists all the
+    /// [LicenseConfigUsageStats][google.cloud.discoveryengine.v1.LicenseConfigUsageStats]s
+    /// associated with the project.
+    ///
+    /// [google.cloud.discoveryengine.v1.LicenseConfigUsageStats]: crate::model::LicenseConfigUsageStats
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::UserLicenseService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &UserLicenseService
+    /// ) -> Result<()> {
+    ///     let response = client.list_license_configs_usage_stats()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_license_configs_usage_stats(
+        &self,
+    ) -> super::builder::user_license_service::ListLicenseConfigsUsageStats {
+        super::builder::user_license_service::ListLicenseConfigsUsageStats::new(self.inner.clone())
+    }
+
     /// Updates the User License.
     /// This method is used for batch assign/unassign licenses to users.
     ///
@@ -6622,5 +8153,467 @@ impl UserLicenseService {
     /// ```
     pub fn cancel_operation(&self) -> super::builder::user_license_service::CancelOperation {
         super::builder::user_license_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Discovery Engine API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_discoveryengine_v1::client::UserStoreService;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    user_store_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = UserStoreService::builder().build().await?;
+///     let response = client.get_user_store()
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/userStores/{user_store_id}"))
+///         .send().await?;
+///     println!("response {:?}", response);
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing User Stores.
+///
+/// # Configuration
+///
+/// To configure `UserStoreService` use the `with_*` methods in the type returned
+/// by [builder()][UserStoreService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://discoveryengine.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::user_store_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::user_store_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `UserStoreService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `UserStoreService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "user-store-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "user-store-service")))]
+#[derive(Clone, Debug)]
+pub struct UserStoreService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::UserStoreService>,
+}
+
+#[cfg(feature = "user-store-service")]
+impl UserStoreService {
+    /// Returns a builder for [UserStoreService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_discoveryengine_v1::client::UserStoreService;
+    /// let client = UserStoreService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::user_store_service::ClientBuilder {
+        crate::new_client_builder(super::builder::user_store_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::UserStoreService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::UserStoreService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::UserStoreService> {
+        super::transport::UserStoreService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::UserStoreService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::UserStoreService::new)
+    }
+
+    /// Gets the User Store.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::UserStoreService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &UserStoreService, project_id: &str, location_id: &str, user_store_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_user_store()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/userStores/{user_store_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_user_store(&self) -> super::builder::user_store_service::GetUserStore {
+        super::builder::user_store_service::GetUserStore::new(self.inner.clone())
+    }
+
+    /// Updates the User Store.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::UserStoreService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_discoveryengine_v1::model::UserStore;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &UserStoreService, project_id: &str, location_id: &str, user_store_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_user_store()
+    ///         .set_user_store(
+    ///             UserStore::new().set_name(format!("projects/{project_id}/locations/{location_id}/userStores/{user_store_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_user_store(&self) -> super::builder::user_store_service::UpdateUserStore {
+        super::builder::user_store_service::UpdateUserStore::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::UserStoreService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &UserStoreService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::user_store_service::ListOperations {
+        super::builder::user_store_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::UserStoreService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &UserStoreService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::user_store_service::GetOperation {
+        super::builder::user_store_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::UserStoreService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &UserStoreService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::user_store_service::CancelOperation {
+        super::builder::user_store_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Discovery Engine API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_discoveryengine_v1::client::WidgetConfigService;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    data_store_id: &str,
+///    widget_config_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = WidgetConfigService::builder().build().await?;
+///     let response = client.get_widget_config()
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/widgetConfigs/{widget_config_id}"))
+///         .send().await?;
+///     println!("response {:?}", response);
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing
+/// [WidgetConfig][google.cloud.discoveryengine.v1.WidgetConfig] configuration.
+///
+/// [google.cloud.discoveryengine.v1.WidgetConfig]: crate::model::WidgetConfig
+///
+/// # Configuration
+///
+/// To configure `WidgetConfigService` use the `with_*` methods in the type returned
+/// by [builder()][WidgetConfigService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://discoveryengine.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::widget_config_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::widget_config_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `WidgetConfigService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `WidgetConfigService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "widget-config-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "widget-config-service")))]
+#[derive(Clone, Debug)]
+pub struct WidgetConfigService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::WidgetConfigService>,
+}
+
+#[cfg(feature = "widget-config-service")]
+impl WidgetConfigService {
+    /// Returns a builder for [WidgetConfigService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_discoveryengine_v1::client::WidgetConfigService;
+    /// let client = WidgetConfigService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::widget_config_service::ClientBuilder {
+        crate::new_client_builder(super::builder::widget_config_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::WidgetConfigService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::WidgetConfigService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::WidgetConfigService> {
+        super::transport::WidgetConfigService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::WidgetConfigService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::WidgetConfigService::new)
+    }
+
+    /// Gets a [WidgetConfig][google.cloud.discoveryengine.v1.WidgetConfig].
+    ///
+    /// [google.cloud.discoveryengine.v1.WidgetConfig]: crate::model::WidgetConfig
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::WidgetConfigService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &WidgetConfigService, project_id: &str, location_id: &str, data_store_id: &str, widget_config_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_widget_config()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/widgetConfigs/{widget_config_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_widget_config(&self) -> super::builder::widget_config_service::GetWidgetConfig {
+        super::builder::widget_config_service::GetWidgetConfig::new(self.inner.clone())
+    }
+
+    /// Update a WidgetConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::WidgetConfigService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_discoveryengine_v1::model::WidgetConfig;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &WidgetConfigService, project_id: &str, location_id: &str, data_store_id: &str, widget_config_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_widget_config()
+    ///         .set_widget_config(
+    ///             WidgetConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/widgetConfigs/{widget_config_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_widget_config(
+        &self,
+    ) -> super::builder::widget_config_service::UpdateWidgetConfig {
+        super::builder::widget_config_service::UpdateWidgetConfig::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::WidgetConfigService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &WidgetConfigService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::widget_config_service::ListOperations {
+        super::builder::widget_config_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::WidgetConfigService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &WidgetConfigService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::widget_config_service::GetOperation {
+        super::builder::widget_config_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::WidgetConfigService;
+    /// use google_cloud_discoveryengine_v1::Result;
+    /// async fn sample(
+    ///    client: &WidgetConfigService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::widget_config_service::CancelOperation {
+        super::builder::widget_config_service::CancelOperation::new(self.inner.clone())
     }
 }

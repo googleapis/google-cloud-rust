@@ -1186,6 +1186,10 @@ async fn batch_write_happy_path_records_all_metrics_and_time_series() -> anyhow:
         message_count += 1;
     }
     assert_eq!(message_count, 1, "Exactly one message should be yielded");
+    assert!(
+        stream.next().await.is_none(),
+        "stream must remain None after natural completion"
+    );
 
     meter_provider
         .force_flush()
@@ -1423,6 +1427,17 @@ async fn batch_write_restart_clears_previous_attempt_headers() -> anyhow::Result
     let result = stream.next().await;
     assert!(result.is_some(), "must yield error");
     assert!(result.expect("some").is_err());
+
+    // Stream must be fused after terminal error: subsequent calls must return None
+    // without triggering reconnect or recording extra attempts.
+    assert!(
+        stream.next().await.is_none(),
+        "stream must return None after terminal error"
+    );
+    assert!(
+        stream.next().await.is_none(),
+        "stream must continue returning None"
+    );
 
     meter_provider
         .force_flush()
