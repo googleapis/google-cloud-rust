@@ -730,7 +730,6 @@ mod tests {
     }
 
     #[tokio::test]
-    #[ignore = "flaky test, see #5290"]
     async fn open_object_success() -> anyhow::Result<()> {
         // TODO(#4772) - Move these `use` declarations and constants once the tracing APIs are stable.
         use crate::model_ext::ReadRange;
@@ -740,6 +739,7 @@ mod tests {
             ReadRange as ProtoRange,
         };
         use storage_grpc_mock::{MockStorage, start};
+        use tracing::Instrument;
         const BUCKET_NAME: &str = "projects/_/buckets/test-bucket";
         const OBJECT_NAME: &str = "test-object";
         const BIND_ADDRESS: &str = "0.0.0.0:0";
@@ -747,52 +747,58 @@ mod tests {
 
         let guard = TestLayer::initialize();
 
-        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(10);
-        let response = BidiReadObjectResponse {
-            metadata: Some(ProtoObject {
-                bucket: BUCKET_NAME.to_string(),
-                name: OBJECT_NAME.to_string(),
-                generation: 123456,
-                ..ProtoObject::default()
-            }),
-            object_data_ranges: vec![ObjectRangeData {
-                read_range: Some(ProtoRange {
-                    read_id: 0_i64,
-                    ..ProtoRange::default()
+        async move {
+            let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(10);
+            let response = BidiReadObjectResponse {
+                metadata: Some(ProtoObject {
+                    bucket: BUCKET_NAME.to_string(),
+                    name: OBJECT_NAME.to_string(),
+                    generation: 123456,
+                    ..ProtoObject::default()
                 }),
-                range_end: true,
-                checksummed_data: Some(ChecksummedData {
-                    content: PAYLOAD.as_bytes().to_vec(),
-                    crc32c: None,
-                }),
-            }],
-            ..BidiReadObjectResponse::default()
-        };
-        // This is the initial response.
-        tx.send(Ok(response.clone())).await?;
-        // These simulate the calls to ObjectDescriptor::read_range(). The data is wrong, but this
-        // test is about the spans.
-        tx.send(Ok(response.clone())).await?;
-        tx.send(Ok(response.clone())).await?;
+                object_data_ranges: vec![ObjectRangeData {
+                    read_range: Some(ProtoRange {
+                        read_id: 0_i64,
+                        ..ProtoRange::default()
+                    }),
+                    range_end: true,
+                    checksummed_data: Some(ChecksummedData {
+                        content: PAYLOAD.as_bytes().to_vec(),
+                        crc32c: None,
+                    }),
+                }],
+                ..BidiReadObjectResponse::default()
+            };
+            // This is the initial response.
+            tx.send(Ok(response.clone())).await?;
+            // These simulate the calls to ObjectDescriptor::read_range(). The data is wrong, but this
+            // test is about the spans.
+            tx.send(Ok(response.clone())).await?;
+            tx.send(Ok(response.clone())).await?;
 
-        let mut mock = MockStorage::new();
-        mock.expect_bidi_read_object()
-            .return_once(|_| Ok(TonicResponse::from(rx)));
-        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+            let mut mock = MockStorage::new();
+            mock.expect_bidi_read_object()
+                .return_once(|_| Ok(TonicResponse::from(rx)));
+            let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
 
-        let client = crate::client::Storage::builder()
-            .with_credentials(Anonymous::new().build())
-            .with_endpoint(endpoint.clone())
-            .with_tracing()
-            .build()
-            .await?;
-        let (descriptor, _reader0) = client
-            .open_object(BUCKET_NAME, OBJECT_NAME)
-            .send_and_read(ReadRange::all())
-            .await?;
-        let _reader1 = descriptor.read_range(ReadRange::offset(5)).await;
-        let _reader2 = descriptor.read_range(ReadRange::segment(10, 10)).await;
-        let _reader3 = descriptor.read_range(ReadRange::tail(15)).await;
+            let client = crate::client::Storage::builder()
+                .with_credentials(Anonymous::new().build())
+                .with_endpoint(endpoint.clone())
+                .with_tracing()
+                .build()
+                .await?;
+            let (descriptor, _reader0) = client
+                .open_object(BUCKET_NAME, OBJECT_NAME)
+                .send_and_read(ReadRange::all())
+                .await?;
+            let _reader1 = descriptor.read_range(ReadRange::offset(5)).await;
+            let _reader2 = descriptor.read_range(ReadRange::segment(10, 10)).await;
+            let _reader3 = descriptor.read_range(ReadRange::tail(15)).await;
+
+            anyhow::Ok(())
+        }
+        .instrument(guard.span())
+        .await?;
 
         let captured = TestLayer::capture(&guard);
         let _span = captured
