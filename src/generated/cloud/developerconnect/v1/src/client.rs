@@ -436,6 +436,29 @@ impl DeveloperConnect {
         super::builder::developer_connect::FetchReadToken::new(self.inner.clone())
     }
 
+    /// Opens a Pull Request in the remote SCM repository associated with a
+    /// GitRepositoryLink.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// use google_cloud_developerconnect_v1::Result;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> Result<()> {
+    ///     let response = client.open_git_repository_link_pull_request()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn open_git_repository_link_pull_request(
+        &self,
+    ) -> super::builder::developer_connect::OpenGitRepositoryLinkPullRequest {
+        super::builder::developer_connect::OpenGitRepositoryLinkPullRequest::new(self.inner.clone())
+    }
+
     /// FetchLinkableGitRepositories returns a list of git repositories from an SCM
     /// that are available to be added to a Connection.
     ///
@@ -505,6 +528,221 @@ impl DeveloperConnect {
     /// ```
     pub fn fetch_git_refs(&self) -> super::builder::developer_connect::FetchGitRefs {
         super::builder::developer_connect::FetchGitRefs::new(self.inner.clone())
+    }
+
+    /// Diff commits for a GitRepositoryLink.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// use google_cloud_developerconnect_v1::Result;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> Result<()> {
+    ///     let response = client.diff_git_repository_link_commit()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn diff_git_repository_link_commit(
+        &self,
+    ) -> super::builder::developer_connect::DiffGitRepositoryLinkCommit {
+        super::builder::developer_connect::DiffGitRepositoryLinkCommit::new(self.inner.clone())
+    }
+
+    /// Fetch Commit details from a Git repository link.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// use google_cloud_developerconnect_v1::Result;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> Result<()> {
+    ///     let response = client.fetch_git_repository_link_commit()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_git_repository_link_commit(
+        &self,
+    ) -> super::builder::developer_connect::FetchGitRepositoryLinkCommit {
+        super::builder::developer_connect::FetchGitRepositoryLinkCommit::new(self.inner.clone())
+    }
+
+    /// Fetch a list of Commits from a Git repository link.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_developerconnect_v1::Result;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> Result<()> {
+    ///     let mut list = client.fetch_git_repository_link_commit_list()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_git_repository_link_commit_list(
+        &self,
+    ) -> super::builder::developer_connect::FetchGitRepositoryLinkCommitList {
+        super::builder::developer_connect::FetchGitRepositoryLinkCommitList::new(self.inner.clone())
+    }
+
+    /// Fetches blame information for a file or line range in a file.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// use google_cloud_developerconnect_v1::Result;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> Result<()> {
+    ///     let response = client.fetch_git_repository_link_file_blame()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_git_repository_link_file_blame(
+        &self,
+    ) -> super::builder::developer_connect::FetchGitRepositoryLinkFileBlame {
+        super::builder::developer_connect::FetchGitRepositoryLinkFileBlame::new(self.inner.clone())
+    }
+
+    /// Fetch Pull Request details from a Git repository link.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// use google_cloud_developerconnect_v1::Result;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> Result<()> {
+    ///     let response = client.fetch_git_repository_link_pull_request()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_git_repository_link_pull_request(
+        &self,
+    ) -> super::builder::developer_connect::FetchGitRepositoryLinkPullRequest {
+        super::builder::developer_connect::FetchGitRepositoryLinkPullRequest::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Add a comment to a Pull Request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// use google_cloud_developerconnect_v1::Result;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> Result<()> {
+    ///     let response = client.add_git_repository_link_pull_request_comment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn add_git_repository_link_pull_request_comment(
+        &self,
+    ) -> super::builder::developer_connect::AddGitRepositoryLinkPullRequestComment {
+        super::builder::developer_connect::AddGitRepositoryLinkPullRequestComment::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Add a review comment (inline on diff) to a Pull Request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// use google_cloud_developerconnect_v1::Result;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> Result<()> {
+    ///     let response = client.add_git_repository_link_pull_request_review_comment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn add_git_repository_link_pull_request_review_comment(
+        &self,
+    ) -> super::builder::developer_connect::AddGitRepositoryLinkPullRequestReviewComment {
+        super::builder::developer_connect::AddGitRepositoryLinkPullRequestReviewComment::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Modifies a Pull Request in the remote SCM repository associated with a
+    /// GitRepositoryLink.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// use google_cloud_developerconnect_v1::Result;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> Result<()> {
+    ///     let response = client.modify_git_repository_link_pull_request()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn modify_git_repository_link_pull_request(
+        &self,
+    ) -> super::builder::developer_connect::ModifyGitRepositoryLinkPullRequest {
+        super::builder::developer_connect::ModifyGitRepositoryLinkPullRequest::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Fetches a list of Pull Requests from the remote repository.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_developerconnect_v1::Result;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> Result<()> {
+    ///     let mut list = client.fetch_git_repository_link_pull_request_list()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn fetch_git_repository_link_pull_request_list(
+        &self,
+    ) -> super::builder::developer_connect::FetchGitRepositoryLinkPullRequestList {
+        super::builder::developer_connect::FetchGitRepositoryLinkPullRequestList::new(
+            self.inner.clone(),
+        )
     }
 
     /// Lists AccountConnectors in a given project and location.
