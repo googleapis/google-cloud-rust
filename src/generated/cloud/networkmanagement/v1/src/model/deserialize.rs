@@ -299,6 +299,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Endpoint {
             __redis_cluster,
             __gke_pod,
             __dms_private_connection,
+            __datastream_private_connection,
             __cloud_function,
             __app_engine_version,
             __cloud_run_revision,
@@ -351,6 +352,12 @@ impl<'de> serde::de::Deserialize<'de> for super::Endpoint {
                             "gke_pod" => Ok(__FieldTag::__gke_pod),
                             "dmsPrivateConnection" => Ok(__FieldTag::__dms_private_connection),
                             "dms_private_connection" => Ok(__FieldTag::__dms_private_connection),
+                            "datastreamPrivateConnection" => {
+                                Ok(__FieldTag::__datastream_private_connection)
+                            }
+                            "datastream_private_connection" => {
+                                Ok(__FieldTag::__datastream_private_connection)
+                            }
                             "cloudFunction" => Ok(__FieldTag::__cloud_function),
                             "cloud_function" => Ok(__FieldTag::__cloud_function),
                             "appEngineVersion" => Ok(__FieldTag::__app_engine_version),
@@ -535,6 +542,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Endpoint {
                                 ));
                             }
                             result.dms_private_connection = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__datastream_private_connection => {
+                            if !fields.insert(__FieldTag::__datastream_private_connection) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for datastream_private_connection",
+                                ));
+                            }
+                            result.datastream_private_connection = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
@@ -2672,6 +2689,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Step {
             __serverless_neg,
             __ngfw_packet_inspection,
             __dms_private_connection,
+            __datastream_private_connection,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2780,6 +2798,12 @@ impl<'de> serde::de::Deserialize<'de> for super::Step {
                             "ngfw_packet_inspection" => Ok(__FieldTag::__ngfw_packet_inspection),
                             "dmsPrivateConnection" => Ok(__FieldTag::__dms_private_connection),
                             "dms_private_connection" => Ok(__FieldTag::__dms_private_connection),
+                            "datastreamPrivateConnection" => {
+                                Ok(__FieldTag::__datastream_private_connection)
+                            }
+                            "datastream_private_connection" => {
+                                Ok(__FieldTag::__datastream_private_connection)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3591,6 +3615,26 @@ impl<'de> serde::de::Deserialize<'de> for super::Step {
                             }
                             result.step_info = std::option::Option::Some(
                                 crate::model::step::StepInfo::DmsPrivateConnection(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::PrivateConnectionInfo>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__datastream_private_connection => {
+                            if !fields.insert(__FieldTag::__datastream_private_connection) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for datastream_private_connection",
+                                ));
+                            }
+                            if result.step_info.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `step_info`, a oneof with full ID .google.cloud.networkmanagement.v1.Step.datastream_private_connection, latest field was datastreamPrivateConnection",
+                                ));
+                            }
+                            result.step_info = std::option::Option::Some(
+                                crate::model::step::StepInfo::DatastreamPrivateConnection(
                                     map.next_value::<std::option::Option<
                                         std::boxed::Box<crate::model::PrivateConnectionInfo>,
                                     >>()?

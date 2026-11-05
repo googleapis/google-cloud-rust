@@ -66,6 +66,7 @@ pub(crate) fn inject_context(span: &Span, headers: &mut HeaderMap) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use google_cloud_test_utils::test_layer::TestLayer;
     use opentelemetry::trace::{
         SpanContext, SpanId, TraceFlags, TraceId, TraceState, TracerProvider,
     };
@@ -120,6 +121,7 @@ mod tests {
     }
 
     fn set_up_otel_and_tracing() -> Dispatch {
+        let _ = TestLayer::initialize();
         let tracer_provider = SdkTracerProvider::builder().build();
         let tracer = tracer_provider.tracer("test");
 
@@ -128,7 +130,6 @@ mod tests {
         Dispatch::new(subscriber)
     }
 
-    #[ignore = "TODO(#6077) - disabled because it was flaky"]
     #[test]
     fn inject_context_success() {
         let dispatcher = set_up_otel_and_tracing();
