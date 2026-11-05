@@ -187,7 +187,7 @@ impl ClientAuthentication {
             && let Some(client_secret) = &self.client_secret
         {
             let plain_header = format!("{client_id}:{client_secret}");
-            let encoded = base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(plain_header);
+            let encoded = base64::engine::general_purpose::STANDARD.encode(plain_header);
             let header = http::HeaderValue::from_str(format!("Basic {encoded}").as_str());
             if let Ok(value) = header {
                 headers.insert("Authorization", value);
@@ -222,14 +222,41 @@ mod tests {
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
     use std::error::Error as _;
+    use test_case::test_case;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    #[test_case(Some("user"), Some("pass"), Some("Basic dXNlcjpwYXNz"); "no padding")]
+    #[test_case(Some("user"), Some("pass12"), Some("Basic dXNlcjpwYXNzMTI="); "single padding")]
+    #[test_case(Some("id>"), Some("s?1"), Some("Basic aWQ+OnM/MQ=="); "double padding and standard alphabet")]
+    #[test_case(Some("user"), None, None; "missing client_secret")]
+    #[test_case(None, Some("pass"), None; "missing client_id")]
+    #[test_case(None, None, None; "no client auth")]
+    fn inject_auth_header(
+        client_id: Option<&str>,
+        client_secret: Option<&str>,
+        expected: Option<&str>,
+    ) -> TestResult {
+        let auth = ClientAuthentication {
+            client_id: client_id.map(str::to_string),
+            client_secret: client_secret.map(str::to_string),
+        };
+        let mut headers = http::HeaderMap::new();
+        auth.inject_auth(&mut headers)?;
+        assert_eq!(
+            headers
+                .get(http::header::AUTHORIZATION)
+                .and_then(|v| v.to_str().ok()),
+            expected
+        );
+        Ok(())
+    }
 
     #[tokio::test]
     async fn exchange_token() -> TestResult {
         let authentication = ClientAuthentication {
-            client_id: Some("client_id".to_string()),
-            client_secret: Some("supersecret".to_string()),
+            client_id: Some("id>".to_string()),
+            client_secret: Some("s?1".to_string()),
         };
         let response_body = json!({
             "access_token":"an_example_token",
@@ -239,9 +266,6 @@ mod tests {
             "scope":DEFAULT_SCOPE
         })
         .to_string();
-
-        let expected_basic_auth =
-            base64::engine::general_purpose::URL_SAFE_NO_PAD.encode("client_id:supersecret");
 
         let server = Server::run();
         server.expect(
@@ -265,10 +289,7 @@ mod tests {
                     "32555940559.apps.googleusercontent.com"
                 )))),
                 request::body(url_decoded(contains(("scope", DEFAULT_SCOPE)))),
-                request::headers(contains((
-                    "authorization",
-                    format!("Basic {expected_basic_auth}")
-                ))),
+                request::headers(contains(("authorization", "Basic aWQ+OnM/MQ=="))),
                 request::headers(contains((
                     "content-type",
                     "application/x-www-form-urlencoded"
@@ -313,16 +334,13 @@ mod tests {
     #[tokio::test]
     async fn exchange_token_err() -> TestResult {
         let authentication = ClientAuthentication {
-            client_id: Some("client_id".to_string()),
-            client_secret: Some("supersecret".to_string()),
+            client_id: Some("id>".to_string()),
+            client_secret: Some("s?1".to_string()),
         };
         let response_body = json!({
             "error":"bad request",
         })
         .to_string();
-
-        let expected_basic_auth =
-            base64::engine::general_purpose::URL_SAFE_NO_PAD.encode("client_id:supersecret");
 
         let server = Server::run();
         server.expect(
@@ -341,10 +359,7 @@ mod tests {
                     "subject_token_type",
                     JWT_TOKEN_TYPE
                 )))),
-                request::headers(contains((
-                    "authorization",
-                    format!("Basic {expected_basic_auth}")
-                ))),
+                request::headers(contains(("authorization", "Basic aWQ+OnM/MQ=="))),
                 request::headers(contains((
                     "content-type",
                     "application/x-www-form-urlencoded"
