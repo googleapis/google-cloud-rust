@@ -15,7 +15,7 @@
 use crate::batch_read_only_transaction::BatchReadOnlyTransactionBuilder;
 use crate::batch_write_transaction::BatchWriteTransactionBuilder;
 use crate::channel_pool::ChannelTarget;
-use crate::client::Spanner;
+use crate::client::{DEFAULT_REQUEST_HEADERS_CAPACITY, Spanner};
 use crate::model::transaction_options::Mode;
 use crate::model::transaction_options::read_only::TimestampBound;
 use crate::model::transaction_selector::Selector;
@@ -1172,7 +1172,7 @@ impl DatabaseClient {
             return options;
         }
 
-        let mut headers = HeaderMap::with_capacity(2);
+        let mut headers = HeaderMap::with_capacity(DEFAULT_REQUEST_HEADERS_CAPACITY);
         headers.insert(RESOURCE_PREFIX_HEADER.clone(), resource_prefix.clone());
         options.insert_extension(headers)
     }
