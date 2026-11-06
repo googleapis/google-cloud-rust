@@ -97,7 +97,6 @@ impl ReadOptions {
 }
 
 #[derive(Clone, Debug)]
-#[allow(dead_code)]
 pub(crate) enum LookupReadMode {
     NonTransactional(ReadOptions),
     Transaction(Bytes),
