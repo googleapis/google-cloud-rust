@@ -36,4 +36,4 @@ pub(crate) mod sealed {
 }
 
 pub use arrow::Arrow;
-pub(crate) use proto::Proto;
+pub use proto::Proto;
