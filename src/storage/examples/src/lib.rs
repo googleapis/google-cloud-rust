@@ -96,82 +96,90 @@ pub async fn run_rapid_cache_examples(buckets: &mut Vec<String>) -> anyhow::Resu
     let cache_id = zone.as_str();
     let cache_name = format!("{}/rapidCaches/{cache_id}", bucket.name);
 
-    let result = async {
-        tracing::info!("running control_create_rapid_cache");
-        control::create_rapid_cache::sample(&client, id, &zone).await?;
-        let created = client
-            .get_rapid_cache()
-            .set_name(&cache_name)
-            .send()
-            .await?;
-        anyhow::ensure!(
-            created.state.eq_ignore_ascii_case("running"),
-            "unexpected state after create: {created:?}"
-        );
-        anyhow::ensure!(
-            created.cache_type == "rapid-cache-ultra",
-            "unexpected cache type after create: {created:?}"
-        );
+    tracing::info!("running control_create_rapid_cache");
+    // If the create sample fails there is no cache to disable here. The bucket
+    // cleanup still disables any rapid cache left in the bucket.
+    control::create_rapid_cache::sample(&client, id, &zone).await?;
 
-        tracing::info!("running control_get_rapid_cache");
-        control::get_rapid_cache::sample(&client, id, cache_id).await?;
-
-        tracing::info!("running control_list_rapid_caches");
-        control::list_rapid_caches::sample(&client, id).await?;
-        let mut found = false;
-        let mut caches = client
-            .list_rapid_caches()
-            .set_parent(&bucket.name)
-            .by_item();
-        while let Some(cache) = caches.next().await {
-            if cache?.name == cache_name {
-                found = true;
-                break;
-            }
-        }
-        anyhow::ensure!(found, "cannot find {cache_name} in list_rapid_caches()");
-
-        tracing::info!("running control_update_rapid_cache");
-        control::update_rapid_cache::sample(&client, id, cache_id).await?;
-        let updated = client
-            .get_rapid_cache()
-            .set_name(&cache_name)
-            .send()
-            .await?;
-        anyhow::ensure!(
-            updated.ttl == Some(google_cloud_wkt::Duration::clamp(172800, 0)),
-            "unexpected ttl after update: {updated:?}"
-        );
-        anyhow::Ok(())
-    }
-    .await;
-
-    // Always disable the cache, even if the previous samples failed. The
-    // disable operation can take more than an hour to complete, but the cache
-    // enters the "disabled" state within seconds. Bound the wait, and check
-    // the state if the operation does not complete in time.
+    // The cache exists now. Run the remaining samples, and then always disable
+    // the cache, even if one of them failed.
+    let result = run_rapid_cache_samples_after_create(&client, id, cache_id, &cache_name).await;
     tracing::info!("running control_disable_rapid_cache");
-    let disable = match tokio::time::timeout(
-        Duration::from_secs(600),
-        control::disable_rapid_cache::sample(&client, id, cache_id),
-    )
-    .await
-    {
-        Ok(r) => r,
-        Err(_) => {
-            tracing::info!("disable operation did not complete in time, checking the state");
-            match client.get_rapid_cache().set_name(&cache_name).send().await {
-                Ok(cache) if cache.state.eq_ignore_ascii_case("disabled") => Ok(()),
-                Ok(cache) => Err(anyhow::anyhow!("unexpected state after disable: {cache:?}")),
-                Err(e) => Err(e.into()),
-            }
-        }
-    };
+    let disable = disable_rapid_cache_with_timeout(&client, id, cache_id, &cache_name).await;
     if let (Err(_), Err(e)) = (&result, &disable) {
         tracing::error!("error disabling rapid cache {cache_name}: {e:?}");
     }
     result?;
     disable
+}
+
+async fn run_rapid_cache_samples_after_create(
+    client: &StorageControl,
+    bucket_id: &str,
+    cache_id: &str,
+    cache_name: &str,
+) -> anyhow::Result<()> {
+    let created = client.get_rapid_cache().set_name(cache_name).send().await?;
+    anyhow::ensure!(
+        created.state.eq_ignore_ascii_case("running"),
+        "unexpected state after create: {created:?}"
+    );
+    anyhow::ensure!(
+        created.cache_type == "rapid-cache-ultra",
+        "unexpected cache type after create: {created:?}"
+    );
+
+    tracing::info!("running control_get_rapid_cache");
+    control::get_rapid_cache::sample(client, bucket_id, cache_id).await?;
+
+    tracing::info!("running control_list_rapid_caches");
+    control::list_rapid_caches::sample(client, bucket_id).await?;
+    let mut found = false;
+    let mut caches = client
+        .list_rapid_caches()
+        .set_parent(format!("projects/_/buckets/{bucket_id}"))
+        .by_item();
+    while let Some(cache) = caches.next().await {
+        if cache?.name == cache_name {
+            found = true;
+            break;
+        }
+    }
+    anyhow::ensure!(found, "cannot find {cache_name} in list_rapid_caches()");
+
+    tracing::info!("running control_update_rapid_cache");
+    control::update_rapid_cache::sample(client, bucket_id, cache_id).await?;
+    let updated = client.get_rapid_cache().set_name(cache_name).send().await?;
+    anyhow::ensure!(
+        updated.ttl == Some(google_cloud_wkt::Duration::clamp(172800, 0)),
+        "unexpected ttl after update: {updated:?}"
+    );
+    Ok(())
+}
+
+/// Runs the disable sample with a bounded wait.
+///
+/// The disable operation can take more than an hour to complete, but the cache
+/// enters the "disabled" state within seconds. If the operation does not
+/// complete in time, check the cache state instead. Dropping the poller does
+/// not cancel the operation on the server.
+async fn disable_rapid_cache_with_timeout(
+    client: &StorageControl,
+    bucket_id: &str,
+    cache_id: &str,
+    cache_name: &str,
+) -> anyhow::Result<()> {
+    let disable = control::disable_rapid_cache::sample(client, bucket_id, cache_id);
+    if let Ok(result) = tokio::time::timeout(Duration::from_secs(600), disable).await {
+        return result;
+    }
+    tracing::info!("disable operation did not complete in time, checking the state");
+    let cache = client.get_rapid_cache().set_name(cache_name).send().await?;
+    anyhow::ensure!(
+        cache.state.eq_ignore_ascii_case("disabled"),
+        "unexpected state after disable: {cache:?}"
+    );
+    Ok(())
 }
 
 pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {

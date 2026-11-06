@@ -16,24 +16,26 @@
 use google_cloud_lro::Poller;
 use google_cloud_storage::client::StorageControl;
 use google_cloud_storage::model::RapidCache;
-use google_cloud_wkt::Duration;
 
 pub async fn sample(client: &StorageControl, bucket_id: &str, zone: &str) -> anyhow::Result<()> {
     // The Rapid Cache ID must be the same as the zone of the cache.
-    let name = format!("projects/_/buckets/{bucket_id}/rapidCaches/{zone}");
-    // Creating a Rapid Cache starts a long-running operation. This waits
-    // until the operation completes and returns the new cache.
+    let cache_id = zone;
+    // Only the name, zone, and cache type are set here. Optional fields, such
+    // as the cache entry TTL, use their server defaults and can be changed
+    // later with `update_rapid_cache()`.
     let cache = client
         .create_rapid_cache()
         .set_parent(format!("projects/_/buckets/{bucket_id}"))
         .set_rapid_cache(
             RapidCache::new()
-                .set_name(name)
+                .set_name(format!(
+                    "projects/_/buckets/{bucket_id}/rapidCaches/{cache_id}"
+                ))
                 .set_zone(zone)
-                .set_cache_type("rapid-cache-ultra")
-                // Cache entries expire after 24 hours (86400 seconds).
-                .set_ttl(Duration::clamp(86400, 0)),
+                .set_cache_type("rapid-cache-ultra"),
         )
+        // Creating a Rapid Cache starts a long-running operation. This waits
+        // until the operation completes and returns the new cache.
         .poller()
         .until_done()
         .await?;
