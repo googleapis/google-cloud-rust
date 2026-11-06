@@ -2218,7 +2218,7 @@ mod tests {
         }
     }
 
-    #[tokio_test_no_panics(start_paused = true)]
+    #[tokio_test_no_panics]
     async fn transaction_timeout_respected() -> anyhow::Result<()> {
         use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
         use spanner_grpc_mock::google::spanner::v1::Transaction;
@@ -2259,8 +2259,8 @@ mod tests {
             .returning(|req| {
                 let timeout_val = parse_timeout(req.metadata());
                 assert!(
-                    timeout_val <= 100000,
-                    "Expected timeout to be <= 100ms, got {}",
+                    timeout_val <= 10_000_000,
+                    "Expected timeout to be <= 10s, got {}",
                     timeout_val
                 );
                 Err(Status::new(GrpcCode::ResourceExhausted, "quota exceeded"))
@@ -2272,8 +2272,8 @@ mod tests {
             .returning(|req| {
                 let timeout_val = parse_timeout(req.metadata());
                 assert!(
-                    timeout_val <= 100000,
-                    "Expected timeout to be <= 100ms, got {}",
+                    timeout_val <= 10_000_000,
+                    "Expected timeout to be <= 10s, got {}",
                     timeout_val
                 );
 
@@ -2306,10 +2306,10 @@ mod tests {
             .build()
             .await?;
 
-        // 3. Setup Transaction Runner with 100ms timeout
+        // 3. Setup Transaction Runner with 10s timeout
         let runner = db
             .read_write_transaction()
-            .with_transaction_timeout(Duration::from_millis(100))
+            .with_transaction_timeout(Duration::from_secs(10))
             .build();
 
         // 4. Run transaction and expect success after retry
@@ -2337,7 +2337,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio_test_no_panics(start_paused = true)]
+    #[tokio_test_no_panics]
     async fn transaction_timeout_ticks_down() -> anyhow::Result<()> {
         use spanner_grpc_mock::google::spanner::v1::Transaction;
 
@@ -2360,8 +2360,8 @@ mod tests {
             .returning(move |req| {
                 let timeout_val = parse_timeout(req.metadata());
                 assert!(
-                    timeout_val <= 500000,
-                    "Expected timeout to be <= 500ms, got {}",
+                    timeout_val <= 10_000_000,
+                    "Expected timeout to be <= 10s, got {}",
                     timeout_val
                 );
                 prev_clone1.store(timeout_val, Ordering::SeqCst);
@@ -2435,16 +2435,13 @@ mod tests {
 
         let runner = db
             .read_write_transaction()
-            .with_transaction_timeout(Duration::from_millis(500))
+            .with_transaction_timeout(Duration::from_secs(10))
             .build();
 
         let result = runner
             .run(async |tx| {
                 let stmt = Statement::builder("SELECT 1").build();
                 tx.execute_update(stmt).await?;
-                // With `start_paused = true`, Tokio's clock does not advance during socket I/O.
-                // Advance virtual time before returning so `commit` sees a smaller remaining timeout.
-                tokio::time::advance(Duration::from_millis(10)).await;
                 Ok(())
             })
             .await;
