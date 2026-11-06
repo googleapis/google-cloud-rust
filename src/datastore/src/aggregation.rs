@@ -152,18 +152,26 @@ impl AggregationResults {
     }
 
     /// Deserializes the aggregation result for `alias` into `T` via [`FromValue`].
-    pub fn get<T: FromValue>(&self, _alias: &str) -> std::result::Result<T, EntityError> {
-        unimplemented!()
+    pub fn get<T: FromValue>(&self, alias: &str) -> std::result::Result<T, EntityError> {
+        match self.values.get(alias) {
+            Some(v) => T::from_value(v).map_err(|source| EntityError::InvalidProperty {
+                name: alias.to_string(),
+                source,
+            }),
+            None => {
+                T::from_missing().ok_or_else(|| EntityError::MissingProperty(alias.to_string()))
+            }
+        }
     }
 
     /// Returns the aggregation result for `alias` as an `i64` (e.g. for `COUNT` or integer `SUM`).
-    pub fn get_i64(&self, _alias: &str) -> std::result::Result<i64, EntityError> {
-        unimplemented!()
+    pub fn get_i64(&self, alias: &str) -> std::result::Result<i64, EntityError> {
+        self.get::<i64>(alias)
     }
 
     /// Returns the aggregation result for `alias` as an `f64` (e.g. for `AVG` or floating-point `SUM`).
-    pub fn get_f64(&self, _alias: &str) -> std::result::Result<f64, EntityError> {
-        unimplemented!()
+    pub fn get_f64(&self, alias: &str) -> std::result::Result<f64, EntityError> {
+        self.get::<f64>(alias)
     }
 
     /// Returns the snapshot `read_time` at which the aggregation was evaluated, if reported by the server.

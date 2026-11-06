@@ -14,10 +14,10 @@
 
 //! Dynamic Datastore entity representation and entity conversion traits.
 
-use crate::error::EntityError;
-use crate::key::{IntoMutationKey, Key, MutationKey};
+use crate::error::{EntityError, ValueError};
+use crate::key::{IntoMutationKey, Key, MutationKey, PartitionId};
 use crate::value::{FromValue, IntoValue, Value};
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, HashMap};
 
 /// A Datastore entity consisting of an optional key, a map of named [Value]
 /// properties, and an optional microsecond version timestamp.
@@ -37,13 +37,16 @@ impl Entity {
 
     /// Creates an empty [Entity] bound to the given [Key] or [IncompleteKey][crate::key::IncompleteKey].
     pub fn with_key(key: impl IntoMutationKey) -> Self {
-        let _ = key;
-        unimplemented!()
+        Self {
+            key: Some(key.into_mutation_key()),
+            properties: BTreeMap::new(),
+            version: None,
+        }
     }
 
     /// Returns the entity's complete [Key], if present and complete.
     pub fn key(&self) -> Option<&Key> {
-        unimplemented!()
+        self.key.as_ref()?.as_complete()
     }
 
     /// Returns the entity's [MutationKey] (complete or incomplete), if set.
@@ -53,8 +56,8 @@ impl Entity {
 
     /// Sets the key of this entity.
     pub fn set_key(&mut self, key: impl IntoMutationKey) -> &mut Self {
-        let _ = key;
-        unimplemented!()
+        self.key = Some(key.into_mutation_key());
+        self
     }
 
     /// Returns the microsecond version timestamp of this entity, if populated by a read or query.
@@ -70,26 +73,39 @@ impl Entity {
 
     /// Borrows and converts the property `name` into `T` using [FromValue].
     pub fn get<T: FromValue>(&self, name: &str) -> Result<T, EntityError> {
-        let _ = name;
-        unimplemented!()
+        match self.properties.get(name) {
+            Some(v) => T::from_value(v).map_err(|source| EntityError::InvalidProperty {
+                name: name.to_string(),
+                source,
+            }),
+            None => T::from_missing().ok_or_else(|| EntityError::MissingProperty(name.to_string())),
+        }
     }
 
     /// Removes and converts the property `name` into `T` by value using [FromValue].
     pub fn take<T: FromValue>(&mut self, name: &str) -> Result<T, EntityError> {
-        let _ = name;
-        unimplemented!()
+        match self.properties.remove(name) {
+            Some(v) => T::from_value_owned(v).map_err(|source| EntityError::InvalidProperty {
+                name: name.to_string(),
+                source,
+            }),
+            None => T::from_missing().ok_or_else(|| EntityError::MissingProperty(name.to_string())),
+        }
     }
 
     /// Inserts or overwrites an indexed property `name` on this entity.
     pub fn set(&mut self, name: impl Into<String>, value: impl IntoValue) -> &mut Self {
-        let _ = (name, value);
-        unimplemented!()
+        self.properties.insert(name.into(), value.into_value());
+        self
     }
 
     /// Inserts or overwrites an unindexed property (`exclude_from_indexes = true`) on this entity.
     pub fn set_unindexed(&mut self, name: impl Into<String>, value: impl IntoValue) -> &mut Self {
-        let _ = (name, value);
-        unimplemented!()
+        self.properties.insert(
+            name.into(),
+            value.into_value().with_exclude_from_indexes(true),
+        );
+        self
     }
 
     /// Removes the raw [Value] for `name`, if present.
@@ -120,6 +136,42 @@ impl Entity {
     /// Returns a mutable reference to the underlying property map.
     pub fn properties_mut(&mut self) -> &mut BTreeMap<String, Value> {
         &mut self.properties
+    }
+
+    /// Converts this [Entity] into its wire `crate::model::Entity` representation.
+    #[allow(dead_code)]
+    pub(crate) fn to_proto(
+        &self,
+        default_partition: &PartitionId,
+    ) -> Result<crate::model::Entity, ValueError> {
+        let mut proto_props = HashMap::with_capacity(self.properties.len());
+        for (name, val) in &self.properties {
+            proto_props.insert(name.clone(), val.to_proto(default_partition)?);
+        }
+        let mut proto = crate::model::Entity::new().set_properties(proto_props);
+        if let Some(key) = &self.key {
+            let normalized = key.normalize(default_partition)?;
+            proto = proto.set_key(normalized.to_proto());
+        }
+        Ok(proto)
+    }
+
+    /// Converts a wire `crate::model::Entity` into an [Entity].
+    #[allow(dead_code)]
+    pub(crate) fn from_proto(proto: crate::model::Entity) -> Result<Self, ValueError> {
+        let key = match proto.key {
+            Some(k) if !k.path.is_empty() => Some(MutationKey::from_proto(k)?),
+            _ => None,
+        };
+        let mut properties = BTreeMap::new();
+        for (name, proto_val) in proto.properties {
+            properties.insert(name, Value::from_proto(proto_val)?);
+        }
+        Ok(Entity {
+            key,
+            properties,
+            version: None,
+        })
     }
 }
 
@@ -153,5 +205,41 @@ impl FromEntity for Entity {
 impl IntoEntity for Entity {
     fn into_entity(self) -> Entity {
         self
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn entity_properties_and_proto_roundtrip() -> anyhow::Result<()> {
+        let key = Key::with_name("User", "alice")?;
+        let mut entity = Entity::with_key(key.clone());
+        entity
+            .set("age", 30_i64)
+            .set("tags", vec!["rust", "cloud"])
+            .set_unindexed("bio", "large unindexed text");
+
+        assert_eq!(entity.key(), Some(&key));
+        assert_eq!(entity.get::<i64>("age")?, 30);
+        assert_eq!(entity.get::<Vec<String>>("tags")?, vec!["rust", "cloud"]);
+        assert_eq!(entity.get::<Option<String>>("missing_optional")?, None);
+        assert_eq!(
+            entity.get::<String>("missing_required"),
+            Err(EntityError::MissingProperty("missing_required".to_string()))
+        );
+        assert!(matches!(
+            entity.get::<bool>("age"),
+            Err(EntityError::InvalidProperty { ref name, .. }) if name == "age"
+        ));
+
+        let default_part = PartitionId::new("proj-1");
+        let proto = entity.to_proto(&default_part)?;
+        let mut decoded = Entity::from_proto(proto)?;
+        assert_eq!(decoded.key().unwrap().name(), Some("alice"));
+        assert_eq!(decoded.take::<String>("bio")?, "large unindexed text");
+        assert!(!decoded.contains_key("bio"));
+        Ok(())
     }
 }
