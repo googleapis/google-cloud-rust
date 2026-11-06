@@ -3172,7 +3172,6 @@ dependencies = [
  "google-cloud-wkt",
  "http",
  "mockall",
- "prost",
  "scoped-env",
  "serde",
  "serde_json",
