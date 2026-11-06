@@ -1148,6 +1148,7 @@ dependencies = [
  "anyhow",
  "axum",
  "bytes",
+ "futures",
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",
@@ -3622,7 +3623,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax"
-version = "1.15.0"
+version = "1.16.0"
 dependencies = [
  "anyhow",
  "bytes",
@@ -3644,7 +3645,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax-internal"
-version = "0.7.21"
+version = "0.7.22"
 dependencies = [
  "anyhow",
  "bytes",
