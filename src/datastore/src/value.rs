@@ -170,7 +170,6 @@ impl Value {
     /// normalizing embedded keys against `default_partition`, enforcing the
     /// non-nested array invariant, and propagating `exclude_from_indexes` onto
     /// array elements rather than the outer `ArrayValue` wrapper.
-    #[allow(dead_code)]
     pub(crate) fn to_proto(
         &self,
         default_partition: &PartitionId,
@@ -224,7 +223,6 @@ impl Value {
     }
 
     /// Converts a wire `crate::model::Value` into a [Value].
-    #[allow(dead_code)]
     pub(crate) fn from_proto(proto: crate::model::Value) -> Result<Self, ValueError> {
         use crate::model::value::ValueType;
 

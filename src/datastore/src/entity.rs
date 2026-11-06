@@ -139,7 +139,6 @@ impl Entity {
     }
 
     /// Converts this [Entity] into its wire `crate::model::Entity` representation.
-    #[allow(dead_code)]
     pub(crate) fn to_proto(
         &self,
         default_partition: &PartitionId,
@@ -157,7 +156,6 @@ impl Entity {
     }
 
     /// Converts a wire `crate::model::Entity` into an [Entity].
-    #[allow(dead_code)]
     pub(crate) fn from_proto(proto: crate::model::Entity) -> Result<Self, ValueError> {
         let key = match proto.key {
             Some(k) if !k.path.is_empty() => Some(MutationKey::from_proto(k)?),
