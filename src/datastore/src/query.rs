@@ -304,12 +304,18 @@ impl Cursor {
 
     /// Encodes this cursor as an unpadded URL-safe Base64 string.
     pub fn to_url_safe(&self) -> String {
-        unimplemented!()
+        use base64::Engine;
+        base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(&self.0)
     }
 
     /// Decodes a [`Cursor`] from an unpadded (or padded) URL-safe Base64 string.
-    pub fn from_url_safe(_encoded: &str) -> std::result::Result<Self, KeyError> {
-        unimplemented!()
+    pub fn from_url_safe(encoded: &str) -> std::result::Result<Self, KeyError> {
+        use base64::Engine;
+        let bytes = base64::engine::general_purpose::URL_SAFE_NO_PAD
+            .decode(encoded)
+            .or_else(|_| base64::engine::general_purpose::URL_SAFE.decode(encoded))
+            .map_err(|e| KeyError::InvalidUrlSafeEncoding(e.to_string()))?;
+        Ok(Self(Bytes::from(bytes)))
     }
 }
 
