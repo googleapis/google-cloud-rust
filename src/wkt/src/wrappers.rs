@@ -12,7 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use base64::{Engine, engine::general_purpose::STANDARD};
+use base64::{
+    Engine, alphabet,
+    engine::{DecodePaddingMode, GeneralPurpose, GeneralPurposeConfig, general_purpose::STANDARD},
+};
 use serde_with::{DeserializeAs, SerializeAs};
 
 /// Implements the `google.cloud.DoubleValue` well-known type.
@@ -342,8 +345,14 @@ impl crate::message::MessageSerializer<BytesValue> for BytesValueSerializer {
             .ok_or_else(crate::message::missing_value_field)?
             .as_str()
             .ok_or_else(expected_string_value)?;
-        STANDARD
+        // ProtoJSON accepts both Base64 alphabets, with or without padding.
+        const CONFIG: GeneralPurposeConfig =
+            GeneralPurposeConfig::new().with_decode_padding_mode(DecodePaddingMode::Indifferent);
+        const STANDARD_DECODER: GeneralPurpose = GeneralPurpose::new(&alphabet::STANDARD, CONFIG);
+        const URL_SAFE_DECODER: GeneralPurpose = GeneralPurpose::new(&alphabet::URL_SAFE, CONFIG);
+        STANDARD_DECODER
             .decode(s)
+            .or_else(|_| URL_SAFE_DECODER.decode(s))
             .map(BytesValue::from)
             .map_err(crate::AnyError::deser)
     }
@@ -484,11 +493,42 @@ mod tests {
         Ok(())
     }
 
-    #[test]
-    fn test_wrapper_bad_encoding_base64() -> Result {
+    #[test_case("", b""; "empty")]
+    #[test_case("Zg==", b"f"; "ascii padded")]
+    #[test_case("Zg", b"f"; "ascii unpadded")]
+    #[test_case("+w==", b"\xfb"; "standard two padding bytes")]
+    #[test_case("+w", b"\xfb"; "standard without two padding bytes")]
+    #[test_case("-w==", b"\xfb"; "url safe two padding bytes")]
+    #[test_case("-w", b"\xfb"; "url safe without two padding bytes")]
+    #[test_case("+/8=", b"\xfb\xff"; "standard one padding byte")]
+    #[test_case("+/8", b"\xfb\xff"; "standard without one padding byte")]
+    #[test_case("-_8=", b"\xfb\xff"; "url safe one padding byte")]
+    #[test_case("-_8", b"\xfb\xff"; "url safe without one padding byte")]
+    #[test_case("+//v", b"\xfb\xff\xef"; "standard no padding needed")]
+    #[test_case("-__v", b"\xfb\xff\xef"; "url safe no padding needed")]
+    fn test_wrapper_bytes_base64(input: &str, want: &[u8]) -> Result {
+        let any = serde_json::from_value::<Any>(serde_json::json!({
+            "@type": BytesValue::typename(),
+            "value": input,
+        }))?;
+        let got = any.to_msg::<BytesValue>()?;
+        assert_eq!(got.as_ref(), want);
+
+        let encoded = serde_json::to_value(Any::from_msg(&got)?)?;
+        assert_eq!(encoded["value"], STANDARD.encode(want));
+        Ok(())
+    }
+
+    #[test_case("Oops, I forgot to base64 encode this."; "invalid characters")]
+    #[test_case("A"; "invalid length")]
+    #[test_case("Zg==="; "excess padding")]
+    #[test_case("Z=g="; "embedded padding")]
+    #[test_case("+x=="; "standard nonzero trailing bits")]
+    #[test_case("-x=="; "url safe nonzero trailing bits")]
+    fn test_wrapper_bad_encoding_base64(input: &str) -> Result {
         let map = serde_json::json!({
             "@type": "type.googleapis.com/google.protobuf.BytesValue",
-            "value": "Oops, I forgot to base64 encode this.",
+            "value": input,
         });
 
         let serializer = BytesValue::serializer();
