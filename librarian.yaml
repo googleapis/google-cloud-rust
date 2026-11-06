@@ -754,6 +754,18 @@ libraries:
     copyright_year: "2025"
     output: src/datastore
     skip_release: true
+    rust:
+      modules:
+        - generate_setter_samples: "false"
+          generate_rpc_samples: "false"
+          has_veneer: true
+          included_ids:
+            - .google.datastore.v1.Datastore
+          internal_builders: true
+          output: src/datastore/src/generated/gapic_dataplane
+          service_config: google/datastore/v1/datastore_v1.yaml
+          api_path: google/datastore/v1
+          template: http-client
   - name: google-cloud-datastore-admin-v1
     version: 1.15.0
     apis:

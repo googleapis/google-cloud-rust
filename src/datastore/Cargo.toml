@@ -13,17 +13,63 @@
 # limitations under the License.
 
 [package]
-name        = "google-cloud-datastore"
-publish     = false
-version     = "0.0.0"
+name = "google-cloud-datastore"
+publish = false
+version = "0.0.0"
 description = "Google Cloud Client Libraries for Rust - Datastore"
 # Inherit other attributes from the workspace.
-edition.workspace      = true
-authors.workspace      = true
-license.workspace      = true
-repository.workspace   = true
-keywords.workspace     = true
-categories.workspace   = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+keywords.workspace = true
+categories.workspace = true
 rust-version.workspace = true
 
+[package.metadata.docs.rs]
+all-features = true
+
+[features]
+default = ["default-rustls-provider"]
+# Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
+# TLS and authentication. Applications with specific requirements for
+# cryptography (such as exclusively using the [ring] crate) should disable this
+# default and call `rustls::crypto::CryptoProvider::install_default()`.
+default-rustls-provider = ["gaxi/_default-rustls-provider"]
+
 [dependencies]
+async-trait.workspace = true
+base64.workspace = true
+bytes.workspace = true
+gaxi = { workspace = true, features = ["_internal-http-client"] }
+google-cloud-auth.workspace = true
+google-cloud-datastore-admin-v1.workspace = true
+google-cloud-gax.workspace = true
+google-cloud-longrunning.workspace = true
+google-cloud-lro.workspace = true
+google-cloud-type.workspace = true
+http.workspace = true
+prost.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+serde_with.workspace = true
+thiserror.workspace = true
+tokio = { workspace = true, features = ["sync", "time"] }
+tracing.workspace = true
+wkt.workspace = true
+
+[dev-dependencies]
+anyhow.workspace = true
+mockall.workspace = true
+scoped-env.workspace = true
+serial_test.workspace = true
+test-case.workspace = true
+tokio = { workspace = true, features = [
+  "macros",
+  "rt-multi-thread",
+  "test-util",
+  "time",
+] }
+
+[lints]
+workspace = true
