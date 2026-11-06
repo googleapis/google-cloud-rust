@@ -12,11 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(any(
-    google_cloud_unstable_bigquery_arrow,
-    google_cloud_unstable_bigquery_storage_read
-))]
-#[cfg_attr(not(test), allow(dead_code))]
 pub(crate) mod arrow;
 pub(super) mod builder;
 pub(super) mod client;
@@ -28,7 +23,6 @@ mod query_handle;
 pub mod retry_policy;
 mod row;
 mod schema;
-#[cfg(google_cloud_unstable_bigquery_storage_read)]
 pub(crate) mod storage_reader;
 
 pub use iterator::RowIterator;

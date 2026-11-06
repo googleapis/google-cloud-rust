@@ -98,8 +98,8 @@ mod tests {
 
     type TestResult = anyhow::Result<()>;
 
-    #[ignore = "TODO(#5249) - disabled because it was flaky"]
     #[tokio::test]
+    #[serial]
     async fn test_fetch_client_email_and_cache() -> TestResult {
         let server = Server::run();
         server.expect(

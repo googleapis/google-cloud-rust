@@ -179,20 +179,61 @@ impl ConnectionCache {
                 let mut guard = self.write_servers();
                 Arc::clone(
                     guard
-                        .entry(key)
+                        .entry(key.clone())
                         .or_insert_with(|| Arc::new(OnceCell::new())),
                 )
             }
         };
 
-        cell.get_or_try_init(|| async {
-            let endpoint_config =
-                prepare_routed_endpoint_config(config, self.default_connection.address(), address);
-            let channel = Channel::create(endpoint_config, 0).await?;
-            Ok(ServerConnection::new(address.to_string(), channel))
-        })
-        .await
-        .cloned()
+        // Guard against leaving an uninitialized entry in the cache if connection
+        // creation fails, panics, or is cancelled at an await point.
+        let cleanup_guard = UninitializedCellGuard {
+            cache: self,
+            key: &key,
+            cell: Some(cell),
+        };
+
+        let connection = cleanup_guard
+            .cell()
+            .get_or_try_init(|| async {
+                let endpoint_config = prepare_routed_endpoint_config(
+                    config,
+                    self.default_connection.address(),
+                    address,
+                );
+                let channel = Channel::create(endpoint_config, 0).await?;
+                Ok(ServerConnection::new(address.to_string(), channel))
+            })
+            .await?
+            .clone();
+
+        Ok(connection)
+    }
+
+    /// Removes an uninitialized `OnceCell` entry from `self.servers` if it matches `cell` and no
+    /// other callers are currently awaiting its initialization.
+    ///
+    /// This prevents failed connection establishment attempts and cancelled futures from leaving
+    /// dead uninitialized entries in the cache while preserving entries that have already been
+    /// initialized, replaced by a concurrent operation, or are currently being initialized by
+    /// another concurrent caller.
+    fn remove_uninitialized(&self, key: &str, cell: Arc<OnceCell<ServerConnection>>) {
+        if cell.get().is_some() {
+            return;
+        }
+        let mut guard = self.write_servers();
+        let Some(existing) = guard.get(key) else {
+            return;
+        };
+        if !Arc::ptr_eq(existing, &cell) || existing.get().is_some() {
+            return;
+        }
+        // Explicitly drop our owned reference while holding the write lock.
+        // If no other concurrent caller holds a reference, only `existing` in `self.servers` remains.
+        drop(cell);
+        if Arc::strong_count(existing) == 1 && existing.get().is_none() {
+            guard.remove(key);
+        }
     }
 
     /// Evicts a server connection from the cache.
@@ -206,6 +247,33 @@ impl ConnectionCache {
         let key = self.cache_key(address);
         let mut guard = self.write_servers();
         guard.remove(&key).is_some()
+    }
+}
+
+/// RAII guard that removes an uninitialized `OnceCell` from `ConnectionCache::servers` if dropped
+/// before initialization succeeds (e.g. on channel creation error or future cancellation).
+struct UninitializedCellGuard<'a> {
+    cache: &'a ConnectionCache,
+    key: &'a str,
+    cell: Option<Arc<OnceCell<ServerConnection>>>,
+}
+
+impl UninitializedCellGuard<'_> {
+    fn cell(&self) -> &OnceCell<ServerConnection> {
+        self.cell
+            .as_deref()
+            .expect("uninitialized cell guard must contain cell")
+    }
+}
+
+impl Drop for UninitializedCellGuard<'_> {
+    fn drop(&mut self) {
+        let Some(cell) = self.cell.take() else {
+            return;
+        };
+        if cell.get().is_none() {
+            self.cache.remove_uninitialized(self.key, cell);
+        }
     }
 }
 
@@ -385,9 +453,11 @@ mod tests {
     use http::HeaderMap;
     use http::header::{AUTHORIZATION, HeaderValue};
     use std::fmt::Debug;
+    use std::future::pending;
     use std::panic::{AssertUnwindSafe, catch_unwind};
     use std::sync::Barrier;
     use std::thread;
+    use tokio::sync::oneshot;
 
     #[derive(Debug)]
     struct DummyStub;
@@ -1630,6 +1700,13 @@ mod tests {
             cache.get_if_present(invalid_address).is_none(),
             "uninitialized cell must not be returned by get_if_present"
         );
+        assert!(
+            cache
+                .read_servers()
+                .get(&cache.cache_key(invalid_address))
+                .is_none(),
+            "uninitialized cell must be removed from servers map on channel creation error"
+        );
 
         // Retrying the lookup runs initialization again rather than returning a cached error.
         let result2 = cache.get(invalid_address, &config).await;
@@ -1641,6 +1718,419 @@ mod tests {
             cache.len(),
             1,
             "cache length must still be 1 after retry failure"
+        );
+        assert!(
+            cache
+                .read_servers()
+                .get(&cache.cache_key(invalid_address))
+                .is_none(),
+            "uninitialized cell must not remain in servers map after retry failure"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_remove_uninitialized_preserves_initialized_cell() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = ConnectionCache::new(default_connection);
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let cell = Arc::new(OnceCell::new());
+        let connection = create_test_connection(address);
+        cell.set(connection).expect("initialize cell");
+
+        cache.write_servers().insert(key.clone(), Arc::clone(&cell));
+
+        // Attempting to remove the initialized cell must be a no-op.
+        cache.remove_uninitialized(&key, cell);
+
+        assert!(
+            cache.read_servers().get(&key).is_some(),
+            "remove_uninitialized must not remove an initialized cell"
+        );
+        assert_eq!(
+            cache.len(),
+            2,
+            "cache length must still count initialized cell"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_remove_uninitialized_preserves_replaced_cell() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = ConnectionCache::new(default_connection);
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let old_cell = Arc::new(OnceCell::new());
+        let new_cell = Arc::new(OnceCell::new());
+
+        // Cache currently holds new_cell under key.
+        cache
+            .write_servers()
+            .insert(key.clone(), Arc::clone(&new_cell));
+
+        // Calling remove_uninitialized with old_cell must NOT remove new_cell (Arc::ptr_eq mismatch).
+        cache.remove_uninitialized(&key, old_cell);
+
+        assert!(
+            cache.read_servers().get(&key).is_some(),
+            "remove_uninitialized must not remove a cell with a different Arc pointer"
+        );
+        assert!(
+            Arc::ptr_eq(
+                cache.read_servers().get(&key).expect("entry must exist"),
+                &new_cell
+            ),
+            "servers map must still contain new_cell"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_cleanup_guard_preserves_cell_for_concurrent_waiters() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = ConnectionCache::new(default_connection);
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let cell = Arc::new(OnceCell::new());
+        cache.write_servers().insert(key.clone(), Arc::clone(&cell));
+
+        // Simulate two concurrent tasks in flight by creating two guards for the same cell.
+        let first_guard = UninitializedCellGuard {
+            cache: &cache,
+            key: &key,
+            cell: Some(Arc::clone(&cell)),
+        };
+        let second_guard = UninitializedCellGuard {
+            cache: &cache,
+            key: &key,
+            cell: Some(cell),
+        };
+
+        // Dropping first_guard while second_guard is in flight must NOT remove cell from servers map.
+        drop(first_guard);
+        assert!(
+            cache.read_servers().get(&key).is_some(),
+            "dropping one guard must preserve cell while another waiter is in flight"
+        );
+
+        // Once cell is initialized by the remaining waiter, dropping second_guard must preserve it.
+        let connection = create_test_connection(address);
+        second_guard
+            .cell()
+            .set(connection)
+            .expect("initialize cell from remaining waiter");
+        drop(second_guard);
+
+        assert!(
+            cache.read_servers().get(&key).is_some(),
+            "initialized cell must remain in servers map after last guard drops"
+        );
+        assert!(
+            cache.get_if_present(address).is_some(),
+            "initialized connection must be accessible via get_if_present"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_cleanup_guard_removes_cell_when_all_waiters_fail() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = ConnectionCache::new(default_connection);
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let cell = Arc::new(OnceCell::new());
+        cache.write_servers().insert(key.clone(), Arc::clone(&cell));
+
+        let first_guard = UninitializedCellGuard {
+            cache: &cache,
+            key: &key,
+            cell: Some(Arc::clone(&cell)),
+        };
+        let second_guard = UninitializedCellGuard {
+            cache: &cache,
+            key: &key,
+            cell: Some(cell),
+        };
+
+        // First guard drops on failure or cancellation while second guard is still awaiting.
+        drop(first_guard);
+        assert!(
+            cache.read_servers().get(&key).is_some(),
+            "cell must remain in servers map while second_guard is still in flight"
+        );
+
+        // Second guard also drops on failure or cancellation without initializing.
+        drop(second_guard);
+        assert!(
+            cache.read_servers().get(&key).is_none(),
+            "uninitialized cell must be removed from servers map when all guards drop"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_uninitialized_cell_guard_drop_on_future_cancellation() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let cell = Arc::new(OnceCell::new());
+        cache.write_servers().insert(key.clone(), Arc::clone(&cell));
+
+        let cache_clone = Arc::clone(&cache);
+        let key_clone = key.clone();
+
+        let (started_sender, started_receiver) = oneshot::channel();
+
+        let cancellation_task = tokio::spawn(async move {
+            let _guard = UninitializedCellGuard {
+                cache: &cache_clone,
+                key: &key_clone,
+                cell: Some(cell),
+            };
+            let _ = started_sender.send(());
+            // Suspend indefinitely to simulate a stalled connection attempt.
+            pending::<()>().await;
+        });
+
+        // Await confirmation that the guard was constructed and task suspended.
+        started_receiver
+            .await
+            .expect("task must start and enter pending");
+
+        // Abort the task to trigger future cancellation at the .await point.
+        cancellation_task.abort();
+        let _ = cancellation_task.await;
+
+        assert!(
+            cache.read_servers().get(&key).is_none(),
+            "uninitialized cell must be removed when future is cancelled at an await point"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_concurrent_callers_clean_up_on_failure() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let config = Arc::new(test_client_config());
+        let invalid_address = "invalid host:not a port";
+        let key = cache.cache_key(invalid_address);
+
+        let mut tasks = Vec::new();
+        for _ in 0..5 {
+            let cache_clone = Arc::clone(&cache);
+            let config_clone = Arc::clone(&config);
+            tasks.push(tokio::spawn(async move {
+                cache_clone.get(invalid_address, &config_clone).await
+            }));
+        }
+
+        for task in tasks {
+            let result = task.await.expect("task must join");
+            assert!(result.is_err(), "connection creation must fail");
+        }
+
+        assert!(
+            cache.read_servers().get(&key).is_none(),
+            "uninitialized cell must be removed from servers map after all concurrent attempts fail"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_concurrent_cancellation_cleans_up_uninitialized_cell() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let cell = Arc::new(OnceCell::new());
+        cache.write_servers().insert(key.clone(), Arc::clone(&cell));
+
+        let mut tasks = Vec::new();
+        let mut receivers = Vec::new();
+
+        for _ in 0..5 {
+            let cache_clone = Arc::clone(&cache);
+            let key_clone = key.clone();
+            let cell_clone = Arc::clone(&cell);
+            let (started_sender, started_receiver) = oneshot::channel();
+            receivers.push(started_receiver);
+
+            tasks.push(tokio::spawn(async move {
+                let _guard = UninitializedCellGuard {
+                    cache: &cache_clone,
+                    key: &key_clone,
+                    cell: Some(cell_clone),
+                };
+                let _ = started_sender.send(());
+                pending::<()>().await;
+            }));
+        }
+
+        for receiver in receivers {
+            receiver.await.expect("task must start and enter pending");
+        }
+
+        drop(cell);
+
+        for task in &tasks {
+            task.abort();
+        }
+        for task in tasks {
+            let _ = task.await;
+        }
+
+        assert!(
+            cache.read_servers().get(&key).is_none(),
+            "uninitialized cell must be removed after all concurrent tasks are cancelled"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_cancelled_leader_preserves_cell_for_successful_waiter() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let cell = Arc::new(OnceCell::new());
+        cache.write_servers().insert(key.clone(), Arc::clone(&cell));
+
+        let cache_clone = Arc::clone(&cache);
+        let key_clone = key.clone();
+        let leader_cell = Arc::clone(&cell);
+        let waiter_cell = Arc::clone(&cell);
+        drop(cell);
+
+        let (started_sender, started_receiver) = oneshot::channel();
+        let leader_task = tokio::spawn(async move {
+            let _guard = UninitializedCellGuard {
+                cache: &cache_clone,
+                key: &key_clone,
+                cell: Some(leader_cell),
+            };
+            let _ = started_sender.send(());
+            pending::<()>().await;
+        });
+
+        started_receiver
+            .await
+            .expect("leader must start and enter pending");
+
+        let waiter_guard = UninitializedCellGuard {
+            cache: &cache,
+            key: &key,
+            cell: Some(waiter_cell),
+        };
+
+        leader_task.abort();
+        let _ = leader_task.await;
+
+        assert!(
+            cache.read_servers().get(&key).is_some(),
+            "cell must remain in cache while waiter is still in flight"
+        );
+
+        let connection = create_test_connection(address);
+        waiter_guard
+            .cell()
+            .set(connection)
+            .expect("initialize cell from waiter");
+        drop(waiter_guard);
+
+        assert!(
+            cache.read_servers().get(&key).is_some(),
+            "initialized cell must remain in cache after waiter completes"
+        );
+        assert!(
+            cache.get_if_present(address).is_some(),
+            "connection must be accessible via get_if_present"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_remove_uninitialized_preserves_concurrently_initialized_cell() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = ConnectionCache::new(default_connection);
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let cell = Arc::new(OnceCell::new());
+        cache.write_servers().insert(key.clone(), Arc::clone(&cell));
+
+        // Simulate cell initialized while cell reference count is 2 (guard + cache).
+        let connection = create_test_connection(address);
+        cell.set(connection).expect("initialize cell");
+
+        // remove_uninitialized must not evict the cell even though drop(cell) leaves strong_count == 1.
+        cache.remove_uninitialized(&key, cell);
+
+        assert!(
+            cache.read_servers().get(&key).is_some(),
+            "initialized cell must remain in servers map"
+        );
+        assert!(
+            cache.get_if_present(address).is_some(),
+            "connection must remain accessible via get_if_present"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_uninitialized_guard_drop_after_explicit_eviction() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = ConnectionCache::new(default_connection);
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let cell = Arc::new(OnceCell::new());
+        cache.write_servers().insert(key.clone(), Arc::clone(&cell));
+
+        let guard = UninitializedCellGuard {
+            cache: &cache,
+            key: &key,
+            cell: Some(cell),
+        };
+
+        // Explicit eviction removes the key before guard drops.
+        assert!(cache.evict(address), "address must be evicted");
+
+        // Dropping guard when key is already absent must be a safe no-op.
+        drop(guard);
+
+        assert!(
+            cache.read_servers().get(&key).is_none(),
+            "key must remain absent after guard drops"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_uninitialized_cell_removed_on_panic() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let cell = Arc::new(OnceCell::new());
+        cache.write_servers().insert(key.clone(), Arc::clone(&cell));
+
+        let cache_clone = Arc::clone(&cache);
+        let key_clone = key.clone();
+
+        let panic_result = catch_unwind(AssertUnwindSafe(|| {
+            let _guard = UninitializedCellGuard {
+                cache: &cache_clone,
+                key: &key_clone,
+                cell: Some(cell),
+            };
+            panic!("simulated panic during channel creation");
+        }));
+
+        assert!(panic_result.is_err(), "task must have panicked");
+        assert!(
+            cache.read_servers().get(&key).is_none(),
+            "uninitialized cell must be removed from servers map following panic unwinding"
         );
     }
 

@@ -10851,6 +10851,7 @@ impl BuildOptions {
     /// # use google_cloud_build_v1::model::BuildOptions;
     /// use google_cloud_build_v1::model::build_options::VerifyOption;
     /// let x0 = BuildOptions::new().set_requested_verify_option(VerifyOption::Verified);
+    /// let x1 = BuildOptions::new().set_requested_verify_option(VerifyOption::BestEffort);
     /// ```
     pub fn set_requested_verify_option<
         T: std::convert::Into<crate::model::build_options::VerifyOption>,
@@ -11080,7 +11081,6 @@ impl BuildOptions {
     /// # use google_cloud_build_v1::model::BuildOptions;
     /// use google_cloud_build_v1::model::build_options::DefaultLogsBucketBehavior;
     /// let x0 = BuildOptions::new().set_default_logs_bucket_behavior(DefaultLogsBucketBehavior::RegionalUserOwnedBucket);
-    /// let x1 = BuildOptions::new().set_default_logs_bucket_behavior(DefaultLogsBucketBehavior::LegacyBucket);
     /// ```
     pub fn set_default_logs_bucket_behavior<
         T: std::convert::Into<crate::model::build_options::DefaultLogsBucketBehavior>,
@@ -11260,6 +11260,9 @@ pub mod build_options {
         NotVerified,
         /// Build must be verified.
         Verified,
+        /// Build verification is best effort. If provenance generation fails, the
+        /// build will still succeed.
+        BestEffort,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [VerifyOption::value] or
@@ -11284,6 +11287,7 @@ pub mod build_options {
             match self {
                 Self::NotVerified => std::option::Option::Some(0),
                 Self::Verified => std::option::Option::Some(1),
+                Self::BestEffort => std::option::Option::Some(3),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -11296,6 +11300,7 @@ pub mod build_options {
             match self {
                 Self::NotVerified => std::option::Option::Some("NOT_VERIFIED"),
                 Self::Verified => std::option::Option::Some("VERIFIED"),
+                Self::BestEffort => std::option::Option::Some("BEST_EFFORT"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -11319,6 +11324,7 @@ pub mod build_options {
             match value {
                 0 => Self::NotVerified,
                 1 => Self::Verified,
+                3 => Self::BestEffort,
                 _ => Self::UnknownValue(verify_option::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -11332,6 +11338,7 @@ pub mod build_options {
             match value {
                 "NOT_VERIFIED" => Self::NotVerified,
                 "VERIFIED" => Self::Verified,
+                "BEST_EFFORT" => Self::BestEffort,
                 _ => Self::UnknownValue(verify_option::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -11347,6 +11354,7 @@ pub mod build_options {
             match self {
                 Self::NotVerified => serializer.serialize_i32(0),
                 Self::Verified => serializer.serialize_i32(1),
+                Self::BestEffort => serializer.serialize_i32(3),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -11967,7 +11975,9 @@ pub mod build_options {
         /// build. The builder service account must have access to create and write
         /// to Cloud Storage buckets in the build project.
         RegionalUserOwnedBucket,
-        /// Bucket is located in a Google-owned project and is not regionalized.
+        /// Deprecated: Use `REGIONAL_USER_OWNED_BUCKET` instead. Bucket is located
+        /// in a Google-owned project and is not regionalized.
+        #[deprecated]
         LegacyBucket,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -13031,7 +13041,9 @@ pub struct PrivatePoolV1Config {
     /// Network configuration for the pool.
     pub network_config: std::option::Option<crate::model::private_pool_v_1_config::NetworkConfig>,
 
-    /// Immutable. Private Service Connect(PSC) Network configuration for the pool.
+    /// Immutable. Deprecated: Private Service Connect is no longer supported.
+    /// Private Service Connect(PSC) Network configuration for the pool.
+    #[deprecated]
     pub private_service_connect:
         std::option::Option<crate::model::private_pool_v_1_config::PrivateServiceConnect>,
 
@@ -13118,6 +13130,7 @@ impl PrivatePoolV1Config {
     /// use google_cloud_build_v1::model::private_pool_v_1_config::PrivateServiceConnect;
     /// let x = PrivatePoolV1Config::new().set_private_service_connect(PrivateServiceConnect::default()/* use setters */);
     /// ```
+    #[deprecated]
     pub fn set_private_service_connect<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::private_pool_v_1_config::PrivateServiceConnect>,
@@ -13135,6 +13148,7 @@ impl PrivatePoolV1Config {
     /// let x = PrivatePoolV1Config::new().set_or_clear_private_service_connect(Some(PrivateServiceConnect::default()/* use setters */));
     /// let x = PrivatePoolV1Config::new().set_or_clear_private_service_connect(None::<PrivateServiceConnect>);
     /// ```
+    #[deprecated]
     pub fn set_or_clear_private_service_connect<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::private_pool_v_1_config::PrivateServiceConnect>,
@@ -13508,9 +13522,11 @@ pub mod private_pool_v_1_config {
         }
     }
 
+    /// Deprecated: Private Service Connect is no longer supported.
     /// Defines the Private Service Connect network configuration for the pool.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
+    #[deprecated]
     pub struct PrivateServiceConnect {
         /// Required. Immutable. The network attachment that the worker network
         /// interface is peered to. Must be in the format
