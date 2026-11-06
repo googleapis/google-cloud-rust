@@ -412,13 +412,13 @@ members = [
 ]
 
 [workspace.package]
-edition      = "2024"
-authors      = ["Google LLC"]
-description  = "Google Cloud Client Libraries for Rust"
-license      = "Apache-2.0"
-repository   = "https://github.com/googleapis/google-cloud-rust/tree/main"
-keywords     = ["gcp", "google-cloud", "google-cloud-rust", "sdk"]
-categories   = ["network-programming"]
+edition = "2024"
+authors = ["Google LLC"]
+description = "Google Cloud Client Libraries for Rust"
+license = "Apache-2.0"
+repository = "https://github.com/googleapis/google-cloud-rust/tree/main"
+keywords = ["gcp", "google-cloud", "google-cloud-rust", "sdk"]
+categories = ["network-programming"]
 rust-version = "1.91.0"
 
 # Define a custom profile for builds on GHA. The standard profiles exhaust the
@@ -427,82 +427,98 @@ rust-version = "1.91.0"
 # disk space. As of 2025-04-20 disabling incremental builds changes the disk
 # requirements from about 13 GiB to about 5 GiB.
 [profile.ci]
-inherits    = "dev"
+inherits = "dev"
 incremental = false
 
 [workspace.dependencies]
-arc-swap              = { default-features = false, version = "1.9" }
-arrow                 = { default-features = false, version = "60.0" }
-arrow-json            = { default-features = false, version = "60.0" }
-async-trait           = { default-features = false, version = "0.1.85" }
-base64                = { default-features = false, version = "0.23", features = ["std"] }
-bytes                 = { default-features = false, version = "1.10", features = ["serde"] }
-cargo_metadata        = { default-features = false, version = "0.23" }
-chrono                = { default-features = false, version = "0.4.44" }
-crates_io_api         = { default-features = false, version = "0.12" }
-clap                  = { default-features = false, version = "4" }
-crc32c                = { default-features = false, version = "0.6.8" }
-futures               = { default-features = false, version = "0.3" }
-h2                    = { default-features = false, version = "0.4.14" }
-hex                   = { default-features = false, version = "0.4.3" }
-http                  = { default-features = false, version = "1.1", features = ["std"] }
-http-body             = { default-features = false, version = "1.1" }
-humantime             = { default-features = false, version = "2" }
-hyper                 = { default-features = false, version = "1.10" }
-jiff                  = { default-features = false, version = "0.2.32" }
-jsonwebtoken          = { default-features = false, version = "11" }
-libc                  = { default-features = false, version = "0.2.183" }
-markdown              = { default-features = false, version = "1.0" }
-opentelemetry         = { default-features = false, version = "0.33" }
-opentelemetry-proto   = { default-features = false, version = "0.33" }
-opentelemetry_sdk     = { default-features = false, version = "0.33" }
-opentelemetry-http    = { default-features = false, version = "0.33" }
-opentelemetry-otlp    = { default-features = false, version = "0.33" }
-parse-size            = { default-features = false, version = "1.1" }
-percent-encoding      = { default-features = false, version = "2.3" }
-pin-project           = { default-features = false, version = "1.1.13" }
-rand                  = { default-features = false, version = "0.10" }
-p256                  = { default-features = false, version = "0.14" }
-rust_decimal          = { default-features = false, version = "1.42.0", features = ["std"] }
-rustls                = { default-features = false, version = "0.23.38" }
-rustls-pki-types      = { default-features = false, version = "1.14" }
-semver                = { default-features = false, version = "1.0.28" }
-serde                 = { default-features = false, version = "1.0.228", features = ["serde_derive"] }
-serde_json            = { default-features = false, version = "1.0.150", features = ["std"] }
-serde-saphyr          = { default-features = false, version = "2.0", features = ["deserialize"] }
-serde_with            = { default-features = false, version = "3", features = ["base64", "macros", "std"] }
-sha2                  = { default-features = false, version = "0.11.0" }
-thiserror             = { default-features = false, version = "2.0.12" }
-time                  = { default-features = false, version = "0.3.45" }
-tokio                 = { default-features = false, version = "1.52.3" }
-tokio-metrics         = { default-features = false, version = "0.5.0" }
-tokio-util            = { default-features = false, version = "0.7.18" }
-toml_edit             = { default-features = false, version = "0.25" }
-tracing-log           = { default-features = false, version = "0.2" }
+arc-swap = { default-features = false, version = "1.9" }
+arrow = { default-features = false, version = "60.0" }
+arrow-json = { default-features = false, version = "60.0" }
+async-trait = { default-features = false, version = "0.1.85" }
+base64 = { default-features = false, version = "0.23", features = ["std"] }
+bytes = { default-features = false, version = "1.10", features = ["serde"] }
+cargo_metadata = { default-features = false, version = "0.23" }
+chrono = { default-features = false, version = "0.4.44" }
+crates_io_api = { default-features = false, version = "0.12" }
+clap = { default-features = false, version = "4" }
+crc32c = { default-features = false, version = "0.6.8" }
+futures = { default-features = false, version = "0.3" }
+h2 = { default-features = false, version = "0.4.14" }
+hex = { default-features = false, version = "0.4.3" }
+http = { default-features = false, version = "1.1", features = ["std"] }
+http-body = { default-features = false, version = "1.1" }
+humantime = { default-features = false, version = "2" }
+hyper = { default-features = false, version = "1.10" }
+jiff = { default-features = false, version = "0.2.32" }
+jsonwebtoken = { default-features = false, version = "11" }
+libc = { default-features = false, version = "0.2.183" }
+markdown = { default-features = false, version = "1.0" }
+opentelemetry = { default-features = false, version = "0.33" }
+opentelemetry-proto = { default-features = false, version = "0.33" }
+opentelemetry_sdk = { default-features = false, version = "0.33" }
+opentelemetry-http = { default-features = false, version = "0.33" }
+opentelemetry-otlp = { default-features = false, version = "0.33" }
+parse-size = { default-features = false, version = "1.1" }
+percent-encoding = { default-features = false, version = "2.3" }
+pin-project = { default-features = false, version = "1.1.13" }
+rand = { default-features = false, version = "0.10" }
+p256 = { default-features = false, version = "0.14" }
+rust_decimal = { default-features = false, version = "1.42.0", features = [
+  "std",
+] }
+rustls = { default-features = false, version = "0.23.38" }
+rustls-pki-types = { default-features = false, version = "1.14" }
+semver = { default-features = false, version = "1.0.28" }
+serde = { default-features = false, version = "1.0.228", features = [
+  "serde_derive",
+] }
+serde_json = { default-features = false, version = "1.0.150", features = [
+  "std",
+] }
+serde-saphyr = { default-features = false, version = "2.0", features = [
+  "deserialize",
+] }
+serde_with = { default-features = false, version = "3", features = [
+  "base64",
+  "macros",
+  "std",
+] }
+sha2 = { default-features = false, version = "0.11.0" }
+thiserror = { default-features = false, version = "2.0.12" }
+time = { default-features = false, version = "0.3.45" }
+tokio = { default-features = false, version = "1.52.3" }
+tokio-metrics = { default-features = false, version = "0.5.0" }
+tokio-util = { default-features = false, version = "0.7.18" }
+toml_edit = { default-features = false, version = "0.25" }
+tracing-log = { default-features = false, version = "0.2" }
 tracing-opentelemetry = { default-features = false, version = "0.34" }
-tracing-subscriber    = { default-features = false, version = "0.3.23" }
-url                   = { default-features = false, version = "2.4" }
-uuid                  = { default-features = false, version = "1.23", features = ["v4"] }
+tracing-subscriber = { default-features = false, version = "0.3.23" }
+url = { default-features = false, version = "2.4" }
+uuid = { default-features = false, version = "1.23", features = ["v4"] }
 
 opentelemetry-semantic-conventions = { default-features = false, version = "0.33.0" }
-opentelemetry-appender-tracing     = { default-features = false, version = "0.33.0" }
+opentelemetry-appender-tracing = { default-features = false, version = "0.33.0" }
 
 # WARNING: When this changes to 0.2 we need to bump the google-cloud-gax-internal major version.
 http-body-util = { default-features = false, version = "0.1.3" }
 # WARNING: When any of these change to 0.15 we need to bump the google-cloud-gax-internal major version.
-prost       = { default-features = false, version = "0.14", features = ["std"] }
+prost = { default-features = false, version = "0.14", features = ["std"] }
 prost-build = { default-features = false, version = "0.14" }
 prost-types = { default-features = false, version = "0.14" }
 # WARNING: When this changes to 0.14 we need to bump the google-cloud-gax-internal major version.
 reqwest = { default-features = false, version = "0.13.4" }
 # WARNING: When any of these change to 0.15 we need to bump the google-cloud-gax-internal major version.
-tonic             = { default-features = false, version = "0.14.5", features = ["tls-native-roots"] }
-tonic-prost       = { default-features = false, version = "0.14.5" }
+tonic = { default-features = false, version = "0.14.5", features = [
+  "tls-native-roots",
+] }
+tonic-prost = { default-features = false, version = "0.14.5" }
 tonic-prost-build = { default-features = false, version = "0.14.5" }
 # WARNING: When this changes to 0.6 we need to bump the google-cloud-gax-internal major version.
 tower = { default-features = false, version = "0.5.2", features = ["util"] }
 # WARNING: When this changes to 0.2 we need to bump the google-cloud-gax-internal major version.
-tracing       = { default-features = false, version = "0.1.44", features = ["attributes"] }
+tracing = { default-features = false, version = "0.1.44", features = [
+  "attributes",
+] }
 tracing-serde = { default-features = false, version = "0.2" }
 
 # Some of our direct dependencies fail to declare the minimum version
@@ -515,110 +531,113 @@ aws-lc-rs = { default-features = false, version = "1.17.0" }
 lazy_static = { default-features = false, version = "1.5" }
 
 # Test packages
-anyhow            = { default-features = false, version = "1.0.102", features = ["std"] }
-axum              = { default-features = false, version = "0.8" }
-flate2            = { default-features = false, version = "1.1.9" }
-hmac              = { default-features = false, version = "0.13.0" }
-httptest          = { default-features = false, version = "0.16.4" }
-md5               = { default-features = false, version = "0.8" }
-mockall           = { default-features = false, version = "0.15" }
-multer            = { default-features = false, version = "3" }
-mutants           = { default-features = false, version = "0.0.4" }
-once_cell         = { default-features = false, version = "1.19.0" }
-pastey            = { default-features = false, version = "0.2.3" }
-pretty_assertions = { default-features = false, version = "1.4.1", features = ["alloc"] }
-proc-macro2       = { default-features = false, version = "1.0.106" }
-quote             = { default-features = false, version = "1.0.38" }
-regex             = { default-features = false, version = "1.10.4" }
-rsa               = { default-features = false, version = "0.9.10" }
-rustc_version     = { default-features = false, version = "0.4" }
-scoped-env        = { default-features = false, version = "2.1" }
-serial_test       = { default-features = false, version = "3" }
+anyhow = { default-features = false, version = "1.0.102", features = ["std"] }
+axum = { default-features = false, version = "0.8" }
+flate2 = { default-features = false, version = "1.1.9" }
+hmac = { default-features = false, version = "0.13.0" }
+httptest = { default-features = false, version = "0.16.4" }
+md5 = { default-features = false, version = "0.8" }
+mockall = { default-features = false, version = "0.15" }
+multer = { default-features = false, version = "3" }
+mutants = { default-features = false, version = "0.0.4" }
+once_cell = { default-features = false, version = "1.19.0" }
+pastey = { default-features = false, version = "0.2.3" }
+pretty_assertions = { default-features = false, version = "1.4.1", features = [
+  "alloc",
+] }
+proc-macro2 = { default-features = false, version = "1.0.106" }
+quote = { default-features = false, version = "1.0.38" }
+regex = { default-features = false, version = "1.10.4" }
+rsa = { default-features = false, version = "0.9.10" }
+rustc_version = { default-features = false, version = "0.4" }
+scoped-env = { default-features = false, version = "2.1" }
+serial_test = { default-features = false, version = "3" }
 static_assertions = { default-features = false, version = "1.1" }
-syn               = { default-features = false, version = "3.0.3" }
-tempfile          = { default-features = false, version = "3.26" }
-test-case         = { default-features = false, version = "3.3" }
-tokio-stream      = { default-features = false, version = "0.1.16" }
+syn = { default-features = false, version = "3.0.3" }
+tempfile = { default-features = false, version = "3.26" }
+test-case = { default-features = false, version = "3.3" }
+tokio-stream = { default-features = false, version = "0.1.16" }
 
 # Local packages used as dependencies.
-google-cloud-auth        = { default-features = false, version = "1.18.0", path = "src/auth" }
-google-cloud-gax         = { default-features = false, version = "1.15.0", path = "src/gax" }
-gaxi                     = { default-features = false, version = "0.7.21", path = "src/gax-internal", package = "google-cloud-gax-internal" }
-wkt                      = { default-features = false, version = "1.10.0", path = "src/wkt", package = "google-cloud-wkt" }
-google-cloud-wkt         = { default-features = false, version = "1.10.0", path = "src/wkt", package = "google-cloud-wkt" }
-google-cloud-api         = { default-features = false, version = "1.8.0", path = "src/generated/api/types" }
-google-cloud-iam-v1      = { default-features = false, version = "1.13.0", path = "src/generated/iam/v1" }
-google-cloud-location    = { default-features = false, version = "1.12.0", path = "src/generated/cloud/location" }
+google-cloud-auth = { default-features = false, version = "1.18.0", path = "src/auth" }
+google-cloud-gax = { default-features = false, version = "1.15.0", path = "src/gax" }
+gaxi = { default-features = false, version = "0.7.21", path = "src/gax-internal", package = "google-cloud-gax-internal" }
+wkt = { default-features = false, version = "1.10.0", path = "src/wkt", package = "google-cloud-wkt" }
+google-cloud-wkt = { default-features = false, version = "1.10.0", path = "src/wkt", package = "google-cloud-wkt" }
+google-cloud-api = { default-features = false, version = "1.8.0", path = "src/generated/api/types" }
+google-cloud-iam-v1 = { default-features = false, version = "1.13.0", path = "src/generated/iam/v1" }
+google-cloud-location = { default-features = false, version = "1.12.0", path = "src/generated/cloud/location" }
 google-cloud-longrunning = { default-features = false, version = "1.14.0", path = "src/generated/longrunning" }
-google-cloud-lro         = { default-features = false, version = "1.11.0", path = "src/lro" }
-google-cloud-rpc         = { default-features = false, version = "1.6.0", path = "src/generated/rpc/types", package = "google-cloud-rpc" }
-google-cloud-type        = { default-features = false, version = "1.6.0", path = "src/generated/type" }
+google-cloud-lro = { default-features = false, version = "1.11.0", path = "src/lro" }
+google-cloud-rpc = { default-features = false, version = "1.6.0", path = "src/generated/rpc/types", package = "google-cloud-rpc" }
+google-cloud-type = { default-features = false, version = "1.6.0", path = "src/generated/type" }
 # These are used by specific generated libraries.
-google-cloud-apphub-v1                          = { default-features = false, version = "1.16.0", path = "src/generated/cloud/apphub/v1" }
-google-cloud-config-v1                          = { default-features = false, version = "1.15.0", path = "src/generated/cloud/config/v1" }
-google-apps-card-v1                             = { default-features = false, version = "1.0.0", path = "src/generated/apps/card/v1" }
-google-cloud-apps-script-type                   = { default-features = false, version = "1.6.0", path = "src/generated/apps/script/gtype" }
-google-cloud-apps-script-type-calendar          = { default-features = false, version = "1.8.0", path = "src/generated/apps/script/calendar" }
-google-cloud-apps-script-type-docs              = { default-features = false, version = "1.8.0", path = "src/generated/apps/script/docs" }
-google-cloud-apps-script-type-drive             = { default-features = false, version = "1.8.0", path = "src/generated/apps/script/drive" }
-google-cloud-apps-script-type-gmail             = { default-features = false, version = "1.8.0", path = "src/generated/apps/script/gmail" }
-google-cloud-apps-script-type-sheets            = { default-features = false, version = "1.8.0", path = "src/generated/apps/script/sheets" }
-google-cloud-apps-script-type-slides            = { default-features = false, version = "1.8.0", path = "src/generated/apps/script/slides" }
-google-cloud-common                             = { default-features = false, version = "1.7.0", path = "src/generated/cloud/common" }
-google-cloud-gkehub-configmanagement-v1         = { default-features = false, version = "1.7.0", path = "src/generated/cloud/gkehub/configmanagement/v1" }
-google-cloud-gkehub-multiclusteringress-v1      = { default-features = false, version = "1.7.0", path = "src/generated/cloud/gkehub/multiclusteringress/v1" }
+google-cloud-apphub-v1 = { default-features = false, version = "1.16.0", path = "src/generated/cloud/apphub/v1" }
+google-cloud-config-v1 = { default-features = false, version = "1.15.0", path = "src/generated/cloud/config/v1" }
+google-apps-card-v1 = { default-features = false, version = "1.0.0", path = "src/generated/apps/card/v1" }
+google-cloud-apps-script-type = { default-features = false, version = "1.6.0", path = "src/generated/apps/script/gtype" }
+google-cloud-apps-script-type-calendar = { default-features = false, version = "1.8.0", path = "src/generated/apps/script/calendar" }
+google-cloud-apps-script-type-docs = { default-features = false, version = "1.8.0", path = "src/generated/apps/script/docs" }
+google-cloud-apps-script-type-drive = { default-features = false, version = "1.8.0", path = "src/generated/apps/script/drive" }
+google-cloud-apps-script-type-gmail = { default-features = false, version = "1.8.0", path = "src/generated/apps/script/gmail" }
+google-cloud-apps-script-type-sheets = { default-features = false, version = "1.8.0", path = "src/generated/apps/script/sheets" }
+google-cloud-apps-script-type-slides = { default-features = false, version = "1.8.0", path = "src/generated/apps/script/slides" }
+google-cloud-common = { default-features = false, version = "1.7.0", path = "src/generated/cloud/common" }
+google-cloud-datastore-admin-v1 = { default-features = false, version = "1.15.0", path = "src/generated/datastore/admin/v1" }
+google-cloud-gkehub-configmanagement-v1 = { default-features = false, version = "1.7.0", path = "src/generated/cloud/gkehub/configmanagement/v1" }
+google-cloud-gkehub-multiclusteringress-v1 = { default-features = false, version = "1.7.0", path = "src/generated/cloud/gkehub/multiclusteringress/v1" }
 google-cloud-gkehub-rbacrolebindingactuation-v1 = { default-features = false, version = "1.5.0", path = "src/generated/cloud/gkehub/rbacrolebindingactuation/v1" }
-google-cloud-grafeas-v1                         = { default-features = false, version = "1.14.0", path = "src/generated/grafeas/v1" }
-google-cloud-iam-v2                             = { default-features = false, version = "1.13.0", path = "src/generated/iam/v2" }
+google-cloud-grafeas-v1 = { default-features = false, version = "1.14.0", path = "src/generated/grafeas/v1" }
+google-cloud-iam-v2 = { default-features = false, version = "1.13.0", path = "src/generated/iam/v2" }
 google-cloud-identity-accesscontextmanager-type = { default-features = false, version = "1.6.0", path = "src/generated/identity/accesscontextmanager/type" }
-google-cloud-identity-accesscontextmanager-v1   = { default-features = false, version = "1.14.0", path = "src/generated/identity/accesscontextmanager/v1" }
-google-cloud-kms-v1                             = { default-features = false, version = "1.16.0", path = "src/generated/cloud/kms/v1" }
-google-cloud-logging-type                       = { default-features = false, version = "1.6.0", path = "src/generated/logging/type" }
-google-cloud-monitoring-v3                      = { default-features = false, version = "1.14.0", path = "src/generated/monitoring/v3" }
-google-cloud-orgpolicy-v1                       = { default-features = false, version = "1.6.0", path = "src/generated/cloud/orgpolicy/v1" }
-google-cloud-orgpolicy-v2                       = { default-features = false, version = "1.12.0", path = "src/generated/cloud/orgpolicy/v2" }
-google-cloud-osconfig-v1                        = { default-features = false, version = "1.15.0", path = "src/generated/cloud/osconfig/v1" }
-google-cloud-oslogin-common                     = { default-features = false, version = "1.7.0", path = "src/generated/oslogin/common" }
-google-cloud-recommender-v1                     = { default-features = false, version = "1.13.0", path = "src/generated/cloud/recommender/v1" }
-google-cloud-rpc-context                        = { default-features = false, version = "1.6.0", path = "src/generated/rpc/context" }
-google-cloud-spanner-admin-database-v1          = { default-features = false, version = "1.15.0", path = "src/generated/spanner/admin/database/v1" }
-google-cloud-spanner-admin-instance-v1          = { default-features = false, version = "1.16.0", path = "src/generated/spanner/admin/instance/v1" }
-google-geo-type                                 = { default-features = false, version = "1.0.0", path = "src/generated/geo/gtype" }
-google-shopping-type                            = { default-features = false, version = "1.0.0", path = "src/generated/shopping/gtype" }
+google-cloud-identity-accesscontextmanager-v1 = { default-features = false, version = "1.14.0", path = "src/generated/identity/accesscontextmanager/v1" }
+google-cloud-kms-v1 = { default-features = false, version = "1.16.0", path = "src/generated/cloud/kms/v1" }
+google-cloud-logging-type = { default-features = false, version = "1.6.0", path = "src/generated/logging/type" }
+google-cloud-monitoring-v3 = { default-features = false, version = "1.14.0", path = "src/generated/monitoring/v3" }
+google-cloud-orgpolicy-v1 = { default-features = false, version = "1.6.0", path = "src/generated/cloud/orgpolicy/v1" }
+google-cloud-orgpolicy-v2 = { default-features = false, version = "1.12.0", path = "src/generated/cloud/orgpolicy/v2" }
+google-cloud-osconfig-v1 = { default-features = false, version = "1.15.0", path = "src/generated/cloud/osconfig/v1" }
+google-cloud-oslogin-common = { default-features = false, version = "1.7.0", path = "src/generated/oslogin/common" }
+google-cloud-recommender-v1 = { default-features = false, version = "1.13.0", path = "src/generated/cloud/recommender/v1" }
+google-cloud-rpc-context = { default-features = false, version = "1.6.0", path = "src/generated/rpc/context" }
+google-cloud-spanner-admin-database-v1 = { default-features = false, version = "1.15.0", path = "src/generated/spanner/admin/database/v1" }
+google-cloud-spanner-admin-instance-v1 = { default-features = false, version = "1.16.0", path = "src/generated/spanner/admin/instance/v1" }
+google-geo-type = { default-features = false, version = "1.0.0", path = "src/generated/geo/gtype" }
+google-shopping-type = { default-features = false, version = "1.0.0", path = "src/generated/shopping/gtype" }
 # Used in integration tests, these are leaf nodes in the dependency graph. Should not get a `version`.
-google-cloud-speech-v2               = { default-features = false, path = "src/generated/cloud/speech/v2" }
-google-cloud-secretmanager-v1        = { default-features = false, path = "src/generated/cloud/secretmanager/v1" }
-google-cloud-aiplatform-v1           = { default-features = false, path = "src/generated/cloud/aiplatform/v1" }
-google-cloud-compute-v1              = { default-features = false, path = "src/generated/cloud/compute/v1" }
-google-cloud-storage                 = { default-features = false, path = "src/storage" }
-google-cloud-pubsub                  = { default-features = false, path = "src/pubsub" }
-google-cloud-spanner                 = { default-features = false, path = "src/spanner" }
-google-cloud-bigquery                = { default-features = false, path = "src/bigquery", version = "0.19.0" }
-google-cloud-bigquery-derive         = { default-features = false, path = "src/bigquery-derive", version = "0.2.0" }
-google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2", version = "1.1.0" }
-google-cloud-bigtable-admin-v2       = { default-features = false, path = "src/generated/bigtable/admin/v2" }
-google-cloud-iam-credentials-v1      = { default-features = false, path = "src/generated/iam/credentials/v1" }
-google-cloud-language-v2             = { default-features = false, path = "src/generated/cloud/language/v2" }
-google-cloud-dns-v1                  = { default-features = false, path = "src/generated/cloud/dns/v1" }
-google-cloud-firestore               = { default-features = false, path = "src/firestore" }
-google-cloud-showcase-v1beta1        = { default-features = false, path = "src/generated/showcase" }
-google-cloud-telcoautomation-v1      = { default-features = false, path = "src/generated/cloud/telcoautomation/v1" }
-google-cloud-trace-v1                = { default-features = false, path = "src/generated/devtools/cloudtrace/v1" }
-google-cloud-workflows-v1            = { default-features = false, path = "src/generated/cloud/workflows/v1" }
+google-cloud-speech-v2 = { default-features = false, path = "src/generated/cloud/speech/v2" }
+google-cloud-secretmanager-v1 = { default-features = false, path = "src/generated/cloud/secretmanager/v1" }
+google-cloud-aiplatform-v1 = { default-features = false, path = "src/generated/cloud/aiplatform/v1" }
+google-cloud-compute-v1 = { default-features = false, path = "src/generated/cloud/compute/v1" }
+google-cloud-storage = { default-features = false, path = "src/storage" }
+google-cloud-pubsub = { default-features = false, path = "src/pubsub" }
+google-cloud-spanner = { default-features = false, path = "src/spanner" }
+google-cloud-bigquery = { default-features = false, path = "src/bigquery", version = "0.19.0" }
+google-cloud-bigquery-derive = { default-features = false, path = "src/bigquery-derive", version = "0.2.0" }
+google-cloud-bigquery-v2 = { default-features = false, path = "src/generated/cloud/bigquery/v2", version = "1.1.0" }
+google-cloud-bigtable-admin-v2 = { default-features = false, path = "src/generated/bigtable/admin/v2" }
+google-cloud-iam-credentials-v1 = { default-features = false, path = "src/generated/iam/credentials/v1" }
+google-cloud-language-v2 = { default-features = false, path = "src/generated/cloud/language/v2" }
+google-cloud-dns-v1 = { default-features = false, path = "src/generated/cloud/dns/v1" }
+google-cloud-firestore = { default-features = false, path = "src/firestore" }
+google-cloud-showcase-v1beta1 = { default-features = false, path = "src/generated/showcase" }
+google-cloud-telcoautomation-v1 = { default-features = false, path = "src/generated/cloud/telcoautomation/v1" }
+google-cloud-trace-v1 = { default-features = false, path = "src/generated/devtools/cloudtrace/v1" }
+google-cloud-workflows-v1 = { default-features = false, path = "src/generated/cloud/workflows/v1" }
 google-cloud-workflows-executions-v1 = { default-features = false, path = "src/generated/cloud/workflows/executions/v1" }
-secretmanager-openapi-v1             = { default-features = false, path = "src/generated/openapi-validation" }
+secretmanager-openapi-v1 = { default-features = false, path = "src/generated/openapi-validation" }
 # Local test packages (never add a version)
-google-cloud-test-macros  = { path = "src/test-macros" }
-google-cloud-test-utils   = { default-features = false, path = "src/test-utils" }
-integration-tests         = { path = "tests/integration" }
-integration-tests-o11y    = { default-features = false, path = "tests/o11y" }
+google-cloud-test-macros = { path = "src/test-macros" }
+google-cloud-test-utils = { default-features = false, path = "src/test-utils" }
+integration-tests = { path = "tests/integration" }
+integration-tests-o11y = { default-features = false, path = "tests/o11y" }
 integration-tests-spanner = { path = "tests/spanner" }
-bigquery-samples          = { path = "src/bigquery/examples" }
-pubsub-grpc-mock          = { path = "src/pubsub/grpc-mock" }
-pubsub-samples            = { path = "src/pubsub/examples" }
-spanner-samples           = { path = "src/spanner/examples" }
-storage-grpc-mock         = { path = "src/storage/grpc-mock" }
-storage-samples           = { path = "src/storage/examples" }
+bigquery-samples = { path = "src/bigquery/examples" }
+pubsub-grpc-mock = { path = "src/pubsub/grpc-mock" }
+pubsub-samples = { path = "src/pubsub/examples" }
+spanner-samples = { path = "src/spanner/examples" }
+storage-grpc-mock = { path = "src/storage/grpc-mock" }
+storage-samples = { path = "src/storage/examples" }
 
 [workspace.lints.rust]
 unexpected_cfgs = { level = "deny", check-cfg = [
