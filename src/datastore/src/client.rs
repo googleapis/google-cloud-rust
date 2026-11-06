@@ -150,8 +150,21 @@ impl Datastore {
         start_key: Key,
         count: usize,
     ) -> std::result::Result<ReserveIdsBuilder, KeyError> {
-        let _ = (start_key, count);
-        unimplemented!()
+        let Some(start_id) = start_key.id_num() else {
+            return Err(KeyError::ZeroId);
+        };
+        let ancestors = &start_key.path()[..start_key.path().len() - 1];
+        let kind = start_key.kind();
+        let partition_id = start_key.partition_id().clone();
+        let mut keys = Vec::with_capacity(count);
+        for offset in 0..count {
+            let offset_i64 = i64::try_from(offset).map_err(|_| KeyError::ZeroId)?;
+            let next_id = start_id.checked_add(offset_i64).ok_or(KeyError::ZeroId)?;
+            let mut path = ancestors.to_vec();
+            path.push(crate::key::PathElement::with_id(kind, next_id)?);
+            keys.push(Key::from_path(partition_id.clone(), path)?);
+        }
+        Ok(self.reserve_ids(keys))
     }
 
     /// Creates a [`GetBuilder`] to look up a single [`Entity`][crate::entity::Entity] by [`Key`].
@@ -311,5 +324,136 @@ impl Datastore {
             explain_options: None,
             options: crate::RequestOptions::default(),
         }
+    }
+}
+
+#[cfg(test)]
+pub(crate) mod tests {
+    use super::*;
+    use crate::Response;
+    use crate::model::{
+        AllocateIdsRequest, AllocateIdsResponse, BeginTransactionRequest, BeginTransactionResponse,
+        CommitRequest, CommitResponse, LookupRequest, LookupResponse, ReserveIdsRequest,
+        ReserveIdsResponse, RollbackRequest, RollbackResponse, RunAggregationQueryRequest,
+        RunAggregationQueryResponse, RunQueryRequest, RunQueryResponse,
+    };
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub Datastore {}
+
+        impl gapic_dataplane::stub::Datastore for Datastore {
+            async fn lookup(
+                &self,
+                req: LookupRequest,
+                options: crate::RequestOptions,
+            ) -> Result<Response<LookupResponse>>;
+
+            async fn run_query(
+                &self,
+                req: RunQueryRequest,
+                options: crate::RequestOptions,
+            ) -> Result<Response<RunQueryResponse>>;
+
+            async fn run_aggregation_query(
+                &self,
+                req: RunAggregationQueryRequest,
+                options: crate::RequestOptions,
+            ) -> Result<Response<RunAggregationQueryResponse>>;
+
+            async fn begin_transaction(
+                &self,
+                req: BeginTransactionRequest,
+                options: crate::RequestOptions,
+            ) -> Result<Response<BeginTransactionResponse>>;
+
+            async fn commit(
+                &self,
+                req: CommitRequest,
+                options: crate::RequestOptions,
+            ) -> Result<Response<CommitResponse>>;
+
+            async fn rollback(
+                &self,
+                req: RollbackRequest,
+                options: crate::RequestOptions,
+            ) -> Result<Response<RollbackResponse>>;
+
+            async fn allocate_ids(
+                &self,
+                req: AllocateIdsRequest,
+                options: crate::RequestOptions,
+            ) -> Result<Response<AllocateIdsResponse>>;
+
+            async fn reserve_ids(
+                &self,
+                req: ReserveIdsRequest,
+                options: crate::RequestOptions,
+            ) -> Result<Response<ReserveIdsResponse>>;
+        }
+    }
+
+    #[tokio::test]
+    async fn allocate_ids_normalizes_and_converts() -> anyhow::Result<()> {
+        let mut mock = MockDatastore::new();
+        mock.expect_allocate_ids()
+            .times(1)
+            .withf(|req, _| {
+                req.project_id == "proj-1"
+                    && req.database_id == "db-1"
+                    && req.keys.len() == 2
+                    && req.keys[0]
+                        .partition_id
+                        .as_ref()
+                        .is_some_and(|p| p.namespace_id == "ns-1")
+            })
+            .returning(|_, _| {
+                let p = crate::model::PartitionId::new()
+                    .set_project_id("proj-1")
+                    .set_database_id("db-1")
+                    .set_namespace_id("ns-1");
+                let k1 = crate::model::Key::new()
+                    .set_partition_id(p.clone())
+                    .set_path([crate::model::key::PathElement::new()
+                        .set_kind("Task")
+                        .set_id(101)]);
+                let k2 = crate::model::Key::new().set_partition_id(p).set_path([
+                    crate::model::key::PathElement::new()
+                        .set_kind("Task")
+                        .set_id(102),
+                ]);
+                Ok(Response::from(
+                    AllocateIdsResponse::new().set_keys([k1, k2]),
+                ))
+            });
+
+        let client = Datastore::from_stub("proj-1", "db-1", "ns-1", mock);
+        let inc = IncompleteKey::new("Task")?;
+        let allocated = client.allocate_ids([inc.clone(), inc]).send().await?;
+        assert_eq!(allocated.len(), 2);
+        assert_eq!(allocated[0].id_num(), Some(101));
+        assert_eq!(allocated[1].id_num(), Some(102));
+        assert_eq!(allocated[0].partition_id().namespace_id(), "ns-1");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn reserve_ids_and_sequential() -> anyhow::Result<()> {
+        let mut mock = MockDatastore::new();
+        mock.expect_reserve_ids()
+            .times(1)
+            .withf(|req, _| {
+                req.project_id == "proj-1"
+                    && req.keys.len() == 3
+                    && req.keys[0].path[0].id() == Some(&500)
+                    && req.keys[1].path[0].id() == Some(&501)
+                    && req.keys[2].path[0].id() == Some(&502)
+            })
+            .returning(|_, _| Ok(Response::from(ReserveIdsResponse::new())));
+
+        let client = Datastore::from_stub("proj-1", "", "", mock);
+        let start = Key::with_id("Task", 500)?;
+        client.reserve_ids_sequential(start, 3)?.send().await?;
+        Ok(())
     }
 }

@@ -15,6 +15,7 @@
 //! Client and request builders for Cloud Datastore.
 
 use crate::ClientBuilderResult;
+use crate::Error;
 use crate::Result;
 use crate::client::Datastore;
 use crate::key::{IncompleteKey, Key};
@@ -106,7 +107,6 @@ impl ClientBuilder {
 
 /// Request builder for [`Datastore::allocate_ids`].
 #[derive(Clone, Debug)]
-#[allow(dead_code)]
 pub struct AllocateIdsBuilder {
     pub(crate) client: Datastore,
     pub(crate) keys: Vec<IncompleteKey>,
@@ -122,13 +122,38 @@ impl AllocateIdsBuilder {
 
     /// Sends the `AllocateIds` request and returns the newly allocated complete [Key]s.
     pub async fn send(self) -> Result<Vec<Key>> {
-        unimplemented!()
+        if self.keys.is_empty() {
+            return Ok(Vec::new());
+        }
+        let default_partition = self.client.partition_id();
+        let mut proto_keys = Vec::with_capacity(self.keys.len());
+        for key in &self.keys {
+            let normalized = key.normalize(&default_partition).map_err(Error::ser)?;
+            proto_keys.push(normalized.to_proto());
+        }
+
+        let response = self
+            .client
+            .inner
+            .gapic
+            .allocate_ids()
+            .set_project_id(self.client.project_id())
+            .set_database_id(self.client.database_id())
+            .set_keys(proto_keys)
+            .with_options(self.options)
+            .send()
+            .await?;
+
+        let mut allocated = Vec::with_capacity(response.keys.len());
+        for proto_key in response.keys {
+            allocated.push(Key::from_proto(proto_key).map_err(Error::deser)?);
+        }
+        Ok(allocated)
     }
 }
 
 /// Request builder for [`Datastore::reserve_ids`] and [`Datastore::reserve_ids_sequential`].
 #[derive(Clone, Debug)]
-#[allow(dead_code)]
 pub struct ReserveIdsBuilder {
     pub(crate) client: Datastore,
     pub(crate) keys: Vec<Key>,
@@ -144,6 +169,28 @@ impl ReserveIdsBuilder {
 
     /// Sends the `ReserveIds` request.
     pub async fn send(self) -> Result<()> {
-        unimplemented!()
+        if self.keys.is_empty() {
+            return Ok(());
+        }
+        let default_partition = self.client.partition_id();
+        let mut proto_keys = Vec::with_capacity(self.keys.len());
+        for key in &self.keys {
+            let normalized = key.normalize(&default_partition).map_err(Error::ser)?;
+            proto_keys.push(normalized.to_proto());
+        }
+
+        let _ = self
+            .client
+            .inner
+            .gapic
+            .reserve_ids()
+            .set_project_id(self.client.project_id())
+            .set_database_id(self.client.database_id())
+            .set_keys(proto_keys)
+            .with_options(self.options)
+            .send()
+            .await?;
+
+        Ok(())
     }
 }
