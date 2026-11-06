@@ -18,7 +18,7 @@ use crate::Result;
 use crate::credentials::{CacheableResource, EntityTag};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use http::Extensions;
-use std::sync::Arc;
+use std::sync::{Arc, Mutex, OnceLock};
 use tokio::sync::watch;
 use tokio::time::{Duration, Instant, sleep};
 
@@ -38,10 +38,16 @@ impl Drop for AbortOnDrop {
     }
 }
 
+type InitState = (
+    Arc<dyn TokenProvider>,
+    watch::Sender<Option<Result<(Token, EntityTag)>>>,
+);
+
 #[derive(Debug, Clone)]
 pub(crate) struct TokenCache {
     rx_token: watch::Receiver<Option<Result<(Token, EntityTag)>>>,
-    _abort_guard: Arc<AbortOnDrop>,
+    init: Arc<Mutex<Option<InitState>>>,
+    _abort_guard: Arc<OnceLock<AbortOnDrop>>,
 }
 
 impl TokenCache {
@@ -50,17 +56,30 @@ impl TokenCache {
         T: TokenProvider + Send + Sync + 'static,
     {
         let (tx_token, rx_token) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
-        let token_provider = Arc::new(inner);
-
-        let handle = tokio::spawn(refresh_task(token_provider, tx_token)).abort_handle();
+        let token_provider: Arc<dyn TokenProvider> = Arc::new(inner);
 
         Self {
             rx_token,
-            _abort_guard: Arc::new(AbortOnDrop(handle)),
+            init: Arc::new(Mutex::new(Some((token_provider, tx_token)))),
+            _abort_guard: Arc::new(OnceLock::new()),
         }
     }
 
+    fn ensure_started(&self) {
+        let _ = self._abort_guard.get_or_init(|| {
+            let (token_provider, tx_token) = self
+                .init
+                .lock()
+                .expect("TokenCache init mutex should not be poisoned")
+                .take()
+                .expect("TokenCache init state should be present on first start");
+            let handle = tokio::spawn(refresh_task(token_provider, tx_token)).abort_handle();
+            AbortOnDrop(handle)
+        });
+    }
+
     async fn latest_token_and_entity_tag(&self) -> Result<(Token, EntityTag)> {
+        self.ensure_started();
         let mut rx = self.rx_token.clone();
         let token_result = rx.borrow_and_update().clone();
         if let Some(token_result) = token_result {
@@ -120,7 +139,7 @@ async fn refresh_task<T>(
     token_provider: Arc<T>,
     tx_token: watch::Sender<Option<Result<(Token, EntityTag)>>>,
 ) where
-    T: TokenProvider + Send + Sync + 'static,
+    T: TokenProvider + Send + Sync + 'static + ?Sized,
 {
     loop {
         if tx_token.receiver_count() == 0 {
@@ -990,5 +1009,19 @@ mod tests {
         tokio::time::advance(2 * TOKEN_VALID_DURATION).await;
         tokio::task::yield_now().await;
         Ok(())
+    }
+
+    #[test]
+    fn new_does_not_require_tokio_runtime_or_eagerly_fetch() {
+        let mut mock = MockTokenProvider::new();
+        mock.expect_token().times(0);
+
+        let cache = TokenCache::new(mock);
+        drop(cache);
+
+        let creds = crate::credentials::mds::Builder::default()
+            .build()
+            .expect("building MDS credentials outside a Tokio runtime should succeed");
+        drop(creds);
     }
 }
