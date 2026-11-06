@@ -206,6 +206,9 @@ pub(super) fn repeated_field(field: FieldDescriptorProto) -> FieldDescriptorProt
     field.set_label(Label::Repeated)
 }
 
+/// The smallest field number that protobuf allows.
+const MIN_FIELD_NUMBER: i32 = 1;
+
 /// The largest field number that protobuf allows, 2^29 - 1.
 const MAX_FIELD_NUMBER: i32 = (1 << 29) - 1;
 
@@ -213,8 +216,8 @@ const MAX_FIELD_NUMBER: i32 = (1 << 29) - 1;
 fn optional_field(name: &str, field_number: u32, field_type: Type) -> FieldDescriptorProto {
     let number = i32::try_from(field_number)
         .ok()
-        .filter(|number| *number <= MAX_FIELD_NUMBER)
-        .expect("field numbers are at most 2^29 - 1");
+        .filter(|number| (MIN_FIELD_NUMBER..=MAX_FIELD_NUMBER).contains(number))
+        .expect("field numbers are between 1 and 2^29 - 1");
     FieldDescriptorProto::new()
         .set_name(name)
         .set_number(number)
@@ -361,13 +364,25 @@ mod tests {
     }
 
     #[test]
+    fn smallest_field_number_is_described() {
+        let field = string_field(NAME_COLUMN, MIN_FIELD_NUMBER.unsigned_abs());
+        assert_eq!(field.number, MIN_FIELD_NUMBER);
+    }
+
+    #[test]
+    #[should_panic(expected = "field numbers are between 1 and 2^29 - 1")]
+    fn smaller_field_numbers_panic() {
+        let _ = string_field(NAME_COLUMN, MIN_FIELD_NUMBER.unsigned_abs() - 1);
+    }
+
+    #[test]
     fn largest_field_number_is_described() {
         let field = string_field(NAME_COLUMN, MAX_FIELD_NUMBER.unsigned_abs());
         assert_eq!(field.number, MAX_FIELD_NUMBER);
     }
 
     #[test]
-    #[should_panic(expected = "field numbers are at most 2^29 - 1")]
+    #[should_panic(expected = "field numbers are between 1 and 2^29 - 1")]
     fn larger_field_numbers_panic() {
         let _ = string_field(NAME_COLUMN, MAX_FIELD_NUMBER.unsigned_abs() + 1);
     }
