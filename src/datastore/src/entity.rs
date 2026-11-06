@@ -208,6 +208,63 @@ impl IntoEntity for Entity {
     }
 }
 
+/// Trait implemented by types (`Key`, `Option<Key>`, `MutationKey`, `Option<MutationKey>`)
+/// that can be annotated with `#[datastore(key)]` in `#[derive(FromEntity, IntoEntity)]`.
+pub trait EntityKeyField: Sized {
+    /// Extracts the key field from `entity`.
+    fn from_entity_key(entity: &Entity) -> Result<Self, EntityError>;
+
+    /// Applies this key field to `entity`.
+    fn apply_to_entity(self, entity: &mut Entity);
+}
+
+impl EntityKeyField for Key {
+    fn from_entity_key(entity: &Entity) -> Result<Self, EntityError> {
+        entity.key().cloned().ok_or(EntityError::MissingKey)
+    }
+
+    fn apply_to_entity(self, entity: &mut Entity) {
+        entity.set_key(self);
+    }
+}
+
+impl EntityKeyField for Option<Key> {
+    fn from_entity_key(entity: &Entity) -> Result<Self, EntityError> {
+        Ok(entity.key().cloned())
+    }
+
+    fn apply_to_entity(self, entity: &mut Entity) {
+        if let Some(k) = self {
+            entity.set_key(k);
+        }
+    }
+}
+
+impl EntityKeyField for MutationKey {
+    fn from_entity_key(entity: &Entity) -> Result<Self, EntityError> {
+        entity
+            .mutation_key()
+            .cloned()
+            .ok_or(EntityError::MissingKey)
+    }
+
+    fn apply_to_entity(self, entity: &mut Entity) {
+        entity.set_key(self);
+    }
+}
+
+impl EntityKeyField for Option<MutationKey> {
+    fn from_entity_key(entity: &Entity) -> Result<Self, EntityError> {
+        Ok(entity.mutation_key().cloned())
+    }
+
+    fn apply_to_entity(self, entity: &mut Entity) {
+        if let Some(k) = self {
+            entity.set_key(k);
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
