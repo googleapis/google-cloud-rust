@@ -251,14 +251,51 @@ impl ReadWriteTransaction {
     /// Executes an [`AggregationQuery`] within this transaction.
     pub async fn run_aggregation_query(
         &self,
-        _query: AggregationQuery,
+        query: AggregationQuery,
     ) -> Result<AggregationResults> {
-        unimplemented!()
+        let mut partition_id = self.client.partition_id();
+        if let Some(ref ns) = query.nested_query.namespace_id {
+            partition_id = partition_id.with_namespace_id(ns.clone());
+        }
+        let proto_agg = query
+            .to_proto(&partition_id)
+            .map_err(|e| Error::ser(Box::new(e)))?;
+        let mode = self.read_mode();
+        let res = crate::aggregation::execute_aggregation_query(
+            self.client.clone(),
+            partition_id,
+            crate::aggregation::InitialAggregationSpec::Structured(Box::new(proto_agg)),
+            mode,
+            None,
+            self.options.clone(),
+        )
+        .await;
+        match res {
+            Ok((results, started_tx)) => self.record_read_outcome(Ok(results), started_tx),
+            Err(err) => self.record_read_outcome(Err(err), None),
+        }
     }
 
     /// Executes a GQL aggregation query within this transaction.
-    pub async fn run_aggregation_gql_query(&self, _query: GqlQuery) -> Result<AggregationResults> {
-        unimplemented!()
+    pub async fn run_aggregation_gql_query(&self, query: GqlQuery) -> Result<AggregationResults> {
+        let partition_id = self.client.partition_id();
+        let proto_gql = query
+            .to_proto(&partition_id)
+            .map_err(|e| Error::ser(Box::new(e)))?;
+        let mode = self.read_mode();
+        let res = crate::aggregation::execute_aggregation_query(
+            self.client.clone(),
+            partition_id,
+            crate::aggregation::InitialAggregationSpec::Gql(proto_gql),
+            mode,
+            None,
+            self.options.clone(),
+        )
+        .await;
+        match res {
+            Ok((results, started_tx)) => self.record_read_outcome(Ok(results), started_tx),
+            Err(err) => self.record_read_outcome(Err(err), None),
+        }
     }
 
     /// Buffers an `Insert` mutation with an [`IncompleteKey`] and returns a [`PendingKey`]
@@ -606,14 +643,47 @@ impl ReadOnlyTransaction {
     /// Executes an [`AggregationQuery`] within this read-only transaction.
     pub async fn run_aggregation_query(
         &self,
-        _query: AggregationQuery,
+        query: AggregationQuery,
     ) -> Result<AggregationResults> {
-        unimplemented!()
+        let mut partition_id = self.client.partition_id();
+        if let Some(ref ns) = query.nested_query.namespace_id {
+            partition_id = partition_id.with_namespace_id(ns.clone());
+        }
+        let proto_agg = query
+            .to_proto(&partition_id)
+            .map_err(|e| Error::ser(Box::new(e)))?;
+        let mode = self.read_mode();
+        let (results, started_tx) = crate::aggregation::execute_aggregation_query(
+            self.client.clone(),
+            partition_id,
+            crate::aggregation::InitialAggregationSpec::Structured(Box::new(proto_agg)),
+            mode,
+            None,
+            self.options.clone(),
+        )
+        .await?;
+        self.record_started_tx(started_tx);
+        Ok(results)
     }
 
     /// Executes a GQL aggregation query within this read-only transaction.
-    pub async fn run_aggregation_gql_query(&self, _query: GqlQuery) -> Result<AggregationResults> {
-        unimplemented!()
+    pub async fn run_aggregation_gql_query(&self, query: GqlQuery) -> Result<AggregationResults> {
+        let partition_id = self.client.partition_id();
+        let proto_gql = query
+            .to_proto(&partition_id)
+            .map_err(|e| Error::ser(Box::new(e)))?;
+        let mode = self.read_mode();
+        let (results, started_tx) = crate::aggregation::execute_aggregation_query(
+            self.client.clone(),
+            partition_id,
+            crate::aggregation::InitialAggregationSpec::Gql(proto_gql),
+            mode,
+            None,
+            self.options.clone(),
+        )
+        .await?;
+        self.record_started_tx(started_tx);
+        Ok(results)
     }
 }
 

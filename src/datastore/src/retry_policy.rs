@@ -41,7 +41,6 @@ pub fn default_backoff_policy() -> impl BackoffPolicy {
 }
 
 /// Constructs an [ExponentialBackoff] instance with Datastore's default parameters.
-#[allow(dead_code)]
 pub(crate) fn default_exponential_backoff() -> ExponentialBackoff {
     ExponentialBackoffBuilder::new()
         .with_initial_delay(Duration::from_millis(100))

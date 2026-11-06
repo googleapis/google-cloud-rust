@@ -34,12 +34,33 @@ use crate::transaction::{ReadOnlyTransactionBuilder, TransactionRunnerBuilder};
 use std::sync::Arc;
 
 #[derive(Debug)]
-#[allow(dead_code)]
 pub(crate) struct DatastoreInner {
     pub(crate) project_id: String,
     pub(crate) database_id: String,
     pub(crate) namespace_id: String,
     pub(crate) gapic: gapic_dataplane::client::Datastore,
+}
+
+pub(crate) fn apply_emulator_env(config: &mut gaxi::options::ClientConfig) {
+    if let Ok(emulator_host) = std::env::var("DATASTORE_EMULATOR_HOST") {
+        let emulator_host = emulator_host.trim();
+        if !emulator_host.is_empty() {
+            if config.endpoint.is_none() {
+                let endpoint = if emulator_host.starts_with("http://")
+                    || emulator_host.starts_with("https://")
+                {
+                    emulator_host.to_string()
+                } else {
+                    format!("http://{emulator_host}")
+                };
+                config.endpoint = Some(endpoint);
+            }
+            if config.cred.is_none() {
+                config.cred =
+                    Some(google_cloud_auth::credentials::anonymous::Builder::new().build());
+            }
+        }
+    }
 }
 
 /// Client for interacting with Google Cloud Datastore (`google.datastore.v1`).
@@ -56,7 +77,8 @@ impl Datastore {
         ClientBuilder::new(project_id)
     }
 
-    pub(crate) async fn from_builder(builder: ClientBuilder) -> ClientBuilderResult<Self> {
+    pub(crate) async fn from_builder(mut builder: ClientBuilder) -> ClientBuilderResult<Self> {
+        apply_emulator_env(&mut builder.config);
         let gapic = gapic_dataplane::client::Datastore::new(builder.config).await?;
         Ok(Self {
             inner: Arc::new(DatastoreInner {
@@ -70,7 +92,6 @@ impl Datastore {
 
     /// Creates a [`Datastore`] client backed by a custom stub implementation (used in unit tests).
     #[cfg(test)]
-    #[allow(dead_code)]
     pub(crate) fn from_stub<T>(
         project_id: impl Into<String>,
         database_id: impl Into<String>,
@@ -454,6 +475,35 @@ pub(crate) mod tests {
         let client = Datastore::from_stub("proj-1", "", "", mock);
         let start = Key::with_id("Task", 500)?;
         client.reserve_ids_sequential(start, 3)?.send().await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[serial_test::serial]
+    async fn datastore_emulator_host_configures_endpoint_and_anonymous_credentials()
+    -> anyhow::Result<()> {
+        let _env = scoped_env::ScopedEnv::set("DATASTORE_EMULATOR_HOST", "localhost:8081");
+
+        let mut builder = Datastore::builder("emulator-proj");
+        apply_emulator_env(&mut builder.config);
+        assert_eq!(
+            builder.config.endpoint.as_deref(),
+            Some("http://localhost:8081")
+        );
+        assert!(builder.config.cred.is_some());
+
+        // Building without explicit credentials succeeds when DATASTORE_EMULATOR_HOST is set.
+        let client = Datastore::builder("emulator-proj").build().await?;
+        assert_eq!(client.project_id(), "emulator-proj");
+
+        // Explicit endpoint is preserved.
+        let mut custom_builder =
+            Datastore::builder("emulator-proj").with_endpoint("http://127.0.0.1:9999");
+        apply_emulator_env(&mut custom_builder.config);
+        assert_eq!(
+            custom_builder.config.endpoint.as_deref(),
+            Some("http://127.0.0.1:9999")
+        );
         Ok(())
     }
 }
