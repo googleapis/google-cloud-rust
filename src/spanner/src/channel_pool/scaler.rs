@@ -27,7 +27,7 @@ use crate::channel_pool::config::{
     ChannelPoolConfig, DynamicChannelPoolConfig, MAX_SUPPORTED_CHANNELS,
 };
 use crate::channel_pool::entry::{ChannelEntry, ChannelState, SPANNER_RW_TRANSACTION_IDLE_TIMEOUT};
-use crate::channel_pool::pool::ChannelPoolInner;
+use crate::channel_pool::pool::{ChannelPoolInner, PrimeSession};
 use crate::client::Channel;
 use gaxi::options::ClientConfig;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
@@ -108,14 +108,14 @@ pub(crate) async fn scale_up_worker_loop(
         // Check session availability FIRST so cooldown is never committed when priming is impossible.
         // Drops `inner` (Arc) before awaiting parallel dialing/priming so the parent pool
         // can be dropped immediately without waiting for priming network I/O.
-        let (channels_to_add, client_config, prime_session_name) = {
+        let (channels_to_add, client_config, prime_session) = {
             let inner = match weak_inner.upgrade() {
                 Some(inner) => inner,
                 None => return,
             };
 
             let maybe_prime_session = inner.read_prime_session().clone();
-            let prime_session_name = match maybe_prime_session {
+            let prime_session = match maybe_prime_session {
                 Some(session) => session,
                 None => {
                     // No session registered yet to execute physical channel warming queries.
@@ -132,7 +132,7 @@ pub(crate) async fn scale_up_worker_loop(
 
             let channels_to_add = calculate_scale_up_count(&inner, &dynamic_config);
             let client_config = inner.client_config.clone();
-            (channels_to_add, client_config, prime_session_name)
+            (channels_to_add, client_config, prime_session)
         };
 
         if channels_to_add == 0 {
@@ -147,7 +147,7 @@ pub(crate) async fn scale_up_worker_loop(
             _ = dial_prime_and_publish_channels_parallel(
                 &weak_inner,
                 client_config,
-                prime_session_name,
+                prime_session,
                 channels_to_add,
                 &dynamic_config,
             ) => {}
@@ -232,19 +232,20 @@ fn calculate_scale_up_count(inner: &ChannelPoolInner, config: &DynamicChannelPoo
 async fn dial_prime_and_publish_channels_parallel(
     weak_inner: &Weak<ChannelPoolInner>,
     client_config: ClientConfig,
-    session_name: String,
+    prime_session: PrimeSession,
     count: usize,
     config: &DynamicChannelPoolConfig,
 ) {
     let mut join_set = JoinSet::new();
     for _ in 0..count {
         let channel_client_config = client_config.clone();
-        let session = session_name.clone();
+        let prime_session = prime_session.clone();
         let timeout = config.prime_timeout;
         let max_attempts = config.prime_max_attempts;
 
         join_set.spawn(async move {
-            dial_and_prime_channel(channel_client_config, session, timeout, max_attempts).await
+            dial_and_prime_channel(channel_client_config, prime_session, timeout, max_attempts)
+                .await
         });
     }
 
@@ -311,7 +312,7 @@ fn publish_primed_channel(inner: &ChannelPoolInner, channel: Channel, max_channe
 /// windows, and populates Spanner FrontEnd routing caches before the channel receives user traffic.
 pub(crate) async fn dial_and_prime_channel(
     client_config: ClientConfig,
-    session_name: String,
+    prime_session: PrimeSession,
     prime_timeout: Duration,
     prime_max_attempts: usize,
 ) -> Result<Channel> {
@@ -337,8 +338,9 @@ pub(crate) async fn dial_and_prime_channel(
         let prime_future = channel
             .inner
             .execute_sql()
-            .set_session(session_name.clone())
+            .set_session(prime_session.session_name.clone())
             .set_sql("SELECT 1")
+            .with_options(prime_session.options.clone())
             .send();
 
         let result = timeout(prime_timeout, prime_future).await;
@@ -612,6 +614,10 @@ mod tests {
     use tokio::task::yield_now;
     use tokio::time::{advance, pause};
 
+    fn test_prime_session(session_name: &str) -> PrimeSession {
+        PrimeSession::new(session_name.to_string())
+    }
+
     #[derive(Debug, Default)]
     struct MockSpannerStub;
 
@@ -661,9 +667,9 @@ mod tests {
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
-            prime_session: RwLock::new(Some(
-                "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-            )),
+            prime_session: RwLock::new(Some(test_prime_session(
+                "projects/p/instances/i/databases/d/sessions/s1",
+            ))),
             selector: PowerOfTwoSelector::new(),
         });
 
@@ -2200,9 +2206,9 @@ mod tests {
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
-            prime_session: RwLock::new(Some(
-                "projects/p/instances/i/databases/d/sessions/s".to_string(),
-            )),
+            prime_session: RwLock::new(Some(test_prime_session(
+                "projects/p/instances/i/databases/d/sessions/s",
+            ))),
             selector: PowerOfTwoSelector::new(),
         });
 
@@ -2250,6 +2256,14 @@ mod tests {
 
         let mut mock = MockSpanner::new();
         mock.expect_execute_sql().returning(|request| {
+            assert_eq!(
+                request
+                    .metadata()
+                    .get("google-cloud-resource-prefix")
+                    .and_then(|value| value.to_str().ok()),
+                Some("projects/p/instances/i/databases/d"),
+                "priming request must carry the headers from the prime session options"
+            );
             let request = request.into_inner();
             assert_eq!(request.sql, "SELECT 1", "priming SQL must be SELECT 1");
             assert_eq!(
@@ -2272,7 +2286,7 @@ mod tests {
 
         let result = dial_and_prime_channel(
             spanner.config.clone(),
-            "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+            test_prime_session("projects/p/instances/i/databases/d/sessions/s1"),
             Duration::from_secs(5),
             3,
         )
@@ -2309,7 +2323,7 @@ mod tests {
 
         let result = dial_and_prime_channel(
             spanner.config.clone(),
-            "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+            test_prime_session("projects/p/instances/i/databases/d/sessions/s1"),
             Duration::from_secs(5),
             2,
         )
@@ -2336,7 +2350,7 @@ mod tests {
 
         let result = dial_and_prime_channel(
             spanner.config.clone(),
-            "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+            test_prime_session("projects/p/instances/i/databases/d/sessions/s1"),
             Duration::from_millis(10),
             1,
         )
@@ -2390,9 +2404,9 @@ mod tests {
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
-            prime_session: RwLock::new(Some(
-                "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-            )),
+            prime_session: RwLock::new(Some(test_prime_session(
+                "projects/p/instances/i/databases/d/sessions/s1",
+            ))),
             selector: PowerOfTwoSelector::new(),
         });
 
@@ -2407,7 +2421,7 @@ mod tests {
         dial_prime_and_publish_channels_parallel(
             &weak_inner,
             spanner.config.clone(),
-            "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+            test_prime_session("projects/p/instances/i/databases/d/sessions/s1"),
             2,
             &config,
         )
@@ -2465,9 +2479,9 @@ mod tests {
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
-            prime_session: RwLock::new(Some(
-                "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-            )),
+            prime_session: RwLock::new(Some(test_prime_session(
+                "projects/p/instances/i/databases/d/sessions/s1",
+            ))),
             selector: PowerOfTwoSelector::new(),
         });
 
@@ -2483,7 +2497,7 @@ mod tests {
             dial_prime_and_publish_channels_parallel(
                 &weak_inner,
                 spanner.config.clone(),
-                "projects/p/instances/i/databases/d/sessions/s1".to_string(),
+                test_prime_session("projects/p/instances/i/databases/d/sessions/s1"),
                 1,
                 &config,
             )
@@ -2538,8 +2552,9 @@ mod tests {
         yield_now().await;
 
         // 2. Set prime_session, but load is 0 so channels_to_add is 0 -> worker should continue looping
-        *inner.write_prime_session() =
-            Some("projects/p/instances/i/databases/d/sessions/s1".to_string());
+        *inner.write_prime_session() = Some(test_prime_session(
+            "projects/p/instances/i/databases/d/sessions/s1",
+        ));
         inner.scale_up_notify.notify_one();
         yield_now().await;
 
@@ -2568,9 +2583,9 @@ mod tests {
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(Some(Instant::now())),
             consecutive_low_load_checks: AtomicUsize::new(0),
-            prime_session: RwLock::new(Some(
-                "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-            )),
+            prime_session: RwLock::new(Some(test_prime_session(
+                "projects/p/instances/i/databases/d/sessions/s1",
+            ))),
             selector: PowerOfTwoSelector::new(),
         });
 
@@ -2650,9 +2665,9 @@ mod tests {
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(Some(Instant::now())),
             consecutive_low_load_checks: AtomicUsize::new(0),
-            prime_session: RwLock::new(Some(
-                "projects/p/instances/i/databases/d/sessions/s".to_string(),
-            )),
+            prime_session: RwLock::new(Some(test_prime_session(
+                "projects/p/instances/i/databases/d/sessions/s",
+            ))),
             selector: PowerOfTwoSelector::new(),
         });
 
@@ -2751,8 +2766,9 @@ mod tests {
         inner.scale_up_notify.notify_one();
 
         // While worker is sleeping in cooldown, session registration occurs
-        *inner.write_prime_session() =
-            Some("projects/p/instances/i/databases/d/sessions/s_registered".to_string());
+        *inner.write_prime_session() = Some(test_prime_session(
+            "projects/p/instances/i/databases/d/sessions/s_registered",
+        ));
 
         // Worker must pick up the newly registered session after cooldown expires
         primed_notify.notified().await;
@@ -2826,9 +2842,9 @@ mod tests {
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
-            prime_session: RwLock::new(Some(
-                "projects/p/instances/i/databases/d/sessions/s1".to_string(),
-            )),
+            prime_session: RwLock::new(Some(test_prime_session(
+                "projects/p/instances/i/databases/d/sessions/s1",
+            ))),
             selector: PowerOfTwoSelector::new(),
         });
 
@@ -2922,9 +2938,9 @@ mod tests {
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
-            prime_session: RwLock::new(Some(
-                "projects/p/instances/i/databases/d/sessions/s".to_string(),
-            )),
+            prime_session: RwLock::new(Some(test_prime_session(
+                "projects/p/instances/i/databases/d/sessions/s",
+            ))),
             selector: PowerOfTwoSelector::new(),
         });
 
@@ -3003,9 +3019,9 @@ mod tests {
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(Some(Instant::now() - Duration::from_millis(49))),
             consecutive_low_load_checks: AtomicUsize::new(0),
-            prime_session: RwLock::new(Some(
-                "projects/p/instances/i/databases/d/sessions/s".to_string(),
-            )),
+            prime_session: RwLock::new(Some(test_prime_session(
+                "projects/p/instances/i/databases/d/sessions/s",
+            ))),
             selector: PowerOfTwoSelector::new(),
         });
 
@@ -3162,9 +3178,9 @@ mod tests {
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
-            prime_session: RwLock::new(Some(
-                "projects/p/instances/i/databases/d/sessions/s".to_string(),
-            )),
+            prime_session: RwLock::new(Some(test_prime_session(
+                "projects/p/instances/i/databases/d/sessions/s",
+            ))),
             selector: PowerOfTwoSelector::new(),
         });
 
@@ -3254,9 +3270,9 @@ mod tests {
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
-            prime_session: RwLock::new(Some(
-                "projects/p/instances/i/databases/d/sessions/s".to_string(),
-            )),
+            prime_session: RwLock::new(Some(test_prime_session(
+                "projects/p/instances/i/databases/d/sessions/s",
+            ))),
             selector: PowerOfTwoSelector::new(),
         });
 
@@ -3353,9 +3369,9 @@ mod tests {
             shutdown_sender: watch_channel(()).0,
             last_scale_up_time: Mutex::new(None),
             consecutive_low_load_checks: AtomicUsize::new(0),
-            prime_session: RwLock::new(Some(
-                "projects/p/instances/i/databases/d/sessions/s".to_string(),
-            )),
+            prime_session: RwLock::new(Some(test_prime_session(
+                "projects/p/instances/i/databases/d/sessions/s",
+            ))),
             selector: PowerOfTwoSelector::new(),
         });
 
