@@ -3162,8 +3162,10 @@ dependencies = [
  "async-trait",
  "base64 0.23.1",
  "bytes",
+ "futures",
  "google-cloud-auth",
  "google-cloud-datastore-admin-v1",
+ "google-cloud-datastore-derive",
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-longrunning",
@@ -3199,6 +3201,16 @@ dependencies = [
  "serde_json",
  "serde_with",
  "tracing",
+]
+
+[[package]]
+name = "google-cloud-datastore-derive"
+version = "0.0.0"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 3.0.9",
+ "test-case",
 ]
 
 [[package]]

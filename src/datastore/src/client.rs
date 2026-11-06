@@ -15,10 +15,22 @@
 //! The Cloud Datastore data-plane client.
 
 use crate::ClientBuilderResult;
+use crate::Result;
+use crate::aggregation::{
+    AggregationQuery, RunAggregationGqlQueryBuilder, RunAggregationQueryBuilder,
+};
 use crate::builder::{AllocateIdsBuilder, ClientBuilder, ReserveIdsBuilder};
+use crate::entity::{FromEntity, IntoEntity};
 use crate::error::KeyError;
 use crate::generated::gapic_dataplane;
-use crate::key::{IncompleteKey, Key, KeyFactory, PartitionId};
+use crate::gql::{GqlQuery, RunGqlQueryBuilder};
+use crate::key::{IncompleteKey, IntoMutationKey, Key, KeyFactory, PartitionId};
+use crate::mutation::{
+    DeleteBuilder, InsertBuilder, MutateBuilder, Mutation, UpdateBuilder, UpsertBuilder,
+};
+use crate::query::{Query, RunQueryBuilder};
+use crate::read::{GetBuilder, GetMultiBuilder, ReadOptions};
+use crate::transaction::{ReadOnlyTransactionBuilder, TransactionRunnerBuilder};
 use std::sync::Arc;
 
 #[derive(Debug)]
@@ -140,5 +152,164 @@ impl Datastore {
     ) -> std::result::Result<ReserveIdsBuilder, KeyError> {
         let _ = (start_key, count);
         unimplemented!()
+    }
+
+    /// Creates a [`GetBuilder`] to look up a single [`Entity`][crate::entity::Entity] by [`Key`].
+    pub fn get(&self, key: impl Into<Key>) -> GetBuilder {
+        GetBuilder {
+            client: self.clone(),
+            key: key.into(),
+            read_options: ReadOptions::default(),
+            options: crate::RequestOptions::default(),
+        }
+    }
+
+    /// Looks up a single entity by [`Key`] and deserializes it into `T` via [`FromEntity`].
+    pub async fn get_as<T: FromEntity>(&self, key: impl Into<Key>) -> Result<Option<T>> {
+        self.get(key).send_as::<T>().await
+    }
+
+    /// Creates a [`GetMultiBuilder`] to look up multiple entities by [`Key`] in a single batch,
+    /// preserving input key order and automatically retrying any server-reported `deferred` keys.
+    pub fn get_multi<I, K>(&self, keys: I) -> GetMultiBuilder
+    where
+        I: IntoIterator<Item = K>,
+        K: Into<Key>,
+    {
+        GetMultiBuilder {
+            client: self.clone(),
+            keys: keys.into_iter().map(Into::into).collect(),
+            read_options: ReadOptions::default(),
+            options: crate::RequestOptions::default(),
+        }
+    }
+
+    /// Looks up multiple entities by [`Key`] and deserializes each found entity into `T` via [`FromEntity`].
+    pub async fn get_multi_as<T, I, K>(&self, keys: I) -> Result<Vec<Option<T>>>
+    where
+        T: FromEntity,
+        I: IntoIterator<Item = K>,
+        K: Into<Key>,
+    {
+        self.get_multi(keys).send_as::<T>().await
+    }
+
+    /// Creates an [`InsertBuilder`] to insert a new entity at `key` (accepting either a [`Key`] or [`IncompleteKey`]).
+    pub fn insert(&self, key: impl IntoMutationKey, entity: impl IntoEntity) -> InsertBuilder {
+        InsertBuilder {
+            client: self.clone(),
+            mutation: Mutation::insert(key, entity.into_entity()),
+            options: crate::RequestOptions::default(),
+        }
+    }
+
+    /// Creates an [`UpsertBuilder`] to insert or replace an entity at `key` (accepting either a [`Key`] or [`IncompleteKey`]).
+    pub fn upsert(&self, key: impl IntoMutationKey, entity: impl IntoEntity) -> UpsertBuilder {
+        UpsertBuilder {
+            client: self.clone(),
+            mutation: Mutation::upsert(key, entity.into_entity()),
+            options: crate::RequestOptions::default(),
+        }
+    }
+
+    /// Creates an [`UpdateBuilder`] to update an existing entity at a complete [`Key`].
+    pub fn update(&self, key: impl Into<Key>, entity: impl IntoEntity) -> UpdateBuilder {
+        UpdateBuilder {
+            client: self.clone(),
+            mutation: Mutation::update(key.into(), entity.into_entity()),
+            options: crate::RequestOptions::default(),
+        }
+    }
+
+    /// Creates a [`DeleteBuilder`] to delete the entity at a complete [`Key`].
+    pub fn delete(&self, key: impl Into<Key>) -> DeleteBuilder {
+        DeleteBuilder {
+            client: self.clone(),
+            mutation: Mutation::delete(key.into()),
+            options: crate::RequestOptions::default(),
+        }
+    }
+
+    /// Creates a [`MutateBuilder`] to commit a batch of [`Mutation`]s in `NON_TRANSACTIONAL` mode.
+    pub fn mutate<I>(&self, mutations: I) -> MutateBuilder
+    where
+        I: IntoIterator<Item = Mutation>,
+    {
+        MutateBuilder {
+            client: self.clone(),
+            mutations: mutations.into_iter().collect(),
+            options: crate::RequestOptions::default(),
+        }
+    }
+
+    /// Returns a [`TransactionRunnerBuilder`] for executing a retryable read-write transaction.
+    pub fn transaction(&self) -> TransactionRunnerBuilder {
+        TransactionRunnerBuilder {
+            client: self.clone(),
+            max_attempts: 5,
+            backoff_policy: None,
+            options: crate::RequestOptions::default(),
+        }
+    }
+
+    /// Returns a [`ReadOnlyTransactionBuilder`] for executing a consistent read-only snapshot transaction.
+    pub fn read_only_transaction(&self) -> ReadOnlyTransactionBuilder {
+        ReadOnlyTransactionBuilder {
+            client: self.clone(),
+            read_time: None,
+            options: crate::RequestOptions::default(),
+        }
+    }
+
+    /// Creates a [`RunQueryBuilder`] to execute a structured [`Query`].
+    pub fn run_query(&self, query: Query) -> RunQueryBuilder {
+        RunQueryBuilder {
+            client: self.clone(),
+            query,
+            namespace_id: None,
+            read_options: ReadOptions::default(),
+            transaction_id: None,
+            explain_options: None,
+            options: crate::RequestOptions::default(),
+        }
+    }
+
+    /// Creates a [`RunGqlQueryBuilder`] to execute a [`GqlQuery`].
+    pub fn run_gql_query(&self, gql_query: GqlQuery) -> RunGqlQueryBuilder {
+        RunGqlQueryBuilder {
+            client: self.clone(),
+            gql_query,
+            namespace_id: None,
+            read_options: ReadOptions::default(),
+            transaction_id: None,
+            explain_options: None,
+            options: crate::RequestOptions::default(),
+        }
+    }
+
+    /// Creates a [`RunAggregationQueryBuilder`] to execute an [`AggregationQuery`].
+    pub fn run_aggregation_query(&self, query: AggregationQuery) -> RunAggregationQueryBuilder {
+        RunAggregationQueryBuilder {
+            client: self.clone(),
+            query,
+            namespace_id: None,
+            read_options: ReadOptions::default(),
+            transaction_id: None,
+            explain_options: None,
+            options: crate::RequestOptions::default(),
+        }
+    }
+
+    /// Creates a [`RunAggregationGqlQueryBuilder`] to execute a GQL aggregation query.
+    pub fn run_aggregation_gql_query(&self, gql_query: GqlQuery) -> RunAggregationGqlQueryBuilder {
+        RunAggregationGqlQueryBuilder {
+            client: self.clone(),
+            gql_query,
+            namespace_id: None,
+            read_options: ReadOptions::default(),
+            transaction_id: None,
+            explain_options: None,
+            options: crate::RequestOptions::default(),
+        }
     }
 }

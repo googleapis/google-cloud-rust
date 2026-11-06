@@ -41,9 +41,11 @@ default-rustls-provider = ["gaxi/_default-rustls-provider"]
 async-trait.workspace = true
 base64.workspace = true
 bytes.workspace = true
+futures.workspace = true
 gaxi = { workspace = true, features = ["_internal-http-client"] }
 google-cloud-auth.workspace = true
 google-cloud-datastore-admin-v1.workspace = true
+google-cloud-datastore-derive.workspace = true
 google-cloud-gax.workspace = true
 google-cloud-longrunning.workspace = true
 google-cloud-lro.workspace = true

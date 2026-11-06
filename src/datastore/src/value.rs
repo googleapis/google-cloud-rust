@@ -97,8 +97,7 @@ pub struct Value {
 impl Value {
     /// Creates an indexed [Value] from anything implementing [IntoValue].
     pub fn new(value: impl IntoValue) -> Self {
-        let _ = value;
-        unimplemented!()
+        value.into_value()
     }
 
     /// Creates a null [Value].
@@ -196,5 +195,15 @@ impl FromValue for Value {
 impl IntoValue for Value {
     fn into_value(self) -> Value {
         self
+    }
+}
+
+impl IntoValue for ValueKind {
+    fn into_value(self) -> Value {
+        Value {
+            kind: self,
+            exclude_from_indexes: false,
+            meaning: 0,
+        }
     }
 }
