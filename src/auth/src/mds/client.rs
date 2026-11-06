@@ -34,6 +34,7 @@ pub(crate) struct Client {
     /// True if the endpoint was NOT overridden by env var or constructor arg.
     pub(crate) is_default_endpoint: bool,
     retry_config: RetryConfig,
+    http_client: ReqwestClient,
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -49,11 +50,19 @@ impl Client {
     pub(crate) fn new(endpoint_override: Option<String>) -> Self {
         let (endpoint, is_default_endpoint) = Self::resolve_endpoint(endpoint_override);
         let endpoint = endpoint.trim_end_matches('/').to_string();
+        // Reuse a single HTTP client configured to bypass environment proxies (so link-local
+        // metadata traffic is never routed through HTTP_PROXY/ALL_PROXY) and disable redirects.
+        let http_client = ReqwestClient::builder()
+            .no_proxy()
+            .redirect(reqwest::redirect::Policy::none())
+            .build()
+            .unwrap_or_else(|_| ReqwestClient::new());
 
         Self {
             endpoint,
             is_default_endpoint,
             retry_config: Default::default(),
+            http_client,
         }
     }
 
@@ -74,7 +83,7 @@ impl Client {
     /// Creates a GET request to the MDS service with the correct headers.
     fn get(&self, path: &str) -> RequestBuilder {
         let url = format!("{}{}", self.endpoint, path);
-        ReqwestClient::new()
+        self.http_client
             .get(url)
             .header(super::METADATA_FLAVOR, super::METADATA_FLAVOR_VALUE)
     }
@@ -637,5 +646,58 @@ mod tests {
         assert!(err.to_string().contains("failed to fetch universe domain"));
 
         Ok(())
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn test_ignores_http_proxy_env_var() -> TestResult {
+        let _http_proxy = ScopedEnv::set("HTTP_PROXY", "http://127.0.0.1:1");
+        let _all_proxy = ScopedEnv::set("ALL_PROXY", "http://127.0.0.1:1");
+        let _no_proxy = ScopedEnv::remove("NO_PROXY");
+
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+        let response = MDSTokenResponse {
+            access_token: "direct-token".to_string(),
+            expires_in: Some(3600),
+            token_type: "Bearer".to_string(),
+        };
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(format!("{}/token", MDS_DEFAULT_URI)),
+                request::headers(contains(("metadata-flavor", "Google"))),
+            ])
+            .respond_with(
+                status_code(200)
+                    .insert_header("Content-Type", "application/json")
+                    .body(serde_json::to_string(&response)?),
+            ),
+        );
+
+        let token = client.access_token(None).send().await?;
+        assert_eq!(token.token, "direct-token");
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_does_not_follow_redirects() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(format!("{}/token", MDS_DEFAULT_URI)),
+            ])
+            .respond_with(
+                status_code(302).insert_header("Location", server.url("/redirected").to_string()),
+            ),
+        );
+
+        let err = client.access_token(None).send().await.unwrap_err();
+        assert!(err.to_string().contains("failed to fetch access token"));
     }
 }
