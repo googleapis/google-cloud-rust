@@ -391,7 +391,6 @@ pub struct CommitResponse {
 }
 
 #[derive(Clone, Debug)]
-#[allow(dead_code)]
 pub(crate) enum CommitMode {
     NonTransactional,
     Transaction(Bytes),
