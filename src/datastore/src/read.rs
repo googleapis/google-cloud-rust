@@ -104,7 +104,7 @@ pub(crate) enum LookupReadMode {
 }
 
 impl LookupReadMode {
-    fn to_proto(&self, started_tx: Option<&Bytes>) -> Option<crate::model::ReadOptions> {
+    pub(crate) fn to_proto(&self, started_tx: Option<&Bytes>) -> Option<crate::model::ReadOptions> {
         if let Some(tx_id) = started_tx {
             return Some(crate::model::ReadOptions::new().set_transaction(tx_id.clone()));
         }

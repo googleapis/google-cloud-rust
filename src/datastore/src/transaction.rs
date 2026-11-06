@@ -202,13 +202,50 @@ impl ReadWriteTransaction {
     }
 
     /// Executes a structured [`Query`] within this transaction.
-    pub async fn run_query(&self, _query: Query) -> Result<QueryStream> {
-        unimplemented!()
+    pub async fn run_query(&self, query: Query) -> Result<QueryStream> {
+        let mut partition_id = self.client.partition_id();
+        if let Some(ref ns) = query.namespace_id {
+            partition_id = partition_id.with_namespace_id(ns.clone());
+        }
+        let proto_query = query
+            .to_proto(&partition_id)
+            .map_err(|e| Error::ser(Box::new(e)))?;
+        let mode = self.read_mode();
+        let res = crate::query::execute_initial_query(
+            self.client.clone(),
+            partition_id,
+            crate::query::InitialQuerySpec::Structured(Box::new(proto_query)),
+            mode,
+            None,
+            self.options.clone(),
+        )
+        .await;
+        match res {
+            Ok((stream, started_tx)) => self.record_read_outcome(Ok(stream), started_tx),
+            Err(err) => self.record_read_outcome(Err(err), None),
+        }
     }
 
     /// Executes a [`GqlQuery`] within this transaction.
-    pub async fn run_gql_query(&self, _query: GqlQuery) -> Result<QueryStream> {
-        unimplemented!()
+    pub async fn run_gql_query(&self, query: GqlQuery) -> Result<QueryStream> {
+        let partition_id = self.client.partition_id();
+        let proto_gql = query
+            .to_proto(&partition_id)
+            .map_err(|e| Error::ser(Box::new(e)))?;
+        let mode = self.read_mode();
+        let res = crate::query::execute_initial_query(
+            self.client.clone(),
+            partition_id,
+            crate::query::InitialQuerySpec::Gql(proto_gql),
+            mode,
+            None,
+            self.options.clone(),
+        )
+        .await;
+        match res {
+            Ok((stream, started_tx)) => self.record_read_outcome(Ok(stream), started_tx),
+            Err(err) => self.record_read_outcome(Err(err), None),
+        }
     }
 
     /// Executes an [`AggregationQuery`] within this transaction.
@@ -524,13 +561,46 @@ impl ReadOnlyTransaction {
     }
 
     /// Executes a structured [`Query`] within this read-only transaction.
-    pub async fn run_query(&self, _query: Query) -> Result<QueryStream> {
-        unimplemented!()
+    pub async fn run_query(&self, query: Query) -> Result<QueryStream> {
+        let mut partition_id = self.client.partition_id();
+        if let Some(ref ns) = query.namespace_id {
+            partition_id = partition_id.with_namespace_id(ns.clone());
+        }
+        let proto_query = query
+            .to_proto(&partition_id)
+            .map_err(|e| Error::ser(Box::new(e)))?;
+        let mode = self.read_mode();
+        let (stream, started_tx) = crate::query::execute_initial_query(
+            self.client.clone(),
+            partition_id,
+            crate::query::InitialQuerySpec::Structured(Box::new(proto_query)),
+            mode,
+            None,
+            self.options.clone(),
+        )
+        .await?;
+        self.record_started_tx(started_tx);
+        Ok(stream)
     }
 
     /// Executes a [`GqlQuery`] within this read-only transaction.
-    pub async fn run_gql_query(&self, _query: GqlQuery) -> Result<QueryStream> {
-        unimplemented!()
+    pub async fn run_gql_query(&self, query: GqlQuery) -> Result<QueryStream> {
+        let partition_id = self.client.partition_id();
+        let proto_gql = query
+            .to_proto(&partition_id)
+            .map_err(|e| Error::ser(Box::new(e)))?;
+        let mode = self.read_mode();
+        let (stream, started_tx) = crate::query::execute_initial_query(
+            self.client.clone(),
+            partition_id,
+            crate::query::InitialQuerySpec::Gql(proto_gql),
+            mode,
+            None,
+            self.options.clone(),
+        )
+        .await?;
+        self.record_started_tx(started_tx);
+        Ok(stream)
     }
 
     /// Executes an [`AggregationQuery`] within this read-only transaction.
