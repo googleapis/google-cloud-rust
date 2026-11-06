@@ -20,7 +20,7 @@
 //! about the APIs, documentation, missing features, bugs, etc.
 //!
 //! This crate contains traits, types, and functions to interact with
-//! [Datastore].
+//! [Datastore]. Most applications will use [`client::Datastore`].
 //!
 //! For administrative control-plane operations (such as managing composite
 //! indexes and importing/exporting entities), see the [admin] module, which
@@ -43,8 +43,15 @@
 #[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
 
-pub use google_cloud_gax::Result;
-pub use google_cloud_gax::error::Error;
+pub mod builder;
+pub mod client;
+pub mod entity;
+pub mod error;
+pub mod key;
+pub mod retry_policy;
+pub mod value;
+
+pub use error::{Error, Result};
 
 // Internal shortcuts required by the generated gapic_dataplane module.
 pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
@@ -98,15 +105,21 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn admin_reexport_and_internal_gapic_construct() -> anyhow::Result<()> {
+    async fn client_and_admin_builders_construct() -> anyhow::Result<()> {
         let creds = google_cloud_auth::credentials::anonymous::Builder::new().build();
         let _admin = admin::client::DatastoreAdmin::builder()
             .with_credentials(creds.clone())
             .build()
             .await?;
-        let mut config = gaxi::options::ClientConfig::default();
-        config.cred = Some(creds);
-        let _dataplane = generated::gapic_dataplane::client::Datastore::new(config).await?;
+        let ds = client::Datastore::builder("my-project")
+            .with_database_id("my-db")
+            .with_namespace_id("my-ns")
+            .with_credentials(creds)
+            .build()
+            .await?;
+        assert_eq!(ds.project_id(), "my-project");
+        assert_eq!(ds.database_id(), "my-db");
+        assert_eq!(ds.namespace_id(), "my-ns");
         Ok(())
     }
 }
