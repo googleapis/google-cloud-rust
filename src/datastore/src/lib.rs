@@ -20,6 +20,135 @@
 //! about the APIs, documentation, missing features, bugs, etc.
 //!
 //! This crate contains traits, types, and functions to interact with
-//! [Datastore].
+//! [Datastore]. Most applications will use [`client::Datastore`].
 //!
+//! For administrative control-plane operations (such as managing composite
+//! indexes and importing/exporting entities), see the [admin] module, which
+//! re-exports [`DatastoreAdmin`][admin::client::DatastoreAdmin].
+//!
+//! # Features
+//!
+//! - `default-rustls-provider`: enabled by default. Use the default rustls
+//!   crypto provider ([aws-lc-rs]) for TLS and authentication. Applications
+//!   with specific requirements for cryptography (such as exclusively using the
+//!   [ring] crate) should disable this default and call
+//!   `rustls::crypto::CryptoProvider::install_default()`.
+//!
+//! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 //! [datastore]: https://cloud.google.com/datastore
+//! [ring]: https://crates.io/crates/ring
+
+#![cfg_attr(docsrs, feature(doc_cfg))]
+
+#[allow(rustdoc::broken_intra_doc_links)]
+pub(crate) mod generated;
+
+pub mod aggregation;
+pub mod builder;
+pub mod client;
+pub mod entity;
+pub mod error;
+pub mod explain;
+pub mod gql;
+pub mod key;
+pub mod mutation;
+pub mod query;
+pub mod read;
+pub mod retry_policy;
+pub mod transaction;
+pub mod value;
+
+pub use error::{Error, Result};
+pub use google_cloud_datastore_derive::{FromEntity, FromValue, IntoEntity, IntoValue};
+
+// Internal shortcuts required by the generated gapic_dataplane module.
+pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
+pub(crate) use google_cloud_gax::options::RequestOptions;
+pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
+pub(crate) use google_cloud_gax::response::Response;
+
+pub(crate) const DEFAULT_HOST: &str = "https://datastore.googleapis.com";
+
+mod info {
+    use std::sync::LazyLock;
+
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    pub(crate) static X_GOOG_API_CLIENT_HEADER: LazyLock<String> = LazyLock::new(|| {
+        let ac = gaxi::api_header::XGoogApiClient {
+            name: NAME,
+            version: VERSION,
+            library_type: gaxi::api_header::GAPIC,
+        };
+        ac.grpc_header_value()
+    });
+}
+
+#[allow(dead_code)]
+pub(crate) mod model {
+    pub(crate) use crate::generated::gapic_dataplane::model::*;
+}
+
+/// Control-plane clients, builders, and models for Cloud Datastore
+/// Administration (`google.datastore.admin.v1`).
+///
+/// Re-exports [`google_cloud_datastore_admin_v1`] for managing indexes,
+/// importing/exporting entities via Long-Running Operations, and inspecting
+/// Datastore-to-Firestore migration progress.
+pub mod admin {
+    pub use google_cloud_datastore_admin_v1::builder;
+    pub use google_cloud_datastore_admin_v1::client;
+    pub use google_cloud_datastore_admin_v1::model;
+    pub use google_cloud_datastore_admin_v1::stub;
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::aggregation::AggregationQuery;
+    use crate::explain::ExplainOptions;
+    use crate::gql::GqlQuery;
+    use crate::query::{Filter, Query};
+    use crate::read::ReadConsistency;
+
+    #[test]
+    fn default_host_and_header() {
+        assert_eq!(DEFAULT_HOST, "https://datastore.googleapis.com");
+        assert!(!info::X_GOOG_API_CLIENT_HEADER.is_empty());
+    }
+
+    #[tokio::test]
+    async fn client_and_admin_builders_construct() -> anyhow::Result<()> {
+        let creds = google_cloud_auth::credentials::anonymous::Builder::new().build();
+        let _admin = admin::client::DatastoreAdmin::builder()
+            .with_credentials(creds.clone())
+            .build()
+            .await?;
+        let ds = client::Datastore::builder("my-project")
+            .with_database_id("my-db")
+            .with_namespace_id("my-ns")
+            .with_credentials(creds)
+            .build()
+            .await?;
+        assert_eq!(ds.project_id(), "my-project");
+        assert_eq!(ds.database_id(), "my-db");
+        assert_eq!(ds.namespace_id(), "my-ns");
+
+        let q = Query::new("Task")
+            .filter(Filter::equal(
+                "done",
+                value::Value::new(value::ValueKind::Boolean(false)),
+            ))
+            .order_by_ascending("priority")
+            .limit(10);
+        let _rq = ds
+            .run_query(q.clone())
+            .with_consistency(ReadConsistency::Eventual)
+            .with_explain_options(ExplainOptions::plan_only());
+        let _agq = ds.run_aggregation_query(AggregationQuery::over(q).count("total"));
+        let _gql = ds.run_gql_query(GqlQuery::new("SELECT * FROM Task"));
+        let _tx = ds.transaction().with_max_attempts(3);
+        let _ro_tx = ds.read_only_transaction();
+        Ok(())
+    }
+}
