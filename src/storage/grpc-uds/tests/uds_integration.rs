@@ -26,7 +26,7 @@ use storage_grpc_mock::google::storage::v2::{
 use storage_grpc_mock::{MockStorage, start as start_grpc_mock};
 use storage_grpc_uds::pb::gcs_core_client::GcsCoreClient;
 use storage_grpc_uds::pb::*;
-use storage_grpc_uds::{Args, Shared, bind_uds_listener, serve_with_listener};
+use storage_grpc_uds::{Args, Shared, bind_uds_listener, build_runtime, serve_with_listener};
 use tokio::net::UnixStream;
 use tokio_stream::StreamExt;
 use tonic::transport::{Channel, Endpoint, Uri};
@@ -903,6 +903,342 @@ async fn json_404_and_412_status_mapping_and_inproc_lifecycle() -> anyhow::Resul
     assert!(
         !inproc_sock.exists(),
         "inproc socket should be removed after gcs_core_stop_inproc"
+    );
+    Ok(())
+}
+
+/// `--worker-threads N` sizes the runtime that serves the core, so the server's thread count is a
+/// controlled variable on large hosts; `0` (the default) keeps Tokio's one-worker-per-CPU sizing.
+#[test]
+fn worker_threads_sizes_the_runtime() -> anyhow::Result<()> {
+    use clap::Parser;
+    let args = Args::try_parse_from(["gcs-core-server", "--worker-threads", "3"])?;
+    assert_eq!(args.worker_threads, 3);
+    let rt = build_runtime(&args, "test-core")?;
+    assert_eq!(rt.metrics().num_workers(), 3);
+
+    let defaults = Args::try_parse_from(["gcs-core-server"])?;
+    assert_eq!(defaults.worker_threads, 0);
+    assert_eq!(Args::default().worker_threads, 0);
+    // Tokio honours TOKIO_WORKER_THREADS for its default; only check the CPU-count default
+    // when the environment does not override it.
+    if std::env::var_os("TOKIO_WORKER_THREADS").is_none() {
+        let default_rt = build_runtime(&defaults, "test-core")?;
+        assert_eq!(
+            default_rt.metrics().num_workers(),
+            std::thread::available_parallelism()?.get()
+        );
+    }
+    Ok(())
+}
+
+/// In-process servers accept the same flags as `gcs-core-server`, so an embedded server can be
+/// configured exactly like the sidecar it is compared with. `--socket` is required (an embedded
+/// server must never claim the daemon's default path), `--idle-secs` defaults to 0 (idle exit
+/// would stop a server the host still owns), and process-only or network-exposing flags are
+/// rejected.
+#[test]
+fn parse_inproc_args_accepts_server_flags_and_rejects_process_only_ones() {
+    use storage_grpc_uds::parse_inproc_args;
+
+    let args = parse_inproc_args([
+        "--socket",
+        "@gcs-core-test",
+        "--grpc-subchannels",
+        "4",
+        "--worker-threads",
+        "2",
+        "--chunk-size",
+        "65536",
+        "--default-transport",
+        "grpc",
+        "--shm-size",
+        "0",
+    ])
+    .expect("server flags are accepted in-process");
+    assert_eq!(args.socket, "@gcs-core-test");
+    assert_eq!(args.grpc_subchannels, 4);
+    assert_eq!(args.worker_threads, 2);
+    assert_eq!(args.chunk_size, 65536);
+    assert_eq!(args.default_transport, "grpc");
+    assert_eq!(args.shm_size, 0);
+    assert_eq!(
+        args.idle_secs, 0,
+        "in-process servers never idle-exit by default"
+    );
+
+    let explicit_idle = parse_inproc_args(["--socket", "/tmp/x.sock", "--idle-secs", "5"])
+        .expect("an explicit --idle-secs is honoured");
+    assert_eq!(explicit_idle.idle_secs, 5);
+
+    let missing_socket = parse_inproc_args(Vec::<String>::new()).unwrap_err();
+    assert!(missing_socket.contains("--socket"), "{missing_socket}");
+
+    let pdeathsig =
+        parse_inproc_args(["--socket", "/tmp/x.sock", "--pdeathsig", "false"]).unwrap_err();
+    assert!(pdeathsig.contains("--pdeathsig"), "{pdeathsig}");
+
+    let tcp = parse_inproc_args(["--socket", "/tmp/x.sock", "--tcp", "127.0.0.1:0"]).unwrap_err();
+    assert!(tcp.contains("--tcp"), "{tcp}");
+
+    let unknown = parse_inproc_args(["--socket", "/tmp/x.sock", "--no-such-flag"]).unwrap_err();
+    assert!(unknown.contains("--no-such-flag"), "{unknown}");
+}
+
+/// Reads the calling thread's last in-process start error through the C ABI.
+fn inproc_last_error() -> String {
+    let mut buf = vec![0 as std::ffi::c_char; 512];
+    let n = unsafe { storage_grpc_uds::gcs_core_inproc_last_error(buf.as_mut_ptr(), buf.len()) };
+    assert!(
+        n < buf.len(),
+        "test buffer too small for a {n}-byte message"
+    );
+    unsafe { std::ffi::CStr::from_ptr(buf.as_ptr()) }
+        .to_string_lossy()
+        .into_owned()
+}
+
+/// `gcs_core_start_inproc_with_args` starts the same server as the binary from an `argv`-style
+/// flag list, `gcs_core_stop_inproc` stops it, and invalid input fails with a readable message
+/// instead of starting anything.
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn inproc_with_args_lifecycle_and_errors() -> anyhow::Result<()> {
+    use std::ffi::{CString, c_char, c_int};
+
+    let dir = tempfile::tempdir()?;
+    let sock = dir.path().join("inproc-args.sock");
+    let flags: Vec<CString> = [
+        "--socket",
+        &sock.to_string_lossy(),
+        "--grpc-subchannels",
+        "4",
+        "--worker-threads",
+        "2",
+        "--shm-size",
+        "0",
+    ]
+    .iter()
+    .map(|s| CString::new(*s))
+    .collect::<Result<_, _>>()?;
+    let argv: Vec<*const c_char> = flags.iter().map(|s| s.as_ptr()).collect();
+    let rc = unsafe {
+        storage_grpc_uds::gcs_core_start_inproc_with_args(argv.len() as c_int, argv.as_ptr())
+    };
+    assert_eq!(rc, 0, "start failed: {}", inproc_last_error());
+    {
+        let mut client = connect_uds(sock.clone()).await?;
+        let pong = client
+            .ping(PingRequest {
+                payload: Bytes::from_static(b"with-args"),
+            })
+            .await?
+            .into_inner();
+        assert_eq!(pong.payload, Bytes::from_static(b"with-args"));
+    }
+    let c_sock = CString::new(sock.to_string_lossy().as_bytes())?;
+    assert_eq!(
+        unsafe { storage_grpc_uds::gcs_core_stop_inproc(c_sock.as_ptr()) },
+        0
+    );
+    assert!(!sock.exists(), "socket removed after stop");
+
+    // A process-only flag is rejected before anything binds.
+    let bad: Vec<CString> = ["--socket", "/tmp/never-bound.sock", "--pdeathsig", "true"]
+        .iter()
+        .map(|s| CString::new(*s))
+        .collect::<Result<_, _>>()?;
+    let bad_argv: Vec<*const c_char> = bad.iter().map(|s| s.as_ptr()).collect();
+    let rc = unsafe {
+        storage_grpc_uds::gcs_core_start_inproc_with_args(
+            bad_argv.len() as c_int,
+            bad_argv.as_ptr(),
+        )
+    };
+    assert_eq!(rc, -1);
+    assert!(inproc_last_error().contains("--pdeathsig"));
+    assert!(!std::path::Path::new("/tmp/never-bound.sock").exists());
+
+    // Malformed argv arrays are rejected without dereferencing anything.
+    let rc = unsafe { storage_grpc_uds::gcs_core_start_inproc_with_args(1, std::ptr::null()) };
+    assert_eq!(rc, -1);
+    assert!(inproc_last_error().contains("argv"));
+    let rc = unsafe { storage_grpc_uds::gcs_core_start_inproc_with_args(-1, argv.as_ptr()) };
+    assert_eq!(rc, -1);
+    assert!(inproc_last_error().contains("argc"));
+    Ok(())
+}
+
+/// `DeleteObject` forwards bucket, object, generation and the optional precondition to
+/// `StorageControl::delete_object`, so thin clients can clean up through the same server instead
+/// of keeping a second, native client just for deletes. An unset precondition is not sent.
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn delete_object_via_grpc_mock() -> anyhow::Result<()> {
+    let mut mock = MockStorage::new();
+    mock.expect_delete_object()
+        .withf(|r| {
+            let r = r.get_ref();
+            r.bucket == "projects/_/buckets/del-bucket"
+                && r.object == "with-precondition"
+                && r.generation == 42
+                && r.if_generation_match == Some(42)
+        })
+        .times(1)
+        .returning(|_| Ok(tonic::Response::new(())));
+    mock.expect_delete_object()
+        .withf(|r| {
+            let r = r.get_ref();
+            r.object == "plain" && r.generation == 0 && r.if_generation_match.is_none()
+        })
+        .times(1)
+        .returning(|_| Ok(tonic::Response::new(())));
+    mock.expect_delete_object()
+        .withf(|r| r.get_ref().object == "missing")
+        .times(1)
+        .returning(|_| Err(tonic::Status::not_found("no such object")));
+
+    let (mock_endpoint, _mock_srv) = start_grpc_mock("127.0.0.1:0", mock).await?;
+    let dir = tempfile::tempdir()?;
+    let sock_path = dir.path().join("delete.sock");
+    let args = Args {
+        socket: sock_path.to_string_lossy().to_string(),
+        idle_secs: 0,
+        shm_size: 0,
+        endpoint: Some(mock_endpoint),
+        ..Default::default()
+    };
+    let listener = bind_uds_listener(&args.socket)
+        .map_err(|e| anyhow::anyhow!("bind_uds_listener failed: {e}"))?;
+    let srv_handle = tokio::spawn(async move {
+        let _ = serve_with_listener(args, listener, Shared::new()).await;
+    });
+    let mut client = connect_uds(sock_path.clone()).await?;
+    let sess = client
+        .create_session(CreateSessionRequest {
+            access_token: "test-bearer-delete".to_string(),
+            expiry_unix_secs: 0,
+            quota_project: String::new(),
+        })
+        .await?
+        .into_inner();
+    let with_session = |r: DeleteObjectRequest| -> anyhow::Result<tonic::Request<_>> {
+        let mut req = tonic::Request::new(r);
+        req.metadata_mut()
+            .insert("x-session", sess.session_id.parse()?);
+        Ok(req)
+    };
+
+    client
+        .delete_object(with_session(DeleteObjectRequest {
+            bucket: "del-bucket".to_string(),
+            object: "with-precondition".to_string(),
+            generation: 42,
+            if_generation_match: Some(42),
+        })?)
+        .await?;
+    client
+        .delete_object(with_session(DeleteObjectRequest {
+            bucket: "del-bucket".to_string(),
+            object: "plain".to_string(),
+            generation: 0,
+            if_generation_match: None,
+        })?)
+        .await?;
+    let missing = client
+        .delete_object(with_session(DeleteObjectRequest {
+            bucket: "del-bucket".to_string(),
+            object: "missing".to_string(),
+            generation: 0,
+            if_generation_match: None,
+        })?)
+        .await
+        .expect_err("NOT_FOUND from the service is surfaced");
+    assert_eq!(missing.code(), tonic::Code::NotFound);
+
+    for bad_req in [
+        DeleteObjectRequest {
+            bucket: "del-bucket".to_string(),
+            object: "neg-gen".to_string(),
+            generation: -1,
+            if_generation_match: None,
+        },
+        DeleteObjectRequest {
+            bucket: "del-bucket".to_string(),
+            object: "neg-precond".to_string(),
+            generation: 0,
+            if_generation_match: Some(-1),
+        },
+    ] {
+        let err = client
+            .delete_object(with_session(bad_req)?)
+            .await
+            .expect_err("negative generation/precondition must fail");
+        assert_eq!(err.code(), tonic::Code::InvalidArgument);
+    }
+
+    client.shutdown(Empty {}).await?;
+    srv_handle.await?;
+    Ok(())
+}
+
+/// `READY` promises a server that can serve, so it must not be printed until
+/// the upstream clients are built. A server that cannot build them (here:
+/// Application Default Credentials point at a missing file) exits non-zero
+/// without ever printing `READY`, and says why.
+#[test]
+fn ready_is_printed_only_after_clients_are_built() -> anyhow::Result<()> {
+    let dir = tempfile::tempdir()?;
+    let sock = dir.path().join("no-creds.sock");
+    let output = std::process::Command::new(env!("CARGO_BIN_EXE_gcs-core-server"))
+        .arg(format!("--socket={}", sock.display()))
+        .args(["--endpoint=http://127.0.0.1:1", "--shm-size=0"])
+        .env(
+            "GOOGLE_APPLICATION_CREDENTIALS",
+            dir.path().join("missing.json"),
+        )
+        .output()?;
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    let stderr = String::from_utf8_lossy(&output.stderr);
+    assert!(!output.status.success(), "{stderr}");
+    assert!(!stdout.contains("READY"), "stdout: {stdout}");
+    assert!(
+        stderr.contains("GOOGLE_APPLICATION_CREDENTIALS"),
+        "{stderr}"
+    );
+    assert!(!sock.exists(), "the socket of a failed start is removed");
+    Ok(())
+}
+
+/// When `prepare_service` fails inside `gcs_core_start_inproc_with_args` after binding the
+/// socket (for example, an invalid upstream endpoint URI), the bound socket is removed, no
+/// registry entry remains, and `gcs_core_inproc_last_error` reports the reason.
+#[test]
+fn inproc_reports_client_build_failure_and_cleans_up_socket() -> anyhow::Result<()> {
+    use std::ffi::{CString, c_char, c_int};
+
+    let dir = tempfile::tempdir()?;
+    let sock = dir.path().join("inproc-bad-endpoint.sock");
+    let flags: Vec<CString> = [
+        "--socket",
+        &sock.to_string_lossy(),
+        "--endpoint",
+        "http://[::1",
+        "--shm-size",
+        "0",
+        "--worker-threads",
+        "1",
+    ]
+    .iter()
+    .map(|s| CString::new(*s))
+    .collect::<Result<_, _>>()?;
+    let argv: Vec<*const c_char> = flags.iter().map(|s| s.as_ptr()).collect();
+    let rc = unsafe {
+        storage_grpc_uds::gcs_core_start_inproc_with_args(argv.len() as c_int, argv.as_ptr())
+    };
+    assert_eq!(rc, -1);
+    assert!(!inproc_last_error().is_empty());
+    assert!(
+        !sock.exists(),
+        "bound socket must be cleaned up on init failure"
     );
     Ok(())
 }

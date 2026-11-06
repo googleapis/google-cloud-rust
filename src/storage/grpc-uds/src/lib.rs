@@ -31,7 +31,7 @@ pub mod session;
 pub mod shm;
 
 use clap::Parser;
-use std::ffi::{CStr, c_char};
+use std::ffi::{CStr, c_char, c_int};
 use std::path::PathBuf;
 use std::pin::Pin;
 use std::sync::Arc;
@@ -148,6 +148,10 @@ pub struct Args {
     /// Per-client shared-memory region size served on `<socket>.shm` via `SCM_RIGHTS` (0 = disabled).
     #[arg(long, default_value_t = 256 * 1024 * 1024)]
     pub shm_size: usize,
+
+    /// Tokio worker threads serving the core (0 = one per available CPU, Tokio's default).
+    #[arg(long, default_value_t = 0)]
+    pub worker_threads: usize,
 }
 
 impl Default for Args {
@@ -164,8 +168,19 @@ impl Default for Args {
             tcp: None,
             require_session: false,
             shm_size: 256 * 1024 * 1024,
+            worker_threads: 0,
         }
     }
+}
+
+/// Builds the multi-threaded Tokio runtime that serves the core, sized by `--worker-threads`.
+pub fn build_runtime(args: &Args, thread_name: &str) -> std::io::Result<tokio::runtime::Runtime> {
+    let mut builder = tokio::runtime::Builder::new_multi_thread();
+    builder.enable_all().thread_name(thread_name);
+    if args.worker_threads > 0 {
+        builder.worker_threads(args.worker_threads);
+    }
+    builder.build()
 }
 
 /// Shared server state for activity tracking, connection reference counting, and shutdown coordination.
@@ -237,6 +252,41 @@ pub fn bind_uds_listener(
         }
     } else {
         let p = PathBuf::from(sock);
+        if let Some(dir) = p.parent()
+            && !dir.as_os_str().is_empty()
+        {
+            std::fs::create_dir_all(dir)?;
+        }
+        // Serialize the probe-remove-bind sequence across concurrent daemon
+        // spawners so a loser never unlinks a winner's newly bound listener
+        // when both observe a stale socket file.
+        #[cfg(unix)]
+        let _lock_guard = {
+            use std::os::fd::AsRawFd;
+            use std::os::unix::fs::OpenOptionsExt;
+            let mut lock_os = p.as_os_str().to_os_string();
+            lock_os.push(".lock");
+            let lock_file = std::fs::OpenOptions::new()
+                .create(true)
+                .truncate(false)
+                .read(true)
+                .write(true)
+                .mode(0o600)
+                .open(PathBuf::from(lock_os))?;
+            loop {
+                // SAFETY: `lock_file` is an open file descriptor owned for the
+                // duration of `_lock_guard`, and `LOCK_EX` takes no pointers.
+                let rc = unsafe { libc::flock(lock_file.as_raw_fd(), libc::LOCK_EX) };
+                if rc == 0 {
+                    break;
+                }
+                let err = std::io::Error::last_os_error();
+                if err.kind() != std::io::ErrorKind::Interrupted {
+                    return Err(err.into());
+                }
+            }
+            lock_file
+        };
         if let Ok(meta) = std::fs::symlink_metadata(&p) {
             #[cfg(unix)]
             {
@@ -254,11 +304,6 @@ pub fn bind_uds_listener(
                     std::fs::remove_file(&p)?;
                 }
             }
-        }
-        if let Some(dir) = p.parent()
-            && !dir.as_os_str().is_empty()
-        {
-            std::fs::create_dir_all(dir)?;
         }
         let l = UnixListener::bind(&p)?;
         #[cfg(unix)]
@@ -290,23 +335,79 @@ pub async fn run(args: Args) -> Result<(), Box<dyn std::error::Error + Send + Sy
             }
         });
     }
+    // `READY` tells a spawner it can connect, so it waits for the upstream clients: a server
+    // that cannot build them (e.g. bad credentials) must fail its start, not its first RPC.
+    let prepared = match prepare_service(&args, &shared).await {
+        Ok(p) => p,
+        Err(e) => {
+            remove_socket_files(&args.socket);
+            return Err(e);
+        }
+    };
     eprintln!(
         "gcs-core-server pid={} listening on {}",
         std::process::id(),
         args.socket
     );
     println!("READY {}", args.socket);
-    serve_with_listener(args, listener, shared).await
+    serve_prepared(args, listener, shared, prepared).await
 }
 
-/// Serves `GcsCore` on an already-bound `UnixListener`. Used directly by integration tests
-/// and in-process server launches.
+/// The `GcsCore` service with its upstream clients built, ready to serve.
+pub struct PreparedService {
+    svc: service::GcsCoreService,
+    shm: Arc<shm::Registry>,
+}
+
+/// Builds the upstream `Storage` / `StorageControl` clients. Separate from serving so that
+/// callers can report a failure here as a failed start; see [`run`].
+pub async fn prepare_service(
+    args: &Args,
+    shared: &Arc<Shared>,
+) -> Result<PreparedService, Box<dyn std::error::Error + Send + Sync>> {
+    let shm = Arc::new(shm::Registry::new());
+    let svc = service::GcsCoreService::new(args, shared.clone(), shm.clone()).await?;
+    Ok(PreparedService { svc, shm })
+}
+
+/// `error` and its sources, outermost first. The credentials errors keep the useful part
+/// (e.g. which file was missing) in a source, which `Display` alone omits.
+fn error_chain(error: &(dyn std::error::Error + 'static)) -> String {
+    let mut out = error.to_string();
+    let mut source = error.source();
+    while let Some(e) = source {
+        out.push_str(": ");
+        out.push_str(&e.to_string());
+        source = e.source();
+    }
+    out
+}
+
+fn remove_socket_files(sock: &str) {
+    if !sock.starts_with('@') {
+        let _ = std::fs::remove_file(sock);
+        let _ = std::fs::remove_file(format!("{sock}.shm"));
+    }
+}
+
+/// Serves `GcsCore` on an already-bound `UnixListener`. Used directly by integration tests.
 pub async fn serve_with_listener(
     args: Args,
     listener: UnixListener,
     shared: Arc<Shared>,
 ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
-    let shm = Arc::new(shm::Registry::new());
+    let prepared = prepare_service(&args, &shared).await?;
+    serve_prepared(args, listener, shared, prepared).await
+}
+
+/// Serves an already-prepared `GcsCore` service on an already-bound `UnixListener`.
+pub async fn serve_prepared(
+    args: Args,
+    listener: UnixListener,
+    shared: Arc<Shared>,
+    prepared: PreparedService,
+) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+    let PreparedService { svc, shm } = prepared;
     if args.shm_size > 0 && !args.socket.starts_with('@') {
         let r = shm.clone();
         let p = format!("{}.shm", args.socket);
@@ -330,7 +431,6 @@ pub async fn serve_with_listener(
         });
     }
 
-    let svc = service::GcsCoreService::new(&args, shared.clone(), shm).await?;
     let reaper_sessions = svc.sessions();
     let reaper_handles = svc.handles();
     // SAFETY: `getuid()` is always safe to call and cannot fail.
@@ -463,10 +563,7 @@ pub async fn serve_with_listener(
         uds.await?;
     }
 
-    if !sock.starts_with('@') {
-        let _ = std::fs::remove_file(&sock);
-        let _ = std::fs::remove_file(format!("{sock}.shm"));
-    }
+    remove_socket_files(&sock);
     Ok(())
 }
 
@@ -479,58 +576,95 @@ static INPROC_SERVERS: std::sync::LazyLock<
     std::sync::Mutex<std::collections::HashMap<String, InprocHandle>>,
 > = std::sync::LazyLock::new(|| std::sync::Mutex::new(std::collections::HashMap::new()));
 
-/// C-FFI entry point for launching the gRPC-over-UDS server **in-process** on a background
-/// Tokio runtime thread. Returns `0` once the UDS listener is bound and ready to accept connections,
-/// or `-1` on error.
+thread_local! {
+    /// Why the last `gcs_core_start_inproc*` call on this thread failed.
+    static INPROC_LAST_ERROR: std::cell::RefCell<String> =
+        const { std::cell::RefCell::new(String::new()) };
+}
+
+fn set_inproc_last_error(message: String) {
+    INPROC_LAST_ERROR.with(|e| *e.borrow_mut() = message);
+}
+
+/// Parses the flags of an in-process server: the same flags as `gcs-core-server`, without a
+/// program name.
 ///
-/// # Safety
-/// `socket_path` must be a valid, non-null, NUL-terminated C string pointer.
-#[unsafe(no_mangle)]
-pub unsafe extern "C" fn gcs_core_start_inproc(socket_path: *const c_char) -> i32 {
-    std::panic::catch_unwind(|| {
-        if socket_path.is_null() {
-            return -1;
-        }
-        // SAFETY: The caller guarantees `socket_path` is a non-null, NUL-terminated C string.
-        let sock = match unsafe { CStr::from_ptr(socket_path) }.to_str() {
-            Ok(s) => s.to_owned(),
-            Err(_) => return -1,
-        };
-        let shared = Shared::new();
-        let srv_shared = shared.clone();
-        let srv_sock = sock.clone();
-        let (tx, rx) = std::sync::mpsc::sync_channel::<i32>(1);
-        let join = std::thread::spawn(move || {
-            let rt = match tokio::runtime::Builder::new_multi_thread()
-                .enable_all()
-                .thread_name("gcs-core-inproc")
-                .build()
-            {
-                Ok(rt) => rt,
-                Err(_) => {
-                    let _ = tx.send(-1);
+/// Differences from the binary, each because the server lives inside someone else's process:
+/// `--socket` is required so an embedded server never claims the daemon's default path;
+/// `--idle-secs` defaults to 0 because an idle exit would stop a server the host still owns;
+/// `--pdeathsig` (a property of a child process) and `--tcp` (a network listener inside the host)
+/// are rejected.
+pub fn parse_inproc_args<I, T>(flags: I) -> Result<Args, String>
+where
+    I: IntoIterator<Item = T>,
+    T: Into<std::ffi::OsString> + Clone,
+{
+    use clap::parser::ValueSource;
+    use clap::{CommandFactory, FromArgMatches};
+
+    let flags: Vec<std::ffi::OsString> = flags.into_iter().map(Into::into).collect();
+    // This crate builds clap without `error-context`, so its messages do not name the offending
+    // flag; include the flags so a caller across the C ABI can see what was rejected.
+    let invalid = |e: clap::Error| format!("invalid in-process server flags {flags:?}: {e}");
+    let matches = Args::command()
+        .no_binary_name(true)
+        .try_get_matches_from(flags.clone())
+        .map_err(invalid)?;
+    let mut args = Args::from_arg_matches(&matches).map_err(invalid)?;
+    let on_command_line = |id: &str| matches.value_source(id) == Some(ValueSource::CommandLine);
+    if !on_command_line("socket") {
+        return Err("--socket is required for an in-process server".to_string());
+    }
+    if on_command_line("pdeathsig") {
+        return Err("--pdeathsig applies only to a separate gcs-core-server process".to_string());
+    }
+    if args.tcp.is_some() {
+        return Err("--tcp is not supported for an in-process server".to_string());
+    }
+    if !on_command_line("idle_secs") {
+        args.idle_secs = 0;
+    }
+    Ok(args)
+}
+
+/// Starts `args` on a background runtime thread and registers it for `gcs_core_stop_inproc`.
+/// Returns once the listener is bound, or why it could not be.
+fn start_inproc(args: Args) -> Result<(), String> {
+    let sock = args.socket.clone();
+    let rt = build_runtime(&args, "gcs-core-inproc").map_err(|e| format!("tokio runtime: {e}"))?;
+    let shared = Shared::new();
+    let srv_shared = shared.clone();
+    let (tx, rx) = std::sync::mpsc::sync_channel::<Result<(), String>>(1);
+    let join = std::thread::spawn(move || {
+        rt.block_on(async move {
+            let listener = match bind_uds_listener(&args.socket) {
+                Ok(l) => l,
+                Err(e) => {
+                    let _ = tx.send(Err(format!("bind {}: {e}", args.socket)));
                     return;
                 }
             };
-            rt.block_on(async move {
-                let args = Args {
-                    socket: srv_sock,
-                    idle_secs: 0,
-                    ..Default::default()
-                };
-                let listener = match bind_uds_listener(&args.socket) {
-                    Ok(l) => l,
-                    Err(_) => {
-                        let _ = tx.send(-1);
-                        return;
-                    }
-                };
-                let _ = tx.send(0);
-                let _ = serve_with_listener(args, listener, srv_shared).await;
-            });
+            // Ready means serving, as for `READY` in `run`: a failure to build the upstream
+            // clients is a failed start, reported to the caller with its reason.
+            let prepared = match prepare_service(&args, &srv_shared).await {
+                Ok(p) => p,
+                Err(e) => {
+                    remove_socket_files(&args.socket);
+                    let _ = tx.send(Err(format!(
+                        "building the storage clients: {}",
+                        error_chain(e.as_ref())
+                    )));
+                    return;
+                }
+            };
+            let _ = tx.send(Ok(()));
+            if let Err(e) = serve_prepared(args, listener, srv_shared, prepared).await {
+                tracing::error!("in-process server stopped: {e}");
+            }
         });
-        let rc = rx.recv().unwrap_or(-1);
-        if rc == 0 {
+    });
+    match rx.recv() {
+        Ok(Ok(())) => {
             INPROC_SERVERS.lock().unwrap().insert(
                 sock,
                 InprocHandle {
@@ -538,10 +672,128 @@ pub unsafe extern "C" fn gcs_core_start_inproc(socket_path: *const c_char) -> i3
                     join: Some(join),
                 },
             );
+            Ok(())
         }
-        rc
+        Ok(Err(e)) => {
+            let _ = join.join();
+            Err(e)
+        }
+        Err(_) => {
+            let _ = join.join();
+            Err("in-process server thread exited before binding".to_string())
+        }
+    }
+}
+
+fn inproc_result(result: Result<(), String>) -> i32 {
+    match result {
+        Ok(()) => 0,
+        Err(e) => {
+            set_inproc_last_error(e);
+            -1
+        }
+    }
+}
+
+/// C-FFI entry point for launching the gRPC-over-UDS server **in-process** on a background
+/// Tokio runtime thread with default flags. Returns `0` once the UDS listener is bound and ready
+/// to accept connections, or `-1` on error (see [`gcs_core_inproc_last_error`]).
+///
+/// # Safety
+/// `socket_path` must be a valid, non-null, NUL-terminated C string pointer.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn gcs_core_start_inproc(socket_path: *const c_char) -> i32 {
+    std::panic::catch_unwind(|| {
+        if socket_path.is_null() {
+            return inproc_result(Err("socket_path is null".to_string()));
+        }
+        // SAFETY: The caller guarantees `socket_path` is a non-null, NUL-terminated C string.
+        let sock = match unsafe { CStr::from_ptr(socket_path) }.to_str() {
+            Ok(s) => s.to_owned(),
+            Err(_) => return inproc_result(Err("socket_path is not UTF-8".to_string())),
+        };
+        inproc_result(start_inproc(Args {
+            socket: sock,
+            idle_secs: 0,
+            ..Default::default()
+        }))
     })
     .unwrap_or(-1)
+}
+
+/// Collects `argv[0..argc)` into owned strings.
+///
+/// # Safety
+/// `argv` must point to `argc` valid NUL-terminated C strings when `argc > 0`.
+unsafe fn c_flags(argc: c_int, argv: *const *const c_char) -> Result<Vec<String>, String> {
+    let count = usize::try_from(argc).map_err(|_| format!("argc is negative ({argc})"))?;
+    if count == 0 {
+        return Ok(Vec::new());
+    }
+    if argv.is_null() {
+        return Err("argv is null".to_string());
+    }
+    // SAFETY: The caller guarantees `argv` points to `argc` elements.
+    let pointers = unsafe { std::slice::from_raw_parts(argv, count) };
+    pointers
+        .iter()
+        .enumerate()
+        .map(|(i, &p)| {
+            if p.is_null() {
+                return Err(format!("argv[{i}] is null"));
+            }
+            // SAFETY: The caller guarantees each element is a NUL-terminated C string.
+            unsafe { CStr::from_ptr(p) }
+                .to_str()
+                .map(str::to_owned)
+                .map_err(|_| format!("argv[{i}] is not UTF-8"))
+        })
+        .collect()
+}
+
+/// C-FFI entry point for launching the in-process server with the same flags as
+/// `gcs-core-server` (see [`parse_inproc_args`]); `argv` holds flags only, no program name.
+/// Returns `0` once the UDS listener is bound, or `-1` on error (see
+/// [`gcs_core_inproc_last_error`]). Stop it with [`gcs_core_stop_inproc`] and the `--socket` value.
+///
+/// # Safety
+/// `argv` must point to `argc` valid NUL-terminated C strings when `argc > 0`.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn gcs_core_start_inproc_with_args(
+    argc: c_int,
+    argv: *const *const c_char,
+) -> i32 {
+    std::panic::catch_unwind(|| {
+        // SAFETY: Forwarded caller guarantee.
+        let result = unsafe { c_flags(argc, argv) }
+            .and_then(parse_inproc_args)
+            .and_then(start_inproc);
+        inproc_result(result)
+    })
+    .unwrap_or(-1)
+}
+
+/// Copies the message of the last failed `gcs_core_start_inproc*` call on the calling thread into
+/// `buf` (truncated to `cap - 1` bytes and NUL-terminated) and returns the full message length.
+/// Pass a null `buf` or `cap == 0` to query the length only.
+///
+/// # Safety
+/// `buf` must be null or point to `cap` writable bytes.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn gcs_core_inproc_last_error(buf: *mut c_char, cap: usize) -> usize {
+    INPROC_LAST_ERROR.with(|e| {
+        let message = e.borrow();
+        if !buf.is_null() && cap > 0 {
+            let n = message.len().min(cap - 1);
+            // SAFETY: `buf` has `cap` writable bytes and `n < cap`; source and destination do not
+            // overlap because `message` is owned by this module.
+            unsafe {
+                std::ptr::copy_nonoverlapping(message.as_ptr().cast::<c_char>(), buf, n);
+                *buf.add(n) = 0;
+            }
+        }
+        message.len()
+    })
 }
 
 /// C-FFI entry point for stopping an in-process gRPC-over-UDS server previously started via

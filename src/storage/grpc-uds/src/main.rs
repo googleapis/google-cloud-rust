@@ -38,9 +38,6 @@ fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         }
     }
 
-    let rt = tokio::runtime::Builder::new_multi_thread()
-        .enable_all()
-        .thread_name("gcs-core")
-        .build()?;
+    let rt = storage_grpc_uds::build_runtime(&args, "gcs-core")?;
     rt.block_on(storage_grpc_uds::run(args))
 }

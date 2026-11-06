@@ -44,7 +44,7 @@ Thin language veneers (Go, Python, Java, C++, Node.js) connect to `gcs-core-serv
 | :--- | :--- | :--- |
 | **1. `N:1` Shared Host Daemon** *(Default)* | `gcs-core-server --socket /run/user/$UID/gcs-core.sock --idle-secs 300` | Multiple thin-client processes share one daemon and one warm GCS gRPC subchannel pool. `TrackedUnixStream` tracks active UDS connections (`active_conns`), and the daemon exits only after `--idle-secs` with `0` active connections. |
 | **2. `1:1` Per-Process Child Sidecar** | `gcs-core-server --socket /tmp/gcs-$PID.sock --pdeathsig true --idle-secs 0` | Dedicated child process per application. On Linux, `--pdeathsig true` sets `prctl(PR_SET_PDEATHSIG, SIGTERM)` (with immediate `getppid() == 1` TOCTOU verification) so the sidecar terminates immediately if its parent crashes (`SIGKILL`). |
-| **3. Single-Process (In-Process UDS)** | Call `gcs_core_start_inproc(socket_path)` / `gcs_core_stop_inproc(socket_path)` via C-FFI ([`include/gcs_core_uds.h`](include/gcs_core_uds.h)) | Runs the Tonic UDS server on a background Tokio thread inside the host process. All data RPCs still flow over standard UDS sockets (avoiding per-RPC FFI/`cgo` transitions). |
+| **3. Single-Process (In-Process UDS)** | Call `gcs_core_start_inproc(socket_path)` (default flags) or `gcs_core_start_inproc_with_args(argc, argv)` (same flags as the binary, e.g. `--socket @gcs-core-123 --grpc-subchannels 4`), then `gcs_core_stop_inproc(socket_path)`, via C-FFI ([`include/gcs_core_uds.h`](include/gcs_core_uds.h)) | Runs the Tonic UDS server on a background Tokio thread inside the host process. All data RPCs still flow over standard UDS sockets (avoiding per-RPC FFI/`cgo` transitions). |
 
 ---
 
@@ -60,6 +60,7 @@ Instead of proxying `google.storage.v2.Storage` 1:1 over UDS, [`proto/gcscore.pr
 | `ReadObjectShm` | Server-streaming | **Linux Zero-Copy Read:** Clients connect to `<socket>.shm` to receive a 16-byte little-endian header `[region_id: u64, region_size: u64]` + sealed `memfd` via `SCM_RIGHTS`. `ReadObjectShm` writes payload directly into the client's `memfd` and returns a `ShmChunk` `(offset, len, meta)` descriptor. |
 | `WriteObject` | Client-streaming | First message carries `WriteHeader` (bucket, object, content-type, optional preconditions/known size, transport); subsequent messages stream `bytes data`. Uses `open_appendable_object` (`BidiWriteObject`) when built with `--cfg google_cloud_unstable_storage_bidi` (falling back to buffered `write_object` if a regional bucket returns `UNIMPLEMENTED`) and reports the actual transport used in `WriteObjectResponse.transport_used`. |
 | `ListObjects` / `ListBuckets` | Unary | Single-page control-plane listing via `StorageControl`, matching thin-client page iterators. |
+| `DeleteObject` | Unary | Deletes an object (optionally a specific generation, with an optional `if_generation_match`) via `StorageControl`. |
 | `CreateSession` / `UpdateToken` / `CloseSession` | Unary | Per-caller OAuth2 bearer token lending bound to kernel-verified `(uid, pid)`. |
 | `Stats` / `Shutdown` | Unary | Returns process CPU (`getrusage`) and RSS/VmHWM (`/proc/self/status`) telemetry, or triggers graceful shutdown. |
 
@@ -102,11 +103,14 @@ To prevent HTTP/2 window stalls and kernel socket buffer contention under high c
 RUSTFLAGS="--cfg google_cloud_unstable_storage_bidi" \
   cargo build --release -p storage-grpc-uds --bin gcs-core-server
 
-# Run server (prints "READY <socket>" on stdout once listening)
+# Run server (prints "READY <socket>" on stdout once listening and its upstream
+# clients are built; a server that cannot build them exits without it).
+# --worker-threads caps the Tokio runtime (default: one worker per CPU).
 ./target/release/gcs-core-server \
   --socket /tmp/gcs-core.sock \
   --default-transport json \
   --grpc-subchannels 16 \
+  --worker-threads 8 \
   --idle-secs 300
 
 # Run unit & end-to-end integration tests
