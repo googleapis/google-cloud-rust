@@ -43,15 +43,23 @@
 #[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
 
+pub mod aggregation;
 pub mod builder;
 pub mod client;
 pub mod entity;
 pub mod error;
+pub mod explain;
+pub mod gql;
 pub mod key;
+pub mod mutation;
+pub mod query;
+pub mod read;
 pub mod retry_policy;
+pub mod transaction;
 pub mod value;
 
 pub use error::{Error, Result};
+pub use google_cloud_datastore_derive::{FromEntity, FromValue, IntoEntity, IntoValue};
 
 // Internal shortcuts required by the generated gapic_dataplane module.
 pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
@@ -97,6 +105,11 @@ pub mod admin {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::aggregation::AggregationQuery;
+    use crate::explain::ExplainOptions;
+    use crate::gql::GqlQuery;
+    use crate::query::{Filter, Query};
+    use crate::read::ReadConsistency;
 
     #[test]
     fn default_host_and_header() {
@@ -120,6 +133,22 @@ mod tests {
         assert_eq!(ds.project_id(), "my-project");
         assert_eq!(ds.database_id(), "my-db");
         assert_eq!(ds.namespace_id(), "my-ns");
+
+        let q = Query::new("Task")
+            .filter(Filter::equal(
+                "done",
+                value::Value::new(value::ValueKind::Boolean(false)),
+            ))
+            .order_by_ascending("priority")
+            .limit(10);
+        let _rq = ds
+            .run_query(q.clone())
+            .with_consistency(ReadConsistency::Eventual)
+            .with_explain_options(ExplainOptions::plan_only());
+        let _agq = ds.run_aggregation_query(AggregationQuery::over(q).count("total"));
+        let _gql = ds.run_gql_query(GqlQuery::new("SELECT * FROM Task"));
+        let _tx = ds.transaction().with_max_attempts(3);
+        let _ro_tx = ds.read_only_transaction();
         Ok(())
     }
 }
