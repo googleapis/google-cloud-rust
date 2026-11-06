@@ -577,7 +577,6 @@ impl MutationKey {
         }
     }
 
-    #[allow(dead_code)]
     pub(crate) fn normalize(&self, default: &PartitionId) -> Result<MutationKey, KeyError> {
         match self {
             Self::Complete(k) => Ok(Self::Complete(k.normalize(default)?)),
@@ -585,7 +584,6 @@ impl MutationKey {
         }
     }
 
-    #[allow(dead_code)]
     pub(crate) fn to_proto(&self) -> crate::model::Key {
         match self {
             Self::Complete(k) => k.to_proto(),
@@ -593,7 +591,6 @@ impl MutationKey {
         }
     }
 
-    #[allow(dead_code)]
     pub(crate) fn from_proto(proto: crate::model::Key) -> Result<Self, KeyError> {
         if proto.path.is_empty() {
             return Err(KeyError::EmptyPath);
