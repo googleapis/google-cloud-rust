@@ -31,6 +31,7 @@ use tokio::time::Instant;
 #[derive(Clone, Debug)]
 pub(crate) struct Client {
     endpoint: String,
+    service_account: String,
     /// True if the endpoint was NOT overridden by env var or constructor arg.
     pub(crate) is_default_endpoint: bool,
     retry_config: RetryConfig,
@@ -52,9 +53,26 @@ impl Client {
 
         Self {
             endpoint,
+            service_account: super::MDS_DEFAULT_SERVICE_ACCOUNT.to_string(),
             is_default_endpoint,
             retry_config: Default::default(),
         }
+    }
+
+    /// Sets a custom service account (defaults to `default`).
+    pub(crate) fn with_service_account(mut self, service_account: Option<String>) -> Self {
+        if let Some(service_account) = service_account {
+            self.service_account = service_account;
+        }
+        self
+    }
+
+    fn service_account_uri(&self) -> String {
+        format!(
+            "{}/{}",
+            super::MDS_SERVICE_ACCOUNTS_URI,
+            self.service_account
+        )
     }
 
     /// Determine the endpoint and whether it was overridden
@@ -211,7 +229,7 @@ pub(crate) struct AccessTokenRequest {
 
 impl AccessTokenRequest {
     pub(crate) async fn send(self) -> crate::Result<Token> {
-        let path = format!("{}/token", super::MDS_DEFAULT_URI);
+        let path = format!("{}/token", self.client.service_account_uri());
         let request = self.client.get(&path);
 
         // Use the `scopes` option if set, otherwise let the MDS use the default
@@ -259,7 +277,7 @@ pub(crate) struct IdTokenRequest {
 #[cfg(feature = "idtoken")]
 impl IdTokenRequest {
     pub(crate) async fn send(self) -> crate::Result<String> {
-        let path = format!("{}/identity", super::MDS_DEFAULT_URI);
+        let path = format!("{}/identity", self.client.service_account_uri());
         let request = self
             .client
             .get(&path)
@@ -290,7 +308,7 @@ pub(crate) struct EmailRequest {
 
 impl EmailRequest {
     pub(crate) async fn send(self) -> crate::Result<String> {
-        let path = format!("{}/email", super::MDS_DEFAULT_URI);
+        let path = format!("{}/email", self.client.service_account_uri());
         let request = self.client.get(&path);
         let error_message = "failed to fetch email";
 

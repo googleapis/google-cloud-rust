@@ -128,6 +128,7 @@ where
 #[derive(Debug)]
 pub struct Builder {
     endpoint: Option<String>,
+    service_account: Option<String>,
     quota_project_id: Option<String>,
     universe_domain: Option<String>,
     scopes: Option<Vec<String>>,
@@ -141,6 +142,7 @@ impl Default for Builder {
     fn default() -> Self {
         Self {
             endpoint: None,
+            service_account: None,
             quota_project_id: None,
             universe_domain: None,
             scopes: None,
@@ -169,6 +171,26 @@ impl Builder {
     /// ```
     pub fn with_endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
         self.endpoint = Some(endpoint.into());
+        self
+    }
+
+    /// Sets the service account email or alias (such as `"default"`) to query
+    /// on the Metadata Service under
+    /// `/computeMetadata/v1/instance/service-accounts/{service_account}/`.
+    ///
+    /// If not set, the credentials use the `"default"` service account entry.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::mds::Builder;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let credentials = Builder::default()
+    ///     .with_service_account("my-sa@my-project.iam.gserviceaccount.com")
+    ///     .build()?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_service_account<S: Into<String>>(mut self, service_account: S) -> Self {
+        self.service_account = Some(service_account.into());
         self
     }
 
@@ -297,6 +319,7 @@ impl Builder {
     fn build_token_provider(self) -> TokenProviderWithRetry<MDSAccessTokenProvider> {
         let tp = MDSAccessTokenProvider::builder()
             .endpoint(self.endpoint)
+            .service_account(self.service_account)
             .maybe_scopes(self.scopes)
             .created_by_adc(self.created_by_adc)
             .build();
@@ -332,7 +355,8 @@ impl Builder {
     ) -> BuildResult<CredentialsWithAccessBoundary<MDSCredentials<TokenCache>>> {
         let iam_endpoint = self.iam_endpoint_override.clone();
         let is_access_boundary_enabled = self.is_access_boundary_enabled;
-        let mds_client = MDSClient::new(self.endpoint.clone());
+        let mds_client = MDSClient::new(self.endpoint.clone())
+            .with_service_account(self.service_account.clone());
         let retry_builder = self.retry_builder.clone();
         let (backoff_policy, retry_throttler, retry_policy) = retry_builder.resolve();
         let mdsc = MDSCredentials {
@@ -372,7 +396,8 @@ impl Builder {
     ///
     /// [IAM signBlob API]: https://cloud.google.com/iam/docs/reference/credentials/rest/v1/projects.serviceAccounts/signBlob
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
-        let client = MDSClient::new(self.endpoint.clone());
+        let client = MDSClient::new(self.endpoint.clone())
+            .with_service_account(self.service_account.clone());
         let iam_endpoint = self.iam_endpoint_override.clone();
         let credentials = self.build()?;
         let signing_provider = crate::signer::mds::MDSSigner::new(client, credentials);
@@ -450,13 +475,14 @@ where
 struct MDSAccessTokenProviderBuilder {
     scopes: Option<Vec<String>>,
     endpoint: Option<String>,
+    service_account: Option<String>,
     created_by_adc: bool,
 }
 
 impl MDSAccessTokenProviderBuilder {
     fn build(self) -> MDSAccessTokenProvider {
         MDSAccessTokenProvider {
-            client: MDSClient::new(self.endpoint),
+            client: MDSClient::new(self.endpoint).with_service_account(self.service_account),
             scopes: self.scopes,
             created_by_adc: self.created_by_adc,
         }
@@ -472,6 +498,14 @@ impl MDSAccessTokenProviderBuilder {
         T: Into<String>,
     {
         self.endpoint = v.map(Into::into);
+        self
+    }
+
+    fn service_account<T>(mut self, v: Option<T>) -> Self
+    where
+        T: Into<String>,
+    {
+        self.service_account = v.map(Into::into);
         self
     }
 
@@ -735,6 +769,35 @@ mod tests {
 
         let access_token = creds.access_token().await.unwrap();
         assert_eq!(access_token.token, "test-access-token");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn access_token_custom_service_account() -> TestResult {
+        let server = Server::run();
+        let response = MDSTokenResponse {
+            access_token: "custom-sa-token".to_string(),
+            expires_in: Some(3600),
+            token_type: "Bearer".to_string(),
+        };
+        server.expect(
+            Expectation::matching(all_of![request::path(
+                "/computeMetadata/v1/instance/service-accounts/custom@project.iam.gserviceaccount.com/token"
+            )])
+            .respond_with(json_encoded(response)),
+        );
+
+        let creds = Builder::default()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_service_account("custom@project.iam.gserviceaccount.com")
+            .without_access_boundary()
+            .build_access_token_credentials()
+            .unwrap();
+
+        let access_token = creds.access_token().await.unwrap();
+        assert_eq!(access_token.token, "custom-sa-token");
 
         Ok(())
     }

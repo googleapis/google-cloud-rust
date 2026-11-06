@@ -132,6 +132,7 @@ impl Format {
 /// metadata service.
 pub struct Builder {
     endpoint: Option<String>,
+    service_account: Option<String>,
     pub(crate) format: Option<Format>,
     licenses: Option<String>,
     target_audience: String,
@@ -148,6 +149,7 @@ impl Builder {
         Builder {
             format: None,
             endpoint: None,
+            service_account: None,
             licenses: None,
             target_audience: target_audience.into(),
             retry_builder: RetryTokenProviderBuilder::default(),
@@ -171,6 +173,26 @@ impl Builder {
     /// ```
     pub fn with_endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
         self.endpoint = Some(endpoint.into());
+        self
+    }
+
+    /// Sets the service account email or alias (such as `"default"`) to query
+    /// on the Metadata Service under
+    /// `/computeMetadata/v1/instance/service-accounts/{service_account}/`.
+    ///
+    /// If not set, the credentials use the `"default"` service account entry.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// # use google_cloud_auth::credentials::idtoken;
+    /// let audience = "https://my-service.a.run.app";
+    /// let credentials = idtoken::mds::Builder::new(audience)
+    ///     .with_service_account("my-sa@my-project.iam.gserviceaccount.com")
+    ///     .build();
+    /// ```
+    pub fn with_service_account<S: Into<String>>(mut self, service_account: S) -> Self {
+        self.service_account = Some(service_account.into());
         self
     }
 
@@ -293,7 +315,7 @@ impl Builder {
     }
 
     fn build_token_provider(self) -> TokenProviderWithRetry<MDSTokenProvider> {
-        let client = MDSClient::new(self.endpoint);
+        let client = MDSClient::new(self.endpoint).with_service_account(self.service_account);
         let tp = MDSTokenProvider {
             format: self.format,
             licenses: self.licenses,
