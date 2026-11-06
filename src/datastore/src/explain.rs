@@ -68,3 +68,32 @@ pub struct ExplainMetrics {
     /// Runtime execution statistics (populated only when [`ExplainOptions::analyze`] was requested).
     pub execution_stats: Option<ExecutionStats>,
 }
+
+impl ExplainMetrics {
+    pub(crate) fn from_proto(proto: crate::model::ExplainMetrics) -> Self {
+        let plan_summary = proto.plan_summary.map(|ps| PlanSummary {
+            indexes_used: ps
+                .indexes_used
+                .into_iter()
+                .map(|s| s.into_iter().collect())
+                .collect(),
+        });
+        let execution_stats = proto.execution_stats.map(|es| ExecutionStats {
+            results_returned: es.results_returned,
+            execution_duration: es.execution_duration.and_then(|d| {
+                let secs = u64::try_from(d.seconds()).ok()?;
+                let nanos = u32::try_from(d.nanos()).ok()?;
+                Some(Duration::new(secs, nanos))
+            }),
+            read_operations: es.read_operations,
+            debug_stats: es
+                .debug_stats
+                .map(|s| s.into_iter().collect())
+                .unwrap_or_default(),
+        });
+        Self {
+            plan_summary,
+            execution_stats,
+        }
+    }
+}

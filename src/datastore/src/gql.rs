@@ -14,14 +14,16 @@
 
 //! GQL queries (`GqlQuery`), parameter bindings (`GqlParameter`), and execution builders.
 
-use crate::Result;
 use crate::client::Datastore;
+use crate::error::ValueError;
 use crate::explain::ExplainOptions;
-use crate::query::{Cursor, QueryStream};
-use crate::read::{ReadConsistency, ReadOptions};
+use crate::key::PartitionId;
+use crate::query::{Cursor, InitialQuerySpec, QueryStream, execute_initial_query};
+use crate::read::{LookupReadMode, ReadConsistency, ReadOptions};
 use crate::value::{IntoValue, Value};
+use crate::{Error, Result};
 use bytes::Bytes;
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, HashMap};
 
 /// A bound parameter in a [`GqlQuery`] (either a [`Value`] or a pagination [`Cursor`]).
 #[derive(Clone, Debug, PartialEq)]
@@ -31,6 +33,20 @@ pub enum GqlParameter {
     Value(Value),
     /// A query pagination [`Cursor`] parameter.
     Cursor(Cursor),
+}
+
+impl GqlParameter {
+    pub(crate) fn to_proto(
+        &self,
+        default_partition: &PartitionId,
+    ) -> std::result::Result<crate::model::GqlQueryParameter, ValueError> {
+        match self {
+            Self::Value(v) => Ok(
+                crate::model::GqlQueryParameter::new().set_value(v.to_proto(default_partition)?)
+            ),
+            Self::Cursor(c) => Ok(crate::model::GqlQueryParameter::new().set_cursor(c.0.clone())),
+        }
+    }
 }
 
 /// A Google Query Language (GQL) query (`google.datastore.v1.GqlQuery`).
@@ -98,11 +114,29 @@ impl GqlQuery {
     pub fn is_allow_literals(&self) -> bool {
         self.allow_literals
     }
+
+    pub(crate) fn to_proto(
+        &self,
+        default_partition: &PartitionId,
+    ) -> std::result::Result<crate::model::GqlQuery, ValueError> {
+        let mut named = HashMap::with_capacity(self.named_bindings.len());
+        for (name, param) in &self.named_bindings {
+            named.insert(name.clone(), param.to_proto(default_partition)?);
+        }
+        let mut positional = Vec::with_capacity(self.positional_bindings.len());
+        for param in &self.positional_bindings {
+            positional.push(param.to_proto(default_partition)?);
+        }
+        Ok(crate::model::GqlQuery::new()
+            .set_query_string(self.query_string.clone())
+            .set_allow_literals(self.allow_literals)
+            .set_named_bindings(named)
+            .set_positional_bindings(positional))
+    }
 }
 
 /// Request builder for [`Datastore::run_gql_query`].
 #[derive(Clone, Debug)]
-#[allow(dead_code)]
 pub struct RunGqlQueryBuilder {
     pub(crate) client: Datastore,
     pub(crate) gql_query: GqlQuery,
@@ -156,6 +190,138 @@ impl RunGqlQueryBuilder {
     /// Executes the initial `RunQuery` RPC with the GQL query and returns a [`QueryStream`]
     /// (automatically continuing with the server-compiled structured [`Query`][crate::query::Query] across batches).
     pub async fn send(self) -> Result<QueryStream> {
-        unimplemented!()
+        let mut partition_id = self.client.partition_id();
+        if let Some(ns) = self.namespace_id {
+            partition_id = partition_id.with_namespace_id(ns);
+        }
+        let proto_gql = self
+            .gql_query
+            .to_proto(&partition_id)
+            .map_err(|e| Error::ser(Box::new(e)))?;
+        let read_mode = match self.transaction_id {
+            Some(tx_id) => LookupReadMode::Transaction(tx_id),
+            None => LookupReadMode::NonTransactional(self.read_options),
+        };
+        let (stream, _) = execute_initial_query(
+            self.client,
+            partition_id,
+            InitialQuerySpec::Gql(proto_gql),
+            read_mode,
+            self.explain_options,
+            self.options,
+        )
+        .await?;
+        Ok(stream)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::entity::Entity;
+    use crate::generated::gapic_dataplane::stub::Datastore as DatastoreStub;
+    use crate::key::Key;
+    use crate::model::{
+        EntityResult, KindExpression, Query as ProtoQuery, QueryResultBatch, RunQueryRequest,
+        RunQueryResponse, query_result_batch::MoreResultsType,
+    };
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::response::Response;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        DatastoreMock {}
+        impl DatastoreStub for DatastoreMock {
+            async fn run_query(
+                &self,
+                req: RunQueryRequest,
+                options: RequestOptions,
+            ) -> Result<Response<RunQueryResponse>>;
+        }
+    }
+
+    fn test_client(mock: MockDatastoreMock) -> Datastore {
+        Datastore::from_stub("test-proj", "test-db", "test-ns", mock)
+    }
+
+    fn make_entity_result(id: i64, name: &str) -> EntityResult {
+        let key = Key::with_id("User", id)
+            .unwrap()
+            .with_partition_id(PartitionId::new("test-proj"));
+        let mut entity = Entity::with_key(key.clone());
+        entity.set("name", name);
+        EntityResult::new()
+            .set_entity(entity.to_proto(key.partition_id()).unwrap())
+            .set_version(1)
+    }
+
+    #[tokio::test]
+    async fn gql_query_continues_with_compiled_structured_query_on_not_finished() {
+        let mut mock = MockDatastoreMock::new();
+
+        // Batch 1 receives a GqlQuery with named and positional bindings, returns NOT_FINISHED
+        // along with the compiled structured `query`.
+        mock.expect_run_query()
+            .times(1)
+            .withf(|req, _| {
+                let Some(gql) = req.gql_query() else {
+                    return false;
+                };
+                gql.query_string == "SELECT * FROM User WHERE role = @role AND level >= @1"
+                    && !gql.allow_literals
+                    && gql.named_bindings.contains_key("role")
+                    && gql.positional_bindings.len() == 1
+            })
+            .returning(|_, _| {
+                let compiled = ProtoQuery::new()
+                    .set_kind([KindExpression::new().set_name("User")])
+                    .set_limit(2);
+                let batch = QueryResultBatch::new()
+                    .set_entity_results([make_entity_result(1, "Alice")])
+                    .set_end_cursor(Bytes::from_static(b"gql-cursor-1"))
+                    .set_more_results(MoreResultsType::NotFinished);
+                Ok(Response::from(
+                    RunQueryResponse::new().set_query(compiled).set_batch(batch),
+                ))
+            });
+
+        // Batch 2 automatically uses the compiled structured `Query` with `start_cursor = "gql-cursor-1"`
+        // and adjusted `limit = 1` (2 - 1).
+        mock.expect_run_query()
+            .times(1)
+            .withf(|req, _| {
+                let Some(q) = req.query() else {
+                    return false;
+                };
+                q.kind.len() == 1
+                    && q.kind[0].name == "User"
+                    && q.start_cursor == Bytes::from_static(b"gql-cursor-1")
+                    && q.limit == Some(1)
+            })
+            .returning(|_, _| {
+                let batch = QueryResultBatch::new()
+                    .set_entity_results([make_entity_result(2, "Bob")])
+                    .set_end_cursor(Bytes::from_static(b"gql-cursor-2"))
+                    .set_more_results(MoreResultsType::NoMoreResults);
+                Ok(Response::from(RunQueryResponse::new().set_batch(batch)))
+            });
+
+        let client = test_client(mock);
+        let gql = GqlQuery::new("SELECT * FROM User WHERE role = @role AND level >= @1")
+            .bind("role", "admin")
+            .add_positional(5_i64);
+
+        let mut stream = client
+            .run_gql_query(gql)
+            .send()
+            .await
+            .expect("run_gql_query");
+
+        let mut names = Vec::new();
+        while let Some(entity) = stream.next_entity().await.expect("next_entity") {
+            names.push(entity.get::<String>("name").expect("name"));
+        }
+
+        assert_eq!(names, vec!["Alice", "Bob"]);
     }
 }
