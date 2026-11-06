@@ -14,13 +14,15 @@
 
 //! Aggregation queries (`COUNT`, `SUM`, `AVG`) and typed [`AggregationResults`].
 
+use crate::Error;
 use crate::Result;
 use crate::client::Datastore;
-use crate::error::EntityError;
+use crate::error::{EntityError, ValueError};
 use crate::explain::{ExplainMetrics, ExplainOptions};
 use crate::gql::GqlQuery;
+use crate::key::PartitionId;
 use crate::query::Query;
-use crate::read::{ReadConsistency, ReadOptions};
+use crate::read::{LookupReadMode, ReadConsistency, ReadOptions};
 use crate::value::{FromValue, Value};
 use bytes::Bytes;
 use std::collections::BTreeMap;
@@ -34,7 +36,6 @@ pub(crate) enum AggregationOp {
 
 /// A single aggregation specification (`COUNT`, `SUM`, or `AVG`) within an [`AggregationQuery`].
 #[derive(Clone, Debug, PartialEq, Eq)]
-#[allow(dead_code)]
 pub struct Aggregation {
     pub(crate) alias: String,
     pub(crate) op: AggregationOp,
@@ -80,6 +81,29 @@ impl Aggregation {
     /// Returns the result alias of this aggregation.
     pub fn alias(&self) -> &str {
         &self.alias
+    }
+
+    pub(crate) fn to_proto(&self) -> crate::model::aggregation_query::Aggregation {
+        let agg = crate::model::aggregation_query::Aggregation::new().set_alias(&self.alias);
+        match &self.op {
+            AggregationOp::Count { up_to } => {
+                let mut count = crate::model::aggregation_query::aggregation::Count::new();
+                if let Some(u) = up_to {
+                    count = count.set_up_to(*u);
+                }
+                agg.set_count(count)
+            }
+            AggregationOp::Sum { property } => {
+                let sum = crate::model::aggregation_query::aggregation::Sum::new()
+                    .set_property(crate::model::PropertyReference::new().set_name(property));
+                agg.set_sum(sum)
+            }
+            AggregationOp::Avg { property } => {
+                let avg = crate::model::aggregation_query::aggregation::Avg::new()
+                    .set_property(crate::model::PropertyReference::new().set_name(property));
+                agg.set_avg(avg)
+            }
+        }
     }
 }
 
@@ -134,11 +158,25 @@ impl AggregationQuery {
     pub fn aggregations(&self) -> &[Aggregation] {
         &self.aggregations
     }
+
+    pub(crate) fn to_proto(
+        &self,
+        default_partition: &PartitionId,
+    ) -> std::result::Result<crate::model::AggregationQuery, ValueError> {
+        let nested = self.nested_query.to_proto(default_partition)?;
+        let aggs: Vec<_> = self
+            .aggregations
+            .iter()
+            .map(Aggregation::to_proto)
+            .collect();
+        Ok(crate::model::AggregationQuery::new()
+            .set_nested_query(nested)
+            .set_aggregations(aggs))
+    }
 }
 
 /// Results returned by [`Datastore::run_aggregation_query`] or [`Datastore::run_aggregation_gql_query`].
 #[derive(Clone, Debug, Default, PartialEq)]
-#[allow(dead_code)]
 pub struct AggregationResults {
     pub(crate) values: BTreeMap<String, Value>,
     pub(crate) read_time: Option<wkt::Timestamp>,
@@ -146,6 +184,11 @@ pub struct AggregationResults {
 }
 
 impl AggregationResults {
+    /// Returns the raw map of aggregation aliases to [`Value`]s.
+    pub fn values(&self) -> &BTreeMap<String, Value> {
+        &self.values
+    }
+
     /// Returns the raw [`Value`] for `alias`, if present.
     pub fn get_value(&self, alias: &str) -> Option<&Value> {
         self.values.get(alias)
@@ -185,9 +228,70 @@ impl AggregationResults {
     }
 }
 
+#[derive(Clone, Debug)]
+pub(crate) enum InitialAggregationSpec {
+    Structured(Box<crate::model::AggregationQuery>),
+    Gql(crate::model::GqlQuery),
+}
+
+pub(crate) async fn execute_aggregation_query(
+    client: Datastore,
+    partition_id: PartitionId,
+    spec: InitialAggregationSpec,
+    read_mode: LookupReadMode,
+    explain_options: Option<ExplainOptions>,
+    options: crate::RequestOptions,
+) -> Result<(AggregationResults, Option<Bytes>)> {
+    let proto_partition = partition_id.to_proto();
+    let mut req = client
+        .inner
+        .gapic
+        .run_aggregation_query()
+        .set_project_id(client.project_id())
+        .set_database_id(client.database_id())
+        .set_partition_id(proto_partition)
+        .with_options(options);
+
+    req = match spec {
+        InitialAggregationSpec::Structured(q) => req.set_aggregation_query(*q),
+        InitialAggregationSpec::Gql(gql) => req.set_gql_query(gql),
+    };
+
+    if let Some(ro) = read_mode.to_proto(None) {
+        req = req.set_read_options(ro);
+    }
+    if let Some(eo) = explain_options {
+        req = req.set_explain_options(eo.to_proto());
+    }
+
+    let response = req.send().await?;
+    let started_tx = (!response.transaction.is_empty()).then(|| response.transaction.clone());
+    let explain_metrics = response.explain_metrics.map(ExplainMetrics::from_proto);
+
+    let mut values = BTreeMap::new();
+    let mut read_time = None;
+    if let Some(batch) = response.batch {
+        read_time = batch.read_time;
+        for agg_res in batch.aggregation_results {
+            for (alias, proto_val) in agg_res.aggregate_properties {
+                let val = Value::from_proto(proto_val).map_err(|e| Error::deser(Box::new(e)))?;
+                values.insert(alias, val);
+            }
+        }
+    }
+
+    Ok((
+        AggregationResults {
+            values,
+            read_time,
+            explain_metrics,
+        },
+        started_tx,
+    ))
+}
+
 /// Request builder for [`Datastore::run_aggregation_query`].
 #[derive(Clone, Debug)]
-#[allow(dead_code)]
 pub struct RunAggregationQueryBuilder {
     pub(crate) client: Datastore,
     pub(crate) query: AggregationQuery,
@@ -240,13 +344,36 @@ impl RunAggregationQueryBuilder {
 
     /// Executes the `RunAggregationQuery` RPC and returns the [`AggregationResults`].
     pub async fn send(self) -> Result<AggregationResults> {
-        unimplemented!()
+        let mut partition_id = self.client.partition_id();
+        if let Some(ns) = self
+            .namespace_id
+            .or_else(|| self.query.nested_query.namespace_id.clone())
+        {
+            partition_id = partition_id.with_namespace_id(ns);
+        }
+        let proto_agg = self
+            .query
+            .to_proto(&partition_id)
+            .map_err(|e| Error::ser(Box::new(e)))?;
+        let read_mode = match self.transaction_id {
+            Some(tx_id) => LookupReadMode::Transaction(tx_id),
+            None => LookupReadMode::NonTransactional(self.read_options),
+        };
+        let (results, _) = execute_aggregation_query(
+            self.client,
+            partition_id,
+            InitialAggregationSpec::Structured(Box::new(proto_agg)),
+            read_mode,
+            self.explain_options,
+            self.options,
+        )
+        .await?;
+        Ok(results)
     }
 }
 
 /// Request builder for [`Datastore::run_aggregation_gql_query`].
 #[derive(Clone, Debug)]
-#[allow(dead_code)]
 pub struct RunAggregationGqlQueryBuilder {
     pub(crate) client: Datastore,
     pub(crate) gql_query: GqlQuery,
@@ -299,6 +426,165 @@ impl RunAggregationGqlQueryBuilder {
 
     /// Executes the `RunAggregationQuery` RPC with the GQL query and returns the [`AggregationResults`].
     pub async fn send(self) -> Result<AggregationResults> {
-        unimplemented!()
+        let mut partition_id = self.client.partition_id();
+        if let Some(ns) = self.namespace_id {
+            partition_id = partition_id.with_namespace_id(ns);
+        }
+        let proto_gql = self
+            .gql_query
+            .to_proto(&partition_id)
+            .map_err(|e| Error::ser(Box::new(e)))?;
+        let read_mode = match self.transaction_id {
+            Some(tx_id) => LookupReadMode::Transaction(tx_id),
+            None => LookupReadMode::NonTransactional(self.read_options),
+        };
+        let (results, _) = execute_aggregation_query(
+            self.client,
+            partition_id,
+            InitialAggregationSpec::Gql(proto_gql),
+            read_mode,
+            self.explain_options,
+            self.options,
+        )
+        .await?;
+        Ok(results)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::generated::gapic_dataplane::stub::Datastore as DatastoreStub;
+    use crate::model::{
+        AggregationResult, AggregationResultBatch, ExecutionStats as ProtoExecutionStats,
+        ExplainMetrics as ProtoExplainMetrics, RunAggregationQueryRequest,
+        RunAggregationQueryResponse, Value as ProtoValue,
+    };
+    use crate::query::Filter;
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::response::Response;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        DatastoreMock {}
+        impl DatastoreStub for DatastoreMock {
+            async fn run_aggregation_query(
+                &self,
+                req: RunAggregationQueryRequest,
+                options: RequestOptions,
+            ) -> Result<Response<RunAggregationQueryResponse>>;
+        }
+    }
+
+    fn test_client(mock: MockDatastoreMock) -> Datastore {
+        Datastore::from_stub("test-proj", "test-db", "test-ns", mock)
+    }
+
+    #[tokio::test]
+    async fn structured_aggregation_query_count_sum_avg_and_explain_metrics() {
+        let mut mock = MockDatastoreMock::new();
+        mock.expect_run_aggregation_query()
+            .times(1)
+            .withf(|req, _| {
+                let Some(aq) = req.aggregation_query() else {
+                    return false;
+                };
+                req.project_id == "test-proj"
+                    && req.database_id == "test-db"
+                    && aq.aggregations.len() == 4
+                    && aq.aggregations[0].alias == "total"
+                    && aq.aggregations[1].alias == "capped"
+                    && aq.aggregations[1].count().and_then(|c| c.up_to) == Some(100)
+                    && aq.aggregations[2].alias == "sum_points"
+                    && aq.aggregations[3].alias == "avg_points"
+                    && req.explain_options.as_ref().is_some_and(|eo| eo.analyze)
+            })
+            .returning(|_, _| {
+                let agg_res = AggregationResult::new().set_aggregate_properties([
+                    ("total", ProtoValue::new().set_integer_value(25)),
+                    ("capped", ProtoValue::new().set_integer_value(25)),
+                    ("sum_points", ProtoValue::new().set_integer_value(500)),
+                    ("avg_points", ProtoValue::new().set_double_value(20.0)),
+                ]);
+                let batch = AggregationResultBatch::new()
+                    .set_aggregation_results([agg_res])
+                    .set_read_time(wkt::Timestamp::clamp(1_700_000_000, 0));
+                let explain = ProtoExplainMetrics::new().set_execution_stats(
+                    ProtoExecutionStats::new()
+                        .set_results_returned(1)
+                        .set_read_operations(25),
+                );
+                Ok(Response::from(
+                    RunAggregationQueryResponse::new()
+                        .set_batch(batch)
+                        .set_explain_metrics(explain),
+                ))
+            });
+
+        let client = test_client(mock);
+        let base_query = Query::new("Task").filter(Filter::equal("done", true));
+        let agg_query = AggregationQuery::over(base_query)
+            .count("total")
+            .count_up_to("capped", 100)
+            .sum("points", "sum_points")
+            .avg("points", "avg_points");
+
+        let results = client
+            .run_aggregation_query(agg_query)
+            .with_explain_options(ExplainOptions::analyze())
+            .send()
+            .await
+            .expect("run_aggregation_query");
+
+        assert_eq!(results.get_i64("total").unwrap(), 25);
+        assert_eq!(results.get_i64("capped").unwrap(), 25);
+        assert_eq!(results.get_i64("sum_points").unwrap(), 500);
+        assert_eq!(results.get_f64("avg_points").unwrap(), 20.0);
+        assert_eq!(results.values().len(), 4);
+        assert_eq!(
+            results.read_time(),
+            Some(&wkt::Timestamp::clamp(1_700_000_000, 0))
+        );
+        let metrics = results.explain_metrics().expect("explain_metrics");
+        assert_eq!(
+            metrics.execution_stats.as_ref().unwrap().read_operations,
+            25
+        );
+    }
+
+    #[tokio::test]
+    async fn gql_aggregation_query_with_bindings() {
+        let mut mock = MockDatastoreMock::new();
+        mock.expect_run_aggregation_query()
+            .times(1)
+            .withf(|req, _| {
+                let Some(gql) = req.gql_query() else {
+                    return false;
+                };
+                gql.query_string == "AGGREGATE COUNT(*) AS total OVER (SELECT * FROM Task WHERE status = @status)"
+                    && gql.named_bindings.contains_key("status")
+            })
+            .returning(|_, _| {
+                let agg_res = AggregationResult::new()
+                    .set_aggregate_properties([("total", ProtoValue::new().set_integer_value(7))]);
+                let batch = AggregationResultBatch::new().set_aggregation_results([agg_res]);
+                Ok(Response::from(
+                    RunAggregationQueryResponse::new().set_batch(batch),
+                ))
+            });
+
+        let client = test_client(mock);
+        let gql = GqlQuery::new(
+            "AGGREGATE COUNT(*) AS total OVER (SELECT * FROM Task WHERE status = @status)",
+        )
+        .bind("status", "open");
+
+        let results = client
+            .run_aggregation_gql_query(gql)
+            .send()
+            .await
+            .expect("run_aggregation_gql_query");
+
+        assert_eq!(results.get_i64("total").unwrap(), 7);
     }
 }

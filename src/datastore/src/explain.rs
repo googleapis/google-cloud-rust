@@ -38,6 +38,10 @@ impl ExplainOptions {
     pub fn is_analyze(&self) -> bool {
         self.analyze
     }
+
+    pub(crate) fn to_proto(self) -> crate::model::ExplainOptions {
+        crate::model::ExplainOptions::new().set_analyze(self.analyze)
+    }
 }
 
 /// Summary of the query planner's index selection.
@@ -95,5 +99,59 @@ impl ExplainMetrics {
             plan_summary,
             execution_stats,
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn explain_options_and_metrics_conversion() {
+        let plan_only = ExplainOptions::plan_only();
+        assert!(!plan_only.is_analyze());
+        assert!(!plan_only.to_proto().analyze);
+
+        let analyze = ExplainOptions::analyze();
+        assert!(analyze.is_analyze());
+        assert!(analyze.to_proto().analyze);
+
+        let mut idx = wkt::Struct::new();
+        idx.insert(
+            "query_scope".to_string(),
+            serde_json::Value::String("Collection group".to_string()),
+        );
+        let mut debug = wkt::Struct::new();
+        debug.insert(
+            " billing_details".trim().to_string(),
+            serde_json::Value::String("ok".to_string()),
+        );
+
+        let proto = crate::model::ExplainMetrics::new()
+            .set_plan_summary(crate::model::PlanSummary::new().set_indexes_used([idx]))
+            .set_execution_stats(
+                crate::model::ExecutionStats::new()
+                    .set_results_returned(42)
+                    .set_read_operations(45)
+                    .set_execution_duration(wkt::Duration::clamp(1, 500_000_000))
+                    .set_debug_stats(debug),
+            );
+
+        let metrics = ExplainMetrics::from_proto(proto);
+        let ps = metrics.plan_summary.expect("plan_summary");
+        assert_eq!(ps.indexes_used.len(), 1);
+        assert_eq!(
+            ps.indexes_used[0].get("query_scope"),
+            Some(&serde_json::Value::String("Collection group".to_string()))
+        );
+
+        let es = metrics.execution_stats.expect("execution_stats");
+        assert_eq!(es.results_returned, 42);
+        assert_eq!(es.read_operations, 45);
+        assert_eq!(es.execution_duration, Some(Duration::new(1, 500_000_000)));
+        assert_eq!(
+            es.debug_stats.get("billing_details"),
+            Some(&serde_json::Value::String("ok".to_string()))
+        );
     }
 }

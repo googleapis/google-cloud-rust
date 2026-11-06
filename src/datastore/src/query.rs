@@ -611,8 +611,7 @@ pub(crate) async fn execute_initial_query(
     options: crate::RequestOptions,
 ) -> Result<(QueryStream, Option<Bytes>)> {
     let proto_partition = partition_id.to_proto();
-    let proto_explain =
-        explain_options.map(|eo| crate::model::ExplainOptions::new().set_analyze(eo.analyze));
+    let proto_explain = explain_options.map(ExplainOptions::to_proto);
 
     let compiled_query = match &initial_spec {
         InitialQuerySpec::Structured(q) => Some((**q).clone()),
