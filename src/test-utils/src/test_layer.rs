@@ -14,7 +14,7 @@
 
 use std::borrow::Cow;
 use std::collections::HashMap;
-use std::sync::{Arc, Mutex, Once};
+use std::sync::{Arc, Mutex, OnceLock};
 use tracing::{
     Event, Metadata, Subscriber, field,
     level_filters::LevelFilter,
@@ -232,8 +232,6 @@ impl Subscriber for MaxLevelTraceSubscriber {
     fn exit(&self, _span: &span::Id) {}
 }
 
-static MAX_LEVEL_INIT: Once = Once::new();
-
 /// A tracing layer for capturing and inspecting spans within tests.
 ///
 /// Each call to [`TestLayer::initialize()`] installs an isolated thread-local
@@ -282,9 +280,8 @@ impl TestLayer {
     /// `LevelFilter::TRACE` and callsites never cache `Interest::never()`,
     /// without installing a global default subscriber.
     pub fn ensure_max_level_trace() {
-        MAX_LEVEL_INIT.call_once(|| {
-            std::mem::forget(tracing::Dispatch::new(MaxLevelTraceSubscriber));
-        });
+        static MAX_LEVEL_DISPATCH: OnceLock<tracing::Dispatch> = OnceLock::new();
+        MAX_LEVEL_DISPATCH.get_or_init(|| tracing::Dispatch::new(MaxLevelTraceSubscriber));
     }
 
     /// Initializes an isolated [`TestLayer`] for the current thread's test scope.
