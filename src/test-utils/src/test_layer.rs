@@ -26,7 +26,7 @@ use tracing_subscriber::{self, Layer, layer::Context, prelude::*};
 /// RAII guard for the [`TestLayer`].
 ///
 /// Keeps the per-test subscriber active on the current thread while in scope,
-/// and holds the [`CapturedSpanLog`] for this test.
+/// and holds the `CapturedSpanLog` for this test.
 pub struct TestLayerGuard {
     _subscriber_guard: DefaultGuard,
     log: Arc<CapturedSpanLog>,
