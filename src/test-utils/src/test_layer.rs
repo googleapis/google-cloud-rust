@@ -32,14 +32,6 @@ pub struct TestLayerGuard {
     log: Arc<CapturedSpanLog>,
 }
 
-impl TestLayerGuard {
-    /// Returns a no-op span for backwards compatibility with callers that
-    /// have not yet removed `.instrument(guard.span())`.
-    pub fn span(&self) -> tracing::Span {
-        tracing::Span::none()
-    }
-}
-
 /// Represents the value of a captured tracing attribute.
 #[derive(Debug, Clone, PartialEq)]
 pub enum AttributeValue {
