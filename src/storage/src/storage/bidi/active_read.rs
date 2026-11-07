@@ -228,7 +228,6 @@ mod tests {
     }
 
     #[tokio::test]
-    #[serial_test::serial]
     async fn interrupted() {
         let (tx, mut rx) = tokio::sync::mpsc::channel(1);
         let requested = ReadRange::all().0;
@@ -247,11 +246,9 @@ mod tests {
 
         // Sending errors on closed stream does not panic and gets logged.
         let capture = CaptureEvents::new();
-        let guard = tracing::subscriber::set_default(capture.clone());
+        let _guard = tracing::subscriber::set_default(capture.clone());
         rx.close();
         range.interrupted(error.clone()).await;
-        drop(guard);
-        tracing::callsite::rebuild_interest_cache();
         let events = capture.events();
         let got = events
             .iter()
@@ -278,6 +275,12 @@ mod tests {
     use tracing::span;
 
     impl Subscriber for CaptureEvents {
+        fn register_callsite(
+            &self,
+            _metadata: &'static tracing::Metadata<'static>,
+        ) -> tracing::subscriber::Interest {
+            tracing::subscriber::Interest::sometimes()
+        }
         fn enabled(&self, metadata: &tracing::Metadata<'_>) -> bool {
             metadata.is_event()
         }

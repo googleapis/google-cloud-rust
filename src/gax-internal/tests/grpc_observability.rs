@@ -58,7 +58,7 @@ mod tests {
         BTreeMap::from_iter(span.attributes.clone())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn basic_span() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
@@ -133,7 +133,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn custom_endpoint() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
@@ -209,7 +209,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn regional_endpoint() -> anyhow::Result<()> {
         let guard = TestLayer::initialize();
 
@@ -269,7 +269,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn error_status() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
@@ -349,7 +349,7 @@ mod tests {
     }
 
     #[ignore]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn test_grpc_streaming_span() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
@@ -430,7 +430,7 @@ mod tests {
     }
 
     #[ignore]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn streaming_error() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
@@ -510,7 +510,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn cancellation() -> anyhow::Result<()> {
         use std::time::Duration;
 
@@ -552,9 +552,9 @@ mod tests {
         );
         let scoped_future = recorder.scope(future);
 
-        // Poll the future once to ensure the span is created and entered, then drop it
-        // We use `tokio::time::timeout` with a very short duration to force a drop
-        let _ = tokio::time::timeout(Duration::from_micros(1), scoped_future).await;
+        // Poll the future once to ensure the span is created and entered, then drop it.
+        use futures::FutureExt;
+        assert!(scoped_future.now_or_never().is_none());
 
         // Wait a bit for the span to be processed (though drop should happen immediately)
         tokio::time::sleep(Duration::from_millis(10)).await;
@@ -581,7 +581,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn resource_name_in_span() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
@@ -639,7 +639,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn propagate_trace_context() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
 
@@ -648,6 +648,7 @@ mod tests {
         config.cred = Some(test_credentials());
         let client = grpc::Client::new(config, &endpoint).await?;
 
+        TestLayer::ensure_max_level_trace();
         let tracer_provider = opentelemetry_sdk::trace::SdkTracerProvider::builder().build();
         let tracer = opentelemetry::trace::TracerProvider::tracer(&tracer_provider, "test");
         let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
@@ -692,7 +693,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn propagate_trace_context_bidi_streaming() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
 
@@ -701,6 +702,7 @@ mod tests {
         config.cred = Some(test_credentials());
         let client = grpc::Client::new(config, &endpoint).await?;
 
+        TestLayer::ensure_max_level_trace();
         let tracer_provider = opentelemetry_sdk::trace::SdkTracerProvider::builder().build();
         let tracer = opentelemetry::trace::TracerProvider::tracer(&tracer_provider, "test");
         let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
@@ -752,7 +754,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn propagate_trace_context_server_streaming() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
 
@@ -761,6 +763,7 @@ mod tests {
         config.cred = Some(test_credentials());
         let client = grpc::Client::new(config, &endpoint).await?;
 
+        TestLayer::ensure_max_level_trace();
         let tracer_provider = opentelemetry_sdk::trace::SdkTracerProvider::builder().build();
         let tracer = opentelemetry::trace::TracerProvider::tracer(&tracer_provider, "test");
         let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
