@@ -188,13 +188,13 @@ mod tests {
             .await
             .map_err(Error::io)
             .inspect_err(|e| recorder.on_http_error(e))?;
-        // Advance Tokio's clock only after network I/O completes. Running real
-        // socket I/O with a paused clock causes Tokio to auto-advance internal
-        // hyper/h2 timers while waiting on the OS socket, and a real
-        // `tokio::time::sleep` would both slow down the test suite and risk
-        // oversleeping the [0.5s, 1.0s) histogram bucket under CI load.
+        // Advance Tokio's clock only after network I/O completes so the total
+        // elapsed time since `RequestRecorder::new` is `TEST_REQUEST_DURATION`
+        // (750ms, in the [0.5s, 1.0s) histogram bucket), regardless of real
+        // loopback I/O latency under load.
         tokio::time::pause();
-        tokio::time::advance(TEST_REQUEST_DURATION).await;
+        let elapsed = recorder.client_snapshot().client_duration();
+        tokio::time::advance(TEST_REQUEST_DURATION.saturating_sub(elapsed)).await;
         tokio::time::resume();
         recorder.on_http_response(&response);
         Err(Error::http(
@@ -411,7 +411,8 @@ mod tests {
         // Advance Tokio's clock after network I/O completes (see comment in
         // `recorded_request_transport_client`).
         tokio::time::pause();
-        tokio::time::advance(TEST_REQUEST_DURATION).await;
+        let elapsed = recorder.client_snapshot().client_duration();
+        tokio::time::advance(TEST_REQUEST_DURATION.saturating_sub(elapsed)).await;
         tokio::time::resume();
 
         response.map(|_| "SUCCESS".to_string())
@@ -419,6 +420,7 @@ mod tests {
 
     #[cfg(feature = "_internal-grpc-client")]
     pub(crate) async fn recorded_request_grpc_stub_retry(url: &str) -> Result<String, Error> {
+        use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
         use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
         use std::sync::Arc;
 
@@ -433,6 +435,13 @@ mod tests {
         let mut config = crate::options::ClientConfig::default();
         config.tracing = true;
         config.retry_policy = Some(Arc::new(AlwaysRetry.with_attempt_limit(3)));
+        config.backoff_policy = Some(Arc::new(
+            ExponentialBackoffBuilder::new()
+                .with_initial_delay(Duration::from_millis(1))
+                .with_maximum_delay(Duration::from_millis(1))
+                .build()
+                .expect("valid backoff policy"),
+        ));
 
         config.cred = Some(Anonymous::new().build());
 
@@ -517,7 +526,8 @@ mod tests {
         // Advance Tokio's clock after network I/O completes (see comment in
         // `recorded_request_transport_client`).
         tokio::time::pause();
-        tokio::time::advance(TEST_REQUEST_DURATION).await;
+        let elapsed = recorder.client_snapshot().client_duration();
+        tokio::time::advance(TEST_REQUEST_DURATION.saturating_sub(elapsed)).await;
         tokio::time::resume();
 
         response.map(|_| "SUCCESS".to_string())
