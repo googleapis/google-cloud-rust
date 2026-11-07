@@ -735,6 +735,7 @@ mod tests {
 
         let access_token = creds.access_token().await.unwrap();
         assert_eq!(access_token.token, "test-access-token");
+        assert!(access_token.expires_at.is_some());
 
         Ok(())
     }

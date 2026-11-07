@@ -242,16 +242,32 @@ impl CredentialsProvider for AccessTokenCredentials {
 }
 
 /// Represents an OAuth 2.0 access token.
-#[derive(Clone)]
+#[derive(Clone, PartialEq)]
 pub struct AccessToken {
     /// The access token string.
     pub token: String,
+    /// The instant at which the token expires.
+    ///
+    /// If `None`, the token does not expire.
+    ///
+    /// Note that the `Instant` is not valid across processes. It is
+    /// recommended to let the authentication library refresh tokens within a
+    /// process instead of handling expirations yourself. If you do need to
+    /// copy an expiration across processes, consider converting it to a
+    /// `time::OffsetDateTime` first:
+    ///
+    /// ```
+    /// # let expires_at = Some(std::time::Instant::now());
+    /// expires_at.map(|i| time::OffsetDateTime::now_utc() + (i - std::time::Instant::now()));
+    /// ```
+    pub expires_at: Option<std::time::Instant>,
 }
 
 impl std::fmt::Debug for AccessToken {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("AccessToken")
             .field("token", &"[censored]")
+            .field("expires_at", &self.expires_at)
             .finish()
     }
 }
@@ -270,7 +286,10 @@ impl std::convert::From<CacheableResource<Token>> for Result<AccessToken> {
 
 impl std::convert::From<Token> for AccessToken {
     fn from(token: Token) -> Self {
-        Self { token: token.token }
+        Self {
+            token: token.token,
+            expires_at: token.expires_at.map(tokio::time::Instant::into_std),
+        }
     }
 }
 
@@ -1585,8 +1604,13 @@ pub(crate) mod tests {
             metadata: None,
         };
         let access_token: AccessToken = token.into();
+        assert_eq!(access_token.expires_at, Some(expires_at.into_std()));
         let got = format!("{access_token:?}");
         assert!(!got.contains("token-test-only"), "{got}");
         assert!(got.contains("token: \"[censored]\""), "{got}");
+        assert!(
+            got.contains(&format!("expires_at: Some({:?})", expires_at.into_std())),
+            "{got}"
+        );
     }
 }

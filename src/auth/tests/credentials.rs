@@ -451,12 +451,14 @@ mod tests {
         mock.expect_access_token().return_once(|| {
             Ok(AccessToken {
                 token: "test-token".to_string(),
+                expires_at: None,
             })
         });
 
         let creds = AccessTokenCredentials::from(mock);
         let access_token = creds.access_token().await?;
         assert_eq!(access_token.token, "test-token");
+        assert_eq!(access_token.expires_at, None);
 
         Ok(())
     }
