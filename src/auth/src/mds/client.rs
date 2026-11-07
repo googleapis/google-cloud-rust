@@ -56,7 +56,7 @@ impl Client {
             .no_proxy()
             .redirect(reqwest::redirect::Policy::none())
             .build()
-            .unwrap_or_else(|_| ReqwestClient::new());
+            .expect("statically configured MDS HTTP client builder should not fail");
 
         Self {
             endpoint,
