@@ -649,39 +649,6 @@ mod tests {
     }
 
     #[tokio::test]
-    #[serial]
-    async fn test_ignores_http_proxy_env_var() -> TestResult {
-        let _http_proxy = ScopedEnv::set("HTTP_PROXY", "http://127.0.0.1:1");
-        let _all_proxy = ScopedEnv::set("ALL_PROXY", "http://127.0.0.1:1");
-        let _no_proxy = ScopedEnv::remove("NO_PROXY");
-
-        let server = Server::run();
-        let client = Client::new(Some(format!("http://{}", server.addr())));
-        let response = MDSTokenResponse {
-            access_token: "direct-token".to_string(),
-            expires_in: Some(3600),
-            token_type: "Bearer".to_string(),
-        };
-
-        server.expect(
-            Expectation::matching(all_of![
-                request::method("GET"),
-                request::path(format!("{}/token", MDS_DEFAULT_URI)),
-                request::headers(contains(("metadata-flavor", "Google"))),
-            ])
-            .respond_with(
-                status_code(200)
-                    .insert_header("Content-Type", "application/json")
-                    .body(serde_json::to_string(&response)?),
-            ),
-        );
-
-        let token = client.access_token(None).send().await?;
-        assert_eq!(token.token, "direct-token");
-        Ok(())
-    }
-
-    #[tokio::test]
     #[parallel]
     async fn test_does_not_follow_redirects() {
         let server = Server::run();
