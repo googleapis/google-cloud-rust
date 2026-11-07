@@ -134,7 +134,6 @@ mod tests {
     use crate::options::InstrumentationClientInfo;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::error::Error;
-    use google_cloud_test_utils::test_layer::TestLayer;
     use grpc_server::google::test::v1::{EchoRequest, EchoResponse};
     use httptest::matchers::request::method_path;
     use httptest::responders::status_code;
@@ -781,9 +780,7 @@ mod tests {
 
     impl SignalProviders {
         pub fn new() -> Self {
-            // Ensure the global TestLayer subscriber is initialized so that
-            // tracing_core's global callsite interest and max level stay at TRACE.
-            let _ = TestLayer::initialize();
+            crate::observability::propagation::tests::ensure_otel_callsites_registered();
 
             // We need a tracing exporter and provider or the traces get no trace ids.
             let trace_exporter = InMemorySpanExporter::default();
