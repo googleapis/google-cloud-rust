@@ -78,7 +78,7 @@ pub(crate) mod tests {
     pub(crate) fn ensure_otel_callsites_registered() {
         static INIT: std::sync::Once = std::sync::Once::new();
         INIT.call_once(|| {
-            let _ = TestLayer::initialize();
+            TestLayer::ensure_max_level_trace();
             // Pre-register the `otel_info!` / `otel_debug!` callsites inside
             // `opentelemetry_sdk`'s `Drop` implementations while outside
             // `tracing_core`'s `LOCKED_DISPATCHERS` lock, preventing a
