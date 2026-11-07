@@ -14,12 +14,16 @@
 
 pub mod create_anywhere_cache;
 pub mod create_folder;
+pub mod create_rapid_cache;
 pub mod delete_folder;
 pub mod disable_anywhere_cache;
+pub mod disable_rapid_cache;
 pub mod get_anywhere_cache;
 pub mod get_folder;
+pub mod get_rapid_cache;
 pub mod list_anywhere_caches;
 pub mod list_folders;
+pub mod list_rapid_caches;
 pub mod managed_folder_create;
 pub mod managed_folder_delete;
 pub mod managed_folder_get;
@@ -29,3 +33,4 @@ pub mod quickstart;
 pub mod rename_folder;
 pub mod resume_anywhere_cache;
 pub mod update_anywhere_cache;
+pub mod update_rapid_cache;

@@ -46,6 +46,38 @@ mod tests {
         result
     }
 
+    #[cfg(feature = "skipped-integration-tests")]
+    #[tokio::test]
+    async fn rapid_cache_examples() -> anyhow::Result<()> {
+        let client = StorageControl::builder().build().await?;
+
+        let mut buckets = Vec::new();
+        let result = run_rapid_cache_examples(&mut buckets)
+            .await
+            .inspect_err(anydump);
+        // Buckets with rapid caches cannot be deleted until the caches are
+        // fully removed, which can take hours. Cleanup is best-effort: retry
+        // briefly, then leave the bucket for the stale bucket cleanup.
+        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap_or_default();
+        for id in buckets {
+            let name = format!("projects/_/buckets/{id}");
+            let mut last = Ok(());
+            for attempt in 0..6 {
+                if attempt > 0 {
+                    tokio::time::sleep(std::time::Duration::from_secs(20)).await;
+                }
+                last = cleanup_bucket(client.clone(), name.clone(), project_id.clone()).await;
+                if last.is_ok() {
+                    break;
+                }
+            }
+            if let Err(e) = last {
+                eprintln!("leaving bucket {id} for the stale bucket cleanup: {e:?}");
+            }
+        }
+        result
+    }
+
     #[tokio::test]
     async fn bucket_examples() -> anyhow::Result<()> {
         let client = StorageControl::builder().build().await?;
