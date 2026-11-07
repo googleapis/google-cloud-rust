@@ -18,8 +18,8 @@ use crate::Result;
 use crate::credentials::{CacheableResource, EntityTag};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use http::Extensions;
-use std::sync::Arc;
-use tokio::sync::watch;
+use std::sync::{Arc, Mutex};
+use tokio::sync::{Notify, watch};
 use tokio::time::{Duration, Instant, sleep};
 
 // Different MDS(Metadata Service) backends have different policies to
@@ -41,6 +41,8 @@ impl Drop for AbortOnDrop {
 #[derive(Debug, Clone)]
 pub(crate) struct TokenCache {
     rx_token: watch::Receiver<Option<Result<(Token, EntityTag)>>>,
+    retry_notify: Arc<Notify>,
+    last_error_observed_at: Arc<Mutex<Option<Instant>>>,
     _abort_guard: Arc<AbortOnDrop>,
 }
 
@@ -51,11 +53,21 @@ impl TokenCache {
     {
         let (tx_token, rx_token) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
         let token_provider = Arc::new(inner);
+        let retry_notify = Arc::new(Notify::new());
+        let last_error_observed_at = Arc::new(Mutex::new(None));
 
-        let handle = tokio::spawn(refresh_task(token_provider, tx_token)).abort_handle();
+        let handle = tokio::spawn(refresh_task_with_notify(
+            token_provider,
+            tx_token,
+            retry_notify.clone(),
+            last_error_observed_at.clone(),
+        ))
+        .abort_handle();
 
         Self {
             rx_token,
+            retry_notify,
+            last_error_observed_at,
             _abort_guard: Arc::new(AbortOnDrop(handle)),
         }
     }
@@ -77,11 +89,55 @@ impl TokenCache {
                         }
                     }
                 },
-                // An error in the result is still a valid result to propagate to the client library
-                Err(e) => Err(e),
+                // An error in the result is still a valid result to propagate to the client library.
+                // For non-transient errors (where the background refresh loop parked rather than
+                // polling on a timer), allow on-demand recovery once SHORT_REFRESH_SLACK has elapsed
+                // since the error was first observed.
+                Err(e) => {
+                    let should_retry = !e.is_transient() && {
+                        let mut observed = self
+                            .last_error_observed_at
+                            .lock()
+                            .expect("TokenCache error timestamp mutex should not be poisoned");
+                        match *observed {
+                            None => {
+                                *observed = Some(Instant::now());
+                                false
+                            }
+                            Some(t)
+                                if Instant::now().saturating_duration_since(t)
+                                    >= SHORT_REFRESH_SLACK =>
+                            {
+                                *observed = Some(Instant::now());
+                                true
+                            }
+                            Some(_) => false,
+                        }
+                    };
+                    if should_retry {
+                        self.retry_notify.notify_one();
+                        let result = wait_for_next_token(rx).await;
+                        if result.is_err() {
+                            *self.last_error_observed_at.lock().expect(
+                                "TokenCache error timestamp mutex should not be poisoned",
+                            ) = Some(Instant::now());
+                        }
+                        result
+                    } else {
+                        Err(e)
+                    }
+                }
             }
         } else {
-            wait_for_next_token(rx).await
+            let result = wait_for_next_token(rx).await;
+            if result.is_err() {
+                let _ = self
+                    .last_error_observed_at
+                    .lock()
+                    .expect("TokenCache error timestamp mutex should not be poisoned")
+                    .get_or_insert_with(Instant::now);
+            }
+            result
         }
     }
 }
@@ -116,9 +172,27 @@ fn current_expiration(
         .and_then(|(token, _)| token.expires_at)
 }
 
+#[cfg(test)]
 async fn refresh_task<T>(
     token_provider: Arc<T>,
     tx_token: watch::Sender<Option<Result<(Token, EntityTag)>>>,
+) where
+    T: TokenProvider + Send + Sync + 'static,
+{
+    refresh_task_with_notify(
+        token_provider,
+        tx_token,
+        Arc::new(Notify::new()),
+        Arc::new(Mutex::new(None)),
+    )
+    .await;
+}
+
+async fn refresh_task_with_notify<T>(
+    token_provider: Arc<T>,
+    tx_token: watch::Sender<Option<Result<(Token, EntityTag)>>>,
+    retry_notify: Arc<Notify>,
+    last_error_observed_at: Arc<Mutex<Option<Instant>>>,
 ) where
     T: TokenProvider + Send + Sync + 'static,
 {
@@ -132,16 +206,20 @@ async fn refresh_task<T>(
             // errors are handled here.
             Ok(token) => (token.expires_at, Ok((token, EntityTag::new()))),
             Err(e) if !e.is_transient() => {
-                // This is a permanent error. The loop needs to terminate, but first wait until the
-                // current token expires (if applicable) before setting the result.
-                //
-                // If the error was misclassified as permanent, that is a bug in the retry policy
-                // and better fixed there than implemented as a workaround here.
+                // This is a non-transient error. Wait until the current token expires (if
+                // applicable) before publishing the error, then park on `retry_notify` instead of
+                // permanently terminating the refresh task so callers can recover on demand after
+                // `SHORT_REFRESH_SLACK` (for example, if a GKE metadata sidecar returned HTTP 403
+                // or 404 while warming up).
                 if let Some(deadline) = current_expiration(&tx_token) {
                     tokio::time::sleep_until(deadline).await;
                 }
+                *last_error_observed_at
+                    .lock()
+                    .expect("TokenCache error timestamp mutex should not be poisoned") = None;
                 let _ = tx_token.send(Some(Err(e)));
-                return;
+                retry_notify.notified().await;
+                continue;
             }
             Err(e) => {
                 // On transient errors, even if the retry policy is exhausted, we want to continue
@@ -182,6 +260,9 @@ async fn refresh_task<T>(
             }
         };
 
+        *last_error_observed_at
+            .lock()
+            .expect("TokenCache error timestamp mutex should not be poisoned") = None;
         let _ = tx_token.send(Some(tagged));
 
         let Some(expiry) = expires_at else {
@@ -989,6 +1070,44 @@ mod tests {
         // Advancing past expiry must not trigger another token() call (enforced by .times(1)).
         tokio::time::advance(2 * TOKEN_VALID_DURATION).await;
         tokio::task::yield_now().await;
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn non_transient_initial_failure_recovers_on_demand_after_cooldown() -> TestResult {
+        let now = Instant::now();
+        let expected = Token {
+            token: "recovered-token".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: Some(now + TOKEN_VALID_DURATION),
+            metadata: None,
+        };
+        let expected_clone = expected.clone();
+
+        let mut mock = MockTokenProvider::new();
+        mock.expect_token()
+            .times(1)
+            .return_once(|| Err(errors::non_retryable_from_str("startup 404")));
+        mock.expect_token()
+            .times(1)
+            .return_once(|| Ok(expected_clone));
+
+        let cache = TokenCache::new(mock);
+
+        // Initial request fails with a non-transient error.
+        let err = cache.token(Extensions::new()).await;
+        assert!(err.is_err(), "{err:?}");
+
+        // Immediate retry within SHORT_REFRESH_SLACK returns the cached error without re-fetching.
+        tokio::time::advance(SHORT_REFRESH_SLACK / 2).await;
+        let err = cache.token(Extensions::new()).await;
+        assert!(err.is_err(), "{err:?}");
+
+        // After SHORT_REFRESH_SLACK has elapsed, the next request wakes the parked refresh task
+        // and recovers with a fresh token.
+        tokio::time::advance(SHORT_REFRESH_SLACK).await;
+        let actual = get_cached_token(cache.token(Extensions::new()).await?)?;
+        assert_eq!(actual, expected);
         Ok(())
     }
 }
