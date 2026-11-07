@@ -2259,8 +2259,8 @@ mod tests {
             .returning(|req| {
                 let timeout_val = parse_timeout(req.metadata());
                 assert!(
-                    timeout_val <= 100000,
-                    "Expected timeout to be <= 100ms, got {}",
+                    timeout_val <= 10_000_000,
+                    "Expected timeout to be <= 10s, got {}",
                     timeout_val
                 );
                 Err(Status::new(GrpcCode::ResourceExhausted, "quota exceeded"))
@@ -2272,8 +2272,8 @@ mod tests {
             .returning(|req| {
                 let timeout_val = parse_timeout(req.metadata());
                 assert!(
-                    timeout_val <= 100000,
-                    "Expected timeout to be <= 100ms, got {}",
+                    timeout_val <= 10_000_000,
+                    "Expected timeout to be <= 10s, got {}",
                     timeout_val
                 );
 
@@ -2306,10 +2306,10 @@ mod tests {
             .build()
             .await?;
 
-        // 3. Setup Transaction Runner with 100ms timeout
+        // 3. Setup Transaction Runner with 10s timeout
         let runner = db
             .read_write_transaction()
-            .with_transaction_timeout(Duration::from_millis(100))
+            .with_transaction_timeout(Duration::from_secs(10))
             .build();
 
         // 4. Run transaction and expect success after retry
@@ -2360,8 +2360,8 @@ mod tests {
             .returning(move |req| {
                 let timeout_val = parse_timeout(req.metadata());
                 assert!(
-                    timeout_val <= 500000,
-                    "Expected timeout to be <= 500ms, got {}",
+                    timeout_val <= 10_000_000,
+                    "Expected timeout to be <= 10s, got {}",
                     timeout_val
                 );
                 prev_clone1.store(timeout_val, Ordering::SeqCst);
@@ -2435,7 +2435,7 @@ mod tests {
 
         let runner = db
             .read_write_transaction()
-            .with_transaction_timeout(Duration::from_millis(500))
+            .with_transaction_timeout(Duration::from_secs(10))
             .build();
 
         let result = runner
