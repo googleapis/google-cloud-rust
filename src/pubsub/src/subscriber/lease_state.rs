@@ -34,7 +34,7 @@ use tokio_util::task::TaskTracker;
 // on the size of an ack ID. We can safely fit 1000 ack IDs into a request.
 //
 // https://docs.cloud.google.com/pubsub/quotas
-const MAX_IDS_PER_RPC: usize = 1000;
+pub(super) const MAX_IDS_PER_RPC: usize = 1000;
 
 // How often we extend deadlines for messages under lease
 const EXTEND_PERIOD: Duration = Duration::from_secs(3);

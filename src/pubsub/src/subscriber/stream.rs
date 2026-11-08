@@ -79,6 +79,24 @@ where
             _ = pong_timeout(&mut self.pong_deadline_rx) => Err(keepalive_timeout()),
         }
     }
+
+    /// Reads the responses already buffered on the stream, without waiting.
+    ///
+    /// Stops at the first response that is not immediately available, at the
+    /// end of the stream, at an error, or after `limit` responses, whichever
+    /// comes first. This never waits on the network, so it returns promptly.
+    pub(super) fn drain_buffered(&mut self, limit: usize) -> Vec<StreamingPullResponse> {
+        use futures::FutureExt as _;
+        let mut responses = Vec::new();
+        while responses.len() < limit {
+            match self.stream.next_message().now_or_never() {
+                Some(Ok(Some(response))) => responses.push(response),
+                // Not yet available, end of stream, or an error.
+                _ => break,
+            }
+        }
+        responses
+    }
 }
 
 /// The error returned when a keepalive ping receives no response within
@@ -334,6 +352,84 @@ mod tests {
         assert_eq!(stream.next_message().await?, Some(test_response(11..20)));
         assert_eq!(stream.next_message().await?, Some(test_response(21..30)));
         assert_eq!(stream.next_message().await?, None);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn drain_buffered_stops_when_pending() -> anyhow::Result<()> {
+        let (response_tx, response_rx) = mpsc::channel(10);
+
+        let mut mock = MockStub::new();
+        mock.expect_streaming_pull()
+            .times(1)
+            .return_once(move |_s, _r, _o| Ok(TonicResponse::from(response_rx)));
+
+        response_tx.send(Ok(test_response(1..10))).await?;
+        response_tx.send(Ok(test_response(11..20))).await?;
+        response_tx.send(Ok(test_response(21..30))).await?;
+
+        let mut stream = open_stream(Arc::new(mock), initial_request()).await?;
+        assert_eq!(stream.next_message().await?, Some(test_response(1..10)));
+
+        // The stream is still open, so the drain must not wait for more.
+        let drained = stream.drain_buffered(100);
+        assert_eq!(drained, vec![test_response(11..20), test_response(21..30)]);
+        assert_eq!(stream.drain_buffered(100), Vec::new());
+
+        // Responses that arrive later are not lost by an earlier drain.
+        response_tx.send(Ok(test_response(31..40))).await?;
+        assert_eq!(stream.drain_buffered(100), vec![test_response(31..40)]);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn drain_buffered_respects_limit() -> anyhow::Result<()> {
+        let (response_tx, response_rx) = mpsc::channel(10);
+
+        let mut mock = MockStub::new();
+        mock.expect_streaming_pull()
+            .times(1)
+            .return_once(move |_s, _r, _o| Ok(TonicResponse::from(response_rx)));
+
+        for i in 0..5 {
+            response_tx.send(Ok(test_response(i..i + 1))).await?;
+        }
+
+        let mut stream = open_stream(Arc::new(mock), initial_request()).await?;
+        assert_eq!(stream.next_message().await?, Some(test_response(0..1)));
+
+        let drained = stream.drain_buffered(2);
+        assert_eq!(drained, vec![test_response(1..2), test_response(2..3)]);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn drain_buffered_stops_at_end_and_error() -> anyhow::Result<()> {
+        let (response_tx, response_rx) = mpsc::channel(10);
+
+        let mut mock = MockStub::new();
+        mock.expect_streaming_pull()
+            .times(1)
+            .return_once(move |_s, _r, _o| Ok(TonicResponse::from(response_rx)));
+
+        response_tx.send(Ok(test_response(0..1))).await?;
+        response_tx.send(Ok(test_response(1..2))).await?;
+        response_tx
+            .send(Err(gaxi::grpc::tonic::Status::internal("fail")))
+            .await?;
+        response_tx.send(Ok(test_response(2..3))).await?;
+        drop(response_tx);
+
+        let mut stream = open_stream(Arc::new(mock), initial_request()).await?;
+        assert_eq!(stream.next_message().await?, Some(test_response(0..1)));
+        // The drain stops at the error.
+        assert_eq!(stream.drain_buffered(100), vec![test_response(1..2)]);
+        // The drain stops at the end of the stream.
+        assert_eq!(stream.drain_buffered(100), vec![test_response(2..3)]);
+        assert_eq!(stream.drain_buffered(100), Vec::new());
 
         Ok(())
     }
