@@ -15,14 +15,17 @@
 use super::builder::Subscribe;
 use super::handler::{AckResult, Action, AtLeastOnce, ExactlyOnce, Handler};
 use super::lease_loop::LeaseLoop;
-use super::lease_state::{AtLeastOnceInfo, ExactlyOnceInfo, LeaseInfo, LeaseOptions, NewMessage};
+use super::lease_state::{
+    AtLeastOnceInfo, ExactlyOnceInfo, LeaseInfo, LeaseOptions, MAX_IDS_PER_RPC, NewMessage,
+};
 use super::leaser::DefaultLeaser;
-use super::retry_policy::StreamRetryPolicy;
+use super::retry_policy::{StreamRetryPolicy, settle_options};
 use super::shutdown_token::ShutdownToken;
 use super::stream::Stream;
+use super::stub::Stub as _;
 use super::transport::Transport;
 use crate::google::pubsub::v1::{StreamingPullRequest, StreamingPullResponse};
-use crate::model::Message;
+use crate::model::{Message, ModifyAckDeadlineRequest};
 use crate::{Error, Result};
 use futures::FutureExt;
 use futures::future::{BoxFuture, Shared};
@@ -398,11 +401,73 @@ impl MessageStreamImpl {
 
     // Permanently close the stream.
     fn close(&mut self) {
+        self.drain_and_nack();
         self.stream = Some(StreamState::Closed);
         self.pool.clear();
         self.shutdown.cancel();
     }
+
+    /// Nacks the messages in responses already buffered on the stream.
+    ///
+    /// When we close the gRPC stream, any responses the server already sent
+    /// but that we have not read yet are discarded with it. The service
+    /// considers those messages delivered, so it would only redeliver them
+    /// once their ack deadline expires. Instead, we read what is already
+    /// buffered (without waiting on the network) and nack those messages, so
+    /// the service can redeliver them right away.
+    ///
+    /// These messages were never added to lease management, so we nack them
+    /// directly instead of through the lease loop. The lease loop may have
+    /// already shut down at this point.
+    ///
+    /// Messages still in flight on the network when the stream closes are not
+    /// covered. The service redelivers them after their ack deadline.
+    fn drain_and_nack(&mut self) {
+        let Some(StreamState::Active(stream)) = self.stream.as_mut() else {
+            return;
+        };
+        let ack_ids: Vec<String> = stream
+            .drain_buffered(MAX_DRAINED_RESPONSES)
+            .into_iter()
+            .flat_map(|r| r.received_messages)
+            .map(|rm| rm.ack_id)
+            .collect();
+        if ack_ids.is_empty() {
+            return;
+        }
+        // We may be called from `Drop`, outside of a runtime.
+        let Ok(runtime) = tokio::runtime::Handle::try_current() else {
+            return;
+        };
+        let stub = self.stub.clone();
+        let subscription = self.initial_req.subscription.clone();
+        runtime.spawn(async move {
+            for batch in ack_ids.chunks(MAX_IDS_PER_RPC) {
+                let req = ModifyAckDeadlineRequest::new()
+                    .set_subscription(subscription.clone())
+                    .set_ack_ids(batch.to_vec())
+                    .set_ack_deadline_seconds(0);
+                let _ = stub.modify_ack_deadline(req, settle_options()).await;
+            }
+        });
+    }
 }
+
+impl Drop for MessageStreamImpl {
+    fn drop(&mut self) {
+        // The application may drop the stream without calling `next()` after
+        // a shutdown. Do not lose the responses buffered on the stream.
+        self.drain_and_nack();
+    }
+}
+
+/// The maximum number of buffered responses we drain from the stream when it
+/// closes.
+///
+/// The drain never waits on the network, so it is already bounded by what the
+/// gRPC stream has buffered. This limit is a safeguard in case the server keeps
+/// the buffer full while we drain.
+const MAX_DRAINED_RESPONSES: usize = 100;
 
 /// A `Handler` without its action `Sender`.
 ///
@@ -2104,6 +2169,112 @@ mod tests {
         assert_eq!(nack_req.subscription, "projects/p/subscriptions/s");
         assert_eq!(nack_req.ack_deadline_seconds, 0);
         assert_eq!(sorted(nack_req.ack_ids), test_ids(6..10));
+
+        Ok(())
+    }
+
+    /// Waits for nack requests until `want` ack IDs have been nacked.
+    async fn recv_nacked(
+        nack_rx: &mut tokio::sync::mpsc::UnboundedReceiver<v1::ModifyAckDeadlineRequest>,
+        want: usize,
+    ) -> anyhow::Result<Vec<String>> {
+        let mut nacked = Vec::new();
+        while nacked.len() < want {
+            let req = tokio::time::timeout(Duration::from_secs(10), nack_rx.recv())
+                .await?
+                .ok_or_else(|| anyhow::anyhow!("nack channel closed"))?;
+            assert_eq!(req.subscription, "projects/p/subscriptions/s");
+            assert_eq!(req.ack_deadline_seconds, 0);
+            nacked.extend(req.ack_ids);
+        }
+        Ok(sorted(nacked))
+    }
+
+    /// Sets up a stream that has read one message (acked), and has responses
+    /// for messages 1..4 buffered, but not yet read.
+    async fn stream_with_buffered_responses(
+        shutdown_behavior: ShutdownBehavior,
+    ) -> anyhow::Result<(
+        MessageStream,
+        tokio::sync::mpsc::UnboundedReceiver<v1::ModifyAckDeadlineRequest>,
+        tokio::sync::mpsc::Sender<std::result::Result<v1::StreamingPullResponse, TonicStatus>>,
+        tokio::task::JoinHandle<()>,
+    )> {
+        let (response_tx, response_rx) = channel(10);
+        let (nack_tx, nack_rx) = unbounded_channel();
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_acknowledge()
+            .returning(|_| Ok(TonicResponse::from(())));
+        mock.expect_modify_ack_deadline().returning(move |r| {
+            let r = r.into_inner();
+            if r.ack_deadline_seconds == 0 {
+                let _ = nack_tx.send(r);
+            }
+            Ok(TonicResponse::from(()))
+        });
+        let (endpoint, server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client
+            .subscribe("projects/p/subscriptions/s")
+            .set_shutdown_behavior(shutdown_behavior)
+            .build();
+
+        response_tx.send(Ok(test_response(0..1))).await?;
+        let Some((m, h)) = stream.next().await.transpose()? else {
+            anyhow::bail!("expected message 0")
+        };
+        assert_eq!(m.data, test_data(0));
+        h.ack();
+
+        // The server sends more messages, which the application does not read.
+        response_tx.send(Ok(test_response(1..3))).await?;
+        response_tx.send(Ok(test_response(3..4))).await?;
+        // Give the responses time to reach the client's gRPC buffers.
+        tokio::time::sleep(Duration::from_millis(200)).await;
+
+        Ok((stream, nack_rx, response_tx, server))
+    }
+
+    #[test_case(ShutdownBehavior::NackImmediately)]
+    #[test_case(ShutdownBehavior::WaitForProcessing)]
+    #[tokio_test_no_panics]
+    async fn shutdown_nacks_buffered_responses(
+        shutdown_behavior: ShutdownBehavior,
+    ) -> anyhow::Result<()> {
+        let (mut stream, mut nack_rx, _response_tx, _server) =
+            stream_with_buffered_responses(shutdown_behavior).await?;
+
+        stream.shutdown_token().shutdown().await;
+        let end = stream.next().await.transpose()?;
+        assert!(end.is_none(), "Received extra message: {end:?}");
+
+        // Messages 1..4 were never read by the application, so lease
+        // management never knew about them. We must nack them anyway, instead
+        // of leaving them with the service until their ack deadline expires.
+        let nacked = recv_nacked(&mut nack_rx, 3).await?;
+        assert_eq!(nacked, test_ids(1..4));
+
+        Ok(())
+    }
+
+    #[test_case(ShutdownBehavior::NackImmediately)]
+    #[test_case(ShutdownBehavior::WaitForProcessing)]
+    #[tokio_test_no_panics]
+    async fn drop_nacks_buffered_responses(
+        shutdown_behavior: ShutdownBehavior,
+    ) -> anyhow::Result<()> {
+        let (stream, mut nack_rx, _response_tx, _server) =
+            stream_with_buffered_responses(shutdown_behavior).await?;
+        let shutdown_token = stream.shutdown_token();
+
+        drop(stream);
+        shutdown_token.wait_for_shutdown().await;
+
+        let nacked = recv_nacked(&mut nack_rx, 3).await?;
+        assert_eq!(nacked, test_ids(1..4));
 
         Ok(())
     }
