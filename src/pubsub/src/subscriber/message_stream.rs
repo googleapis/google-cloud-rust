@@ -442,10 +442,14 @@ impl MessageStreamImpl {
         let stub = self.stub.clone();
         let subscription = self.initial_req.subscription.clone();
         runtime.spawn(async move {
-            for batch in ack_ids.chunks(MAX_IDS_PER_RPC) {
+            let mut ack_ids = ack_ids;
+            while !ack_ids.is_empty() {
+                let batch: Vec<String> = ack_ids
+                    .drain(..ack_ids.len().min(MAX_IDS_PER_RPC))
+                    .collect();
                 let req = ModifyAckDeadlineRequest::new()
                     .set_subscription(subscription.clone())
-                    .set_ack_ids(batch.to_vec())
+                    .set_ack_ids(batch)
                     .set_ack_deadline_seconds(0);
                 let _ = stub.modify_ack_deadline(req, settle_options()).await;
             }
