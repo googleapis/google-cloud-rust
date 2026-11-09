@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.51.0
+version: v0.52.0
 repo: googleapis/google-cloud-rust
 sources:
   comment: sources.discovery is pinned to 066be1f6 because newer Compute discovery documents use API version 2026-11-01, which production does not accept yet. Bump sources.discovery after the GCE rollout that serves API version 2026-11-01 reaches production.
