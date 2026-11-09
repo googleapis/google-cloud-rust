@@ -439,21 +439,22 @@ impl MessageStreamImpl {
         let Ok(runtime) = tokio::runtime::Handle::try_current() else {
             return;
         };
-        let stub = self.stub.clone();
         let subscription = self.initial_req.subscription.clone();
-        runtime.spawn(async move {
-            let mut ack_ids = ack_ids;
-            while !ack_ids.is_empty() {
-                let batch: Vec<String> = ack_ids
-                    .drain(..ack_ids.len().min(MAX_IDS_PER_RPC))
-                    .collect();
-                let req = ModifyAckDeadlineRequest::new()
-                    .set_subscription(subscription.clone())
-                    .set_ack_ids(batch)
-                    .set_ack_deadline_seconds(0);
-                let _ = stub.modify_ack_deadline(req, settle_options()).await;
-            }
-        });
+        runtime.spawn(nack_ack_ids(self.stub.clone(), subscription, ack_ids));
+    }
+}
+
+/// Nacks `ack_ids`, in batches of at most `MAX_IDS_PER_RPC`.
+async fn nack_ack_ids(stub: Arc<Transport>, subscription: String, mut ack_ids: Vec<String>) {
+    while !ack_ids.is_empty() {
+        let batch: Vec<String> = ack_ids
+            .drain(..ack_ids.len().min(MAX_IDS_PER_RPC))
+            .collect();
+        let req = ModifyAckDeadlineRequest::new()
+            .set_subscription(subscription.clone())
+            .set_ack_ids(batch)
+            .set_ack_deadline_seconds(0);
+        let _ = stub.modify_ack_deadline(req, settle_options()).await;
     }
 }
 
@@ -527,6 +528,7 @@ mod tests {
     use super::super::keepalive::{KEEPALIVE_PERIOD, PONG_TIMEOUT};
     use super::super::lease_state::tests::{test_id, test_ids};
     use super::super::stream::{INITIAL_DELAY, MAXIMUM_DELAY};
+    use super::super::transport::tests::test_transport;
     use super::*;
     use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
@@ -2227,9 +2229,11 @@ mod tests {
             .build();
 
         response_tx.send(Ok(test_response(0..1))).await?;
-        let Some((m, h)) = stream.next().await.transpose()? else {
-            anyhow::bail!("expected message 0")
-        };
+        let (m, h) = stream
+            .next()
+            .await
+            .transpose()?
+            .expect("stream should yield message 0");
         assert_eq!(m.data, test_data(0));
         h.ack();
 
@@ -2279,6 +2283,61 @@ mod tests {
 
         let nacked = recv_nacked(&mut nack_rx, 3).await?;
         assert_eq!(nacked, test_ids(1..4));
+
+        Ok(())
+    }
+
+    #[test]
+    fn drop_outside_runtime() -> anyhow::Result<()> {
+        let rt = tokio::runtime::Builder::new_current_thread()
+            .enable_all()
+            .build()?;
+        let (stream, mut nack_rx, _response_tx, _server) = rt.block_on(
+            stream_with_buffered_responses(ShutdownBehavior::WaitForProcessing),
+        )?;
+
+        // Without a runtime, we cannot send the nacks. Dropping the stream
+        // must not panic. The service redelivers the buffered messages after
+        // their ack deadline.
+        drop(stream);
+
+        let nack = rt.block_on(async {
+            tokio::time::timeout(Duration::from_millis(200), nack_rx.recv()).await
+        });
+        assert!(nack.is_err(), "unexpected nack: {nack:?}");
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn nack_ack_ids_batches() -> anyhow::Result<()> {
+        let (nack_tx, mut nack_rx) = unbounded_channel();
+        let mut mock = MockSubscriber::new();
+        mock.expect_modify_ack_deadline().returning(move |r| {
+            let _ = nack_tx.send(r.into_inner());
+            Ok(TonicResponse::from(()))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = test_transport(endpoint).await?;
+
+        let ack_ids = test_ids(0..2500);
+        nack_ack_ids(
+            Arc::new(transport),
+            "projects/p/subscriptions/s".to_string(),
+            ack_ids.clone(),
+        )
+        .await;
+
+        let mut sizes = Vec::new();
+        let mut nacked = Vec::new();
+        while let Ok(req) = nack_rx.try_recv() {
+            assert_eq!(req.subscription, "projects/p/subscriptions/s");
+            assert_eq!(req.ack_deadline_seconds, 0);
+            sizes.push(req.ack_ids.len());
+            nacked.extend(req.ack_ids);
+        }
+        assert_eq!(sizes, vec![1000, 1000, 500]);
+        assert_eq!(nacked, ack_ids);
 
         Ok(())
     }
