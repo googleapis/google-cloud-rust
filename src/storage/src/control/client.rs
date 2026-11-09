@@ -120,6 +120,9 @@ pub(crate) mod client_builder {
             if config.backoff_policy.is_none() {
                 config.backoff_policy = Some(Arc::new(crate::backoff_policy::default()));
             }
+            // TODO(#5991): Update the generator so `StorageControl` sends
+            // `grpc/<version>-grpc-rust` over `GrpcRustClient`. Its generated
+            // transports still send `grpc/<version>-tonic`.
             Self::Client::new(config).await
         }
     }

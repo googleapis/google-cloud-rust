@@ -681,9 +681,24 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn api_client_header_client_extension_wire() -> anyhow::Result<()> {
-        let (endpoint, _server) = start_echo_server().await?;
+        check_api_client_header_client_extension_wire::<grpc::Client>("tonic").await
+    }
 
-        let client = builder(endpoint)
+    #[cfg(google_cloud_unstable_grpc_rust)]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn api_client_header_client_extension_wire_grpc_rust() -> anyhow::Result<()> {
+        check_api_client_header_client_extension_wire::<grpc_server::transport::GrpcRustClient>(
+            "grpc-rust",
+        )
+        .await
+    }
+
+    async fn check_api_client_header_client_extension_wire<C: EchoTransport>(
+        expected_transport: &str,
+    ) -> anyhow::Result<()> {
+        // Arrange
+        let (endpoint, _server) = start_echo_server().await?;
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(test_credentials())
             .with_extension(google_cloud_gax_internal::api_header::XGoogApiClient {
                 name: "storage",
@@ -693,13 +708,17 @@ mod tests {
             .build()
             .await?;
 
+        // Act
         let response = send_request(client, "test message", "").await?;
+
+        // Assert
         let header = response
             .metadata
             .get("x-goog-api-client")
             .expect("header present");
+        let want_grpc = format!("grpc/{}-{expected_transport}", env!("CARGO_PKG_VERSION"));
         assert!(header.contains("gccl/1.0.0"), "{header}");
-        assert!(header.contains("grpc/"), "{header}");
+        assert!(header.contains(&want_grpc), "{header}");
         assert!(!header.contains("gapic/"), "{header}");
         Ok(())
     }

@@ -50,13 +50,31 @@ pub(crate) mod info {
 
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
+    /// The `x-goog-api-client` header for gRPC requests.
     pub(crate) static X_GOOG_API_CLIENT_HEADER: LazyLock<String> = LazyLock::new(|| {
         let ac = gaxi::api_header::XGoogApiClient {
             name: NAME,
             version: VERSION,
             library_type: gaxi::api_header::GCCL,
         };
-        ac.grpc_header_value()
+        #[cfg(not(google_cloud_unstable_grpc_rust))]
+        {
+            ac.grpc_header_value()
+        }
+        #[cfg(google_cloud_unstable_grpc_rust)]
+        {
+            ac.grpc_rust_header_value()
+        }
+    });
+
+    /// The `x-goog-api-client` header for HTTP requests.
+    pub(crate) static X_GOOG_API_CLIENT_REST_HEADER: LazyLock<String> = LazyLock::new(|| {
+        let ac = gaxi::api_header::XGoogApiClient {
+            name: NAME,
+            version: VERSION,
+            library_type: gaxi::api_header::GCCL,
+        };
+        ac.rest_header_value()
     });
 
     pub(crate) static INSTRUMENTATION: LazyLock<gaxi::options::InstrumentationClientInfo> =
@@ -68,4 +86,26 @@ pub(crate) mod info {
             info.default_host = "storage.googleapis.com";
             info
         });
+}
+
+#[cfg(test)]
+mod tests {
+    use super::info::X_GOOG_API_CLIENT_REST_HEADER;
+
+    #[test]
+    fn rest_header_uses_reqwest_transport() {
+        // Act
+        let header = X_GOOG_API_CLIENT_REST_HEADER.as_str();
+
+        // Assert
+        let want_gccl = format!("gccl/{}", env!("CARGO_PKG_VERSION"));
+        assert!(header.contains(&want_gccl), "{header}");
+        assert!(
+            header
+                .split(' ')
+                .any(|value| value.starts_with("rest/") && value.ends_with("-reqwest")),
+            "{header}"
+        );
+        assert!(!header.contains("grpc/"), "{header}");
+    }
 }

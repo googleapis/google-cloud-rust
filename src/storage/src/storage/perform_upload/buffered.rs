@@ -14,7 +14,7 @@
 
 use super::{
     ChecksummedSource, ContinueOn308, Error, IterSource, Object, PerformUpload, Result,
-    ResumableUploadStatus, SizeHint, StreamingSource, X_GOOG_API_CLIENT_HEADER,
+    ResumableUploadStatus, SizeHint, StreamingSource, X_GOOG_API_CLIENT_REST_HEADER,
     apply_customer_supplied_encryption_headers,
 };
 use crate::error::WriteError;
@@ -168,7 +168,7 @@ where
             .header("Content-Range", range)
             .header(
                 "x-goog-api-client",
-                HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
+                HeaderValue::from_static(&X_GOOG_API_CLIENT_REST_HEADER),
             );
 
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);

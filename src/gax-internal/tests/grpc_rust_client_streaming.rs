@@ -22,6 +22,7 @@ mod tests {
 
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax_internal::api_header::{GCCL, XGoogApiClient};
     use google_cloud_gax_internal::grpc::GrpcRustClient;
     use google_cloud_gax_internal::grpc::grpc_rust::GrpcRustStreaming;
     use google_cloud_gax_internal::options::ClientConfig;
@@ -224,6 +225,47 @@ mod tests {
             err.message()
         );
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_bidi_stream_with_status_api_client_header() -> anyhow::Result<()> {
+        // Arrange
+        let (endpoint, _server) = start_echo_server().await?;
+        let mut config = ClientConfig::default();
+        config.cred = Some(Anonymous::new().build());
+        config.extensions.insert(XGoogApiClient {
+            name: "storage",
+            library_type: GCCL,
+            version: "1.0.0",
+        });
+        let client = GrpcRustClient::new(config, &endpoint).await?;
+        let (tx, rx) = tokio::sync::mpsc::channel::<EchoRequest>(10);
+
+        // Act
+        let response = client
+            .bidi_stream_with_status::<EchoRequest, EchoResponse>(
+                tonic::Extensions::new(),
+                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
+                tokio_stream::wrappers::ReceiverStream::new(rx),
+                RequestOptions::default(),
+                "test-only-api-client/1.0",
+                "",
+            )
+            .await?
+            .expect("should succeed");
+        let (_, mut stream, _) = response.into_parts();
+        send_echo_request(&tx, MSG1).await?;
+        let res = recv_echo_response(&mut stream).await?;
+
+        // Assert
+        let header = res
+            .metadata
+            .get("x-goog-api-client")
+            .expect("header present");
+        let want_grpc = format!("grpc/{}-grpc-rust", env!("CARGO_PKG_VERSION"));
+        assert!(header.contains("gccl/1.0.0"), "{header}");
+        assert!(header.contains(&want_grpc), "{header}");
         Ok(())
     }
 
