@@ -8,7 +8,8 @@ When reviewing or generating code, apply the following checks and references:
 ## General Principles
 
 - **Follow local standards:** Ensure all changes conform to the high-level
-  architecture described in [ARCHITECTURE.md](../ARCHITECTURE.md).
+  architecture described in [ARCHITECTURE.md](../ARCHITECTURE.md) and the
+  development guidelines in [AGENTS.md](../AGENTS.md).
 - **Idiomatic Rust:** Encourage modern, efficient, and readable Rust code.
 - **SDK Consistency:** Maintain patterns consistent with existing crates like
   `auth` and `gax`.

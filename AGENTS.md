@@ -1,4 +1,4 @@
-# Gemini Code Understanding
+# Agent Instructions
 
 ## Project Overview
 
