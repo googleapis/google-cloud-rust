@@ -1243,7 +1243,7 @@ fn is_read_write_begin(selector: Option<&TransactionSelector>) -> bool {
 }
 
 /// A builder for [DatabaseClient].
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct DatabaseClientBuilder {
     spanner: Spanner,
     database_name: String,
@@ -1797,7 +1797,38 @@ mod tests {
     fn auto_traits() {
         use static_assertions::assert_impl_all;
         assert_impl_all!(DatabaseClient: Send, Sync, Clone, Debug);
-        assert_impl_all!(DatabaseClientBuilder: Debug, Send, Sync);
+        assert_impl_all!(DatabaseClientBuilder: Debug, Send, Sync, Clone);
+    }
+
+    #[tokio_test_no_panics]
+    async fn database_client_builder_clone() {
+        let spanner = Spanner::builder()
+            .with_endpoint("http://localhost:9010")
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("failed to build client");
+
+        let builder = spanner
+            .database_client("projects/test-project/instances/test-instance/databases/test-db")
+            .with_database_role("test-role")
+            .with_leader_aware_routing(false);
+
+        let cloned_builder = builder.clone();
+        assert_eq!(
+            cloned_builder.database_name,
+            "projects/test-project/instances/test-instance/databases/test-db",
+            "cloned database name should match original"
+        );
+        assert_eq!(
+            cloned_builder.database_role.as_deref(),
+            Some("test-role"),
+            "cloned database role should match original"
+        );
+        assert!(
+            !cloned_builder.leader_aware_routing_enabled,
+            "cloned leader aware routing flag should match original"
+        );
     }
 
     #[tokio_test_no_panics]
