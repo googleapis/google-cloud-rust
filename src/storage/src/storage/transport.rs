@@ -739,7 +739,6 @@ mod tests {
             ReadRange as ProtoRange,
         };
         use storage_grpc_mock::{MockStorage, start};
-        use tracing::Instrument;
         const BUCKET_NAME: &str = "projects/_/buckets/test-bucket";
         const OBJECT_NAME: &str = "test-object";
         const BIND_ADDRESS: &str = "0.0.0.0:0";
@@ -747,58 +746,52 @@ mod tests {
 
         let guard = TestLayer::initialize();
 
-        async move {
-            let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(10);
-            let response = BidiReadObjectResponse {
-                metadata: Some(ProtoObject {
-                    bucket: BUCKET_NAME.to_string(),
-                    name: OBJECT_NAME.to_string(),
-                    generation: 123456,
-                    ..ProtoObject::default()
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(10);
+        let response = BidiReadObjectResponse {
+            metadata: Some(ProtoObject {
+                bucket: BUCKET_NAME.to_string(),
+                name: OBJECT_NAME.to_string(),
+                generation: 123456,
+                ..ProtoObject::default()
+            }),
+            object_data_ranges: vec![ObjectRangeData {
+                read_range: Some(ProtoRange {
+                    read_id: 0_i64,
+                    ..ProtoRange::default()
                 }),
-                object_data_ranges: vec![ObjectRangeData {
-                    read_range: Some(ProtoRange {
-                        read_id: 0_i64,
-                        ..ProtoRange::default()
-                    }),
-                    range_end: true,
-                    checksummed_data: Some(ChecksummedData {
-                        content: PAYLOAD.as_bytes().to_vec(),
-                        crc32c: None,
-                    }),
-                }],
-                ..BidiReadObjectResponse::default()
-            };
-            // This is the initial response.
-            tx.send(Ok(response.clone())).await?;
-            // These simulate the calls to ObjectDescriptor::read_range(). The data is wrong, but this
-            // test is about the spans.
-            tx.send(Ok(response.clone())).await?;
-            tx.send(Ok(response.clone())).await?;
+                range_end: true,
+                checksummed_data: Some(ChecksummedData {
+                    content: PAYLOAD.as_bytes().to_vec(),
+                    crc32c: None,
+                }),
+            }],
+            ..BidiReadObjectResponse::default()
+        };
+        // This is the initial response.
+        tx.send(Ok(response.clone())).await?;
+        // These simulate the calls to ObjectDescriptor::read_range(). The data is wrong, but this
+        // test is about the spans.
+        tx.send(Ok(response.clone())).await?;
+        tx.send(Ok(response.clone())).await?;
 
-            let mut mock = MockStorage::new();
-            mock.expect_bidi_read_object()
-                .return_once(|_| Ok(TonicResponse::from(rx)));
-            let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_read_object()
+            .return_once(|_| Ok(TonicResponse::from(rx)));
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
 
-            let client = crate::client::Storage::builder()
-                .with_credentials(Anonymous::new().build())
-                .with_endpoint(endpoint.clone())
-                .with_tracing()
-                .build()
-                .await?;
-            let (descriptor, _reader0) = client
-                .open_object(BUCKET_NAME, OBJECT_NAME)
-                .send_and_read(ReadRange::all())
-                .await?;
-            let _reader1 = descriptor.read_range(ReadRange::offset(5)).await;
-            let _reader2 = descriptor.read_range(ReadRange::segment(10, 10)).await;
-            let _reader3 = descriptor.read_range(ReadRange::tail(15)).await;
-
-            anyhow::Ok(())
-        }
-        .instrument(guard.span())
-        .await?;
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .with_tracing()
+            .build()
+            .await?;
+        let (descriptor, _reader0) = client
+            .open_object(BUCKET_NAME, OBJECT_NAME)
+            .send_and_read(ReadRange::all())
+            .await?;
+        let _reader1 = descriptor.read_range(ReadRange::offset(5)).await;
+        let _reader2 = descriptor.read_range(ReadRange::segment(10, 10)).await;
+        let _reader3 = descriptor.read_range(ReadRange::tail(15)).await;
 
         let captured = TestLayer::capture(&guard);
         let _span = captured
@@ -901,70 +894,63 @@ mod tests {
             BidiWriteObjectResponse, Object, bidi_write_object_response::WriteStatus,
         };
         use storage_grpc_mock::{MockStorage, start};
-        use tracing::Instrument;
         const BUCKET_NAME: &str = "projects/_/buckets/test-bucket";
         const OBJECT_NAME: &str = "test-object";
         const BIND_ADDRESS: &str = "0.0.0.0:0";
 
         let guard = TestLayer::initialize();
 
-        async move {
-            let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(10);
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(10);
 
-            let initial_response = BidiWriteObjectResponse {
-                write_status: Some(WriteStatus::Resource(Object {
-                    bucket: BUCKET_NAME.to_string(),
-                    name: OBJECT_NAME.to_string(),
-                    generation: 98765,
-                    ..Default::default()
-                })),
-                ..BidiWriteObjectResponse::default()
-            };
+        let initial_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::Resource(Object {
+                bucket: BUCKET_NAME.to_string(),
+                name: OBJECT_NAME.to_string(),
+                generation: 98765,
+                ..Default::default()
+            })),
+            ..BidiWriteObjectResponse::default()
+        };
 
-            let flush_response = BidiWriteObjectResponse {
-                write_status: Some(WriteStatus::PersistedSize(5)),
-                ..BidiWriteObjectResponse::default()
-            };
+        let flush_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(5)),
+            ..BidiWriteObjectResponse::default()
+        };
 
-            // The first response is the initial handshake/metadata response expected by
-            // `connector.rs` immediately upon opening the stream, before any data is sent.
-            tx.send(Ok(initial_response)).await?;
+        // The first response is the initial handshake/metadata response expected by
+        // `connector.rs` immediately upon opening the stream, before any data is sent.
+        tx.send(Ok(initial_response)).await?;
 
-            let mut mock = MockStorage::new();
-            mock.expect_bidi_write_object().return_once(move |req| {
-                let mut stream = req.into_inner();
-                tokio::spawn(async move {
-                    while let Some(Ok(msg)) = stream.recv().await {
-                        if msg.flush {
-                            // The second response is sent ONLY when the client explicitly requests a flush.
-                            // `writer.append()` does not wait for a response, but `writer.flush()` does.
-                            let _ = tx.send(Ok(flush_response.clone())).await;
-                        }
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_write_object().return_once(move |req| {
+            let mut stream = req.into_inner();
+            tokio::spawn(async move {
+                while let Some(Ok(msg)) = stream.recv().await {
+                    if msg.flush {
+                        // The second response is sent ONLY when the client explicitly requests a flush.
+                        // `writer.append()` does not wait for a response, but `writer.flush()` does.
+                        let _ = tx.send(Ok(flush_response.clone())).await;
                     }
-                });
-                Ok(TonicResponse::new(rx))
+                }
             });
-            let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+            Ok(TonicResponse::new(rx))
+        });
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
 
-            let client = crate::client::Storage::builder()
-                .with_credentials(Anonymous::new().build())
-                .with_endpoint(endpoint.clone())
-                .with_tracing()
-                .build()
-                .await?;
-            let mut writer = client
-                .open_appendable_object(BUCKET_NAME, OBJECT_NAME)
-                .send()
-                .await?;
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .with_tracing()
+            .build()
+            .await?;
+        let mut writer = client
+            .open_appendable_object(BUCKET_NAME, OBJECT_NAME)
+            .send()
+            .await?;
 
-            writer.append(Bytes::from_static(b"hello")).await?;
-            writer.flush().await?;
-            writer.close().await?;
-
-            anyhow::Ok(())
-        }
-        .instrument(guard.span())
-        .await?;
+        writer.append(Bytes::from_static(b"hello")).await?;
+        writer.flush().await?;
+        writer.close().await?;
 
         let captured = TestLayer::capture(&guard);
         let _span = captured
@@ -989,81 +975,74 @@ mod tests {
             BidiWriteObjectResponse, Object, bidi_write_object_response::WriteStatus,
         };
         use storage_grpc_mock::{MockStorage, start};
-        use tracing::Instrument;
         const BUCKET_NAME: &str = "projects/_/buckets/test-bucket";
         const OBJECT_NAME: &str = "test-object";
         const BIND_ADDRESS: &str = "0.0.0.0:0";
 
         let guard = TestLayer::initialize();
 
-        async move {
-            let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(10);
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(10);
 
-            let initial_response = BidiWriteObjectResponse {
-                write_status: Some(WriteStatus::Resource(Object {
-                    bucket: BUCKET_NAME.to_string(),
-                    name: OBJECT_NAME.to_string(),
-                    generation: 98765,
-                    ..Default::default()
-                })),
-                ..BidiWriteObjectResponse::default()
-            };
+        let initial_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::Resource(Object {
+                bucket: BUCKET_NAME.to_string(),
+                name: OBJECT_NAME.to_string(),
+                generation: 98765,
+                ..Default::default()
+            })),
+            ..BidiWriteObjectResponse::default()
+        };
 
-            let flush_response = BidiWriteObjectResponse {
-                write_status: Some(WriteStatus::PersistedSize(5)),
-                ..BidiWriteObjectResponse::default()
-            };
+        let flush_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(5)),
+            ..BidiWriteObjectResponse::default()
+        };
 
-            let finalize_response = BidiWriteObjectResponse {
-                write_status: Some(WriteStatus::Resource(Object {
-                    finalize_time: Some(prost_types::Timestamp::default()),
-                    bucket: BUCKET_NAME.to_string(),
-                    name: OBJECT_NAME.to_string(),
-                    generation: 98765,
-                    size: 5,
-                    ..Default::default()
-                })),
-                ..BidiWriteObjectResponse::default()
-            };
+        let finalize_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::Resource(Object {
+                finalize_time: Some(prost_types::Timestamp::default()),
+                bucket: BUCKET_NAME.to_string(),
+                name: OBJECT_NAME.to_string(),
+                generation: 98765,
+                size: 5,
+                ..Default::default()
+            })),
+            ..BidiWriteObjectResponse::default()
+        };
 
-            tx.send(Ok(initial_response)).await?;
+        tx.send(Ok(initial_response)).await?;
 
-            let mut mock = MockStorage::new();
-            mock.expect_bidi_write_object().return_once(move |req| {
-                let mut stream = req.into_inner();
-                tokio::spawn(async move {
-                    while let Some(Ok(msg)) = stream.recv().await {
-                        if msg.finish_write {
-                            let _ = tx.send(Ok(finalize_response.clone())).await;
-                        } else if msg.flush {
-                            let _ = tx.send(Ok(flush_response.clone())).await;
-                        }
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_write_object().return_once(move |req| {
+            let mut stream = req.into_inner();
+            tokio::spawn(async move {
+                while let Some(Ok(msg)) = stream.recv().await {
+                    if msg.finish_write {
+                        let _ = tx.send(Ok(finalize_response.clone())).await;
+                    } else if msg.flush {
+                        let _ = tx.send(Ok(flush_response.clone())).await;
                     }
-                });
-                Ok(TonicResponse::new(rx))
+                }
             });
-            let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+            Ok(TonicResponse::new(rx))
+        });
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
 
-            let client = crate::client::Storage::builder()
-                .with_credentials(Anonymous::new().build())
-                .with_endpoint(endpoint.clone())
-                .with_tracing()
-                .build()
-                .await?;
-            let mut writer = client
-                .open_appendable_object(BUCKET_NAME, OBJECT_NAME)
-                .send()
-                .await?;
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .with_tracing()
+            .build()
+            .await?;
+        let mut writer = client
+            .open_appendable_object(BUCKET_NAME, OBJECT_NAME)
+            .send()
+            .await?;
 
-            writer.append(Bytes::from_static(b"hello")).await?;
-            writer.flush().await?;
-            let obj = writer.finalize().await?;
-            assert_eq!(obj.size, 5);
-
-            anyhow::Ok(())
-        }
-        .instrument(guard.span())
-        .await?;
+        writer.append(Bytes::from_static(b"hello")).await?;
+        writer.flush().await?;
+        let obj = writer.finalize().await?;
+        assert_eq!(obj.size, 5);
 
         let captured = TestLayer::capture(&guard);
         let _span = captured
@@ -1128,7 +1107,6 @@ mod tests {
             BidiWriteObjectResponse, Object, bidi_write_object_response::WriteStatus,
         };
         use storage_grpc_mock::{MockStorage, start};
-        use tracing::Instrument;
         const BUCKET_NAME: &str = "projects/_/buckets/test-bucket";
         const OBJECT_NAME: &str = "test-object";
         const BIND_ADDRESS: &str = "0.0.0.0:0";
@@ -1136,70 +1114,64 @@ mod tests {
         // Arrange.
         let guard = TestLayer::initialize();
 
-        async move {
-            let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(10);
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(10);
 
-            let initial_response = BidiWriteObjectResponse {
-                write_status: Some(WriteStatus::Resource(Object {
-                    bucket: BUCKET_NAME.to_string(),
-                    name: OBJECT_NAME.to_string(),
-                    generation: 98765,
-                    ..Default::default()
-                })),
-                ..BidiWriteObjectResponse::default()
-            };
+        let initial_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::Resource(Object {
+                bucket: BUCKET_NAME.to_string(),
+                name: OBJECT_NAME.to_string(),
+                generation: 98765,
+                ..Default::default()
+            })),
+            ..BidiWriteObjectResponse::default()
+        };
 
-            let finalize_response = BidiWriteObjectResponse {
-                write_status: Some(WriteStatus::Resource(Object {
-                    finalize_time: Some(prost_types::Timestamp::default()),
-                    bucket: BUCKET_NAME.to_string(),
-                    name: OBJECT_NAME.to_string(),
-                    generation: 98765,
-                    size: 5,
-                    ..Default::default()
-                })),
-                ..BidiWriteObjectResponse::default()
-            };
+        let finalize_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::Resource(Object {
+                finalize_time: Some(prost_types::Timestamp::default()),
+                bucket: BUCKET_NAME.to_string(),
+                name: OBJECT_NAME.to_string(),
+                generation: 98765,
+                size: 5,
+                ..Default::default()
+            })),
+            ..BidiWriteObjectResponse::default()
+        };
 
-            // Initial handshake response sent immediately upon stream opening.
-            tx.send(Ok(initial_response)).await?;
+        // Initial handshake response sent immediately upon stream opening.
+        tx.send(Ok(initial_response)).await?;
 
-            let mut mock = MockStorage::new();
-            mock.expect_bidi_write_object().return_once(move |req| {
-                let mut stream = req.into_inner();
-                tokio::spawn(async move {
-                    while let Some(Ok(msg)) = stream.recv().await {
-                        if msg.finish_write {
-                            let _ = tx.send(Ok(finalize_response.clone())).await;
-                        }
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_write_object().return_once(move |req| {
+            let mut stream = req.into_inner();
+            tokio::spawn(async move {
+                while let Some(Ok(msg)) = stream.recv().await {
+                    if msg.finish_write {
+                        let _ = tx.send(Ok(finalize_response.clone())).await;
                     }
-                });
-                Ok(TonicResponse::new(rx))
+                }
             });
-            let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+            Ok(TonicResponse::new(rx))
+        });
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
 
-            let client = crate::client::Storage::builder()
-                .with_credentials(Anonymous::new().build())
-                .with_endpoint(endpoint.clone())
-                .with_tracing()
-                .build()
-                .await?;
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .with_tracing()
+            .build()
+            .await?;
 
-            // Act.
-            let writer = client
-                .open_appendable_object(BUCKET_NAME, OBJECT_NAME)
-                .send_and_append(Bytes::from_static(b"hello"))
-                .await?;
+        // Act.
+        let writer = client
+            .open_appendable_object(BUCKET_NAME, OBJECT_NAME)
+            .send_and_append(Bytes::from_static(b"hello"))
+            .await?;
 
-            let obj = writer.finalize().await?;
+        let obj = writer.finalize().await?;
 
-            // Assert.
-            assert_eq!(obj.size, 5);
-
-            anyhow::Ok(())
-        }
-        .instrument(guard.span())
-        .await?;
+        // Assert.
+        assert_eq!(obj.size, 5);
 
         let captured = TestLayer::capture(&guard);
         let _span = captured
@@ -1257,7 +1229,6 @@ mod tests {
             BidiWriteObjectResponse, bidi_write_object_response::WriteStatus,
         };
         use storage_grpc_mock::{MockStorage, start};
-        use tracing::Instrument;
         const BUCKET_NAME: &str = "projects/_/buckets/test-bucket";
         const OBJECT_NAME: &str = "test-object";
         const BIND_ADDRESS: &str = "0.0.0.0:0";
@@ -1265,77 +1236,71 @@ mod tests {
         // Arrange.
         let guard = TestLayer::initialize();
 
-        async move {
-            let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(10);
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(10);
 
-            // The first response is the initial handshake/metadata response expected by `connector.rs`
-            // immediately upon opening the stream, before any data is sent.
-            let response = BidiWriteObjectResponse {
-                write_status: Some(WriteStatus::PersistedSize(100)),
-                ..BidiWriteObjectResponse::default()
-            };
-            tx.send(Ok(response.clone())).await?;
+        // The first response is the initial handshake/metadata response expected by `connector.rs`
+        // immediately upon opening the stream, before any data is sent.
+        let response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(100)),
+            ..BidiWriteObjectResponse::default()
+        };
+        tx.send(Ok(response.clone())).await?;
 
-            // The flush response must confirm persistence at or past the flush request's target offset
-            // (100 initial + 5 appended = 105) for the worker to satisfy the pending flush.
-            let flush_response = BidiWriteObjectResponse {
-                write_status: Some(WriteStatus::PersistedSize(105)),
-                ..BidiWriteObjectResponse::default()
-            };
+        // The flush response must confirm persistence at or past the flush request's target offset
+        // (100 initial + 5 appended = 105) for the worker to satisfy the pending flush.
+        let flush_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(105)),
+            ..BidiWriteObjectResponse::default()
+        };
 
-            let finalize_response = BidiWriteObjectResponse {
-                write_status: Some(WriteStatus::Resource(
-                    storage_grpc_mock::google::storage::v2::Object {
-                        finalize_time: Some(prost_types::Timestamp::default()),
-                        size: 105,
-                        ..Default::default()
-                    },
-                )),
-                ..BidiWriteObjectResponse::default()
-            };
+        let finalize_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::Resource(
+                storage_grpc_mock::google::storage::v2::Object {
+                    finalize_time: Some(prost_types::Timestamp::default()),
+                    size: 105,
+                    ..Default::default()
+                },
+            )),
+            ..BidiWriteObjectResponse::default()
+        };
 
-            let mut mock = MockStorage::new();
-            mock.expect_bidi_write_object().return_once(move |req| {
-                let mut stream = req.into_inner();
-                tokio::spawn(async move {
-                    while let Some(Ok(msg)) = stream.recv().await {
-                        // The second response is sent ONLY when the client explicitly requests a flush
-                        // or finalize. `writer.append()` does not wait for a response.
-                        if msg.finish_write {
-                            let _ = tx.send(Ok(finalize_response.clone())).await;
-                        } else if msg.flush {
-                            let _ = tx.send(Ok(flush_response.clone())).await;
-                        }
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_write_object().return_once(move |req| {
+            let mut stream = req.into_inner();
+            tokio::spawn(async move {
+                while let Some(Ok(msg)) = stream.recv().await {
+                    // The second response is sent ONLY when the client explicitly requests a flush
+                    // or finalize. `writer.append()` does not wait for a response.
+                    if msg.finish_write {
+                        let _ = tx.send(Ok(finalize_response.clone())).await;
+                    } else if msg.flush {
+                        let _ = tx.send(Ok(flush_response.clone())).await;
                     }
-                });
-                Ok(TonicResponse::from(rx))
+                }
             });
-            let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+            Ok(TonicResponse::from(rx))
+        });
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
 
-            let client = crate::client::Storage::builder()
-                .with_credentials(Anonymous::new().build())
-                .with_endpoint(endpoint.clone())
-                .with_tracing()
-                .build()
-                .await?;
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .with_tracing()
+            .build()
+            .await?;
 
-            // Act.
-            let mut writer = client
-                .reopen_appendable_object(BUCKET_NAME, OBJECT_NAME, 12345)
-                .send()
-                .await?;
+        // Act.
+        let mut writer = client
+            .reopen_appendable_object(BUCKET_NAME, OBJECT_NAME, 12345)
+            .send()
+            .await?;
 
-            writer.append(Bytes::from_static(b"hello")).await?;
-            writer.flush().await?;
-            let obj = writer.finalize().await?;
+        writer.append(Bytes::from_static(b"hello")).await?;
+        writer.flush().await?;
+        let obj = writer.finalize().await?;
 
-            // Assert.
-            assert_eq!(obj.size, 105);
-
-            anyhow::Ok(())
-        }
-        .instrument(guard.span())
-        .await?;
+        // Assert.
+        assert_eq!(obj.size, 105);
 
         let captured = TestLayer::capture(&guard);
         let _span = captured
