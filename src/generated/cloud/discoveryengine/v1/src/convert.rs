@@ -52,7 +52,7 @@ impl gaxi::prost::FromProto<crate::model::answer::Citation> for answer::Citation
             .set_sources(
                 self.sources
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::answer::CitationSource>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -110,14 +110,20 @@ impl gaxi::prost::FromProto<crate::model::answer::GroundingSupport> for answer::
         Ok(crate::model::answer::GroundingSupport::new()
             .set_start_index(self.start_index)
             .set_end_index(self.end_index)
-            .set_or_clear_grounding_score(self.grounding_score.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_grounding_score(
+                self.grounding_score
+                    .map(gaxi::prost::FromProto::<f64>::cnv)
+                    .transpose()?,
+            )
             .set_or_clear_grounding_check_required(
-                self.grounding_check_required.map(|v| v.cnv()).transpose()?,
+                self.grounding_check_required
+                    .map(gaxi::prost::FromProto::<bool>::cnv)
+                    .transpose()?,
             )
             .set_sources(
                 self.sources
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::answer::CitationSource>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -163,7 +169,11 @@ impl
             crate::model::answer::reference::unstructured_document_info::ChunkContent::new()
                 .set_content(self.content)
                 .set_page_identifier(self.page_identifier)
-                .set_or_clear_relevance_score(self.relevance_score.map(|v| v.cnv()).transpose()?),
+                .set_or_clear_relevance_score(
+                    self.relevance_score
+                        .map(gaxi::prost::FromProto::<f32>::cnv)
+                        .transpose()?,
+                ),
         )
     }
 }
@@ -213,13 +223,9 @@ impl gaxi::prost::FromProto<crate::model::answer::reference::UnstructuredDocumen
                 .set_document(self.document)
                 .set_uri(self.uri)
                 .set_title(self.title)
-                .set_chunk_contents(
-                    self.chunk_contents
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                )
-                .set_or_clear_struct_data(self.struct_data.map(|v| v.cnv()).transpose()?),
+                .set_chunk_contents(self.chunk_contents.into_iter().map(gaxi::prost::FromProto::<crate::model::answer::reference::unstructured_document_info::ChunkContent>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_struct_data(self.struct_data.map(gaxi::prost::FromProto::<wkt::Struct>::cnv).transpose()?)
         )
     }
 }
@@ -266,7 +272,11 @@ impl gaxi::prost::FromProto<crate::model::answer::reference::chunk_info::Documen
                 .set_uri(self.uri)
                 .set_title(self.title)
                 .set_page_identifier(self.page_identifier)
-                .set_or_clear_struct_data(self.struct_data.map(|v| v.cnv()).transpose()?),
+                .set_or_clear_struct_data(
+                    self.struct_data
+                        .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                        .transpose()?,
+                ),
         )
     }
 }
@@ -299,8 +309,20 @@ impl gaxi::prost::FromProto<crate::model::answer::reference::ChunkInfo>
         Ok(crate::model::answer::reference::ChunkInfo::new()
             .set_chunk(self.chunk)
             .set_content(self.content)
-            .set_or_clear_relevance_score(self.relevance_score.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_document_metadata(self.document_metadata.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_relevance_score(
+                self.relevance_score
+                    .map(gaxi::prost::FromProto::<f32>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_document_metadata(
+                self.document_metadata
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::answer::reference::chunk_info::DocumentMetadata,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ))
     }
 }
 
@@ -338,7 +360,11 @@ impl gaxi::prost::FromProto<crate::model::answer::reference::StructuredDocumentI
         Ok(
             crate::model::answer::reference::StructuredDocumentInfo::new()
                 .set_document(self.document)
-                .set_or_clear_struct_data(self.struct_data.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_struct_data(
+                    self.struct_data
+                        .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                        .transpose()?,
+                )
                 .set_title(self.title)
                 .set_uri(self.uri),
         )
@@ -373,13 +399,19 @@ impl gaxi::prost::FromProto<crate::model::answer::reference::Content>
     {
         use crate::model::answer::reference::Content as T;
         match self {
-            Self::UnstructuredDocumentInfo(v) => {
-                Ok(T::UnstructuredDocumentInfo(std::boxed::Box::new(v.cnv()?)))
-            }
-            Self::ChunkInfo(v) => Ok(T::ChunkInfo(std::boxed::Box::new(v.cnv()?))),
-            Self::StructuredDocumentInfo(v) => {
-                Ok(T::StructuredDocumentInfo(std::boxed::Box::new(v.cnv()?)))
-            }
+            Self::UnstructuredDocumentInfo(v) => Ok(T::UnstructuredDocumentInfo(
+                std::boxed::Box::new(gaxi::prost::FromProto::<
+                    crate::model::answer::reference::UnstructuredDocumentInfo,
+                >::cnv(v)?),
+            )),
+            Self::ChunkInfo(v) => Ok(T::ChunkInfo(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::answer::reference::ChunkInfo>::cnv(v)?,
+            ))),
+            Self::StructuredDocumentInfo(v) => Ok(T::StructuredDocumentInfo(
+                std::boxed::Box::new(gaxi::prost::FromProto::<
+                    crate::model::answer::reference::StructuredDocumentInfo,
+                >::cnv(v)?),
+            )),
         }
     }
 }
@@ -402,8 +434,11 @@ impl gaxi::prost::FromProto<crate::model::answer::Reference> for answer::Referen
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::answer::Reference, gaxi::prost::ConvertError> {
-        Ok(crate::model::answer::Reference::new()
-            .set_content(self.content.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::answer::Reference::new().set_content(
+            self.content
+                .map(gaxi::prost::FromProto::<crate::model::answer::reference::Content>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -513,7 +548,11 @@ impl
             crate::model::answer::step::action::observation::search_result::ChunkInfo::new()
                 .set_chunk(self.chunk)
                 .set_content(self.content)
-                .set_or_clear_relevance_score(self.relevance_score.map(|v| v.cnv()).transpose()?),
+                .set_or_clear_relevance_score(
+                    self.relevance_score
+                        .map(gaxi::prost::FromProto::<f32>::cnv)
+                        .transpose()?,
+                ),
         )
     }
 }
@@ -574,19 +613,11 @@ impl gaxi::prost::FromProto<crate::model::answer::step::action::observation::Sea
                 .set_document(self.document)
                 .set_uri(self.uri)
                 .set_title(self.title)
-                .set_snippet_info(
-                    self.snippet_info
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                )
-                .set_chunk_info(
-                    self.chunk_info
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                )
-                .set_or_clear_struct_data(self.struct_data.map(|v| v.cnv()).transpose()?),
+                .set_snippet_info(self.snippet_info.into_iter().map(gaxi::prost::FromProto::<crate::model::answer::step::action::observation::search_result::SnippetInfo>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_chunk_info(self.chunk_info.into_iter().map(gaxi::prost::FromProto::<crate::model::answer::step::action::observation::search_result::ChunkInfo>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_struct_data(self.struct_data.map(gaxi::prost::FromProto::<wkt::Struct>::cnv).transpose()?)
         )
     }
 }
@@ -622,7 +653,11 @@ impl gaxi::prost::FromProto<crate::model::answer::step::action::Observation>
             crate::model::answer::step::action::Observation::new().set_search_results(
                 self.search_results
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::answer::step::action::observation::SearchResult,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -653,7 +688,9 @@ impl gaxi::prost::FromProto<crate::model::answer::step::action::Action>
     {
         use crate::model::answer::step::action::Action as T;
         match self {
-            Self::SearchAction(v) => Ok(T::SearchAction(std::boxed::Box::new(v.cnv()?))),
+            Self::SearchAction(v) => Ok(T::SearchAction(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::answer::step::action::SearchAction>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -680,9 +717,11 @@ impl gaxi::prost::FromProto<crate::model::answer::step::Action> for answer::step
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::answer::step::Action, gaxi::prost::ConvertError> {
-        Ok(crate::model::answer::step::Action::new()
-            .set_or_clear_observation(self.observation.map(|v| v.cnv()).transpose()?)
-            .set_action(self.action.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::answer::step::Action::new()
+                .set_or_clear_observation(self.observation.map(gaxi::prost::FromProto::<crate::model::answer::step::action::Observation>::cnv).transpose()?)
+                .set_action(self.action.map(gaxi::prost::FromProto::<crate::model::answer::step::action::Action>::cnv).transpose()?)
+        )
     }
 }
 
@@ -724,7 +763,7 @@ impl gaxi::prost::FromProto<crate::model::answer::Step> for answer::Step {
             .set_actions(
                 self.actions
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::answer::step::Action>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -815,7 +854,11 @@ impl gaxi::prost::FromProto<crate::model::answer::QueryUnderstandingInfo>
             crate::model::answer::QueryUnderstandingInfo::new().set_query_classification_info(
                 self.query_classification_info
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::answer::query_understanding_info::QueryClassificationInfo,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -916,51 +959,67 @@ impl gaxi::prost::FromProto<crate::model::Answer> for Answer {
             .set_name(self.name)
             .set_state(self.state)
             .set_answer_text(self.answer_text)
-            .set_or_clear_grounding_score(self.grounding_score.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_grounding_score(
+                self.grounding_score
+                    .map(gaxi::prost::FromProto::<f64>::cnv)
+                    .transpose()?,
+            )
             .set_citations(
                 self.citations
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::answer::Citation>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_grounding_supports(
                 self.grounding_supports
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::answer::GroundingSupport>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_references(
                 self.references
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::answer::Reference>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_related_questions(
                 self.related_questions
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_steps(
                 self.steps
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::answer::Step>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_or_clear_query_understanding_info(
-                self.query_understanding_info.map(|v| v.cnv()).transpose()?,
+                self.query_understanding_info
+                    .map(
+                        gaxi::prost::FromProto::<crate::model::answer::QueryUnderstandingInfo>::cnv,
+                    )
+                    .transpose()?,
             )
             .set_answer_skipped_reasons(
                 self.answer_skipped_reasons
                     .into_iter()
                     .map(crate::model::answer::AnswerSkippedReason::from),
             )
-            .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_complete_time(self.complete_time.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_create_time(
+                self.create_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_complete_time(
+                self.complete_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
             .set_safety_ratings(
                 self.safety_ratings
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::SafetyRating>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -1000,7 +1059,9 @@ impl gaxi::prost::FromProto<crate::model::assist_answer::reply::Reply>
     {
         use crate::model::assist_answer::reply::Reply as T;
         match self {
-            Self::GroundedContent(v) => Ok(T::GroundedContent(std::boxed::Box::new(v.cnv()?))),
+            Self::GroundedContent(v) => Ok(T::GroundedContent(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::AssistantGroundedContent>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -1031,8 +1092,11 @@ impl gaxi::prost::FromProto<crate::model::assist_answer::Reply> for assist_answe
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::assist_answer::Reply, gaxi::prost::ConvertError> {
-        Ok(crate::model::assist_answer::Reply::new()
-            .set_reply(self.reply.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::assist_answer::Reply::new().set_reply(
+            self.reply
+                .map(gaxi::prost::FromProto::<crate::model::assist_answer::reply::Reply>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -1106,7 +1170,7 @@ impl gaxi::prost::FromProto<crate::model::AssistAnswer> for AssistAnswer {
             .set_replies(
                 self.replies
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::assist_answer::Reply>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_assist_skipped_reasons(
@@ -1318,13 +1382,23 @@ impl gaxi::prost::FromProto<crate::model::assistant_content::Data> for assistant
     ) -> std::result::Result<crate::model::assistant_content::Data, gaxi::prost::ConvertError> {
         use crate::model::assistant_content::Data as T;
         match self {
-            Self::Text(v) => Ok(T::Text(v.cnv()?)),
-            Self::InlineData(v) => Ok(T::InlineData(std::boxed::Box::new(v.cnv()?))),
-            Self::File(v) => Ok(T::File(std::boxed::Box::new(v.cnv()?))),
-            Self::ExecutableCode(v) => Ok(T::ExecutableCode(std::boxed::Box::new(v.cnv()?))),
-            Self::CodeExecutionResult(v) => {
-                Ok(T::CodeExecutionResult(std::boxed::Box::new(v.cnv()?)))
-            }
+            Self::Text(v) => Ok(T::Text(gaxi::prost::FromProto::<std::string::String>::cnv(
+                v,
+            )?)),
+            Self::InlineData(v) => Ok(T::InlineData(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::assistant_content::Blob>::cnv(v)?,
+            ))),
+            Self::File(v) => Ok(T::File(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::assistant_content::File,
+            >::cnv(v)?))),
+            Self::ExecutableCode(v) => Ok(T::ExecutableCode(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::assistant_content::ExecutableCode>::cnv(v)?,
+            ))),
+            Self::CodeExecutionResult(v) => Ok(T::CodeExecutionResult(
+                std::boxed::Box::new(gaxi::prost::FromProto::<
+                    crate::model::assistant_content::CodeExecutionResult,
+                >::cnv(v)?),
+            )),
         }
     }
 }
@@ -1358,7 +1432,11 @@ impl gaxi::prost::FromProto<crate::model::AssistantContent> for AssistantContent
         Ok(crate::model::AssistantContent::new()
             .set_role(self.role)
             .set_thought(self.thought)
-            .set_data(self.data.map(|v| v.cnv()).transpose()?))
+            .set_data(
+                self.data
+                    .map(gaxi::prost::FromProto::<crate::model::assistant_content::Data>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -1414,7 +1492,7 @@ impl
                 .set_reference_indices(
                     self.reference_indices
                         .into_iter()
-                        .map(|v| v.cnv())
+                        .map(gaxi::prost::FromProto::<i32>::cnv)
                         .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
                 )
                 .set_grounding_score(self.grounding_score)
@@ -1450,11 +1528,11 @@ impl gaxi::prost::FromProto<crate::model::assistant_grounded_content::text_groun
     fn cnv(self) -> std::result::Result<crate::model::assistant_grounded_content::text_grounding_metadata::reference::DocumentMetadata, gaxi::prost::ConvertError> {
         Ok(
             crate::model::assistant_grounded_content::text_grounding_metadata::reference::DocumentMetadata::new()
-                .set_or_clear_document(self.document.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_uri(self.uri.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_title(self.title.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_page_identifier(self.page_identifier.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_domain(self.domain.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_document(self.document.map(gaxi::prost::FromProto::<std::string::String>::cnv).transpose()?)
+                .set_or_clear_uri(self.uri.map(gaxi::prost::FromProto::<std::string::String>::cnv).transpose()?)
+                .set_or_clear_title(self.title.map(gaxi::prost::FromProto::<std::string::String>::cnv).transpose()?)
+                .set_or_clear_page_identifier(self.page_identifier.map(gaxi::prost::FromProto::<std::string::String>::cnv).transpose()?)
+                .set_or_clear_domain(self.domain.map(gaxi::prost::FromProto::<std::string::String>::cnv).transpose()?)
         )
     }
 }
@@ -1500,9 +1578,7 @@ impl
         Ok(
             crate::model::assistant_grounded_content::text_grounding_metadata::Reference::new()
                 .set_content(self.content)
-                .set_or_clear_document_metadata(
-                    self.document_metadata.map(|v| v.cnv()).transpose()?,
-                ),
+                .set_or_clear_document_metadata(self.document_metadata.map(gaxi::prost::FromProto::<crate::model::assistant_grounded_content::text_grounding_metadata::reference::DocumentMetadata>::cnv).transpose()?)
         )
     }
 }
@@ -1561,18 +1637,10 @@ impl gaxi::prost::FromProto<crate::model::assistant_grounded_content::TextGround
     > {
         Ok(
             crate::model::assistant_grounded_content::TextGroundingMetadata::new()
-                .set_segments(
-                    self.segments
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                )
-                .set_references(
-                    self.references
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                ),
+                .set_segments(self.segments.into_iter().map(gaxi::prost::FromProto::<crate::model::assistant_grounded_content::text_grounding_metadata::Segment>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_references(self.references.into_iter().map(gaxi::prost::FromProto::<crate::model::assistant_grounded_content::text_grounding_metadata::Reference>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }
@@ -1615,9 +1683,11 @@ impl gaxi::prost::FromProto<crate::model::assistant_grounded_content::Metadata>
     > {
         use crate::model::assistant_grounded_content::Metadata as T;
         match self {
-            Self::TextGroundingMetadata(v) => {
-                Ok(T::TextGroundingMetadata(std::boxed::Box::new(v.cnv()?)))
-            }
+            Self::TextGroundingMetadata(v) => Ok(T::TextGroundingMetadata(std::boxed::Box::new(
+                gaxi::prost::FromProto::<
+                    crate::model::assistant_grounded_content::TextGroundingMetadata,
+                >::cnv(v)?,
+            ))),
         }
     }
 }
@@ -1653,9 +1723,23 @@ impl gaxi::prost::FromProto<crate::model::AssistantGroundedContent> for Assistan
         self,
     ) -> std::result::Result<crate::model::AssistantGroundedContent, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::AssistantGroundedContent::new()
-            .set_or_clear_content(self.content.map(|v| v.cnv()).transpose()?)
-            .set_metadata(self.metadata.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::AssistantGroundedContent::new()
+                .set_or_clear_content(
+                    self.content
+                        .map(gaxi::prost::FromProto::<crate::model::AssistantContent>::cnv)
+                        .transpose()?,
+                )
+                .set_metadata(
+                    self.metadata
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::assistant_grounded_content::Metadata,
+                            >::cnv,
+                        )
+                        .transpose()?,
+                ),
+        )
     }
 }
 
@@ -1749,7 +1833,11 @@ impl gaxi::prost::FromProto<crate::model::stream_assist_request::AgentsSpec>
             crate::model::stream_assist_request::AgentsSpec::new().set_agent_specs(
                 self.agent_specs
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::stream_assist_request::agents_spec::AgentSpec,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -1790,13 +1878,9 @@ impl gaxi::prost::FromProto<crate::model::stream_assist_request::tools_spec::Ver
     > {
         Ok(
             crate::model::stream_assist_request::tools_spec::VertexAiSearchSpec::new()
-                .set_data_store_specs(
-                    self.data_store_specs
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                )
-                .set_filter(self.filter),
+                .set_data_store_specs(self.data_store_specs.into_iter().map(gaxi::prost::FromProto::<crate::model::search_request::DataStoreSpec>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_filter(self.filter)
         )
     }
 }
@@ -1947,14 +2031,40 @@ impl gaxi::prost::FromProto<crate::model::stream_assist_request::ToolsSpec>
     > {
         Ok(crate::model::stream_assist_request::ToolsSpec::new()
             .set_or_clear_vertex_ai_search_spec(
-                self.vertex_ai_search_spec.map(|v| v.cnv()).transpose()?,
+                self.vertex_ai_search_spec
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::stream_assist_request::tools_spec::VertexAiSearchSpec,
+                        >::cnv,
+                    )
+                    .transpose()?,
             )
-            .set_or_clear_web_grounding_spec(self.web_grounding_spec.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_web_grounding_spec(
+                self.web_grounding_spec
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::stream_assist_request::tools_spec::WebGroundingSpec,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            )
             .set_or_clear_image_generation_spec(
-                self.image_generation_spec.map(|v| v.cnv()).transpose()?,
+                self.image_generation_spec
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::stream_assist_request::tools_spec::ImageGenerationSpec,
+                        >::cnv,
+                    )
+                    .transpose()?,
             )
             .set_or_clear_video_generation_spec(
-                self.video_generation_spec.map(|v| v.cnv()).transpose()?,
+                self.video_generation_spec
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::stream_assist_request::tools_spec::VideoGenerationSpec,
+                        >::cnv,
+                    )
+                    .transpose()?,
             ))
     }
 }
@@ -2023,14 +2133,16 @@ impl gaxi::prost::FromProto<crate::model::StreamAssistRequest> for StreamAssistR
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::StreamAssistRequest, gaxi::prost::ConvertError> {
-        Ok(crate::model::StreamAssistRequest::new()
-            .set_name(self.name)
-            .set_or_clear_query(self.query.map(|v| v.cnv()).transpose()?)
-            .set_session(self.session)
-            .set_or_clear_user_metadata(self.user_metadata.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_agents_spec(self.agents_spec.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_tools_spec(self.tools_spec.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_generation_spec(self.generation_spec.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::StreamAssistRequest::new()
+                .set_name(self.name)
+                .set_or_clear_query(self.query.map(gaxi::prost::FromProto::<crate::model::Query>::cnv).transpose()?)
+                .set_session(self.session)
+                .set_or_clear_user_metadata(self.user_metadata.map(gaxi::prost::FromProto::<crate::model::AssistUserMetadata>::cnv).transpose()?)
+                .set_or_clear_agents_spec(self.agents_spec.map(gaxi::prost::FromProto::<crate::model::stream_assist_request::AgentsSpec>::cnv).transpose()?)
+                .set_or_clear_tools_spec(self.tools_spec.map(gaxi::prost::FromProto::<crate::model::stream_assist_request::ToolsSpec>::cnv).transpose()?)
+                .set_or_clear_generation_spec(self.generation_spec.map(gaxi::prost::FromProto::<crate::model::stream_assist_request::GenerationSpec>::cnv).transpose()?)
+        )
     }
 }
 
@@ -2085,10 +2197,24 @@ impl gaxi::prost::FromProto<crate::model::StreamAssistResponse> for StreamAssist
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::StreamAssistResponse, gaxi::prost::ConvertError> {
-        Ok(crate::model::StreamAssistResponse::new()
-            .set_or_clear_answer(self.answer.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_session_info(self.session_info.map(|v| v.cnv()).transpose()?)
-            .set_assist_token(self.assist_token))
+        Ok(
+            crate::model::StreamAssistResponse::new()
+                .set_or_clear_answer(
+                    self.answer
+                        .map(gaxi::prost::FromProto::<crate::model::AssistAnswer>::cnv)
+                        .transpose()?,
+                )
+                .set_or_clear_session_info(
+                    self.session_info
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::stream_assist_response::SessionInfo,
+                            >::cnv,
+                        )
+                        .transpose()?,
+                )
+                .set_assist_token(self.assist_token),
+        )
     }
 }
 
@@ -2122,8 +2248,10 @@ impl gaxi::prost::FromProto<crate::model::interval::Min> for interval::Min {
     fn cnv(self) -> std::result::Result<crate::model::interval::Min, gaxi::prost::ConvertError> {
         use crate::model::interval::Min as T;
         match self {
-            Self::Minimum(v) => Ok(T::Minimum(v.cnv()?)),
-            Self::ExclusiveMinimum(v) => Ok(T::ExclusiveMinimum(v.cnv()?)),
+            Self::Minimum(v) => Ok(T::Minimum(gaxi::prost::FromProto::<f64>::cnv(v)?)),
+            Self::ExclusiveMinimum(v) => {
+                Ok(T::ExclusiveMinimum(gaxi::prost::FromProto::<f64>::cnv(v)?))
+            }
         }
     }
 }
@@ -2158,8 +2286,10 @@ impl gaxi::prost::FromProto<crate::model::interval::Max> for interval::Max {
     fn cnv(self) -> std::result::Result<crate::model::interval::Max, gaxi::prost::ConvertError> {
         use crate::model::interval::Max as T;
         match self {
-            Self::Maximum(v) => Ok(T::Maximum(v.cnv()?)),
-            Self::ExclusiveMaximum(v) => Ok(T::ExclusiveMaximum(v.cnv()?)),
+            Self::Maximum(v) => Ok(T::Maximum(gaxi::prost::FromProto::<f64>::cnv(v)?)),
+            Self::ExclusiveMaximum(v) => {
+                Ok(T::ExclusiveMaximum(gaxi::prost::FromProto::<f64>::cnv(v)?))
+            }
         }
     }
 }
@@ -2195,8 +2325,16 @@ impl gaxi::prost::ToProto<Interval> for crate::model::Interval {
 impl gaxi::prost::FromProto<crate::model::Interval> for Interval {
     fn cnv(self) -> std::result::Result<crate::model::Interval, gaxi::prost::ConvertError> {
         Ok(crate::model::Interval::new()
-            .set_min(self.min.map(|v| v.cnv()).transpose()?)
-            .set_max(self.max.map(|v| v.cnv()).transpose()?))
+            .set_min(
+                self.min
+                    .map(gaxi::prost::FromProto::<crate::model::interval::Min>::cnv)
+                    .transpose()?,
+            )
+            .set_max(
+                self.max
+                    .map(gaxi::prost::FromProto::<crate::model::interval::Max>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -2317,7 +2455,11 @@ impl gaxi::prost::FromProto<crate::model::answer_query_request::SafetySpec>
             .set_safety_settings(
                 self.safety_settings
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::answer_query_request::safety_spec::SafetySetting,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -2529,18 +2671,14 @@ impl gaxi::prost::FromProto<crate::model::answer_query_request::AnswerGeneration
     > {
         Ok(
             crate::model::answer_query_request::AnswerGenerationSpec::new()
-                .set_or_clear_model_spec(self.model_spec.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_prompt_spec(self.prompt_spec.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_model_spec(self.model_spec.map(gaxi::prost::FromProto::<crate::model::answer_query_request::answer_generation_spec::ModelSpec>::cnv).transpose()?)
+                .set_or_clear_prompt_spec(self.prompt_spec.map(gaxi::prost::FromProto::<crate::model::answer_query_request::answer_generation_spec::PromptSpec>::cnv).transpose()?)
                 .set_include_citations(self.include_citations)
                 .set_answer_language_code(self.answer_language_code)
                 .set_ignore_adversarial_query(self.ignore_adversarial_query)
                 .set_ignore_non_answer_seeking_query(self.ignore_non_answer_seeking_query)
-                .set_or_clear_ignore_low_relevant_content(
-                    self.ignore_low_relevant_content
-                        .map(|v| v.cnv())
-                        .transpose()?,
-                )
-                .set_ignore_jail_breaking_query(self.ignore_jail_breaking_query),
+                .set_or_clear_ignore_low_relevant_content(self.ignore_low_relevant_content.map(gaxi::prost::FromProto::<bool>::cnv).transpose()?)
+                .set_ignore_jail_breaking_query(self.ignore_jail_breaking_query)
         )
     }
 }
@@ -2590,15 +2728,11 @@ impl gaxi::prost::FromProto<crate::model::answer_query_request::search_spec::Sea
             crate::model::answer_query_request::search_spec::SearchParams::new()
                 .set_max_return_results(self.max_return_results)
                 .set_filter(self.filter)
-                .set_or_clear_boost_spec(self.boost_spec.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_boost_spec(self.boost_spec.map(gaxi::prost::FromProto::<crate::model::search_request::BoostSpec>::cnv).transpose()?)
                 .set_order_by(self.order_by)
                 .set_search_result_mode(self.search_result_mode)
-                .set_data_store_specs(
-                    self.data_store_specs
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                ),
+                .set_data_store_specs(self.data_store_specs.into_iter().map(gaxi::prost::FromProto::<crate::model::search_request::DataStoreSpec>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }
@@ -2701,11 +2835,11 @@ impl gaxi::prost::FromProto<crate::model::answer_query_request::search_spec::sea
                 .set_document(self.document)
                 .set_uri(self.uri)
                 .set_title(self.title)
-                .set_document_contexts(self.document_contexts.into_iter().map(|v| v.cnv())
+                .set_document_contexts(self.document_contexts.into_iter().map(gaxi::prost::FromProto::<crate::model::answer_query_request::search_spec::search_result_list::search_result::unstructured_document_info::DocumentContext>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_extractive_segments(self.extractive_segments.into_iter().map(|v| v.cnv())
+                .set_extractive_segments(self.extractive_segments.into_iter().map(gaxi::prost::FromProto::<crate::model::answer_query_request::search_spec::search_result_list::search_result::unstructured_document_info::ExtractiveSegment>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_extractive_answers(self.extractive_answers.into_iter().map(|v| v.cnv())
+                .set_extractive_answers(self.extractive_answers.into_iter().map(gaxi::prost::FromProto::<crate::model::answer_query_request::search_spec::search_result_list::search_result::unstructured_document_info::ExtractiveAnswer>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -2752,7 +2886,7 @@ impl gaxi::prost::FromProto<crate::model::answer_query_request::search_spec::sea
             crate::model::answer_query_request::search_spec::search_result_list::search_result::ChunkInfo::new()
                 .set_chunk(self.chunk)
                 .set_content(self.content)
-                .set_or_clear_document_metadata(self.document_metadata.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_document_metadata(self.document_metadata.map(gaxi::prost::FromProto::<crate::model::answer_query_request::search_spec::search_result_list::search_result::chunk_info::DocumentMetadata>::cnv).transpose()?)
         )
     }
 }
@@ -2787,10 +2921,8 @@ impl
     > {
         use crate::model::answer_query_request::search_spec::search_result_list::search_result::Content as T;
         match self {
-            Self::UnstructuredDocumentInfo(v) => {
-                Ok(T::UnstructuredDocumentInfo(std::boxed::Box::new(v.cnv()?)))
-            }
-            Self::ChunkInfo(v) => Ok(T::ChunkInfo(std::boxed::Box::new(v.cnv()?))),
+            Self::UnstructuredDocumentInfo(v) => Ok(T::UnstructuredDocumentInfo(std::boxed::Box::new(gaxi::prost::FromProto::<crate::model::answer_query_request::search_spec::search_result_list::search_result::UnstructuredDocumentInfo>::cnv(v)?))),
+            Self::ChunkInfo(v) => Ok(T::ChunkInfo(std::boxed::Box::new(gaxi::prost::FromProto::<crate::model::answer_query_request::search_spec::search_result_list::search_result::ChunkInfo>::cnv(v)?))),
         }
     }
 }
@@ -2825,9 +2957,8 @@ impl
         gaxi::prost::ConvertError,
     > {
         Ok(
-            crate::model::answer_query_request::search_spec::search_result_list::SearchResult::new(
-            )
-            .set_content(self.content.map(|v| v.cnv()).transpose()?),
+            crate::model::answer_query_request::search_spec::search_result_list::SearchResult::new()
+                .set_content(self.content.map(gaxi::prost::FromProto::<crate::model::answer_query_request::search_spec::search_result_list::search_result::Content>::cnv).transpose()?)
         )
     }
 }
@@ -2869,12 +3000,8 @@ impl gaxi::prost::FromProto<crate::model::answer_query_request::search_spec::Sea
     > {
         Ok(
             crate::model::answer_query_request::search_spec::SearchResultList::new()
-                .set_search_results(
-                    self.search_results
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                ),
+                .set_search_results(self.search_results.into_iter().map(gaxi::prost::FromProto::<crate::model::answer_query_request::search_spec::search_result_list::SearchResult>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }
@@ -2912,8 +3039,16 @@ impl gaxi::prost::FromProto<crate::model::answer_query_request::search_spec::Inp
     > {
         use crate::model::answer_query_request::search_spec::Input as T;
         match self {
-            Self::SearchParams(v) => Ok(T::SearchParams(std::boxed::Box::new(v.cnv()?))),
-            Self::SearchResultList(v) => Ok(T::SearchResultList(std::boxed::Box::new(v.cnv()?))),
+            Self::SearchParams(v) => Ok(T::SearchParams(std::boxed::Box::new(
+                gaxi::prost::FromProto::<
+                    crate::model::answer_query_request::search_spec::SearchParams,
+                >::cnv(v)?,
+            ))),
+            Self::SearchResultList(v) => Ok(T::SearchResultList(std::boxed::Box::new(
+                gaxi::prost::FromProto::<
+                    crate::model::answer_query_request::search_spec::SearchResultList,
+                >::cnv(v)?,
+            ))),
         }
     }
 }
@@ -2945,8 +3080,17 @@ impl gaxi::prost::FromProto<crate::model::answer_query_request::SearchSpec>
         crate::model::answer_query_request::SearchSpec,
         gaxi::prost::ConvertError,
     > {
-        Ok(crate::model::answer_query_request::SearchSpec::new()
-            .set_input(self.input.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::answer_query_request::SearchSpec::new().set_input(
+                self.input
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::answer_query_request::search_spec::Input,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ),
+        )
     }
 }
 
@@ -3060,7 +3204,7 @@ impl
             crate::model::answer_query_request::query_understanding_spec::QueryRephraserSpec::new()
                 .set_disable(self.disable)
                 .set_max_rephrase_steps(self.max_rephrase_steps)
-                .set_or_clear_model_spec(self.model_spec.map(|v| v.cnv()).transpose()?),
+                .set_or_clear_model_spec(self.model_spec.map(gaxi::prost::FromProto::<crate::model::answer_query_request::query_understanding_spec::query_rephraser_spec::ModelSpec>::cnv).transpose()?)
         )
     }
 }
@@ -3110,15 +3254,9 @@ impl gaxi::prost::FromProto<crate::model::answer_query_request::QueryUnderstandi
     > {
         Ok(
             crate::model::answer_query_request::QueryUnderstandingSpec::new()
-                .set_or_clear_query_classification_spec(
-                    self.query_classification_spec
-                        .map(|v| v.cnv())
-                        .transpose()?,
-                )
-                .set_or_clear_query_rephraser_spec(
-                    self.query_rephraser_spec.map(|v| v.cnv()).transpose()?,
-                )
-                .set_disable_spell_correction(self.disable_spell_correction),
+                .set_or_clear_query_classification_spec(self.query_classification_spec.map(gaxi::prost::FromProto::<crate::model::answer_query_request::query_understanding_spec::QueryClassificationSpec>::cnv).transpose()?)
+                .set_or_clear_query_rephraser_spec(self.query_rephraser_spec.map(gaxi::prost::FromProto::<crate::model::answer_query_request::query_understanding_spec::QueryRephraserSpec>::cnv).transpose()?)
+                .set_disable_spell_correction(self.disable_spell_correction)
         )
     }
 }
@@ -3176,9 +3314,7 @@ impl
         Ok(
             crate::model::answer_query_request::end_user_spec::end_user_meta_data::ChunkInfo::new()
                 .set_content(self.content)
-                .set_or_clear_document_metadata(
-                    self.document_metadata.map(|v| v.cnv()).transpose()?,
-                ),
+                .set_or_clear_document_metadata(self.document_metadata.map(gaxi::prost::FromProto::<crate::model::answer_query_request::end_user_spec::end_user_meta_data::chunk_info::DocumentMetadata>::cnv).transpose()?)
         )
     }
 }
@@ -3211,7 +3347,7 @@ impl
     > {
         use crate::model::answer_query_request::end_user_spec::end_user_meta_data::Content as T;
         match self {
-            Self::ChunkInfo(v) => Ok(T::ChunkInfo(std::boxed::Box::new(v.cnv()?))),
+            Self::ChunkInfo(v) => Ok(T::ChunkInfo(std::boxed::Box::new(gaxi::prost::FromProto::<crate::model::answer_query_request::end_user_spec::end_user_meta_data::ChunkInfo>::cnv(v)?))),
         }
     }
 }
@@ -3252,7 +3388,7 @@ impl gaxi::prost::FromProto<crate::model::answer_query_request::end_user_spec::E
     > {
         Ok(
             crate::model::answer_query_request::end_user_spec::EndUserMetaData::new()
-                .set_content(self.content.map(|v| v.cnv()).transpose()?),
+                .set_content(self.content.map(gaxi::prost::FromProto::<crate::model::answer_query_request::end_user_spec::end_user_meta_data::Content>::cnv).transpose()?)
         )
     }
 }
@@ -3295,7 +3431,11 @@ impl gaxi::prost::FromProto<crate::model::answer_query_request::EndUserSpec>
             crate::model::answer_query_request::EndUserSpec::new().set_end_user_metadata(
                 self.end_user_metadata
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::answer_query_request::end_user_spec::EndUserMetaData,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -3366,31 +3506,25 @@ impl gaxi::prost::FromProto<crate::model::AnswerQueryRequest> for AnswerQueryReq
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::AnswerQueryRequest, gaxi::prost::ConvertError> {
-        Ok(crate::model::AnswerQueryRequest::new()
-            .set_serving_config(self.serving_config)
-            .set_or_clear_query(self.query.map(|v| v.cnv()).transpose()?)
-            .set_session(self.session)
-            .set_or_clear_safety_spec(self.safety_spec.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_related_questions_spec(
-                self.related_questions_spec.map(|v| v.cnv()).transpose()?,
-            )
-            .set_or_clear_grounding_spec(self.grounding_spec.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_answer_generation_spec(
-                self.answer_generation_spec.map(|v| v.cnv()).transpose()?,
-            )
-            .set_or_clear_search_spec(self.search_spec.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_query_understanding_spec(
-                self.query_understanding_spec.map(|v| v.cnv()).transpose()?,
-            )
-            .set_asynchronous_mode(self.asynchronous_mode)
-            .set_user_pseudo_id(self.user_pseudo_id)
-            .set_user_labels(
-                self.user_labels
-                    .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
-                    .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            )
-            .set_or_clear_end_user_spec(self.end_user_spec.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::AnswerQueryRequest::new()
+                .set_serving_config(self.serving_config)
+                .set_or_clear_query(self.query.map(gaxi::prost::FromProto::<crate::model::Query>::cnv).transpose()?)
+                .set_session(self.session)
+                .set_or_clear_safety_spec(self.safety_spec.map(gaxi::prost::FromProto::<crate::model::answer_query_request::SafetySpec>::cnv).transpose()?)
+                .set_or_clear_related_questions_spec(self.related_questions_spec.map(gaxi::prost::FromProto::<crate::model::answer_query_request::RelatedQuestionsSpec>::cnv).transpose()?)
+                .set_or_clear_grounding_spec(self.grounding_spec.map(gaxi::prost::FromProto::<crate::model::answer_query_request::GroundingSpec>::cnv).transpose()?)
+                .set_or_clear_answer_generation_spec(self.answer_generation_spec.map(gaxi::prost::FromProto::<crate::model::answer_query_request::AnswerGenerationSpec>::cnv).transpose()?)
+                .set_or_clear_search_spec(self.search_spec.map(gaxi::prost::FromProto::<crate::model::answer_query_request::SearchSpec>::cnv).transpose()?)
+                .set_or_clear_query_understanding_spec(self.query_understanding_spec.map(gaxi::prost::FromProto::<crate::model::answer_query_request::QueryUnderstandingSpec>::cnv).transpose()?)
+                .set_asynchronous_mode(self.asynchronous_mode)
+                .set_user_pseudo_id(self.user_pseudo_id)
+                .set_user_labels(self.user_labels.into_iter()
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<std::string::String>::cnv(v))
+                    }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+                .set_or_clear_end_user_spec(self.end_user_spec.map(gaxi::prost::FromProto::<crate::model::answer_query_request::EndUserSpec>::cnv).transpose()?)
+        )
     }
 }
 
@@ -3420,8 +3554,16 @@ impl gaxi::prost::FromProto<crate::model::AnswerQueryResponse> for AnswerQueryRe
         self,
     ) -> std::result::Result<crate::model::AnswerQueryResponse, gaxi::prost::ConvertError> {
         Ok(crate::model::AnswerQueryResponse::new()
-            .set_or_clear_answer(self.answer.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_session(self.session.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_answer(
+                self.answer
+                    .map(gaxi::prost::FromProto::<crate::model::Answer>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_session(
+                self.session
+                    .map(gaxi::prost::FromProto::<crate::model::Session>::cnv)
+                    .transpose()?,
+            )
             .set_answer_query_token(self.answer_query_token))
     }
 }
@@ -3452,7 +3594,9 @@ impl gaxi::prost::FromProto<crate::model::grounded_generation_content::part::Dat
     > {
         use crate::model::grounded_generation_content::part::Data as T;
         match self {
-            Self::Text(v) => Ok(T::Text(v.cnv()?)),
+            Self::Text(v) => Ok(T::Text(gaxi::prost::FromProto::<std::string::String>::cnv(
+                v,
+            )?)),
         }
     }
 }
@@ -3484,8 +3628,17 @@ impl gaxi::prost::FromProto<crate::model::grounded_generation_content::Part>
         crate::model::grounded_generation_content::Part,
         gaxi::prost::ConvertError,
     > {
-        Ok(crate::model::grounded_generation_content::Part::new()
-            .set_data(self.data.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::grounded_generation_content::Part::new().set_data(
+                self.data
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::grounded_generation_content::part::Data,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ),
+        )
     }
 }
 
@@ -3510,14 +3663,12 @@ impl gaxi::prost::FromProto<crate::model::GroundedGenerationContent> for Grounde
         self,
     ) -> std::result::Result<crate::model::GroundedGenerationContent, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::GroundedGenerationContent::new()
-            .set_role(self.role)
-            .set_parts(
-                self.parts
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            ))
+        Ok(
+            crate::model::GroundedGenerationContent::new()
+                .set_role(self.role)
+                .set_parts(self.parts.into_iter().map(gaxi::prost::FromProto::<crate::model::grounded_generation_content::Part>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
     }
 }
 
@@ -3583,16 +3734,40 @@ impl gaxi::prost::FromProto<crate::model::generate_grounded_content_request::Gen
             crate::model::generate_grounded_content_request::GenerationSpec::new()
                 .set_model_id(self.model_id)
                 .set_language_code(self.language_code)
-                .set_or_clear_temperature(self.temperature.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_top_p(self.top_p.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_top_k(self.top_k.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_frequency_penalty(
-                    self.frequency_penalty.map(|v| v.cnv()).transpose()?,
+                .set_or_clear_temperature(
+                    self.temperature
+                        .map(gaxi::prost::FromProto::<f32>::cnv)
+                        .transpose()?,
                 )
-                .set_or_clear_seed(self.seed.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_presence_penalty(self.presence_penalty.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_top_p(
+                    self.top_p
+                        .map(gaxi::prost::FromProto::<f32>::cnv)
+                        .transpose()?,
+                )
+                .set_or_clear_top_k(
+                    self.top_k
+                        .map(gaxi::prost::FromProto::<i32>::cnv)
+                        .transpose()?,
+                )
+                .set_or_clear_frequency_penalty(
+                    self.frequency_penalty
+                        .map(gaxi::prost::FromProto::<f32>::cnv)
+                        .transpose()?,
+                )
+                .set_or_clear_seed(
+                    self.seed
+                        .map(gaxi::prost::FromProto::<i32>::cnv)
+                        .transpose()?,
+                )
+                .set_or_clear_presence_penalty(
+                    self.presence_penalty
+                        .map(gaxi::prost::FromProto::<f32>::cnv)
+                        .transpose()?,
+                )
                 .set_or_clear_max_output_tokens(
-                    self.max_output_tokens.map(|v| v.cnv()).transpose()?,
+                    self.max_output_tokens
+                        .map(gaxi::prost::FromProto::<i32>::cnv)
+                        .transpose()?,
                 ),
         )
     }
@@ -3623,7 +3798,7 @@ impl gaxi::prost::FromProto<crate::model::generate_grounded_content_request::dyn
         Ok(
             crate::model::generate_grounded_content_request::dynamic_retrieval_configuration::DynamicRetrievalPredictor::new()
                 .set_version(self.version)
-                .set_or_clear_threshold(self.threshold.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_threshold(self.threshold.map(gaxi::prost::FromProto::<f32>::cnv).transpose()?)
         )
     }
 }
@@ -3659,7 +3834,7 @@ impl
     > {
         Ok(
             crate::model::generate_grounded_content_request::DynamicRetrievalConfiguration::new()
-                .set_or_clear_predictor(self.predictor.map(|v| v.cnv()).transpose()?),
+                .set_or_clear_predictor(self.predictor.map(gaxi::prost::FromProto::<crate::model::generate_grounded_content_request::dynamic_retrieval_configuration::DynamicRetrievalPredictor>::cnv).transpose()?)
         )
     }
 }
@@ -3712,13 +3887,18 @@ impl
                 .set_grounding_facts(
                     self.grounding_facts
                         .into_iter()
-                        .map(|v| v.cnv())
+                        .map(gaxi::prost::FromProto::<crate::model::GroundingFact>::cnv)
                         .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
                 )
                 .set_attributes(
                     self.attributes
                         .into_iter()
-                        .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                        .map(|(k, v)| {
+                            gaxi::prost::pair_transpose(
+                                gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                                gaxi::prost::FromProto::<std::string::String>::cnv(v),
+                            )
+                        })
                         .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
                 ),
         )
@@ -3807,7 +3987,7 @@ impl
     > {
         Ok(
             crate::model::generate_grounded_content_request::grounding_source::GoogleSearchSource::new()
-                .set_or_clear_dynamic_retrieval_config(self.dynamic_retrieval_config.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_dynamic_retrieval_config(self.dynamic_retrieval_config.map(gaxi::prost::FromProto::<crate::model::generate_grounded_content_request::DynamicRetrievalConfiguration>::cnv).transpose()?)
         )
     }
 }
@@ -3859,14 +4039,10 @@ impl
     > {
         use crate::model::generate_grounded_content_request::grounding_source::Source as T;
         match self {
-            Self::InlineSource(v) => Ok(T::InlineSource(std::boxed::Box::new(v.cnv()?))),
-            Self::SearchSource(v) => Ok(T::SearchSource(std::boxed::Box::new(v.cnv()?))),
-            Self::GoogleSearchSource(v) => {
-                Ok(T::GoogleSearchSource(std::boxed::Box::new(v.cnv()?)))
-            }
-            Self::EnterpriseWebRetrievalSource(v) => Ok(T::EnterpriseWebRetrievalSource(
-                std::boxed::Box::new(v.cnv()?),
-            )),
+            Self::InlineSource(v) => Ok(T::InlineSource(std::boxed::Box::new(gaxi::prost::FromProto::<crate::model::generate_grounded_content_request::grounding_source::InlineSource>::cnv(v)?))),
+            Self::SearchSource(v) => Ok(T::SearchSource(std::boxed::Box::new(gaxi::prost::FromProto::<crate::model::generate_grounded_content_request::grounding_source::SearchSource>::cnv(v)?))),
+            Self::GoogleSearchSource(v) => Ok(T::GoogleSearchSource(std::boxed::Box::new(gaxi::prost::FromProto::<crate::model::generate_grounded_content_request::grounding_source::GoogleSearchSource>::cnv(v)?))),
+            Self::EnterpriseWebRetrievalSource(v) => Ok(T::EnterpriseWebRetrievalSource(std::boxed::Box::new(gaxi::prost::FromProto::<crate::model::generate_grounded_content_request::grounding_source::EnterpriseWebRetrievalSource>::cnv(v)?))),
         }
     }
 }
@@ -3907,7 +4083,7 @@ impl gaxi::prost::FromProto<crate::model::generate_grounded_content_request::Gro
     > {
         Ok(
             crate::model::generate_grounded_content_request::GroundingSource::new()
-                .set_source(self.source.map(|v| v.cnv()).transpose()?),
+                .set_source(self.source.map(gaxi::prost::FromProto::<crate::model::generate_grounded_content_request::grounding_source::Source>::cnv).transpose()?)
         )
     }
 }
@@ -3954,7 +4130,11 @@ impl gaxi::prost::FromProto<crate::model::generate_grounded_content_request::Gro
                 .set_grounding_sources(
                     self.grounding_sources
                         .into_iter()
-                        .map(|v| v.cnv())
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::generate_grounded_content_request::GroundingSource,
+                            >::cnv,
+                        )
                         .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
                 ),
         )
@@ -3997,19 +4177,44 @@ impl gaxi::prost::FromProto<crate::model::GenerateGroundedContentRequest>
     {
         Ok(crate::model::GenerateGroundedContentRequest::new()
             .set_location(self.location)
-            .set_or_clear_system_instruction(self.system_instruction.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_system_instruction(
+                self.system_instruction
+                    .map(gaxi::prost::FromProto::<crate::model::GroundedGenerationContent>::cnv)
+                    .transpose()?,
+            )
             .set_contents(
                 self.contents
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::GroundedGenerationContent>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_generation_spec(self.generation_spec.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_grounding_spec(self.grounding_spec.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_generation_spec(
+                self.generation_spec
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::generate_grounded_content_request::GenerationSpec,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            )
+            .set_or_clear_grounding_spec(
+                self.grounding_spec
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::generate_grounded_content_request::GroundingSpec,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            )
             .set_user_labels(
                 self.user_labels
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<std::string::String>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             ))
     }
@@ -4040,7 +4245,7 @@ impl gaxi::prost::FromProto<crate::model::generate_grounded_content_response::ca
         Ok(
             crate::model::generate_grounded_content_response::candidate::grounding_metadata::RetrievalMetadata::new()
                 .set_source(self.source)
-                .set_or_clear_dynamic_retrieval_metadata(self.dynamic_retrieval_metadata.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_dynamic_retrieval_metadata(self.dynamic_retrieval_metadata.map(gaxi::prost::FromProto::<crate::model::generate_grounded_content_response::candidate::grounding_metadata::DynamicRetrievalMetadata>::cnv).transpose()?)
         )
     }
 }
@@ -4060,7 +4265,7 @@ impl gaxi::prost::FromProto<crate::model::generate_grounded_content_response::ca
     fn cnv(self) -> std::result::Result<crate::model::generate_grounded_content_response::candidate::grounding_metadata::DynamicRetrievalMetadata, gaxi::prost::ConvertError> {
         Ok(
             crate::model::generate_grounded_content_response::candidate::grounding_metadata::DynamicRetrievalMetadata::new()
-                .set_or_clear_predictor_metadata(self.predictor_metadata.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_predictor_metadata(self.predictor_metadata.map(gaxi::prost::FromProto::<crate::model::generate_grounded_content_response::candidate::grounding_metadata::DynamicRetrievalPredictorMetadata>::cnv).transpose()?)
         )
     }
 }
@@ -4090,7 +4295,7 @@ impl gaxi::prost::FromProto<crate::model::generate_grounded_content_response::ca
         Ok(
             crate::model::generate_grounded_content_response::candidate::grounding_metadata::DynamicRetrievalPredictorMetadata::new()
                 .set_version(self.version)
-                .set_or_clear_prediction(self.prediction.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_prediction(self.prediction.map(gaxi::prost::FromProto::<f32>::cnv).transpose()?)
         )
     }
 }
@@ -4138,9 +4343,9 @@ impl gaxi::prost::FromProto<crate::model::generate_grounded_content_response::ca
         Ok(
             crate::model::generate_grounded_content_response::candidate::grounding_metadata::GroundingSupport::new()
                 .set_claim_text(self.claim_text)
-                .set_support_chunk_indices(self.support_chunk_indices.into_iter().map(|v| v.cnv())
+                .set_support_chunk_indices(self.support_chunk_indices.into_iter().map(gaxi::prost::FromProto::<i32>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_support_score(self.support_score.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_support_score(self.support_score.map(gaxi::prost::FromProto::<f32>::cnv).transpose()?)
         )
     }
 }
@@ -4208,9 +4413,9 @@ impl gaxi::prost::FromProto<crate::model::generate_grounded_content_response::ca
     fn cnv(self) -> std::result::Result<crate::model::generate_grounded_content_response::candidate::grounding_metadata::ImageMetadata, gaxi::prost::ConvertError> {
         Ok(
             crate::model::generate_grounded_content_response::candidate::grounding_metadata::ImageMetadata::new()
-                .set_or_clear_image(self.image.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_thumbnail(self.thumbnail.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_source(self.source.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_image(self.image.map(gaxi::prost::FromProto::<crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::Image>::cnv).transpose()?)
+                .set_or_clear_thumbnail(self.thumbnail.map(gaxi::prost::FromProto::<crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::Image>::cnv).transpose()?)
+                .set_or_clear_source(self.source.map(gaxi::prost::FromProto::<crate::model::generate_grounded_content_response::candidate::grounding_metadata::image_metadata::WebsiteInfo>::cnv).transpose()?)
         )
     }
 }
@@ -4266,39 +4471,17 @@ impl
     > {
         Ok(
             crate::model::generate_grounded_content_response::candidate::GroundingMetadata::new()
-                .set_retrieval_metadata(
-                    self.retrieval_metadata
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                )
-                .set_support_chunks(
-                    self.support_chunks
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                )
-                .set_web_search_queries(
-                    self.web_search_queries
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                )
-                .set_or_clear_search_entry_point(
-                    self.search_entry_point.map(|v| v.cnv()).transpose()?,
-                )
-                .set_grounding_support(
-                    self.grounding_support
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                )
-                .set_images(
-                    self.images
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                ),
+                .set_retrieval_metadata(self.retrieval_metadata.into_iter().map(gaxi::prost::FromProto::<crate::model::generate_grounded_content_response::candidate::grounding_metadata::RetrievalMetadata>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_support_chunks(self.support_chunks.into_iter().map(gaxi::prost::FromProto::<crate::model::FactChunk>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_web_search_queries(self.web_search_queries.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_search_entry_point(self.search_entry_point.map(gaxi::prost::FromProto::<crate::model::generate_grounded_content_response::candidate::grounding_metadata::SearchEntryPoint>::cnv).transpose()?)
+                .set_grounding_support(self.grounding_support.into_iter().map(gaxi::prost::FromProto::<crate::model::generate_grounded_content_response::candidate::grounding_metadata::GroundingSupport>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_images(self.images.into_iter().map(gaxi::prost::FromProto::<crate::model::generate_grounded_content_response::candidate::grounding_metadata::ImageMetadata>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }
@@ -4347,11 +4530,9 @@ impl gaxi::prost::FromProto<crate::model::generate_grounded_content_response::Ca
         Ok(
             crate::model::generate_grounded_content_response::Candidate::new()
                 .set_index(self.index)
-                .set_or_clear_content(self.content.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_grounding_score(self.grounding_score.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_grounding_metadata(
-                    self.grounding_metadata.map(|v| v.cnv()).transpose()?,
-                ),
+                .set_or_clear_content(self.content.map(gaxi::prost::FromProto::<crate::model::GroundedGenerationContent>::cnv).transpose()?)
+                .set_or_clear_grounding_score(self.grounding_score.map(gaxi::prost::FromProto::<f32>::cnv).transpose()?)
+                .set_or_clear_grounding_metadata(self.grounding_metadata.map(gaxi::prost::FromProto::<crate::model::generate_grounded_content_response::candidate::GroundingMetadata>::cnv).transpose()?)
         )
     }
 }
@@ -4388,7 +4569,11 @@ impl gaxi::prost::FromProto<crate::model::GenerateGroundedContentResponse>
             crate::model::GenerateGroundedContentResponse::new().set_candidates(
                 self.candidates
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::generate_grounded_content_response::Candidate,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -4423,7 +4608,12 @@ impl gaxi::prost::FromProto<crate::model::GroundingFact> for GroundingFact {
             .set_attributes(
                 self.attributes
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<std::string::String>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             ))
     }
@@ -4464,7 +4654,12 @@ impl gaxi::prost::FromProto<crate::model::FactChunk> for FactChunk {
             .set_source_metadata(
                 self.source_metadata
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<std::string::String>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             )
             .set_uri(self.uri)
@@ -4565,7 +4760,9 @@ impl gaxi::prost::FromProto<crate::model::search_request::image_query::Image>
     > {
         use crate::model::search_request::image_query::Image as T;
         match self {
-            Self::ImageBytes(v) => Ok(T::ImageBytes(v.cnv()?)),
+            Self::ImageBytes(v) => Ok(T::ImageBytes(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
         }
     }
 }
@@ -4603,8 +4800,13 @@ impl gaxi::prost::FromProto<crate::model::search_request::ImageQuery>
         self,
     ) -> std::result::Result<crate::model::search_request::ImageQuery, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::search_request::ImageQuery::new()
-            .set_image(self.image.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::search_request::ImageQuery::new().set_image(
+            self.image
+                .map(
+                    gaxi::prost::FromProto::<crate::model::search_request::image_query::Image>::cnv,
+                )
+                .transpose()?,
+        ))
     }
 }
 
@@ -4652,7 +4854,11 @@ impl gaxi::prost::FromProto<crate::model::search_request::DataStoreSpec>
         Ok(crate::model::search_request::DataStoreSpec::new()
             .set_data_store(self.data_store)
             .set_filter(self.filter)
-            .set_or_clear_boost_spec(self.boost_spec.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_boost_spec(
+                self.boost_spec
+                    .map(gaxi::prost::FromProto::<crate::model::search_request::BoostSpec>::cnv)
+                    .transpose()?,
+            )
             .set_custom_search_operators(self.custom_search_operators)
             .set_num_results(self.num_results))
     }
@@ -4719,25 +4925,25 @@ impl gaxi::prost::FromProto<crate::model::search_request::facet_spec::FacetKey>
             .set_intervals(
                 self.intervals
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::Interval>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_restricted_values(
                 self.restricted_values
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_prefixes(
                 self.prefixes
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_contains(
                 self.contains
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_case_insensitive(self.case_insensitive)
@@ -4783,16 +4989,26 @@ impl gaxi::prost::FromProto<crate::model::search_request::FacetSpec> for search_
         self,
     ) -> std::result::Result<crate::model::search_request::FacetSpec, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::search_request::FacetSpec::new()
-            .set_or_clear_facet_key(self.facet_key.map(|v| v.cnv()).transpose()?)
-            .set_limit(self.limit)
-            .set_excluded_filter_keys(
-                self.excluded_filter_keys
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_enable_dynamic_position(self.enable_dynamic_position))
+        Ok(
+            crate::model::search_request::FacetSpec::new()
+                .set_or_clear_facet_key(
+                    self.facet_key
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::search_request::facet_spec::FacetKey,
+                            >::cnv,
+                        )
+                        .transpose()?,
+                )
+                .set_limit(self.limit)
+                .set_excluded_filter_keys(
+                    self.excluded_filter_keys
+                        .into_iter()
+                        .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+                )
+                .set_enable_dynamic_position(self.enable_dynamic_position),
+        )
     }
 }
 
@@ -4904,12 +5120,8 @@ impl
                 .set_field_name(self.field_name)
                 .set_attribute_type(self.attribute_type)
                 .set_interpolation_type(self.interpolation_type)
-                .set_control_points(
-                    self.control_points
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                ),
+                .set_control_points(self.control_points.into_iter().map(gaxi::prost::FromProto::<crate::model::search_request::boost_spec::condition_boost_spec::boost_control_spec::ControlPoint>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }
@@ -4964,9 +5176,7 @@ impl gaxi::prost::FromProto<crate::model::search_request::boost_spec::ConditionB
             crate::model::search_request::boost_spec::ConditionBoostSpec::new()
                 .set_condition(self.condition)
                 .set_boost(self.boost)
-                .set_or_clear_boost_control_spec(
-                    self.boost_control_spec.map(|v| v.cnv()).transpose()?,
-                ),
+                .set_or_clear_boost_control_spec(self.boost_control_spec.map(gaxi::prost::FromProto::<crate::model::search_request::boost_spec::condition_boost_spec::BoostControlSpec>::cnv).transpose()?)
         )
     }
 }
@@ -5004,7 +5214,11 @@ impl gaxi::prost::FromProto<crate::model::search_request::BoostSpec> for search_
             crate::model::search_request::BoostSpec::new().set_condition_boost_specs(
                 self.condition_boost_specs
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::search_request::boost_spec::ConditionBoostSpec,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -5351,12 +5565,10 @@ impl gaxi::prost::FromProto<crate::model::search_request::content_search_spec::S
                 .set_ignore_non_summary_seeking_query(self.ignore_non_summary_seeking_query)
                 .set_ignore_low_relevant_content(self.ignore_low_relevant_content)
                 .set_ignore_jail_breaking_query(self.ignore_jail_breaking_query)
-                .set_or_clear_model_prompt_spec(
-                    self.model_prompt_spec.map(|v| v.cnv()).transpose()?,
-                )
+                .set_or_clear_model_prompt_spec(self.model_prompt_spec.map(gaxi::prost::FromProto::<crate::model::search_request::content_search_spec::summary_spec::ModelPromptSpec>::cnv).transpose()?)
                 .set_language_code(self.language_code)
-                .set_or_clear_model_spec(self.model_spec.map(|v| v.cnv()).transpose()?)
-                .set_use_semantic_chunks(self.use_semantic_chunks),
+                .set_or_clear_model_spec(self.model_spec.map(gaxi::prost::FromProto::<crate::model::search_request::content_search_spec::summary_spec::ModelSpec>::cnv).transpose()?)
+                .set_use_semantic_chunks(self.use_semantic_chunks)
         )
     }
 }
@@ -5524,14 +5736,14 @@ impl gaxi::prost::FromProto<crate::model::search_request::ContentSearchSpec>
         crate::model::search_request::ContentSearchSpec,
         gaxi::prost::ConvertError,
     > {
-        Ok(crate::model::search_request::ContentSearchSpec::new()
-            .set_or_clear_snippet_spec(self.snippet_spec.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_summary_spec(self.summary_spec.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_extractive_content_spec(
-                self.extractive_content_spec.map(|v| v.cnv()).transpose()?,
-            )
-            .set_search_result_mode(self.search_result_mode)
-            .set_or_clear_chunk_spec(self.chunk_spec.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::search_request::ContentSearchSpec::new()
+                .set_or_clear_snippet_spec(self.snippet_spec.map(gaxi::prost::FromProto::<crate::model::search_request::content_search_spec::SnippetSpec>::cnv).transpose()?)
+                .set_or_clear_summary_spec(self.summary_spec.map(gaxi::prost::FromProto::<crate::model::search_request::content_search_spec::SummarySpec>::cnv).transpose()?)
+                .set_or_clear_extractive_content_spec(self.extractive_content_spec.map(gaxi::prost::FromProto::<crate::model::search_request::content_search_spec::ExtractiveContentSpec>::cnv).transpose()?)
+                .set_search_result_mode(self.search_result_mode)
+                .set_or_clear_chunk_spec(self.chunk_spec.map(gaxi::prost::FromProto::<crate::model::search_request::content_search_spec::ChunkSpec>::cnv).transpose()?)
+        )
     }
 }
 
@@ -5613,14 +5825,14 @@ impl gaxi::prost::FromProto<crate::model::search_request::NaturalLanguageQueryUn
                 .set_geo_search_query_detection_field_names(
                     self.geo_search_query_detection_field_names
                         .into_iter()
-                        .map(|v| v.cnv())
+                        .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                         .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
                 )
                 .set_extracted_filter_behavior(self.extracted_filter_behavior)
                 .set_allowed_field_names(
                     self.allowed_field_names
                         .into_iter()
-                        .map(|v| v.cnv())
+                        .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                         .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
                 ),
         )
@@ -5671,7 +5883,11 @@ impl gaxi::prost::FromProto<crate::model::search_request::search_as_you_type_spe
         Ok(
             crate::model::search_request::search_as_you_type_spec::Field::new()
                 .set_key(self.key)
-                .set_or_clear_weight(self.weight.map(|v| v.cnv()).transpose()?),
+                .set_or_clear_weight(
+                    self.weight
+                        .map(gaxi::prost::FromProto::<f64>::cnv)
+                        .transpose()?,
+                ),
         )
     }
 }
@@ -5738,10 +5954,18 @@ impl gaxi::prost::FromProto<crate::model::search_request::SearchAsYouTypeSpec>
             .set_fields(
                 self.fields
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::search_request::search_as_you_type_spec::Field,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_score_threshold(self.score_threshold.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_score_threshold(
+                self.score_threshold
+                    .map(gaxi::prost::FromProto::<f64>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -5903,7 +6127,7 @@ impl gaxi::prost::FromProto<crate::model::search_request::SessionSpec>
             .set_query_id(self.query_id)
             .set_or_clear_search_result_persistence_count(
                 self.search_result_persistence_count
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<i32>::cnv)
                     .transpose()?,
             ))
     }
@@ -5936,7 +6160,7 @@ impl gaxi::prost::FromProto<crate::model::search_request::relevance_filter_spec:
         use crate::model::search_request::relevance_filter_spec::relevance_threshold_spec::RelevanceThresholdSpec as T;
         match self {
             Self::RelevanceThreshold(v) => Ok(T::RelevanceThreshold(v.into())),
-            Self::SemanticRelevanceThreshold(v) => Ok(T::SemanticRelevanceThreshold(v.cnv()?)),
+            Self::SemanticRelevanceThreshold(v) => Ok(T::SemanticRelevanceThreshold(gaxi::prost::FromProto::<f32>::cnv(v)?)),
         }
     }
 }
@@ -5982,9 +6206,7 @@ impl
     > {
         Ok(
             crate::model::search_request::relevance_filter_spec::RelevanceThresholdSpec::new()
-                .set_relevance_threshold_spec(
-                    self.relevance_threshold_spec.map(|v| v.cnv()).transpose()?,
-                ),
+                .set_relevance_threshold_spec(self.relevance_threshold_spec.map(gaxi::prost::FromProto::<crate::model::search_request::relevance_filter_spec::relevance_threshold_spec::RelevanceThresholdSpec>::cnv).transpose()?)
         )
     }
 }
@@ -6038,15 +6260,11 @@ impl gaxi::prost::FromProto<crate::model::search_request::RelevanceFilterSpec>
         crate::model::search_request::RelevanceFilterSpec,
         gaxi::prost::ConvertError,
     > {
-        Ok(crate::model::search_request::RelevanceFilterSpec::new()
-            .set_or_clear_keyword_search_threshold(
-                self.keyword_search_threshold.map(|v| v.cnv()).transpose()?,
-            )
-            .set_or_clear_semantic_search_threshold(
-                self.semantic_search_threshold
-                    .map(|v| v.cnv())
-                    .transpose()?,
-            ))
+        Ok(
+            crate::model::search_request::RelevanceFilterSpec::new()
+                .set_or_clear_keyword_search_threshold(self.keyword_search_threshold.map(gaxi::prost::FromProto::<crate::model::search_request::relevance_filter_spec::RelevanceThresholdSpec>::cnv).transpose()?)
+                .set_or_clear_semantic_search_threshold(self.semantic_search_threshold.map(gaxi::prost::FromProto::<crate::model::search_request::relevance_filter_spec::RelevanceThresholdSpec>::cnv).transpose()?)
+        )
     }
 }
 
@@ -6180,7 +6398,7 @@ impl gaxi::prost::FromProto<crate::model::search_request::CustomRankingParams>
             crate::model::search_request::CustomRankingParams::new().set_expressions_to_precompute(
                 self.expressions_to_precompute
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -6385,94 +6603,58 @@ impl gaxi::prost::ToProto<SearchRequest> for crate::model::SearchRequest {
 ))]
 impl gaxi::prost::FromProto<crate::model::SearchRequest> for SearchRequest {
     fn cnv(self) -> std::result::Result<crate::model::SearchRequest, gaxi::prost::ConvertError> {
-        Ok(crate::model::SearchRequest::new()
-            .set_serving_config(self.serving_config)
-            .set_branch(self.branch)
-            .set_query(self.query)
-            .set_page_categories(
-                self.page_categories
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_or_clear_image_query(self.image_query.map(|v| v.cnv()).transpose()?)
-            .set_page_size(self.page_size)
-            .set_page_token(self.page_token)
-            .set_offset(self.offset)
-            .set_one_box_page_size(self.one_box_page_size)
-            .set_data_store_specs(
-                self.data_store_specs
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_num_results_per_data_store(self.num_results_per_data_store)
-            .set_filter(self.filter)
-            .set_canonical_filter(self.canonical_filter)
-            .set_order_by(self.order_by)
-            .set_or_clear_user_info(self.user_info.map(|v| v.cnv()).transpose()?)
-            .set_language_code(self.language_code)
-            .set_facet_specs(
-                self.facet_specs
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_or_clear_boost_spec(self.boost_spec.map(|v| v.cnv()).transpose()?)
-            .set_params(
-                self.params
-                    .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
-                    .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            )
-            .set_or_clear_query_expansion_spec(
-                self.query_expansion_spec.map(|v| v.cnv()).transpose()?,
-            )
-            .set_or_clear_spell_correction_spec(
-                self.spell_correction_spec.map(|v| v.cnv()).transpose()?,
-            )
-            .set_user_pseudo_id(self.user_pseudo_id)
-            .set_or_clear_content_search_spec(
-                self.content_search_spec.map(|v| v.cnv()).transpose()?,
-            )
-            .set_ranking_expression(self.ranking_expression)
-            .set_ranking_expression_backend(self.ranking_expression_backend)
-            .set_safe_search(self.safe_search)
-            .set_user_labels(
-                self.user_labels
-                    .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
-                    .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            )
-            .set_or_clear_natural_language_query_understanding_spec(
-                self.natural_language_query_understanding_spec
-                    .map(|v| v.cnv())
-                    .transpose()?,
-            )
-            .set_or_clear_search_as_you_type_spec(
-                self.search_as_you_type_spec.map(|v| v.cnv()).transpose()?,
-            )
-            .set_or_clear_display_spec(self.display_spec.map(|v| v.cnv()).transpose()?)
-            .set_crowding_specs(
-                self.crowding_specs
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_session(self.session)
-            .set_or_clear_session_spec(self.session_spec.map(|v| v.cnv()).transpose()?)
-            .set_relevance_threshold(self.relevance_threshold)
-            .set_or_clear_relevance_filter_spec(
-                self.relevance_filter_spec.map(|v| v.cnv()).transpose()?,
-            )
-            .set_or_clear_relevance_score_spec(
-                self.relevance_score_spec.map(|v| v.cnv()).transpose()?,
-            )
-            .set_or_clear_search_addon_spec(self.search_addon_spec.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_custom_ranking_params(
-                self.custom_ranking_params.map(|v| v.cnv()).transpose()?,
-            )
-            .set_entity(self.entity))
+        Ok(
+            crate::model::SearchRequest::new()
+                .set_serving_config(self.serving_config)
+                .set_branch(self.branch)
+                .set_query(self.query)
+                .set_page_categories(self.page_categories.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_image_query(self.image_query.map(gaxi::prost::FromProto::<crate::model::search_request::ImageQuery>::cnv).transpose()?)
+                .set_page_size(self.page_size)
+                .set_page_token(self.page_token)
+                .set_offset(self.offset)
+                .set_one_box_page_size(self.one_box_page_size)
+                .set_data_store_specs(self.data_store_specs.into_iter().map(gaxi::prost::FromProto::<crate::model::search_request::DataStoreSpec>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_num_results_per_data_store(self.num_results_per_data_store)
+                .set_filter(self.filter)
+                .set_canonical_filter(self.canonical_filter)
+                .set_order_by(self.order_by)
+                .set_or_clear_user_info(self.user_info.map(gaxi::prost::FromProto::<crate::model::UserInfo>::cnv).transpose()?)
+                .set_language_code(self.language_code)
+                .set_facet_specs(self.facet_specs.into_iter().map(gaxi::prost::FromProto::<crate::model::search_request::FacetSpec>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_boost_spec(self.boost_spec.map(gaxi::prost::FromProto::<crate::model::search_request::BoostSpec>::cnv).transpose()?)
+                .set_params(self.params.into_iter()
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<wkt::Value>::cnv(v))
+                    }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+                .set_or_clear_query_expansion_spec(self.query_expansion_spec.map(gaxi::prost::FromProto::<crate::model::search_request::QueryExpansionSpec>::cnv).transpose()?)
+                .set_or_clear_spell_correction_spec(self.spell_correction_spec.map(gaxi::prost::FromProto::<crate::model::search_request::SpellCorrectionSpec>::cnv).transpose()?)
+                .set_user_pseudo_id(self.user_pseudo_id)
+                .set_or_clear_content_search_spec(self.content_search_spec.map(gaxi::prost::FromProto::<crate::model::search_request::ContentSearchSpec>::cnv).transpose()?)
+                .set_ranking_expression(self.ranking_expression)
+                .set_ranking_expression_backend(self.ranking_expression_backend)
+                .set_safe_search(self.safe_search)
+                .set_user_labels(self.user_labels.into_iter()
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<std::string::String>::cnv(v))
+                    }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+                .set_or_clear_natural_language_query_understanding_spec(self.natural_language_query_understanding_spec.map(gaxi::prost::FromProto::<crate::model::search_request::NaturalLanguageQueryUnderstandingSpec>::cnv).transpose()?)
+                .set_or_clear_search_as_you_type_spec(self.search_as_you_type_spec.map(gaxi::prost::FromProto::<crate::model::search_request::SearchAsYouTypeSpec>::cnv).transpose()?)
+                .set_or_clear_display_spec(self.display_spec.map(gaxi::prost::FromProto::<crate::model::search_request::DisplaySpec>::cnv).transpose()?)
+                .set_crowding_specs(self.crowding_specs.into_iter().map(gaxi::prost::FromProto::<crate::model::search_request::CrowdingSpec>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_session(self.session)
+                .set_or_clear_session_spec(self.session_spec.map(gaxi::prost::FromProto::<crate::model::search_request::SessionSpec>::cnv).transpose()?)
+                .set_relevance_threshold(self.relevance_threshold)
+                .set_or_clear_relevance_filter_spec(self.relevance_filter_spec.map(gaxi::prost::FromProto::<crate::model::search_request::RelevanceFilterSpec>::cnv).transpose()?)
+                .set_or_clear_relevance_score_spec(self.relevance_score_spec.map(gaxi::prost::FromProto::<crate::model::search_request::RelevanceScoreSpec>::cnv).transpose()?)
+                .set_or_clear_search_addon_spec(self.search_addon_spec.map(gaxi::prost::FromProto::<crate::model::search_request::SearchAddonSpec>::cnv).transpose()?)
+                .set_or_clear_custom_ranking_params(self.custom_ranking_params.map(gaxi::prost::FromProto::<crate::model::search_request::CustomRankingParams>::cnv).transpose()?)
+                .set_entity(self.entity)
+        )
     }
 }
 
@@ -6512,16 +6694,31 @@ impl gaxi::prost::ToProto<session::Turn> for crate::model::session::Turn {
 impl gaxi::prost::FromProto<crate::model::session::Turn> for session::Turn {
     fn cnv(self) -> std::result::Result<crate::model::session::Turn, gaxi::prost::ConvertError> {
         Ok(crate::model::session::Turn::new()
-            .set_or_clear_query(self.query.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_query(
+                self.query
+                    .map(gaxi::prost::FromProto::<crate::model::Query>::cnv)
+                    .transpose()?,
+            )
             .set_answer(self.answer)
-            .set_or_clear_detailed_answer(self.detailed_answer.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_detailed_answer(
+                self.detailed_answer
+                    .map(gaxi::prost::FromProto::<crate::model::Answer>::cnv)
+                    .transpose()?,
+            )
             .set_or_clear_detailed_assist_answer(
-                self.detailed_assist_answer.map(|v| v.cnv()).transpose()?,
+                self.detailed_assist_answer
+                    .map(gaxi::prost::FromProto::<crate::model::AssistAnswer>::cnv)
+                    .transpose()?,
             )
             .set_query_config(
                 self.query_config
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<std::string::String>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             ))
     }
@@ -6583,17 +6780,25 @@ impl gaxi::prost::FromProto<crate::model::Session> for Session {
             .set_turns(
                 self.turns
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::session::Turn>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_labels(
                 self.labels
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_start_time(self.start_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_end_time(self.end_time.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_start_time(
+                self.start_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_end_time(
+                self.end_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
             .set_is_pinned(self.is_pinned))
     }
 }
@@ -6623,7 +6828,9 @@ impl gaxi::prost::FromProto<crate::model::query::Content> for query::Content {
     fn cnv(self) -> std::result::Result<crate::model::query::Content, gaxi::prost::ConvertError> {
         use crate::model::query::Content as T;
         match self {
-            Self::Text(v) => Ok(T::Text(v.cnv()?)),
+            Self::Text(v) => Ok(T::Text(gaxi::prost::FromProto::<std::string::String>::cnv(
+                v,
+            )?)),
         }
     }
 }
@@ -6655,6 +6862,10 @@ impl gaxi::prost::FromProto<crate::model::Query> for Query {
     fn cnv(self) -> std::result::Result<crate::model::Query, gaxi::prost::ConvertError> {
         Ok(crate::model::Query::new()
             .set_query_id(self.query_id)
-            .set_content(self.content.map(|v| v.cnv()).transpose()?))
+            .set_content(
+                self.content
+                    .map(gaxi::prost::FromProto::<crate::model::query::Content>::cnv)
+                    .transpose()?,
+            ))
     }
 }

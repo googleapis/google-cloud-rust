@@ -40,9 +40,15 @@ impl gaxi::prost::FromProto<crate::model::device_message::Contents> for device_m
     {
         use crate::model::device_message::Contents as T;
         match self {
-            Self::StatusUpdate(v) => Ok(T::StatusUpdate(std::boxed::Box::new(v.cnv()?))),
-            Self::StreamStatus(v) => Ok(T::StreamStatus(std::boxed::Box::new(v.cnv()?))),
-            Self::StreamData(v) => Ok(T::StreamData(std::boxed::Box::new(v.cnv()?))),
+            Self::StatusUpdate(v) => Ok(T::StatusUpdate(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::StatusUpdate>::cnv(v)?,
+            ))),
+            Self::StreamStatus(v) => Ok(T::StreamStatus(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::StreamStatus>::cnv(v)?,
+            ))),
+            Self::StreamData(v) => Ok(T::StreamData(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::StreamData>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -61,8 +67,11 @@ impl gaxi::prost::ToProto<DeviceMessage> for crate::model::DeviceMessage {
 
 impl gaxi::prost::FromProto<crate::model::DeviceMessage> for DeviceMessage {
     fn cnv(self) -> std::result::Result<crate::model::DeviceMessage, gaxi::prost::ConvertError> {
-        Ok(crate::model::DeviceMessage::new()
-            .set_contents(self.contents.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::DeviceMessage::new().set_contents(
+            self.contents
+                .map(gaxi::prost::FromProto::<crate::model::device_message::Contents>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -86,8 +95,12 @@ impl gaxi::prost::FromProto<crate::model::adb_message::Contents> for adb_message
     ) -> std::result::Result<crate::model::adb_message::Contents, gaxi::prost::ConvertError> {
         use crate::model::adb_message::Contents as T;
         match self {
-            Self::Open(v) => Ok(T::Open(std::boxed::Box::new(v.cnv()?))),
-            Self::StreamData(v) => Ok(T::StreamData(std::boxed::Box::new(v.cnv()?))),
+            Self::Open(v) => Ok(T::Open(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::Open,
+            >::cnv(v)?))),
+            Self::StreamData(v) => Ok(T::StreamData(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::StreamData>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -106,8 +119,11 @@ impl gaxi::prost::ToProto<AdbMessage> for crate::model::AdbMessage {
 
 impl gaxi::prost::FromProto<crate::model::AdbMessage> for AdbMessage {
     fn cnv(self) -> std::result::Result<crate::model::AdbMessage, gaxi::prost::ConvertError> {
-        Ok(crate::model::AdbMessage::new()
-            .set_contents(self.contents.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::AdbMessage::new().set_contents(
+            self.contents
+                .map(gaxi::prost::FromProto::<crate::model::adb_message::Contents>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -148,7 +164,12 @@ impl gaxi::prost::FromProto<crate::model::StatusUpdate> for StatusUpdate {
             .set_properties(
                 self.properties
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<std::string::String>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             )
             .set_features(self.features))
@@ -175,8 +196,12 @@ impl gaxi::prost::FromProto<crate::model::stream_status::Status> for stream_stat
     ) -> std::result::Result<crate::model::stream_status::Status, gaxi::prost::ConvertError> {
         use crate::model::stream_status::Status as T;
         match self {
-            Self::Okay(v) => Ok(T::Okay(std::boxed::Box::new(v.cnv()?))),
-            Self::Fail(v) => Ok(T::Fail(std::boxed::Box::new(v.cnv()?))),
+            Self::Okay(v) => Ok(T::Okay(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::Okay,
+            >::cnv(v)?))),
+            Self::Fail(v) => Ok(T::Fail(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::Fail,
+            >::cnv(v)?))),
         }
     }
 }
@@ -198,7 +223,11 @@ impl gaxi::prost::FromProto<crate::model::StreamStatus> for StreamStatus {
     fn cnv(self) -> std::result::Result<crate::model::StreamStatus, gaxi::prost::ConvertError> {
         Ok(crate::model::StreamStatus::new()
             .set_stream_id(self.stream_id)
-            .set_status(self.status.map(|v| v.cnv()).transpose()?))
+            .set_status(
+                self.status
+                    .map(gaxi::prost::FromProto::<crate::model::stream_status::Status>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -240,8 +269,10 @@ impl gaxi::prost::FromProto<crate::model::stream_data::Contents> for stream_data
     ) -> std::result::Result<crate::model::stream_data::Contents, gaxi::prost::ConvertError> {
         use crate::model::stream_data::Contents as T;
         match self {
-            Self::Data(v) => Ok(T::Data(v.cnv()?)),
-            Self::Close(v) => Ok(T::Close(std::boxed::Box::new(v.cnv()?))),
+            Self::Data(v) => Ok(T::Data(gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?)),
+            Self::Close(v) => Ok(T::Close(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::Close,
+            >::cnv(v)?))),
         }
     }
 }
@@ -263,7 +294,11 @@ impl gaxi::prost::FromProto<crate::model::StreamData> for StreamData {
     fn cnv(self) -> std::result::Result<crate::model::StreamData, gaxi::prost::ConvertError> {
         Ok(crate::model::StreamData::new()
             .set_stream_id(self.stream_id)
-            .set_contents(self.contents.map(|v| v.cnv()).transpose()?))
+            .set_contents(
+                self.contents
+                    .map(gaxi::prost::FromProto::<crate::model::stream_data::Contents>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 

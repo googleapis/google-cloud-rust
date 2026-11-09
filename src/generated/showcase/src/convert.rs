@@ -80,8 +80,12 @@ impl gaxi::prost::FromProto<crate::model::echo_request::Response> for echo_reque
     ) -> std::result::Result<crate::model::echo_request::Response, gaxi::prost::ConvertError> {
         use crate::model::echo_request::Response as T;
         match self {
-            Self::Content(v) => Ok(T::Content(v.cnv()?)),
-            Self::Error(v) => Ok(T::Error(std::boxed::Box::new(v.cnv()?))),
+            Self::Content(v) => Ok(T::Content(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
+            Self::Error(v) => Ok(T::Error(std::boxed::Box::new(gaxi::prost::FromProto::<
+                google_cloud_rpc::model::Status,
+            >::cnv(v)?))),
         }
     }
 }
@@ -113,8 +117,16 @@ impl gaxi::prost::FromProto<crate::model::EchoRequest> for EchoRequest {
             .set_header(self.header)
             .set_other_header(self.other_header)
             .set_request_id(self.request_id)
-            .set_or_clear_other_request_id(self.other_request_id.map(|v| v.cnv()).transpose()?)
-            .set_response(self.response.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_other_request_id(
+                self.other_request_id
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            )
+            .set_response(
+                self.response
+                    .map(gaxi::prost::FromProto::<crate::model::echo_request::Response>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -163,8 +175,16 @@ impl gaxi::prost::FromProto<crate::model::ExpandRequest> for ExpandRequest {
     fn cnv(self) -> std::result::Result<crate::model::ExpandRequest, gaxi::prost::ConvertError> {
         Ok(crate::model::ExpandRequest::new()
             .set_content(self.content)
-            .set_or_clear_error(self.error.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_stream_wait_time(self.stream_wait_time.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_error(
+                self.error
+                    .map(gaxi::prost::FromProto::<google_cloud_rpc::model::Status>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_stream_wait_time(
+                self.stream_wait_time
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -186,8 +206,10 @@ impl gaxi::prost::FromProto<crate::model::blurb::Content> for blurb::Content {
     fn cnv(self) -> std::result::Result<crate::model::blurb::Content, gaxi::prost::ConvertError> {
         use crate::model::blurb::Content as T;
         match self {
-            Self::Text(v) => Ok(T::Text(v.cnv()?)),
-            Self::Image(v) => Ok(T::Image(v.cnv()?)),
+            Self::Text(v) => Ok(T::Text(gaxi::prost::FromProto::<std::string::String>::cnv(
+                v,
+            )?)),
+            Self::Image(v) => Ok(T::Image(gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?)),
         }
     }
 }
@@ -210,8 +232,12 @@ impl gaxi::prost::FromProto<crate::model::blurb::LegacyId> for blurb::LegacyId {
     fn cnv(self) -> std::result::Result<crate::model::blurb::LegacyId, gaxi::prost::ConvertError> {
         use crate::model::blurb::LegacyId as T;
         match self {
-            Self::LegacyRoomId(v) => Ok(T::LegacyRoomId(v.cnv()?)),
-            Self::LegacyUserId(v) => Ok(T::LegacyUserId(v.cnv()?)),
+            Self::LegacyRoomId(v) => Ok(T::LegacyRoomId(gaxi::prost::FromProto::<
+                std::string::String,
+            >::cnv(v)?)),
+            Self::LegacyUserId(v) => Ok(T::LegacyUserId(gaxi::prost::FromProto::<
+                std::string::String,
+            >::cnv(v)?)),
         }
     }
 }
@@ -247,10 +273,26 @@ impl gaxi::prost::FromProto<crate::model::Blurb> for Blurb {
         Ok(crate::model::Blurb::new()
             .set_name(self.name)
             .set_user(self.user)
-            .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
-            .set_content(self.content.map(|v| v.cnv()).transpose()?)
-            .set_legacy_id(self.legacy_id.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_create_time(
+                self.create_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_update_time(
+                self.update_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_content(
+                self.content
+                    .map(gaxi::prost::FromProto::<crate::model::blurb::Content>::cnv)
+                    .transpose()?,
+            )
+            .set_legacy_id(
+                self.legacy_id
+                    .map(gaxi::prost::FromProto::<crate::model::blurb::LegacyId>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -273,7 +315,11 @@ impl gaxi::prost::FromProto<crate::model::StreamBlurbsRequest> for StreamBlurbsR
     ) -> std::result::Result<crate::model::StreamBlurbsRequest, gaxi::prost::ConvertError> {
         Ok(crate::model::StreamBlurbsRequest::new()
             .set_name(self.name)
-            .set_or_clear_expire_time(self.expire_time.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_expire_time(
+                self.expire_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -307,7 +353,11 @@ impl gaxi::prost::FromProto<crate::model::StreamBlurbsResponse> for StreamBlurbs
         self,
     ) -> std::result::Result<crate::model::StreamBlurbsResponse, gaxi::prost::ConvertError> {
         Ok(crate::model::StreamBlurbsResponse::new()
-            .set_or_clear_blurb(self.blurb.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_blurb(
+                self.blurb
+                    .map(gaxi::prost::FromProto::<crate::model::Blurb>::cnv)
+                    .transpose()?,
+            )
             .set_action(self.action))
     }
 }
@@ -357,8 +407,12 @@ impl gaxi::prost::FromProto<crate::model::connect_request::Request> for connect_
     {
         use crate::model::connect_request::Request as T;
         match self {
-            Self::Config(v) => Ok(T::Config(std::boxed::Box::new(v.cnv()?))),
-            Self::Blurb(v) => Ok(T::Blurb(std::boxed::Box::new(v.cnv()?))),
+            Self::Config(v) => Ok(T::Config(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::connect_request::ConnectConfig,
+            >::cnv(v)?))),
+            Self::Blurb(v) => Ok(T::Blurb(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::Blurb,
+            >::cnv(v)?))),
         }
     }
 }
@@ -377,8 +431,11 @@ impl gaxi::prost::ToProto<ConnectRequest> for crate::model::ConnectRequest {
 
 impl gaxi::prost::FromProto<crate::model::ConnectRequest> for ConnectRequest {
     fn cnv(self) -> std::result::Result<crate::model::ConnectRequest, gaxi::prost::ConvertError> {
-        Ok(crate::model::ConnectRequest::new()
-            .set_request(self.request.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::ConnectRequest::new().set_request(
+            self.request
+                .map(gaxi::prost::FromProto::<crate::model::connect_request::Request>::cnv)
+                .transpose()?,
+        ))
     }
 }
 

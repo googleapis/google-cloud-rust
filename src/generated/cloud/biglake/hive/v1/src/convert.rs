@@ -90,7 +90,7 @@ impl gaxi::prost::FromProto<crate::model::storage_descriptor::skewed_info::Skewe
             crate::model::storage_descriptor::skewed_info::SkewedColumnValue::new().set_values(
                 self.values
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -132,7 +132,7 @@ impl gaxi::prost::FromProto<crate::model::storage_descriptor::skewed_info::Skewe
                 .set_values(
                     self.values
                         .into_iter()
-                        .map(|v| v.cnv())
+                        .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                         .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
                 )
                 .set_location(self.location),
@@ -188,19 +188,27 @@ impl gaxi::prost::FromProto<crate::model::storage_descriptor::SkewedInfo>
             .set_skewed_col_names(
                 self.skewed_col_names
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_skewed_col_values(
                 self.skewed_col_values
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::storage_descriptor::skewed_info::SkewedColumnValue,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_skewed_key_values_locations(
                 self.skewed_key_values_locations
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::storage_descriptor::skewed_info::SkewedKeyValuesLocation,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -272,35 +280,62 @@ impl gaxi::prost::FromProto<crate::model::StorageDescriptor> for StorageDescript
             .set_columns(
                 self.columns
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::FieldSchema>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_location_uri(self.location_uri)
             .set_input_format(self.input_format)
             .set_output_format(self.output_format)
-            .set_or_clear_compressed(self.compressed.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_num_buckets(self.num_buckets.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_serde_info(self.serde_info.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_compressed(
+                self.compressed
+                    .map(gaxi::prost::FromProto::<bool>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_num_buckets(
+                self.num_buckets
+                    .map(gaxi::prost::FromProto::<i32>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_serde_info(
+                self.serde_info
+                    .map(gaxi::prost::FromProto::<crate::model::SerdeInfo>::cnv)
+                    .transpose()?,
+            )
             .set_bucket_cols(
                 self.bucket_cols
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_sort_cols(
                 self.sort_cols
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::storage_descriptor::Order>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_parameters(
                 self.parameters
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<std::string::String>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             )
-            .set_or_clear_skewed_info(self.skewed_info.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_stored_as_sub_dirs(self.stored_as_sub_dirs.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_skewed_info(
+                self.skewed_info
+                    .map(
+                        gaxi::prost::FromProto::<crate::model::storage_descriptor::SkewedInfo>::cnv,
+                    )
+                    .transpose()?,
+            )
+            .set_or_clear_stored_as_sub_dirs(
+                self.stored_as_sub_dirs
+                    .map(gaxi::prost::FromProto::<bool>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -353,7 +388,12 @@ impl gaxi::prost::FromProto<crate::model::SerdeInfo> for SerdeInfo {
             .set_parameters(
                 self.parameters
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<std::string::String>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             )
             .set_serializer_class(self.serializer_class)
@@ -404,21 +444,34 @@ impl gaxi::prost::FromProto<crate::model::Partition> for Partition {
             .set_values(
                 self.values
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_storage_descriptor(self.storage_descriptor.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_create_time(
+                self.create_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_storage_descriptor(
+                self.storage_descriptor
+                    .map(gaxi::prost::FromProto::<crate::model::StorageDescriptor>::cnv)
+                    .transpose()?,
+            )
             .set_parameters(
                 self.parameters
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<std::string::String>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             )
             .set_fields(
                 self.fields
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::FieldSchema>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -464,7 +517,7 @@ impl gaxi::prost::FromProto<crate::model::ListPartitionsResponse> for ListPartit
         Ok(crate::model::ListPartitionsResponse::new().set_partitions(
             self.partitions
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<crate::model::Partition>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }

@@ -124,13 +124,21 @@ impl gaxi::prost::FromProto<crate::model::SanitizeUserPromptRequest> for Sanitiz
     {
         Ok(crate::model::SanitizeUserPromptRequest::new()
             .set_name(self.name)
-            .set_or_clear_user_prompt_data(self.user_prompt_data.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_multi_language_detection_metadata(
-                self.multi_language_detection_metadata
-                    .map(|v| v.cnv())
+            .set_or_clear_user_prompt_data(
+                self.user_prompt_data
+                    .map(gaxi::prost::FromProto::<crate::model::DataItem>::cnv)
                     .transpose()?,
             )
-            .set_or_clear_streaming_mode(self.streaming_mode.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_multi_language_detection_metadata(
+                self.multi_language_detection_metadata
+                    .map(
+                        gaxi::prost::FromProto::<crate::model::MultiLanguageDetectionMetadata>::cnv,
+                    )
+                    .transpose()?,
+            )
+            .set_or_clear_streaming_mode(
+                self.streaming_mode.map(crate::model::StreamingMode::from),
+            ))
     }
 }
 
@@ -170,15 +178,21 @@ impl gaxi::prost::FromProto<crate::model::SanitizeModelResponseRequest>
         Ok(crate::model::SanitizeModelResponseRequest::new()
             .set_name(self.name)
             .set_or_clear_model_response_data(
-                self.model_response_data.map(|v| v.cnv()).transpose()?,
+                self.model_response_data
+                    .map(gaxi::prost::FromProto::<crate::model::DataItem>::cnv)
+                    .transpose()?,
             )
             .set_user_prompt(self.user_prompt)
             .set_or_clear_multi_language_detection_metadata(
                 self.multi_language_detection_metadata
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<crate::model::MultiLanguageDetectionMetadata>::cnv,
+                    )
                     .transpose()?,
             )
-            .set_or_clear_streaming_mode(self.streaming_mode.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_streaming_mode(
+                self.streaming_mode.map(crate::model::StreamingMode::from),
+            ))
     }
 }
 
@@ -205,7 +219,9 @@ impl gaxi::prost::FromProto<crate::model::SanitizeUserPromptResponse>
     {
         Ok(
             crate::model::SanitizeUserPromptResponse::new().set_or_clear_sanitization_result(
-                self.sanitization_result.map(|v| v.cnv()).transpose()?,
+                self.sanitization_result
+                    .map(gaxi::prost::FromProto::<crate::model::SanitizationResult>::cnv)
+                    .transpose()?,
             ),
         )
     }
@@ -236,7 +252,9 @@ impl gaxi::prost::FromProto<crate::model::SanitizeModelResponseResponse>
     {
         Ok(
             crate::model::SanitizeModelResponseResponse::new().set_or_clear_sanitization_result(
-                self.sanitization_result.map(|v| v.cnv()).transpose()?,
+                self.sanitization_result
+                    .map(gaxi::prost::FromProto::<crate::model::SanitizationResult>::cnv)
+                    .transpose()?,
             ),
         )
     }
@@ -277,18 +295,23 @@ impl gaxi::prost::FromProto<crate::model::FilterVersionConfig> for FilterVersion
         Ok(crate::model::FilterVersionConfig::new()
             .set_filter_version(self.filter_version)
             .set_or_clear_filter_version_alias(
-                self.filter_version_alias.map(|v| v.cnv()).transpose()?,
+                self.filter_version_alias
+                    .map(crate::model::FilterVersionAlias::from),
             )
-            .set_or_clear_release_date(self.release_date.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_release_date(
+                self.release_date
+                    .map(gaxi::prost::FromProto::<google_cloud_type::model::Date>::cnv)
+                    .transpose()?,
+            )
             .set_or_clear_projected_deprecation_date(
                 self.projected_deprecation_date
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<google_cloud_type::model::Date>::cnv)
                     .transpose()?,
             )
             .set_message_items(
                 self.message_items
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::MessageItem>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -337,10 +360,14 @@ impl gaxi::prost::FromProto<crate::model::sanitization_result::SanitizationMetad
                 .set_error_message(self.error_message)
                 .set_ignore_partial_invocation_failures(self.ignore_partial_invocation_failures)
                 .set_or_clear_stream_chunk_processed(
-                    self.stream_chunk_processed.map(|v| v.cnv()).transpose()?,
+                    self.stream_chunk_processed
+                        .map(gaxi::prost::FromProto::<crate::model::DataItem>::cnv)
+                        .transpose()?,
                 )
                 .set_or_clear_filter_version_config(
-                    self.filter_version_config.map(|v| v.cnv()).transpose()?,
+                    self.filter_version_config
+                        .map(gaxi::prost::FromProto::<crate::model::FilterVersionConfig>::cnv)
+                        .transpose()?,
                 ),
         )
     }
@@ -383,12 +410,23 @@ impl gaxi::prost::FromProto<crate::model::SanitizationResult> for SanitizationRe
             .set_filter_results(
                 self.filter_results
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<crate::model::FilterResult>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             )
             .set_invocation_result(self.invocation_result)
             .set_or_clear_sanitization_metadata(
-                self.sanitization_metadata.map(|v| v.cnv()).transpose()?,
+                self.sanitization_metadata
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::sanitization_result::SanitizationMetadata,
+                        >::cnv,
+                    )
+                    .transpose()?,
             ))
     }
 }
@@ -469,20 +507,28 @@ impl gaxi::prost::FromProto<crate::model::filter_result::FilterResult>
     {
         use crate::model::filter_result::FilterResult as T;
         match self {
-            Self::RaiFilterResult(v) => Ok(T::RaiFilterResult(std::boxed::Box::new(v.cnv()?))),
-            Self::SdpFilterResult(v) => Ok(T::SdpFilterResult(std::boxed::Box::new(v.cnv()?))),
-            Self::PiAndJailbreakFilterResult(v) => Ok(T::PiAndJailbreakFilterResult(
-                std::boxed::Box::new(v.cnv()?),
-            )),
+            Self::RaiFilterResult(v) => Ok(T::RaiFilterResult(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::RaiFilterResult>::cnv(v)?,
+            ))),
+            Self::SdpFilterResult(v) => Ok(T::SdpFilterResult(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::SdpFilterResult>::cnv(v)?,
+            ))),
+            Self::PiAndJailbreakFilterResult(v) => {
+                Ok(T::PiAndJailbreakFilterResult(std::boxed::Box::new(
+                    gaxi::prost::FromProto::<crate::model::PiAndJailbreakFilterResult>::cnv(v)?,
+                )))
+            }
             Self::MaliciousUriFilterResult(v) => {
-                Ok(T::MaliciousUriFilterResult(std::boxed::Box::new(v.cnv()?)))
+                Ok(T::MaliciousUriFilterResult(std::boxed::Box::new(
+                    gaxi::prost::FromProto::<crate::model::MaliciousUriFilterResult>::cnv(v)?,
+                )))
             }
-            Self::CsamFilterFilterResult(v) => {
-                Ok(T::CsamFilterFilterResult(std::boxed::Box::new(v.cnv()?)))
-            }
-            Self::VirusScanFilterResult(v) => {
-                Ok(T::VirusScanFilterResult(std::boxed::Box::new(v.cnv()?)))
-            }
+            Self::CsamFilterFilterResult(v) => Ok(T::CsamFilterFilterResult(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::CsamFilterResult>::cnv(v)?,
+            ))),
+            Self::VirusScanFilterResult(v) => Ok(T::VirusScanFilterResult(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::VirusScanFilterResult>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -501,8 +547,11 @@ impl gaxi::prost::ToProto<FilterResult> for crate::model::FilterResult {
 
 impl gaxi::prost::FromProto<crate::model::FilterResult> for FilterResult {
     fn cnv(self) -> std::result::Result<crate::model::FilterResult, gaxi::prost::ConvertError> {
-        Ok(crate::model::FilterResult::new()
-            .set_filter_result(self.filter_result.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::FilterResult::new().set_filter_result(
+            self.filter_result
+                .map(gaxi::prost::FromProto::<crate::model::filter_result::FilterResult>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -574,14 +623,21 @@ impl gaxi::prost::FromProto<crate::model::RaiFilterResult> for RaiFilterResult {
             .set_message_items(
                 self.message_items
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::MessageItem>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_match_state(self.match_state)
             .set_rai_filter_type_results(
                 self.rai_filter_type_results
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<
+                                crate::model::rai_filter_result::RaiFilterTypeResult,
+                            >::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             ))
     }
@@ -615,9 +671,15 @@ impl gaxi::prost::FromProto<crate::model::sdp_filter_result::Result> for sdp_fil
     {
         use crate::model::sdp_filter_result::Result as T;
         match self {
-            Self::InspectResult(v) => Ok(T::InspectResult(std::boxed::Box::new(v.cnv()?))),
-            Self::DeidentifyResult(v) => Ok(T::DeidentifyResult(std::boxed::Box::new(v.cnv()?))),
-            Self::RedactResult(v) => Ok(T::RedactResult(std::boxed::Box::new(v.cnv()?))),
+            Self::InspectResult(v) => Ok(T::InspectResult(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::SdpInspectResult>::cnv(v)?,
+            ))),
+            Self::DeidentifyResult(v) => Ok(T::DeidentifyResult(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::SdpDeidentifyResult>::cnv(v)?,
+            ))),
+            Self::RedactResult(v) => Ok(T::RedactResult(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::SdpRedactResult>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -636,8 +698,11 @@ impl gaxi::prost::ToProto<SdpFilterResult> for crate::model::SdpFilterResult {
 
 impl gaxi::prost::FromProto<crate::model::SdpFilterResult> for SdpFilterResult {
     fn cnv(self) -> std::result::Result<crate::model::SdpFilterResult, gaxi::prost::ConvertError> {
-        Ok(crate::model::SdpFilterResult::new()
-            .set_result(self.result.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::SdpFilterResult::new().set_result(
+            self.result
+                .map(gaxi::prost::FromProto::<crate::model::sdp_filter_result::Result>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -674,14 +739,14 @@ impl gaxi::prost::FromProto<crate::model::SdpInspectResult> for SdpInspectResult
             .set_message_items(
                 self.message_items
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::MessageItem>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_match_state(self.match_state)
             .set_findings(
                 self.findings
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::SdpFinding>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_findings_truncated(self.findings_truncated)
@@ -709,8 +774,12 @@ impl gaxi::prost::FromProto<crate::model::data_item::DataItem> for data_item::Da
     ) -> std::result::Result<crate::model::data_item::DataItem, gaxi::prost::ConvertError> {
         use crate::model::data_item::DataItem as T;
         match self {
-            Self::Text(v) => Ok(T::Text(v.cnv()?)),
-            Self::ByteItem(v) => Ok(T::ByteItem(std::boxed::Box::new(v.cnv()?))),
+            Self::Text(v) => Ok(T::Text(gaxi::prost::FromProto::<std::string::String>::cnv(
+                v,
+            )?)),
+            Self::ByteItem(v) => Ok(T::ByteItem(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::ByteDataItem,
+            >::cnv(v)?))),
         }
     }
 }
@@ -729,8 +798,11 @@ impl gaxi::prost::ToProto<DataItem> for crate::model::DataItem {
 
 impl gaxi::prost::FromProto<crate::model::DataItem> for DataItem {
     fn cnv(self) -> std::result::Result<crate::model::DataItem, gaxi::prost::ConvertError> {
-        Ok(crate::model::DataItem::new()
-            .set_data_item(self.data_item.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::DataItem::new().set_data_item(
+            self.data_item
+                .map(gaxi::prost::FromProto::<crate::model::data_item::DataItem>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -804,16 +876,20 @@ impl gaxi::prost::FromProto<crate::model::SdpDeidentifyResult> for SdpDeidentify
             .set_message_items(
                 self.message_items
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::MessageItem>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_match_state(self.match_state)
-            .set_or_clear_data(self.data.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_data(
+                self.data
+                    .map(gaxi::prost::FromProto::<crate::model::DataItem>::cnv)
+                    .transpose()?,
+            )
             .set_transformed_bytes(self.transformed_bytes)
             .set_info_types(
                 self.info_types
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -876,7 +952,11 @@ impl gaxi::prost::FromProto<crate::model::SdpImageFindingLocation> for SdpImageF
             crate::model::SdpImageFindingLocation::new().set_bounding_boxes(
                 self.bounding_boxes
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::sdp_image_finding_location::SdpBoundingBox,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -909,9 +989,9 @@ impl gaxi::prost::FromProto<crate::model::sdp_content_location::Location>
     {
         use crate::model::sdp_content_location::Location as T;
         match self {
-            Self::ImageFindingLocation(v) => {
-                Ok(T::ImageFindingLocation(std::boxed::Box::new(v.cnv()?)))
-            }
+            Self::ImageFindingLocation(v) => Ok(T::ImageFindingLocation(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::SdpImageFindingLocation>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -937,7 +1017,13 @@ impl gaxi::prost::FromProto<crate::model::SdpContentLocation> for SdpContentLoca
     ) -> std::result::Result<crate::model::SdpContentLocation, gaxi::prost::ConvertError> {
         Ok(crate::model::SdpContentLocation::new()
             .set_container_name(self.container_name)
-            .set_location(self.location.map(|v| v.cnv()).transpose()?))
+            .set_location(
+                self.location
+                    .map(
+                        gaxi::prost::FromProto::<crate::model::sdp_content_location::Location>::cnv,
+                    )
+                    .transpose()?,
+            ))
     }
 }
 
@@ -974,12 +1060,20 @@ impl gaxi::prost::FromProto<crate::model::sdp_finding::SdpFindingLocation>
     ) -> std::result::Result<crate::model::sdp_finding::SdpFindingLocation, gaxi::prost::ConvertError>
     {
         Ok(crate::model::sdp_finding::SdpFindingLocation::new()
-            .set_or_clear_byte_range(self.byte_range.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_codepoint_range(self.codepoint_range.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_byte_range(
+                self.byte_range
+                    .map(gaxi::prost::FromProto::<crate::model::RangeInfo>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_codepoint_range(
+                self.codepoint_range
+                    .map(gaxi::prost::FromProto::<crate::model::RangeInfo>::cnv)
+                    .transpose()?,
+            )
             .set_content_locations(
                 self.content_locations
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::SdpContentLocation>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -1001,10 +1095,12 @@ impl gaxi::prost::ToProto<SdpFinding> for crate::model::SdpFinding {
 
 impl gaxi::prost::FromProto<crate::model::SdpFinding> for SdpFinding {
     fn cnv(self) -> std::result::Result<crate::model::SdpFinding, gaxi::prost::ConvertError> {
-        Ok(crate::model::SdpFinding::new()
-            .set_info_type(self.info_type)
-            .set_likelihood(self.likelihood)
-            .set_or_clear_location(self.location.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::SdpFinding::new()
+                .set_info_type(self.info_type)
+                .set_likelihood(self.likelihood)
+                .set_or_clear_location(self.location.map(gaxi::prost::FromProto::<crate::model::sdp_finding::SdpFindingLocation>::cnv).transpose()?)
+        )
     }
 }
 
@@ -1041,7 +1137,7 @@ impl gaxi::prost::FromProto<crate::model::SdpRedactResult> for SdpRedactResult {
             .set_message_items(
                 self.message_items
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::MessageItem>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_match_state(self.match_state)
@@ -1049,7 +1145,7 @@ impl gaxi::prost::FromProto<crate::model::SdpRedactResult> for SdpRedactResult {
             .set_findings(
                 self.findings
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::SdpFinding>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_extracted_image_text(self.extracted_image_text))
@@ -1090,7 +1186,7 @@ impl gaxi::prost::FromProto<crate::model::PiAndJailbreakFilterResult>
             .set_message_items(
                 self.message_items
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::MessageItem>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_match_state(self.match_state)
@@ -1134,7 +1230,7 @@ impl gaxi::prost::FromProto<crate::model::malicious_uri_filter_result::Malicious
                 .set_locations(
                     self.locations
                         .into_iter()
-                        .map(|v| v.cnv())
+                        .map(gaxi::prost::FromProto::<crate::model::RangeInfo>::cnv)
                         .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
                 ),
         )
@@ -1179,14 +1275,18 @@ impl gaxi::prost::FromProto<crate::model::MaliciousUriFilterResult> for Maliciou
             .set_message_items(
                 self.message_items
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::MessageItem>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_match_state(self.match_state)
             .set_malicious_uri_matched_items(
                 self.malicious_uri_matched_items
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::malicious_uri_filter_result::MaliciousUriMatchedItem,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -1242,16 +1342,20 @@ impl gaxi::prost::FromProto<crate::model::VirusScanFilterResult> for VirusScanFi
             .set_message_items(
                 self.message_items
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::MessageItem>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_match_state(self.match_state)
             .set_scanned_content_type(self.scanned_content_type)
-            .set_or_clear_scanned_size(self.scanned_size.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_scanned_size(
+                self.scanned_size
+                    .map(gaxi::prost::FromProto::<i64>::cnv)
+                    .transpose()?,
+            )
             .set_virus_details(
                 self.virus_details
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::VirusDetail>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -1291,7 +1395,7 @@ impl gaxi::prost::FromProto<crate::model::VirusDetail> for VirusDetail {
             .set_names(
                 self.names
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_threat_type(self.threat_type))
@@ -1322,7 +1426,7 @@ impl gaxi::prost::FromProto<crate::model::CsamFilterResult> for CsamFilterResult
             .set_message_items(
                 self.message_items
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::MessageItem>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_match_state(self.match_state))
@@ -1378,8 +1482,16 @@ impl gaxi::prost::ToProto<RangeInfo> for crate::model::RangeInfo {
 impl gaxi::prost::FromProto<crate::model::RangeInfo> for RangeInfo {
     fn cnv(self) -> std::result::Result<crate::model::RangeInfo, gaxi::prost::ConvertError> {
         Ok(crate::model::RangeInfo::new()
-            .set_or_clear_start(self.start.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_end(self.end.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_start(
+                self.start
+                    .map(gaxi::prost::FromProto::<i64>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_end(
+                self.end
+                    .map(gaxi::prost::FromProto::<i64>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 

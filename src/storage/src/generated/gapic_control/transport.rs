@@ -3429,58 +3429,58 @@ pub(crate) fn lro_any_from_prost(
         "" => Ok(wkt::Any::default()),
         "type.googleapis.com/google.storage.control.v2.RenameFolderMetadata" => value
             .to_msg::<crate::google::storage::control::v2::RenameFolderMetadata>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::RenameFolderMetadata>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.Folder" => value
             .to_msg::<crate::google::storage::control::v2::Folder>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::Folder>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.DeleteFolderRecursiveMetadata" => value
             .to_msg::<crate::google::storage::control::v2::DeleteFolderRecursiveMetadata>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::DeleteFolderRecursiveMetadata>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.protobuf.Empty" => value
             .to_msg::<crate::google::protobuf::Empty>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<wkt::Empty>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata" => value
             .to_msg::<crate::google::storage::control::v2::CreateAnywhereCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::CreateAnywhereCacheMetadata>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.AnywhereCache" => value
             .to_msg::<crate::google::storage::control::v2::AnywhereCache>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::AnywhereCache>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata" => value
             .to_msg::<crate::google::storage::control::v2::UpdateAnywhereCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::UpdateAnywhereCacheMetadata>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.CreateRapidCacheMetadata" => value
             .to_msg::<crate::google::storage::control::v2::CreateRapidCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::CreateRapidCacheMetadata>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.RapidCache" => value
             .to_msg::<crate::google::storage::control::v2::RapidCache>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::RapidCache>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.UpdateRapidCacheMetadata" => value
             .to_msg::<crate::google::storage::control::v2::UpdateRapidCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::UpdateRapidCacheMetadata>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.DisableRapidCacheMetadata" => value
             .to_msg::<crate::google::storage::control::v2::DisableRapidCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::DisableRapidCacheMetadata>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         type_url => Err(ConvertError::UnexpectedTypeUrl(type_url.to_string())),
     }

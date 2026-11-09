@@ -52,8 +52,12 @@ impl gaxi::prost::FromProto<crate::model::log_entry::Payload> for log_entry::Pay
         use crate::model::log_entry::Payload as T;
         match self {
             Self::ProtoPayload(_) => Ok(T::ProtoPayload(std::default::Default::default())),
-            Self::TextPayload(v) => Ok(T::TextPayload(v.cnv()?)),
-            Self::JsonPayload(v) => Ok(T::JsonPayload(std::boxed::Box::new(v.cnv()?))),
+            Self::TextPayload(v) => Ok(T::TextPayload(gaxi::prost::FromProto::<
+                std::string::String,
+            >::cnv(v)?)),
+            Self::JsonPayload(v) => Ok(T::JsonPayload(std::boxed::Box::new(
+                gaxi::prost::FromProto::<wkt::Struct>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -88,27 +92,27 @@ impl gaxi::prost::ToProto<LogEntry> for crate::model::LogEntry {
 
 impl gaxi::prost::FromProto<crate::model::LogEntry> for LogEntry {
     fn cnv(self) -> std::result::Result<crate::model::LogEntry, gaxi::prost::ConvertError> {
-        Ok(crate::model::LogEntry::new()
-            .set_log_name(self.log_name)
-            .set_or_clear_resource(self.resource.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_timestamp(self.timestamp.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_receive_timestamp(self.receive_timestamp.map(|v| v.cnv()).transpose()?)
-            .set_severity(self.severity)
-            .set_insert_id(self.insert_id)
-            .set_or_clear_http_request(self.http_request.map(|v| v.cnv()).transpose()?)
-            .set_labels(
-                self.labels
-                    .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
-                    .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            )
-            .set_or_clear_operation(self.operation.map(|v| v.cnv()).transpose()?)
-            .set_trace(self.trace)
-            .set_span_id(self.span_id)
-            .set_trace_sampled(self.trace_sampled)
-            .set_or_clear_source_location(self.source_location.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_split(self.split.map(|v| v.cnv()).transpose()?)
-            .set_payload(self.payload.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::LogEntry::new()
+                .set_log_name(self.log_name)
+                .set_or_clear_resource(self.resource.map(gaxi::prost::FromProto::<google_cloud_api::model::MonitoredResource>::cnv).transpose()?)
+                .set_or_clear_timestamp(self.timestamp.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
+                .set_or_clear_receive_timestamp(self.receive_timestamp.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
+                .set_severity(self.severity)
+                .set_insert_id(self.insert_id)
+                .set_or_clear_http_request(self.http_request.map(gaxi::prost::FromProto::<google_cloud_logging_type::model::HttpRequest>::cnv).transpose()?)
+                .set_labels(self.labels.into_iter()
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<std::string::String>::cnv(v))
+                    }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+                .set_or_clear_operation(self.operation.map(gaxi::prost::FromProto::<crate::model::LogEntryOperation>::cnv).transpose()?)
+                .set_trace(self.trace)
+                .set_span_id(self.span_id)
+                .set_trace_sampled(self.trace_sampled)
+                .set_or_clear_source_location(self.source_location.map(gaxi::prost::FromProto::<crate::model::LogEntrySourceLocation>::cnv).transpose()?)
+                .set_or_clear_split(self.split.map(gaxi::prost::FromProto::<crate::model::LogSplit>::cnv).transpose()?)
+                .set_payload(self.payload.map(gaxi::prost::FromProto::<crate::model::log_entry::Payload>::cnv).transpose()?)
+        )
     }
 }
 
@@ -204,11 +208,15 @@ impl gaxi::prost::FromProto<crate::model::TailLogEntriesRequest> for TailLogEntr
             .set_resource_names(
                 self.resource_names
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_filter(self.filter)
-            .set_or_clear_buffer_window(self.buffer_window.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_buffer_window(
+                self.buffer_window
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -282,13 +290,17 @@ impl gaxi::prost::FromProto<crate::model::TailLogEntriesResponse> for TailLogEnt
             .set_entries(
                 self.entries
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::LogEntry>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_suppression_info(
                 self.suppression_info
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::tail_log_entries_response::SuppressionInfo,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -330,7 +342,12 @@ impl gaxi::prost::FromProto<google_cloud_api::model::MonitoredResource>
             .set_labels(
                 self.labels
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<std::string::String>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             ))
     }
@@ -390,7 +407,11 @@ impl gaxi::prost::FromProto<google_cloud_logging_type::model::HttpRequest>
             .set_remote_ip(self.remote_ip)
             .set_server_ip(self.server_ip)
             .set_referer(self.referer)
-            .set_or_clear_latency(self.latency.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_latency(
+                self.latency
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            )
             .set_cache_lookup(self.cache_lookup)
             .set_cache_hit(self.cache_hit)
             .set_cache_validated_with_origin_server(self.cache_validated_with_origin_server)

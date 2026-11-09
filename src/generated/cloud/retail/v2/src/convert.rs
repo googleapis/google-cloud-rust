@@ -44,8 +44,10 @@ impl gaxi::prost::FromProto<crate::model::interval::Min> for interval::Min {
     fn cnv(self) -> std::result::Result<crate::model::interval::Min, gaxi::prost::ConvertError> {
         use crate::model::interval::Min as T;
         match self {
-            Self::Minimum(v) => Ok(T::Minimum(v.cnv()?)),
-            Self::ExclusiveMinimum(v) => Ok(T::ExclusiveMinimum(v.cnv()?)),
+            Self::Minimum(v) => Ok(T::Minimum(gaxi::prost::FromProto::<f64>::cnv(v)?)),
+            Self::ExclusiveMinimum(v) => {
+                Ok(T::ExclusiveMinimum(gaxi::prost::FromProto::<f64>::cnv(v)?))
+            }
         }
     }
 }
@@ -68,8 +70,10 @@ impl gaxi::prost::FromProto<crate::model::interval::Max> for interval::Max {
     fn cnv(self) -> std::result::Result<crate::model::interval::Max, gaxi::prost::ConvertError> {
         use crate::model::interval::Max as T;
         match self {
-            Self::Maximum(v) => Ok(T::Maximum(v.cnv()?)),
-            Self::ExclusiveMaximum(v) => Ok(T::ExclusiveMaximum(v.cnv()?)),
+            Self::Maximum(v) => Ok(T::Maximum(gaxi::prost::FromProto::<f64>::cnv(v)?)),
+            Self::ExclusiveMaximum(v) => {
+                Ok(T::ExclusiveMaximum(gaxi::prost::FromProto::<f64>::cnv(v)?))
+            }
         }
     }
 }
@@ -93,8 +97,16 @@ impl gaxi::prost::ToProto<Interval> for crate::model::Interval {
 impl gaxi::prost::FromProto<crate::model::Interval> for Interval {
     fn cnv(self) -> std::result::Result<crate::model::Interval, gaxi::prost::ConvertError> {
         Ok(crate::model::Interval::new()
-            .set_min(self.min.map(|v| v.cnv()).transpose()?)
-            .set_max(self.max.map(|v| v.cnv()).transpose()?))
+            .set_min(
+                self.min
+                    .map(gaxi::prost::FromProto::<crate::model::interval::Min>::cnv)
+                    .transpose()?,
+            )
+            .set_max(
+                self.max
+                    .map(gaxi::prost::FromProto::<crate::model::interval::Max>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -138,7 +150,7 @@ impl gaxi::prost::FromProto<crate::model::StringList> for StringList {
         Ok(crate::model::StringList::new().set_values(
             self.values
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -180,7 +192,11 @@ impl gaxi::prost::FromProto<crate::model::conversational_search_request::SearchP
                 .set_filter(self.filter)
                 .set_canonical_filter(self.canonical_filter)
                 .set_sort_by(self.sort_by)
-                .set_or_clear_boost_spec(self.boost_spec.map(|v| v.cnv()).transpose()?),
+                .set_or_clear_boost_spec(
+                    self.boost_spec
+                        .map(gaxi::prost::FromProto::<crate::model::search_request::BoostSpec>::cnv)
+                        .transpose()?,
+                ),
         )
     }
 }
@@ -217,7 +233,9 @@ impl
         Ok(
             crate::model::conversational_search_request::user_answer::SelectedAnswer::new()
                 .set_or_clear_product_attribute_value(
-                    self.product_attribute_value.map(|v| v.cnv()).transpose()?,
+                    self.product_attribute_value
+                        .map(gaxi::prost::FromProto::<crate::model::ProductAttributeValue>::cnv)
+                        .transpose()?,
                 ),
         )
     }
@@ -252,8 +270,14 @@ impl gaxi::prost::FromProto<crate::model::conversational_search_request::user_an
     > {
         use crate::model::conversational_search_request::user_answer::Type as T;
         match self {
-            Self::TextAnswer(v) => Ok(T::TextAnswer(v.cnv()?)),
-            Self::SelectedAnswer(v) => Ok(T::SelectedAnswer(std::boxed::Box::new(v.cnv()?))),
+            Self::TextAnswer(v) => Ok(T::TextAnswer(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
+            Self::SelectedAnswer(v) => Ok(T::SelectedAnswer(std::boxed::Box::new(
+                gaxi::prost::FromProto::<
+                    crate::model::conversational_search_request::user_answer::SelectedAnswer,
+                >::cnv(v)?,
+            ))),
         }
     }
 }
@@ -282,8 +306,15 @@ impl gaxi::prost::FromProto<crate::model::conversational_search_request::UserAns
         gaxi::prost::ConvertError,
     > {
         Ok(
-            crate::model::conversational_search_request::UserAnswer::new()
-                .set_type(self.r#type.map(|v| v.cnv()).transpose()?),
+            crate::model::conversational_search_request::UserAnswer::new().set_type(
+                self.r#type
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::conversational_search_request::user_answer::Type,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ),
         )
     }
 }
@@ -340,7 +371,15 @@ impl
         Ok(
             crate::model::conversational_search_request::ConversationalFilteringSpec::new()
                 .set_enable_conversational_filtering(self.enable_conversational_filtering)
-                .set_or_clear_user_answer(self.user_answer.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_user_answer(
+                    self.user_answer
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::conversational_search_request::UserAnswer,
+                            >::cnv,
+                        )
+                        .transpose()?,
+                )
                 .set_conversational_filtering_mode(self.conversational_filtering_mode),
         )
     }
@@ -408,37 +447,25 @@ impl gaxi::prost::FromProto<crate::model::ConversationalSearchRequest>
         self,
     ) -> std::result::Result<crate::model::ConversationalSearchRequest, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::ConversationalSearchRequest::new()
-            .set_placement(self.placement)
-            .set_branch(self.branch)
-            .set_query(self.query)
-            .set_page_categories(
-                self.page_categories
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_conversation_id(self.conversation_id)
-            .set_or_clear_search_params(self.search_params.map(|v| v.cnv()).transpose()?)
-            .set_visitor_id(self.visitor_id)
-            .set_or_clear_user_info(self.user_info.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_conversational_filtering_spec(
-                self.conversational_filtering_spec
-                    .map(|v| v.cnv())
-                    .transpose()?,
-            )
-            .set_user_labels(
-                self.user_labels
-                    .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
-                    .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            )
-            .set_safety_settings(
-                self.safety_settings
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            ))
+        Ok(
+            crate::model::ConversationalSearchRequest::new()
+                .set_placement(self.placement)
+                .set_branch(self.branch)
+                .set_query(self.query)
+                .set_page_categories(self.page_categories.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_conversation_id(self.conversation_id)
+                .set_or_clear_search_params(self.search_params.map(gaxi::prost::FromProto::<crate::model::conversational_search_request::SearchParams>::cnv).transpose()?)
+                .set_visitor_id(self.visitor_id)
+                .set_or_clear_user_info(self.user_info.map(gaxi::prost::FromProto::<crate::model::UserInfo>::cnv).transpose()?)
+                .set_or_clear_conversational_filtering_spec(self.conversational_filtering_spec.map(gaxi::prost::FromProto::<crate::model::conversational_search_request::ConversationalFilteringSpec>::cnv).transpose()?)
+                .set_user_labels(self.user_labels.into_iter()
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<std::string::String>::cnv(v))
+                    }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+                .set_safety_settings(self.safety_settings.into_iter().map(gaxi::prost::FromProto::<crate::model::SafetySetting>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
     }
 }
 
@@ -475,7 +502,9 @@ impl
         Ok(
             crate::model::conversational_search_response::followup_question::SuggestedAnswer::new()
                 .set_or_clear_product_attribute_value(
-                    self.product_attribute_value.map(|v| v.cnv()).transpose()?,
+                    self.product_attribute_value
+                        .map(gaxi::prost::FromProto::<crate::model::ProductAttributeValue>::cnv)
+                        .transpose()?,
                 ),
         )
     }
@@ -520,12 +549,8 @@ impl gaxi::prost::FromProto<crate::model::conversational_search_response::Follow
         Ok(
             crate::model::conversational_search_response::FollowupQuestion::new()
                 .set_followup_question(self.followup_question)
-                .set_suggested_answers(
-                    self.suggested_answers
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                ),
+                .set_suggested_answers(self.suggested_answers.into_iter().map(gaxi::prost::FromProto::<crate::model::conversational_search_response::followup_question::SuggestedAnswer>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }
@@ -573,7 +598,7 @@ impl gaxi::prost::FromProto<crate::model::conversational_search_response::conver
     fn cnv(self) -> std::result::Result<crate::model::conversational_search_response::conversational_filtering_result::AdditionalFilter, gaxi::prost::ConvertError> {
         Ok(
             crate::model::conversational_search_response::conversational_filtering_result::AdditionalFilter::new()
-                .set_or_clear_product_attribute_value(self.product_attribute_value.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_product_attribute_value(self.product_attribute_value.map(gaxi::prost::FromProto::<crate::model::ProductAttributeValue>::cnv).transpose()?)
         )
     }
 }
@@ -608,12 +633,8 @@ impl
     > {
         Ok(
             crate::model::conversational_search_response::ConversationalFilteringResult::new()
-                .set_or_clear_followup_question(
-                    self.followup_question.map(|v| v.cnv()).transpose()?,
-                )
-                .set_or_clear_additional_filter(
-                    self.additional_filter.map(|v| v.cnv()).transpose()?,
-                ),
+                .set_or_clear_followup_question(self.followup_question.map(gaxi::prost::FromProto::<crate::model::conversational_search_response::FollowupQuestion>::cnv).transpose()?)
+                .set_or_clear_additional_filter(self.additional_filter.map(gaxi::prost::FromProto::<crate::model::conversational_search_response::conversational_filtering_result::AdditionalFilter>::cnv).transpose()?)
         )
     }
 }
@@ -662,28 +683,18 @@ impl gaxi::prost::FromProto<crate::model::ConversationalSearchResponse>
         self,
     ) -> std::result::Result<crate::model::ConversationalSearchResponse, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::ConversationalSearchResponse::new()
-            .set_user_query_types(
-                self.user_query_types
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_conversational_text_response(self.conversational_text_response)
-            .set_or_clear_followup_question(self.followup_question.map(|v| v.cnv()).transpose()?)
-            .set_conversation_id(self.conversation_id)
-            .set_refined_search(
-                self.refined_search
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_or_clear_conversational_filtering_result(
-                self.conversational_filtering_result
-                    .map(|v| v.cnv())
-                    .transpose()?,
-            )
-            .set_state(self.state))
+        Ok(
+            crate::model::ConversationalSearchResponse::new()
+                .set_user_query_types(self.user_query_types.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_conversational_text_response(self.conversational_text_response)
+                .set_or_clear_followup_question(self.followup_question.map(gaxi::prost::FromProto::<crate::model::conversational_search_response::FollowupQuestion>::cnv).transpose()?)
+                .set_conversation_id(self.conversation_id)
+                .set_refined_search(self.refined_search.into_iter().map(gaxi::prost::FromProto::<crate::model::conversational_search_response::RefinedSearch>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_conversational_filtering_result(self.conversational_filtering_result.map(gaxi::prost::FromProto::<crate::model::conversational_search_response::ConversationalFilteringResult>::cnv).transpose()?)
+                .set_state(self.state)
+        )
     }
 }
 
@@ -773,7 +784,11 @@ impl gaxi::prost::FromProto<crate::model::ProductAttributeInterval> for ProductA
     {
         Ok(crate::model::ProductAttributeInterval::new()
             .set_name(self.name)
-            .set_or_clear_interval(self.interval.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_interval(
+                self.interval
+                    .map(gaxi::prost::FromProto::<crate::model::Interval>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -801,11 +816,13 @@ impl gaxi::prost::FromProto<crate::model::tile::ProductAttribute> for tile::Prod
     ) -> std::result::Result<crate::model::tile::ProductAttribute, gaxi::prost::ConvertError> {
         use crate::model::tile::ProductAttribute as T;
         match self {
-            Self::ProductAttributeValue(v) => {
-                Ok(T::ProductAttributeValue(std::boxed::Box::new(v.cnv()?)))
-            }
+            Self::ProductAttributeValue(v) => Ok(T::ProductAttributeValue(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::ProductAttributeValue>::cnv(v)?,
+            ))),
             Self::ProductAttributeInterval(v) => {
-                Ok(T::ProductAttributeInterval(std::boxed::Box::new(v.cnv()?)))
+                Ok(T::ProductAttributeInterval(std::boxed::Box::new(
+                    gaxi::prost::FromProto::<crate::model::ProductAttributeInterval>::cnv(v)?,
+                )))
             }
         }
     }
@@ -830,7 +847,11 @@ impl gaxi::prost::FromProto<crate::model::Tile> for Tile {
     fn cnv(self) -> std::result::Result<crate::model::Tile, gaxi::prost::ConvertError> {
         Ok(crate::model::Tile::new()
             .set_representative_product_id(self.representative_product_id)
-            .set_product_attribute(self.product_attribute.map(|v| v.cnv()).transpose()?))
+            .set_product_attribute(
+                self.product_attribute
+                    .map(gaxi::prost::FromProto::<crate::model::tile::ProductAttribute>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -885,25 +906,25 @@ impl gaxi::prost::FromProto<crate::model::search_request::facet_spec::FacetKey>
             .set_intervals(
                 self.intervals
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::Interval>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_restricted_values(
                 self.restricted_values
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_prefixes(
                 self.prefixes
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_contains(
                 self.contains
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_case_insensitive(self.case_insensitive)
@@ -939,16 +960,26 @@ impl gaxi::prost::FromProto<crate::model::search_request::FacetSpec> for search_
         self,
     ) -> std::result::Result<crate::model::search_request::FacetSpec, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::search_request::FacetSpec::new()
-            .set_or_clear_facet_key(self.facet_key.map(|v| v.cnv()).transpose()?)
-            .set_limit(self.limit)
-            .set_excluded_filter_keys(
-                self.excluded_filter_keys
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_enable_dynamic_position(self.enable_dynamic_position))
+        Ok(
+            crate::model::search_request::FacetSpec::new()
+                .set_or_clear_facet_key(
+                    self.facet_key
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::search_request::facet_spec::FacetKey,
+                            >::cnv,
+                        )
+                        .transpose()?,
+                )
+                .set_limit(self.limit)
+                .set_excluded_filter_keys(
+                    self.excluded_filter_keys
+                        .into_iter()
+                        .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+                )
+                .set_enable_dynamic_position(self.enable_dynamic_position),
+        )
     }
 }
 
@@ -1048,12 +1079,16 @@ impl gaxi::prost::FromProto<crate::model::search_request::BoostSpec> for search_
             .set_condition_boost_specs(
                 self.condition_boost_specs
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::search_request::boost_spec::ConditionBoostSpec,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_or_clear_skip_boost_spec_validation(
                 self.skip_boost_spec_validation
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<bool>::cnv)
                     .transpose()?,
             ))
     }
@@ -1222,9 +1257,9 @@ impl
     > {
         Ok(
             crate::model::search_request::conversational_search_spec::user_answer::SelectedAnswer::new()
-                .set_product_attribute_values(self.product_attribute_values.into_iter().map(|v| v.cnv())
+                .set_product_attribute_values(self.product_attribute_values.into_iter().map(gaxi::prost::FromProto::<crate::model::ProductAttributeValue>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_product_attribute_value(self.product_attribute_value.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_product_attribute_value(self.product_attribute_value.map(gaxi::prost::FromProto::<crate::model::ProductAttributeValue>::cnv).transpose()?)
         )
     }
 }
@@ -1260,8 +1295,8 @@ impl
     > {
         use crate::model::search_request::conversational_search_spec::user_answer::Type as T;
         match self {
-            Self::TextAnswer(v) => Ok(T::TextAnswer(v.cnv()?)),
-            Self::SelectedAnswer(v) => Ok(T::SelectedAnswer(std::boxed::Box::new(v.cnv()?))),
+            Self::TextAnswer(v) => Ok(T::TextAnswer(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::SelectedAnswer(v) => Ok(T::SelectedAnswer(std::boxed::Box::new(gaxi::prost::FromProto::<crate::model::search_request::conversational_search_spec::user_answer::SelectedAnswer>::cnv(v)?))),
         }
     }
 }
@@ -1300,7 +1335,7 @@ impl gaxi::prost::FromProto<crate::model::search_request::conversational_search_
     > {
         Ok(
             crate::model::search_request::conversational_search_spec::UserAnswer::new()
-                .set_type(self.r#type.map(|v| v.cnv()).transpose()?),
+                .set_type(self.r#type.map(gaxi::prost::FromProto::<crate::model::search_request::conversational_search_spec::user_answer::Type>::cnv).transpose()?)
         )
     }
 }
@@ -1345,7 +1380,7 @@ impl gaxi::prost::FromProto<crate::model::search_request::ConversationalSearchSp
             crate::model::search_request::ConversationalSearchSpec::new()
                 .set_followup_conversation_requested(self.followup_conversation_requested)
                 .set_conversation_id(self.conversation_id)
-                .set_or_clear_user_answer(self.user_answer.map(|v| v.cnv()).transpose()?),
+                .set_or_clear_user_answer(self.user_answer.map(gaxi::prost::FromProto::<crate::model::search_request::conversational_search_spec::UserAnswer>::cnv).transpose()?)
         )
     }
 }
@@ -1384,7 +1419,7 @@ impl gaxi::prost::FromProto<crate::model::search_request::TileNavigationSpec>
             .set_applied_tiles(
                 self.applied_tiles
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::Tile>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -1498,71 +1533,45 @@ impl gaxi::prost::ToProto<SearchRequest> for crate::model::SearchRequest {
 
 impl gaxi::prost::FromProto<crate::model::SearchRequest> for SearchRequest {
     fn cnv(self) -> std::result::Result<crate::model::SearchRequest, gaxi::prost::ConvertError> {
-        Ok(crate::model::SearchRequest::new()
-            .set_placement(self.placement)
-            .set_branch(self.branch)
-            .set_query(self.query)
-            .set_visitor_id(self.visitor_id)
-            .set_or_clear_user_info(self.user_info.map(|v| v.cnv()).transpose()?)
-            .set_page_size(self.page_size)
-            .set_page_token(self.page_token)
-            .set_offset(self.offset)
-            .set_filter(self.filter)
-            .set_canonical_filter(self.canonical_filter)
-            .set_order_by(self.order_by)
-            .set_facet_specs(
-                self.facet_specs
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_or_clear_dynamic_facet_spec(self.dynamic_facet_spec.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_boost_spec(self.boost_spec.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_query_expansion_spec(
-                self.query_expansion_spec.map(|v| v.cnv()).transpose()?,
-            )
-            .set_variant_rollup_keys(
-                self.variant_rollup_keys
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_page_categories(
-                self.page_categories
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_search_mode(self.search_mode)
-            .set_or_clear_personalization_spec(
-                self.personalization_spec.map(|v| v.cnv()).transpose()?,
-            )
-            .set_labels(
-                self.labels
-                    .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
-                    .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            )
-            .set_or_clear_spell_correction_spec(
-                self.spell_correction_spec.map(|v| v.cnv()).transpose()?,
-            )
-            .set_entity(self.entity)
-            .set_or_clear_conversational_search_spec(
-                self.conversational_search_spec
-                    .map(|v| v.cnv())
-                    .transpose()?,
-            )
-            .set_or_clear_tile_navigation_spec(
-                self.tile_navigation_spec.map(|v| v.cnv()).transpose()?,
-            )
-            .set_language_code(self.language_code)
-            .set_region_code(self.region_code)
-            .set_place_id(self.place_id)
-            .set_user_attributes(
-                self.user_attributes
-                    .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
-                    .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            ))
+        Ok(
+            crate::model::SearchRequest::new()
+                .set_placement(self.placement)
+                .set_branch(self.branch)
+                .set_query(self.query)
+                .set_visitor_id(self.visitor_id)
+                .set_or_clear_user_info(self.user_info.map(gaxi::prost::FromProto::<crate::model::UserInfo>::cnv).transpose()?)
+                .set_page_size(self.page_size)
+                .set_page_token(self.page_token)
+                .set_offset(self.offset)
+                .set_filter(self.filter)
+                .set_canonical_filter(self.canonical_filter)
+                .set_order_by(self.order_by)
+                .set_facet_specs(self.facet_specs.into_iter().map(gaxi::prost::FromProto::<crate::model::search_request::FacetSpec>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_dynamic_facet_spec(self.dynamic_facet_spec.map(gaxi::prost::FromProto::<crate::model::search_request::DynamicFacetSpec>::cnv).transpose()?)
+                .set_or_clear_boost_spec(self.boost_spec.map(gaxi::prost::FromProto::<crate::model::search_request::BoostSpec>::cnv).transpose()?)
+                .set_or_clear_query_expansion_spec(self.query_expansion_spec.map(gaxi::prost::FromProto::<crate::model::search_request::QueryExpansionSpec>::cnv).transpose()?)
+                .set_variant_rollup_keys(self.variant_rollup_keys.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_page_categories(self.page_categories.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_search_mode(self.search_mode)
+                .set_or_clear_personalization_spec(self.personalization_spec.map(gaxi::prost::FromProto::<crate::model::search_request::PersonalizationSpec>::cnv).transpose()?)
+                .set_labels(self.labels.into_iter()
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<std::string::String>::cnv(v))
+                    }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+                .set_or_clear_spell_correction_spec(self.spell_correction_spec.map(gaxi::prost::FromProto::<crate::model::search_request::SpellCorrectionSpec>::cnv).transpose()?)
+                .set_entity(self.entity)
+                .set_or_clear_conversational_search_spec(self.conversational_search_spec.map(gaxi::prost::FromProto::<crate::model::search_request::ConversationalSearchSpec>::cnv).transpose()?)
+                .set_or_clear_tile_navigation_spec(self.tile_navigation_spec.map(gaxi::prost::FromProto::<crate::model::search_request::TileNavigationSpec>::cnv).transpose()?)
+                .set_language_code(self.language_code)
+                .set_region_code(self.region_code)
+                .set_place_id(self.place_id)
+                .set_user_attributes(self.user_attributes.into_iter()
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<crate::model::StringList>::cnv(v))
+                    }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
+        )
     }
 }

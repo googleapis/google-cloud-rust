@@ -128,7 +128,7 @@ impl gaxi::prost::FromProto<crate::model::Content> for Content {
         Ok(crate::model::Content::new().set_role(self.role).set_parts(
             self.parts
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<crate::model::Part>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -239,8 +239,11 @@ impl gaxi::prost::FromProto<crate::model::part::MediaResolution> for part::Media
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::part::MediaResolution, gaxi::prost::ConvertError> {
-        Ok(crate::model::part::MediaResolution::new()
-            .set_value(self.value.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::part::MediaResolution::new().set_value(
+            self.value
+                .map(gaxi::prost::FromProto::<crate::model::part::media_resolution::Value>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -307,15 +310,27 @@ impl gaxi::prost::FromProto<crate::model::part::Data> for part::Data {
     fn cnv(self) -> std::result::Result<crate::model::part::Data, gaxi::prost::ConvertError> {
         use crate::model::part::Data as T;
         match self {
-            Self::Text(v) => Ok(T::Text(v.cnv()?)),
-            Self::InlineData(v) => Ok(T::InlineData(std::boxed::Box::new(v.cnv()?))),
-            Self::FileData(v) => Ok(T::FileData(std::boxed::Box::new(v.cnv()?))),
-            Self::FunctionCall(v) => Ok(T::FunctionCall(std::boxed::Box::new(v.cnv()?))),
-            Self::FunctionResponse(v) => Ok(T::FunctionResponse(std::boxed::Box::new(v.cnv()?))),
-            Self::ExecutableCode(v) => Ok(T::ExecutableCode(std::boxed::Box::new(v.cnv()?))),
-            Self::CodeExecutionResult(v) => {
-                Ok(T::CodeExecutionResult(std::boxed::Box::new(v.cnv()?)))
-            }
+            Self::Text(v) => Ok(T::Text(gaxi::prost::FromProto::<std::string::String>::cnv(
+                v,
+            )?)),
+            Self::InlineData(v) => Ok(T::InlineData(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::Blob>::cnv(v)?,
+            ))),
+            Self::FileData(v) => Ok(T::FileData(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::FileData,
+            >::cnv(v)?))),
+            Self::FunctionCall(v) => Ok(T::FunctionCall(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::FunctionCall>::cnv(v)?,
+            ))),
+            Self::FunctionResponse(v) => Ok(T::FunctionResponse(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::FunctionResponse>::cnv(v)?,
+            ))),
+            Self::ExecutableCode(v) => Ok(T::ExecutableCode(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::ExecutableCode>::cnv(v)?,
+            ))),
+            Self::CodeExecutionResult(v) => Ok(T::CodeExecutionResult(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::CodeExecutionResult>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -355,7 +370,9 @@ impl gaxi::prost::FromProto<crate::model::part::Metadata> for part::Metadata {
     fn cnv(self) -> std::result::Result<crate::model::part::Metadata, gaxi::prost::ConvertError> {
         use crate::model::part::Metadata as T;
         match self {
-            Self::VideoMetadata(v) => Ok(T::VideoMetadata(std::boxed::Box::new(v.cnv()?))),
+            Self::VideoMetadata(v) => Ok(T::VideoMetadata(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::VideoMetadata>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -409,9 +426,21 @@ impl gaxi::prost::FromProto<crate::model::Part> for Part {
         Ok(crate::model::Part::new()
             .set_thought(self.thought)
             .set_thought_signature(self.thought_signature)
-            .set_or_clear_media_resolution(self.media_resolution.map(|v| v.cnv()).transpose()?)
-            .set_data(self.data.map(|v| v.cnv()).transpose()?)
-            .set_metadata(self.metadata.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_media_resolution(
+                self.media_resolution
+                    .map(gaxi::prost::FromProto::<crate::model::part::MediaResolution>::cnv)
+                    .transpose()?,
+            )
+            .set_data(
+                self.data
+                    .map(gaxi::prost::FromProto::<crate::model::part::Data>::cnv)
+                    .transpose()?,
+            )
+            .set_metadata(
+                self.metadata
+                    .map(gaxi::prost::FromProto::<crate::model::part::Metadata>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -531,8 +560,16 @@ impl gaxi::prost::ToProto<VideoMetadata> for crate::model::VideoMetadata {
 impl gaxi::prost::FromProto<crate::model::VideoMetadata> for VideoMetadata {
     fn cnv(self) -> std::result::Result<crate::model::VideoMetadata, gaxi::prost::ConvertError> {
         Ok(crate::model::VideoMetadata::new()
-            .set_or_clear_start_offset(self.start_offset.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_end_offset(self.end_offset.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_start_offset(
+                self.start_offset
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_end_offset(
+                self.end_offset
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            )
             .set_fps(self.fps))
     }
 }
@@ -563,8 +600,13 @@ impl gaxi::prost::FromProto<crate::model::PrebuiltVoiceConfig> for PrebuiltVoice
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::PrebuiltVoiceConfig, gaxi::prost::ConvertError> {
-        Ok(crate::model::PrebuiltVoiceConfig::new()
-            .set_or_clear_voice_name(self.voice_name.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::PrebuiltVoiceConfig::new().set_or_clear_voice_name(
+                self.voice_name
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            ),
+        )
     }
 }
 
@@ -639,12 +681,12 @@ impl gaxi::prost::FromProto<crate::model::voice_config::VoiceConfig> for voice_c
     {
         use crate::model::voice_config::VoiceConfig as T;
         match self {
-            Self::PrebuiltVoiceConfig(v) => {
-                Ok(T::PrebuiltVoiceConfig(std::boxed::Box::new(v.cnv()?)))
-            }
-            Self::ReplicatedVoiceConfig(v) => {
-                Ok(T::ReplicatedVoiceConfig(std::boxed::Box::new(v.cnv()?)))
-            }
+            Self::PrebuiltVoiceConfig(v) => Ok(T::PrebuiltVoiceConfig(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::PrebuiltVoiceConfig>::cnv(v)?,
+            ))),
+            Self::ReplicatedVoiceConfig(v) => Ok(T::ReplicatedVoiceConfig(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::ReplicatedVoiceConfig>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -673,8 +715,11 @@ impl gaxi::prost::ToProto<VoiceConfig> for crate::model::VoiceConfig {
 ))]
 impl gaxi::prost::FromProto<crate::model::VoiceConfig> for VoiceConfig {
     fn cnv(self) -> std::result::Result<crate::model::VoiceConfig, gaxi::prost::ConvertError> {
-        Ok(crate::model::VoiceConfig::new()
-            .set_voice_config(self.voice_config.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::VoiceConfig::new().set_voice_config(
+            self.voice_config
+                .map(gaxi::prost::FromProto::<crate::model::voice_config::VoiceConfig>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -707,7 +752,11 @@ impl gaxi::prost::FromProto<crate::model::SpeakerVoiceConfig> for SpeakerVoiceCo
     ) -> std::result::Result<crate::model::SpeakerVoiceConfig, gaxi::prost::ConvertError> {
         Ok(crate::model::SpeakerVoiceConfig::new()
             .set_speaker(self.speaker)
-            .set_or_clear_voice_config(self.voice_config.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_voice_config(
+                self.voice_config
+                    .map(gaxi::prost::FromProto::<crate::model::VoiceConfig>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -742,7 +791,7 @@ impl gaxi::prost::FromProto<crate::model::MultiSpeakerVoiceConfig> for MultiSpea
             crate::model::MultiSpeakerVoiceConfig::new().set_speaker_voice_configs(
                 self.speaker_voice_configs
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::SpeakerVoiceConfig>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -781,11 +830,15 @@ impl gaxi::prost::ToProto<SpeechConfig> for crate::model::SpeechConfig {
 impl gaxi::prost::FromProto<crate::model::SpeechConfig> for SpeechConfig {
     fn cnv(self) -> std::result::Result<crate::model::SpeechConfig, gaxi::prost::ConvertError> {
         Ok(crate::model::SpeechConfig::new()
-            .set_or_clear_voice_config(self.voice_config.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_voice_config(
+                self.voice_config
+                    .map(gaxi::prost::FromProto::<crate::model::VoiceConfig>::cnv)
+                    .transpose()?,
+            )
             .set_language_code(self.language_code)
             .set_or_clear_multi_speaker_voice_config(
                 self.multi_speaker_voice_config
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::MultiSpeakerVoiceConfig>::cnv)
                     .transpose()?,
             ))
     }
@@ -831,9 +884,15 @@ impl gaxi::prost::FromProto<crate::model::image_config::ImageOutputOptions>
         gaxi::prost::ConvertError,
     > {
         Ok(crate::model::image_config::ImageOutputOptions::new()
-            .set_or_clear_mime_type(self.mime_type.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_mime_type(
+                self.mime_type
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            )
             .set_or_clear_compression_quality(
-                self.compression_quality.map(|v| v.cnv()).transpose()?,
+                self.compression_quality
+                    .map(gaxi::prost::FromProto::<i32>::cnv)
+                    .transpose()?,
             ))
     }
 }
@@ -891,13 +950,13 @@ impl gaxi::prost::ToProto<ImageConfig> for crate::model::ImageConfig {
 ))]
 impl gaxi::prost::FromProto<crate::model::ImageConfig> for ImageConfig {
     fn cnv(self) -> std::result::Result<crate::model::ImageConfig, gaxi::prost::ConvertError> {
-        Ok(crate::model::ImageConfig::new()
-            .set_or_clear_image_output_options(
-                self.image_output_options.map(|v| v.cnv()).transpose()?,
-            )
-            .set_or_clear_aspect_ratio(self.aspect_ratio.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_person_generation(self.person_generation.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_image_size(self.image_size.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::ImageConfig::new()
+                .set_or_clear_image_output_options(self.image_output_options.map(gaxi::prost::FromProto::<crate::model::image_config::ImageOutputOptions>::cnv).transpose()?)
+                .set_or_clear_aspect_ratio(self.aspect_ratio.map(gaxi::prost::FromProto::<std::string::String>::cnv).transpose()?)
+                .set_or_clear_person_generation(self.person_generation.map(crate::model::image_config::PersonGeneration::from))
+                .set_or_clear_image_size(self.image_size.map(gaxi::prost::FromProto::<std::string::String>::cnv).transpose()?)
+        )
     }
 }
 
@@ -955,9 +1014,7 @@ impl gaxi::prost::FromProto<crate::model::generation_config::routing_config::Aut
     > {
         Ok(
             crate::model::generation_config::routing_config::AutoRoutingMode::new()
-                .set_or_clear_model_routing_preference(
-                    self.model_routing_preference.map(|v| v.cnv()).transpose()?,
-                ),
+                .set_or_clear_model_routing_preference(self.model_routing_preference.map(crate::model::generation_config::routing_config::auto_routing_mode::ModelRoutingPreference::from))
         )
     }
 }
@@ -1002,7 +1059,11 @@ impl gaxi::prost::FromProto<crate::model::generation_config::routing_config::Man
     > {
         Ok(
             crate::model::generation_config::routing_config::ManualRoutingMode::new()
-                .set_or_clear_model_name(self.model_name.map(|v| v.cnv()).transpose()?),
+                .set_or_clear_model_name(
+                    self.model_name
+                        .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                        .transpose()?,
+                ),
         )
     }
 }
@@ -1044,8 +1105,14 @@ impl gaxi::prost::FromProto<crate::model::generation_config::routing_config::Rou
     > {
         use crate::model::generation_config::routing_config::RoutingConfig as T;
         match self {
-            Self::AutoMode(v) => Ok(T::AutoMode(std::boxed::Box::new(v.cnv()?))),
-            Self::ManualMode(v) => Ok(T::ManualMode(std::boxed::Box::new(v.cnv()?))),
+            Self::AutoMode(v) => Ok(T::AutoMode(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::generation_config::routing_config::AutoRoutingMode,
+            >::cnv(v)?))),
+            Self::ManualMode(v) => Ok(T::ManualMode(std::boxed::Box::new(
+                gaxi::prost::FromProto::<
+                    crate::model::generation_config::routing_config::ManualRoutingMode,
+                >::cnv(v)?,
+            ))),
         }
     }
 }
@@ -1082,8 +1149,17 @@ impl gaxi::prost::FromProto<crate::model::generation_config::RoutingConfig>
         crate::model::generation_config::RoutingConfig,
         gaxi::prost::ConvertError,
     > {
-        Ok(crate::model::generation_config::RoutingConfig::new()
-            .set_routing_config(self.routing_config.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::generation_config::RoutingConfig::new().set_routing_config(
+                self.routing_config
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::generation_config::routing_config::RoutingConfig,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ),
+        )
     }
 }
 
@@ -1139,9 +1215,20 @@ impl gaxi::prost::FromProto<crate::model::generation_config::ThinkingConfig>
         gaxi::prost::ConvertError,
     > {
         Ok(crate::model::generation_config::ThinkingConfig::new()
-            .set_or_clear_include_thoughts(self.include_thoughts.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_thinking_budget(self.thinking_budget.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_thinking_level(self.thinking_level.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_include_thoughts(
+                self.include_thoughts
+                    .map(gaxi::prost::FromProto::<bool>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_thinking_budget(
+                self.thinking_budget
+                    .map(gaxi::prost::FromProto::<i32>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_thinking_level(
+                self.thinking_level
+                    .map(crate::model::generation_config::thinking_config::ThinkingLevel::from),
+            ))
     }
 }
 
@@ -1284,39 +1371,31 @@ impl gaxi::prost::ToProto<GenerationConfig> for crate::model::GenerationConfig {
 ))]
 impl gaxi::prost::FromProto<crate::model::GenerationConfig> for GenerationConfig {
     fn cnv(self) -> std::result::Result<crate::model::GenerationConfig, gaxi::prost::ConvertError> {
-        Ok(crate::model::GenerationConfig::new()
-            .set_or_clear_temperature(self.temperature.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_top_p(self.top_p.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_top_k(self.top_k.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_candidate_count(self.candidate_count.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_max_output_tokens(self.max_output_tokens.map(|v| v.cnv()).transpose()?)
-            .set_stop_sequences(
-                self.stop_sequences
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_or_clear_response_logprobs(self.response_logprobs.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_logprobs(self.logprobs.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_presence_penalty(self.presence_penalty.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_frequency_penalty(self.frequency_penalty.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_seed(self.seed.map(|v| v.cnv()).transpose()?)
-            .set_response_mime_type(self.response_mime_type)
-            .set_or_clear_response_schema(self.response_schema.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_response_json_schema(
-                self.response_json_schema.map(|v| v.cnv()).transpose()?,
-            )
-            .set_or_clear_routing_config(self.routing_config.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_audio_timestamp(self.audio_timestamp.map(|v| v.cnv()).transpose()?)
-            .set_response_modalities(
-                self.response_modalities
-                    .into_iter()
-                    .map(crate::model::generation_config::Modality::from),
-            )
-            .set_or_clear_media_resolution(self.media_resolution.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_speech_config(self.speech_config.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_thinking_config(self.thinking_config.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_image_config(self.image_config.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::GenerationConfig::new()
+                .set_or_clear_temperature(self.temperature.map(gaxi::prost::FromProto::<f32>::cnv).transpose()?)
+                .set_or_clear_top_p(self.top_p.map(gaxi::prost::FromProto::<f32>::cnv).transpose()?)
+                .set_or_clear_top_k(self.top_k.map(gaxi::prost::FromProto::<f32>::cnv).transpose()?)
+                .set_or_clear_candidate_count(self.candidate_count.map(gaxi::prost::FromProto::<i32>::cnv).transpose()?)
+                .set_or_clear_max_output_tokens(self.max_output_tokens.map(gaxi::prost::FromProto::<i32>::cnv).transpose()?)
+                .set_stop_sequences(self.stop_sequences.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_or_clear_response_logprobs(self.response_logprobs.map(gaxi::prost::FromProto::<bool>::cnv).transpose()?)
+                .set_or_clear_logprobs(self.logprobs.map(gaxi::prost::FromProto::<i32>::cnv).transpose()?)
+                .set_or_clear_presence_penalty(self.presence_penalty.map(gaxi::prost::FromProto::<f32>::cnv).transpose()?)
+                .set_or_clear_frequency_penalty(self.frequency_penalty.map(gaxi::prost::FromProto::<f32>::cnv).transpose()?)
+                .set_or_clear_seed(self.seed.map(gaxi::prost::FromProto::<i32>::cnv).transpose()?)
+                .set_response_mime_type(self.response_mime_type)
+                .set_or_clear_response_schema(self.response_schema.map(gaxi::prost::FromProto::<crate::model::Schema>::cnv).transpose()?)
+                .set_or_clear_response_json_schema(self.response_json_schema.map(gaxi::prost::FromProto::<wkt::Value>::cnv).transpose()?)
+                .set_or_clear_routing_config(self.routing_config.map(gaxi::prost::FromProto::<crate::model::generation_config::RoutingConfig>::cnv).transpose()?)
+                .set_or_clear_audio_timestamp(self.audio_timestamp.map(gaxi::prost::FromProto::<bool>::cnv).transpose()?)
+                .set_response_modalities(self.response_modalities.into_iter().map(crate::model::generation_config::Modality::from))
+                .set_or_clear_media_resolution(self.media_resolution.map(crate::model::generation_config::MediaResolution::from))
+                .set_or_clear_speech_config(self.speech_config.map(gaxi::prost::FromProto::<crate::model::SpeechConfig>::cnv).transpose()?)
+                .set_or_clear_thinking_config(self.thinking_config.map(gaxi::prost::FromProto::<crate::model::generation_config::ThinkingConfig>::cnv).transpose()?)
+                .set_or_clear_image_config(self.image_config.map(gaxi::prost::FromProto::<crate::model::ImageConfig>::cnv).transpose()?)
+        )
     }
 }
 
@@ -1446,7 +1525,7 @@ impl gaxi::prost::FromProto<crate::model::CitationMetadata> for CitationMetadata
         Ok(crate::model::CitationMetadata::new().set_citations(
             self.citations
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<crate::model::Citation>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -1479,7 +1558,11 @@ impl gaxi::prost::FromProto<crate::model::Citation> for Citation {
             .set_uri(self.uri)
             .set_title(self.title)
             .set_license(self.license)
-            .set_or_clear_publication_date(self.publication_date.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_publication_date(
+                self.publication_date
+                    .map(gaxi::prost::FromProto::<google_cloud_type::model::Date>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -1543,22 +1626,44 @@ impl gaxi::prost::FromProto<crate::model::Candidate> for Candidate {
     fn cnv(self) -> std::result::Result<crate::model::Candidate, gaxi::prost::ConvertError> {
         Ok(crate::model::Candidate::new()
             .set_index(self.index)
-            .set_or_clear_content(self.content.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_content(
+                self.content
+                    .map(gaxi::prost::FromProto::<crate::model::Content>::cnv)
+                    .transpose()?,
+            )
             .set_score(self.score)
             .set_avg_logprobs(self.avg_logprobs)
-            .set_or_clear_logprobs_result(self.logprobs_result.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_logprobs_result(
+                self.logprobs_result
+                    .map(gaxi::prost::FromProto::<crate::model::LogprobsResult>::cnv)
+                    .transpose()?,
+            )
             .set_finish_reason(self.finish_reason)
             .set_safety_ratings(
                 self.safety_ratings
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::SafetyRating>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_finish_message(self.finish_message.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_citation_metadata(self.citation_metadata.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_grounding_metadata(self.grounding_metadata.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_finish_message(
+                self.finish_message
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_citation_metadata(
+                self.citation_metadata
+                    .map(gaxi::prost::FromProto::<crate::model::CitationMetadata>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_grounding_metadata(
+                self.grounding_metadata
+                    .map(gaxi::prost::FromProto::<crate::model::GroundingMetadata>::cnv)
+                    .transpose()?,
+            )
             .set_or_clear_url_context_metadata(
-                self.url_context_metadata.map(|v| v.cnv()).transpose()?,
+                self.url_context_metadata
+                    .map(gaxi::prost::FromProto::<crate::model::UrlContextMetadata>::cnv)
+                    .transpose()?,
             ))
     }
 }
@@ -1585,7 +1690,7 @@ impl gaxi::prost::FromProto<crate::model::UrlContextMetadata> for UrlContextMeta
         Ok(crate::model::UrlContextMetadata::new().set_url_metadata(
             self.url_metadata
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<crate::model::UrlMetadata>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -1661,9 +1766,21 @@ impl gaxi::prost::FromProto<crate::model::logprobs_result::Candidate>
     ) -> std::result::Result<crate::model::logprobs_result::Candidate, gaxi::prost::ConvertError>
     {
         Ok(crate::model::logprobs_result::Candidate::new()
-            .set_or_clear_token(self.token.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_token_id(self.token_id.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_log_probability(self.log_probability.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_token(
+                self.token
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_token_id(
+                self.token_id
+                    .map(gaxi::prost::FromProto::<i32>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_log_probability(
+                self.log_probability
+                    .map(gaxi::prost::FromProto::<f32>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -1697,7 +1814,7 @@ impl gaxi::prost::FromProto<crate::model::logprobs_result::TopCandidates>
             crate::model::logprobs_result::TopCandidates::new().set_candidates(
                 self.candidates
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::logprobs_result::Candidate>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -1730,13 +1847,15 @@ impl gaxi::prost::FromProto<crate::model::LogprobsResult> for LogprobsResult {
             .set_top_candidates(
                 self.top_candidates
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<crate::model::logprobs_result::TopCandidates>::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_chosen_candidates(
                 self.chosen_candidates
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::logprobs_result::Candidate>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -1789,8 +1908,16 @@ impl gaxi::prost::FromProto<crate::model::grounding_chunk::Web> for grounding_ch
         self,
     ) -> std::result::Result<crate::model::grounding_chunk::Web, gaxi::prost::ConvertError> {
         Ok(crate::model::grounding_chunk::Web::new()
-            .set_or_clear_uri(self.uri.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_title(self.title.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_uri(
+                self.uri
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_title(
+                self.title
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -1820,7 +1947,9 @@ impl gaxi::prost::FromProto<crate::model::grounding_chunk::retrieved_context::Co
     > {
         use crate::model::grounding_chunk::retrieved_context::ContextDetails as T;
         match self {
-            Self::RagChunk(v) => Ok(T::RagChunk(std::boxed::Box::new(v.cnv()?))),
+            Self::RagChunk(v) => Ok(T::RagChunk(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::RagChunk,
+            >::cnv(v)?))),
         }
     }
 }
@@ -1875,11 +2004,35 @@ impl gaxi::prost::FromProto<crate::model::grounding_chunk::RetrievedContext>
         gaxi::prost::ConvertError,
     > {
         Ok(crate::model::grounding_chunk::RetrievedContext::new()
-            .set_or_clear_uri(self.uri.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_title(self.title.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_text(self.text.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_document_name(self.document_name.map(|v| v.cnv()).transpose()?)
-            .set_context_details(self.context_details.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_uri(
+                self.uri
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_title(
+                self.title
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_text(
+                self.text
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_document_name(
+                self.document_name
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            )
+            .set_context_details(
+                self.context_details
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::grounding_chunk::retrieved_context::ContextDetails,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ))
     }
 }
 
@@ -1958,12 +2111,9 @@ impl gaxi::prost::FromProto<crate::model::grounding_chunk::maps::PlaceAnswerSour
         gaxi::prost::ConvertError,
     > {
         Ok(
-            crate::model::grounding_chunk::maps::PlaceAnswerSources::new().set_review_snippets(
-                self.review_snippets
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            ),
+            crate::model::grounding_chunk::maps::PlaceAnswerSources::new()
+                .set_review_snippets(self.review_snippets.into_iter().map(gaxi::prost::FromProto::<crate::model::grounding_chunk::maps::place_answer_sources::ReviewSnippet>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }
@@ -1999,7 +2149,11 @@ impl gaxi::prost::FromProto<crate::model::grounding_chunk::maps::Route>
     {
         Ok(crate::model::grounding_chunk::maps::Route::new()
             .set_distance_meters(self.distance_meters)
-            .set_or_clear_duration(self.duration.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_duration(
+                self.duration
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            )
             .set_encoded_polyline(self.encoded_polyline))
     }
 }
@@ -2043,14 +2197,40 @@ impl gaxi::prost::FromProto<crate::model::grounding_chunk::Maps> for grounding_c
         self,
     ) -> std::result::Result<crate::model::grounding_chunk::Maps, gaxi::prost::ConvertError> {
         Ok(crate::model::grounding_chunk::Maps::new()
-            .set_or_clear_uri(self.uri.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_title(self.title.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_text(self.text.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_place_id(self.place_id.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_place_answer_sources(
-                self.place_answer_sources.map(|v| v.cnv()).transpose()?,
+            .set_or_clear_uri(
+                self.uri
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
             )
-            .set_or_clear_route(self.route.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_title(
+                self.title
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_text(
+                self.text
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_place_id(
+                self.place_id
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_place_answer_sources(
+                self.place_answer_sources
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::grounding_chunk::maps::PlaceAnswerSources,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            )
+            .set_or_clear_route(
+                self.route
+                    .map(gaxi::prost::FromProto::<crate::model::grounding_chunk::maps::Route>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -2086,9 +2266,15 @@ impl gaxi::prost::FromProto<crate::model::grounding_chunk::ChunkType>
     {
         use crate::model::grounding_chunk::ChunkType as T;
         match self {
-            Self::Web(v) => Ok(T::Web(std::boxed::Box::new(v.cnv()?))),
-            Self::RetrievedContext(v) => Ok(T::RetrievedContext(std::boxed::Box::new(v.cnv()?))),
-            Self::Maps(v) => Ok(T::Maps(std::boxed::Box::new(v.cnv()?))),
+            Self::Web(v) => Ok(T::Web(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::grounding_chunk::Web,
+            >::cnv(v)?))),
+            Self::RetrievedContext(v) => Ok(T::RetrievedContext(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::grounding_chunk::RetrievedContext>::cnv(v)?,
+            ))),
+            Self::Maps(v) => Ok(T::Maps(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::grounding_chunk::Maps,
+            >::cnv(v)?))),
         }
     }
 }
@@ -2109,8 +2295,11 @@ impl gaxi::prost::ToProto<GroundingChunk> for crate::model::GroundingChunk {
 #[cfg(any(feature = "prediction-service", feature = "session-service",))]
 impl gaxi::prost::FromProto<crate::model::GroundingChunk> for GroundingChunk {
     fn cnv(self) -> std::result::Result<crate::model::GroundingChunk, gaxi::prost::ConvertError> {
-        Ok(crate::model::GroundingChunk::new()
-            .set_chunk_type(self.chunk_type.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::GroundingChunk::new().set_chunk_type(
+            self.chunk_type
+                .map(gaxi::prost::FromProto::<crate::model::grounding_chunk::ChunkType>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -2141,17 +2330,21 @@ impl gaxi::prost::ToProto<GroundingSupport> for crate::model::GroundingSupport {
 impl gaxi::prost::FromProto<crate::model::GroundingSupport> for GroundingSupport {
     fn cnv(self) -> std::result::Result<crate::model::GroundingSupport, gaxi::prost::ConvertError> {
         Ok(crate::model::GroundingSupport::new()
-            .set_or_clear_segment(self.segment.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_segment(
+                self.segment
+                    .map(gaxi::prost::FromProto::<crate::model::Segment>::cnv)
+                    .transpose()?,
+            )
             .set_grounding_chunk_indices(
                 self.grounding_chunk_indices
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<i32>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_confidence_scores(
                 self.confidence_scores
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<f32>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -2241,44 +2434,58 @@ impl gaxi::prost::FromProto<crate::model::GroundingMetadata> for GroundingMetada
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::GroundingMetadata, gaxi::prost::ConvertError> {
-        Ok(crate::model::GroundingMetadata::new()
-            .set_web_search_queries(
-                self.web_search_queries
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_or_clear_search_entry_point(self.search_entry_point.map(|v| v.cnv()).transpose()?)
-            .set_retrieval_queries(
-                self.retrieval_queries
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_grounding_chunks(
-                self.grounding_chunks
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_grounding_supports(
-                self.grounding_supports
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_or_clear_retrieval_metadata(self.retrieval_metadata.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_google_maps_widget_context_token(
-                self.google_maps_widget_context_token
-                    .map(|v| v.cnv())
-                    .transpose()?,
-            )
-            .set_source_flagging_uris(
-                self.source_flagging_uris
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            ))
+        Ok(
+            crate::model::GroundingMetadata::new()
+                .set_web_search_queries(
+                    self.web_search_queries
+                        .into_iter()
+                        .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+                )
+                .set_or_clear_search_entry_point(
+                    self.search_entry_point
+                        .map(gaxi::prost::FromProto::<crate::model::SearchEntryPoint>::cnv)
+                        .transpose()?,
+                )
+                .set_retrieval_queries(
+                    self.retrieval_queries
+                        .into_iter()
+                        .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+                )
+                .set_grounding_chunks(
+                    self.grounding_chunks
+                        .into_iter()
+                        .map(gaxi::prost::FromProto::<crate::model::GroundingChunk>::cnv)
+                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+                )
+                .set_grounding_supports(
+                    self.grounding_supports
+                        .into_iter()
+                        .map(gaxi::prost::FromProto::<crate::model::GroundingSupport>::cnv)
+                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+                )
+                .set_or_clear_retrieval_metadata(
+                    self.retrieval_metadata
+                        .map(gaxi::prost::FromProto::<crate::model::RetrievalMetadata>::cnv)
+                        .transpose()?,
+                )
+                .set_or_clear_google_maps_widget_context_token(
+                    self.google_maps_widget_context_token
+                        .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                        .transpose()?,
+                )
+                .set_source_flagging_uris(
+                    self.source_flagging_uris
+                        .into_iter()
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::grounding_metadata::SourceFlaggingUri,
+                            >::cnv,
+                        )
+                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+                ),
+        )
     }
 }
 
@@ -2404,7 +2611,7 @@ impl gaxi::prost::FromProto<crate::model::feature_view_data_key::CompositeKey>
             crate::model::feature_view_data_key::CompositeKey::new().set_parts(
                 self.parts
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -2438,8 +2645,14 @@ impl gaxi::prost::FromProto<crate::model::feature_view_data_key::KeyOneof>
     {
         use crate::model::feature_view_data_key::KeyOneof as T;
         match self {
-            Self::Key(v) => Ok(T::Key(v.cnv()?)),
-            Self::CompositeKey(v) => Ok(T::CompositeKey(std::boxed::Box::new(v.cnv()?))),
+            Self::Key(v) => Ok(T::Key(gaxi::prost::FromProto::<std::string::String>::cnv(
+                v,
+            )?)),
+            Self::CompositeKey(v) => Ok(T::CompositeKey(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::feature_view_data_key::CompositeKey>::cnv(
+                    v,
+                )?,
+            ))),
         }
     }
 }
@@ -2462,8 +2675,11 @@ impl gaxi::prost::FromProto<crate::model::FeatureViewDataKey> for FeatureViewDat
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::FeatureViewDataKey, gaxi::prost::ConvertError> {
-        Ok(crate::model::FeatureViewDataKey::new()
-            .set_key_oneof(self.key_oneof.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::FeatureViewDataKey::new().set_key_oneof(
+            self.key_oneof
+                .map(gaxi::prost::FromProto::<crate::model::feature_view_data_key::KeyOneof>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -2482,7 +2698,7 @@ impl gaxi::prost::FromProto<crate::model::feature_view_direct_write_request::dat
     fn cnv(self) -> std::result::Result<crate::model::feature_view_direct_write_request::data_key_and_feature_values::feature::DataOneof, gaxi::prost::ConvertError> {
         use crate::model::feature_view_direct_write_request::data_key_and_feature_values::feature::DataOneof as T;
         match self {
-            Self::Value(v) => Ok(T::Value(std::boxed::Box::new(v.cnv()?))),
+            Self::Value(v) => Ok(T::Value(std::boxed::Box::new(gaxi::prost::FromProto::<crate::model::FeatureValue>::cnv(v)?))),
         }
     }
 }
@@ -2520,7 +2736,7 @@ impl
         Ok(
             crate::model::feature_view_direct_write_request::data_key_and_feature_values::Feature::new()
                 .set_name(self.name)
-                .set_data_oneof(self.data_oneof.map(|v| v.cnv()).transpose()?)
+                .set_data_oneof(self.data_oneof.map(gaxi::prost::FromProto::<crate::model::feature_view_direct_write_request::data_key_and_feature_values::feature::DataOneof>::cnv).transpose()?)
         )
     }
 }
@@ -2567,13 +2783,9 @@ impl
     > {
         Ok(
             crate::model::feature_view_direct_write_request::DataKeyAndFeatureValues::new()
-                .set_or_clear_data_key(self.data_key.map(|v| v.cnv()).transpose()?)
-                .set_features(
-                    self.features
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                ),
+                .set_or_clear_data_key(self.data_key.map(gaxi::prost::FromProto::<crate::model::FeatureViewDataKey>::cnv).transpose()?)
+                .set_features(self.features.into_iter().map(gaxi::prost::FromProto::<crate::model::feature_view_direct_write_request::data_key_and_feature_values::Feature>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }
@@ -2609,14 +2821,12 @@ impl gaxi::prost::FromProto<crate::model::FeatureViewDirectWriteRequest>
         self,
     ) -> std::result::Result<crate::model::FeatureViewDirectWriteRequest, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::FeatureViewDirectWriteRequest::new()
-            .set_feature_view(self.feature_view)
-            .set_data_key_and_feature_values(
-                self.data_key_and_feature_values
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            ))
+        Ok(
+            crate::model::FeatureViewDirectWriteRequest::new()
+                .set_feature_view(self.feature_view)
+                .set_data_key_and_feature_values(self.data_key_and_feature_values.into_iter().map(gaxi::prost::FromProto::<crate::model::feature_view_direct_write_request::DataKeyAndFeatureValues>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
     }
 }
 
@@ -2656,9 +2866,15 @@ impl gaxi::prost::FromProto<crate::model::feature_view_direct_write_response::Wr
     > {
         Ok(
             crate::model::feature_view_direct_write_response::WriteResponse::new()
-                .set_or_clear_data_key(self.data_key.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_data_key(
+                    self.data_key
+                        .map(gaxi::prost::FromProto::<crate::model::FeatureViewDataKey>::cnv)
+                        .transpose()?,
+                )
                 .set_or_clear_online_store_write_time(
-                    self.online_store_write_time.map(|v| v.cnv()).transpose()?,
+                    self.online_store_write_time
+                        .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                        .transpose()?,
                 ),
         )
     }
@@ -2691,11 +2907,19 @@ impl gaxi::prost::FromProto<crate::model::FeatureViewDirectWriteResponse>
     ) -> std::result::Result<crate::model::FeatureViewDirectWriteResponse, gaxi::prost::ConvertError>
     {
         Ok(crate::model::FeatureViewDirectWriteResponse::new()
-            .set_or_clear_status(self.status.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_status(
+                self.status
+                    .map(gaxi::prost::FromProto::<google_cloud_rpc::model::Status>::cnv)
+                    .transpose()?,
+            )
             .set_write_responses(
                 self.write_responses
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::feature_view_direct_write_response::WriteResponse,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -2727,7 +2951,7 @@ impl gaxi::prost::FromProto<crate::model::IdMatcher> for IdMatcher {
         Ok(crate::model::IdMatcher::new().set_ids(
             self.ids
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -2755,8 +2979,13 @@ impl gaxi::prost::ToProto<FeatureSelector> for crate::model::FeatureSelector {
 ))]
 impl gaxi::prost::FromProto<crate::model::FeatureSelector> for FeatureSelector {
     fn cnv(self) -> std::result::Result<crate::model::FeatureSelector, gaxi::prost::ConvertError> {
-        Ok(crate::model::FeatureSelector::new()
-            .set_or_clear_id_matcher(self.id_matcher.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::FeatureSelector::new().set_or_clear_id_matcher(
+                self.id_matcher
+                    .map(gaxi::prost::FromProto::<crate::model::IdMatcher>::cnv)
+                    .transpose()?,
+            ),
+        )
     }
 }
 
@@ -2824,7 +3053,11 @@ impl gaxi::prost::FromProto<crate::model::read_feature_values_response::Header>
             .set_feature_descriptors(
                 self.feature_descriptors
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::read_feature_values_response::FeatureDescriptor,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -2859,8 +3092,12 @@ impl gaxi::prost::FromProto<crate::model::read_feature_values_response::entity_v
     > {
         use crate::model::read_feature_values_response::entity_view::data::Data as T;
         match self {
-            Self::Value(v) => Ok(T::Value(std::boxed::Box::new(v.cnv()?))),
-            Self::Values(v) => Ok(T::Values(std::boxed::Box::new(v.cnv()?))),
+            Self::Value(v) => Ok(T::Value(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::FeatureValue,
+            >::cnv(v)?))),
+            Self::Values(v) => Ok(T::Values(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::FeatureValueList,
+            >::cnv(v)?))),
         }
     }
 }
@@ -2902,8 +3139,15 @@ impl gaxi::prost::FromProto<crate::model::read_feature_values_response::entity_v
         gaxi::prost::ConvertError,
     > {
         Ok(
-            crate::model::read_feature_values_response::entity_view::Data::new()
-                .set_data(self.data.map(|v| v.cnv()).transpose()?),
+            crate::model::read_feature_values_response::entity_view::Data::new().set_data(
+                self.data
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::read_feature_values_response::entity_view::data::Data,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ),
         )
     }
 }
@@ -2943,7 +3187,11 @@ impl gaxi::prost::FromProto<crate::model::read_feature_values_response::EntityVi
                 .set_data(
                     self.data
                         .into_iter()
-                        .map(|v| v.cnv())
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::read_feature_values_response::entity_view::Data,
+                            >::cnv,
+                        )
                         .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
                 ),
         )
@@ -2973,9 +3221,27 @@ impl gaxi::prost::FromProto<crate::model::ReadFeatureValuesResponse> for ReadFea
         self,
     ) -> std::result::Result<crate::model::ReadFeatureValuesResponse, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::ReadFeatureValuesResponse::new()
-            .set_or_clear_header(self.header.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_entity_view(self.entity_view.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::ReadFeatureValuesResponse::new()
+                .set_or_clear_header(
+                    self.header
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::read_feature_values_response::Header,
+                            >::cnv,
+                        )
+                        .transpose()?,
+                )
+                .set_or_clear_entity_view(
+                    self.entity_view
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::read_feature_values_response::EntityView,
+                            >::cnv,
+                        )
+                        .transpose()?,
+                ),
+        )
     }
 }
 
@@ -3017,10 +3283,14 @@ impl gaxi::prost::FromProto<crate::model::StreamingReadFeatureValuesRequest>
             .set_entity_ids(
                 self.entity_ids
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_feature_selector(self.feature_selector.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_feature_selector(
+                self.feature_selector
+                    .map(gaxi::prost::FromProto::<crate::model::FeatureSelector>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -3048,8 +3318,13 @@ impl gaxi::prost::FromProto<crate::model::feature_value::Metadata> for feature_v
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::feature_value::Metadata, gaxi::prost::ConvertError> {
-        Ok(crate::model::feature_value::Metadata::new()
-            .set_or_clear_generate_time(self.generate_time.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::feature_value::Metadata::new().set_or_clear_generate_time(
+                self.generate_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            ),
+        )
     }
 }
 
@@ -3117,16 +3392,30 @@ impl gaxi::prost::FromProto<crate::model::feature_value::Value> for feature_valu
     ) -> std::result::Result<crate::model::feature_value::Value, gaxi::prost::ConvertError> {
         use crate::model::feature_value::Value as T;
         match self {
-            Self::BoolValue(v) => Ok(T::BoolValue(v.cnv()?)),
-            Self::DoubleValue(v) => Ok(T::DoubleValue(v.cnv()?)),
-            Self::Int64Value(v) => Ok(T::Int64Value(v.cnv()?)),
-            Self::StringValue(v) => Ok(T::StringValue(v.cnv()?)),
-            Self::BoolArrayValue(v) => Ok(T::BoolArrayValue(std::boxed::Box::new(v.cnv()?))),
-            Self::DoubleArrayValue(v) => Ok(T::DoubleArrayValue(std::boxed::Box::new(v.cnv()?))),
-            Self::Int64ArrayValue(v) => Ok(T::Int64ArrayValue(std::boxed::Box::new(v.cnv()?))),
-            Self::StringArrayValue(v) => Ok(T::StringArrayValue(std::boxed::Box::new(v.cnv()?))),
-            Self::BytesValue(v) => Ok(T::BytesValue(v.cnv()?)),
-            Self::StructValue(v) => Ok(T::StructValue(std::boxed::Box::new(v.cnv()?))),
+            Self::BoolValue(v) => Ok(T::BoolValue(gaxi::prost::FromProto::<bool>::cnv(v)?)),
+            Self::DoubleValue(v) => Ok(T::DoubleValue(gaxi::prost::FromProto::<f64>::cnv(v)?)),
+            Self::Int64Value(v) => Ok(T::Int64Value(gaxi::prost::FromProto::<i64>::cnv(v)?)),
+            Self::StringValue(v) => Ok(T::StringValue(gaxi::prost::FromProto::<
+                std::string::String,
+            >::cnv(v)?)),
+            Self::BoolArrayValue(v) => Ok(T::BoolArrayValue(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::BoolArray>::cnv(v)?,
+            ))),
+            Self::DoubleArrayValue(v) => Ok(T::DoubleArrayValue(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::DoubleArray>::cnv(v)?,
+            ))),
+            Self::Int64ArrayValue(v) => Ok(T::Int64ArrayValue(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::Int64Array>::cnv(v)?,
+            ))),
+            Self::StringArrayValue(v) => Ok(T::StringArrayValue(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::StringArray>::cnv(v)?,
+            ))),
+            Self::BytesValue(v) => Ok(T::BytesValue(
+                gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?,
+            )),
+            Self::StructValue(v) => Ok(T::StructValue(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::StructValue>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -3158,8 +3447,16 @@ impl gaxi::prost::ToProto<FeatureValue> for crate::model::FeatureValue {
 impl gaxi::prost::FromProto<crate::model::FeatureValue> for FeatureValue {
     fn cnv(self) -> std::result::Result<crate::model::FeatureValue, gaxi::prost::ConvertError> {
         Ok(crate::model::FeatureValue::new()
-            .set_or_clear_metadata(self.metadata.map(|v| v.cnv()).transpose()?)
-            .set_value(self.value.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_metadata(
+                self.metadata
+                    .map(gaxi::prost::FromProto::<crate::model::feature_value::Metadata>::cnv)
+                    .transpose()?,
+            )
+            .set_value(
+                self.value
+                    .map(gaxi::prost::FromProto::<crate::model::feature_value::Value>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -3189,7 +3486,7 @@ impl gaxi::prost::FromProto<crate::model::StructValue> for StructValue {
         Ok(crate::model::StructValue::new().set_values(
             self.values
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<crate::model::StructFieldValue>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -3220,7 +3517,11 @@ impl gaxi::prost::FromProto<crate::model::StructFieldValue> for StructFieldValue
     fn cnv(self) -> std::result::Result<crate::model::StructFieldValue, gaxi::prost::ConvertError> {
         Ok(crate::model::StructFieldValue::new()
             .set_name(self.name)
-            .set_or_clear_value(self.value.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_value(
+                self.value
+                    .map(gaxi::prost::FromProto::<crate::model::FeatureValue>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -3244,7 +3545,7 @@ impl gaxi::prost::FromProto<crate::model::FeatureValueList> for FeatureValueList
         Ok(crate::model::FeatureValueList::new().set_values(
             self.values
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<crate::model::FeatureValue>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -3351,32 +3652,45 @@ impl gaxi::prost::FromProto<crate::model::Schema> for Schema {
             .set_title(self.title)
             .set_description(self.description)
             .set_nullable(self.nullable)
-            .set_or_clear_default(self.default.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_items(self.items.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_default(
+                self.default
+                    .map(gaxi::prost::FromProto::<wkt::Value>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_items(
+                self.items
+                    .map(|v| gaxi::prost::FromProto::<crate::model::Schema>::cnv(*v))
+                    .transpose()?,
+            )
             .set_min_items(self.min_items)
             .set_max_items(self.max_items)
             .set_enum(
                 self.r#enum
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_properties(
                 self.properties
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<crate::model::Schema>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             )
             .set_property_ordering(
                 self.property_ordering
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_required(
                 self.required
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_min_properties(self.min_properties)
@@ -3386,21 +3700,32 @@ impl gaxi::prost::FromProto<crate::model::Schema> for Schema {
             .set_min_length(self.min_length)
             .set_max_length(self.max_length)
             .set_pattern(self.pattern)
-            .set_or_clear_example(self.example.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_example(
+                self.example
+                    .map(gaxi::prost::FromProto::<wkt::Value>::cnv)
+                    .transpose()?,
+            )
             .set_any_of(
                 self.any_of
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::Schema>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_or_clear_additional_properties(
-                self.additional_properties.map(|v| v.cnv()).transpose()?,
+                self.additional_properties
+                    .map(gaxi::prost::FromProto::<wkt::Value>::cnv)
+                    .transpose()?,
             )
             .set_ref(self.r#ref)
             .set_defs(
                 self.defs
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<crate::model::Schema>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             ))
     }
@@ -3427,7 +3752,11 @@ impl gaxi::prost::FromProto<crate::model::StreamRawPredictRequest> for StreamRaw
     ) -> std::result::Result<crate::model::StreamRawPredictRequest, gaxi::prost::ConvertError> {
         Ok(crate::model::StreamRawPredictRequest::new()
             .set_endpoint(self.endpoint)
-            .set_or_clear_http_body(self.http_body.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_http_body(
+                self.http_body
+                    .map(gaxi::prost::FromProto::<google_cloud_api::model::HttpBody>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -3465,10 +3794,14 @@ impl gaxi::prost::FromProto<crate::model::StreamDirectPredictRequest>
             .set_inputs(
                 self.inputs
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::Tensor>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_parameters(self.parameters.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_parameters(
+                self.parameters
+                    .map(gaxi::prost::FromProto::<crate::model::Tensor>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -3506,10 +3839,14 @@ impl gaxi::prost::FromProto<crate::model::StreamDirectPredictResponse>
             .set_outputs(
                 self.outputs
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::Tensor>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_parameters(self.parameters.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_parameters(
+                self.parameters
+                    .map(gaxi::prost::FromProto::<crate::model::Tensor>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -3599,10 +3936,14 @@ impl gaxi::prost::FromProto<crate::model::StreamingPredictRequest> for Streaming
             .set_inputs(
                 self.inputs
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::Tensor>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_parameters(self.parameters.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_parameters(
+                self.parameters
+                    .map(gaxi::prost::FromProto::<crate::model::Tensor>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -3634,10 +3975,14 @@ impl gaxi::prost::FromProto<crate::model::StreamingPredictResponse> for Streamin
             .set_outputs(
                 self.outputs
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::Tensor>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_parameters(self.parameters.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_parameters(
+                self.parameters
+                    .map(gaxi::prost::FromProto::<crate::model::Tensor>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -3760,32 +4105,53 @@ impl gaxi::prost::FromProto<crate::model::GenerateContentRequest> for GenerateCo
             .set_contents(
                 self.contents
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::Content>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_system_instruction(self.system_instruction.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_system_instruction(
+                self.system_instruction
+                    .map(gaxi::prost::FromProto::<crate::model::Content>::cnv)
+                    .transpose()?,
+            )
             .set_cached_content(self.cached_content)
             .set_tools(
                 self.tools
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::Tool>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_tool_config(self.tool_config.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_tool_config(
+                self.tool_config
+                    .map(gaxi::prost::FromProto::<crate::model::ToolConfig>::cnv)
+                    .transpose()?,
+            )
             .set_labels(
                 self.labels
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<std::string::String>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             )
             .set_safety_settings(
                 self.safety_settings
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::SafetySetting>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_model_armor_config(self.model_armor_config.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_generation_config(self.generation_config.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_model_armor_config(
+                self.model_armor_config
+                    .map(gaxi::prost::FromProto::<crate::model::ModelArmorConfig>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_generation_config(
+                self.generation_config
+                    .map(gaxi::prost::FromProto::<crate::model::GenerationConfig>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -3843,7 +4209,7 @@ impl gaxi::prost::FromProto<crate::model::generate_content_response::PromptFeedb
                 .set_safety_ratings(
                     self.safety_ratings
                         .into_iter()
-                        .map(|v| v.cnv())
+                        .map(gaxi::prost::FromProto::<crate::model::SafetyRating>::cnv)
                         .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
                 )
                 .set_block_reason_message(self.block_reason_message),
@@ -3930,25 +4296,25 @@ impl gaxi::prost::FromProto<crate::model::generate_content_response::UsageMetada
                 .set_prompt_tokens_details(
                     self.prompt_tokens_details
                         .into_iter()
-                        .map(|v| v.cnv())
+                        .map(gaxi::prost::FromProto::<crate::model::ModalityTokenCount>::cnv)
                         .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
                 )
                 .set_cache_tokens_details(
                     self.cache_tokens_details
                         .into_iter()
-                        .map(|v| v.cnv())
+                        .map(gaxi::prost::FromProto::<crate::model::ModalityTokenCount>::cnv)
                         .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
                 )
                 .set_candidates_tokens_details(
                     self.candidates_tokens_details
                         .into_iter()
-                        .map(|v| v.cnv())
+                        .map(gaxi::prost::FromProto::<crate::model::ModalityTokenCount>::cnv)
                         .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
                 )
                 .set_tool_use_prompt_tokens_details(
                     self.tool_use_prompt_tokens_details
                         .into_iter()
-                        .map(|v| v.cnv())
+                        .map(gaxi::prost::FromProto::<crate::model::ModalityTokenCount>::cnv)
                         .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
                 )
                 .set_traffic_type(self.traffic_type),
@@ -3995,14 +4361,34 @@ impl gaxi::prost::FromProto<crate::model::GenerateContentResponse> for GenerateC
             .set_candidates(
                 self.candidates
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::Candidate>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_model_version(self.model_version)
-            .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_create_time(
+                self.create_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
             .set_response_id(self.response_id)
-            .set_or_clear_prompt_feedback(self.prompt_feedback.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_usage_metadata(self.usage_metadata.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_prompt_feedback(
+                self.prompt_feedback
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::generate_content_response::PromptFeedback,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            )
+            .set_or_clear_usage_metadata(
+                self.usage_metadata
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::generate_content_response::UsageMetadata,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ))
     }
 }
 
@@ -4037,7 +4423,11 @@ impl gaxi::prost::FromProto<crate::model::StreamQueryReasoningEngineRequest>
     > {
         Ok(crate::model::StreamQueryReasoningEngineRequest::new()
             .set_name(self.name)
-            .set_or_clear_input(self.input.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_input(
+                self.input
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            )
             .set_class_method(self.class_method))
     }
 }
@@ -4094,7 +4484,7 @@ impl gaxi::prost::FromProto<crate::model::ReadTensorboardBlobDataRequest>
             .set_blob_ids(
                 self.blob_ids
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -4130,7 +4520,7 @@ impl gaxi::prost::FromProto<crate::model::ReadTensorboardBlobDataResponse>
             crate::model::ReadTensorboardBlobDataResponse::new().set_blobs(
                 self.blobs
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::TensorboardBlob>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -4174,11 +4564,12 @@ impl gaxi::prost::FromProto<crate::model::tool::GoogleSearch> for tool::GoogleSe
             .set_exclude_domains(
                 self.exclude_domains
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_or_clear_blocking_confidence(
-                self.blocking_confidence.map(|v| v.cnv()).transpose()?,
+                self.blocking_confidence
+                    .map(crate::model::tool::PhishBlockThreshold::from),
             ))
     }
 }
@@ -4218,7 +4609,11 @@ impl gaxi::prost::FromProto<crate::model::tool::ParallelAiSearch> for tool::Para
         Ok(crate::model::tool::ParallelAiSearch::new()
             .set_api_key(self.api_key)
             .set_enable_zero_data_retention(self.enable_zero_data_retention)
-            .set_or_clear_custom_configs(self.custom_configs.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_custom_configs(
+                self.custom_configs
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -4253,7 +4648,11 @@ impl gaxi::prost::FromProto<crate::model::tool::ExaAiSearch> for tool::ExaAiSear
     ) -> std::result::Result<crate::model::tool::ExaAiSearch, gaxi::prost::ConvertError> {
         Ok(crate::model::tool::ExaAiSearch::new()
             .set_api_key(self.api_key)
-            .set_or_clear_custom_configs(self.custom_configs.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_custom_configs(
+                self.custom_configs
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -4339,7 +4738,7 @@ impl gaxi::prost::FromProto<crate::model::tool::ComputerUse> for tool::ComputerU
             .set_excluded_predefined_functions(
                 self.excluded_predefined_functions
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -4432,23 +4831,59 @@ impl gaxi::prost::FromProto<crate::model::Tool> for Tool {
             .set_function_declarations(
                 self.function_declarations
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::FunctionDeclaration>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_retrieval(self.retrieval.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_google_search(self.google_search.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_retrieval(
+                self.retrieval
+                    .map(gaxi::prost::FromProto::<crate::model::Retrieval>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_google_search(
+                self.google_search
+                    .map(gaxi::prost::FromProto::<crate::model::tool::GoogleSearch>::cnv)
+                    .transpose()?,
+            )
             .set_or_clear_google_search_retrieval(
-                self.google_search_retrieval.map(|v| v.cnv()).transpose()?,
+                self.google_search_retrieval
+                    .map(gaxi::prost::FromProto::<crate::model::GoogleSearchRetrieval>::cnv)
+                    .transpose()?,
             )
-            .set_or_clear_google_maps(self.google_maps.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_google_maps(
+                self.google_maps
+                    .map(gaxi::prost::FromProto::<crate::model::GoogleMaps>::cnv)
+                    .transpose()?,
+            )
             .set_or_clear_enterprise_web_search(
-                self.enterprise_web_search.map(|v| v.cnv()).transpose()?,
+                self.enterprise_web_search
+                    .map(gaxi::prost::FromProto::<crate::model::EnterpriseWebSearch>::cnv)
+                    .transpose()?,
             )
-            .set_or_clear_parallel_ai_search(self.parallel_ai_search.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_exa_ai_search(self.exa_ai_search.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_code_execution(self.code_execution.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_url_context(self.url_context.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_computer_use(self.computer_use.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_parallel_ai_search(
+                self.parallel_ai_search
+                    .map(gaxi::prost::FromProto::<crate::model::tool::ParallelAiSearch>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_exa_ai_search(
+                self.exa_ai_search
+                    .map(gaxi::prost::FromProto::<crate::model::tool::ExaAiSearch>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_code_execution(
+                self.code_execution
+                    .map(gaxi::prost::FromProto::<crate::model::tool::CodeExecution>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_url_context(
+                self.url_context
+                    .map(gaxi::prost::FromProto::<crate::model::UrlContext>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_computer_use(
+                self.computer_use
+                    .map(gaxi::prost::FromProto::<crate::model::tool::ComputerUse>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -4522,13 +4957,25 @@ impl gaxi::prost::FromProto<crate::model::FunctionDeclaration> for FunctionDecla
         Ok(crate::model::FunctionDeclaration::new()
             .set_name(self.name)
             .set_description(self.description)
-            .set_or_clear_parameters(self.parameters.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_parameters_json_schema(
-                self.parameters_json_schema.map(|v| v.cnv()).transpose()?,
+            .set_or_clear_parameters(
+                self.parameters
+                    .map(gaxi::prost::FromProto::<crate::model::Schema>::cnv)
+                    .transpose()?,
             )
-            .set_or_clear_response(self.response.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_parameters_json_schema(
+                self.parameters_json_schema
+                    .map(gaxi::prost::FromProto::<wkt::Value>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_response(
+                self.response
+                    .map(gaxi::prost::FromProto::<crate::model::Schema>::cnv)
+                    .transpose()?,
+            )
             .set_or_clear_response_json_schema(
-                self.response_json_schema.map(|v| v.cnv()).transpose()?,
+                self.response_json_schema
+                    .map(gaxi::prost::FromProto::<wkt::Value>::cnv)
+                    .transpose()?,
             ))
     }
 }
@@ -4576,11 +5023,15 @@ impl gaxi::prost::FromProto<crate::model::FunctionCall> for FunctionCall {
     fn cnv(self) -> std::result::Result<crate::model::FunctionCall, gaxi::prost::ConvertError> {
         Ok(crate::model::FunctionCall::new()
             .set_name(self.name)
-            .set_or_clear_args(self.args.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_args(
+                self.args
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            )
             .set_partial_args(
                 self.partial_args
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::PartialArg>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_will_continue(self.will_continue))
@@ -4634,9 +5085,11 @@ impl gaxi::prost::FromProto<crate::model::partial_arg::Delta> for partial_arg::D
         use crate::model::partial_arg::Delta as T;
         match self {
             Self::NullValue(v) => Ok(T::NullValue(v.into())),
-            Self::NumberValue(v) => Ok(T::NumberValue(v.cnv()?)),
-            Self::StringValue(v) => Ok(T::StringValue(v.cnv()?)),
-            Self::BoolValue(v) => Ok(T::BoolValue(v.cnv()?)),
+            Self::NumberValue(v) => Ok(T::NumberValue(gaxi::prost::FromProto::<f64>::cnv(v)?)),
+            Self::StringValue(v) => Ok(T::StringValue(gaxi::prost::FromProto::<
+                std::string::String,
+            >::cnv(v)?)),
+            Self::BoolValue(v) => Ok(T::BoolValue(gaxi::prost::FromProto::<bool>::cnv(v)?)),
         }
     }
 }
@@ -4680,7 +5133,11 @@ impl gaxi::prost::FromProto<crate::model::PartialArg> for PartialArg {
         Ok(crate::model::PartialArg::new()
             .set_json_path(self.json_path)
             .set_will_continue(self.will_continue)
-            .set_delta(self.delta.map(|v| v.cnv()).transpose()?))
+            .set_delta(
+                self.delta
+                    .map(gaxi::prost::FromProto::<crate::model::partial_arg::Delta>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -4729,8 +5186,12 @@ impl gaxi::prost::FromProto<crate::model::function_response_part::Data>
     {
         use crate::model::function_response_part::Data as T;
         match self {
-            Self::InlineData(v) => Ok(T::InlineData(std::boxed::Box::new(v.cnv()?))),
-            Self::FileData(v) => Ok(T::FileData(std::boxed::Box::new(v.cnv()?))),
+            Self::InlineData(v) => Ok(T::InlineData(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::FunctionResponseBlob>::cnv(v)?,
+            ))),
+            Self::FileData(v) => Ok(T::FileData(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::FunctionResponseFileData,
+            >::cnv(v)?))),
         }
     }
 }
@@ -4771,8 +5232,11 @@ impl gaxi::prost::FromProto<crate::model::FunctionResponsePart> for FunctionResp
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::FunctionResponsePart, gaxi::prost::ConvertError> {
-        Ok(crate::model::FunctionResponsePart::new()
-            .set_data(self.data.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::FunctionResponsePart::new().set_data(
+            self.data
+                .map(gaxi::prost::FromProto::<crate::model::function_response_part::Data>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -4903,11 +5367,15 @@ impl gaxi::prost::FromProto<crate::model::FunctionResponse> for FunctionResponse
     fn cnv(self) -> std::result::Result<crate::model::FunctionResponse, gaxi::prost::ConvertError> {
         Ok(crate::model::FunctionResponse::new()
             .set_name(self.name)
-            .set_or_clear_response(self.response.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_response(
+                self.response
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            )
             .set_parts(
                 self.parts
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::FunctionResponsePart>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -5071,8 +5539,12 @@ impl gaxi::prost::FromProto<crate::model::retrieval::Source> for retrieval::Sour
     ) -> std::result::Result<crate::model::retrieval::Source, gaxi::prost::ConvertError> {
         use crate::model::retrieval::Source as T;
         match self {
-            Self::VertexAiSearch(v) => Ok(T::VertexAiSearch(std::boxed::Box::new(v.cnv()?))),
-            Self::VertexRagStore(v) => Ok(T::VertexRagStore(std::boxed::Box::new(v.cnv()?))),
+            Self::VertexAiSearch(v) => Ok(T::VertexAiSearch(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::VertexAISearch>::cnv(v)?,
+            ))),
+            Self::VertexRagStore(v) => Ok(T::VertexRagStore(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::VertexRagStore>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -5106,7 +5578,11 @@ impl gaxi::prost::FromProto<crate::model::Retrieval> for Retrieval {
     fn cnv(self) -> std::result::Result<crate::model::Retrieval, gaxi::prost::ConvertError> {
         Ok(crate::model::Retrieval::new()
             .set_disable_attribution(self.disable_attribution)
-            .set_source(self.source.map(|v| v.cnv()).transpose()?))
+            .set_source(
+                self.source
+                    .map(gaxi::prost::FromProto::<crate::model::retrieval::Source>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -5152,7 +5628,7 @@ impl gaxi::prost::FromProto<crate::model::vertex_rag_store::RagResource>
             .set_rag_file_ids(
                 self.rag_file_ids
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -5201,17 +5677,23 @@ impl gaxi::prost::FromProto<crate::model::VertexRagStore> for VertexRagStore {
             .set_rag_resources(
                 self.rag_resources
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::vertex_rag_store::RagResource>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_similarity_top_k(self.similarity_top_k.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_similarity_top_k(
+                self.similarity_top_k
+                    .map(gaxi::prost::FromProto::<i32>::cnv)
+                    .transpose()?,
+            )
             .set_or_clear_vector_distance_threshold(
                 self.vector_distance_threshold
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<f64>::cnv)
                     .transpose()?,
             )
             .set_or_clear_rag_retrieval_config(
-                self.rag_retrieval_config.map(|v| v.cnv()).transpose()?,
+                self.rag_retrieval_config
+                    .map(gaxi::prost::FromProto::<crate::model::RagRetrievalConfig>::cnv)
+                    .transpose()?,
             ))
     }
 }
@@ -5286,17 +5768,15 @@ impl gaxi::prost::ToProto<VertexAiSearch> for crate::model::VertexAISearch {
 ))]
 impl gaxi::prost::FromProto<crate::model::VertexAISearch> for VertexAiSearch {
     fn cnv(self) -> std::result::Result<crate::model::VertexAISearch, gaxi::prost::ConvertError> {
-        Ok(crate::model::VertexAISearch::new()
-            .set_datastore(self.datastore)
-            .set_engine(self.engine)
-            .set_max_results(self.max_results)
-            .set_filter(self.filter)
-            .set_data_store_specs(
-                self.data_store_specs
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            ))
+        Ok(
+            crate::model::VertexAISearch::new()
+                .set_datastore(self.datastore)
+                .set_engine(self.engine)
+                .set_max_results(self.max_results)
+                .set_filter(self.filter)
+                .set_data_store_specs(self.data_store_specs.into_iter().map(gaxi::prost::FromProto::<crate::model::vertex_ai_search::DataStoreSpec>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
     }
 }
 
@@ -5330,7 +5810,9 @@ impl gaxi::prost::FromProto<crate::model::GoogleSearchRetrieval> for GoogleSearc
     ) -> std::result::Result<crate::model::GoogleSearchRetrieval, gaxi::prost::ConvertError> {
         Ok(
             crate::model::GoogleSearchRetrieval::new().set_or_clear_dynamic_retrieval_config(
-                self.dynamic_retrieval_config.map(|v| v.cnv()).transpose()?,
+                self.dynamic_retrieval_config
+                    .map(gaxi::prost::FromProto::<crate::model::DynamicRetrievalConfig>::cnv)
+                    .transpose()?,
             ),
         )
     }
@@ -5400,11 +5882,12 @@ impl gaxi::prost::FromProto<crate::model::EnterpriseWebSearch> for EnterpriseWeb
             .set_exclude_domains(
                 self.exclude_domains
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_or_clear_blocking_confidence(
-                self.blocking_confidence.map(|v| v.cnv()).transpose()?,
+                self.blocking_confidence
+                    .map(crate::model::tool::PhishBlockThreshold::from),
             ))
     }
 }
@@ -5458,7 +5941,11 @@ impl gaxi::prost::FromProto<crate::model::DynamicRetrievalConfig> for DynamicRet
     ) -> std::result::Result<crate::model::DynamicRetrievalConfig, gaxi::prost::ConvertError> {
         Ok(crate::model::DynamicRetrievalConfig::new()
             .set_mode(self.mode)
-            .set_or_clear_dynamic_threshold(self.dynamic_threshold.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_dynamic_threshold(
+                self.dynamic_threshold
+                    .map(gaxi::prost::FromProto::<f32>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -5484,9 +5971,15 @@ impl gaxi::prost::FromProto<crate::model::ToolConfig> for ToolConfig {
     fn cnv(self) -> std::result::Result<crate::model::ToolConfig, gaxi::prost::ConvertError> {
         Ok(crate::model::ToolConfig::new()
             .set_or_clear_function_calling_config(
-                self.function_calling_config.map(|v| v.cnv()).transpose()?,
+                self.function_calling_config
+                    .map(gaxi::prost::FromProto::<crate::model::FunctionCallingConfig>::cnv)
+                    .transpose()?,
             )
-            .set_or_clear_retrieval_config(self.retrieval_config.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_retrieval_config(
+                self.retrieval_config
+                    .map(gaxi::prost::FromProto::<crate::model::RetrievalConfig>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -5531,7 +6024,7 @@ impl gaxi::prost::FromProto<crate::model::FunctionCallingConfig> for FunctionCal
             .set_allowed_function_names(
                 self.allowed_function_names
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_stream_function_call_arguments(self.stream_function_call_arguments))
@@ -5559,8 +6052,16 @@ impl gaxi::prost::ToProto<RetrievalConfig> for crate::model::RetrievalConfig {
 impl gaxi::prost::FromProto<crate::model::RetrievalConfig> for RetrievalConfig {
     fn cnv(self) -> std::result::Result<crate::model::RetrievalConfig, gaxi::prost::ConvertError> {
         Ok(crate::model::RetrievalConfig::new()
-            .set_or_clear_lat_lng(self.lat_lng.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_language_code(self.language_code.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_lat_lng(
+                self.lat_lng
+                    .map(gaxi::prost::FromProto::<google_cloud_type::model::LatLng>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_language_code(
+                self.language_code
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -5603,8 +6104,12 @@ impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::filter::VectorDb
     > {
         use crate::model::rag_retrieval_config::filter::VectorDbThreshold as T;
         match self {
-            Self::VectorDistanceThreshold(v) => Ok(T::VectorDistanceThreshold(v.cnv()?)),
-            Self::VectorSimilarityThreshold(v) => Ok(T::VectorSimilarityThreshold(v.cnv()?)),
+            Self::VectorDistanceThreshold(v) => Ok(T::VectorDistanceThreshold(
+                gaxi::prost::FromProto::<f64>::cnv(v)?,
+            )),
+            Self::VectorSimilarityThreshold(v) => Ok(T::VectorSimilarityThreshold(
+                gaxi::prost::FromProto::<f64>::cnv(v)?,
+            )),
         }
     }
 }
@@ -5644,7 +6149,15 @@ impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::Filter>
     {
         Ok(crate::model::rag_retrieval_config::Filter::new()
             .set_metadata_filter(self.metadata_filter)
-            .set_vector_db_threshold(self.vector_db_threshold.map(|v| v.cnv()).transpose()?))
+            .set_vector_db_threshold(
+                self.vector_db_threshold
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::rag_retrieval_config::filter::VectorDbThreshold,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ))
     }
 }
 
@@ -5688,7 +6201,11 @@ impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::ranking::RankSer
     > {
         Ok(
             crate::model::rag_retrieval_config::ranking::RankService::new()
-                .set_or_clear_model_name(self.model_name.map(|v| v.cnv()).transpose()?),
+                .set_or_clear_model_name(
+                    self.model_name
+                        .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                        .transpose()?,
+                ),
         )
     }
 }
@@ -5732,8 +6249,11 @@ impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::ranking::LlmRank
         gaxi::prost::ConvertError,
     > {
         Ok(
-            crate::model::rag_retrieval_config::ranking::LlmRanker::new()
-                .set_or_clear_model_name(self.model_name.map(|v| v.cnv()).transpose()?),
+            crate::model::rag_retrieval_config::ranking::LlmRanker::new().set_or_clear_model_name(
+                self.model_name
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            ),
         )
     }
 }
@@ -5777,8 +6297,16 @@ impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::ranking::Ranking
     > {
         use crate::model::rag_retrieval_config::ranking::RankingConfig as T;
         match self {
-            Self::RankService(v) => Ok(T::RankService(std::boxed::Box::new(v.cnv()?))),
-            Self::LlmRanker(v) => Ok(T::LlmRanker(std::boxed::Box::new(v.cnv()?))),
+            Self::RankService(v) => Ok(T::RankService(
+                std::boxed::Box::new(gaxi::prost::FromProto::<
+                    crate::model::rag_retrieval_config::ranking::RankService,
+                >::cnv(v)?),
+            )),
+            Self::LlmRanker(v) => Ok(T::LlmRanker(
+                std::boxed::Box::new(gaxi::prost::FromProto::<
+                    crate::model::rag_retrieval_config::ranking::LlmRanker,
+                >::cnv(v)?),
+            )),
         }
     }
 }
@@ -5818,8 +6346,17 @@ impl gaxi::prost::FromProto<crate::model::rag_retrieval_config::Ranking>
         self,
     ) -> std::result::Result<crate::model::rag_retrieval_config::Ranking, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::rag_retrieval_config::Ranking::new()
-            .set_ranking_config(self.ranking_config.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::rag_retrieval_config::Ranking::new().set_ranking_config(
+                self.ranking_config
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::rag_retrieval_config::ranking::RankingConfig,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ),
+        )
     }
 }
 
@@ -5858,8 +6395,16 @@ impl gaxi::prost::FromProto<crate::model::RagRetrievalConfig> for RagRetrievalCo
     ) -> std::result::Result<crate::model::RagRetrievalConfig, gaxi::prost::ConvertError> {
         Ok(crate::model::RagRetrievalConfig::new()
             .set_top_k(self.top_k)
-            .set_or_clear_filter(self.filter.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_ranking(self.ranking.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_filter(
+                self.filter
+                    .map(gaxi::prost::FromProto::<crate::model::rag_retrieval_config::Filter>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_ranking(
+                self.ranking
+                    .map(gaxi::prost::FromProto::<crate::model::rag_retrieval_config::Ranking>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -5889,7 +6434,7 @@ impl gaxi::prost::FromProto<crate::model::BoolArray> for BoolArray {
         Ok(crate::model::BoolArray::new().set_values(
             self.values
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<bool>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -5921,7 +6466,7 @@ impl gaxi::prost::FromProto<crate::model::DoubleArray> for DoubleArray {
         Ok(crate::model::DoubleArray::new().set_values(
             self.values
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<f64>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -5953,7 +6498,7 @@ impl gaxi::prost::FromProto<crate::model::Int64Array> for Int64Array {
         Ok(crate::model::Int64Array::new().set_values(
             self.values
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<i64>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -5985,7 +6530,7 @@ impl gaxi::prost::FromProto<crate::model::StringArray> for StringArray {
         Ok(crate::model::StringArray::new().set_values(
             self.values
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -6086,73 +6631,78 @@ impl gaxi::prost::FromProto<crate::model::Tensor> for Tensor {
             .set_shape(
                 self.shape
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<i64>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_bool_val(
                 self.bool_val
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<bool>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_string_val(
                 self.string_val
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_bytes_val(
                 self.bytes_val
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<::bytes::Bytes>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_float_val(
                 self.float_val
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<f32>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_double_val(
                 self.double_val
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<f64>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_int_val(
                 self.int_val
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<i32>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_int64_val(
                 self.int64_val
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<i64>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_uint_val(
                 self.uint_val
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<u32>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_uint64_val(
                 self.uint64_val
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<u64>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_list_val(
                 self.list_val
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::Tensor>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_struct_val(
                 self.struct_val
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<crate::model::Tensor>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             )
             .set_tensor_val(self.tensor_val))
@@ -6216,7 +6766,11 @@ impl gaxi::prost::FromProto<crate::model::RagChunk> for RagChunk {
     fn cnv(self) -> std::result::Result<crate::model::RagChunk, gaxi::prost::ConvertError> {
         Ok(crate::model::RagChunk::new()
             .set_text(self.text)
-            .set_or_clear_page_span(self.page_span.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_page_span(
+                self.page_span
+                    .map(gaxi::prost::FromProto::<crate::model::rag_chunk::PageSpan>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 

@@ -38,10 +38,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::PubsubMess
                 .set_data(self.data)
                 .set_attributes(self.attributes.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<std::string::String>::cnv(v))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
                 .set_message_id(self.message_id)
-                .set_or_clear_publish_time(self.publish_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_publish_time(self.publish_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
                 .set_ordering_key(self.ordering_key)
         )
     }
@@ -65,7 +65,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::PublishReq
         Ok(
             crate::generated::gapic_dataplane::model::PublishRequest::new()
                 .set_topic(self.topic)
-                .set_messages(self.messages.into_iter().map(|v| v.cnv())
+                .set_messages(self.messages.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::PubsubMessage>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -87,7 +87,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::PublishRes
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::PublishResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::PublishResponse::new()
-                .set_message_ids(self.message_ids.into_iter().map(|v| v.cnv())
+                .set_message_ids(self.message_ids.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -109,7 +109,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::ReceivedMe
         Ok(
             crate::generated::gapic_dataplane::model::ReceivedMessage::new()
                 .set_ack_id(self.ack_id)
-                .set_or_clear_message(self.message.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_message(self.message.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::PubsubMessage>::cnv).transpose()?)
                 .set_delivery_attempt(self.delivery_attempt)
         )
     }
@@ -134,7 +134,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::ModifyAckD
         Ok(
             crate::generated::gapic_dataplane::model::ModifyAckDeadlineRequest::new()
                 .set_subscription(self.subscription)
-                .set_ack_ids(self.ack_ids.into_iter().map(|v| v.cnv())
+                .set_ack_ids(self.ack_ids.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_ack_deadline_seconds(self.ack_deadline_seconds)
         )
@@ -159,7 +159,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::Acknowledg
         Ok(
             crate::generated::gapic_dataplane::model::AcknowledgeRequest::new()
                 .set_subscription(self.subscription)
-                .set_ack_ids(self.ack_ids.into_iter().map(|v| v.cnv())
+                .set_ack_ids(self.ack_ids.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -196,11 +196,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::StreamingP
         Ok(
             crate::generated::gapic_dataplane::model::StreamingPullRequest::new()
                 .set_subscription(self.subscription)
-                .set_ack_ids(self.ack_ids.into_iter().map(|v| v.cnv())
+                .set_ack_ids(self.ack_ids.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_modify_deadline_seconds(self.modify_deadline_seconds.into_iter().map(|v| v.cnv())
+                .set_modify_deadline_seconds(self.modify_deadline_seconds.into_iter().map(gaxi::prost::FromProto::<i32>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_modify_deadline_ack_ids(self.modify_deadline_ack_ids.into_iter().map(|v| v.cnv())
+                .set_modify_deadline_ack_ids(self.modify_deadline_ack_ids.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_stream_ack_deadline_seconds(self.stream_ack_deadline_seconds)
                 .set_client_id(self.client_id)
@@ -239,13 +239,13 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::streaming_
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::streaming_pull_response::AcknowledgeConfirmation, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::streaming_pull_response::AcknowledgeConfirmation::new()
-                .set_ack_ids(self.ack_ids.into_iter().map(|v| v.cnv())
+                .set_ack_ids(self.ack_ids.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_invalid_ack_ids(self.invalid_ack_ids.into_iter().map(|v| v.cnv())
+                .set_invalid_ack_ids(self.invalid_ack_ids.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_unordered_ack_ids(self.unordered_ack_ids.into_iter().map(|v| v.cnv())
+                .set_unordered_ack_ids(self.unordered_ack_ids.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_temporary_failed_ack_ids(self.temporary_failed_ack_ids.into_iter().map(|v| v.cnv())
+                .set_temporary_failed_ack_ids(self.temporary_failed_ack_ids.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -275,11 +275,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::streaming_
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::streaming_pull_response::ModifyAckDeadlineConfirmation, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::streaming_pull_response::ModifyAckDeadlineConfirmation::new()
-                .set_ack_ids(self.ack_ids.into_iter().map(|v| v.cnv())
+                .set_ack_ids(self.ack_ids.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_invalid_ack_ids(self.invalid_ack_ids.into_iter().map(|v| v.cnv())
+                .set_invalid_ack_ids(self.invalid_ack_ids.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_temporary_failed_ack_ids(self.temporary_failed_ack_ids.into_iter().map(|v| v.cnv())
+                .set_temporary_failed_ack_ids(self.temporary_failed_ack_ids.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -324,11 +324,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::StreamingP
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::StreamingPullResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::StreamingPullResponse::new()
-                .set_received_messages(self.received_messages.into_iter().map(|v| v.cnv())
+                .set_received_messages(self.received_messages.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::ReceivedMessage>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_acknowledge_confirmation(self.acknowledge_confirmation.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_modify_ack_deadline_confirmation(self.modify_ack_deadline_confirmation.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_subscription_properties(self.subscription_properties.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_acknowledge_confirmation(self.acknowledge_confirmation.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::streaming_pull_response::AcknowledgeConfirmation>::cnv).transpose()?)
+                .set_or_clear_modify_ack_deadline_confirmation(self.modify_ack_deadline_confirmation.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::streaming_pull_response::ModifyAckDeadlineConfirmation>::cnv).transpose()?)
+                .set_or_clear_subscription_properties(self.subscription_properties.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::streaming_pull_response::SubscriptionProperties>::cnv).transpose()?)
         )
     }
 }

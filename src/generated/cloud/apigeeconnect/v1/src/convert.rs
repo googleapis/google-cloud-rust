@@ -104,11 +104,19 @@ impl gaxi::prost::FromProto<crate::model::EgressRequest> for EgressRequest {
     fn cnv(self) -> std::result::Result<crate::model::EgressRequest, gaxi::prost::ConvertError> {
         Ok(crate::model::EgressRequest::new()
             .set_id(self.id)
-            .set_or_clear_payload(self.payload.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_payload(
+                self.payload
+                    .map(gaxi::prost::FromProto::<crate::model::Payload>::cnv)
+                    .transpose()?,
+            )
             .set_endpoint(self.endpoint)
             .set_project(self.project)
             .set_trace_id(self.trace_id)
-            .set_or_clear_timeout(self.timeout.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_timeout(
+                self.timeout
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -133,8 +141,12 @@ impl gaxi::prost::FromProto<crate::model::payload::Kind> for payload::Kind {
     fn cnv(self) -> std::result::Result<crate::model::payload::Kind, gaxi::prost::ConvertError> {
         use crate::model::payload::Kind as T;
         match self {
-            Self::HttpRequest(v) => Ok(T::HttpRequest(std::boxed::Box::new(v.cnv()?))),
-            Self::StreamInfo(v) => Ok(T::StreamInfo(std::boxed::Box::new(v.cnv()?))),
+            Self::HttpRequest(v) => Ok(T::HttpRequest(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::HttpRequest>::cnv(v)?,
+            ))),
+            Self::StreamInfo(v) => Ok(T::StreamInfo(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::StreamInfo>::cnv(v)?,
+            ))),
             Self::Action(v) => Ok(T::Action(v.into())),
         }
     }
@@ -154,7 +166,11 @@ impl gaxi::prost::ToProto<Payload> for crate::model::Payload {
 
 impl gaxi::prost::FromProto<crate::model::Payload> for Payload {
     fn cnv(self) -> std::result::Result<crate::model::Payload, gaxi::prost::ConvertError> {
-        Ok(crate::model::Payload::new().set_kind(self.kind.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::Payload::new().set_kind(
+            self.kind
+                .map(gaxi::prost::FromProto::<crate::model::payload::Kind>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -198,8 +214,16 @@ impl gaxi::prost::FromProto<crate::model::EgressResponse> for EgressResponse {
     fn cnv(self) -> std::result::Result<crate::model::EgressResponse, gaxi::prost::ConvertError> {
         Ok(crate::model::EgressResponse::new()
             .set_id(self.id)
-            .set_or_clear_http_response(self.http_response.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_status(self.status.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_http_response(
+                self.http_response
+                    .map(gaxi::prost::FromProto::<crate::model::HttpResponse>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_status(
+                self.status
+                    .map(gaxi::prost::FromProto::<google_cloud_rpc::model::Status>::cnv)
+                    .transpose()?,
+            )
             .set_project(self.project)
             .set_trace_id(self.trace_id)
             .set_endpoint(self.endpoint)
@@ -232,11 +256,15 @@ impl gaxi::prost::FromProto<crate::model::HttpRequest> for HttpRequest {
         Ok(crate::model::HttpRequest::new()
             .set_id(self.id)
             .set_method(self.method)
-            .set_or_clear_url(self.url.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_url(
+                self.url
+                    .map(gaxi::prost::FromProto::<crate::model::Url>::cnv)
+                    .transpose()?,
+            )
             .set_headers(
                 self.headers
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::Header>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_body(self.body))
@@ -282,7 +310,7 @@ impl gaxi::prost::FromProto<crate::model::Header> for Header {
         Ok(crate::model::Header::new().set_key(self.key).set_values(
             self.values
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -316,7 +344,7 @@ impl gaxi::prost::FromProto<crate::model::HttpResponse> for HttpResponse {
             .set_headers(
                 self.headers
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::Header>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_content_length(self.content_length))

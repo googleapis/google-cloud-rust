@@ -45,7 +45,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_str
         Ok(
             crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::ColumnMetadata::new()
                 .set_name(self.name)
-                .set_or_clear_type(self.r#type.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_type(self.r#type.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Type>::cnv).transpose()?)
                 .set_is_primary_key(self.is_primary_key)
                 .set_ordinal_position(self.ordinal_position)
         )
@@ -67,7 +67,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_str
         Ok(
             crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::ModValue::new()
                 .set_column_metadata_index(self.column_metadata_index)
-                .set_or_clear_value(self.value.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_value(self.value.map(gaxi::prost::FromProto::<wkt::Value>::cnv).transpose()?)
         )
     }
 }
@@ -96,11 +96,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_str
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::Mod, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::Mod::new()
-                .set_keys(self.keys.into_iter().map(|v| v.cnv())
+                .set_keys(self.keys.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::ModValue>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_old_values(self.old_values.into_iter().map(|v| v.cnv())
+                .set_old_values(self.old_values.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::ModValue>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_new_values(self.new_values.into_iter().map(|v| v.cnv())
+                .set_new_values(self.new_values.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::ModValue>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -151,14 +151,14 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_str
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::DataChangeRecord, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::change_stream_record::DataChangeRecord::new()
-                .set_or_clear_commit_timestamp(self.commit_timestamp.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_commit_timestamp(self.commit_timestamp.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
                 .set_record_sequence(self.record_sequence)
                 .set_server_transaction_id(self.server_transaction_id)
                 .set_is_last_record_in_transaction_in_partition(self.is_last_record_in_transaction_in_partition)
                 .set_table(self.table)
-                .set_column_metadata(self.column_metadata.into_iter().map(|v| v.cnv())
+                .set_column_metadata(self.column_metadata.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::ColumnMetadata>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_mods(self.mods.into_iter().map(|v| v.cnv())
+                .set_mods(self.mods.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::change_stream_record::data_change_record::Mod>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_mod_type(self.mod_type)
                 .set_value_capture_type(self.value_capture_type)
@@ -183,7 +183,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_str
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::HeartbeatRecord, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::change_stream_record::HeartbeatRecord::new()
-                .set_or_clear_timestamp(self.timestamp.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_timestamp(self.timestamp.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
         )
     }
 }
@@ -206,9 +206,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_str
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::PartitionStartRecord, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::change_stream_record::PartitionStartRecord::new()
-                .set_or_clear_start_timestamp(self.start_timestamp.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_start_timestamp(self.start_timestamp.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
                 .set_record_sequence(self.record_sequence)
-                .set_partition_tokens(self.partition_tokens.into_iter().map(|v| v.cnv())
+                .set_partition_tokens(self.partition_tokens.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -229,7 +229,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_str
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::PartitionEndRecord, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::change_stream_record::PartitionEndRecord::new()
-                .set_or_clear_end_timestamp(self.end_timestamp.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_end_timestamp(self.end_timestamp.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
                 .set_record_sequence(self.record_sequence)
                 .set_partition_token(self.partition_token)
         )
@@ -295,12 +295,12 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_str
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::PartitionEventRecord, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::change_stream_record::PartitionEventRecord::new()
-                .set_or_clear_commit_timestamp(self.commit_timestamp.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_commit_timestamp(self.commit_timestamp.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
                 .set_record_sequence(self.record_sequence)
                 .set_partition_token(self.partition_token)
-                .set_move_in_events(self.move_in_events.into_iter().map(|v| v.cnv())
+                .set_move_in_events(self.move_in_events.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::change_stream_record::partition_event_record::MoveInEvent>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_move_out_events(self.move_out_events.into_iter().map(|v| v.cnv())
+                .set_move_out_events(self.move_out_events.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::change_stream_record::partition_event_record::MoveOutEvent>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -323,11 +323,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::change_str
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::change_stream_record::Record, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::change_stream_record::Record as T;
         match self {
-            Self::DataChangeRecord(v) => Ok(T::DataChangeRecord(std::boxed::Box::new(v.cnv()?))),
-            Self::HeartbeatRecord(v) => Ok(T::HeartbeatRecord(std::boxed::Box::new(v.cnv()?))),
-            Self::PartitionStartRecord(v) => Ok(T::PartitionStartRecord(std::boxed::Box::new(v.cnv()?))),
-            Self::PartitionEndRecord(v) => Ok(T::PartitionEndRecord(std::boxed::Box::new(v.cnv()?))),
-            Self::PartitionEventRecord(v) => Ok(T::PartitionEventRecord(std::boxed::Box::new(v.cnv()?))),
+            Self::DataChangeRecord(v) => Ok(T::DataChangeRecord(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::change_stream_record::DataChangeRecord>::cnv(v)?))),
+            Self::HeartbeatRecord(v) => Ok(T::HeartbeatRecord(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::change_stream_record::HeartbeatRecord>::cnv(v)?))),
+            Self::PartitionStartRecord(v) => Ok(T::PartitionStartRecord(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::change_stream_record::PartitionStartRecord>::cnv(v)?))),
+            Self::PartitionEndRecord(v) => Ok(T::PartitionEndRecord(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::change_stream_record::PartitionEndRecord>::cnv(v)?))),
+            Self::PartitionEventRecord(v) => Ok(T::PartitionEventRecord(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::change_stream_record::PartitionEventRecord>::cnv(v)?))),
         }
     }
 }
@@ -345,7 +345,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::ChangeStre
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::ChangeStreamRecord, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::ChangeStreamRecord::new()
-                .set_record(self.record.map(|v| v.cnv()).transpose()?)
+                .set_record(self.record.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::change_stream_record::Record>::cnv).transpose()?)
         )
     }
 }
@@ -381,7 +381,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::commit_res
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::commit_response::MultiplexedSessionRetry, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::commit_response::MultiplexedSessionRetry as T;
         match self {
-            Self::PrecommitToken(v) => Ok(T::PrecommitToken(std::boxed::Box::new(v.cnv()?))),
+            Self::PrecommitToken(v) => Ok(T::PrecommitToken(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::MultiplexedSessionPrecommitToken>::cnv(v)?))),
         }
     }
 }
@@ -405,13 +405,13 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::CommitResp
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::CommitResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::CommitResponse::new()
-                .set_or_clear_commit_timestamp(self.commit_timestamp.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_commit_stats(self.commit_stats.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_snapshot_timestamp(self.snapshot_timestamp.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_cache_update(self.cache_update.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_commit_timestamp(self.commit_timestamp.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
+                .set_or_clear_commit_stats(self.commit_stats.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::commit_response::CommitStats>::cnv).transpose()?)
+                .set_or_clear_snapshot_timestamp(self.snapshot_timestamp.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
+                .set_or_clear_cache_update(self.cache_update.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::CacheUpdate>::cnv).transpose()?)
                 .set_isolation_level(self.isolation_level)
                 .set_read_lock_mode(self.read_lock_mode)
-                .set_multiplexed_session_retry(self.multiplexed_session_retry.map(|v| v.cnv()).transpose()?)
+                .set_multiplexed_session_retry(self.multiplexed_session_retry.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::commit_response::MultiplexedSessionRetry>::cnv).transpose()?)
         )
     }
 }
@@ -430,8 +430,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::key_range:
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::key_range::StartKeyType, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::key_range::StartKeyType as T;
         match self {
-            Self::StartClosed(v) => Ok(T::StartClosed(std::boxed::Box::new(v.cnv()?))),
-            Self::StartOpen(v) => Ok(T::StartOpen(std::boxed::Box::new(v.cnv()?))),
+            Self::StartClosed(v) => Ok(T::StartClosed(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::ListValue>::cnv(v)?))),
+            Self::StartOpen(v) => Ok(T::StartOpen(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::ListValue>::cnv(v)?))),
         }
     }
 }
@@ -450,8 +450,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::key_range:
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::key_range::EndKeyType, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::key_range::EndKeyType as T;
         match self {
-            Self::EndClosed(v) => Ok(T::EndClosed(std::boxed::Box::new(v.cnv()?))),
-            Self::EndOpen(v) => Ok(T::EndOpen(std::boxed::Box::new(v.cnv()?))),
+            Self::EndClosed(v) => Ok(T::EndClosed(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::ListValue>::cnv(v)?))),
+            Self::EndOpen(v) => Ok(T::EndOpen(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::ListValue>::cnv(v)?))),
         }
     }
 }
@@ -470,8 +470,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::KeyRange> 
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::KeyRange, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::KeyRange::new()
-                .set_start_key_type(self.start_key_type.map(|v| v.cnv()).transpose()?)
-                .set_end_key_type(self.end_key_type.map(|v| v.cnv()).transpose()?)
+                .set_start_key_type(self.start_key_type.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::key_range::StartKeyType>::cnv).transpose()?)
+                .set_end_key_type(self.end_key_type.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::key_range::EndKeyType>::cnv).transpose()?)
         )
     }
 }
@@ -497,9 +497,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::KeySet> fo
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::KeySet, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::KeySet::new()
-                .set_keys(self.keys.into_iter().map(|v| v.cnv())
+                .set_keys(self.keys.into_iter().map(gaxi::prost::FromProto::<wkt::ListValue>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_ranges(self.ranges.into_iter().map(|v| v.cnv())
+                .set_ranges(self.ranges.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::KeyRange>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_all(self.all)
         )
@@ -589,7 +589,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::Group> for
         Ok(
             crate::generated::gapic_dataplane::model::Group::new()
                 .set_group_uid(self.group_uid)
-                .set_tablets(self.tablets.into_iter().map(|v| v.cnv())
+                .set_tablets(self.tablets.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Tablet>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_leader_index(self.leader_index)
                 .set_generation(self.generation)
@@ -626,9 +626,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::key_recipe
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::key_recipe::part::ValueType, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::key_recipe::part::ValueType as T;
         match self {
-            Self::Identifier(v) => Ok(T::Identifier(v.cnv()?)),
-            Self::Value(v) => Ok(T::Value(std::boxed::Box::new(v.cnv()?))),
-            Self::Random(v) => Ok(T::Random(v.cnv()?)),
+            Self::Identifier(v) => Ok(T::Identifier(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::Value(v) => Ok(T::Value(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::Value>::cnv(v)?))),
+            Self::Random(v) => Ok(T::Random(gaxi::prost::FromProto::<bool>::cnv(v)?)),
         }
     }
 }
@@ -657,10 +657,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::key_recipe
                 .set_tag(self.tag)
                 .set_order(self.order)
                 .set_null_order(self.null_order)
-                .set_or_clear_type(self.r#type.map(|v| v.cnv()).transpose()?)
-                .set_struct_identifiers(self.struct_identifiers.into_iter().map(|v| v.cnv())
+                .set_or_clear_type(self.r#type.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Type>::cnv).transpose()?)
+                .set_struct_identifiers(self.struct_identifiers.into_iter().map(gaxi::prost::FromProto::<i32>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_value_type(self.value_type.map(|v| v.cnv()).transpose()?)
+                .set_value_type(self.value_type.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::key_recipe::part::ValueType>::cnv).transpose()?)
         )
     }
 }
@@ -680,9 +680,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::key_recipe
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::key_recipe::Target, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::key_recipe::Target as T;
         match self {
-            Self::TableName(v) => Ok(T::TableName(v.cnv()?)),
-            Self::IndexName(v) => Ok(T::IndexName(v.cnv()?)),
-            Self::OperationUid(v) => Ok(T::OperationUid(v.cnv()?)),
+            Self::TableName(v) => Ok(T::TableName(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::IndexName(v) => Ok(T::IndexName(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::OperationUid(v) => Ok(T::OperationUid(gaxi::prost::FromProto::<u64>::cnv(v)?)),
         }
     }
 }
@@ -704,9 +704,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::KeyRecipe>
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::KeyRecipe, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::KeyRecipe::new()
-                .set_part(self.part.into_iter().map(|v| v.cnv())
+                .set_part(self.part.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::key_recipe::Part>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_target(self.target.map(|v| v.cnv()).transpose()?)
+                .set_target(self.target.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::key_recipe::Target>::cnv).transpose()?)
         )
     }
 }
@@ -729,7 +729,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::RecipeList
         Ok(
             crate::generated::gapic_dataplane::model::RecipeList::new()
                 .set_schema_generation(self.schema_generation)
-                .set_recipe(self.recipe.into_iter().map(|v| v.cnv())
+                .set_recipe(self.recipe.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::KeyRecipe>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -758,11 +758,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::CacheUpdat
         Ok(
             crate::generated::gapic_dataplane::model::CacheUpdate::new()
                 .set_database_id(self.database_id)
-                .set_range(self.range.into_iter().map(|v| v.cnv())
+                .set_range(self.range.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Range>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_group(self.group.into_iter().map(|v| v.cnv())
+                .set_group(self.group.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Group>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_key_recipes(self.key_recipes.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_key_recipes(self.key_recipes.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::RecipeList>::cnv).transpose()?)
         )
     }
 }
@@ -820,7 +820,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::RoutingHin
                 .set_group_uid(self.group_uid)
                 .set_split_id(self.split_id)
                 .set_tablet_uid(self.tablet_uid)
-                .set_skipped_tablet_uid(self.skipped_tablet_uid.into_iter().map(|v| v.cnv())
+                .set_skipped_tablet_uid(self.skipped_tablet_uid.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::routing_hint::SkippedTablet>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_client_location(self.client_location)
         )
@@ -849,9 +849,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::mutation::
         Ok(
             crate::generated::gapic_dataplane::model::mutation::Write::new()
                 .set_table(self.table)
-                .set_columns(self.columns.into_iter().map(|v| v.cnv())
+                .set_columns(self.columns.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_values(self.values.into_iter().map(|v| v.cnv())
+                .set_values(self.values.into_iter().map(gaxi::prost::FromProto::<wkt::ListValue>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -872,7 +872,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::mutation::
         Ok(
             crate::generated::gapic_dataplane::model::mutation::Delete::new()
                 .set_table(self.table)
-                .set_or_clear_key_set(self.key_set.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_key_set(self.key_set.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::KeySet>::cnv).transpose()?)
         )
     }
 }
@@ -894,9 +894,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::mutation::
         Ok(
             crate::generated::gapic_dataplane::model::mutation::Send::new()
                 .set_queue(self.queue)
-                .set_or_clear_key(self.key.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_deliver_time(self.deliver_time.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_payload(self.payload.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_key(self.key.map(gaxi::prost::FromProto::<wkt::ListValue>::cnv).transpose()?)
+                .set_or_clear_deliver_time(self.deliver_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
+                .set_or_clear_payload(self.payload.map(gaxi::prost::FromProto::<wkt::Value>::cnv).transpose()?)
         )
     }
 }
@@ -917,7 +917,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::mutation::
         Ok(
             crate::generated::gapic_dataplane::model::mutation::Ack::new()
                 .set_queue(self.queue)
-                .set_or_clear_key(self.key.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_key(self.key.map(gaxi::prost::FromProto::<wkt::ListValue>::cnv).transpose()?)
                 .set_ignore_not_found(self.ignore_not_found)
         )
     }
@@ -942,13 +942,13 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::mutation::
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::mutation::Operation, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::mutation::Operation as T;
         match self {
-            Self::Insert(v) => Ok(T::Insert(std::boxed::Box::new(v.cnv()?))),
-            Self::Update(v) => Ok(T::Update(std::boxed::Box::new(v.cnv()?))),
-            Self::InsertOrUpdate(v) => Ok(T::InsertOrUpdate(std::boxed::Box::new(v.cnv()?))),
-            Self::Replace(v) => Ok(T::Replace(std::boxed::Box::new(v.cnv()?))),
-            Self::Delete(v) => Ok(T::Delete(std::boxed::Box::new(v.cnv()?))),
-            Self::Send(v) => Ok(T::Send(std::boxed::Box::new(v.cnv()?))),
-            Self::Ack(v) => Ok(T::Ack(std::boxed::Box::new(v.cnv()?))),
+            Self::Insert(v) => Ok(T::Insert(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::mutation::Write>::cnv(v)?))),
+            Self::Update(v) => Ok(T::Update(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::mutation::Write>::cnv(v)?))),
+            Self::InsertOrUpdate(v) => Ok(T::InsertOrUpdate(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::mutation::Write>::cnv(v)?))),
+            Self::Replace(v) => Ok(T::Replace(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::mutation::Write>::cnv(v)?))),
+            Self::Delete(v) => Ok(T::Delete(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::mutation::Delete>::cnv(v)?))),
+            Self::Send(v) => Ok(T::Send(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::mutation::Send>::cnv(v)?))),
+            Self::Ack(v) => Ok(T::Ack(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::mutation::Ack>::cnv(v)?))),
         }
     }
 }
@@ -966,7 +966,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::Mutation> 
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::Mutation, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::Mutation::new()
-                .set_operation(self.operation.map(|v| v.cnv()).transpose()?)
+                .set_operation(self.operation.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::mutation::Operation>::cnv).transpose()?)
         )
     }
 }
@@ -1014,7 +1014,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::plan_node:
                 .set_description(self.description)
                 .set_subqueries(self.subqueries.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<i32>::cnv(v))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
         )
     }
@@ -1052,11 +1052,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::PlanNode> 
                 .set_index(self.index)
                 .set_kind(self.kind)
                 .set_display_name(self.display_name)
-                .set_child_links(self.child_links.into_iter().map(|v| v.cnv())
+                .set_child_links(self.child_links.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::plan_node::ChildLink>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_short_representation(self.short_representation.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_metadata(self.metadata.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_execution_stats(self.execution_stats.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_short_representation(self.short_representation.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::plan_node::ShortRepresentation>::cnv).transpose()?)
+                .set_or_clear_metadata(self.metadata.map(gaxi::prost::FromProto::<wkt::Struct>::cnv).transpose()?)
+                .set_or_clear_execution_stats(self.execution_stats.map(gaxi::prost::FromProto::<wkt::Struct>::cnv).transpose()?)
         )
     }
 }
@@ -1078,7 +1078,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::query_advi
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::query_advisor_result::IndexAdvice, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::query_advisor_result::IndexAdvice::new()
-                .set_ddl(self.ddl.into_iter().map(|v| v.cnv())
+                .set_ddl(self.ddl.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_improvement_factor(self.improvement_factor)
         )
@@ -1101,7 +1101,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::QueryAdvis
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::QueryAdvisorResult, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::QueryAdvisorResult::new()
-                .set_index_advice(self.index_advice.into_iter().map(|v| v.cnv())
+                .set_index_advice(self.index_advice.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::query_advisor_result::IndexAdvice>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -1124,9 +1124,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::QueryPlan>
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::QueryPlan, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::QueryPlan::new()
-                .set_plan_nodes(self.plan_nodes.into_iter().map(|v| v.cnv())
+                .set_plan_nodes(self.plan_nodes.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::PlanNode>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_query_advice(self.query_advice.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_query_advice(self.query_advice.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::QueryAdvisorResult>::cnv).transpose()?)
         )
     }
 }
@@ -1151,12 +1151,12 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::ResultSet>
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::ResultSet, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::ResultSet::new()
-                .set_or_clear_metadata(self.metadata.map(|v| v.cnv()).transpose()?)
-                .set_rows(self.rows.into_iter().map(|v| v.cnv())
+                .set_or_clear_metadata(self.metadata.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::ResultSetMetadata>::cnv).transpose()?)
+                .set_rows(self.rows.into_iter().map(gaxi::prost::FromProto::<wkt::ListValue>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_stats(self.stats.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_precommit_token(self.precommit_token.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_cache_update(self.cache_update.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_stats(self.stats.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::ResultSetStats>::cnv).transpose()?)
+                .set_or_clear_precommit_token(self.precommit_token.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::MultiplexedSessionPrecommitToken>::cnv).transpose()?)
+                .set_or_clear_cache_update(self.cache_update.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::CacheUpdate>::cnv).transpose()?)
         )
     }
 }
@@ -1184,15 +1184,15 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::PartialRes
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::PartialResultSet, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::PartialResultSet::new()
-                .set_or_clear_metadata(self.metadata.map(|v| v.cnv()).transpose()?)
-                .set_values(self.values.into_iter().map(|v| v.cnv())
+                .set_or_clear_metadata(self.metadata.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::ResultSetMetadata>::cnv).transpose()?)
+                .set_values(self.values.into_iter().map(gaxi::prost::FromProto::<wkt::Value>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_chunked_value(self.chunked_value)
                 .set_resume_token(self.resume_token)
-                .set_or_clear_stats(self.stats.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_precommit_token(self.precommit_token.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_stats(self.stats.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::ResultSetStats>::cnv).transpose()?)
+                .set_or_clear_precommit_token(self.precommit_token.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::MultiplexedSessionPrecommitToken>::cnv).transpose()?)
                 .set_last(self.last)
-                .set_or_clear_cache_update(self.cache_update.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_cache_update(self.cache_update.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::CacheUpdate>::cnv).transpose()?)
         )
     }
 }
@@ -1212,9 +1212,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::ResultSetM
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::ResultSetMetadata, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::ResultSetMetadata::new()
-                .set_or_clear_row_type(self.row_type.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_transaction(self.transaction.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_undeclared_parameters(self.undeclared_parameters.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_row_type(self.row_type.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::StructType>::cnv).transpose()?)
+                .set_or_clear_transaction(self.transaction.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Transaction>::cnv).transpose()?)
+                .set_or_clear_undeclared_parameters(self.undeclared_parameters.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::StructType>::cnv).transpose()?)
         )
     }
 }
@@ -1233,8 +1233,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::result_set
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::result_set_stats::RowCount, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::result_set_stats::RowCount as T;
         match self {
-            Self::RowCountExact(v) => Ok(T::RowCountExact(v.cnv()?)),
-            Self::RowCountLowerBound(v) => Ok(T::RowCountLowerBound(v.cnv()?)),
+            Self::RowCountExact(v) => Ok(T::RowCountExact(gaxi::prost::FromProto::<i64>::cnv(v)?)),
+            Self::RowCountLowerBound(v) => Ok(T::RowCountLowerBound(gaxi::prost::FromProto::<i64>::cnv(v)?)),
         }
     }
 }
@@ -1254,9 +1254,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::ResultSetS
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::ResultSetStats, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::ResultSetStats::new()
-                .set_or_clear_query_plan(self.query_plan.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_query_stats(self.query_stats.map(|v| v.cnv()).transpose()?)
-                .set_row_count(self.row_count.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_query_plan(self.query_plan.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::QueryPlan>::cnv).transpose()?)
+                .set_or_clear_query_stats(self.query_stats.map(gaxi::prost::FromProto::<wkt::Struct>::cnv).transpose()?)
+                .set_row_count(self.row_count.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::result_set_stats::RowCount>::cnv).transpose()?)
         )
     }
 }
@@ -1276,7 +1276,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::CreateSess
         Ok(
             crate::generated::gapic_dataplane::model::CreateSessionRequest::new()
                 .set_database(self.database)
-                .set_or_clear_session(self.session.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_session(self.session.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Session>::cnv).transpose()?)
         )
     }
 }
@@ -1297,7 +1297,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::BatchCreat
         Ok(
             crate::generated::gapic_dataplane::model::BatchCreateSessionsRequest::new()
                 .set_database(self.database)
-                .set_or_clear_session_template(self.session_template.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_session_template(self.session_template.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Session>::cnv).transpose()?)
                 .set_session_count(self.session_count)
         )
     }
@@ -1319,7 +1319,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::BatchCreat
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::BatchCreateSessionsResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::BatchCreateSessionsResponse::new()
-                .set_session(self.session.into_iter().map(|v| v.cnv())
+                .set_session(self.session.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Session>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -1350,10 +1350,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::Session> f
                 .set_name(self.name)
                 .set_labels(self.labels.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<std::string::String>::cnv(v))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
-                .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_approximate_last_use_time(self.approximate_last_use_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_create_time(self.create_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
+                .set_or_clear_approximate_last_use_time(self.approximate_last_use_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
                 .set_creator_role(self.creator_role)
                 .set_multiplexed(self.multiplexed)
         )
@@ -1419,7 +1419,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::ListSessio
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::ListSessionsResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::ListSessionsResponse::new()
-                .set_sessions(self.sessions.into_iter().map(|v| v.cnv())
+                .set_sessions(self.sessions.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Session>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_next_page_token(self.next_page_token)
         )
@@ -1463,7 +1463,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::request_op
             crate::generated::gapic_dataplane::model::request_options::ClientContext::new()
                 .set_secure_context(self.secure_context.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<wkt::Value>::cnv(v))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
         )
     }
@@ -1495,7 +1495,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::RequestOpt
                 .set_priority(self.priority)
                 .set_request_tag(self.request_tag)
                 .set_transaction_tag(self.transaction_tag)
-                .set_or_clear_client_context(self.client_context.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_client_context(self.client_context.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::request_options::ClientContext>::cnv).transpose()?)
         )
     }
 }
@@ -1544,7 +1544,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::directed_r
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::directed_read_options::IncludeReplicas, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::directed_read_options::IncludeReplicas::new()
-                .set_replica_selections(self.replica_selections.into_iter().map(|v| v.cnv())
+                .set_replica_selections(self.replica_selections.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::directed_read_options::ReplicaSelection>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_auto_failover_disabled(self.auto_failover_disabled)
         )
@@ -1567,7 +1567,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::directed_r
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::directed_read_options::ExcludeReplicas, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::directed_read_options::ExcludeReplicas::new()
-                .set_replica_selections(self.replica_selections.into_iter().map(|v| v.cnv())
+                .set_replica_selections(self.replica_selections.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::directed_read_options::ReplicaSelection>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -1587,8 +1587,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::directed_r
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::directed_read_options::Replicas, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::directed_read_options::Replicas as T;
         match self {
-            Self::IncludeReplicas(v) => Ok(T::IncludeReplicas(std::boxed::Box::new(v.cnv()?))),
-            Self::ExcludeReplicas(v) => Ok(T::ExcludeReplicas(std::boxed::Box::new(v.cnv()?))),
+            Self::IncludeReplicas(v) => Ok(T::IncludeReplicas(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::directed_read_options::IncludeReplicas>::cnv(v)?))),
+            Self::ExcludeReplicas(v) => Ok(T::ExcludeReplicas(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::directed_read_options::ExcludeReplicas>::cnv(v)?))),
         }
     }
 }
@@ -1606,7 +1606,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::DirectedRe
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::DirectedReadOptions, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::DirectedReadOptions::new()
-                .set_replicas(self.replicas.map(|v| v.cnv()).transpose()?)
+                .set_replicas(self.replicas.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::directed_read_options::Replicas>::cnv).transpose()?)
         )
     }
 }
@@ -1670,23 +1670,23 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::ExecuteSql
         Ok(
             crate::generated::gapic_dataplane::model::ExecuteSqlRequest::new()
                 .set_session(self.session)
-                .set_or_clear_transaction(self.transaction.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_transaction(self.transaction.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::TransactionSelector>::cnv).transpose()?)
                 .set_sql(self.sql)
-                .set_or_clear_params(self.params.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_params(self.params.map(gaxi::prost::FromProto::<wkt::Struct>::cnv).transpose()?)
                 .set_param_types(self.param_types.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Type>::cnv(v))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
                 .set_resume_token(self.resume_token)
                 .set_query_mode(self.query_mode)
                 .set_partition_token(self.partition_token)
                 .set_seqno(self.seqno)
-                .set_or_clear_query_options(self.query_options.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_directed_read_options(self.directed_read_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_query_options(self.query_options.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::execute_sql_request::QueryOptions>::cnv).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::RequestOptions>::cnv).transpose()?)
+                .set_or_clear_directed_read_options(self.directed_read_options.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::DirectedReadOptions>::cnv).transpose()?)
                 .set_data_boost_enabled(self.data_boost_enabled)
                 .set_last_statement(self.last_statement)
-                .set_or_clear_routing_hint(self.routing_hint.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_routing_hint(self.routing_hint.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::RoutingHint>::cnv).transpose()?)
         )
     }
 }
@@ -1711,10 +1711,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::execute_ba
         Ok(
             crate::generated::gapic_dataplane::model::execute_batch_dml_request::Statement::new()
                 .set_sql(self.sql)
-                .set_or_clear_params(self.params.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_params(self.params.map(gaxi::prost::FromProto::<wkt::Struct>::cnv).transpose()?)
                 .set_param_types(self.param_types.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Type>::cnv(v))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
         )
     }
@@ -1742,11 +1742,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::ExecuteBat
         Ok(
             crate::generated::gapic_dataplane::model::ExecuteBatchDmlRequest::new()
                 .set_session(self.session)
-                .set_or_clear_transaction(self.transaction.map(|v| v.cnv()).transpose()?)
-                .set_statements(self.statements.into_iter().map(|v| v.cnv())
+                .set_or_clear_transaction(self.transaction.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::TransactionSelector>::cnv).transpose()?)
+                .set_statements(self.statements.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::execute_batch_dml_request::Statement>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_seqno(self.seqno)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::RequestOptions>::cnv).transpose()?)
                 .set_last_statements(self.last_statements)
         )
     }
@@ -1770,10 +1770,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::ExecuteBat
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::ExecuteBatchDmlResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::ExecuteBatchDmlResponse::new()
-                .set_result_sets(self.result_sets.into_iter().map(|v| v.cnv())
+                .set_result_sets(self.result_sets.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::ResultSet>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_status(self.status.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_precommit_token(self.precommit_token.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_status(self.status.map(gaxi::prost::FromProto::<google_cloud_rpc::model::Status>::cnv).transpose()?)
+                .set_or_clear_precommit_token(self.precommit_token.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::MultiplexedSessionPrecommitToken>::cnv).transpose()?)
         )
     }
 }
@@ -1821,14 +1821,14 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::PartitionQ
         Ok(
             crate::generated::gapic_dataplane::model::PartitionQueryRequest::new()
                 .set_session(self.session)
-                .set_or_clear_transaction(self.transaction.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_transaction(self.transaction.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::TransactionSelector>::cnv).transpose()?)
                 .set_sql(self.sql)
-                .set_or_clear_params(self.params.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_params(self.params.map(gaxi::prost::FromProto::<wkt::Struct>::cnv).transpose()?)
                 .set_param_types(self.param_types.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Type>::cnv(v))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
-                .set_or_clear_partition_options(self.partition_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_partition_options(self.partition_options.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::PartitionOptions>::cnv).transpose()?)
         )
     }
 }
@@ -1856,13 +1856,13 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::PartitionR
         Ok(
             crate::generated::gapic_dataplane::model::PartitionReadRequest::new()
                 .set_session(self.session)
-                .set_or_clear_transaction(self.transaction.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_transaction(self.transaction.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::TransactionSelector>::cnv).transpose()?)
                 .set_table(self.table)
                 .set_index(self.index)
-                .set_columns(self.columns.into_iter().map(|v| v.cnv())
+                .set_columns(self.columns.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_key_set(self.key_set.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_partition_options(self.partition_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_key_set(self.key_set.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::KeySet>::cnv).transpose()?)
+                .set_or_clear_partition_options(self.partition_options.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::PartitionOptions>::cnv).transpose()?)
         )
     }
 }
@@ -1902,9 +1902,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::PartitionR
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::PartitionResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::PartitionResponse::new()
-                .set_partitions(self.partitions.into_iter().map(|v| v.cnv())
+                .set_partitions(self.partitions.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Partition>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_transaction(self.transaction.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_transaction(self.transaction.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Transaction>::cnv).transpose()?)
         )
     }
 }
@@ -1954,21 +1954,21 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::ReadReques
         Ok(
             crate::generated::gapic_dataplane::model::ReadRequest::new()
                 .set_session(self.session)
-                .set_or_clear_transaction(self.transaction.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_transaction(self.transaction.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::TransactionSelector>::cnv).transpose()?)
                 .set_table(self.table)
                 .set_index(self.index)
-                .set_columns(self.columns.into_iter().map(|v| v.cnv())
+                .set_columns(self.columns.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_key_set(self.key_set.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_key_set(self.key_set.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::KeySet>::cnv).transpose()?)
                 .set_limit(self.limit)
                 .set_resume_token(self.resume_token)
                 .set_partition_token(self.partition_token)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_directed_read_options(self.directed_read_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::RequestOptions>::cnv).transpose()?)
+                .set_or_clear_directed_read_options(self.directed_read_options.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::DirectedReadOptions>::cnv).transpose()?)
                 .set_data_boost_enabled(self.data_boost_enabled)
                 .set_order_by(self.order_by)
                 .set_lock_hint(self.lock_hint)
-                .set_or_clear_routing_hint(self.routing_hint.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_routing_hint(self.routing_hint.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::RoutingHint>::cnv).transpose()?)
         )
     }
 }
@@ -1991,10 +1991,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::BeginTrans
         Ok(
             crate::generated::gapic_dataplane::model::BeginTransactionRequest::new()
                 .set_session(self.session)
-                .set_or_clear_options(self.options.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_mutation_key(self.mutation_key.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_routing_hint(self.routing_hint.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_options(self.options.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::TransactionOptions>::cnv).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::RequestOptions>::cnv).transpose()?)
+                .set_or_clear_mutation_key(self.mutation_key.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Mutation>::cnv).transpose()?)
+                .set_or_clear_routing_hint(self.routing_hint.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::RoutingHint>::cnv).transpose()?)
         )
     }
 }
@@ -2013,8 +2013,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::commit_req
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::commit_request::Transaction, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::commit_request::Transaction as T;
         match self {
-            Self::TransactionId(v) => Ok(T::TransactionId(v.cnv()?)),
-            Self::SingleUseTransaction(v) => Ok(T::SingleUseTransaction(std::boxed::Box::new(v.cnv()?))),
+            Self::TransactionId(v) => Ok(T::TransactionId(gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?)),
+            Self::SingleUseTransaction(v) => Ok(T::SingleUseTransaction(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::TransactionOptions>::cnv(v)?))),
         }
     }
 }
@@ -2043,14 +2043,14 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::CommitRequ
         Ok(
             crate::generated::gapic_dataplane::model::CommitRequest::new()
                 .set_session(self.session)
-                .set_mutations(self.mutations.into_iter().map(|v| v.cnv())
+                .set_mutations(self.mutations.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Mutation>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_return_commit_stats(self.return_commit_stats)
-                .set_or_clear_max_commit_delay(self.max_commit_delay.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_precommit_token(self.precommit_token.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_routing_hint(self.routing_hint.map(|v| v.cnv()).transpose()?)
-                .set_transaction(self.transaction.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_max_commit_delay(self.max_commit_delay.map(gaxi::prost::FromProto::<wkt::Duration>::cnv).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::RequestOptions>::cnv).transpose()?)
+                .set_or_clear_precommit_token(self.precommit_token.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::MultiplexedSessionPrecommitToken>::cnv).transpose()?)
+                .set_or_clear_routing_hint(self.routing_hint.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::RoutingHint>::cnv).transpose()?)
+                .set_transaction(self.transaction.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::commit_request::Transaction>::cnv).transpose()?)
         )
     }
 }
@@ -2091,7 +2091,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::batch_writ
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::batch_write_request::MutationGroup, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::batch_write_request::MutationGroup::new()
-                .set_mutations(self.mutations.into_iter().map(|v| v.cnv())
+                .set_mutations(self.mutations.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Mutation>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -2117,8 +2117,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::BatchWrite
         Ok(
             crate::generated::gapic_dataplane::model::BatchWriteRequest::new()
                 .set_session(self.session)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
-                .set_mutation_groups(self.mutation_groups.into_iter().map(|v| v.cnv())
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::RequestOptions>::cnv).transpose()?)
+                .set_mutation_groups(self.mutation_groups.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::batch_write_request::MutationGroup>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_exclude_txn_from_change_streams(self.exclude_txn_from_change_streams)
         )
@@ -2143,10 +2143,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::BatchWrite
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::BatchWriteResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::BatchWriteResponse::new()
-                .set_indexes(self.indexes.into_iter().map(|v| v.cnv())
+                .set_indexes(self.indexes.into_iter().map(gaxi::prost::FromProto::<i32>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_status(self.status.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_commit_timestamp(self.commit_timestamp.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_status(self.status.map(gaxi::prost::FromProto::<google_cloud_rpc::model::Status>::cnv).transpose()?)
+                .set_or_clear_commit_timestamp(self.commit_timestamp.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
         )
     }
 }
@@ -2233,11 +2233,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::transactio
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::transaction_options::read_only::TimestampBound, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::transaction_options::read_only::TimestampBound as T;
         match self {
-            Self::Strong(v) => Ok(T::Strong(v.cnv()?)),
-            Self::MinReadTimestamp(v) => Ok(T::MinReadTimestamp(std::boxed::Box::new(v.cnv()?))),
-            Self::MaxStaleness(v) => Ok(T::MaxStaleness(std::boxed::Box::new(v.cnv()?))),
-            Self::ReadTimestamp(v) => Ok(T::ReadTimestamp(std::boxed::Box::new(v.cnv()?))),
-            Self::ExactStaleness(v) => Ok(T::ExactStaleness(std::boxed::Box::new(v.cnv()?))),
+            Self::Strong(v) => Ok(T::Strong(gaxi::prost::FromProto::<bool>::cnv(v)?)),
+            Self::MinReadTimestamp(v) => Ok(T::MinReadTimestamp(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::Timestamp>::cnv(v)?))),
+            Self::MaxStaleness(v) => Ok(T::MaxStaleness(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::Duration>::cnv(v)?))),
+            Self::ReadTimestamp(v) => Ok(T::ReadTimestamp(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::Timestamp>::cnv(v)?))),
+            Self::ExactStaleness(v) => Ok(T::ExactStaleness(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::Duration>::cnv(v)?))),
         }
     }
 }
@@ -2257,7 +2257,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::transactio
         Ok(
             crate::generated::gapic_dataplane::model::transaction_options::ReadOnly::new()
                 .set_return_read_timestamp(self.return_read_timestamp)
-                .set_timestamp_bound(self.timestamp_bound.map(|v| v.cnv()).transpose()?)
+                .set_timestamp_bound(self.timestamp_bound.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::transaction_options::read_only::TimestampBound>::cnv).transpose()?)
         )
     }
 }
@@ -2284,9 +2284,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::transactio
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::transaction_options::Mode, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::transaction_options::Mode as T;
         match self {
-            Self::ReadWrite(v) => Ok(T::ReadWrite(std::boxed::Box::new(v.cnv()?))),
-            Self::PartitionedDml(v) => Ok(T::PartitionedDml(std::boxed::Box::new(v.cnv()?))),
-            Self::ReadOnly(v) => Ok(T::ReadOnly(std::boxed::Box::new(v.cnv()?))),
+            Self::ReadWrite(v) => Ok(T::ReadWrite(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::transaction_options::ReadWrite>::cnv(v)?))),
+            Self::PartitionedDml(v) => Ok(T::PartitionedDml(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::transaction_options::PartitionedDml>::cnv(v)?))),
+            Self::ReadOnly(v) => Ok(T::ReadOnly(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::transaction_options::ReadOnly>::cnv(v)?))),
         }
     }
 }
@@ -2308,7 +2308,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::Transactio
             crate::generated::gapic_dataplane::model::TransactionOptions::new()
                 .set_exclude_txn_from_change_streams(self.exclude_txn_from_change_streams)
                 .set_isolation_level(self.isolation_level)
-                .set_mode(self.mode.map(|v| v.cnv()).transpose()?)
+                .set_mode(self.mode.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::transaction_options::Mode>::cnv).transpose()?)
         )
     }
 }
@@ -2330,9 +2330,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::Transactio
         Ok(
             crate::generated::gapic_dataplane::model::Transaction::new()
                 .set_id(self.id)
-                .set_or_clear_read_timestamp(self.read_timestamp.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_precommit_token(self.precommit_token.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_cache_update(self.cache_update.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_read_timestamp(self.read_timestamp.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
+                .set_or_clear_precommit_token(self.precommit_token.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::MultiplexedSessionPrecommitToken>::cnv).transpose()?)
+                .set_or_clear_cache_update(self.cache_update.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::CacheUpdate>::cnv).transpose()?)
         )
     }
 }
@@ -2352,9 +2352,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::transactio
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::transaction_selector::Selector, gaxi::prost::ConvertError> {
         use crate::generated::gapic_dataplane::model::transaction_selector::Selector as T;
         match self {
-            Self::SingleUse(v) => Ok(T::SingleUse(std::boxed::Box::new(v.cnv()?))),
-            Self::Id(v) => Ok(T::Id(v.cnv()?)),
-            Self::Begin(v) => Ok(T::Begin(std::boxed::Box::new(v.cnv()?))),
+            Self::SingleUse(v) => Ok(T::SingleUse(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::TransactionOptions>::cnv(v)?))),
+            Self::Id(v) => Ok(T::Id(gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?)),
+            Self::Begin(v) => Ok(T::Begin(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::TransactionOptions>::cnv(v)?))),
         }
     }
 }
@@ -2372,7 +2372,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::Transactio
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::TransactionSelector, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::TransactionSelector::new()
-                .set_selector(self.selector.map(|v| v.cnv()).transpose()?)
+                .set_selector(self.selector.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::transaction_selector::Selector>::cnv).transpose()?)
         )
     }
 }
@@ -2415,8 +2415,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::Type> for 
         Ok(
             crate::generated::gapic_dataplane::model::Type::new()
                 .set_code(self.code)
-                .set_or_clear_array_element_type(self.array_element_type.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_struct_type(self.struct_type.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_array_element_type(self.array_element_type.map(|v| gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Type>::cnv(*v)).transpose()?)
+                .set_or_clear_struct_type(self.struct_type.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::StructType>::cnv).transpose()?)
                 .set_type_annotation(self.type_annotation)
                 .set_proto_type_fqn(self.proto_type_fqn)
         )
@@ -2438,7 +2438,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::struct_typ
         Ok(
             crate::generated::gapic_dataplane::model::struct_type::Field::new()
                 .set_name(self.name)
-                .set_or_clear_type(self.r#type.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_type(self.r#type.map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::Type>::cnv).transpose()?)
         )
     }
 }
@@ -2459,7 +2459,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic_dataplane::model::StructType
     fn cnv(self) -> std::result::Result<crate::generated::gapic_dataplane::model::StructType, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic_dataplane::model::StructType::new()
-                .set_fields(self.fields.into_iter().map(|v| v.cnv())
+                .set_fields(self.fields.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic_dataplane::model::struct_type::Field>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }

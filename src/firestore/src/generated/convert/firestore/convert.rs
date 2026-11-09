@@ -33,7 +33,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::AggregationResult> f
             crate::generated::gapic::model::AggregationResult::new()
                 .set_aggregate_fields(self.aggregate_fields.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<crate::generated::gapic::model::Value>::cnv(v))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
         )
     }
@@ -73,7 +73,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::BloomFilter> for Blo
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::BloomFilter, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::BloomFilter::new()
-                .set_or_clear_bits(self.bits.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_bits(self.bits.map(gaxi::prost::FromProto::<crate::generated::gapic::model::BitSequence>::cnv).transpose()?)
                 .set_hash_count(self.hash_count)
         )
     }
@@ -95,7 +95,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::DocumentMask> for Do
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::DocumentMask, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::DocumentMask::new()
-                .set_field_paths(self.field_paths.into_iter().map(|v| v.cnv())
+                .set_field_paths(self.field_paths.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -115,8 +115,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::precondition::Condit
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::precondition::ConditionType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::precondition::ConditionType as T;
         match self {
-            Self::Exists(v) => Ok(T::Exists(v.cnv()?)),
-            Self::UpdateTime(v) => Ok(T::UpdateTime(std::boxed::Box::new(v.cnv()?))),
+            Self::Exists(v) => Ok(T::Exists(gaxi::prost::FromProto::<bool>::cnv(v)?)),
+            Self::UpdateTime(v) => Ok(T::UpdateTime(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::Timestamp>::cnv(v)?))),
         }
     }
 }
@@ -134,7 +134,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Precondition> for Pr
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::Precondition, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::Precondition::new()
-                .set_condition_type(self.condition_type.map(|v| v.cnv()).transpose()?)
+                .set_condition_type(self.condition_type.map(gaxi::prost::FromProto::<crate::generated::gapic::model::precondition::ConditionType>::cnv).transpose()?)
         )
     }
 }
@@ -172,7 +172,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::transaction_options:
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::transaction_options::read_only::ConsistencySelector, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::transaction_options::read_only::ConsistencySelector as T;
         match self {
-            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(v.cnv()?))),
+            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::Timestamp>::cnv(v)?))),
         }
     }
 }
@@ -190,7 +190,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::transaction_options:
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::transaction_options::ReadOnly, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::transaction_options::ReadOnly::new()
-                .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
+                .set_consistency_selector(self.consistency_selector.map(gaxi::prost::FromProto::<crate::generated::gapic::model::transaction_options::read_only::ConsistencySelector>::cnv).transpose()?)
         )
     }
 }
@@ -216,8 +216,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::transaction_options:
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::transaction_options::Mode, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::transaction_options::Mode as T;
         match self {
-            Self::ReadOnly(v) => Ok(T::ReadOnly(std::boxed::Box::new(v.cnv()?))),
-            Self::ReadWrite(v) => Ok(T::ReadWrite(std::boxed::Box::new(v.cnv()?))),
+            Self::ReadOnly(v) => Ok(T::ReadOnly(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::transaction_options::ReadOnly>::cnv(v)?))),
+            Self::ReadWrite(v) => Ok(T::ReadWrite(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::transaction_options::ReadWrite>::cnv(v)?))),
         }
     }
 }
@@ -235,7 +235,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::TransactionOptions> 
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::TransactionOptions, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::TransactionOptions::new()
-                .set_mode(self.mode.map(|v| v.cnv()).transpose()?)
+                .set_mode(self.mode.map(gaxi::prost::FromProto::<crate::generated::gapic::model::transaction_options::Mode>::cnv).transpose()?)
         )
     }
 }
@@ -256,7 +256,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::RequestOptions> for 
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::RequestOptions, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::RequestOptions::new()
-                .set_request_tags(self.request_tags.into_iter().map(|v| v.cnv())
+                .set_request_tags(self.request_tags.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -285,10 +285,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Document> for Docume
                 .set_name(self.name)
                 .set_fields(self.fields.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<crate::generated::gapic::model::Value>::cnv(v))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
-                .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_create_time(self.create_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
+                .set_or_clear_update_time(self.update_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
         )
     }
 }
@@ -321,20 +321,20 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::value::ValueType> fo
         use crate::generated::gapic::model::value::ValueType as T;
         match self {
             Self::NullValue(v) => Ok(T::NullValue(v.into())),
-            Self::BooleanValue(v) => Ok(T::BooleanValue(v.cnv()?)),
-            Self::IntegerValue(v) => Ok(T::IntegerValue(v.cnv()?)),
-            Self::DoubleValue(v) => Ok(T::DoubleValue(v.cnv()?)),
-            Self::TimestampValue(v) => Ok(T::TimestampValue(std::boxed::Box::new(v.cnv()?))),
-            Self::StringValue(v) => Ok(T::StringValue(v.cnv()?)),
-            Self::BytesValue(v) => Ok(T::BytesValue(v.cnv()?)),
-            Self::ReferenceValue(v) => Ok(T::ReferenceValue(v.cnv()?)),
-            Self::GeoPointValue(v) => Ok(T::GeoPointValue(std::boxed::Box::new(v.cnv()?))),
-            Self::ArrayValue(v) => Ok(T::ArrayValue(std::boxed::Box::new(v.cnv()?))),
-            Self::MapValue(v) => Ok(T::MapValue(std::boxed::Box::new(v.cnv()?))),
-            Self::FieldReferenceValue(v) => Ok(T::FieldReferenceValue(v.cnv()?)),
-            Self::VariableReferenceValue(v) => Ok(T::VariableReferenceValue(v.cnv()?)),
-            Self::FunctionValue(v) => Ok(T::FunctionValue(std::boxed::Box::new(v.cnv()?))),
-            Self::PipelineValue(v) => Ok(T::PipelineValue(std::boxed::Box::new(v.cnv()?))),
+            Self::BooleanValue(v) => Ok(T::BooleanValue(gaxi::prost::FromProto::<bool>::cnv(v)?)),
+            Self::IntegerValue(v) => Ok(T::IntegerValue(gaxi::prost::FromProto::<i64>::cnv(v)?)),
+            Self::DoubleValue(v) => Ok(T::DoubleValue(gaxi::prost::FromProto::<f64>::cnv(v)?)),
+            Self::TimestampValue(v) => Ok(T::TimestampValue(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::Timestamp>::cnv(v)?))),
+            Self::StringValue(v) => Ok(T::StringValue(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::BytesValue(v) => Ok(T::BytesValue(gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?)),
+            Self::ReferenceValue(v) => Ok(T::ReferenceValue(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::GeoPointValue(v) => Ok(T::GeoPointValue(std::boxed::Box::new(gaxi::prost::FromProto::<google_cloud_type::model::LatLng>::cnv(v)?))),
+            Self::ArrayValue(v) => Ok(T::ArrayValue(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::ArrayValue>::cnv(v)?))),
+            Self::MapValue(v) => Ok(T::MapValue(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::MapValue>::cnv(v)?))),
+            Self::FieldReferenceValue(v) => Ok(T::FieldReferenceValue(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::VariableReferenceValue(v) => Ok(T::VariableReferenceValue(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::FunctionValue(v) => Ok(T::FunctionValue(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::Function>::cnv(v)?))),
+            Self::PipelineValue(v) => Ok(T::PipelineValue(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::Pipeline>::cnv(v)?))),
         }
     }
 }
@@ -352,7 +352,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Value> for Value {
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::Value, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::Value::new()
-                .set_value_type(self.value_type.map(|v| v.cnv()).transpose()?)
+                .set_value_type(self.value_type.map(gaxi::prost::FromProto::<crate::generated::gapic::model::value::ValueType>::cnv).transpose()?)
         )
     }
 }
@@ -373,7 +373,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ArrayValue> for Arra
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ArrayValue, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::ArrayValue::new()
-                .set_values(self.values.into_iter().map(|v| v.cnv())
+                .set_values(self.values.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::Value>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -398,7 +398,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::MapValue> for MapVal
             crate::generated::gapic::model::MapValue::new()
                 .set_fields(self.fields.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<crate::generated::gapic::model::Value>::cnv(v))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
         )
     }
@@ -427,11 +427,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Function> for Functi
         Ok(
             crate::generated::gapic::model::Function::new()
                 .set_name(self.name)
-                .set_args(self.args.into_iter().map(|v| v.cnv())
+                .set_args(self.args.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::Value>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_options(self.options.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<crate::generated::gapic::model::Value>::cnv(v))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
         )
     }
@@ -460,11 +460,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::pipeline::Stage> for
         Ok(
             crate::generated::gapic::model::pipeline::Stage::new()
                 .set_name(self.name)
-                .set_args(self.args.into_iter().map(|v| v.cnv())
+                .set_args(self.args.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::Value>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_options(self.options.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<crate::generated::gapic::model::Value>::cnv(v))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
         )
     }
@@ -486,7 +486,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Pipeline> for Pipeli
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::Pipeline, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::Pipeline::new()
-                .set_stages(self.stages.into_iter().map(|v| v.cnv())
+                .set_stages(self.stages.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::pipeline::Stage>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -506,8 +506,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::get_document_request
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::get_document_request::ConsistencySelector, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::get_document_request::ConsistencySelector as T;
         match self {
-            Self::Transaction(v) => Ok(T::Transaction(v.cnv()?)),
-            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(v.cnv()?))),
+            Self::Transaction(v) => Ok(T::Transaction(gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?)),
+            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::Timestamp>::cnv(v)?))),
         }
     }
 }
@@ -529,9 +529,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::GetDocumentRequest> 
         Ok(
             crate::generated::gapic::model::GetDocumentRequest::new()
                 .set_name(self.name)
-                .set_or_clear_mask(self.mask.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
-                .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_mask(self.mask.map(gaxi::prost::FromProto::<crate::generated::gapic::model::DocumentMask>::cnv).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::RequestOptions>::cnv).transpose()?)
+                .set_consistency_selector(self.consistency_selector.map(gaxi::prost::FromProto::<crate::generated::gapic::model::get_document_request::ConsistencySelector>::cnv).transpose()?)
         )
     }
 }
@@ -550,8 +550,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::list_documents_reque
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::list_documents_request::ConsistencySelector, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::list_documents_request::ConsistencySelector as T;
         match self {
-            Self::Transaction(v) => Ok(T::Transaction(v.cnv()?)),
-            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(v.cnv()?))),
+            Self::Transaction(v) => Ok(T::Transaction(gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?)),
+            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::Timestamp>::cnv(v)?))),
         }
     }
 }
@@ -582,10 +582,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ListDocumentsRequest
                 .set_page_size(self.page_size)
                 .set_page_token(self.page_token)
                 .set_order_by(self.order_by)
-                .set_or_clear_mask(self.mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_mask(self.mask.map(gaxi::prost::FromProto::<crate::generated::gapic::model::DocumentMask>::cnv).transpose()?)
                 .set_show_missing(self.show_missing)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
-                .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::RequestOptions>::cnv).transpose()?)
+                .set_consistency_selector(self.consistency_selector.map(gaxi::prost::FromProto::<crate::generated::gapic::model::list_documents_request::ConsistencySelector>::cnv).transpose()?)
         )
     }
 }
@@ -607,7 +607,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ListDocumentsRespons
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ListDocumentsResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::ListDocumentsResponse::new()
-                .set_documents(self.documents.into_iter().map(|v| v.cnv())
+                .set_documents(self.documents.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::Document>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_next_page_token(self.next_page_token)
         )
@@ -635,9 +635,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::CreateDocumentReques
                 .set_parent(self.parent)
                 .set_collection_id(self.collection_id)
                 .set_document_id(self.document_id)
-                .set_or_clear_document(self.document.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_mask(self.mask.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_document(self.document.map(gaxi::prost::FromProto::<crate::generated::gapic::model::Document>::cnv).transpose()?)
+                .set_or_clear_mask(self.mask.map(gaxi::prost::FromProto::<crate::generated::gapic::model::DocumentMask>::cnv).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::RequestOptions>::cnv).transpose()?)
         )
     }
 }
@@ -659,11 +659,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::UpdateDocumentReques
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::UpdateDocumentRequest, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::UpdateDocumentRequest::new()
-                .set_or_clear_document(self.document.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_mask(self.mask.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_current_document(self.current_document.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_document(self.document.map(gaxi::prost::FromProto::<crate::generated::gapic::model::Document>::cnv).transpose()?)
+                .set_or_clear_update_mask(self.update_mask.map(gaxi::prost::FromProto::<crate::generated::gapic::model::DocumentMask>::cnv).transpose()?)
+                .set_or_clear_mask(self.mask.map(gaxi::prost::FromProto::<crate::generated::gapic::model::DocumentMask>::cnv).transpose()?)
+                .set_or_clear_current_document(self.current_document.map(gaxi::prost::FromProto::<crate::generated::gapic::model::Precondition>::cnv).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::RequestOptions>::cnv).transpose()?)
         )
     }
 }
@@ -684,8 +684,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::DeleteDocumentReques
         Ok(
             crate::generated::gapic::model::DeleteDocumentRequest::new()
                 .set_name(self.name)
-                .set_or_clear_current_document(self.current_document.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_current_document(self.current_document.map(gaxi::prost::FromProto::<crate::generated::gapic::model::Precondition>::cnv).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::RequestOptions>::cnv).transpose()?)
         )
     }
 }
@@ -705,9 +705,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::batch_get_documents_
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::batch_get_documents_request::ConsistencySelector, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::batch_get_documents_request::ConsistencySelector as T;
         match self {
-            Self::Transaction(v) => Ok(T::Transaction(v.cnv()?)),
-            Self::NewTransaction(v) => Ok(T::NewTransaction(std::boxed::Box::new(v.cnv()?))),
-            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(v.cnv()?))),
+            Self::Transaction(v) => Ok(T::Transaction(gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?)),
+            Self::NewTransaction(v) => Ok(T::NewTransaction(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::TransactionOptions>::cnv(v)?))),
+            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::Timestamp>::cnv(v)?))),
         }
     }
 }
@@ -733,11 +733,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::BatchGetDocumentsReq
         Ok(
             crate::generated::gapic::model::BatchGetDocumentsRequest::new()
                 .set_database(self.database)
-                .set_documents(self.documents.into_iter().map(|v| v.cnv())
+                .set_documents(self.documents.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_mask(self.mask.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
-                .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_mask(self.mask.map(gaxi::prost::FromProto::<crate::generated::gapic::model::DocumentMask>::cnv).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::RequestOptions>::cnv).transpose()?)
+                .set_consistency_selector(self.consistency_selector.map(gaxi::prost::FromProto::<crate::generated::gapic::model::batch_get_documents_request::ConsistencySelector>::cnv).transpose()?)
         )
     }
 }
@@ -756,8 +756,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::batch_get_documents_
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::batch_get_documents_response::Result, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::batch_get_documents_response::Result as T;
         match self {
-            Self::Found(v) => Ok(T::Found(std::boxed::Box::new(v.cnv()?))),
-            Self::Missing(v) => Ok(T::Missing(v.cnv()?)),
+            Self::Found(v) => Ok(T::Found(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::Document>::cnv(v)?))),
+            Self::Missing(v) => Ok(T::Missing(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
         }
     }
 }
@@ -778,8 +778,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::BatchGetDocumentsRes
         Ok(
             crate::generated::gapic::model::BatchGetDocumentsResponse::new()
                 .set_transaction(self.transaction)
-                .set_or_clear_read_time(self.read_time.map(|v| v.cnv()).transpose()?)
-                .set_result(self.result.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_read_time(self.read_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
+                .set_result(self.result.map(gaxi::prost::FromProto::<crate::generated::gapic::model::batch_get_documents_response::Result>::cnv).transpose()?)
         )
     }
 }
@@ -800,8 +800,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::BeginTransactionRequ
         Ok(
             crate::generated::gapic::model::BeginTransactionRequest::new()
                 .set_database(self.database)
-                .set_or_clear_options(self.options.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_options(self.options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::TransactionOptions>::cnv).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::RequestOptions>::cnv).transpose()?)
         )
     }
 }
@@ -844,10 +844,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::CommitRequest> for C
         Ok(
             crate::generated::gapic::model::CommitRequest::new()
                 .set_database(self.database)
-                .set_writes(self.writes.into_iter().map(|v| v.cnv())
+                .set_writes(self.writes.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::Write>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_transaction(self.transaction)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::RequestOptions>::cnv).transpose()?)
         )
     }
 }
@@ -869,9 +869,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::CommitResponse> for 
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::CommitResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::CommitResponse::new()
-                .set_write_results(self.write_results.into_iter().map(|v| v.cnv())
+                .set_write_results(self.write_results.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::WriteResult>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_commit_time(self.commit_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_commit_time(self.commit_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
         )
     }
 }
@@ -893,7 +893,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::RollbackRequest> for
             crate::generated::gapic::model::RollbackRequest::new()
                 .set_database(self.database)
                 .set_transaction(self.transaction)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::RequestOptions>::cnv).transpose()?)
         )
     }
 }
@@ -911,7 +911,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::run_query_request::Q
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::run_query_request::QueryType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::run_query_request::QueryType as T;
         match self {
-            Self::StructuredQuery(v) => Ok(T::StructuredQuery(std::boxed::Box::new(v.cnv()?))),
+            Self::StructuredQuery(v) => Ok(T::StructuredQuery(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::StructuredQuery>::cnv(v)?))),
         }
     }
 }
@@ -931,9 +931,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::run_query_request::C
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::run_query_request::ConsistencySelector, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::run_query_request::ConsistencySelector as T;
         match self {
-            Self::Transaction(v) => Ok(T::Transaction(v.cnv()?)),
-            Self::NewTransaction(v) => Ok(T::NewTransaction(std::boxed::Box::new(v.cnv()?))),
-            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(v.cnv()?))),
+            Self::Transaction(v) => Ok(T::Transaction(gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?)),
+            Self::NewTransaction(v) => Ok(T::NewTransaction(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::TransactionOptions>::cnv(v)?))),
+            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::Timestamp>::cnv(v)?))),
         }
     }
 }
@@ -956,10 +956,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::RunQueryRequest> for
         Ok(
             crate::generated::gapic::model::RunQueryRequest::new()
                 .set_parent(self.parent)
-                .set_or_clear_explain_options(self.explain_options.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
-                .set_query_type(self.query_type.map(|v| v.cnv()).transpose()?)
-                .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_explain_options(self.explain_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::ExplainOptions>::cnv).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::RequestOptions>::cnv).transpose()?)
+                .set_query_type(self.query_type.map(gaxi::prost::FromProto::<crate::generated::gapic::model::run_query_request::QueryType>::cnv).transpose()?)
+                .set_consistency_selector(self.consistency_selector.map(gaxi::prost::FromProto::<crate::generated::gapic::model::run_query_request::ConsistencySelector>::cnv).transpose()?)
         )
     }
 }
@@ -977,7 +977,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::run_query_response::
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::run_query_response::ContinuationSelector, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::run_query_response::ContinuationSelector as T;
         match self {
-            Self::Done(v) => Ok(T::Done(v.cnv()?)),
+            Self::Done(v) => Ok(T::Done(gaxi::prost::FromProto::<bool>::cnv(v)?)),
         }
     }
 }
@@ -1001,11 +1001,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::RunQueryResponse> fo
         Ok(
             crate::generated::gapic::model::RunQueryResponse::new()
                 .set_transaction(self.transaction)
-                .set_or_clear_document(self.document.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_read_time(self.read_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_document(self.document.map(gaxi::prost::FromProto::<crate::generated::gapic::model::Document>::cnv).transpose()?)
+                .set_or_clear_read_time(self.read_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
                 .set_skipped_results(self.skipped_results)
-                .set_or_clear_explain_metrics(self.explain_metrics.map(|v| v.cnv()).transpose()?)
-                .set_continuation_selector(self.continuation_selector.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_explain_metrics(self.explain_metrics.map(gaxi::prost::FromProto::<crate::generated::gapic::model::ExplainMetrics>::cnv).transpose()?)
+                .set_continuation_selector(self.continuation_selector.map(gaxi::prost::FromProto::<crate::generated::gapic::model::run_query_response::ContinuationSelector>::cnv).transpose()?)
         )
     }
 }
@@ -1023,7 +1023,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::run_aggregation_quer
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::run_aggregation_query_request::QueryType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::run_aggregation_query_request::QueryType as T;
         match self {
-            Self::StructuredAggregationQuery(v) => Ok(T::StructuredAggregationQuery(std::boxed::Box::new(v.cnv()?))),
+            Self::StructuredAggregationQuery(v) => Ok(T::StructuredAggregationQuery(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::StructuredAggregationQuery>::cnv(v)?))),
         }
     }
 }
@@ -1043,9 +1043,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::run_aggregation_quer
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::run_aggregation_query_request::ConsistencySelector, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::run_aggregation_query_request::ConsistencySelector as T;
         match self {
-            Self::Transaction(v) => Ok(T::Transaction(v.cnv()?)),
-            Self::NewTransaction(v) => Ok(T::NewTransaction(std::boxed::Box::new(v.cnv()?))),
-            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(v.cnv()?))),
+            Self::Transaction(v) => Ok(T::Transaction(gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?)),
+            Self::NewTransaction(v) => Ok(T::NewTransaction(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::TransactionOptions>::cnv(v)?))),
+            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::Timestamp>::cnv(v)?))),
         }
     }
 }
@@ -1068,10 +1068,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::RunAggregationQueryR
         Ok(
             crate::generated::gapic::model::RunAggregationQueryRequest::new()
                 .set_parent(self.parent)
-                .set_or_clear_explain_options(self.explain_options.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
-                .set_query_type(self.query_type.map(|v| v.cnv()).transpose()?)
-                .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_explain_options(self.explain_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::ExplainOptions>::cnv).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::RequestOptions>::cnv).transpose()?)
+                .set_query_type(self.query_type.map(gaxi::prost::FromProto::<crate::generated::gapic::model::run_aggregation_query_request::QueryType>::cnv).transpose()?)
+                .set_consistency_selector(self.consistency_selector.map(gaxi::prost::FromProto::<crate::generated::gapic::model::run_aggregation_query_request::ConsistencySelector>::cnv).transpose()?)
         )
     }
 }
@@ -1092,10 +1092,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::RunAggregationQueryR
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::RunAggregationQueryResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::RunAggregationQueryResponse::new()
-                .set_or_clear_result(self.result.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_result(self.result.map(gaxi::prost::FromProto::<crate::generated::gapic::model::AggregationResult>::cnv).transpose()?)
                 .set_transaction(self.transaction)
-                .set_or_clear_read_time(self.read_time.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_explain_metrics(self.explain_metrics.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_read_time(self.read_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
+                .set_or_clear_explain_metrics(self.explain_metrics.map(gaxi::prost::FromProto::<crate::generated::gapic::model::ExplainMetrics>::cnv).transpose()?)
         )
     }
 }
@@ -1113,7 +1113,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::partition_query_requ
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::partition_query_request::QueryType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::partition_query_request::QueryType as T;
         match self {
-            Self::StructuredQuery(v) => Ok(T::StructuredQuery(std::boxed::Box::new(v.cnv()?))),
+            Self::StructuredQuery(v) => Ok(T::StructuredQuery(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::StructuredQuery>::cnv(v)?))),
         }
     }
 }
@@ -1131,7 +1131,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::partition_query_requ
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::partition_query_request::ConsistencySelector, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::partition_query_request::ConsistencySelector as T;
         match self {
-            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(v.cnv()?))),
+            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::Timestamp>::cnv(v)?))),
         }
     }
 }
@@ -1159,9 +1159,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::PartitionQueryReques
                 .set_partition_count(self.partition_count)
                 .set_page_token(self.page_token)
                 .set_page_size(self.page_size)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
-                .set_query_type(self.query_type.map(|v| v.cnv()).transpose()?)
-                .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::RequestOptions>::cnv).transpose()?)
+                .set_query_type(self.query_type.map(gaxi::prost::FromProto::<crate::generated::gapic::model::partition_query_request::QueryType>::cnv).transpose()?)
+                .set_consistency_selector(self.consistency_selector.map(gaxi::prost::FromProto::<crate::generated::gapic::model::partition_query_request::ConsistencySelector>::cnv).transpose()?)
         )
     }
 }
@@ -1183,7 +1183,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::PartitionQueryRespon
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::PartitionQueryResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::PartitionQueryResponse::new()
-                .set_partitions(self.partitions.into_iter().map(|v| v.cnv())
+                .set_partitions(self.partitions.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::Cursor>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_next_page_token(self.next_page_token)
         )
@@ -1217,14 +1217,14 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::WriteRequest> for Wr
             crate::generated::gapic::model::WriteRequest::new()
                 .set_database(self.database)
                 .set_stream_id(self.stream_id)
-                .set_writes(self.writes.into_iter().map(|v| v.cnv())
+                .set_writes(self.writes.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::Write>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_stream_token(self.stream_token)
                 .set_labels(self.labels.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<std::string::String>::cnv(v))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::RequestOptions>::cnv).transpose()?)
         )
     }
 }
@@ -1250,9 +1250,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::WriteResponse> for W
             crate::generated::gapic::model::WriteResponse::new()
                 .set_stream_id(self.stream_id)
                 .set_stream_token(self.stream_token)
-                .set_write_results(self.write_results.into_iter().map(|v| v.cnv())
+                .set_write_results(self.write_results.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::WriteResult>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_commit_time(self.commit_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_commit_time(self.commit_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
         )
     }
 }
@@ -1271,8 +1271,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::listen_request::Targ
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::listen_request::TargetChange, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::listen_request::TargetChange as T;
         match self {
-            Self::AddTarget(v) => Ok(T::AddTarget(std::boxed::Box::new(v.cnv()?))),
-            Self::RemoveTarget(v) => Ok(T::RemoveTarget(v.cnv()?)),
+            Self::AddTarget(v) => Ok(T::AddTarget(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::Target>::cnv(v)?))),
+            Self::RemoveTarget(v) => Ok(T::RemoveTarget(gaxi::prost::FromProto::<i32>::cnv(v)?)),
         }
     }
 }
@@ -1300,10 +1300,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ListenRequest> for L
                 .set_database(self.database)
                 .set_labels(self.labels.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<std::string::String>::cnv(v))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
-                .set_target_change(self.target_change.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::RequestOptions>::cnv).transpose()?)
+                .set_target_change(self.target_change.map(gaxi::prost::FromProto::<crate::generated::gapic::model::listen_request::TargetChange>::cnv).transpose()?)
         )
     }
 }
@@ -1325,11 +1325,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::listen_response::Res
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::listen_response::ResponseType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::listen_response::ResponseType as T;
         match self {
-            Self::TargetChange(v) => Ok(T::TargetChange(std::boxed::Box::new(v.cnv()?))),
-            Self::DocumentChange(v) => Ok(T::DocumentChange(std::boxed::Box::new(v.cnv()?))),
-            Self::DocumentDelete(v) => Ok(T::DocumentDelete(std::boxed::Box::new(v.cnv()?))),
-            Self::DocumentRemove(v) => Ok(T::DocumentRemove(std::boxed::Box::new(v.cnv()?))),
-            Self::Filter(v) => Ok(T::Filter(std::boxed::Box::new(v.cnv()?))),
+            Self::TargetChange(v) => Ok(T::TargetChange(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::TargetChange>::cnv(v)?))),
+            Self::DocumentChange(v) => Ok(T::DocumentChange(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::DocumentChange>::cnv(v)?))),
+            Self::DocumentDelete(v) => Ok(T::DocumentDelete(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::DocumentDelete>::cnv(v)?))),
+            Self::DocumentRemove(v) => Ok(T::DocumentRemove(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::DocumentRemove>::cnv(v)?))),
+            Self::Filter(v) => Ok(T::Filter(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::ExistenceFilter>::cnv(v)?))),
         }
     }
 }
@@ -1347,7 +1347,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ListenResponse> for 
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ListenResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::ListenResponse::new()
-                .set_response_type(self.response_type.map(|v| v.cnv()).transpose()?)
+                .set_response_type(self.response_type.map(gaxi::prost::FromProto::<crate::generated::gapic::model::listen_response::ResponseType>::cnv).transpose()?)
         )
     }
 }
@@ -1368,7 +1368,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::target::DocumentsTar
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::target::DocumentsTarget, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::target::DocumentsTarget::new()
-                .set_documents(self.documents.into_iter().map(|v| v.cnv())
+                .set_documents(self.documents.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -1387,7 +1387,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::target::query_target
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::target::query_target::QueryType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::target::query_target::QueryType as T;
         match self {
-            Self::StructuredQuery(v) => Ok(T::StructuredQuery(std::boxed::Box::new(v.cnv()?))),
+            Self::StructuredQuery(v) => Ok(T::StructuredQuery(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::StructuredQuery>::cnv(v)?))),
         }
     }
 }
@@ -1407,7 +1407,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::target::QueryTarget>
         Ok(
             crate::generated::gapic::model::target::QueryTarget::new()
                 .set_parent(self.parent)
-                .set_query_type(self.query_type.map(|v| v.cnv()).transpose()?)
+                .set_query_type(self.query_type.map(gaxi::prost::FromProto::<crate::generated::gapic::model::target::query_target::QueryType>::cnv).transpose()?)
         )
     }
 }
@@ -1426,8 +1426,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::target::TargetType> 
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::target::TargetType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::target::TargetType as T;
         match self {
-            Self::Query(v) => Ok(T::Query(std::boxed::Box::new(v.cnv()?))),
-            Self::Documents(v) => Ok(T::Documents(std::boxed::Box::new(v.cnv()?))),
+            Self::Query(v) => Ok(T::Query(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::target::QueryTarget>::cnv(v)?))),
+            Self::Documents(v) => Ok(T::Documents(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::target::DocumentsTarget>::cnv(v)?))),
         }
     }
 }
@@ -1446,8 +1446,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::target::ResumeType> 
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::target::ResumeType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::target::ResumeType as T;
         match self {
-            Self::ResumeToken(v) => Ok(T::ResumeToken(v.cnv()?)),
-            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(v.cnv()?))),
+            Self::ResumeToken(v) => Ok(T::ResumeToken(gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?)),
+            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::Timestamp>::cnv(v)?))),
         }
     }
 }
@@ -1471,9 +1471,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Target> for Target {
             crate::generated::gapic::model::Target::new()
                 .set_target_id(self.target_id)
                 .set_once(self.once)
-                .set_or_clear_expected_count(self.expected_count.map(|v| v.cnv()).transpose()?)
-                .set_target_type(self.target_type.map(|v| v.cnv()).transpose()?)
-                .set_resume_type(self.resume_type.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_expected_count(self.expected_count.map(gaxi::prost::FromProto::<wkt::Int32Value>::cnv).transpose()?)
+                .set_target_type(self.target_type.map(gaxi::prost::FromProto::<crate::generated::gapic::model::target::TargetType>::cnv).transpose()?)
+                .set_resume_type(self.resume_type.map(gaxi::prost::FromProto::<crate::generated::gapic::model::target::ResumeType>::cnv).transpose()?)
         )
     }
 }
@@ -1506,11 +1506,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::TargetChange> for Ta
         Ok(
             crate::generated::gapic::model::TargetChange::new()
                 .set_target_change_type(self.target_change_type)
-                .set_target_ids(self.target_ids.into_iter().map(|v| v.cnv())
+                .set_target_ids(self.target_ids.into_iter().map(gaxi::prost::FromProto::<i32>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_cause(self.cause.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_cause(self.cause.map(gaxi::prost::FromProto::<google_cloud_rpc::model::Status>::cnv).transpose()?)
                 .set_resume_token(self.resume_token)
-                .set_or_clear_read_time(self.read_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_read_time(self.read_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
         )
     }
 }
@@ -1528,7 +1528,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::list_collection_ids_
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::list_collection_ids_request::ConsistencySelector, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::list_collection_ids_request::ConsistencySelector as T;
         match self {
-            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(v.cnv()?))),
+            Self::ReadTime(v) => Ok(T::ReadTime(std::boxed::Box::new(gaxi::prost::FromProto::<wkt::Timestamp>::cnv(v)?))),
         }
     }
 }
@@ -1553,8 +1553,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ListCollectionIdsReq
                 .set_parent(self.parent)
                 .set_page_size(self.page_size)
                 .set_page_token(self.page_token)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
-                .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::RequestOptions>::cnv).transpose()?)
+                .set_consistency_selector(self.consistency_selector.map(gaxi::prost::FromProto::<crate::generated::gapic::model::list_collection_ids_request::ConsistencySelector>::cnv).transpose()?)
         )
     }
 }
@@ -1576,7 +1576,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ListCollectionIdsRes
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ListCollectionIdsResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::ListCollectionIdsResponse::new()
-                .set_collection_ids(self.collection_ids.into_iter().map(|v| v.cnv())
+                .set_collection_ids(self.collection_ids.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_next_page_token(self.next_page_token)
         )
@@ -1607,13 +1607,13 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::BatchWriteRequest> f
         Ok(
             crate::generated::gapic::model::BatchWriteRequest::new()
                 .set_database(self.database)
-                .set_writes(self.writes.into_iter().map(|v| v.cnv())
+                .set_writes(self.writes.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::Write>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_labels(self.labels.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<std::string::String>::cnv(v))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
-                .set_or_clear_request_options(self.request_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_options(self.request_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::RequestOptions>::cnv).transpose()?)
         )
     }
 }
@@ -1638,9 +1638,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::BatchWriteResponse> 
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::BatchWriteResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::BatchWriteResponse::new()
-                .set_write_results(self.write_results.into_iter().map(|v| v.cnv())
+                .set_write_results(self.write_results.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::WriteResult>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_status(self.status.into_iter().map(|v| v.cnv())
+                .set_status(self.status.into_iter().map(gaxi::prost::FromProto::<google_cloud_rpc::model::Status>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -1664,10 +1664,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::StructuredPipeline> 
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::StructuredPipeline, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::StructuredPipeline::new()
-                .set_or_clear_pipeline(self.pipeline.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_pipeline(self.pipeline.map(gaxi::prost::FromProto::<crate::generated::gapic::model::Pipeline>::cnv).transpose()?)
                 .set_options(self.options.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<crate::generated::gapic::model::Value>::cnv(v))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
         )
     }
@@ -1708,9 +1708,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::fi
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_query::filter::FilterType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::structured_query::filter::FilterType as T;
         match self {
-            Self::CompositeFilter(v) => Ok(T::CompositeFilter(std::boxed::Box::new(v.cnv()?))),
-            Self::FieldFilter(v) => Ok(T::FieldFilter(std::boxed::Box::new(v.cnv()?))),
-            Self::UnaryFilter(v) => Ok(T::UnaryFilter(std::boxed::Box::new(v.cnv()?))),
+            Self::CompositeFilter(v) => Ok(T::CompositeFilter(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_query::CompositeFilter>::cnv(v)?))),
+            Self::FieldFilter(v) => Ok(T::FieldFilter(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_query::FieldFilter>::cnv(v)?))),
+            Self::UnaryFilter(v) => Ok(T::UnaryFilter(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_query::UnaryFilter>::cnv(v)?))),
         }
     }
 }
@@ -1728,7 +1728,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::Fi
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_query::Filter, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::structured_query::Filter::new()
-                .set_filter_type(self.filter_type.map(|v| v.cnv()).transpose()?)
+                .set_filter_type(self.filter_type.map(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_query::filter::FilterType>::cnv).transpose()?)
         )
     }
 }
@@ -1758,7 +1758,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::Co
         Ok(
             crate::generated::gapic::model::structured_query::CompositeFilter::new()
                 .set_op(self.op)
-                .set_filters(self.filters.into_iter().map(|v| v.cnv())
+                .set_filters(self.filters.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_query::Filter>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -1786,9 +1786,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::Fi
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_query::FieldFilter, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::structured_query::FieldFilter::new()
-                .set_or_clear_field(self.field.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_field(self.field.map(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_query::FieldReference>::cnv).transpose()?)
                 .set_op(self.op)
-                .set_or_clear_value(self.value.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_value(self.value.map(gaxi::prost::FromProto::<crate::generated::gapic::model::Value>::cnv).transpose()?)
         )
     }
 }
@@ -1813,7 +1813,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::un
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_query::unary_filter::OperandType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::structured_query::unary_filter::OperandType as T;
         match self {
-            Self::Field(v) => Ok(T::Field(std::boxed::Box::new(v.cnv()?))),
+            Self::Field(v) => Ok(T::Field(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_query::FieldReference>::cnv(v)?))),
         }
     }
 }
@@ -1833,7 +1833,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::Un
         Ok(
             crate::generated::gapic::model::structured_query::UnaryFilter::new()
                 .set_op(self.op)
-                .set_operand_type(self.operand_type.map(|v| v.cnv()).transpose()?)
+                .set_operand_type(self.operand_type.map(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_query::unary_filter::OperandType>::cnv).transpose()?)
         )
     }
 }
@@ -1852,7 +1852,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::Or
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_query::Order, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::structured_query::Order::new()
-                .set_or_clear_field(self.field.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_field(self.field.map(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_query::FieldReference>::cnv).transpose()?)
                 .set_direction(self.direction)
         )
     }
@@ -1892,7 +1892,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::Pr
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_query::Projection, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::structured_query::Projection::new()
-                .set_fields(self.fields.into_iter().map(|v| v.cnv())
+                .set_fields(self.fields.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_query::FieldReference>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -1923,12 +1923,12 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_query::Fi
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_query::FindNearest, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::structured_query::FindNearest::new()
-                .set_or_clear_vector_field(self.vector_field.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_query_vector(self.query_vector.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_vector_field(self.vector_field.map(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_query::FieldReference>::cnv).transpose()?)
+                .set_or_clear_query_vector(self.query_vector.map(gaxi::prost::FromProto::<crate::generated::gapic::model::Value>::cnv).transpose()?)
                 .set_distance_measure(self.distance_measure)
-                .set_or_clear_limit(self.limit.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_limit(self.limit.map(gaxi::prost::FromProto::<wkt::Int32Value>::cnv).transpose()?)
                 .set_distance_result_field(self.distance_result_field)
-                .set_or_clear_distance_threshold(self.distance_threshold.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_distance_threshold(self.distance_threshold.map(gaxi::prost::FromProto::<wkt::DoubleValue>::cnv).transpose()?)
         )
     }
 }
@@ -1967,17 +1967,17 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::StructuredQuery> for
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::StructuredQuery, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::StructuredQuery::new()
-                .set_or_clear_select(self.select.map(|v| v.cnv()).transpose()?)
-                .set_from(self.from.into_iter().map(|v| v.cnv())
+                .set_or_clear_select(self.select.map(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_query::Projection>::cnv).transpose()?)
+                .set_from(self.from.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_query::CollectionSelector>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_where(self.r#where.map(|v| v.cnv()).transpose()?)
-                .set_order_by(self.order_by.into_iter().map(|v| v.cnv())
+                .set_or_clear_where(self.r#where.map(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_query::Filter>::cnv).transpose()?)
+                .set_order_by(self.order_by.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_query::Order>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_start_at(self.start_at.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_end_at(self.end_at.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_start_at(self.start_at.map(gaxi::prost::FromProto::<crate::generated::gapic::model::Cursor>::cnv).transpose()?)
+                .set_or_clear_end_at(self.end_at.map(gaxi::prost::FromProto::<crate::generated::gapic::model::Cursor>::cnv).transpose()?)
                 .set_offset(self.offset)
-                .set_or_clear_limit(self.limit.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_find_nearest(self.find_nearest.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_limit(self.limit.map(gaxi::prost::FromProto::<wkt::Int32Value>::cnv).transpose()?)
+                .set_or_clear_find_nearest(self.find_nearest.map(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_query::FindNearest>::cnv).transpose()?)
         )
     }
 }
@@ -1995,7 +1995,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_aggregati
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_aggregation_query::aggregation::Count, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::structured_aggregation_query::aggregation::Count::new()
-                .set_or_clear_up_to(self.up_to.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_up_to(self.up_to.map(gaxi::prost::FromProto::<wkt::Int64Value>::cnv).transpose()?)
         )
     }
 }
@@ -2013,7 +2013,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_aggregati
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_aggregation_query::aggregation::Sum, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::structured_aggregation_query::aggregation::Sum::new()
-                .set_or_clear_field(self.field.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_field(self.field.map(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_query::FieldReference>::cnv).transpose()?)
         )
     }
 }
@@ -2031,7 +2031,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_aggregati
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_aggregation_query::aggregation::Avg, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::structured_aggregation_query::aggregation::Avg::new()
-                .set_or_clear_field(self.field.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_field(self.field.map(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_query::FieldReference>::cnv).transpose()?)
         )
     }
 }
@@ -2051,9 +2051,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_aggregati
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_aggregation_query::aggregation::Operator, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::structured_aggregation_query::aggregation::Operator as T;
         match self {
-            Self::Count(v) => Ok(T::Count(std::boxed::Box::new(v.cnv()?))),
-            Self::Sum(v) => Ok(T::Sum(std::boxed::Box::new(v.cnv()?))),
-            Self::Avg(v) => Ok(T::Avg(std::boxed::Box::new(v.cnv()?))),
+            Self::Count(v) => Ok(T::Count(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_aggregation_query::aggregation::Count>::cnv(v)?))),
+            Self::Sum(v) => Ok(T::Sum(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_aggregation_query::aggregation::Sum>::cnv(v)?))),
+            Self::Avg(v) => Ok(T::Avg(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_aggregation_query::aggregation::Avg>::cnv(v)?))),
         }
     }
 }
@@ -2073,7 +2073,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_aggregati
         Ok(
             crate::generated::gapic::model::structured_aggregation_query::Aggregation::new()
                 .set_alias(self.alias)
-                .set_operator(self.operator.map(|v| v.cnv()).transpose()?)
+                .set_operator(self.operator.map(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_aggregation_query::aggregation::Operator>::cnv).transpose()?)
         )
     }
 }
@@ -2091,7 +2091,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::structured_aggregati
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::structured_aggregation_query::QueryType, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::structured_aggregation_query::QueryType as T;
         match self {
-            Self::StructuredQuery(v) => Ok(T::StructuredQuery(std::boxed::Box::new(v.cnv()?))),
+            Self::StructuredQuery(v) => Ok(T::StructuredQuery(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::StructuredQuery>::cnv(v)?))),
         }
     }
 }
@@ -2113,9 +2113,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::StructuredAggregatio
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::StructuredAggregationQuery, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::StructuredAggregationQuery::new()
-                .set_aggregations(self.aggregations.into_iter().map(|v| v.cnv())
+                .set_aggregations(self.aggregations.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_aggregation_query::Aggregation>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_query_type(self.query_type.map(|v| v.cnv()).transpose()?)
+                .set_query_type(self.query_type.map(gaxi::prost::FromProto::<crate::generated::gapic::model::structured_aggregation_query::QueryType>::cnv).transpose()?)
         )
     }
 }
@@ -2137,7 +2137,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Cursor> for Cursor {
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::Cursor, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::Cursor::new()
-                .set_values(self.values.into_iter().map(|v| v.cnv())
+                .set_values(self.values.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::Value>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_before(self.before)
         )
@@ -2176,8 +2176,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ExplainMetrics> for 
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ExplainMetrics, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::ExplainMetrics::new()
-                .set_or_clear_plan_summary(self.plan_summary.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_execution_stats(self.execution_stats.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_plan_summary(self.plan_summary.map(gaxi::prost::FromProto::<crate::generated::gapic::model::PlanSummary>::cnv).transpose()?)
+                .set_or_clear_execution_stats(self.execution_stats.map(gaxi::prost::FromProto::<crate::generated::gapic::model::ExecutionStats>::cnv).transpose()?)
         )
     }
 }
@@ -2198,7 +2198,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::PlanSummary> for Pla
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::PlanSummary, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::PlanSummary::new()
-                .set_indexes_used(self.indexes_used.into_iter().map(|v| v.cnv())
+                .set_indexes_used(self.indexes_used.into_iter().map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -2221,9 +2221,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ExecutionStats> for 
         Ok(
             crate::generated::gapic::model::ExecutionStats::new()
                 .set_results_returned(self.results_returned)
-                .set_or_clear_execution_duration(self.execution_duration.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_execution_duration(self.execution_duration.map(gaxi::prost::FromProto::<wkt::Duration>::cnv).transpose()?)
                 .set_read_operations(self.read_operations)
-                .set_or_clear_debug_stats(self.debug_stats.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_debug_stats(self.debug_stats.map(gaxi::prost::FromProto::<wkt::Struct>::cnv).transpose()?)
         )
     }
 }
@@ -2243,9 +2243,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::write::Operation> fo
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::write::Operation, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::write::Operation as T;
         match self {
-            Self::Update(v) => Ok(T::Update(std::boxed::Box::new(v.cnv()?))),
-            Self::Delete(v) => Ok(T::Delete(v.cnv()?)),
-            Self::Transform(v) => Ok(T::Transform(std::boxed::Box::new(v.cnv()?))),
+            Self::Update(v) => Ok(T::Update(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::Document>::cnv(v)?))),
+            Self::Delete(v) => Ok(T::Delete(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::Transform(v) => Ok(T::Transform(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::DocumentTransform>::cnv(v)?))),
         }
     }
 }
@@ -2269,11 +2269,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Write> for Write {
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::Write, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::Write::new()
-                .set_or_clear_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
-                .set_update_transforms(self.update_transforms.into_iter().map(|v| v.cnv())
+                .set_or_clear_update_mask(self.update_mask.map(gaxi::prost::FromProto::<crate::generated::gapic::model::DocumentMask>::cnv).transpose()?)
+                .set_update_transforms(self.update_transforms.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::document_transform::FieldTransform>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_current_document(self.current_document.map(|v| v.cnv()).transpose()?)
-                .set_operation(self.operation.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_current_document(self.current_document.map(gaxi::prost::FromProto::<crate::generated::gapic::model::Precondition>::cnv).transpose()?)
+                .set_operation(self.operation.map(gaxi::prost::FromProto::<crate::generated::gapic::model::write::Operation>::cnv).transpose()?)
         )
     }
 }
@@ -2304,11 +2304,11 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::document_transform::
         use crate::generated::gapic::model::document_transform::field_transform::TransformType as T;
         match self {
             Self::SetToServerValue(v) => Ok(T::SetToServerValue(v.into())),
-            Self::Increment(v) => Ok(T::Increment(std::boxed::Box::new(v.cnv()?))),
-            Self::Maximum(v) => Ok(T::Maximum(std::boxed::Box::new(v.cnv()?))),
-            Self::Minimum(v) => Ok(T::Minimum(std::boxed::Box::new(v.cnv()?))),
-            Self::AppendMissingElements(v) => Ok(T::AppendMissingElements(std::boxed::Box::new(v.cnv()?))),
-            Self::RemoveAllFromArray(v) => Ok(T::RemoveAllFromArray(std::boxed::Box::new(v.cnv()?))),
+            Self::Increment(v) => Ok(T::Increment(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::Value>::cnv(v)?))),
+            Self::Maximum(v) => Ok(T::Maximum(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::Value>::cnv(v)?))),
+            Self::Minimum(v) => Ok(T::Minimum(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::Value>::cnv(v)?))),
+            Self::AppendMissingElements(v) => Ok(T::AppendMissingElements(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::ArrayValue>::cnv(v)?))),
+            Self::RemoveAllFromArray(v) => Ok(T::RemoveAllFromArray(std::boxed::Box::new(gaxi::prost::FromProto::<crate::generated::gapic::model::ArrayValue>::cnv(v)?))),
         }
     }
 }
@@ -2328,7 +2328,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::document_transform::
         Ok(
             crate::generated::gapic::model::document_transform::FieldTransform::new()
                 .set_field_path(self.field_path)
-                .set_transform_type(self.transform_type.map(|v| v.cnv()).transpose()?)
+                .set_transform_type(self.transform_type.map(gaxi::prost::FromProto::<crate::generated::gapic::model::document_transform::field_transform::TransformType>::cnv).transpose()?)
         )
     }
 }
@@ -2351,7 +2351,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::DocumentTransform> f
         Ok(
             crate::generated::gapic::model::DocumentTransform::new()
                 .set_document(self.document)
-                .set_field_transforms(self.field_transforms.into_iter().map(|v| v.cnv())
+                .set_field_transforms(self.field_transforms.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::document_transform::FieldTransform>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -2374,8 +2374,8 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::WriteResult> for Wri
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::WriteResult, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::WriteResult::new()
-                .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
-                .set_transform_results(self.transform_results.into_iter().map(|v| v.cnv())
+                .set_or_clear_update_time(self.update_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
+                .set_transform_results(self.transform_results.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::Value>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -2402,10 +2402,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::DocumentChange> for 
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::DocumentChange, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::DocumentChange::new()
-                .set_or_clear_document(self.document.map(|v| v.cnv()).transpose()?)
-                .set_target_ids(self.target_ids.into_iter().map(|v| v.cnv())
+                .set_or_clear_document(self.document.map(gaxi::prost::FromProto::<crate::generated::gapic::model::Document>::cnv).transpose()?)
+                .set_target_ids(self.target_ids.into_iter().map(gaxi::prost::FromProto::<i32>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_removed_target_ids(self.removed_target_ids.into_iter().map(|v| v.cnv())
+                .set_removed_target_ids(self.removed_target_ids.into_iter().map(gaxi::prost::FromProto::<i32>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -2430,9 +2430,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::DocumentDelete> for 
         Ok(
             crate::generated::gapic::model::DocumentDelete::new()
                 .set_document(self.document)
-                .set_removed_target_ids(self.removed_target_ids.into_iter().map(|v| v.cnv())
+                .set_removed_target_ids(self.removed_target_ids.into_iter().map(gaxi::prost::FromProto::<i32>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_read_time(self.read_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_read_time(self.read_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
         )
     }
 }
@@ -2456,9 +2456,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::DocumentRemove> for 
         Ok(
             crate::generated::gapic::model::DocumentRemove::new()
                 .set_document(self.document)
-                .set_removed_target_ids(self.removed_target_ids.into_iter().map(|v| v.cnv())
+                .set_removed_target_ids(self.removed_target_ids.into_iter().map(gaxi::prost::FromProto::<i32>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_read_time(self.read_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_read_time(self.read_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
         )
     }
 }
@@ -2480,7 +2480,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ExistenceFilter> for
             crate::generated::gapic::model::ExistenceFilter::new()
                 .set_target_id(self.target_id)
                 .set_count(self.count)
-                .set_or_clear_unchanged_names(self.unchanged_names.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_unchanged_names(self.unchanged_names.map(gaxi::prost::FromProto::<crate::generated::gapic::model::BloomFilter>::cnv).transpose()?)
         )
     }
 }

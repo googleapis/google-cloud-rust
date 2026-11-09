@@ -58,10 +58,19 @@ impl gaxi::prost::FromProto<crate::model::Process> for Process {
             .set_attributes(
                 self.attributes
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<wkt::Value>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             )
-            .set_or_clear_origin(self.origin.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_origin(
+                self.origin
+                    .map(gaxi::prost::FromProto::<crate::model::Origin>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -88,7 +97,7 @@ impl gaxi::prost::FromProto<crate::model::EntityReference> for EntityReference {
             .set_field(
                 self.field
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -114,7 +123,7 @@ impl gaxi::prost::FromProto<crate::model::MultipleEntityReference> for MultipleE
         Ok(crate::model::MultipleEntityReference::new().set_entities(
             self.entities
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<crate::model::EntityReference>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -171,8 +180,13 @@ impl gaxi::prost::FromProto<crate::model::lineage_link::LineageProcess>
         self,
     ) -> std::result::Result<crate::model::lineage_link::LineageProcess, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::lineage_link::LineageProcess::new()
-            .set_or_clear_process(self.process.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::lineage_link::LineageProcess::new().set_or_clear_process(
+                self.process
+                    .map(gaxi::prost::FromProto::<crate::model::Process>::cnv)
+                    .transpose()?,
+            ),
+        )
     }
 }
 
@@ -234,18 +248,26 @@ impl gaxi::prost::ToProto<LineageLink> for crate::model::LineageLink {
 impl gaxi::prost::FromProto<crate::model::LineageLink> for LineageLink {
     fn cnv(self) -> std::result::Result<crate::model::LineageLink, gaxi::prost::ConvertError> {
         Ok(crate::model::LineageLink::new()
-            .set_or_clear_source(self.source.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_target(self.target.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_source(
+                self.source
+                    .map(gaxi::prost::FromProto::<crate::model::EntityReference>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_target(
+                self.target
+                    .map(gaxi::prost::FromProto::<crate::model::EntityReference>::cnv)
+                    .transpose()?,
+            )
             .set_processes(
                 self.processes
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::lineage_link::LineageProcess>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_dependency_info(
                 self.dependency_info
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::lineage_link::DependencyInfo>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_depth(self.depth)
@@ -298,7 +320,11 @@ impl gaxi::prost::FromProto<crate::model::search_lineage_streaming_request::Sear
                         .map(crate::model::DependencyType::from),
                 )
                 .set_entity_set(self.entity_set)
-                .set_or_clear_time_range(self.time_range.map(|v| v.cnv()).transpose()?),
+                .set_or_clear_time_range(
+                    self.time_range
+                        .map(gaxi::prost::FromProto::<google_cloud_type::model::Interval>::cnv)
+                        .transpose()?,
+                ),
         )
     }
 }
@@ -363,7 +389,9 @@ impl gaxi::prost::FromProto<crate::model::search_lineage_streaming_request::root
     > {
         use crate::model::search_lineage_streaming_request::root_criteria::Criteria as T;
         match self {
-            Self::Entities(v) => Ok(T::Entities(std::boxed::Box::new(v.cnv()?))),
+            Self::Entities(v) => Ok(T::Entities(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::MultipleEntityReference,
+            >::cnv(v)?))),
         }
     }
 }
@@ -401,8 +429,15 @@ impl gaxi::prost::FromProto<crate::model::search_lineage_streaming_request::Root
         gaxi::prost::ConvertError,
     > {
         Ok(
-            crate::model::search_lineage_streaming_request::RootCriteria::new()
-                .set_criteria(self.criteria.map(|v| v.cnv()).transpose()?),
+            crate::model::search_lineage_streaming_request::RootCriteria::new().set_criteria(
+                self.criteria
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::search_lineage_streaming_request::root_criteria::Criteria,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ),
         )
     }
 }
@@ -464,13 +499,37 @@ impl gaxi::prost::FromProto<crate::model::SearchLineageStreamingRequest>
             .set_locations(
                 self.locations
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_root_criteria(self.root_criteria.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_root_criteria(
+                self.root_criteria
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::search_lineage_streaming_request::RootCriteria,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            )
             .set_direction(self.direction)
-            .set_or_clear_filters(self.filters.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_limits(self.limits.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_filters(
+                self.filters
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::search_lineage_streaming_request::SearchFilters,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            )
+            .set_or_clear_limits(
+                self.limits
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::search_lineage_streaming_request::SearchLimits,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ))
     }
 }
 
@@ -507,13 +566,13 @@ impl gaxi::prost::FromProto<crate::model::SearchLineageStreamingResponse>
             .set_links(
                 self.links
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::LineageLink>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_unreachable(
                 self.unreachable
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -547,7 +606,15 @@ impl gaxi::prost::FromProto<google_cloud_type::model::Interval>
         self,
     ) -> std::result::Result<google_cloud_type::model::Interval, gaxi::prost::ConvertError> {
         Ok(google_cloud_type::model::Interval::new()
-            .set_or_clear_start_time(self.start_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_end_time(self.end_time.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_start_time(
+                self.start_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_end_time(
+                self.end_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            ))
     }
 }

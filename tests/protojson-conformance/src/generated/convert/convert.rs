@@ -66,7 +66,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::FailureSet> for Fail
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::FailureSet, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::FailureSet::new()
-                .set_test(self.test.into_iter().map(|v| v.cnv())
+                .set_test(self.test.into_iter().map(gaxi::prost::FromProto::<crate::generated::gapic::model::TestStatus>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -88,10 +88,10 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::conformance_request:
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::conformance_request::Payload, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::conformance_request::Payload as T;
         match self {
-            Self::ProtobufPayload(v) => Ok(T::ProtobufPayload(v.cnv()?)),
-            Self::JsonPayload(v) => Ok(T::JsonPayload(v.cnv()?)),
-            Self::JspbPayload(v) => Ok(T::JspbPayload(v.cnv()?)),
-            Self::TextPayload(v) => Ok(T::TextPayload(v.cnv()?)),
+            Self::ProtobufPayload(v) => Ok(T::ProtobufPayload(gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?)),
+            Self::JsonPayload(v) => Ok(T::JsonPayload(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::JspbPayload(v) => Ok(T::JspbPayload(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::TextPayload(v) => Ok(T::TextPayload(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
         }
     }
 }
@@ -117,9 +117,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ConformanceRequest> 
                 .set_requested_output_format(self.requested_output_format)
                 .set_message_type(self.message_type)
                 .set_test_category(self.test_category)
-                .set_or_clear_jspb_encoding_options(self.jspb_encoding_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_jspb_encoding_options(self.jspb_encoding_options.map(gaxi::prost::FromProto::<crate::generated::gapic::model::JspbEncodingConfig>::cnv).transpose()?)
                 .set_print_unknown_fields(self.print_unknown_fields)
-                .set_payload(self.payload.map(|v| v.cnv()).transpose()?)
+                .set_payload(self.payload.map(gaxi::prost::FromProto::<crate::generated::gapic::model::conformance_request::Payload>::cnv).transpose()?)
         )
     }
 }
@@ -145,15 +145,15 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::conformance_response
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::conformance_response::Result, gaxi::prost::ConvertError> {
         use crate::generated::gapic::model::conformance_response::Result as T;
         match self {
-            Self::ParseError(v) => Ok(T::ParseError(v.cnv()?)),
-            Self::SerializeError(v) => Ok(T::SerializeError(v.cnv()?)),
-            Self::TimeoutError(v) => Ok(T::TimeoutError(v.cnv()?)),
-            Self::RuntimeError(v) => Ok(T::RuntimeError(v.cnv()?)),
-            Self::ProtobufPayload(v) => Ok(T::ProtobufPayload(v.cnv()?)),
-            Self::JsonPayload(v) => Ok(T::JsonPayload(v.cnv()?)),
-            Self::Skipped(v) => Ok(T::Skipped(v.cnv()?)),
-            Self::JspbPayload(v) => Ok(T::JspbPayload(v.cnv()?)),
-            Self::TextPayload(v) => Ok(T::TextPayload(v.cnv()?)),
+            Self::ParseError(v) => Ok(T::ParseError(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::SerializeError(v) => Ok(T::SerializeError(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::TimeoutError(v) => Ok(T::TimeoutError(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::RuntimeError(v) => Ok(T::RuntimeError(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::ProtobufPayload(v) => Ok(T::ProtobufPayload(gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?)),
+            Self::JsonPayload(v) => Ok(T::JsonPayload(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::Skipped(v) => Ok(T::Skipped(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::JspbPayload(v) => Ok(T::JspbPayload(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::TextPayload(v) => Ok(T::TextPayload(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
         }
     }
 }
@@ -171,7 +171,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::ConformanceResponse>
     fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ConformanceResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::generated::gapic::model::ConformanceResponse::new()
-                .set_result(self.result.map(|v| v.cnv()).transpose()?)
+                .set_result(self.result.map(gaxi::prost::FromProto::<crate::generated::gapic::model::conformance_response::Result>::cnv).transpose()?)
         )
     }
 }

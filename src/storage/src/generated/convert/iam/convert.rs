@@ -30,8 +30,8 @@ impl gaxi::prost::FromProto<google_cloud_iam_v1::model::SetIamPolicyRequest> for
         Ok(
             google_cloud_iam_v1::model::SetIamPolicyRequest::new()
                 .set_resource(self.resource)
-                .set_or_clear_policy(self.policy.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_policy(self.policy.map(gaxi::prost::FromProto::<google_cloud_iam_v1::model::Policy>::cnv).transpose()?)
+                .set_or_clear_update_mask(self.update_mask.map(gaxi::prost::FromProto::<wkt::FieldMask>::cnv).transpose()?)
         )
     }
 }
@@ -51,7 +51,7 @@ impl gaxi::prost::FromProto<google_cloud_iam_v1::model::GetIamPolicyRequest> for
         Ok(
             google_cloud_iam_v1::model::GetIamPolicyRequest::new()
                 .set_resource(self.resource)
-                .set_or_clear_options(self.options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_options(self.options.map(gaxi::prost::FromProto::<google_cloud_iam_v1::model::GetPolicyOptions>::cnv).transpose()?)
         )
     }
 }
@@ -74,7 +74,7 @@ impl gaxi::prost::FromProto<google_cloud_iam_v1::model::TestIamPermissionsReques
         Ok(
             google_cloud_iam_v1::model::TestIamPermissionsRequest::new()
                 .set_resource(self.resource)
-                .set_permissions(self.permissions.into_iter().map(|v| v.cnv())
+                .set_permissions(self.permissions.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -96,7 +96,7 @@ impl gaxi::prost::FromProto<google_cloud_iam_v1::model::TestIamPermissionsRespon
     fn cnv(self) -> std::result::Result<google_cloud_iam_v1::model::TestIamPermissionsResponse, gaxi::prost::ConvertError> {
         Ok(
             google_cloud_iam_v1::model::TestIamPermissionsResponse::new()
-                .set_permissions(self.permissions.into_iter().map(|v| v.cnv())
+                .set_permissions(self.permissions.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -143,9 +143,9 @@ impl gaxi::prost::FromProto<google_cloud_iam_v1::model::Policy> for Policy {
         Ok(
             google_cloud_iam_v1::model::Policy::new()
                 .set_version(self.version)
-                .set_bindings(self.bindings.into_iter().map(|v| v.cnv())
+                .set_bindings(self.bindings.into_iter().map(gaxi::prost::FromProto::<google_cloud_iam_v1::model::Binding>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_audit_configs(self.audit_configs.into_iter().map(|v| v.cnv())
+                .set_audit_configs(self.audit_configs.into_iter().map(gaxi::prost::FromProto::<google_cloud_iam_v1::model::AuditConfig>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_etag(self.etag)
         )
@@ -171,9 +171,9 @@ impl gaxi::prost::FromProto<google_cloud_iam_v1::model::Binding> for Binding {
         Ok(
             google_cloud_iam_v1::model::Binding::new()
                 .set_role(self.role)
-                .set_members(self.members.into_iter().map(|v| v.cnv())
+                .set_members(self.members.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_condition(self.condition.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_condition(self.condition.map(gaxi::prost::FromProto::<google_cloud_type::model::Expr>::cnv).transpose()?)
         )
     }
 }
@@ -196,7 +196,7 @@ impl gaxi::prost::FromProto<google_cloud_iam_v1::model::AuditConfig> for AuditCo
         Ok(
             google_cloud_iam_v1::model::AuditConfig::new()
                 .set_service(self.service)
-                .set_audit_log_configs(self.audit_log_configs.into_iter().map(|v| v.cnv())
+                .set_audit_log_configs(self.audit_log_configs.into_iter().map(gaxi::prost::FromProto::<google_cloud_iam_v1::model::AuditLogConfig>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -227,7 +227,7 @@ impl gaxi::prost::FromProto<google_cloud_iam_v1::model::AuditLogConfig> for Audi
         Ok(
             google_cloud_iam_v1::model::AuditLogConfig::new()
                 .set_log_type(self.log_type)
-                .set_exempted_members(self.exempted_members.into_iter().map(|v| v.cnv())
+                .set_exempted_members(self.exempted_members.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -253,9 +253,9 @@ impl gaxi::prost::FromProto<google_cloud_iam_v1::model::PolicyDelta> for PolicyD
     fn cnv(self) -> std::result::Result<google_cloud_iam_v1::model::PolicyDelta, gaxi::prost::ConvertError> {
         Ok(
             google_cloud_iam_v1::model::PolicyDelta::new()
-                .set_binding_deltas(self.binding_deltas.into_iter().map(|v| v.cnv())
+                .set_binding_deltas(self.binding_deltas.into_iter().map(gaxi::prost::FromProto::<google_cloud_iam_v1::model::BindingDelta>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_audit_config_deltas(self.audit_config_deltas.into_iter().map(|v| v.cnv())
+                .set_audit_config_deltas(self.audit_config_deltas.into_iter().map(gaxi::prost::FromProto::<google_cloud_iam_v1::model::AuditConfigDelta>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -287,7 +287,7 @@ impl gaxi::prost::FromProto<google_cloud_iam_v1::model::BindingDelta> for Bindin
                 .set_action(self.action)
                 .set_role(self.role)
                 .set_member(self.member)
-                .set_or_clear_condition(self.condition.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_condition(self.condition.map(gaxi::prost::FromProto::<google_cloud_type::model::Expr>::cnv).transpose()?)
         )
     }
 }

@@ -178,7 +178,7 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::Proto
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::ProtoSchema, gaxi::prost::ConvertError> {
         Ok(
             crate::write::generated::gapic_storage::model::ProtoSchema::new()
-                .set_or_clear_proto_descriptor(self.proto_descriptor.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_proto_descriptor(self.proto_descriptor.map(gaxi::prost::FromProto::<wkt::DescriptorProto>::cnv).transpose()?)
         )
     }
 }
@@ -199,7 +199,7 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::Proto
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::ProtoRows, gaxi::prost::ConvertError> {
         Ok(
             crate::write::generated::gapic_storage::model::ProtoRows::new()
-                .set_serialized_rows(self.serialized_rows.into_iter().map(|v| v.cnv())
+                .set_serialized_rows(self.serialized_rows.into_iter().map(gaxi::prost::FromProto::<::bytes::Bytes>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -222,7 +222,7 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::Creat
         Ok(
             crate::write::generated::gapic_storage::model::CreateReadSessionRequest::new()
                 .set_parent(self.parent)
-                .set_or_clear_read_session(self.read_session.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_read_session(self.read_session.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::ReadSession>::cnv).transpose()?)
                 .set_max_stream_count(self.max_stream_count)
                 .set_preferred_min_stream_count(self.preferred_min_stream_count)
         )
@@ -242,7 +242,7 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::read_
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::read_rows_request::OutputFormatSerializationOptions, gaxi::prost::ConvertError> {
         use crate::write::generated::gapic_storage::model::read_rows_request::OutputFormatSerializationOptions as T;
         match self {
-            Self::ArrowSerializationOptions(v) => Ok(T::ArrowSerializationOptions(std::boxed::Box::new(v.cnv()?))),
+            Self::ArrowSerializationOptions(v) => Ok(T::ArrowSerializationOptions(std::boxed::Box::new(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::ArrowSerializationOptions>::cnv(v)?))),
         }
     }
 }
@@ -264,7 +264,7 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::ReadR
             crate::write::generated::gapic_storage::model::ReadRowsRequest::new()
                 .set_read_stream(self.read_stream)
                 .set_offset(self.offset)
-                .set_output_format_serialization_options(self.output_format_serialization_options.map(|v| v.cnv()).transpose()?)
+                .set_output_format_serialization_options(self.output_format_serialization_options.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::read_rows_request::OutputFormatSerializationOptions>::cnv).transpose()?)
         )
     }
 }
@@ -320,7 +320,7 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::Strea
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::StreamStats, gaxi::prost::ConvertError> {
         Ok(
             crate::write::generated::gapic_storage::model::StreamStats::new()
-                .set_or_clear_progress(self.progress.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_progress(self.progress.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::stream_stats::Progress>::cnv).transpose()?)
         )
     }
 }
@@ -339,8 +339,8 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::read_
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::read_rows_response::Rows, gaxi::prost::ConvertError> {
         use crate::write::generated::gapic_storage::model::read_rows_response::Rows as T;
         match self {
-            Self::AvroRows(v) => Ok(T::AvroRows(std::boxed::Box::new(v.cnv()?))),
-            Self::ArrowRecordBatch(v) => Ok(T::ArrowRecordBatch(std::boxed::Box::new(v.cnv()?))),
+            Self::AvroRows(v) => Ok(T::AvroRows(std::boxed::Box::new(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::AvroRows>::cnv(v)?))),
+            Self::ArrowRecordBatch(v) => Ok(T::ArrowRecordBatch(std::boxed::Box::new(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::ArrowRecordBatch>::cnv(v)?))),
         }
     }
 }
@@ -359,8 +359,8 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::read_
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::read_rows_response::Schema, gaxi::prost::ConvertError> {
         use crate::write::generated::gapic_storage::model::read_rows_response::Schema as T;
         match self {
-            Self::AvroSchema(v) => Ok(T::AvroSchema(std::boxed::Box::new(v.cnv()?))),
-            Self::ArrowSchema(v) => Ok(T::ArrowSchema(std::boxed::Box::new(v.cnv()?))),
+            Self::AvroSchema(v) => Ok(T::AvroSchema(std::boxed::Box::new(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::AvroSchema>::cnv(v)?))),
+            Self::ArrowSchema(v) => Ok(T::ArrowSchema(std::boxed::Box::new(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::ArrowSchema>::cnv(v)?))),
         }
     }
 }
@@ -385,12 +385,12 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::ReadR
         Ok(
             crate::write::generated::gapic_storage::model::ReadRowsResponse::new()
                 .set_row_count(self.row_count)
-                .set_or_clear_stats(self.stats.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_throttle_state(self.throttle_state.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_uncompressed_byte_size(self.uncompressed_byte_size.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_total_estimated_row_count(self.total_estimated_row_count.map(|v| v.cnv()).transpose()?)
-                .set_rows(self.rows.map(|v| v.cnv()).transpose()?)
-                .set_schema(self.schema.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_stats(self.stats.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::StreamStats>::cnv).transpose()?)
+                .set_or_clear_throttle_state(self.throttle_state.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::ThrottleState>::cnv).transpose()?)
+                .set_or_clear_uncompressed_byte_size(self.uncompressed_byte_size.map(gaxi::prost::FromProto::<i64>::cnv).transpose()?)
+                .set_or_clear_total_estimated_row_count(self.total_estimated_row_count.map(gaxi::prost::FromProto::<i64>::cnv).transpose()?)
+                .set_rows(self.rows.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::read_rows_response::Rows>::cnv).transpose()?)
+                .set_schema(self.schema.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::read_rows_response::Schema>::cnv).transpose()?)
         )
     }
 }
@@ -429,8 +429,8 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::Split
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::SplitReadStreamResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::write::generated::gapic_storage::model::SplitReadStreamResponse::new()
-                .set_or_clear_primary_stream(self.primary_stream.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_remainder_stream(self.remainder_stream.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_primary_stream(self.primary_stream.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::ReadStream>::cnv).transpose()?)
+                .set_or_clear_remainder_stream(self.remainder_stream.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::ReadStream>::cnv).transpose()?)
         )
     }
 }
@@ -450,7 +450,7 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::Creat
         Ok(
             crate::write::generated::gapic_storage::model::CreateWriteStreamRequest::new()
                 .set_parent(self.parent)
-                .set_or_clear_write_stream(self.write_stream.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_write_stream(self.write_stream.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::WriteStream>::cnv).transpose()?)
         )
     }
 }
@@ -469,8 +469,8 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::appen
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::append_rows_request::ArrowData, gaxi::prost::ConvertError> {
         Ok(
             crate::write::generated::gapic_storage::model::append_rows_request::ArrowData::new()
-                .set_or_clear_writer_schema(self.writer_schema.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_rows(self.rows.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_writer_schema(self.writer_schema.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::ArrowSchema>::cnv).transpose()?)
+                .set_or_clear_rows(self.rows.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::ArrowRecordBatch>::cnv).transpose()?)
         )
     }
 }
@@ -489,8 +489,8 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::appen
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::append_rows_request::ProtoData, gaxi::prost::ConvertError> {
         Ok(
             crate::write::generated::gapic_storage::model::append_rows_request::ProtoData::new()
-                .set_or_clear_writer_schema(self.writer_schema.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_rows(self.rows.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_writer_schema(self.writer_schema.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::ProtoSchema>::cnv).transpose()?)
+                .set_or_clear_rows(self.rows.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::ProtoRows>::cnv).transpose()?)
         )
     }
 }
@@ -516,8 +516,8 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::appen
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::append_rows_request::Rows, gaxi::prost::ConvertError> {
         use crate::write::generated::gapic_storage::model::append_rows_request::Rows as T;
         match self {
-            Self::ProtoRows(v) => Ok(T::ProtoRows(std::boxed::Box::new(v.cnv()?))),
-            Self::ArrowRows(v) => Ok(T::ArrowRows(std::boxed::Box::new(v.cnv()?))),
+            Self::ProtoRows(v) => Ok(T::ProtoRows(std::boxed::Box::new(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::append_rows_request::ProtoData>::cnv(v)?))),
+            Self::ArrowRows(v) => Ok(T::ArrowRows(std::boxed::Box::new(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::append_rows_request::ArrowData>::cnv(v)?))),
         }
     }
 }
@@ -546,15 +546,15 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::Appen
         Ok(
             crate::write::generated::gapic_storage::model::AppendRowsRequest::new()
                 .set_write_stream(self.write_stream)
-                .set_or_clear_offset(self.offset.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_offset(self.offset.map(gaxi::prost::FromProto::<wkt::Int64Value>::cnv).transpose()?)
                 .set_trace_id(self.trace_id)
                 .set_missing_value_interpretations(self.missing_value_interpretations.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), Ok(crate::write::generated::gapic_storage::model::append_rows_request::MissingValueInterpretation::from(v)))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
                 .set_default_missing_value_interpretation(self.default_missing_value_interpretation)
-                .set_or_clear_client_stats(self.client_stats.map(|v| v.cnv()).transpose()?)
-                .set_rows(self.rows.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_client_stats(self.client_stats.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::ClientStats>::cnv).transpose()?)
+                .set_rows(self.rows.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::append_rows_request::Rows>::cnv).transpose()?)
         )
     }
 }
@@ -572,7 +572,7 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::appen
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::append_rows_response::AppendResult, gaxi::prost::ConvertError> {
         Ok(
             crate::write::generated::gapic_storage::model::append_rows_response::AppendResult::new()
-                .set_or_clear_offset(self.offset.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_offset(self.offset.map(gaxi::prost::FromProto::<wkt::Int64Value>::cnv).transpose()?)
         )
     }
 }
@@ -591,8 +591,8 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::appen
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::append_rows_response::Response, gaxi::prost::ConvertError> {
         use crate::write::generated::gapic_storage::model::append_rows_response::Response as T;
         match self {
-            Self::AppendResult(v) => Ok(T::AppendResult(std::boxed::Box::new(v.cnv()?))),
-            Self::Error(v) => Ok(T::Error(std::boxed::Box::new(v.cnv()?))),
+            Self::AppendResult(v) => Ok(T::AppendResult(std::boxed::Box::new(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::append_rows_response::AppendResult>::cnv(v)?))),
+            Self::Error(v) => Ok(T::Error(std::boxed::Box::new(gaxi::prost::FromProto::<google_cloud_rpc::model::Status>::cnv(v)?))),
         }
     }
 }
@@ -616,11 +616,11 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::Appen
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::AppendRowsResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::write::generated::gapic_storage::model::AppendRowsResponse::new()
-                .set_or_clear_updated_schema(self.updated_schema.map(|v| v.cnv()).transpose()?)
-                .set_row_errors(self.row_errors.into_iter().map(|v| v.cnv())
+                .set_or_clear_updated_schema(self.updated_schema.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::TableSchema>::cnv).transpose()?)
+                .set_row_errors(self.row_errors.into_iter().map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::RowError>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_write_stream(self.write_stream)
-                .set_response(self.response.map(|v| v.cnv()).transpose()?)
+                .set_response(self.response.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::append_rows_response::Response>::cnv).transpose()?)
         )
     }
 }
@@ -663,7 +663,7 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::Batch
         Ok(
             crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsRequest::new()
                 .set_parent(self.parent)
-                .set_write_streams(self.write_streams.into_iter().map(|v| v.cnv())
+                .set_write_streams(self.write_streams.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -686,8 +686,8 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::Batch
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsResponse, gaxi::prost::ConvertError> {
         Ok(
             crate::write::generated::gapic_storage::model::BatchCommitWriteStreamsResponse::new()
-                .set_or_clear_commit_time(self.commit_time.map(|v| v.cnv()).transpose()?)
-                .set_stream_errors(self.stream_errors.into_iter().map(|v| v.cnv())
+                .set_or_clear_commit_time(self.commit_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
+                .set_stream_errors(self.stream_errors.into_iter().map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::StorageError>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -744,7 +744,7 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::Flush
         Ok(
             crate::write::generated::gapic_storage::model::FlushRowsRequest::new()
                 .set_write_stream(self.write_stream)
-                .set_or_clear_offset(self.offset.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_offset(self.offset.map(gaxi::prost::FromProto::<wkt::Int64Value>::cnv).transpose()?)
         )
     }
 }
@@ -839,8 +839,8 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::clien
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::client_stats::RequestStats, gaxi::prost::ConvertError> {
         Ok(
             crate::write::generated::gapic_storage::model::client_stats::RequestStats::new()
-                .set_or_clear_send_time_millis(self.send_time_millis.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_queued_requests_count(self.queued_requests_count.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_send_time_millis(self.send_time_millis.map(gaxi::prost::FromProto::<i64>::cnv).transpose()?)
+                .set_or_clear_queued_requests_count(self.queued_requests_count.map(gaxi::prost::FromProto::<i64>::cnv).transpose()?)
         )
     }
 }
@@ -865,14 +865,14 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::clien
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::client_stats::WindowStats, gaxi::prost::ConvertError> {
         Ok(
             crate::write::generated::gapic_storage::model::client_stats::WindowStats::new()
-                .set_or_clear_max_response_latency_millis(self.max_response_latency_millis.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_avg_response_latency_millis(self.avg_response_latency_millis.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_longest_wait_no_response_millis(self.longest_wait_no_response_millis.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_requests_sent_count(self.requests_sent_count.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_responses_received_count(self.responses_received_count.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_bytes_sent_count(self.bytes_sent_count.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_window_start_time_epoch_millis(self.window_start_time_epoch_millis.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_window_millis(self.window_millis.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_max_response_latency_millis(self.max_response_latency_millis.map(gaxi::prost::FromProto::<i64>::cnv).transpose()?)
+                .set_or_clear_avg_response_latency_millis(self.avg_response_latency_millis.map(gaxi::prost::FromProto::<i64>::cnv).transpose()?)
+                .set_or_clear_longest_wait_no_response_millis(self.longest_wait_no_response_millis.map(gaxi::prost::FromProto::<i64>::cnv).transpose()?)
+                .set_or_clear_requests_sent_count(self.requests_sent_count.map(gaxi::prost::FromProto::<i64>::cnv).transpose()?)
+                .set_or_clear_responses_received_count(self.responses_received_count.map(gaxi::prost::FromProto::<i64>::cnv).transpose()?)
+                .set_or_clear_bytes_sent_count(self.bytes_sent_count.map(gaxi::prost::FromProto::<i64>::cnv).transpose()?)
+                .set_or_clear_window_start_time_epoch_millis(self.window_start_time_epoch_millis.map(gaxi::prost::FromProto::<i64>::cnv).transpose()?)
+                .set_or_clear_window_millis(self.window_millis.map(gaxi::prost::FromProto::<i64>::cnv).transpose()?)
         )
     }
 }
@@ -891,8 +891,8 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::Clien
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::ClientStats, gaxi::prost::ConvertError> {
         Ok(
             crate::write::generated::gapic_storage::model::ClientStats::new()
-                .set_or_clear_request_stats(self.request_stats.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_window_stats(self.window_stats.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_request_stats(self.request_stats.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::client_stats::RequestStats>::cnv).transpose()?)
+                .set_or_clear_window_stats(self.window_stats.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::client_stats::WindowStats>::cnv).transpose()?)
         )
     }
 }
@@ -910,7 +910,7 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::read_
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::read_session::TableModifiers, gaxi::prost::ConvertError> {
         Ok(
             crate::write::generated::gapic_storage::model::read_session::TableModifiers::new()
-                .set_or_clear_snapshot_time(self.snapshot_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_snapshot_time(self.snapshot_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
         )
     }
 }
@@ -936,8 +936,8 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::read_
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::read_session::table_read_options::OutputFormatSerializationOptions, gaxi::prost::ConvertError> {
         use crate::write::generated::gapic_storage::model::read_session::table_read_options::OutputFormatSerializationOptions as T;
         match self {
-            Self::ArrowSerializationOptions(v) => Ok(T::ArrowSerializationOptions(std::boxed::Box::new(v.cnv()?))),
-            Self::AvroSerializationOptions(v) => Ok(T::AvroSerializationOptions(std::boxed::Box::new(v.cnv()?))),
+            Self::ArrowSerializationOptions(v) => Ok(T::ArrowSerializationOptions(std::boxed::Box::new(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::ArrowSerializationOptions>::cnv(v)?))),
+            Self::AvroSerializationOptions(v) => Ok(T::AvroSerializationOptions(std::boxed::Box::new(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::AvroSerializationOptions>::cnv(v)?))),
         }
     }
 }
@@ -962,12 +962,12 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::read_
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::read_session::TableReadOptions, gaxi::prost::ConvertError> {
         Ok(
             crate::write::generated::gapic_storage::model::read_session::TableReadOptions::new()
-                .set_selected_fields(self.selected_fields.into_iter().map(|v| v.cnv())
+                .set_selected_fields(self.selected_fields.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_row_restriction(self.row_restriction)
-                .set_or_clear_sample_percentage(self.sample_percentage.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_response_compression_codec(self.response_compression_codec.map(|v| v.cnv()).transpose()?)
-                .set_output_format_serialization_options(self.output_format_serialization_options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_sample_percentage(self.sample_percentage.map(gaxi::prost::FromProto::<f64>::cnv).transpose()?)
+                .set_or_clear_response_compression_codec(self.response_compression_codec.map(crate::write::generated::gapic_storage::model::read_session::table_read_options::ResponseCompressionCodec::from))
+                .set_output_format_serialization_options(self.output_format_serialization_options.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::read_session::table_read_options::OutputFormatSerializationOptions>::cnv).transpose()?)
         )
     }
 }
@@ -986,8 +986,8 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::read_
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::read_session::Schema, gaxi::prost::ConvertError> {
         use crate::write::generated::gapic_storage::model::read_session::Schema as T;
         match self {
-            Self::AvroSchema(v) => Ok(T::AvroSchema(std::boxed::Box::new(v.cnv()?))),
-            Self::ArrowSchema(v) => Ok(T::ArrowSchema(std::boxed::Box::new(v.cnv()?))),
+            Self::AvroSchema(v) => Ok(T::AvroSchema(std::boxed::Box::new(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::AvroSchema>::cnv(v)?))),
+            Self::ArrowSchema(v) => Ok(T::ArrowSchema(std::boxed::Box::new(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::ArrowSchema>::cnv(v)?))),
         }
     }
 }
@@ -1020,18 +1020,18 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::ReadS
         Ok(
             crate::write::generated::gapic_storage::model::ReadSession::new()
                 .set_name(self.name)
-                .set_or_clear_expire_time(self.expire_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_expire_time(self.expire_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
                 .set_data_format(self.data_format)
                 .set_table(self.table)
-                .set_or_clear_table_modifiers(self.table_modifiers.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_read_options(self.read_options.map(|v| v.cnv()).transpose()?)
-                .set_streams(self.streams.into_iter().map(|v| v.cnv())
+                .set_or_clear_table_modifiers(self.table_modifiers.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::read_session::TableModifiers>::cnv).transpose()?)
+                .set_or_clear_read_options(self.read_options.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::read_session::TableReadOptions>::cnv).transpose()?)
+                .set_streams(self.streams.into_iter().map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::ReadStream>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_estimated_total_bytes_scanned(self.estimated_total_bytes_scanned)
                 .set_estimated_total_physical_file_size(self.estimated_total_physical_file_size)
                 .set_estimated_row_count(self.estimated_row_count)
                 .set_trace_id(self.trace_id)
-                .set_schema(self.schema.map(|v| v.cnv()).transpose()?)
+                .set_schema(self.schema.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::read_session::Schema>::cnv).transpose()?)
         )
     }
 }
@@ -1089,9 +1089,9 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::Write
             crate::write::generated::gapic_storage::model::WriteStream::new()
                 .set_name(self.name)
                 .set_type(self.r#type)
-                .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_commit_time(self.commit_time.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_table_schema(self.table_schema.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_create_time(self.create_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
+                .set_or_clear_commit_time(self.commit_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
+                .set_or_clear_table_schema(self.table_schema.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::TableSchema>::cnv).transpose()?)
                 .set_write_mode(self.write_mode)
                 .set_location(self.location)
         )
@@ -1114,7 +1114,7 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::Table
     fn cnv(self) -> std::result::Result<crate::write::generated::gapic_storage::model::TableSchema, gaxi::prost::ConvertError> {
         Ok(
             crate::write::generated::gapic_storage::model::TableSchema::new()
-                .set_fields(self.fields.into_iter().map(|v| v.cnv())
+                .set_fields(self.fields.into_iter().map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::TableFieldSchema>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -1181,15 +1181,15 @@ impl gaxi::prost::FromProto<crate::write::generated::gapic_storage::model::Table
                 .set_name(self.name)
                 .set_type(self.r#type)
                 .set_mode(self.mode)
-                .set_fields(self.fields.into_iter().map(|v| v.cnv())
+                .set_fields(self.fields.into_iter().map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::TableFieldSchema>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_description(self.description)
                 .set_max_length(self.max_length)
                 .set_precision(self.precision)
                 .set_scale(self.scale)
                 .set_default_value_expression(self.default_value_expression)
-                .set_or_clear_timestamp_precision(self.timestamp_precision.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_range_element_type(self.range_element_type.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_timestamp_precision(self.timestamp_precision.map(gaxi::prost::FromProto::<wkt::Int64Value>::cnv).transpose()?)
+                .set_or_clear_range_element_type(self.range_element_type.map(gaxi::prost::FromProto::<crate::write::generated::gapic_storage::model::table_field_schema::FieldElementType>::cnv).transpose()?)
         )
     }
 }

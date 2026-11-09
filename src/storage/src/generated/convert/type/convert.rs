@@ -74,8 +74,8 @@ impl gaxi::prost::FromProto<google_cloud_type::model::Interval> for Interval {
     fn cnv(self) -> std::result::Result<google_cloud_type::model::Interval, gaxi::prost::ConvertError> {
         Ok(
             google_cloud_type::model::Interval::new()
-                .set_or_clear_start_time(self.start_time.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_end_time(self.end_time.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_start_time(self.start_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
+                .set_or_clear_end_time(self.end_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
         )
     }
 }

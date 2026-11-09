@@ -239,12 +239,8 @@ impl gaxi::prost::FromProto<crate::model::agent_coaching_instruction::DuplicateC
     > {
         Ok(
             crate::model::agent_coaching_instruction::DuplicateCheckResult::new()
-                .set_duplicate_suggestions(
-                    self.duplicate_suggestions
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                ),
+                .set_duplicate_suggestions(self.duplicate_suggestions.into_iter().map(gaxi::prost::FromProto::<crate::model::agent_coaching_instruction::duplicate_check_result::DuplicateSuggestion>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }
@@ -309,7 +305,13 @@ impl gaxi::prost::FromProto<crate::model::AgentCoachingInstruction> for AgentCoa
             .set_agent_action(self.agent_action)
             .set_system_action(self.system_action)
             .set_or_clear_duplicate_check_result(
-                self.duplicate_check_result.map(|v| v.cnv()).transpose()?,
+                self.duplicate_check_result
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::agent_coaching_instruction::DuplicateCheckResult,
+                        >::cnv,
+                    )
+                    .transpose()?,
             )
             .set_triggering_event(self.triggering_event))
     }
@@ -337,7 +339,7 @@ impl gaxi::prost::FromProto<crate::model::SpeechContext> for SpeechContext {
             .set_phrases(
                 self.phrases
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_boost(self.boost))
@@ -368,8 +370,16 @@ impl gaxi::prost::FromProto<crate::model::SpeechWordInfo> for SpeechWordInfo {
     fn cnv(self) -> std::result::Result<crate::model::SpeechWordInfo, gaxi::prost::ConvertError> {
         Ok(crate::model::SpeechWordInfo::new()
             .set_word(self.word)
-            .set_or_clear_start_offset(self.start_offset.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_end_offset(self.end_offset.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_start_offset(
+                self.start_offset
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_end_offset(
+                self.end_offset
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            )
             .set_confidence(self.confidence))
     }
 }
@@ -444,13 +454,13 @@ impl gaxi::prost::FromProto<crate::model::InputAudioConfig> for InputAudioConfig
             .set_phrase_hints(
                 self.phrase_hints
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_speech_contexts(
                 self.speech_contexts
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::SpeechContext>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_model(self.model)
@@ -462,15 +472,27 @@ impl gaxi::prost::FromProto<crate::model::InputAudioConfig> for InputAudioConfig
             .set_phrase_sets(
                 self.phrase_sets
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_opt_out_conformer_model_migration(self.opt_out_conformer_model_migration)
-            .set_or_clear_gemini_asr_config(self.gemini_asr_config.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_use_gemini_asr(self.use_gemini_asr.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_gemini_asr_config(
+                self.gemini_asr_config
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::speech_to_text_config::GeminiAsrConfig,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            )
+            .set_or_clear_use_gemini_asr(
+                self.use_gemini_asr
+                    .map(gaxi::prost::FromProto::<bool>::cnv)
+                    .transpose()?,
+            )
             .set_or_clear_disable_interim_input_transcripts(
                 self.disable_interim_input_transcripts
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<bool>::cnv)
                     .transpose()?,
             ))
     }
@@ -560,14 +582,18 @@ impl gaxi::prost::FromProto<crate::model::SynthesizeSpeechConfig> for Synthesize
             .set_effects_profile_id(
                 self.effects_profile_id
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_voice(self.voice.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_voice(
+                self.voice
+                    .map(gaxi::prost::FromProto::<crate::model::VoiceSelectionParams>::cnv)
+                    .transpose()?,
+            )
             .set_pronunciations(
                 self.pronunciations
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::CustomPronunciationParams>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -660,7 +686,9 @@ impl gaxi::prost::FromProto<crate::model::OutputAudioConfig> for OutputAudioConf
             .set_audio_encoding(self.audio_encoding)
             .set_sample_rate_hertz(self.sample_rate_hertz)
             .set_or_clear_synthesize_speech_config(
-                self.synthesize_speech_config.map(|v| v.cnv()).transpose()?,
+                self.synthesize_speech_config
+                    .map(gaxi::prost::FromProto::<crate::model::SynthesizeSpeechConfig>::cnv)
+                    .transpose()?,
             ))
     }
 }
@@ -835,7 +863,7 @@ impl gaxi::prost::FromProto<crate::model::SpeechToTextConfig> for SpeechToTextCo
             .set_phrase_sets(
                 self.phrase_sets
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_audio_encoding(self.audio_encoding)
@@ -843,11 +871,19 @@ impl gaxi::prost::FromProto<crate::model::SpeechToTextConfig> for SpeechToTextCo
             .set_language_code(self.language_code)
             .set_enable_word_info(self.enable_word_info)
             .set_use_timeout_based_endpointing(self.use_timeout_based_endpointing)
-            .set_or_clear_gemini_asr_config(self.gemini_asr_config.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_gemini_asr_config(
+                self.gemini_asr_config
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::speech_to_text_config::GeminiAsrConfig,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            )
             .set_use_gemini_asr(self.use_gemini_asr)
             .set_or_clear_disable_interim_input_transcripts(
                 self.disable_interim_input_transcripts
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<bool>::cnv)
                     .transpose()?,
             ))
     }
@@ -969,7 +1005,7 @@ impl gaxi::prost::FromProto<crate::model::GuidanceInstruction> for GuidanceInstr
             .set_actions(
                 self.actions
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::guidance_instruction::Action>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_trigger_event(self.trigger_event)
@@ -1035,12 +1071,16 @@ impl gaxi::prost::FromProto<crate::model::companion_agent::skill_config::Config>
     > {
         use crate::model::companion_agent::skill_config::Config as T;
         match self {
-            Self::GuidanceSkillConfig(v) => {
-                Ok(T::GuidanceSkillConfig(std::boxed::Box::new(v.cnv()?)))
-            }
-            Self::TranslationSkillConfig(v) => {
-                Ok(T::TranslationSkillConfig(std::boxed::Box::new(v.cnv()?)))
-            }
+            Self::GuidanceSkillConfig(v) => Ok(T::GuidanceSkillConfig(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::companion_agent::GuidanceSkillConfig>::cnv(
+                    v,
+                )?,
+            ))),
+            Self::TranslationSkillConfig(v) => Ok(T::TranslationSkillConfig(
+                std::boxed::Box::new(gaxi::prost::FromProto::<
+                    crate::model::companion_agent::TranslationSkillConfig,
+                >::cnv(v)?),
+            )),
         }
     }
 }
@@ -1081,9 +1121,19 @@ impl gaxi::prost::FromProto<crate::model::companion_agent::SkillConfig>
         self,
     ) -> std::result::Result<crate::model::companion_agent::SkillConfig, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::companion_agent::SkillConfig::new()
-            .set_skill_triggering_event(self.skill_triggering_event)
-            .set_config(self.config.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::companion_agent::SkillConfig::new()
+                .set_skill_triggering_event(self.skill_triggering_event)
+                .set_config(
+                    self.config
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::companion_agent::skill_config::Config,
+                            >::cnv,
+                        )
+                        .transpose()?,
+                ),
+        )
     }
 }
 
@@ -1130,15 +1180,13 @@ impl gaxi::prost::FromProto<crate::model::companion_agent::GuidanceSkillConfig>
         crate::model::companion_agent::GuidanceSkillConfig,
         gaxi::prost::ConvertError,
     > {
-        Ok(crate::model::companion_agent::GuidanceSkillConfig::new()
-            .set_guidance_instructions(
-                self.guidance_instructions
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_overarching_guidance(self.overarching_guidance)
-            .set_or_clear_knowledge_source(self.knowledge_source.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::companion_agent::GuidanceSkillConfig::new()
+                .set_guidance_instructions(self.guidance_instructions.into_iter().map(gaxi::prost::FromProto::<crate::model::GuidanceInstruction>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_overarching_guidance(self.overarching_guidance)
+                .set_or_clear_knowledge_source(self.knowledge_source.map(gaxi::prost::FromProto::<crate::model::companion_agent::KnowledgeSource>::cnv).transpose()?)
+        )
     }
 }
 
@@ -1285,18 +1333,26 @@ impl gaxi::prost::FromProto<crate::model::CompanionAgent> for CompanionAgent {
     fn cnv(self) -> std::result::Result<crate::model::CompanionAgent, gaxi::prost::ConvertError> {
         Ok(crate::model::CompanionAgent::new()
             .set_name(self.name)
-            .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_create_time(
+                self.create_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_update_time(
+                self.update_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
             .set_toolset_tools(
                 self.toolset_tools
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::ToolsetTool>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_ces_tool_specs(
                 self.ces_tool_specs
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::CesToolSpec>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_display_name(self.display_name)
@@ -1304,7 +1360,7 @@ impl gaxi::prost::FromProto<crate::model::CompanionAgent> for CompanionAgent {
             .set_skill_configs(
                 self.skill_configs
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::companion_agent::SkillConfig>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -1343,7 +1399,11 @@ impl gaxi::prost::FromProto<crate::model::Context> for Context {
         Ok(crate::model::Context::new()
             .set_name(self.name)
             .set_lifespan_count(self.lifespan_count)
-            .set_or_clear_parameters(self.parameters.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_parameters(
+                self.parameters
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -1382,7 +1442,7 @@ impl gaxi::prost::FromProto<crate::model::entity_type::Entity> for entity_type::
             .set_synonyms(
                 self.synonyms
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -1466,7 +1526,7 @@ impl gaxi::prost::FromProto<crate::model::EntityType> for EntityType {
             .set_entities(
                 self.entities
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::entity_type::Entity>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_enable_fuzzy_extraction(self.enable_fuzzy_extraction))
@@ -1581,7 +1641,9 @@ impl gaxi::prost::FromProto<crate::model::SummarySuggestion> for SummarySuggesti
         Ok(crate::model::SummarySuggestion::new().set_summary_sections(
             self.summary_sections
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(
+                    gaxi::prost::FromProto::<crate::model::summary_suggestion::SummarySection>::cnv,
+                )
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -1631,7 +1693,7 @@ impl gaxi::prost::FromProto<crate::model::agent_coaching_suggestion::Sources>
             crate::model::agent_coaching_suggestion::Sources::new().set_instruction_indexes(
                 self.instruction_indexes
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<i32>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -1690,7 +1752,7 @@ impl
         Ok(
             crate::model::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion::new()
                 .set_answer_record(self.answer_record)
-                .set_or_clear_sources(self.sources.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_sources(self.sources.map(gaxi::prost::FromProto::<crate::model::agent_coaching_suggestion::Sources>::cnv).transpose()?)
                 .set_suggestion_index(self.suggestion_index)
                 .set_similarity_score(self.similarity_score)
         )
@@ -1746,12 +1808,8 @@ impl gaxi::prost::FromProto<crate::model::agent_coaching_suggestion::DuplicateCh
     > {
         Ok(
             crate::model::agent_coaching_suggestion::DuplicateCheckResult::new()
-                .set_duplicate_suggestions(
-                    self.duplicate_suggestions
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                ),
+                .set_duplicate_suggestions(self.duplicate_suggestions.into_iter().map(gaxi::prost::FromProto::<crate::model::agent_coaching_suggestion::duplicate_check_result::DuplicateSuggestion>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }
@@ -1800,9 +1858,23 @@ impl gaxi::prost::FromProto<crate::model::agent_coaching_suggestion::AgentAction
         Ok(
             crate::model::agent_coaching_suggestion::AgentActionSuggestion::new()
                 .set_agent_action(self.agent_action)
-                .set_or_clear_sources(self.sources.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_sources(
+                    self.sources
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::agent_coaching_suggestion::Sources,
+                            >::cnv,
+                        )
+                        .transpose()?,
+                )
                 .set_or_clear_duplicate_check_result(
-                    self.duplicate_check_result.map(|v| v.cnv()).transpose()?,
+                    self.duplicate_check_result
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::agent_coaching_suggestion::DuplicateCheckResult,
+                            >::cnv,
+                        )
+                        .transpose()?,
                 ),
         )
     }
@@ -1850,9 +1922,23 @@ impl gaxi::prost::FromProto<crate::model::agent_coaching_suggestion::SampleRespo
         Ok(
             crate::model::agent_coaching_suggestion::SampleResponse::new()
                 .set_response_text(self.response_text)
-                .set_or_clear_sources(self.sources.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_sources(
+                    self.sources
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::agent_coaching_suggestion::Sources,
+                            >::cnv,
+                        )
+                        .transpose()?,
+                )
                 .set_or_clear_duplicate_check_result(
-                    self.duplicate_check_result.map(|v| v.cnv()).transpose()?,
+                    self.duplicate_check_result
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::agent_coaching_suggestion::DuplicateCheckResult,
+                            >::cnv,
+                        )
+                        .transpose()?,
                 ),
         )
     }
@@ -1900,19 +1986,27 @@ impl gaxi::prost::FromProto<crate::model::AgentCoachingSuggestion> for AgentCoac
             .set_applicable_instructions(
                 self.applicable_instructions
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::AgentCoachingInstruction>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_agent_action_suggestions(
                 self.agent_action_suggestions
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::agent_coaching_suggestion::AgentActionSuggestion,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_sample_responses(
                 self.sample_responses
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::agent_coaching_suggestion::SampleResponse,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -1962,8 +2056,16 @@ impl gaxi::prost::FromProto<crate::model::generator_suggestion::ToolCallInfo>
         gaxi::prost::ConvertError,
     > {
         Ok(crate::model::generator_suggestion::ToolCallInfo::new()
-            .set_or_clear_tool_call(self.tool_call.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_tool_call_result(self.tool_call_result.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_tool_call(
+                self.tool_call
+                    .map(gaxi::prost::FromProto::<crate::model::ToolCall>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_tool_call_result(
+                self.tool_call_result
+                    .map(gaxi::prost::FromProto::<crate::model::ToolCallResult>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -2019,12 +2121,16 @@ impl gaxi::prost::FromProto<crate::model::generator_suggestion::Suggestion>
     > {
         use crate::model::generator_suggestion::Suggestion as T;
         match self {
-            Self::FreeFormSuggestion(v) => {
-                Ok(T::FreeFormSuggestion(std::boxed::Box::new(v.cnv()?)))
-            }
-            Self::SummarySuggestion(v) => Ok(T::SummarySuggestion(std::boxed::Box::new(v.cnv()?))),
+            Self::FreeFormSuggestion(v) => Ok(T::FreeFormSuggestion(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::FreeFormSuggestion>::cnv(v)?,
+            ))),
+            Self::SummarySuggestion(v) => Ok(T::SummarySuggestion(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::SummarySuggestion>::cnv(v)?,
+            ))),
             Self::AgentCoachingSuggestion(v) => {
-                Ok(T::AgentCoachingSuggestion(std::boxed::Box::new(v.cnv()?)))
+                Ok(T::AgentCoachingSuggestion(std::boxed::Box::new(
+                    gaxi::prost::FromProto::<crate::model::AgentCoachingSuggestion>::cnv(v)?,
+                )))
             }
         }
     }
@@ -2065,14 +2171,12 @@ impl gaxi::prost::FromProto<crate::model::GeneratorSuggestion> for GeneratorSugg
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::GeneratorSuggestion, gaxi::prost::ConvertError> {
-        Ok(crate::model::GeneratorSuggestion::new()
-            .set_tool_call_info(
-                self.tool_call_info
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_suggestion(self.suggestion.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::GeneratorSuggestion::new()
+                .set_tool_call_info(self.tool_call_info.into_iter().map(gaxi::prost::FromProto::<crate::model::generator_suggestion::ToolCallInfo>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_suggestion(self.suggestion.map(gaxi::prost::FromProto::<crate::model::generator_suggestion::Suggestion>::cnv).transpose()?)
+        )
     }
 }
 
@@ -2113,20 +2217,24 @@ impl gaxi::prost::FromProto<crate::model::GroundingMetadata> for GroundingMetada
             .set_web_search_queries(
                 self.web_search_queries
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_search_entry_point(self.search_entry_point.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_search_entry_point(
+                self.search_entry_point
+                    .map(gaxi::prost::FromProto::<crate::model::SearchEntryPoint>::cnv)
+                    .transpose()?,
+            )
             .set_grounding_chunks(
                 self.grounding_chunks
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::GroundingChunk>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_grounding_supports(
                 self.grounding_supports
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::GroundingSupport>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -2237,8 +2345,12 @@ impl gaxi::prost::FromProto<crate::model::grounding_chunk::ChunkType>
     {
         use crate::model::grounding_chunk::ChunkType as T;
         match self {
-            Self::Web(v) => Ok(T::Web(std::boxed::Box::new(v.cnv()?))),
-            Self::RetrievedContext(v) => Ok(T::RetrievedContext(std::boxed::Box::new(v.cnv()?))),
+            Self::Web(v) => Ok(T::Web(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::grounding_chunk::Web,
+            >::cnv(v)?))),
+            Self::RetrievedContext(v) => Ok(T::RetrievedContext(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::grounding_chunk::RetrievedContext>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -2259,8 +2371,11 @@ impl gaxi::prost::ToProto<GroundingChunk> for crate::model::GroundingChunk {
 #[cfg(any(feature = "answer-records", feature = "participants",))]
 impl gaxi::prost::FromProto<crate::model::GroundingChunk> for GroundingChunk {
     fn cnv(self) -> std::result::Result<crate::model::GroundingChunk, gaxi::prost::ConvertError> {
-        Ok(crate::model::GroundingChunk::new()
-            .set_chunk_type(self.chunk_type.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::GroundingChunk::new().set_chunk_type(
+            self.chunk_type
+                .map(gaxi::prost::FromProto::<crate::model::grounding_chunk::ChunkType>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -2308,11 +2423,15 @@ impl gaxi::prost::ToProto<GroundingSupport> for crate::model::GroundingSupport {
 impl gaxi::prost::FromProto<crate::model::GroundingSupport> for GroundingSupport {
     fn cnv(self) -> std::result::Result<crate::model::GroundingSupport, gaxi::prost::ConvertError> {
         Ok(crate::model::GroundingSupport::new()
-            .set_or_clear_segment(self.segment.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_segment(
+                self.segment
+                    .map(gaxi::prost::FromProto::<crate::model::Segment>::cnv)
+                    .transpose()?,
+            )
             .set_grounding_chunk_indices(
                 self.grounding_chunk_indices
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<i32>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -2417,7 +2536,7 @@ impl gaxi::prost::FromProto<crate::model::intent::TrainingPhrase> for intent::Tr
             .set_parts(
                 self.parts
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::intent::training_phrase::Part>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_times_added_count(self.times_added_count))
@@ -2474,7 +2593,7 @@ impl gaxi::prost::FromProto<crate::model::intent::Parameter> for intent::Paramet
             .set_prompts(
                 self.prompts
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_is_list(self.is_list))
@@ -2513,7 +2632,7 @@ impl gaxi::prost::FromProto<crate::model::intent::message::Text> for intent::mes
         Ok(crate::model::intent::message::Text::new().set_text(
             self.text
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -2595,7 +2714,7 @@ impl gaxi::prost::FromProto<crate::model::intent::message::QuickReplies>
             .set_quick_replies(
                 self.quick_replies
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -2679,7 +2798,7 @@ impl gaxi::prost::FromProto<crate::model::intent::message::Card> for intent::mes
             .set_buttons(
                 self.buttons
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::intent::message::card::Button>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -2767,12 +2886,9 @@ impl gaxi::prost::FromProto<crate::model::intent::message::SimpleResponses>
         gaxi::prost::ConvertError,
     > {
         Ok(
-            crate::model::intent::message::SimpleResponses::new().set_simple_responses(
-                self.simple_responses
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            ),
+            crate::model::intent::message::SimpleResponses::new()
+                .set_simple_responses(self.simple_responses.into_iter().map(gaxi::prost::FromProto::<crate::model::intent::message::SimpleResponse>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }
@@ -2867,7 +2983,15 @@ impl gaxi::prost::FromProto<crate::model::intent::message::basic_card::Button>
     > {
         Ok(crate::model::intent::message::basic_card::Button::new()
             .set_title(self.title)
-            .set_or_clear_open_uri_action(self.open_uri_action.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_open_uri_action(
+                self.open_uri_action
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::intent::message::basic_card::button::OpenUriAction,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ))
     }
 }
 
@@ -2914,17 +3038,27 @@ impl gaxi::prost::FromProto<crate::model::intent::message::BasicCard>
         self,
     ) -> std::result::Result<crate::model::intent::message::BasicCard, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::intent::message::BasicCard::new()
-            .set_title(self.title)
-            .set_subtitle(self.subtitle)
-            .set_formatted_text(self.formatted_text)
-            .set_or_clear_image(self.image.map(|v| v.cnv()).transpose()?)
-            .set_buttons(
-                self.buttons
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            ))
+        Ok(
+            crate::model::intent::message::BasicCard::new()
+                .set_title(self.title)
+                .set_subtitle(self.subtitle)
+                .set_formatted_text(self.formatted_text)
+                .set_or_clear_image(
+                    self.image
+                        .map(gaxi::prost::FromProto::<crate::model::intent::message::Image>::cnv)
+                        .transpose()?,
+                )
+                .set_buttons(
+                    self.buttons
+                        .into_iter()
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::intent::message::basic_card::Button,
+                            >::cnv,
+                        )
+                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+                ),
+        )
     }
 }
 
@@ -3004,7 +3138,7 @@ impl gaxi::prost::FromProto<crate::model::intent::message::Suggestions>
             crate::model::intent::message::Suggestions::new().set_suggestions(
                 self.suggestions
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::intent::message::Suggestion>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -3097,11 +3231,13 @@ impl gaxi::prost::FromProto<crate::model::intent::message::list_select::Item>
         crate::model::intent::message::list_select::Item,
         gaxi::prost::ConvertError,
     > {
-        Ok(crate::model::intent::message::list_select::Item::new()
-            .set_or_clear_info(self.info.map(|v| v.cnv()).transpose()?)
-            .set_title(self.title)
-            .set_description(self.description)
-            .set_or_clear_image(self.image.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::intent::message::list_select::Item::new()
+                .set_or_clear_info(self.info.map(gaxi::prost::FromProto::<crate::model::intent::message::SelectItemInfo>::cnv).transpose()?)
+                .set_title(self.title)
+                .set_description(self.description)
+                .set_or_clear_image(self.image.map(gaxi::prost::FromProto::<crate::model::intent::message::Image>::cnv).transpose()?)
+        )
     }
 }
 
@@ -3143,15 +3279,21 @@ impl gaxi::prost::FromProto<crate::model::intent::message::ListSelect>
         self,
     ) -> std::result::Result<crate::model::intent::message::ListSelect, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::intent::message::ListSelect::new()
-            .set_title(self.title)
-            .set_items(
-                self.items
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_subtitle(self.subtitle))
+        Ok(
+            crate::model::intent::message::ListSelect::new()
+                .set_title(self.title)
+                .set_items(
+                    self.items
+                        .into_iter()
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::intent::message::list_select::Item,
+                            >::cnv,
+                        )
+                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+                )
+                .set_subtitle(self.subtitle),
+        )
     }
 }
 
@@ -3199,11 +3341,13 @@ impl gaxi::prost::FromProto<crate::model::intent::message::carousel_select::Item
         crate::model::intent::message::carousel_select::Item,
         gaxi::prost::ConvertError,
     > {
-        Ok(crate::model::intent::message::carousel_select::Item::new()
-            .set_or_clear_info(self.info.map(|v| v.cnv()).transpose()?)
-            .set_title(self.title)
-            .set_description(self.description)
-            .set_or_clear_image(self.image.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::intent::message::carousel_select::Item::new()
+                .set_or_clear_info(self.info.map(gaxi::prost::FromProto::<crate::model::intent::message::SelectItemInfo>::cnv).transpose()?)
+                .set_title(self.title)
+                .set_description(self.description)
+                .set_or_clear_image(self.image.map(gaxi::prost::FromProto::<crate::model::intent::message::Image>::cnv).transpose()?)
+        )
     }
 }
 
@@ -3247,7 +3391,11 @@ impl gaxi::prost::FromProto<crate::model::intent::message::CarouselSelect>
             crate::model::intent::message::CarouselSelect::new().set_items(
                 self.items
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::intent::message::carousel_select::Item,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -3296,7 +3444,7 @@ impl gaxi::prost::FromProto<crate::model::intent::message::SelectItemInfo>
             .set_synonyms(
                 self.synonyms
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -3343,8 +3491,12 @@ impl
     > {
         use crate::model::intent::message::media_content::response_media_object::Image as T;
         match self {
-            Self::LargeImage(v) => Ok(T::LargeImage(std::boxed::Box::new(v.cnv()?))),
-            Self::Icon(v) => Ok(T::Icon(std::boxed::Box::new(v.cnv()?))),
+            Self::LargeImage(v) => Ok(T::LargeImage(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::intent::message::Image>::cnv(v)?,
+            ))),
+            Self::Icon(v) => Ok(T::Icon(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::intent::message::Image,
+            >::cnv(v)?))),
         }
     }
 }
@@ -3401,7 +3553,7 @@ impl gaxi::prost::FromProto<crate::model::intent::message::media_content::Respon
                 .set_name(self.name)
                 .set_description(self.description)
                 .set_content_url(self.content_url)
-                .set_image(self.image.map(|v| v.cnv()).transpose()?),
+                .set_image(self.image.map(gaxi::prost::FromProto::<crate::model::intent::message::media_content::response_media_object::Image>::cnv).transpose()?)
         )
     }
 }
@@ -3474,7 +3626,11 @@ impl gaxi::prost::FromProto<crate::model::intent::message::MediaContent>
             .set_media_objects(
                 self.media_objects
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::intent::message::media_content::ResponseMediaObject,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -3570,11 +3726,11 @@ impl
     > {
         Ok(
             crate::model::intent::message::browse_carousel_card::BrowseCarouselCardItem::new()
-                .set_or_clear_open_uri_action(self.open_uri_action.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_open_uri_action(self.open_uri_action.map(gaxi::prost::FromProto::<crate::model::intent::message::browse_carousel_card::browse_carousel_card_item::OpenUrlAction>::cnv).transpose()?)
                 .set_title(self.title)
                 .set_description(self.description)
-                .set_or_clear_image(self.image.map(|v| v.cnv()).transpose()?)
-                .set_footer(self.footer),
+                .set_or_clear_image(self.image.map(gaxi::prost::FromProto::<crate::model::intent::message::Image>::cnv).transpose()?)
+                .set_footer(self.footer)
         )
     }
 }
@@ -3642,14 +3798,12 @@ impl gaxi::prost::FromProto<crate::model::intent::message::BrowseCarouselCard>
         crate::model::intent::message::BrowseCarouselCard,
         gaxi::prost::ConvertError,
     > {
-        Ok(crate::model::intent::message::BrowseCarouselCard::new()
-            .set_items(
-                self.items
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_image_display_options(self.image_display_options))
+        Ok(
+            crate::model::intent::message::BrowseCarouselCard::new()
+                .set_items(self.items.into_iter().map(gaxi::prost::FromProto::<crate::model::intent::message::browse_carousel_card::BrowseCarouselCardItem>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_image_display_options(self.image_display_options)
+        )
     }
 }
 
@@ -3703,28 +3857,18 @@ impl gaxi::prost::FromProto<crate::model::intent::message::TableCard>
         self,
     ) -> std::result::Result<crate::model::intent::message::TableCard, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::intent::message::TableCard::new()
-            .set_title(self.title)
-            .set_subtitle(self.subtitle)
-            .set_or_clear_image(self.image.map(|v| v.cnv()).transpose()?)
-            .set_column_properties(
-                self.column_properties
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_rows(
-                self.rows
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_buttons(
-                self.buttons
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            ))
+        Ok(
+            crate::model::intent::message::TableCard::new()
+                .set_title(self.title)
+                .set_subtitle(self.subtitle)
+                .set_or_clear_image(self.image.map(gaxi::prost::FromProto::<crate::model::intent::message::Image>::cnv).transpose()?)
+                .set_column_properties(self.column_properties.into_iter().map(gaxi::prost::FromProto::<crate::model::intent::message::ColumnProperties>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_rows(self.rows.into_iter().map(gaxi::prost::FromProto::<crate::model::intent::message::TableCardRow>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+                .set_buttons(self.buttons.into_iter().map(gaxi::prost::FromProto::<crate::model::intent::message::basic_card::Button>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
     }
 }
 
@@ -3830,7 +3974,9 @@ impl gaxi::prost::FromProto<crate::model::intent::message::TableCardRow>
             .set_cells(
                 self.cells
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<crate::model::intent::message::TableCardCell>::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_divider_after(self.divider_after))
@@ -3970,22 +4116,50 @@ impl gaxi::prost::FromProto<crate::model::intent::message::Message> for intent::
     {
         use crate::model::intent::message::Message as T;
         match self {
-            Self::Text(v) => Ok(T::Text(std::boxed::Box::new(v.cnv()?))),
-            Self::Image(v) => Ok(T::Image(std::boxed::Box::new(v.cnv()?))),
-            Self::QuickReplies(v) => Ok(T::QuickReplies(std::boxed::Box::new(v.cnv()?))),
-            Self::Card(v) => Ok(T::Card(std::boxed::Box::new(v.cnv()?))),
-            Self::Payload(v) => Ok(T::Payload(std::boxed::Box::new(v.cnv()?))),
-            Self::SimpleResponses(v) => Ok(T::SimpleResponses(std::boxed::Box::new(v.cnv()?))),
-            Self::BasicCard(v) => Ok(T::BasicCard(std::boxed::Box::new(v.cnv()?))),
-            Self::Suggestions(v) => Ok(T::Suggestions(std::boxed::Box::new(v.cnv()?))),
-            Self::LinkOutSuggestion(v) => Ok(T::LinkOutSuggestion(std::boxed::Box::new(v.cnv()?))),
-            Self::ListSelect(v) => Ok(T::ListSelect(std::boxed::Box::new(v.cnv()?))),
-            Self::CarouselSelect(v) => Ok(T::CarouselSelect(std::boxed::Box::new(v.cnv()?))),
-            Self::BrowseCarouselCard(v) => {
-                Ok(T::BrowseCarouselCard(std::boxed::Box::new(v.cnv()?)))
-            }
-            Self::TableCard(v) => Ok(T::TableCard(std::boxed::Box::new(v.cnv()?))),
-            Self::MediaContent(v) => Ok(T::MediaContent(std::boxed::Box::new(v.cnv()?))),
+            Self::Text(v) => Ok(T::Text(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::intent::message::Text,
+            >::cnv(v)?))),
+            Self::Image(v) => Ok(T::Image(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::intent::message::Image,
+            >::cnv(v)?))),
+            Self::QuickReplies(v) => Ok(T::QuickReplies(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::intent::message::QuickReplies>::cnv(v)?,
+            ))),
+            Self::Card(v) => Ok(T::Card(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::intent::message::Card,
+            >::cnv(v)?))),
+            Self::Payload(v) => Ok(T::Payload(std::boxed::Box::new(gaxi::prost::FromProto::<
+                wkt::Struct,
+            >::cnv(v)?))),
+            Self::SimpleResponses(v) => Ok(T::SimpleResponses(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::intent::message::SimpleResponses>::cnv(v)?,
+            ))),
+            Self::BasicCard(v) => Ok(T::BasicCard(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::intent::message::BasicCard>::cnv(v)?,
+            ))),
+            Self::Suggestions(v) => Ok(T::Suggestions(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::intent::message::Suggestions>::cnv(v)?,
+            ))),
+            Self::LinkOutSuggestion(v) => Ok(T::LinkOutSuggestion(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::intent::message::LinkOutSuggestion>::cnv(v)?,
+            ))),
+            Self::ListSelect(v) => Ok(T::ListSelect(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::intent::message::ListSelect>::cnv(v)?,
+            ))),
+            Self::CarouselSelect(v) => Ok(T::CarouselSelect(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::intent::message::CarouselSelect>::cnv(v)?,
+            ))),
+            Self::BrowseCarouselCard(v) => Ok(T::BrowseCarouselCard(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::intent::message::BrowseCarouselCard>::cnv(
+                    v,
+                )?,
+            ))),
+            Self::TableCard(v) => Ok(T::TableCard(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::intent::message::TableCard>::cnv(v)?,
+            ))),
+            Self::MediaContent(v) => Ok(T::MediaContent(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::intent::message::MediaContent>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -4019,7 +4193,11 @@ impl gaxi::prost::FromProto<crate::model::intent::Message> for intent::Message {
     fn cnv(self) -> std::result::Result<crate::model::intent::Message, gaxi::prost::ConvertError> {
         Ok(crate::model::intent::Message::new()
             .set_platform(self.platform)
-            .set_message(self.message.map(|v| v.cnv()).transpose()?))
+            .set_message(
+                self.message
+                    .map(gaxi::prost::FromProto::<crate::model::intent::message::Message>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -4172,39 +4350,39 @@ impl gaxi::prost::FromProto<crate::model::Intent> for Intent {
             .set_input_context_names(
                 self.input_context_names
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_events(
                 self.events
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_training_phrases(
                 self.training_phrases
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::intent::TrainingPhrase>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_action(self.action)
             .set_output_contexts(
                 self.output_contexts
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::Context>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_reset_contexts(self.reset_contexts)
             .set_parameters(
                 self.parameters
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::intent::Parameter>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_messages(
                 self.messages
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::intent::Message>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_default_response_platforms(
@@ -4217,7 +4395,7 @@ impl gaxi::prost::FromProto<crate::model::Intent> for Intent {
             .set_followup_intent_info(
                 self.followup_intent_info
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::intent::FollowupIntentInfo>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -4305,7 +4483,12 @@ impl gaxi::prost::FromProto<crate::model::Participant> for Participant {
             .set_documents_metadata_filters(
                 self.documents_metadata_filters
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<std::string::String>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             )
             .set_agent_desktop_source(self.agent_desktop_source))
@@ -4360,16 +4543,32 @@ impl gaxi::prost::FromProto<crate::model::Message> for Message {
             .set_response_messages(
                 self.response_messages
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::ResponseMessage>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_language_code(self.language_code)
             .set_participant(self.participant)
             .set_participant_role(self.participant_role)
-            .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_send_time(self.send_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_message_annotation(self.message_annotation.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_sentiment_analysis(self.sentiment_analysis.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_create_time(
+                self.create_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_send_time(
+                self.send_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_message_annotation(
+                self.message_annotation
+                    .map(gaxi::prost::FromProto::<crate::model::MessageAnnotation>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_sentiment_analysis(
+                self.sentiment_analysis
+                    .map(gaxi::prost::FromProto::<crate::model::SentimentAnalysisResult>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -4433,24 +4632,38 @@ impl gaxi::prost::FromProto<crate::model::AnalyzeContentResponse> for AnalyzeCon
     ) -> std::result::Result<crate::model::AnalyzeContentResponse, gaxi::prost::ConvertError> {
         Ok(crate::model::AnalyzeContentResponse::new()
             .set_reply_text(self.reply_text)
-            .set_or_clear_reply_audio(self.reply_audio.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_automated_agent_reply(
-                self.automated_agent_reply.map(|v| v.cnv()).transpose()?,
+            .set_or_clear_reply_audio(
+                self.reply_audio
+                    .map(gaxi::prost::FromProto::<crate::model::OutputAudio>::cnv)
+                    .transpose()?,
             )
-            .set_or_clear_message(self.message.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_automated_agent_reply(
+                self.automated_agent_reply
+                    .map(gaxi::prost::FromProto::<crate::model::AutomatedAgentReply>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_message(
+                self.message
+                    .map(gaxi::prost::FromProto::<crate::model::Message>::cnv)
+                    .transpose()?,
+            )
             .set_human_agent_suggestion_results(
                 self.human_agent_suggestion_results
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::SuggestionResult>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_end_user_suggestion_results(
                 self.end_user_suggestion_results
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::SuggestionResult>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_dtmf_parameters(self.dtmf_parameters.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_dtmf_parameters(
+                self.dtmf_parameters
+                    .map(gaxi::prost::FromProto::<crate::model::DtmfParameters>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -4483,8 +4696,12 @@ impl gaxi::prost::FromProto<crate::model::streaming_analyze_content_request::Con
     > {
         use crate::model::streaming_analyze_content_request::Config as T;
         match self {
-            Self::AudioConfig(v) => Ok(T::AudioConfig(std::boxed::Box::new(v.cnv()?))),
-            Self::TextConfig(v) => Ok(T::TextConfig(std::boxed::Box::new(v.cnv()?))),
+            Self::AudioConfig(v) => Ok(T::AudioConfig(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::InputAudioConfig>::cnv(v)?,
+            ))),
+            Self::TextConfig(v) => Ok(T::TextConfig(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::InputTextConfig>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -4526,10 +4743,18 @@ impl gaxi::prost::FromProto<crate::model::streaming_analyze_content_request::Inp
     > {
         use crate::model::streaming_analyze_content_request::Input as T;
         match self {
-            Self::InputAudio(v) => Ok(T::InputAudio(v.cnv()?)),
-            Self::InputText(v) => Ok(T::InputText(v.cnv()?)),
-            Self::InputDtmf(v) => Ok(T::InputDtmf(std::boxed::Box::new(v.cnv()?))),
-            Self::SuggestionInput(v) => Ok(T::SuggestionInput(std::boxed::Box::new(v.cnv()?))),
+            Self::InputAudio(v) => Ok(T::InputAudio(
+                gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?,
+            )),
+            Self::InputText(v) => Ok(T::InputText(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
+            Self::InputDtmf(v) => Ok(T::InputDtmf(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::TelephonyDtmfEvents>::cnv(v)?,
+            ))),
+            Self::SuggestionInput(v) => Ok(T::SuggestionInput(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::SuggestionInput>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -4594,18 +4819,48 @@ impl gaxi::prost::FromProto<crate::model::StreamingAnalyzeContentRequest>
     {
         Ok(crate::model::StreamingAnalyzeContentRequest::new()
             .set_participant(self.participant)
-            .set_or_clear_reply_audio_config(self.reply_audio_config.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_query_params(self.query_params.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_assist_query_params(
-                self.assist_query_params.map(|v| v.cnv()).transpose()?,
+            .set_or_clear_reply_audio_config(
+                self.reply_audio_config
+                    .map(gaxi::prost::FromProto::<crate::model::OutputAudioConfig>::cnv)
+                    .transpose()?,
             )
-            .set_or_clear_cx_parameters(self.cx_parameters.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_query_params(
+                self.query_params
+                    .map(gaxi::prost::FromProto::<crate::model::QueryParameters>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_assist_query_params(
+                self.assist_query_params
+                    .map(gaxi::prost::FromProto::<crate::model::AssistQueryParameters>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_cx_parameters(
+                self.cx_parameters
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            )
             .set_enable_extended_streaming(self.enable_extended_streaming)
             .set_enable_partial_automated_agent_reply(self.enable_partial_automated_agent_reply)
             .set_output_multiple_utterances(self.output_multiple_utterances)
             .set_enable_debugging_info(self.enable_debugging_info)
-            .set_config(self.config.map(|v| v.cnv()).transpose()?)
-            .set_input(self.input.map(|v| v.cnv()).transpose()?))
+            .set_config(
+                self.config
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::streaming_analyze_content_request::Config,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            )
+            .set_input(
+                self.input
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::streaming_analyze_content_request::Input,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ))
     }
 }
 
@@ -4667,27 +4922,51 @@ impl gaxi::prost::FromProto<crate::model::StreamingAnalyzeContentResponse>
     ) -> std::result::Result<crate::model::StreamingAnalyzeContentResponse, gaxi::prost::ConvertError>
     {
         Ok(crate::model::StreamingAnalyzeContentResponse::new()
-            .set_or_clear_recognition_result(self.recognition_result.map(|v| v.cnv()).transpose()?)
-            .set_reply_text(self.reply_text)
-            .set_or_clear_reply_audio(self.reply_audio.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_automated_agent_reply(
-                self.automated_agent_reply.map(|v| v.cnv()).transpose()?,
+            .set_or_clear_recognition_result(
+                self.recognition_result
+                    .map(gaxi::prost::FromProto::<crate::model::StreamingRecognitionResult>::cnv)
+                    .transpose()?,
             )
-            .set_or_clear_message(self.message.map(|v| v.cnv()).transpose()?)
+            .set_reply_text(self.reply_text)
+            .set_or_clear_reply_audio(
+                self.reply_audio
+                    .map(gaxi::prost::FromProto::<crate::model::OutputAudio>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_automated_agent_reply(
+                self.automated_agent_reply
+                    .map(gaxi::prost::FromProto::<crate::model::AutomatedAgentReply>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_message(
+                self.message
+                    .map(gaxi::prost::FromProto::<crate::model::Message>::cnv)
+                    .transpose()?,
+            )
             .set_human_agent_suggestion_results(
                 self.human_agent_suggestion_results
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::SuggestionResult>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_end_user_suggestion_results(
                 self.end_user_suggestion_results
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::SuggestionResult>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_dtmf_parameters(self.dtmf_parameters.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_debugging_info(self.debugging_info.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_dtmf_parameters(
+                self.dtmf_parameters
+                    .map(gaxi::prost::FromProto::<crate::model::DtmfParameters>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_debugging_info(
+                self.debugging_info
+                    .map(
+                        gaxi::prost::FromProto::<crate::model::CloudConversationDebuggingInfo>::cnv,
+                    )
+                    .transpose()?,
+            )
             .set_speech_model(self.speech_model))
     }
 }
@@ -4719,7 +4998,7 @@ impl gaxi::prost::FromProto<crate::model::SuggestArticlesResponse> for SuggestAr
             .set_article_answers(
                 self.article_answers
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::ArticleAnswer>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_latest_message(self.latest_message)
@@ -4755,7 +5034,7 @@ impl gaxi::prost::FromProto<crate::model::SuggestFaqAnswersResponse> for Suggest
             .set_faq_answers(
                 self.faq_answers
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::FaqAnswer>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_latest_message(self.latest_message)
@@ -4802,7 +5081,9 @@ impl gaxi::prost::FromProto<crate::model::generate_suggestions_response::Generat
         Ok(
             crate::model::generate_suggestions_response::GeneratorSuggestionAnswer::new()
                 .set_or_clear_generator_suggestion(
-                    self.generator_suggestion.map(|v| v.cnv()).transpose()?,
+                    self.generator_suggestion
+                        .map(gaxi::prost::FromProto::<crate::model::GeneratorSuggestion>::cnv)
+                        .transpose()?,
                 )
                 .set_source_generator(self.source_generator)
                 .set_answer_record(self.answer_record),
@@ -4847,7 +5128,11 @@ impl gaxi::prost::FromProto<crate::model::GenerateSuggestionsResponse>
             .set_generator_suggestion_answers(
                 self.generator_suggestion_answers
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::generate_suggestions_response::GeneratorSuggestionAnswer,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_latest_message(self.latest_message))
@@ -4873,9 +5158,19 @@ impl gaxi::prost::FromProto<crate::model::ToolCallSuggestion> for ToolCallSugges
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::ToolCallSuggestion, gaxi::prost::ConvertError> {
-        Ok(crate::model::ToolCallSuggestion::new()
-            .set_or_clear_tool_call_info(self.tool_call_info.map(|v| v.cnv()).transpose()?)
-            .set_text_update(self.text_update))
+        Ok(
+            crate::model::ToolCallSuggestion::new()
+                .set_or_clear_tool_call_info(
+                    self.tool_call_info
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::generator_suggestion::ToolCallInfo,
+                            >::cnv,
+                        )
+                        .transpose()?,
+                )
+                .set_text_update(self.text_update),
+        )
     }
 }
 
@@ -4900,7 +5195,7 @@ impl gaxi::prost::FromProto<crate::model::ToolCallEvents> for ToolCallEvents {
             crate::model::ToolCallEvents::new().set_tool_call_suggestions(
                 self.tool_call_suggestions
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::ToolCallSuggestion>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -4992,25 +5287,37 @@ impl gaxi::prost::FromProto<crate::model::companion_suggestion::Guidance>
         Ok(crate::model::companion_suggestion::Guidance::new()
             .set_suggested_reply(self.suggested_reply)
             .set_suggested_action(self.suggested_action)
-            .set_or_clear_instruction_source(self.instruction_source.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_instruction_source(
+                self.instruction_source
+                    .map(gaxi::prost::FromProto::<crate::model::GuidanceInstruction>::cnv)
+                    .transpose()?,
+            )
             .set_knowledge_sources(
                 self.knowledge_sources
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::companion_suggestion::guidance::KnowledgeSource,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_explanation(self.explanation)
-            .set_or_clear_grounding_metadata(self.grounding_metadata.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_grounding_metadata(
+                self.grounding_metadata
+                    .map(gaxi::prost::FromProto::<crate::model::GroundingMetadata>::cnv)
+                    .transpose()?,
+            )
             .set_tool_calls(
                 self.tool_calls
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::ToolCallSuggestion>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_triggering_tool_call_answer_records(
                 self.triggering_tool_call_answer_records
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -5038,7 +5345,7 @@ impl gaxi::prost::FromProto<crate::model::CompanionSuggestion> for CompanionSugg
         Ok(crate::model::CompanionSuggestion::new().set_guidances(
             self.guidances
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<crate::model::companion_suggestion::Guidance>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -5080,7 +5387,9 @@ impl gaxi::prost::FromProto<crate::model::GenerateCompanionSuggestionsResponse>
     > {
         Ok(crate::model::GenerateCompanionSuggestionsResponse::new()
             .set_or_clear_companion_suggestion(
-                self.companion_suggestion.map(|v| v.cnv()).transpose()?,
+                self.companion_suggestion
+                    .map(gaxi::prost::FromProto::<crate::model::CompanionSuggestion>::cnv)
+                    .transpose()?,
             )
             .set_answer_record(self.answer_record)
             .set_latest_message(self.latest_message)
@@ -5122,7 +5431,7 @@ impl gaxi::prost::FromProto<crate::model::SuggestSmartRepliesResponse>
             .set_smart_reply_answers(
                 self.smart_reply_answers
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::SmartReplyAnswer>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_latest_message(self.latest_message)
@@ -5148,7 +5457,11 @@ impl gaxi::prost::ToProto<OutputAudio> for crate::model::OutputAudio {
 impl gaxi::prost::FromProto<crate::model::OutputAudio> for OutputAudio {
     fn cnv(self) -> std::result::Result<crate::model::OutputAudio, gaxi::prost::ConvertError> {
         Ok(crate::model::OutputAudio::new()
-            .set_or_clear_config(self.config.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_config(
+                self.config
+                    .map(gaxi::prost::FromProto::<crate::model::OutputAudioConfig>::cnv)
+                    .transpose()?,
+            )
             .set_audio(self.audio))
     }
 }
@@ -5208,18 +5521,24 @@ impl gaxi::prost::FromProto<crate::model::AutomatedAgentReply> for AutomatedAgen
     ) -> std::result::Result<crate::model::AutomatedAgentReply, gaxi::prost::ConvertError> {
         Ok(crate::model::AutomatedAgentReply::new()
             .set_or_clear_detect_intent_response(
-                self.detect_intent_response.map(|v| v.cnv()).transpose()?,
+                self.detect_intent_response
+                    .map(gaxi::prost::FromProto::<crate::model::DetectIntentResponse>::cnv)
+                    .transpose()?,
             )
             .set_response_messages(
                 self.response_messages
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::ResponseMessage>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_intent(self.intent)
             .set_event(self.event)
             .set_match_confidence(self.match_confidence)
-            .set_or_clear_parameters(self.parameters.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_parameters(
+                self.parameters
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            )
             .set_automated_agent_reply_type(self.automated_agent_reply_type)
             .set_allow_cancellation(self.allow_cancellation)
             .set_cx_current_page(self.cx_current_page)
@@ -5266,14 +5585,19 @@ impl gaxi::prost::FromProto<crate::model::ArticleAnswer> for ArticleAnswer {
             .set_snippets(
                 self.snippets
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_confidence(self.confidence)
             .set_metadata(
                 self.metadata
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<std::string::String>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             )
             .set_answer_record(self.answer_record))
@@ -5317,7 +5641,12 @@ impl gaxi::prost::FromProto<crate::model::FaqAnswer> for FaqAnswer {
             .set_metadata(
                 self.metadata
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<std::string::String>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             )
             .set_answer_record(self.answer_record))
@@ -5396,25 +5725,41 @@ impl gaxi::prost::FromProto<crate::model::suggestion_result::SuggestionResponse>
     > {
         use crate::model::suggestion_result::SuggestionResponse as T;
         match self {
-            Self::Error(v) => Ok(T::Error(std::boxed::Box::new(v.cnv()?))),
+            Self::Error(v) => Ok(T::Error(std::boxed::Box::new(gaxi::prost::FromProto::<
+                google_cloud_rpc::model::Status,
+            >::cnv(v)?))),
             Self::SuggestArticlesResponse(v) => {
-                Ok(T::SuggestArticlesResponse(std::boxed::Box::new(v.cnv()?)))
+                Ok(T::SuggestArticlesResponse(std::boxed::Box::new(
+                    gaxi::prost::FromProto::<crate::model::SuggestArticlesResponse>::cnv(v)?,
+                )))
             }
-            Self::SuggestKnowledgeAssistResponse(v) => Ok(T::SuggestKnowledgeAssistResponse(
-                std::boxed::Box::new(v.cnv()?),
-            )),
+            Self::SuggestKnowledgeAssistResponse(v) => {
+                Ok(T::SuggestKnowledgeAssistResponse(std::boxed::Box::new(
+                    gaxi::prost::FromProto::<crate::model::SuggestKnowledgeAssistResponse>::cnv(v)?,
+                )))
+            }
             Self::SuggestFaqAnswersResponse(v) => {
-                Ok(T::SuggestFaqAnswersResponse(std::boxed::Box::new(v.cnv()?)))
+                Ok(T::SuggestFaqAnswersResponse(std::boxed::Box::new(
+                    gaxi::prost::FromProto::<crate::model::SuggestFaqAnswersResponse>::cnv(v)?,
+                )))
             }
-            Self::SuggestSmartRepliesResponse(v) => Ok(T::SuggestSmartRepliesResponse(
-                std::boxed::Box::new(v.cnv()?),
-            )),
-            Self::GenerateSuggestionsResponse(v) => Ok(T::GenerateSuggestionsResponse(
-                std::boxed::Box::new(v.cnv()?),
-            )),
-            Self::GenerateCompanionSuggestionsResponse(v) => Ok(
-                T::GenerateCompanionSuggestionsResponse(std::boxed::Box::new(v.cnv()?)),
-            ),
+            Self::SuggestSmartRepliesResponse(v) => {
+                Ok(T::SuggestSmartRepliesResponse(std::boxed::Box::new(
+                    gaxi::prost::FromProto::<crate::model::SuggestSmartRepliesResponse>::cnv(v)?,
+                )))
+            }
+            Self::GenerateSuggestionsResponse(v) => {
+                Ok(T::GenerateSuggestionsResponse(std::boxed::Box::new(
+                    gaxi::prost::FromProto::<crate::model::GenerateSuggestionsResponse>::cnv(v)?,
+                )))
+            }
+            Self::GenerateCompanionSuggestionsResponse(v) => {
+                Ok(T::GenerateCompanionSuggestionsResponse(
+                    std::boxed::Box::new(gaxi::prost::FromProto::<
+                        crate::model::GenerateCompanionSuggestionsResponse,
+                    >::cnv(v)?),
+                ))
+            }
         }
     }
 }
@@ -5435,8 +5780,10 @@ impl gaxi::prost::ToProto<SuggestionResult> for crate::model::SuggestionResult {
 #[cfg(feature = "participants")]
 impl gaxi::prost::FromProto<crate::model::SuggestionResult> for SuggestionResult {
     fn cnv(self) -> std::result::Result<crate::model::SuggestionResult, gaxi::prost::ConvertError> {
-        Ok(crate::model::SuggestionResult::new()
-            .set_suggestion_response(self.suggestion_response.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::SuggestionResult::new()
+                .set_suggestion_response(self.suggestion_response.map(gaxi::prost::FromProto::<crate::model::suggestion_result::SuggestionResponse>::cnv).transpose()?)
+        )
     }
 }
 
@@ -5482,7 +5829,11 @@ impl gaxi::prost::FromProto<crate::model::AnnotatedMessagePart> for AnnotatedMes
         Ok(crate::model::AnnotatedMessagePart::new()
             .set_text(self.text)
             .set_entity_type(self.entity_type)
-            .set_or_clear_formatted_value(self.formatted_value.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_formatted_value(
+                self.formatted_value
+                    .map(gaxi::prost::FromProto::<wkt::Value>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -5510,7 +5861,7 @@ impl gaxi::prost::FromProto<crate::model::MessageAnnotation> for MessageAnnotati
             .set_parts(
                 self.parts
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::AnnotatedMessagePart>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_contain_entities(self.contain_entities))
@@ -5554,9 +5905,17 @@ impl gaxi::prost::FromProto<crate::model::SuggestionInput> for SuggestionInput {
     fn cnv(self) -> std::result::Result<crate::model::SuggestionInput, gaxi::prost::ConvertError> {
         Ok(crate::model::SuggestionInput::new()
             .set_answer_record(self.answer_record)
-            .set_or_clear_parameters(self.parameters.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_parameters(
+                self.parameters
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            )
             .set_action(self.action)
-            .set_or_clear_send_time(self.send_time.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_send_time(
+                self.send_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -5588,7 +5947,12 @@ impl gaxi::prost::FromProto<crate::model::AssistQueryParameters> for AssistQuery
             crate::model::AssistQueryParameters::new().set_documents_metadata_filters(
                 self.documents_metadata_filters
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<std::string::String>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             ),
         )
@@ -5617,7 +5981,7 @@ impl gaxi::prost::FromProto<crate::model::response_message::Text> for response_m
         Ok(crate::model::response_message::Text::new().set_text(
             self.text
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -5650,8 +6014,13 @@ impl gaxi::prost::FromProto<crate::model::response_message::LiveAgentHandoff>
         crate::model::response_message::LiveAgentHandoff,
         gaxi::prost::ConvertError,
     > {
-        Ok(crate::model::response_message::LiveAgentHandoff::new()
-            .set_or_clear_metadata(self.metadata.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::response_message::LiveAgentHandoff::new().set_or_clear_metadata(
+                self.metadata
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            ),
+        )
     }
 }
 
@@ -5710,8 +6079,10 @@ impl gaxi::prost::FromProto<crate::model::response_message::mixed_audio::segment
     > {
         use crate::model::response_message::mixed_audio::segment::Content as T;
         match self {
-            Self::Audio(v) => Ok(T::Audio(v.cnv()?)),
-            Self::Uri(v) => Ok(T::Uri(v.cnv()?)),
+            Self::Audio(v) => Ok(T::Audio(gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?)),
+            Self::Uri(v) => Ok(T::Uri(gaxi::prost::FromProto::<std::string::String>::cnv(
+                v,
+            )?)),
         }
     }
 }
@@ -5744,7 +6115,15 @@ impl gaxi::prost::FromProto<crate::model::response_message::mixed_audio::Segment
     > {
         Ok(crate::model::response_message::mixed_audio::Segment::new()
             .set_allow_playback_interruption(self.allow_playback_interruption)
-            .set_content(self.content.map(|v| v.cnv()).transpose()?))
+            .set_content(
+                self.content
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::response_message::mixed_audio::segment::Content,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ))
     }
 }
 
@@ -5778,7 +6157,11 @@ impl gaxi::prost::FromProto<crate::model::response_message::MixedAudio>
             crate::model::response_message::MixedAudio::new().set_segments(
                 self.segments
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::response_message::mixed_audio::Segment,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -5814,8 +6197,12 @@ impl gaxi::prost::FromProto<crate::model::response_message::telephony_transfer_c
     > {
         use crate::model::response_message::telephony_transfer_call::Endpoint as T;
         match self {
-            Self::PhoneNumber(v) => Ok(T::PhoneNumber(v.cnv()?)),
-            Self::SipUri(v) => Ok(T::SipUri(v.cnv()?)),
+            Self::PhoneNumber(v) => Ok(T::PhoneNumber(gaxi::prost::FromProto::<
+                std::string::String,
+            >::cnv(v)?)),
+            Self::SipUri(v) => Ok(T::SipUri(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
         }
     }
 }
@@ -5854,8 +6241,17 @@ impl gaxi::prost::FromProto<crate::model::response_message::TelephonyTransferCal
         crate::model::response_message::TelephonyTransferCall,
         gaxi::prost::ConvertError,
     > {
-        Ok(crate::model::response_message::TelephonyTransferCall::new()
-            .set_endpoint(self.endpoint.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::response_message::TelephonyTransferCall::new().set_endpoint(
+                self.endpoint
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::response_message::telephony_transfer_call::Endpoint,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ),
+        )
     }
 }
 
@@ -5904,14 +6300,26 @@ impl gaxi::prost::FromProto<crate::model::response_message::Message> for respons
     {
         use crate::model::response_message::Message as T;
         match self {
-            Self::Text(v) => Ok(T::Text(std::boxed::Box::new(v.cnv()?))),
-            Self::Payload(v) => Ok(T::Payload(std::boxed::Box::new(v.cnv()?))),
-            Self::LiveAgentHandoff(v) => Ok(T::LiveAgentHandoff(std::boxed::Box::new(v.cnv()?))),
-            Self::EndInteraction(v) => Ok(T::EndInteraction(std::boxed::Box::new(v.cnv()?))),
-            Self::MixedAudio(v) => Ok(T::MixedAudio(std::boxed::Box::new(v.cnv()?))),
-            Self::TelephonyTransferCall(v) => {
-                Ok(T::TelephonyTransferCall(std::boxed::Box::new(v.cnv()?)))
-            }
+            Self::Text(v) => Ok(T::Text(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::response_message::Text,
+            >::cnv(v)?))),
+            Self::Payload(v) => Ok(T::Payload(std::boxed::Box::new(gaxi::prost::FromProto::<
+                wkt::Struct,
+            >::cnv(v)?))),
+            Self::LiveAgentHandoff(v) => Ok(T::LiveAgentHandoff(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::response_message::LiveAgentHandoff>::cnv(v)?,
+            ))),
+            Self::EndInteraction(v) => Ok(T::EndInteraction(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::response_message::EndInteraction>::cnv(v)?,
+            ))),
+            Self::MixedAudio(v) => Ok(T::MixedAudio(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::response_message::MixedAudio>::cnv(v)?,
+            ))),
+            Self::TelephonyTransferCall(v) => Ok(T::TelephonyTransferCall(
+                std::boxed::Box::new(gaxi::prost::FromProto::<
+                    crate::model::response_message::TelephonyTransferCall,
+                >::cnv(v)?),
+            )),
         }
     }
 }
@@ -5932,8 +6340,11 @@ impl gaxi::prost::ToProto<ResponseMessage> for crate::model::ResponseMessage {
 #[cfg(any(feature = "conversations", feature = "participants",))]
 impl gaxi::prost::FromProto<crate::model::ResponseMessage> for ResponseMessage {
     fn cnv(self) -> std::result::Result<crate::model::ResponseMessage, gaxi::prost::ConvertError> {
-        Ok(crate::model::ResponseMessage::new()
-            .set_message(self.message.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::ResponseMessage::new().set_message(
+            self.message
+                .map(gaxi::prost::FromProto::<crate::model::response_message::Message>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -5977,14 +6388,20 @@ impl gaxi::prost::FromProto<crate::model::SuggestKnowledgeAssistResponse>
     {
         Ok(crate::model::SuggestKnowledgeAssistResponse::new()
             .set_or_clear_knowledge_assist_answer(
-                self.knowledge_assist_answer.map(|v| v.cnv()).transpose()?,
+                self.knowledge_assist_answer
+                    .map(gaxi::prost::FromProto::<crate::model::KnowledgeAssistAnswer>::cnv)
+                    .transpose()?,
             )
             .set_latest_message(self.latest_message)
             .set_context_size(self.context_size)
             .set_additional_suggested_query_results(
                 self.additional_suggested_query_results
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::knowledge_assist_answer::AdditionalSuggestedQueryResult,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -6074,15 +6491,13 @@ impl gaxi::prost::FromProto<crate::model::IngestedContextReferenceDebugInfo>
         crate::model::IngestedContextReferenceDebugInfo,
         gaxi::prost::ConvertError,
     > {
-        Ok(crate::model::IngestedContextReferenceDebugInfo::new()
-            .set_project_not_allowlisted(self.project_not_allowlisted)
-            .set_context_reference_retrieved(self.context_reference_retrieved)
-            .set_ingested_parameters_debug_info(
-                self.ingested_parameters_debug_info
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            ))
+        Ok(
+            crate::model::IngestedContextReferenceDebugInfo::new()
+                .set_project_not_allowlisted(self.project_not_allowlisted)
+                .set_context_reference_retrieved(self.context_reference_retrieved)
+                .set_ingested_parameters_debug_info(self.ingested_parameters_debug_info.into_iter().map(gaxi::prost::FromProto::<crate::model::ingested_context_reference_debug_info::IngestedParameterDebugInfo>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
+        )
     }
 }
 
@@ -6123,8 +6538,16 @@ impl gaxi::prost::FromProto<crate::model::service_latency::InternalServiceLatenc
         Ok(crate::model::service_latency::InternalServiceLatency::new()
             .set_step(self.step)
             .set_latency_ms(self.latency_ms)
-            .set_or_clear_start_time(self.start_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_complete_time(self.complete_time.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_start_time(
+                self.start_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_complete_time(
+                self.complete_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -6149,7 +6572,11 @@ impl gaxi::prost::FromProto<crate::model::ServiceLatency> for ServiceLatency {
             crate::model::ServiceLatency::new().set_internal_service_latencies(
                 self.internal_service_latencies
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::service_latency::InternalServiceLatency,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -6401,27 +6828,17 @@ impl gaxi::prost::FromProto<crate::model::KnowledgeAssistDebugInfo> for Knowledg
         self,
     ) -> std::result::Result<crate::model::KnowledgeAssistDebugInfo, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::KnowledgeAssistDebugInfo::new()
-            .set_query_generation_failure_reason(self.query_generation_failure_reason)
-            .set_query_categorization_failure_reason(self.query_categorization_failure_reason)
-            .set_datastore_response_reason(self.datastore_response_reason)
-            .set_or_clear_knowledge_assist_behavior(
-                self.knowledge_assist_behavior
-                    .map(|v| v.cnv())
-                    .transpose()?,
-            )
-            .set_or_clear_ingested_context_reference_debug_info(
-                self.ingested_context_reference_debug_info
-                    .map(|v| v.cnv())
-                    .transpose()?,
-            )
-            .set_or_clear_service_latency(self.service_latency.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_query_generation_debug_info(
-                self.query_generation_debug_info
-                    .map(|v| v.cnv())
-                    .transpose()?,
-            )
-            .set_or_clear_ces_debug_info(self.ces_debug_info.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::KnowledgeAssistDebugInfo::new()
+                .set_query_generation_failure_reason(self.query_generation_failure_reason)
+                .set_query_categorization_failure_reason(self.query_categorization_failure_reason)
+                .set_datastore_response_reason(self.datastore_response_reason)
+                .set_or_clear_knowledge_assist_behavior(self.knowledge_assist_behavior.map(gaxi::prost::FromProto::<crate::model::knowledge_assist_debug_info::KnowledgeAssistBehavior>::cnv).transpose()?)
+                .set_or_clear_ingested_context_reference_debug_info(self.ingested_context_reference_debug_info.map(gaxi::prost::FromProto::<crate::model::IngestedContextReferenceDebugInfo>::cnv).transpose()?)
+                .set_or_clear_service_latency(self.service_latency.map(gaxi::prost::FromProto::<crate::model::ServiceLatency>::cnv).transpose()?)
+                .set_or_clear_query_generation_debug_info(self.query_generation_debug_info.map(gaxi::prost::FromProto::<crate::model::knowledge_assist_debug_info::QueryGenerationDebugInfo>::cnv).transpose()?)
+                .set_or_clear_ces_debug_info(self.ces_debug_info.map(gaxi::prost::FromProto::<wkt::Struct>::cnv).transpose()?)
+        )
     }
 }
 
@@ -6500,7 +6917,11 @@ impl gaxi::prost::FromProto<crate::model::knowledge_assist_answer::SuggestedQuer
             .set_search_contexts(
                 self.search_contexts
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::knowledge_assist_answer::suggested_query::SearchContext,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -6541,7 +6962,15 @@ impl gaxi::prost::FromProto<crate::model::knowledge_assist_answer::AdditionalSug
     > {
         Ok(
             crate::model::knowledge_assist_answer::AdditionalSuggestedQueryResult::new()
-                .set_or_clear_suggested_query(self.suggested_query.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_suggested_query(
+                    self.suggested_query
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::knowledge_assist_answer::SuggestedQuery,
+                            >::cnv,
+                        )
+                        .transpose()?,
+                )
                 .set_answer_record(self.answer_record),
         )
     }
@@ -6621,7 +7050,7 @@ impl
                 .set_uri(self.uri)
                 .set_text(self.text)
                 .set_title(self.title)
-                .set_or_clear_metadata(self.metadata.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_metadata(self.metadata.map(gaxi::prost::FromProto::<wkt::Struct>::cnv).transpose()?)
         )
     }
 }
@@ -6665,12 +7094,8 @@ impl
     > {
         Ok(
             crate::model::knowledge_assist_answer::knowledge_answer::GenerativeSource::new()
-                .set_snippets(
-                    self.snippets
-                        .into_iter()
-                        .map(|v| v.cnv())
-                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-                ),
+                .set_snippets(self.snippets.into_iter().map(gaxi::prost::FromProto::<crate::model::knowledge_assist_answer::knowledge_answer::generative_source::Snippet>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }
@@ -6713,7 +7138,7 @@ impl gaxi::prost::FromProto<crate::model::knowledge_assist_answer::knowledge_ans
         Ok(
             crate::model::knowledge_assist_answer::knowledge_answer::EventSource::new()
                 .set_event(self.event)
-                .set_or_clear_snippets(self.snippets.map(|v| v.cnv()).transpose()?),
+                .set_or_clear_snippets(self.snippets.map(gaxi::prost::FromProto::<crate::model::knowledge_assist_answer::knowledge_answer::GenerativeSource>::cnv).transpose()?)
         )
     }
 }
@@ -6759,10 +7184,26 @@ impl gaxi::prost::FromProto<crate::model::knowledge_assist_answer::knowledge_ans
     > {
         use crate::model::knowledge_assist_answer::knowledge_answer::Source as T;
         match self {
-            Self::FaqSource(v) => Ok(T::FaqSource(std::boxed::Box::new(v.cnv()?))),
-            Self::GenerativeSource(v) => Ok(T::GenerativeSource(std::boxed::Box::new(v.cnv()?))),
-            Self::PlaybookSource(v) => Ok(T::PlaybookSource(std::boxed::Box::new(v.cnv()?))),
-            Self::EventSource(v) => Ok(T::EventSource(std::boxed::Box::new(v.cnv()?))),
+            Self::FaqSource(v) => Ok(T::FaqSource(std::boxed::Box::new(
+                gaxi::prost::FromProto::<
+                    crate::model::knowledge_assist_answer::knowledge_answer::FaqSource,
+                >::cnv(v)?,
+            ))),
+            Self::GenerativeSource(v) => Ok(T::GenerativeSource(std::boxed::Box::new(
+                gaxi::prost::FromProto::<
+                    crate::model::knowledge_assist_answer::knowledge_answer::GenerativeSource,
+                >::cnv(v)?,
+            ))),
+            Self::PlaybookSource(v) => Ok(T::PlaybookSource(std::boxed::Box::new(
+                gaxi::prost::FromProto::<
+                    crate::model::knowledge_assist_answer::knowledge_answer::GenerativeSource,
+                >::cnv(v)?,
+            ))),
+            Self::EventSource(v) => Ok(T::EventSource(std::boxed::Box::new(
+                gaxi::prost::FromProto::<
+                    crate::model::knowledge_assist_answer::knowledge_answer::EventSource,
+                >::cnv(v)?,
+            ))),
         }
     }
 }
@@ -6796,7 +7237,15 @@ impl gaxi::prost::FromProto<crate::model::knowledge_assist_answer::KnowledgeAnsw
         Ok(
             crate::model::knowledge_assist_answer::KnowledgeAnswer::new()
                 .set_answer_text(self.answer_text)
-                .set_source(self.source.map(|v| v.cnv()).transpose()?),
+                .set_source(
+                    self.source
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::knowledge_assist_answer::knowledge_answer::Source,
+                            >::cnv,
+                        )
+                        .transpose()?,
+                ),
         )
     }
 }
@@ -6831,14 +7280,28 @@ impl gaxi::prost::FromProto<crate::model::KnowledgeAssistAnswer> for KnowledgeAs
         self,
     ) -> std::result::Result<crate::model::KnowledgeAssistAnswer, gaxi::prost::ConvertError> {
         Ok(crate::model::KnowledgeAssistAnswer::new()
-            .set_or_clear_suggested_query(self.suggested_query.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_suggested_query(
+                self.suggested_query
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::knowledge_assist_answer::SuggestedQuery,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            )
             .set_or_clear_suggested_query_answer(
-                self.suggested_query_answer.map(|v| v.cnv()).transpose()?,
+                self.suggested_query_answer
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::knowledge_assist_answer::KnowledgeAnswer,
+                        >::cnv,
+                    )
+                    .transpose()?,
             )
             .set_answer_record(self.answer_record)
             .set_or_clear_knowledge_assist_debug_info(
                 self.knowledge_assist_debug_info
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::KnowledgeAssistDebugInfo>::cnv)
                     .transpose()?,
             ))
     }
@@ -6882,11 +7345,15 @@ impl gaxi::prost::FromProto<crate::model::streaming_reactive_companion_suggestio
     > {
         use crate::model::streaming_reactive_companion_suggestions_request::Input as T;
         match self {
-            Self::TextInput(v) => Ok(T::TextInput(v.cnv()?)),
-            Self::CancelReactiveQuery(v) => {
-                Ok(T::CancelReactiveQuery(std::boxed::Box::new(v.cnv()?)))
-            }
-            Self::SuggestionInput(v) => Ok(T::SuggestionInput(std::boxed::Box::new(v.cnv()?))),
+            Self::TextInput(v) => Ok(T::TextInput(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
+            Self::CancelReactiveQuery(v) => Ok(T::CancelReactiveQuery(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::CancelQuery>::cnv(v)?,
+            ))),
+            Self::SuggestionInput(v) => Ok(T::SuggestionInput(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::SuggestionInput>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -6927,7 +7394,7 @@ impl gaxi::prost::FromProto<crate::model::StreamingReactiveCompanionSuggestionsR
         Ok(
             crate::model::StreamingReactiveCompanionSuggestionsRequest::new()
                 .set_participant(self.participant)
-                .set_input(self.input.map(|v| v.cnv()).transpose()?),
+                .set_input(self.input.map(gaxi::prost::FromProto::<crate::model::streaming_reactive_companion_suggestions_request::Input>::cnv).transpose()?)
         )
     }
 }
@@ -6988,8 +7455,8 @@ impl
         Ok(
             crate::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse::new()
                 .set_response(self.response)
-                .set_or_clear_grounding_metadata(self.grounding_metadata.map(|v| v.cnv()).transpose()?)
-                .set_tool_calls(self.tool_calls.into_iter().map(|v| v.cnv())
+                .set_or_clear_grounding_metadata(self.grounding_metadata.map(gaxi::prost::FromProto::<crate::model::GroundingMetadata>::cnv).transpose()?)
+                .set_tool_calls(self.tool_calls.into_iter().map(gaxi::prost::FromProto::<crate::model::ToolCallSuggestion>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -7034,14 +7501,10 @@ impl
     > {
         use crate::model::streaming_reactive_companion_suggestions_response::Response as T;
         match self {
-            Self::ResponseChunk(v) => Ok(T::ResponseChunk(v.cnv()?)),
-            Self::Status(v) => Ok(T::Status(std::boxed::Box::new(v.cnv()?))),
-            Self::ReactiveModeFinalResponse(v) => {
-                Ok(T::ReactiveModeFinalResponse(std::boxed::Box::new(v.cnv()?)))
-            }
-            Self::IntermediateToolCallEvents(v) => Ok(T::IntermediateToolCallEvents(
-                std::boxed::Box::new(v.cnv()?),
-            )),
+            Self::ResponseChunk(v) => Ok(T::ResponseChunk(gaxi::prost::FromProto::<std::string::String>::cnv(v)?)),
+            Self::Status(v) => Ok(T::Status(std::boxed::Box::new(gaxi::prost::FromProto::<google_cloud_rpc::model::Status>::cnv(v)?))),
+            Self::ReactiveModeFinalResponse(v) => Ok(T::ReactiveModeFinalResponse(std::boxed::Box::new(gaxi::prost::FromProto::<crate::model::streaming_reactive_companion_suggestions_response::ReactiveModeResponse>::cnv(v)?))),
+            Self::IntermediateToolCallEvents(v) => Ok(T::IntermediateToolCallEvents(std::boxed::Box::new(gaxi::prost::FromProto::<crate::model::ToolCallEvents>::cnv(v)?))),
         }
     }
 }
@@ -7094,8 +7557,8 @@ impl gaxi::prost::FromProto<crate::model::StreamingReactiveCompanionSuggestionsR
                 .set_is_final(self.is_final)
                 .set_answer_record(self.answer_record)
                 .set_text_message_id(self.text_message_id)
-                .set_or_clear_send_time(self.send_time.map(|v| v.cnv()).transpose()?)
-                .set_response(self.response.map(|v| v.cnv()).transpose()?),
+                .set_or_clear_send_time(self.send_time.map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv).transpose()?)
+                .set_response(self.response.map(gaxi::prost::FromProto::<crate::model::streaming_reactive_companion_suggestions_response::Response>::cnv).transpose()?)
         )
     }
 }
@@ -7167,12 +7630,22 @@ impl
                 .set_enable_cx_proactive_processing(self.enable_cx_proactive_processing)
                 .set_enable_streaming_synthesize(self.enable_streaming_synthesize)
                 .set_or_clear_gemini_asr_config(
-                    self.gemini_asr_config.map(|v| v.cnv()).transpose()?,
+                    self.gemini_asr_config
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::speech_to_text_config::GeminiAsrConfig,
+                            >::cnv,
+                        )
+                        .transpose()?,
                 )
-                .set_or_clear_use_gemini_asr(self.use_gemini_asr.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_use_gemini_asr(
+                    self.use_gemini_asr
+                        .map(gaxi::prost::FromProto::<bool>::cnv)
+                        .transpose()?,
+                )
                 .set_or_clear_disable_interim_input_transcripts(
                     self.disable_interim_input_transcripts
-                        .map(|v| v.cnv())
+                        .map(gaxi::prost::FromProto::<bool>::cnv)
                         .transpose()?,
                 ),
         )
@@ -7209,9 +7682,7 @@ impl gaxi::prost::FromProto<crate::model::bidi_streaming_analyze_content_request
     > {
         use crate::model::bidi_streaming_analyze_content_request::config::Config as T;
         match self {
-            Self::VoiceSessionConfig(v) => {
-                Ok(T::VoiceSessionConfig(std::boxed::Box::new(v.cnv()?)))
-            }
+            Self::VoiceSessionConfig(v) => Ok(T::VoiceSessionConfig(std::boxed::Box::new(gaxi::prost::FromProto::<crate::model::bidi_streaming_analyze_content_request::config::VoiceSessionConfig>::cnv(v)?))),
         }
     }
 }
@@ -7262,17 +7733,9 @@ impl gaxi::prost::FromProto<crate::model::bidi_streaming_analyze_content_request
         Ok(
             crate::model::bidi_streaming_analyze_content_request::Config::new()
                 .set_participant(self.participant)
-                .set_or_clear_initial_virtual_agent_parameters(
-                    self.initial_virtual_agent_parameters
-                        .map(|v| v.cnv())
-                        .transpose()?,
-                )
-                .set_or_clear_initial_virtual_agent_query_params(
-                    self.initial_virtual_agent_query_params
-                        .map(|v| v.cnv())
-                        .transpose()?,
-                )
-                .set_config(self.config.map(|v| v.cnv()).transpose()?),
+                .set_or_clear_initial_virtual_agent_parameters(self.initial_virtual_agent_parameters.map(gaxi::prost::FromProto::<wkt::Struct>::cnv).transpose()?)
+                .set_or_clear_initial_virtual_agent_query_params(self.initial_virtual_agent_query_params.map(gaxi::prost::FromProto::<crate::model::QueryParameters>::cnv).transpose()?)
+                .set_config(self.config.map(gaxi::prost::FromProto::<crate::model::bidi_streaming_analyze_content_request::config::Config>::cnv).transpose()?)
         )
     }
 }
@@ -7316,10 +7779,18 @@ impl
     > {
         use crate::model::bidi_streaming_analyze_content_request::turn_input::MainContent as T;
         match self {
-            Self::Text(v) => Ok(T::Text(v.cnv()?)),
-            Self::Intent(v) => Ok(T::Intent(v.cnv()?)),
-            Self::Event(v) => Ok(T::Event(v.cnv()?)),
-            Self::SuggestionInput(v) => Ok(T::SuggestionInput(std::boxed::Box::new(v.cnv()?))),
+            Self::Text(v) => Ok(T::Text(gaxi::prost::FromProto::<std::string::String>::cnv(
+                v,
+            )?)),
+            Self::Intent(v) => Ok(T::Intent(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
+            Self::Event(v) => Ok(T::Event(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
+            Self::SuggestionInput(v) => Ok(T::SuggestionInput(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::SuggestionInput>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -7364,10 +7835,8 @@ impl gaxi::prost::FromProto<crate::model::bidi_streaming_analyze_content_request
     > {
         Ok(
             crate::model::bidi_streaming_analyze_content_request::TurnInput::new()
-                .set_or_clear_virtual_agent_parameters(
-                    self.virtual_agent_parameters.map(|v| v.cnv()).transpose()?,
-                )
-                .set_main_content(self.main_content.map(|v| v.cnv()).transpose()?),
+                .set_or_clear_virtual_agent_parameters(self.virtual_agent_parameters.map(gaxi::prost::FromProto::<wkt::Struct>::cnv).transpose()?)
+                .set_main_content(self.main_content.map(gaxi::prost::FromProto::<crate::model::bidi_streaming_analyze_content_request::turn_input::MainContent>::cnv).transpose()?)
         )
     }
 }
@@ -7404,9 +7873,13 @@ impl gaxi::prost::FromProto<crate::model::bidi_streaming_analyze_content_request
     > {
         use crate::model::bidi_streaming_analyze_content_request::input::Input as T;
         match self {
-            Self::Audio(v) => Ok(T::Audio(v.cnv()?)),
-            Self::Dtmf(v) => Ok(T::Dtmf(std::boxed::Box::new(v.cnv()?))),
-            Self::Turn(v) => Ok(T::Turn(std::boxed::Box::new(v.cnv()?))),
+            Self::Audio(v) => Ok(T::Audio(gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?)),
+            Self::Dtmf(v) => Ok(T::Dtmf(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::TelephonyDtmfEvents,
+            >::cnv(v)?))),
+            Self::Turn(v) => Ok(T::Turn(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::bidi_streaming_analyze_content_request::TurnInput,
+            >::cnv(v)?))),
         }
     }
 }
@@ -7446,8 +7919,15 @@ impl gaxi::prost::FromProto<crate::model::bidi_streaming_analyze_content_request
         gaxi::prost::ConvertError,
     > {
         Ok(
-            crate::model::bidi_streaming_analyze_content_request::Input::new()
-                .set_input(self.input.map(|v| v.cnv()).transpose()?),
+            crate::model::bidi_streaming_analyze_content_request::Input::new().set_input(
+                self.input
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::bidi_streaming_analyze_content_request::input::Input,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ),
         )
     }
 }
@@ -7481,8 +7961,12 @@ impl gaxi::prost::FromProto<crate::model::bidi_streaming_analyze_content_request
     > {
         use crate::model::bidi_streaming_analyze_content_request::Request as T;
         match self {
-            Self::Config(v) => Ok(T::Config(std::boxed::Box::new(v.cnv()?))),
-            Self::Input(v) => Ok(T::Input(std::boxed::Box::new(v.cnv()?))),
+            Self::Config(v) => Ok(T::Config(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::bidi_streaming_analyze_content_request::Config,
+            >::cnv(v)?))),
+            Self::Input(v) => Ok(T::Input(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::bidi_streaming_analyze_content_request::Input,
+            >::cnv(v)?))),
         }
     }
 }
@@ -7511,8 +7995,17 @@ impl gaxi::prost::FromProto<crate::model::BidiStreamingAnalyzeContentRequest>
         crate::model::BidiStreamingAnalyzeContentRequest,
         gaxi::prost::ConvertError,
     > {
-        Ok(crate::model::BidiStreamingAnalyzeContentRequest::new()
-            .set_request(self.request.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::BidiStreamingAnalyzeContentRequest::new().set_request(
+                self.request
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::bidi_streaming_analyze_content_request::Request,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ),
+        )
     }
 }
 
@@ -7613,12 +8106,22 @@ impl gaxi::prost::FromProto<crate::model::bidi_streaming_analyze_content_respons
     > {
         use crate::model::bidi_streaming_analyze_content_response::Response as T;
         match self {
-            Self::RecognitionResult(v) => Ok(T::RecognitionResult(std::boxed::Box::new(v.cnv()?))),
-            Self::BargeInSignal(v) => Ok(T::BargeInSignal(std::boxed::Box::new(v.cnv()?))),
-            Self::AnalyzeContentResponse(v) => {
-                Ok(T::AnalyzeContentResponse(std::boxed::Box::new(v.cnv()?)))
-            }
-            Self::TurnComplete(v) => Ok(T::TurnComplete(std::boxed::Box::new(v.cnv()?))),
+            Self::RecognitionResult(v) => Ok(T::RecognitionResult(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::StreamingRecognitionResult>::cnv(v)?,
+            ))),
+            Self::BargeInSignal(v) => Ok(T::BargeInSignal(std::boxed::Box::new(
+                gaxi::prost::FromProto::<
+                    crate::model::bidi_streaming_analyze_content_response::BargeInSignal,
+                >::cnv(v)?,
+            ))),
+            Self::AnalyzeContentResponse(v) => Ok(T::AnalyzeContentResponse(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::AnalyzeContentResponse>::cnv(v)?,
+            ))),
+            Self::TurnComplete(v) => Ok(T::TurnComplete(std::boxed::Box::new(
+                gaxi::prost::FromProto::<
+                    crate::model::bidi_streaming_analyze_content_response::TurnComplete,
+                >::cnv(v)?,
+            ))),
         }
     }
 }
@@ -7647,8 +8150,17 @@ impl gaxi::prost::FromProto<crate::model::BidiStreamingAnalyzeContentResponse>
         crate::model::BidiStreamingAnalyzeContentResponse,
         gaxi::prost::ConvertError,
     > {
-        Ok(crate::model::BidiStreamingAnalyzeContentResponse::new()
-            .set_response(self.response.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::BidiStreamingAnalyzeContentResponse::new().set_response(
+                self.response
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::bidi_streaming_analyze_content_response::Response,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ),
+        )
     }
 }
 
@@ -7682,11 +8194,21 @@ impl gaxi::prost::FromProto<crate::model::DetectIntentResponse> for DetectIntent
     ) -> std::result::Result<crate::model::DetectIntentResponse, gaxi::prost::ConvertError> {
         Ok(crate::model::DetectIntentResponse::new()
             .set_response_id(self.response_id)
-            .set_or_clear_query_result(self.query_result.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_webhook_status(self.webhook_status.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_query_result(
+                self.query_result
+                    .map(gaxi::prost::FromProto::<crate::model::QueryResult>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_webhook_status(
+                self.webhook_status
+                    .map(gaxi::prost::FromProto::<google_cloud_rpc::model::Status>::cnv)
+                    .transpose()?,
+            )
             .set_output_audio(self.output_audio)
             .set_or_clear_output_audio_config(
-                self.output_audio_config.map(|v| v.cnv()).transpose()?,
+                self.output_audio_config
+                    .map(gaxi::prost::FromProto::<crate::model::OutputAudioConfig>::cnv)
+                    .transpose()?,
             ))
     }
 }
@@ -7740,30 +8262,45 @@ impl gaxi::prost::FromProto<crate::model::QueryParameters> for QueryParameters {
     fn cnv(self) -> std::result::Result<crate::model::QueryParameters, gaxi::prost::ConvertError> {
         Ok(crate::model::QueryParameters::new()
             .set_time_zone(self.time_zone)
-            .set_or_clear_geo_location(self.geo_location.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_geo_location(
+                self.geo_location
+                    .map(gaxi::prost::FromProto::<google_cloud_type::model::LatLng>::cnv)
+                    .transpose()?,
+            )
             .set_contexts(
                 self.contexts
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::Context>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_reset_contexts(self.reset_contexts)
             .set_session_entity_types(
                 self.session_entity_types
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::SessionEntityType>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_payload(self.payload.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_payload(
+                self.payload
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            )
             .set_or_clear_sentiment_analysis_request_config(
                 self.sentiment_analysis_request_config
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<crate::model::SentimentAnalysisRequestConfig>::cnv,
+                    )
                     .transpose()?,
             )
             .set_webhook_headers(
                 self.webhook_headers
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<std::string::String>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             )
             .set_platform(self.platform))
@@ -7795,9 +8332,15 @@ impl gaxi::prost::FromProto<crate::model::query_input::Input> for query_input::I
     ) -> std::result::Result<crate::model::query_input::Input, gaxi::prost::ConvertError> {
         use crate::model::query_input::Input as T;
         match self {
-            Self::AudioConfig(v) => Ok(T::AudioConfig(std::boxed::Box::new(v.cnv()?))),
-            Self::Text(v) => Ok(T::Text(std::boxed::Box::new(v.cnv()?))),
-            Self::Event(v) => Ok(T::Event(std::boxed::Box::new(v.cnv()?))),
+            Self::AudioConfig(v) => Ok(T::AudioConfig(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::InputAudioConfig>::cnv(v)?,
+            ))),
+            Self::Text(v) => Ok(T::Text(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::TextInput,
+            >::cnv(v)?))),
+            Self::Event(v) => Ok(T::Event(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::EventInput,
+            >::cnv(v)?))),
         }
     }
 }
@@ -7818,7 +8361,11 @@ impl gaxi::prost::ToProto<QueryInput> for crate::model::QueryInput {
 #[cfg(feature = "sessions")]
 impl gaxi::prost::FromProto<crate::model::QueryInput> for QueryInput {
     fn cnv(self) -> std::result::Result<crate::model::QueryInput, gaxi::prost::ConvertError> {
-        Ok(crate::model::QueryInput::new().set_input(self.input.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::QueryInput::new().set_input(
+            self.input
+                .map(gaxi::prost::FromProto::<crate::model::query_input::Input>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -7900,30 +8447,46 @@ impl gaxi::prost::FromProto<crate::model::QueryResult> for QueryResult {
             .set_language_code(self.language_code)
             .set_speech_recognition_confidence(self.speech_recognition_confidence)
             .set_action(self.action)
-            .set_or_clear_parameters(self.parameters.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_parameters(
+                self.parameters
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            )
             .set_all_required_params_present(self.all_required_params_present)
             .set_cancels_slot_filling(self.cancels_slot_filling)
             .set_fulfillment_text(self.fulfillment_text)
             .set_fulfillment_messages(
                 self.fulfillment_messages
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::intent::Message>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_webhook_source(self.webhook_source)
-            .set_or_clear_webhook_payload(self.webhook_payload.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_webhook_payload(
+                self.webhook_payload
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            )
             .set_output_contexts(
                 self.output_contexts
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::Context>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_intent(self.intent.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_intent(
+                self.intent
+                    .map(gaxi::prost::FromProto::<crate::model::Intent>::cnv)
+                    .transpose()?,
+            )
             .set_intent_detection_confidence(self.intent_detection_confidence)
-            .set_or_clear_diagnostic_info(self.diagnostic_info.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_diagnostic_info(
+                self.diagnostic_info
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            )
             .set_or_clear_sentiment_analysis_result(
                 self.sentiment_analysis_result
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::SentimentAnalysisResult>::cnv)
                     .transpose()?,
             ))
     }
@@ -7974,14 +8537,26 @@ impl gaxi::prost::FromProto<crate::model::StreamingDetectIntentRequest>
     {
         Ok(crate::model::StreamingDetectIntentRequest::new()
             .set_session(self.session)
-            .set_or_clear_query_params(self.query_params.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_query_input(self.query_input.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_query_params(
+                self.query_params
+                    .map(gaxi::prost::FromProto::<crate::model::QueryParameters>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_query_input(
+                self.query_input
+                    .map(gaxi::prost::FromProto::<crate::model::QueryInput>::cnv)
+                    .transpose()?,
+            )
             .set_single_utterance(self.single_utterance)
             .set_or_clear_output_audio_config(
-                self.output_audio_config.map(|v| v.cnv()).transpose()?,
+                self.output_audio_config
+                    .map(gaxi::prost::FromProto::<crate::model::OutputAudioConfig>::cnv)
+                    .transpose()?,
             )
             .set_or_clear_output_audio_config_mask(
-                self.output_audio_config_mask.map(|v| v.cnv()).transpose()?,
+                self.output_audio_config_mask
+                    .map(gaxi::prost::FromProto::<wkt::FieldMask>::cnv)
+                    .transpose()?,
             )
             .set_input_audio(self.input_audio)
             .set_enable_debugging_info(self.enable_debugging_info))
@@ -8073,22 +8648,26 @@ impl gaxi::prost::FromProto<crate::model::CloudConversationDebuggingInfo>
         Ok(crate::model::CloudConversationDebuggingInfo::new()
             .set_audio_data_chunks(self.audio_data_chunks)
             .set_or_clear_result_end_time_offset(
-                self.result_end_time_offset.map(|v| v.cnv()).transpose()?,
+                self.result_end_time_offset
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
             )
             .set_or_clear_first_audio_duration(
-                self.first_audio_duration.map(|v| v.cnv()).transpose()?,
+                self.first_audio_duration
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
             )
             .set_single_utterance(self.single_utterance)
             .set_speech_partial_results_end_times(
                 self.speech_partial_results_end_times
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_speech_final_results_end_times(
                 self.speech_final_results_end_times
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_partial_responses(self.partial_responses)
@@ -8098,33 +8677,39 @@ impl gaxi::prost::FromProto<crate::model::CloudConversationDebuggingInfo>
             .set_dtmf_partial_results_times(
                 self.dtmf_partial_results_times
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_dtmf_final_results_times(
                 self.dtmf_final_results_times
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_or_clear_single_utterance_end_time_offset(
                 self.single_utterance_end_time_offset
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
                     .transpose()?,
             )
-            .set_or_clear_no_speech_timeout(self.no_speech_timeout.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_no_speech_timeout(
+                self.no_speech_timeout
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            )
             .set_or_clear_endpointing_timeout(
-                self.endpointing_timeout.map(|v| v.cnv()).transpose()?,
+                self.endpointing_timeout
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
             )
             .set_is_input_text(self.is_input_text)
             .set_or_clear_client_half_close_time_offset(
                 self.client_half_close_time_offset
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
                     .transpose()?,
             )
             .set_or_clear_client_half_close_streaming_time_offset(
                 self.client_half_close_streaming_time_offset
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
                     .transpose()?,
             ))
     }
@@ -8175,14 +8760,34 @@ impl gaxi::prost::FromProto<crate::model::StreamingDetectIntentResponse>
     {
         Ok(crate::model::StreamingDetectIntentResponse::new()
             .set_response_id(self.response_id)
-            .set_or_clear_recognition_result(self.recognition_result.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_query_result(self.query_result.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_webhook_status(self.webhook_status.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_recognition_result(
+                self.recognition_result
+                    .map(gaxi::prost::FromProto::<crate::model::StreamingRecognitionResult>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_query_result(
+                self.query_result
+                    .map(gaxi::prost::FromProto::<crate::model::QueryResult>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_webhook_status(
+                self.webhook_status
+                    .map(gaxi::prost::FromProto::<google_cloud_rpc::model::Status>::cnv)
+                    .transpose()?,
+            )
             .set_output_audio(self.output_audio)
             .set_or_clear_output_audio_config(
-                self.output_audio_config.map(|v| v.cnv()).transpose()?,
+                self.output_audio_config
+                    .map(gaxi::prost::FromProto::<crate::model::OutputAudioConfig>::cnv)
+                    .transpose()?,
             )
-            .set_or_clear_debugging_info(self.debugging_info.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_debugging_info(
+                self.debugging_info
+                    .map(
+                        gaxi::prost::FromProto::<crate::model::CloudConversationDebuggingInfo>::cnv,
+                    )
+                    .transpose()?,
+            ))
     }
 }
 
@@ -8245,10 +8850,14 @@ impl gaxi::prost::FromProto<crate::model::StreamingRecognitionResult>
             .set_speech_word_info(
                 self.speech_word_info
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::SpeechWordInfo>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_speech_end_offset(self.speech_end_offset.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_speech_end_offset(
+                self.speech_end_offset
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            )
             .set_language_code(self.language_code))
     }
 }
@@ -8305,7 +8914,11 @@ impl gaxi::prost::FromProto<crate::model::EventInput> for EventInput {
     fn cnv(self) -> std::result::Result<crate::model::EventInput, gaxi::prost::ConvertError> {
         Ok(crate::model::EventInput::new()
             .set_name(self.name)
-            .set_or_clear_parameters(self.parameters.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_parameters(
+                self.parameters
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            )
             .set_language_code(self.language_code))
     }
 }
@@ -8373,9 +8986,15 @@ impl gaxi::prost::FromProto<crate::model::SentimentAnalysisResult> for Sentiment
     ) -> std::result::Result<crate::model::SentimentAnalysisResult, gaxi::prost::ConvertError> {
         Ok(crate::model::SentimentAnalysisResult::new()
             .set_or_clear_query_text_sentiment(
-                self.query_text_sentiment.map(|v| v.cnv()).transpose()?,
+                self.query_text_sentiment
+                    .map(gaxi::prost::FromProto::<crate::model::Sentiment>::cnv)
+                    .transpose()?,
             )
-            .set_or_clear_status(self.status.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_status(
+                self.status
+                    .map(gaxi::prost::FromProto::<google_cloud_rpc::model::Status>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -8464,7 +9083,7 @@ impl gaxi::prost::FromProto<crate::model::SessionEntityType> for SessionEntityTy
             .set_entities(
                 self.entities
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::entity_type::Entity>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -8545,8 +9164,16 @@ impl gaxi::prost::FromProto<crate::model::tool::FunctionTool> for tool::Function
         self,
     ) -> std::result::Result<crate::model::tool::FunctionTool, gaxi::prost::ConvertError> {
         Ok(crate::model::tool::FunctionTool::new()
-            .set_or_clear_input_schema(self.input_schema.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_output_schema(self.output_schema.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_input_schema(
+                self.input_schema
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_output_schema(
+                self.output_schema
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            )
             .set_method_type(self.method_type))
     }
 }
@@ -8591,7 +9218,9 @@ impl gaxi::prost::FromProto<crate::model::tool::open_api_tool::Schema>
     {
         use crate::model::tool::open_api_tool::Schema as T;
         match self {
-            Self::TextSchema(v) => Ok(T::TextSchema(v.cnv()?)),
+            Self::TextSchema(v) => Ok(T::TextSchema(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
         }
     }
 }
@@ -8643,12 +9272,26 @@ impl gaxi::prost::FromProto<crate::model::tool::OpenApiTool> for tool::OpenApiTo
         self,
     ) -> std::result::Result<crate::model::tool::OpenApiTool, gaxi::prost::ConvertError> {
         Ok(crate::model::tool::OpenApiTool::new()
-            .set_or_clear_authentication(self.authentication.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_tls_config(self.tls_config.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_service_directory_config(
-                self.service_directory_config.map(|v| v.cnv()).transpose()?,
+            .set_or_clear_authentication(
+                self.authentication
+                    .map(gaxi::prost::FromProto::<crate::model::tool::Authentication>::cnv)
+                    .transpose()?,
             )
-            .set_schema(self.schema.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_tls_config(
+                self.tls_config
+                    .map(gaxi::prost::FromProto::<crate::model::tool::TLSConfig>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_service_directory_config(
+                self.service_directory_config
+                    .map(gaxi::prost::FromProto::<crate::model::tool::ServiceDirectoryConfig>::cnv)
+                    .transpose()?,
+            )
+            .set_schema(
+                self.schema
+                    .map(gaxi::prost::FromProto::<crate::model::tool::open_api_tool::Schema>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -8776,8 +9419,14 @@ impl gaxi::prost::FromProto<crate::model::tool::connector_tool::action::ActionSp
     > {
         use crate::model::tool::connector_tool::action::ActionSpec as T;
         match self {
-            Self::ConnectionActionId(v) => Ok(T::ConnectionActionId(v.cnv()?)),
-            Self::EntityOperation(v) => Ok(T::EntityOperation(std::boxed::Box::new(v.cnv()?))),
+            Self::ConnectionActionId(v) => Ok(T::ConnectionActionId(gaxi::prost::FromProto::<
+                std::string::String,
+            >::cnv(v)?)),
+            Self::EntityOperation(v) => Ok(T::EntityOperation(std::boxed::Box::new(
+                gaxi::prost::FromProto::<
+                    crate::model::tool::connector_tool::action::EntityOperation,
+                >::cnv(v)?,
+            ))),
         }
     }
 }
@@ -8837,16 +9486,24 @@ impl gaxi::prost::FromProto<crate::model::tool::connector_tool::Action>
             .set_input_fields(
                 self.input_fields
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_output_fields(
                 self.output_fields
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_action_spec(self.action_spec.map(|v| v.cnv()).transpose()?))
+            .set_action_spec(
+                self.action_spec
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::tool::connector_tool::action::ActionSpec,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ))
     }
 }
 
@@ -8891,7 +9548,7 @@ impl gaxi::prost::FromProto<crate::model::tool::ConnectorTool> for tool::Connect
             .set_actions(
                 self.actions
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::tool::connector_tool::Action>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -9041,7 +9698,7 @@ impl gaxi::prost::FromProto<crate::model::tool::authentication::OAuthConfig>
             .set_scopes(
                 self.scopes
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -9244,12 +9901,22 @@ impl gaxi::prost::FromProto<crate::model::tool::authentication::AuthConfig>
     > {
         use crate::model::tool::authentication::AuthConfig as T;
         match self {
-            Self::ApiKeyConfig(v) => Ok(T::ApiKeyConfig(std::boxed::Box::new(v.cnv()?))),
-            Self::OauthConfig(v) => Ok(T::OauthConfig(std::boxed::Box::new(v.cnv()?))),
-            Self::ServiceAgentAuthConfig(v) => {
-                Ok(T::ServiceAgentAuthConfig(std::boxed::Box::new(v.cnv()?)))
-            }
-            Self::BearerTokenConfig(v) => Ok(T::BearerTokenConfig(std::boxed::Box::new(v.cnv()?))),
+            Self::ApiKeyConfig(v) => Ok(T::ApiKeyConfig(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::tool::authentication::ApiKeyConfig>::cnv(v)?,
+            ))),
+            Self::OauthConfig(v) => Ok(T::OauthConfig(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::tool::authentication::OAuthConfig>::cnv(v)?,
+            ))),
+            Self::ServiceAgentAuthConfig(v) => Ok(T::ServiceAgentAuthConfig(
+                std::boxed::Box::new(gaxi::prost::FromProto::<
+                    crate::model::tool::authentication::ServiceAgentAuthConfig,
+                >::cnv(v)?),
+            )),
+            Self::BearerTokenConfig(v) => Ok(T::BearerTokenConfig(
+                std::boxed::Box::new(gaxi::prost::FromProto::<
+                    crate::model::tool::authentication::BearerTokenConfig,
+                >::cnv(v)?),
+            )),
         }
     }
 }
@@ -9288,8 +9955,11 @@ impl gaxi::prost::FromProto<crate::model::tool::Authentication> for tool::Authen
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::tool::Authentication, gaxi::prost::ConvertError> {
-        Ok(crate::model::tool::Authentication::new()
-            .set_auth_config(self.auth_config.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::tool::Authentication::new().set_auth_config(
+            self.auth_config
+                .map(gaxi::prost::FromProto::<crate::model::tool::authentication::AuthConfig>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -9368,7 +10038,7 @@ impl gaxi::prost::FromProto<crate::model::tool::TLSConfig> for tool::TlsConfig {
         Ok(crate::model::tool::TLSConfig::new().set_ca_certs(
             self.ca_certs
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<crate::model::tool::tls_config::CACert>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -9500,10 +10170,18 @@ impl gaxi::prost::FromProto<crate::model::tool::Specification> for tool::Specifi
     ) -> std::result::Result<crate::model::tool::Specification, gaxi::prost::ConvertError> {
         use crate::model::tool::Specification as T;
         match self {
-            Self::ExtensionSpec(v) => Ok(T::ExtensionSpec(std::boxed::Box::new(v.cnv()?))),
-            Self::FunctionSpec(v) => Ok(T::FunctionSpec(std::boxed::Box::new(v.cnv()?))),
-            Self::ConnectorSpec(v) => Ok(T::ConnectorSpec(std::boxed::Box::new(v.cnv()?))),
-            Self::OpenApiSpec(v) => Ok(T::OpenApiSpec(std::boxed::Box::new(v.cnv()?))),
+            Self::ExtensionSpec(v) => Ok(T::ExtensionSpec(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::tool::ExtensionTool>::cnv(v)?,
+            ))),
+            Self::FunctionSpec(v) => Ok(T::FunctionSpec(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::tool::FunctionTool>::cnv(v)?,
+            ))),
+            Self::ConnectorSpec(v) => Ok(T::ConnectorSpec(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::tool::ConnectorTool>::cnv(v)?,
+            ))),
+            Self::OpenApiSpec(v) => Ok(T::OpenApiSpec(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::tool::OpenApiTool>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -9578,14 +10256,39 @@ impl gaxi::prost::FromProto<crate::model::Tool> for Tool {
             .set_action_confirmation_requirement(
                 self.action_confirmation_requirement
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            Ok(crate::model::tool::ConfirmationRequirement::from(v)),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             )
-            .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_satisfies_pzs(self.satisfies_pzs.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_satisfies_pzi(self.satisfies_pzi.map(|v| v.cnv()).transpose()?)
-            .set_specification(self.specification.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_create_time(
+                self.create_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_update_time(
+                self.update_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_satisfies_pzs(
+                self.satisfies_pzs
+                    .map(gaxi::prost::FromProto::<bool>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_satisfies_pzi(
+                self.satisfies_pzi
+                    .map(gaxi::prost::FromProto::<bool>::cnv)
+                    .transpose()?,
+            )
+            .set_specification(
+                self.specification
+                    .map(gaxi::prost::FromProto::<crate::model::tool::Specification>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -9646,10 +10349,18 @@ impl gaxi::prost::FromProto<crate::model::tool_call::Source> for tool_call::Sour
     ) -> std::result::Result<crate::model::tool_call::Source, gaxi::prost::ConvertError> {
         use crate::model::tool_call::Source as T;
         match self {
-            Self::Tool(v) => Ok(T::Tool(v.cnv()?)),
-            Self::CesTool(v) => Ok(T::CesTool(v.cnv()?)),
-            Self::CesToolset(v) => Ok(T::CesToolset(v.cnv()?)),
-            Self::CesApp(v) => Ok(T::CesApp(v.cnv()?)),
+            Self::Tool(v) => Ok(T::Tool(gaxi::prost::FromProto::<std::string::String>::cnv(
+                v,
+            )?)),
+            Self::CesTool(v) => Ok(T::CesTool(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
+            Self::CesToolset(v) => Ok(T::CesToolset(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
+            Self::CesApp(v) => Ok(T::CesApp(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
         }
     }
 }
@@ -9705,11 +10416,23 @@ impl gaxi::prost::FromProto<crate::model::ToolCall> for ToolCall {
             .set_tool_display_name(self.tool_display_name)
             .set_tool_display_details(self.tool_display_details)
             .set_action(self.action)
-            .set_or_clear_input_parameters(self.input_parameters.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_input_parameters(
+                self.input_parameters
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_create_time(
+                self.create_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
             .set_answer_record(self.answer_record)
             .set_state(self.state)
-            .set_source(self.source.map(|v| v.cnv()).transpose()?))
+            .set_source(
+                self.source
+                    .map(gaxi::prost::FromProto::<crate::model::tool_call::Source>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -9788,10 +10511,18 @@ impl gaxi::prost::FromProto<crate::model::tool_call_result::Source> for tool_cal
     {
         use crate::model::tool_call_result::Source as T;
         match self {
-            Self::Tool(v) => Ok(T::Tool(v.cnv()?)),
-            Self::CesToolset(v) => Ok(T::CesToolset(v.cnv()?)),
-            Self::CesTool(v) => Ok(T::CesTool(v.cnv()?)),
-            Self::CesApp(v) => Ok(T::CesApp(v.cnv()?)),
+            Self::Tool(v) => Ok(T::Tool(gaxi::prost::FromProto::<std::string::String>::cnv(
+                v,
+            )?)),
+            Self::CesToolset(v) => Ok(T::CesToolset(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
+            Self::CesTool(v) => Ok(T::CesTool(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
+            Self::CesApp(v) => Ok(T::CesApp(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
         }
     }
 }
@@ -9834,9 +10565,15 @@ impl gaxi::prost::FromProto<crate::model::tool_call_result::Result> for tool_cal
     {
         use crate::model::tool_call_result::Result as T;
         match self {
-            Self::Error(v) => Ok(T::Error(std::boxed::Box::new(v.cnv()?))),
-            Self::RawContent(v) => Ok(T::RawContent(v.cnv()?)),
-            Self::Content(v) => Ok(T::Content(v.cnv()?)),
+            Self::Error(v) => Ok(T::Error(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::tool_call_result::Error,
+            >::cnv(v)?))),
+            Self::RawContent(v) => Ok(T::RawContent(
+                gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?,
+            )),
+            Self::Content(v) => Ok(T::Content(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
         }
     }
 }
@@ -9883,10 +10620,22 @@ impl gaxi::prost::FromProto<crate::model::ToolCallResult> for ToolCallResult {
     fn cnv(self) -> std::result::Result<crate::model::ToolCallResult, gaxi::prost::ConvertError> {
         Ok(crate::model::ToolCallResult::new()
             .set_action(self.action)
-            .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_create_time(
+                self.create_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
             .set_answer_record(self.answer_record)
-            .set_source(self.source.map(|v| v.cnv()).transpose()?)
-            .set_result(self.result.map(|v| v.cnv()).transpose()?))
+            .set_source(
+                self.source
+                    .map(gaxi::prost::FromProto::<crate::model::tool_call_result::Source>::cnv)
+                    .transpose()?,
+            )
+            .set_result(
+                self.result
+                    .map(gaxi::prost::FromProto::<crate::model::tool_call_result::Result>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 

@@ -79,10 +79,10 @@ impl gaxi::prost::FromProto<google_cloud_longrunning::model::ListOperationsRespo
     fn cnv(self) -> std::result::Result<google_cloud_longrunning::model::ListOperationsResponse, gaxi::prost::ConvertError> {
         Ok(
             google_cloud_longrunning::model::ListOperationsResponse::new()
-                .set_operations(self.operations.into_iter().map(|v| v.cnv())
+                .set_operations(self.operations.into_iter().map(gaxi::prost::FromProto::<google_cloud_longrunning::model::Operation>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_next_page_token(self.next_page_token)
-                .set_unreachable(self.unreachable.into_iter().map(|v| v.cnv())
+                .set_unreachable(self.unreachable.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -139,7 +139,7 @@ impl gaxi::prost::FromProto<google_cloud_longrunning::model::WaitOperationReques
         Ok(
             google_cloud_longrunning::model::WaitOperationRequest::new()
                 .set_name(self.name)
-                .set_or_clear_timeout(self.timeout.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_timeout(self.timeout.map(gaxi::prost::FromProto::<wkt::Duration>::cnv).transpose()?)
         )
     }
 }

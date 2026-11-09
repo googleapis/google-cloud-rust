@@ -46,7 +46,7 @@ impl gaxi::prost::FromProto<google_cloud_rpc::model::ErrorInfo> for ErrorInfo {
                 .set_domain(self.domain)
                 .set_metadata(self.metadata.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<std::string::String>::cnv(v))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
         )
     }
@@ -65,7 +65,7 @@ impl gaxi::prost::FromProto<google_cloud_rpc::model::RetryInfo> for RetryInfo {
     fn cnv(self) -> std::result::Result<google_cloud_rpc::model::RetryInfo, gaxi::prost::ConvertError> {
         Ok(
             google_cloud_rpc::model::RetryInfo::new()
-                .set_or_clear_retry_delay(self.retry_delay.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_retry_delay(self.retry_delay.map(gaxi::prost::FromProto::<wkt::Duration>::cnv).transpose()?)
         )
     }
 }
@@ -87,7 +87,7 @@ impl gaxi::prost::FromProto<google_cloud_rpc::model::DebugInfo> for DebugInfo {
     fn cnv(self) -> std::result::Result<google_cloud_rpc::model::DebugInfo, gaxi::prost::ConvertError> {
         Ok(
             google_cloud_rpc::model::DebugInfo::new()
-                .set_stack_entries(self.stack_entries.into_iter().map(|v| v.cnv())
+                .set_stack_entries(self.stack_entries.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_detail(self.detail)
         )
@@ -125,10 +125,10 @@ impl gaxi::prost::FromProto<google_cloud_rpc::model::quota_failure::Violation> f
                 .set_quota_id(self.quota_id)
                 .set_quota_dimensions(self.quota_dimensions.into_iter()
                     .map(|(k, v)| {
-                        gaxi::prost::pair_transpose(k.cnv(), v.cnv())
+                        gaxi::prost::pair_transpose(gaxi::prost::FromProto::<std::string::String>::cnv(k), gaxi::prost::FromProto::<std::string::String>::cnv(v))
                     }).collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?)
                 .set_quota_value(self.quota_value)
-                .set_or_clear_future_quota_value(self.future_quota_value.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_future_quota_value(self.future_quota_value.map(gaxi::prost::FromProto::<i64>::cnv).transpose()?)
         )
     }
 }
@@ -149,7 +149,7 @@ impl gaxi::prost::FromProto<google_cloud_rpc::model::QuotaFailure> for QuotaFail
     fn cnv(self) -> std::result::Result<google_cloud_rpc::model::QuotaFailure, gaxi::prost::ConvertError> {
         Ok(
             google_cloud_rpc::model::QuotaFailure::new()
-                .set_violations(self.violations.into_iter().map(|v| v.cnv())
+                .set_violations(self.violations.into_iter().map(gaxi::prost::FromProto::<google_cloud_rpc::model::quota_failure::Violation>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -193,7 +193,7 @@ impl gaxi::prost::FromProto<google_cloud_rpc::model::PreconditionFailure> for Pr
     fn cnv(self) -> std::result::Result<google_cloud_rpc::model::PreconditionFailure, gaxi::prost::ConvertError> {
         Ok(
             google_cloud_rpc::model::PreconditionFailure::new()
-                .set_violations(self.violations.into_iter().map(|v| v.cnv())
+                .set_violations(self.violations.into_iter().map(gaxi::prost::FromProto::<google_cloud_rpc::model::precondition_failure::Violation>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -218,7 +218,7 @@ impl gaxi::prost::FromProto<google_cloud_rpc::model::bad_request::FieldViolation
                 .set_field(self.field)
                 .set_description(self.description)
                 .set_reason(self.reason)
-                .set_or_clear_localized_message(self.localized_message.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_localized_message(self.localized_message.map(gaxi::prost::FromProto::<google_cloud_rpc::model::LocalizedMessage>::cnv).transpose()?)
         )
     }
 }
@@ -239,7 +239,7 @@ impl gaxi::prost::FromProto<google_cloud_rpc::model::BadRequest> for BadRequest 
     fn cnv(self) -> std::result::Result<google_cloud_rpc::model::BadRequest, gaxi::prost::ConvertError> {
         Ok(
             google_cloud_rpc::model::BadRequest::new()
-                .set_field_violations(self.field_violations.into_iter().map(|v| v.cnv())
+                .set_field_violations(self.field_violations.into_iter().map(gaxi::prost::FromProto::<google_cloud_rpc::model::bad_request::FieldViolation>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -325,7 +325,7 @@ impl gaxi::prost::FromProto<google_cloud_rpc::model::Help> for Help {
     fn cnv(self) -> std::result::Result<google_cloud_rpc::model::Help, gaxi::prost::ConvertError> {
         Ok(
             google_cloud_rpc::model::Help::new()
-                .set_links(self.links.into_iter().map(|v| v.cnv())
+                .set_links(self.links.into_iter().map(gaxi::prost::FromProto::<google_cloud_rpc::model::help::Link>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -372,7 +372,7 @@ impl gaxi::prost::FromProto<google_cloud_rpc::model::HttpRequest> for HttpReques
             google_cloud_rpc::model::HttpRequest::new()
                 .set_method(self.method)
                 .set_uri(self.uri)
-                .set_headers(self.headers.into_iter().map(|v| v.cnv())
+                .set_headers(self.headers.into_iter().map(gaxi::prost::FromProto::<google_cloud_rpc::model::HttpHeader>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_body(self.body)
         )
@@ -400,7 +400,7 @@ impl gaxi::prost::FromProto<google_cloud_rpc::model::HttpResponse> for HttpRespo
             google_cloud_rpc::model::HttpResponse::new()
                 .set_status(self.status)
                 .set_reason(self.reason)
-                .set_headers(self.headers.into_iter().map(|v| v.cnv())
+                .set_headers(self.headers.into_iter().map(gaxi::prost::FromProto::<google_cloud_rpc::model::HttpHeader>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_body(self.body)
         )

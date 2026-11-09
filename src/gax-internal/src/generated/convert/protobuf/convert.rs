@@ -33,7 +33,7 @@ impl gaxi::prost::FromProto<wkt::descriptor_proto::ExtensionRange> for descripto
             wkt::descriptor_proto::ExtensionRange::new()
                 .set_start(self.start.unwrap_or_default())
                 .set_end(self.end.unwrap_or_default())
-                .set_or_clear_options(self.options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_options(self.options.map(gaxi::prost::FromProto::<wkt::ExtensionRangeOptions>::cnv).transpose()?)
         )
     }
 }
@@ -102,20 +102,20 @@ impl gaxi::prost::FromProto<wkt::DescriptorProto> for DescriptorProto {
         Ok(
             wkt::DescriptorProto::new()
                 .set_name(self.name.unwrap_or_default())
-                .set_field(self.field.into_iter().map(|v| v.cnv())
+                .set_field(self.field.into_iter().map(gaxi::prost::FromProto::<wkt::FieldDescriptorProto>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_extension(self.extension.into_iter().map(|v| v.cnv())
+                .set_extension(self.extension.into_iter().map(gaxi::prost::FromProto::<wkt::FieldDescriptorProto>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_nested_type(self.nested_type.into_iter().map(|v| v.cnv())
+                .set_nested_type(self.nested_type.into_iter().map(gaxi::prost::FromProto::<wkt::DescriptorProto>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_enum_type(self.enum_type.into_iter().map(|v| v.cnv())
+                .set_enum_type(self.enum_type.into_iter().map(gaxi::prost::FromProto::<wkt::EnumDescriptorProto>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_extension_range(self.extension_range.into_iter().map(|v| v.cnv())
+                .set_extension_range(self.extension_range.into_iter().map(gaxi::prost::FromProto::<wkt::descriptor_proto::ExtensionRange>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_options(self.options.map(|v| v.cnv()).transpose()?)
-                .set_reserved_range(self.reserved_range.into_iter().map(|v| v.cnv())
+                .set_or_clear_options(self.options.map(gaxi::prost::FromProto::<wkt::MessageOptions>::cnv).transpose()?)
+                .set_reserved_range(self.reserved_range.into_iter().map(gaxi::prost::FromProto::<wkt::descriptor_proto::ReservedRange>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_reserved_name(self.reserved_name.into_iter().map(|v| v.cnv())
+                .set_reserved_name(self.reserved_name.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -182,7 +182,7 @@ impl gaxi::prost::FromProto<wkt::FieldDescriptorProto> for FieldDescriptorProto 
                 .set_extendee(self.extendee.unwrap_or_default())
                 .set_default_value(self.default_value.unwrap_or_default())
                 .set_json_name(self.json_name.unwrap_or_default())
-                .set_or_clear_options(self.options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_options(self.options.map(gaxi::prost::FromProto::<wkt::FieldOptions>::cnv).transpose()?)
         )
     }
 }
@@ -234,12 +234,12 @@ impl gaxi::prost::FromProto<wkt::EnumDescriptorProto> for EnumDescriptorProto {
         Ok(
             wkt::EnumDescriptorProto::new()
                 .set_name(self.name.unwrap_or_default())
-                .set_value(self.value.into_iter().map(|v| v.cnv())
+                .set_value(self.value.into_iter().map(gaxi::prost::FromProto::<wkt::EnumValueDescriptorProto>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_options(self.options.map(|v| v.cnv()).transpose()?)
-                .set_reserved_range(self.reserved_range.into_iter().map(|v| v.cnv())
+                .set_or_clear_options(self.options.map(gaxi::prost::FromProto::<wkt::EnumOptions>::cnv).transpose()?)
+                .set_reserved_range(self.reserved_range.into_iter().map(gaxi::prost::FromProto::<wkt::enum_descriptor_proto::EnumReservedRange>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_reserved_name(self.reserved_name.into_iter().map(|v| v.cnv())
+                .set_reserved_name(self.reserved_name.into_iter().map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
@@ -262,7 +262,7 @@ impl gaxi::prost::FromProto<wkt::EnumValueDescriptorProto> for EnumValueDescript
             wkt::EnumValueDescriptorProto::new()
                 .set_name(self.name.unwrap_or_default())
                 .set_number(self.number.unwrap_or_default())
-                .set_or_clear_options(self.options.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_options(self.options.map(gaxi::prost::FromProto::<wkt::EnumValueOptions>::cnv).transpose()?)
         )
     }
 }

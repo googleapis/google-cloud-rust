@@ -98,12 +98,9 @@ impl gaxi::prost::FromProto<crate::model::advanced_voice_options::SafetySettings
         gaxi::prost::ConvertError,
     > {
         Ok(
-            crate::model::advanced_voice_options::SafetySettings::new().set_settings(
-                self.settings
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            ),
+            crate::model::advanced_voice_options::SafetySettings::new()
+                .set_settings(self.settings.into_iter().map(gaxi::prost::FromProto::<crate::model::advanced_voice_options::SafetySetting>::cnv)
+                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
         )
     }
 }
@@ -162,12 +159,24 @@ impl gaxi::prost::FromProto<crate::model::AdvancedVoiceOptions> for AdvancedVoic
         Ok(crate::model::AdvancedVoiceOptions::new()
             .set_or_clear_low_latency_journey_synthesis(
                 self.low_latency_journey_synthesis
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<bool>::cnv)
                     .transpose()?,
             )
             .set_relax_safety_filters(self.relax_safety_filters)
-            .set_or_clear_safety_settings(self.safety_settings.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_enable_textnorm(self.enable_textnorm.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_safety_settings(
+                self.safety_settings
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::advanced_voice_options::SafetySettings,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            )
+            .set_or_clear_enable_textnorm(
+                self.enable_textnorm
+                    .map(gaxi::prost::FromProto::<bool>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -211,9 +220,20 @@ impl gaxi::prost::FromProto<crate::model::CustomPronunciationParams> for CustomP
     ) -> std::result::Result<crate::model::CustomPronunciationParams, gaxi::prost::ConvertError>
     {
         Ok(crate::model::CustomPronunciationParams::new()
-            .set_or_clear_phrase(self.phrase.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_phonetic_encoding(self.phonetic_encoding.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_pronunciation(self.pronunciation.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_phrase(
+                self.phrase
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_phonetic_encoding(
+                self.phonetic_encoding
+                    .map(crate::model::custom_pronunciation_params::PhoneticEncoding::from),
+            )
+            .set_or_clear_pronunciation(
+                self.pronunciation
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -238,7 +258,7 @@ impl gaxi::prost::FromProto<crate::model::CustomPronunciations> for CustomPronun
             crate::model::CustomPronunciations::new().set_pronunciations(
                 self.pronunciations
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::CustomPronunciationParams>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -290,7 +310,7 @@ impl gaxi::prost::FromProto<crate::model::MultiSpeakerMarkup> for MultiSpeakerMa
         Ok(crate::model::MultiSpeakerMarkup::new().set_turns(
             self.turns
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<crate::model::multi_speaker_markup::Turn>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -340,7 +360,7 @@ impl gaxi::prost::FromProto<crate::model::MultiSpeakerVoiceConfig> for MultiSpea
             crate::model::MultiSpeakerVoiceConfig::new().set_speaker_voice_configs(
                 self.speaker_voice_configs
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::MultispeakerPrebuiltVoice>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -381,12 +401,20 @@ impl gaxi::prost::FromProto<crate::model::VoiceSelectionParams> for VoiceSelecti
             .set_language_code(self.language_code)
             .set_name(self.name)
             .set_ssml_gender(self.ssml_gender)
-            .set_or_clear_custom_voice(self.custom_voice.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_voice_clone(self.voice_clone.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_custom_voice(
+                self.custom_voice
+                    .map(gaxi::prost::FromProto::<crate::model::CustomVoiceParams>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_voice_clone(
+                self.voice_clone
+                    .map(gaxi::prost::FromProto::<crate::model::VoiceCloneParams>::cnv)
+                    .transpose()?,
+            )
             .set_model_name(self.model_name)
             .set_or_clear_multi_speaker_voice_config(
                 self.multi_speaker_voice_config
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::MultiSpeakerVoiceConfig>::cnv)
                     .transpose()?,
             ))
     }
@@ -495,15 +523,25 @@ impl gaxi::prost::FromProto<crate::model::StreamingSynthesizeConfig> for Streami
     ) -> std::result::Result<crate::model::StreamingSynthesizeConfig, gaxi::prost::ConvertError>
     {
         Ok(crate::model::StreamingSynthesizeConfig::new()
-            .set_or_clear_voice(self.voice.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_voice(
+                self.voice
+                    .map(gaxi::prost::FromProto::<crate::model::VoiceSelectionParams>::cnv)
+                    .transpose()?,
+            )
             .set_or_clear_streaming_audio_config(
-                self.streaming_audio_config.map(|v| v.cnv()).transpose()?,
+                self.streaming_audio_config
+                    .map(gaxi::prost::FromProto::<crate::model::StreamingAudioConfig>::cnv)
+                    .transpose()?,
             )
             .set_or_clear_custom_pronunciations(
-                self.custom_pronunciations.map(|v| v.cnv()).transpose()?,
+                self.custom_pronunciations
+                    .map(gaxi::prost::FromProto::<crate::model::CustomPronunciations>::cnv)
+                    .transpose()?,
             )
             .set_or_clear_advanced_voice_options(
-                self.advanced_voice_options.map(|v| v.cnv()).transpose()?,
+                self.advanced_voice_options
+                    .map(gaxi::prost::FromProto::<crate::model::AdvancedVoiceOptions>::cnv)
+                    .transpose()?,
             ))
     }
 }
@@ -542,11 +580,15 @@ impl gaxi::prost::FromProto<crate::model::streaming_synthesis_input::InputSource
     > {
         use crate::model::streaming_synthesis_input::InputSource as T;
         match self {
-            Self::Text(v) => Ok(T::Text(v.cnv()?)),
-            Self::Markup(v) => Ok(T::Markup(v.cnv()?)),
-            Self::MultiSpeakerMarkup(v) => {
-                Ok(T::MultiSpeakerMarkup(std::boxed::Box::new(v.cnv()?)))
-            }
+            Self::Text(v) => Ok(T::Text(gaxi::prost::FromProto::<std::string::String>::cnv(
+                v,
+            )?)),
+            Self::Markup(v) => Ok(T::Markup(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
+            Self::MultiSpeakerMarkup(v) => Ok(T::MultiSpeakerMarkup(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::MultiSpeakerMarkup>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -572,8 +614,20 @@ impl gaxi::prost::FromProto<crate::model::StreamingSynthesisInput> for Streaming
         self,
     ) -> std::result::Result<crate::model::StreamingSynthesisInput, gaxi::prost::ConvertError> {
         Ok(crate::model::StreamingSynthesisInput::new()
-            .set_or_clear_prompt(self.prompt.map(|v| v.cnv()).transpose()?)
-            .set_input_source(self.input_source.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_prompt(
+                self.prompt
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            )
+            .set_input_source(
+                self.input_source
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::streaming_synthesis_input::InputSource,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ))
     }
 }
 
@@ -606,8 +660,12 @@ impl gaxi::prost::FromProto<crate::model::streaming_synthesize_request::Streamin
     > {
         use crate::model::streaming_synthesize_request::StreamingRequest as T;
         match self {
-            Self::StreamingConfig(v) => Ok(T::StreamingConfig(std::boxed::Box::new(v.cnv()?))),
-            Self::Input(v) => Ok(T::Input(std::boxed::Box::new(v.cnv()?))),
+            Self::StreamingConfig(v) => Ok(T::StreamingConfig(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::StreamingSynthesizeConfig>::cnv(v)?,
+            ))),
+            Self::Input(v) => Ok(T::Input(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::StreamingSynthesisInput,
+            >::cnv(v)?))),
         }
     }
 }
@@ -630,8 +688,17 @@ impl gaxi::prost::FromProto<crate::model::StreamingSynthesizeRequest>
         self,
     ) -> std::result::Result<crate::model::StreamingSynthesizeRequest, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::StreamingSynthesizeRequest::new()
-            .set_streaming_request(self.streaming_request.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::StreamingSynthesizeRequest::new().set_streaming_request(
+                self.streaming_request
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::streaming_synthesize_request::StreamingRequest,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ),
+        )
     }
 }
 
