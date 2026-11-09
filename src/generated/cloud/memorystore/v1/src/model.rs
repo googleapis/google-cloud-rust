@@ -197,6 +197,13 @@ pub struct Instance {
     /// Output only. Migration config for the instance.
     pub migration_config: std::option::Option<crate::model::MigrationConfig>,
 
+    /// Optional. The ACL policy for the instance.
+    /// Format: projects/{project}/locations/{location}/aclPolicies/{acl_policy}
+    pub acl_policy: std::option::Option<std::string::String>,
+
+    /// Output only. Details of the applied ACL policy.
+    pub acl_policy_info: std::option::Option<crate::model::AclPolicyInfo>,
+
     /// The source to import from.
     pub import_sources: std::option::Option<crate::model::instance::ImportSources>,
 
@@ -1358,6 +1365,76 @@ impl Instance {
         T: std::convert::Into<crate::model::MigrationConfig>,
     {
         self.migration_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [acl_policy][crate::model::Instance::acl_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// let x = Instance::new().set_acl_policy(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}"));
+    /// ```
+    pub fn set_acl_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.acl_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [acl_policy][crate::model::Instance::acl_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// let x = Instance::new().set_or_clear_acl_policy(Some(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}")));
+    /// let x = Instance::new().set_or_clear_acl_policy(None::<String>);
+    /// ```
+    pub fn set_or_clear_acl_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.acl_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [acl_policy_info][crate::model::Instance::acl_policy_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::AclPolicyInfo;
+    /// let x = Instance::new().set_acl_policy_info(AclPolicyInfo::default()/* use setters */);
+    /// ```
+    pub fn set_acl_policy_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AclPolicyInfo>,
+    {
+        self.acl_policy_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [acl_policy_info][crate::model::Instance::acl_policy_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::AclPolicyInfo;
+    /// let x = Instance::new().set_or_clear_acl_policy_info(Some(AclPolicyInfo::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_acl_policy_info(None::<AclPolicyInfo>);
+    /// ```
+    pub fn set_or_clear_acl_policy_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AclPolicyInfo>,
+    {
+        self.acl_policy_info = v.map(|x| x.into());
         self
     }
 
@@ -2937,6 +3014,117 @@ pub mod instance {
     }
 }
 
+/// Details of the applied ACL policy.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AclPolicyInfo {
+    /// Output only. The resource name of the applied ACL policy.
+    /// Format:
+    /// "projects/{project}/locations/{location}/aclPolicies/{acl_policy}"
+    pub applied_acl_policy: std::string::String,
+
+    /// Output only. The resource name of the applied ACL policy revision.
+    /// Format:
+    /// "projects/{project}/locations/{location}/aclPolicies/{acl_policy}/revisions/{revision}"
+    pub applied_acl_policy_revision: std::string::String,
+
+    /// Output only. The revision number of the applied ACL policy revision.
+    pub applied_acl_policy_revision_number: i64,
+
+    /// Output only. A list of status for various revisions of this ACL policy on
+    /// the instance.
+    pub acl_policy_revision_statuses: std::vec::Vec<crate::model::AclPolicyRevisionStatus>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AclPolicyInfo {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [applied_acl_policy][crate::model::AclPolicyInfo::applied_acl_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicyInfo;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// let x = AclPolicyInfo::new().set_applied_acl_policy(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}"));
+    /// ```
+    pub fn set_applied_acl_policy<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.applied_acl_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [applied_acl_policy_revision][crate::model::AclPolicyInfo::applied_acl_policy_revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicyInfo;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// # let revision_id = "revision_id";
+    /// let x = AclPolicyInfo::new().set_applied_acl_policy_revision(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}/revisions/{revision_id}"));
+    /// ```
+    pub fn set_applied_acl_policy_revision<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.applied_acl_policy_revision = v.into();
+        self
+    }
+
+    /// Sets the value of [applied_acl_policy_revision_number][crate::model::AclPolicyInfo::applied_acl_policy_revision_number].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicyInfo;
+    /// let x = AclPolicyInfo::new().set_applied_acl_policy_revision_number(42);
+    /// ```
+    pub fn set_applied_acl_policy_revision_number<T: std::convert::Into<i64>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.applied_acl_policy_revision_number = v.into();
+        self
+    }
+
+    /// Sets the value of [acl_policy_revision_statuses][crate::model::AclPolicyInfo::acl_policy_revision_statuses].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicyInfo;
+    /// use google_cloud_memorystore_v1::model::AclPolicyRevisionStatus;
+    /// let x = AclPolicyInfo::new()
+    ///     .set_acl_policy_revision_statuses([
+    ///         AclPolicyRevisionStatus::default()/* use setters */,
+    ///         AclPolicyRevisionStatus::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_acl_policy_revision_statuses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AclPolicyRevisionStatus>,
+    {
+        use std::iter::Iterator;
+        self.acl_policy_revision_statuses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for AclPolicyInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.AclPolicyInfo"
+    }
+}
+
 /// Request for `StartMigration`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -3485,6 +3673,879 @@ pub mod migration_config {
         /// Output only. Configuration for migrating from a self-managed Valkey/Redis
         /// instance
         SelfManagedSource(std::boxed::Box<crate::model::SelfManagedSource>),
+    }
+}
+
+/// The ACL policy resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AclPolicy {
+    /// Identifier. Full resource path of the ACL policy.
+    pub name: std::string::String,
+
+    /// Required. The ACL rules within the ACL policy.
+    pub rules: std::vec::Vec<crate::model::AclRule>,
+
+    /// Output only. The state of the ACL policy.
+    pub state: crate::model::acl_policy::State,
+
+    /// Output only. Etag of the ACL policy.
+    pub etag: std::option::Option<std::string::String>,
+
+    /// Output only. The ACL policy attachment status for each attached instance.
+    pub instance_acl_policy_attachments: std::vec::Vec<crate::model::InstanceAclPolicyAttachment>,
+
+    /// Output only. The timestamp that the ACL policy was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp that the ACL policy was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AclPolicy {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AclPolicy::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicy;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// let x = AclPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [rules][crate::model::AclPolicy::rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicy;
+    /// use google_cloud_memorystore_v1::model::AclRule;
+    /// let x = AclPolicy::new()
+    ///     .set_rules([
+    ///         AclRule::default()/* use setters */,
+    ///         AclRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AclRule>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::AclPolicy::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicy;
+    /// use google_cloud_memorystore_v1::model::acl_policy::State;
+    /// let x0 = AclPolicy::new().set_state(State::Active);
+    /// let x1 = AclPolicy::new().set_state(State::Updating);
+    /// let x2 = AclPolicy::new().set_state(State::Deleting);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::acl_policy::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::AclPolicy::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicy;
+    /// let x = AclPolicy::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.etag = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [etag][crate::model::AclPolicy::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicy;
+    /// let x = AclPolicy::new().set_or_clear_etag(Some("example"));
+    /// let x = AclPolicy::new().set_or_clear_etag(None::<String>);
+    /// ```
+    pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.etag = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [instance_acl_policy_attachments][crate::model::AclPolicy::instance_acl_policy_attachments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicy;
+    /// use google_cloud_memorystore_v1::model::InstanceAclPolicyAttachment;
+    /// let x = AclPolicy::new()
+    ///     .set_instance_acl_policy_attachments([
+    ///         InstanceAclPolicyAttachment::default()/* use setters */,
+    ///         InstanceAclPolicyAttachment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_instance_acl_policy_attachments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::InstanceAclPolicyAttachment>,
+    {
+        use std::iter::Iterator;
+        self.instance_acl_policy_attachments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::AclPolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AclPolicy::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::AclPolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AclPolicy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AclPolicy::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::AclPolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AclPolicy::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::AclPolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AclPolicy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AclPolicy::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for AclPolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.AclPolicy"
+    }
+}
+
+/// Defines additional types related to [AclPolicy].
+pub mod acl_policy {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents the different states of an ACL policy.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Not set.
+        Unspecified,
+        /// ACL policy has been created and is fully usable.
+        Active,
+        /// ACL policy is being updated.
+        Updating,
+        /// ACL policy is being deleted.
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Updating => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Updating,
+                3 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "UPDATING" => Self::Updating,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Updating => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.memorystore.v1.AclPolicy.State",
+            ))
+        }
+    }
+}
+
+/// The ACL policy revision resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AclPolicyRevision {
+    /// Identifier. The name of the ACL policy revision.
+    /// Format:
+    /// "projects/{project}/locations/{location}/aclPolicies/{acl_policy}/revisions/{revision}"
+    pub name: std::string::String,
+
+    /// Output only. The revision number of the ACL policy revision.
+    pub revision_number: i64,
+
+    /// Output only. The snapshot of the ACL policy at the time of revision
+    /// creation.
+    pub snapshot: std::option::Option<crate::model::AclPolicy>,
+
+    /// Output only. The timestamp that the revision was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. A list of instances that are attached to this ACL policy
+    /// revision.
+    pub attached_instances: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AclPolicyRevision {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AclPolicyRevision::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicyRevision;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// # let revision_id = "revision_id";
+    /// let x = AclPolicyRevision::new().set_name(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}/revisions/{revision_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [revision_number][crate::model::AclPolicyRevision::revision_number].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicyRevision;
+    /// let x = AclPolicyRevision::new().set_revision_number(42);
+    /// ```
+    pub fn set_revision_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.revision_number = v.into();
+        self
+    }
+
+    /// Sets the value of [snapshot][crate::model::AclPolicyRevision::snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicyRevision;
+    /// use google_cloud_memorystore_v1::model::AclPolicy;
+    /// let x = AclPolicyRevision::new().set_snapshot(AclPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_snapshot<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AclPolicy>,
+    {
+        self.snapshot = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [snapshot][crate::model::AclPolicyRevision::snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicyRevision;
+    /// use google_cloud_memorystore_v1::model::AclPolicy;
+    /// let x = AclPolicyRevision::new().set_or_clear_snapshot(Some(AclPolicy::default()/* use setters */));
+    /// let x = AclPolicyRevision::new().set_or_clear_snapshot(None::<AclPolicy>);
+    /// ```
+    pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AclPolicy>,
+    {
+        self.snapshot = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::AclPolicyRevision::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicyRevision;
+    /// use wkt::Timestamp;
+    /// let x = AclPolicyRevision::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::AclPolicyRevision::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicyRevision;
+    /// use wkt::Timestamp;
+    /// let x = AclPolicyRevision::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AclPolicyRevision::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [attached_instances][crate::model::AclPolicyRevision::attached_instances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicyRevision;
+    /// let x = AclPolicyRevision::new().set_attached_instances(["a", "b", "c"]);
+    /// ```
+    pub fn set_attached_instances<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.attached_instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for AclPolicyRevision {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.AclPolicyRevision"
+    }
+}
+
+/// AclPolicyRevisionStatus stores the per-revision status for an attached
+/// instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AclPolicyRevisionStatus {
+    /// Output only. The resource name of the ACL policy revision this status
+    /// refers to. Format:
+    /// "projects/{project}/locations/{location}/aclPolicies/{acl_policy}/revisions/{revision}"
+    pub acl_policy_revision: std::string::String,
+
+    /// Output only. The revision number of the ACL policy revision this status
+    /// refers to.
+    pub acl_policy_revision_number: i64,
+
+    /// Output only. AclPolicyRevision state.
+    pub state: crate::model::acl_policy_revision_status::State,
+
+    /// Output only. Human-readable error message providing more details for FAILED
+    /// states.
+    pub error_message: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AclPolicyRevisionStatus {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [acl_policy_revision][crate::model::AclPolicyRevisionStatus::acl_policy_revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicyRevisionStatus;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// # let revision_id = "revision_id";
+    /// let x = AclPolicyRevisionStatus::new().set_acl_policy_revision(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}/revisions/{revision_id}"));
+    /// ```
+    pub fn set_acl_policy_revision<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.acl_policy_revision = v.into();
+        self
+    }
+
+    /// Sets the value of [acl_policy_revision_number][crate::model::AclPolicyRevisionStatus::acl_policy_revision_number].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicyRevisionStatus;
+    /// let x = AclPolicyRevisionStatus::new().set_acl_policy_revision_number(42);
+    /// ```
+    pub fn set_acl_policy_revision_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.acl_policy_revision_number = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::AclPolicyRevisionStatus::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicyRevisionStatus;
+    /// use google_cloud_memorystore_v1::model::acl_policy_revision_status::State;
+    /// let x0 = AclPolicyRevisionStatus::new().set_state(State::Applying);
+    /// let x1 = AclPolicyRevisionStatus::new().set_state(State::Applied);
+    /// let x2 = AclPolicyRevisionStatus::new().set_state(State::Failed);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::acl_policy_revision_status::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [error_message][crate::model::AclPolicyRevisionStatus::error_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclPolicyRevisionStatus;
+    /// let x = AclPolicyRevisionStatus::new().set_error_message("example");
+    /// ```
+    pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.error_message = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AclPolicyRevisionStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.AclPolicyRevisionStatus"
+    }
+}
+
+/// Defines additional types related to [AclPolicyRevisionStatus].
+pub mod acl_policy_revision_status {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Enum indicating the status of this ACL policy revision on the instance.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Not set.
+        Unspecified,
+        /// The instance is attempting to apply this revision.
+        Applying,
+        /// The instance has successfully applied this revision.
+        Applied,
+        /// The instance failed to apply this revision.
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Applying => std::option::Option::Some(1),
+                Self::Applied => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Applying => std::option::Option::Some("APPLYING"),
+                Self::Applied => std::option::Option::Some("APPLIED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Applying,
+                2 => Self::Applied,
+                3 => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "APPLYING" => Self::Applying,
+                "APPLIED" => Self::Applied,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Applying => serializer.serialize_i32(1),
+                Self::Applied => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.memorystore.v1.AclPolicyRevisionStatus.State",
+            ))
+        }
+    }
+}
+
+/// InstanceAclPolicyAttachment stores the ACL policy status for an attached
+/// instance for the revisions successfully applied, under application or failed.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InstanceAclPolicyAttachment {
+    /// Output only. The resource name of the attached instance.
+    /// Format:
+    /// "projects/{project}/locations/{location}/instances/{instance}"
+    pub instance: std::string::String,
+
+    /// Output only. A list of status for various revisions of this ACL policy on
+    /// the instance.
+    pub acl_policy_revision_statuses: std::vec::Vec<crate::model::AclPolicyRevisionStatus>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InstanceAclPolicyAttachment {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance][crate::model::InstanceAclPolicyAttachment::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::InstanceAclPolicyAttachment;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = InstanceAclPolicyAttachment::new().set_instance(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [acl_policy_revision_statuses][crate::model::InstanceAclPolicyAttachment::acl_policy_revision_statuses].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::InstanceAclPolicyAttachment;
+    /// use google_cloud_memorystore_v1::model::AclPolicyRevisionStatus;
+    /// let x = InstanceAclPolicyAttachment::new()
+    ///     .set_acl_policy_revision_statuses([
+    ///         AclPolicyRevisionStatus::default()/* use setters */,
+    ///         AclPolicyRevisionStatus::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_acl_policy_revision_statuses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AclPolicyRevisionStatus>,
+    {
+        use std::iter::Iterator;
+        self.acl_policy_revision_statuses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for InstanceAclPolicyAttachment {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.InstanceAclPolicyAttachment"
+    }
+}
+
+/// A single ACL rule which defines the policy for a user.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AclRule {
+    /// Required. Specifies the IAM user or service account to be added to the ACL
+    /// policy. This username will be directly set on the Valkey OSS.
+    pub username: std::string::String,
+
+    /// Required. The rule to be applied to the username. Ex: "on >password123 ~*
+    /// +@all" The format of the rule is defined by Valkey OSS:
+    /// <https://valkey.io/topics/acl/>
+    pub rule: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AclRule {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [username][crate::model::AclRule::username].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclRule;
+    /// let x = AclRule::new().set_username("example");
+    /// ```
+    pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.username = v.into();
+        self
+    }
+
+    /// Sets the value of [rule][crate::model::AclRule::rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AclRule;
+    /// let x = AclRule::new().set_rule("example");
+    /// ```
+    pub fn set_rule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.rule = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AclRule {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.AclRule"
     }
 }
 
@@ -7338,6 +8399,15 @@ pub struct ZoneDistributionConfig {
     /// SINGLE_ZONE mode. Ignored for MULTI_ZONE mode.
     pub zone: std::string::String,
 
+    /// Optional. Specify the zones of a multi-zone instance where Memorystore
+    /// instance allocates resources. This flag isn't applicable for single-zone
+    /// instances.
+    pub zones: std::vec::Vec<std::string::String>,
+
+    /// Output only. The exact list of zones where the instance currently has
+    /// active VMs.
+    pub active_zones: std::vec::Vec<std::string::String>,
+
     /// Optional. Current zone distribution mode. Defaults to MULTI_ZONE.
     pub mode: crate::model::zone_distribution_config::ZoneDistributionMode,
 
@@ -7359,6 +8429,40 @@ impl ZoneDistributionConfig {
     /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
+        self
+    }
+
+    /// Sets the value of [zones][crate::model::ZoneDistributionConfig::zones].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ZoneDistributionConfig;
+    /// let x = ZoneDistributionConfig::new().set_zones(["a", "b", "c"]);
+    /// ```
+    pub fn set_zones<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.zones = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [active_zones][crate::model::ZoneDistributionConfig::active_zones].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ZoneDistributionConfig;
+    /// let x = ZoneDistributionConfig::new().set_active_zones(["a", "b", "c"]);
+    /// ```
+    pub fn set_active_zones<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.active_zones = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -7766,6 +8870,348 @@ pub mod reschedule_maintenance_request {
     }
 }
 
+/// Request for `ListAclPolicies`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAclPoliciesRequest {
+    /// Required. The resource name of the ACL policy location using the form:
+    /// `projects/{project}/locations/{location}`
+    /// where `location` refers to a Google Cloud region.
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return.
+    ///
+    /// If not specified, a default value of 1000 will be used by the service.
+    /// Regardless of the page_size value, the response may include a partial list
+    /// and a caller should only rely on response's
+    /// `next_page_token`
+    /// to determine if there are more ACL policies left to be queried.
+    ///
+    /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    pub page_size: i32,
+
+    /// Optional. The `next_page_token` value returned from a previous
+    /// `ListAclPolicies` request, if any.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAclPoliciesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListAclPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAclPoliciesRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListAclPoliciesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListAclPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAclPoliciesRequest;
+    /// let x = ListAclPoliciesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListAclPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAclPoliciesRequest;
+    /// let x = ListAclPoliciesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAclPoliciesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.ListAclPoliciesRequest"
+    }
+}
+
+/// Response for `ListAclPolicies`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAclPoliciesResponse {
+    /// A list of ACL policies in the project in the specified location,
+    /// or across all locations.
+    ///
+    /// If the `location` in the parent field of the request is "-", all regions
+    /// available to the project are queried, and the results aggregated.
+    pub acl_policies: std::vec::Vec<crate::model::AclPolicy>,
+
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAclPoliciesResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [acl_policies][crate::model::ListAclPoliciesResponse::acl_policies].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAclPoliciesResponse;
+    /// use google_cloud_memorystore_v1::model::AclPolicy;
+    /// let x = ListAclPoliciesResponse::new()
+    ///     .set_acl_policies([
+    ///         AclPolicy::default()/* use setters */,
+    ///         AclPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_acl_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AclPolicy>,
+    {
+        use std::iter::Iterator;
+        self.acl_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAclPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAclPoliciesResponse;
+    /// let x = ListAclPoliciesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListAclPoliciesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAclPoliciesResponse;
+    /// let x = ListAclPoliciesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAclPoliciesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.ListAclPoliciesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAclPoliciesResponse {
+    type PageItem = crate::model::AclPolicy;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.acl_policies
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request for `ListAclPolicyRevisions`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAclPolicyRevisionsRequest {
+    /// Required. The resource name of the ACL policy to list revisions for.
+    /// Format: "projects/{project}/locations/{location}/aclPolicies/{acl_policy}"
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return.
+    pub page_size: i32,
+
+    /// Optional. The `next_page_token` value returned from a previous
+    /// `ListAclPolicyRevisions` request, if any.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAclPolicyRevisionsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListAclPolicyRevisionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAclPolicyRevisionsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// let x = ListAclPolicyRevisionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListAclPolicyRevisionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAclPolicyRevisionsRequest;
+    /// let x = ListAclPolicyRevisionsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListAclPolicyRevisionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAclPolicyRevisionsRequest;
+    /// let x = ListAclPolicyRevisionsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAclPolicyRevisionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.ListAclPolicyRevisionsRequest"
+    }
+}
+
+/// Response for `ListAclPolicyRevisions`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAclPolicyRevisionsResponse {
+    /// A list of ACL policy revisions.
+    pub acl_policy_revisions: std::vec::Vec<crate::model::AclPolicyRevision>,
+
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAclPolicyRevisionsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [acl_policy_revisions][crate::model::ListAclPolicyRevisionsResponse::acl_policy_revisions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAclPolicyRevisionsResponse;
+    /// use google_cloud_memorystore_v1::model::AclPolicyRevision;
+    /// let x = ListAclPolicyRevisionsResponse::new()
+    ///     .set_acl_policy_revisions([
+    ///         AclPolicyRevision::default()/* use setters */,
+    ///         AclPolicyRevision::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_acl_policy_revisions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AclPolicyRevision>,
+    {
+        use std::iter::Iterator;
+        self.acl_policy_revisions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAclPolicyRevisionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAclPolicyRevisionsResponse;
+    /// let x = ListAclPolicyRevisionsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListAclPolicyRevisionsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListAclPolicyRevisionsResponse;
+    /// let x = ListAclPolicyRevisionsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAclPolicyRevisionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.ListAclPolicyRevisionsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListAclPolicyRevisionsResponse {
+    type PageItem = crate::model::AclPolicyRevision;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.acl_policy_revisions
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
 /// Request message for [ListInstances][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -7963,6 +9409,87 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListInstancesRe
     }
 }
 
+/// Request for `GetAclPolicy`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetAclPolicyRequest {
+    /// Required. Memorystore ACL policy resource name using the form:
+    /// `projects/{project}/locations/{location}/aclPolicies/{acl_policy}`
+    /// where `location` refers to a Google Cloud region.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetAclPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetAclPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::GetAclPolicyRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// let x = GetAclPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetAclPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.GetAclPolicyRequest"
+    }
+}
+
+/// Request for `GetAclPolicyRevision`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetAclPolicyRevisionRequest {
+    /// Required. Memorystore ACL policy revision resource name using the form:
+    /// `projects/{project}/locations/{location}/aclPolicies/{acl_policy}/revisions/{revision}`
+    /// where `location` refers to a Google Cloud region.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetAclPolicyRevisionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetAclPolicyRevisionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::GetAclPolicyRevisionRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// # let revision_id = "revision_id";
+    /// let x = GetAclPolicyRevisionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}/revisions/{revision_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetAclPolicyRevisionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.GetAclPolicyRevisionRequest"
+    }
+}
+
 /// Request message for [GetInstance][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -7999,6 +9526,119 @@ impl GetInstanceRequest {
 impl wkt::message::Message for GetInstanceRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.memorystore.v1.GetInstanceRequest"
+    }
+}
+
+/// Request for `CreateAclPolicy`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateAclPolicyRequest {
+    /// Required. The resource name of the ACL policy location using the form:
+    /// `projects/{project}/locations/{location}`
+    /// where `location` refers to a Google Cloud region.
+    pub parent: std::string::String,
+
+    /// Required. The logical name of the ACL policy in the customer project
+    /// with the following restrictions:
+    ///
+    /// * Must contain only lowercase letters, numbers, and hyphens.
+    /// * Must start with a letter.
+    /// * Must be between 1-63 characters.
+    /// * Must end with a number or a letter.
+    /// * Must be unique within the customer project / location
+    pub acl_policy_id: std::string::String,
+
+    /// Required. The ACL policy that is to be created.
+    pub acl_policy: std::option::Option<crate::model::AclPolicy>,
+
+    /// Optional. Idempotent request UUID.
+    /// .
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateAclPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateAclPolicyRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CreateAclPolicyRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateAclPolicyRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [acl_policy_id][crate::model::CreateAclPolicyRequest::acl_policy_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CreateAclPolicyRequest;
+    /// let x = CreateAclPolicyRequest::new().set_acl_policy_id("example");
+    /// ```
+    pub fn set_acl_policy_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.acl_policy_id = v.into();
+        self
+    }
+
+    /// Sets the value of [acl_policy][crate::model::CreateAclPolicyRequest::acl_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CreateAclPolicyRequest;
+    /// use google_cloud_memorystore_v1::model::AclPolicy;
+    /// let x = CreateAclPolicyRequest::new().set_acl_policy(AclPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_acl_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AclPolicy>,
+    {
+        self.acl_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [acl_policy][crate::model::CreateAclPolicyRequest::acl_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CreateAclPolicyRequest;
+    /// use google_cloud_memorystore_v1::model::AclPolicy;
+    /// let x = CreateAclPolicyRequest::new().set_or_clear_acl_policy(Some(AclPolicy::default()/* use setters */));
+    /// let x = CreateAclPolicyRequest::new().set_or_clear_acl_policy(None::<AclPolicy>);
+    /// ```
+    pub fn set_or_clear_acl_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AclPolicy>,
+    {
+        self.acl_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateAclPolicyRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CreateAclPolicyRequest;
+    /// let x = CreateAclPolicyRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateAclPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.CreateAclPolicyRequest"
     }
 }
 
@@ -8127,6 +9767,117 @@ impl wkt::message::Message for CreateInstanceRequest {
     }
 }
 
+/// Request for `UpdateAclPolicy`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateAclPolicyRequest {
+    /// Required. The ACL policy to be updated.
+    pub acl_policy: std::option::Option<crate::model::AclPolicy>,
+
+    /// Optional. Mask of fields to be updated. At least one path must be supplied
+    /// in this field. The elements of the repeated paths field may only include
+    /// these fields from `AclPolicy`:
+    ///
+    /// * `rules`
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. Idempotent request UUID.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateAclPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [acl_policy][crate::model::UpdateAclPolicyRequest::acl_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::UpdateAclPolicyRequest;
+    /// use google_cloud_memorystore_v1::model::AclPolicy;
+    /// let x = UpdateAclPolicyRequest::new().set_acl_policy(AclPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_acl_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AclPolicy>,
+    {
+        self.acl_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [acl_policy][crate::model::UpdateAclPolicyRequest::acl_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::UpdateAclPolicyRequest;
+    /// use google_cloud_memorystore_v1::model::AclPolicy;
+    /// let x = UpdateAclPolicyRequest::new().set_or_clear_acl_policy(Some(AclPolicy::default()/* use setters */));
+    /// let x = UpdateAclPolicyRequest::new().set_or_clear_acl_policy(None::<AclPolicy>);
+    /// ```
+    pub fn set_or_clear_acl_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AclPolicy>,
+    {
+        self.acl_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateAclPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::UpdateAclPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAclPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateAclPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::UpdateAclPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAclPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAclPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateAclPolicyRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::UpdateAclPolicyRequest;
+    /// let x = UpdateAclPolicyRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateAclPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.UpdateAclPolicyRequest"
+    }
+}
+
 /// Request message for [UpdateInstance][].
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -8244,6 +9995,77 @@ impl UpdateInstanceRequest {
 impl wkt::message::Message for UpdateInstanceRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.memorystore.v1.UpdateInstanceRequest"
+    }
+}
+
+/// Request for `DeleteAclPolicy`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteAclPolicyRequest {
+    /// Required. Memorystore ACL policy resource name using the form:
+    /// `projects/{project}/locations/{location}/aclPolicies/{acl_policy_id}`
+    /// where `location` refers to a Google Cloud region.
+    pub name: std::string::String,
+
+    /// Optional. Idempotent request UUID.
+    pub request_id: std::string::String,
+
+    /// Optional. Etag of the ACL policy. If this is different from the server's
+    /// etag, the request will fail with an ABORTED error.
+    pub etag: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteAclPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteAclPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::DeleteAclPolicyRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let acl_policy_id = "acl_policy_id";
+    /// let x = DeleteAclPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteAclPolicyRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::DeleteAclPolicyRequest;
+    /// let x = DeleteAclPolicyRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteAclPolicyRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::DeleteAclPolicyRequest;
+    /// let x = DeleteAclPolicyRequest::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteAclPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.DeleteAclPolicyRequest"
     }
 }
 

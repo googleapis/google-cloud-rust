@@ -1155,6 +1155,858 @@ impl BackupDR {
         super::builder::backup_dr::InitializeService::new(self.inner.clone())
     }
 
+    /// Creates a new AutoProtectionPolicy in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_auto_protection_policy()
+    ///         .set_parent(parent)
+    ///         .set_auto_protection_policy(
+    ///             AutoProtectionPolicy::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_auto_protection_policy(
+        &self,
+    ) -> super::builder::backup_dr::CreateAutoProtectionPolicy {
+        super::builder::backup_dr::CreateAutoProtectionPolicy::new(self.inner.clone())
+    }
+
+    /// Lists AutoProtectionPolicies for a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_auto_protection_policies()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_auto_protection_policies(
+        &self,
+    ) -> super::builder::backup_dr::ListAutoProtectionPolicies {
+        super::builder::backup_dr::ListAutoProtectionPolicies::new(self.inner.clone())
+    }
+
+    /// Gets details of a single AutoProtectionPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str, auto_protection_policy_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_auto_protection_policy()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_auto_protection_policy(&self) -> super::builder::backup_dr::GetAutoProtectionPolicy {
+        super::builder::backup_dr::GetAutoProtectionPolicy::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of a single AutoProtectionPolicy.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str, auto_protection_policy_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_auto_protection_policy()
+    ///         .set_auto_protection_policy(
+    ///             AutoProtectionPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_auto_protection_policy(
+        &self,
+    ) -> super::builder::backup_dr::UpdateAutoProtectionPolicy {
+        super::builder::backup_dr::UpdateAutoProtectionPolicy::new(self.inner.clone())
+    }
+
+    /// Deletes a single AutoProtectionPolicy.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str, auto_protection_policy_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_auto_protection_policy()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_auto_protection_policy(
+        &self,
+    ) -> super::builder::backup_dr::DeleteAutoProtectionPolicy {
+        super::builder::backup_dr::DeleteAutoProtectionPolicy::new(self.inner.clone())
+    }
+
+    /// Creates a new AutoProtectionPolicyBinding in a given project and
+    /// location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::model::AutoProtectionPolicyBinding;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str, auto_protection_policy_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_auto_protection_policy_binding()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}"))
+    ///         .set_auto_protection_policy_binding(
+    ///             AutoProtectionPolicyBinding::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_auto_protection_policy_binding(
+        &self,
+    ) -> super::builder::backup_dr::CreateAutoProtectionPolicyBinding {
+        super::builder::backup_dr::CreateAutoProtectionPolicyBinding::new(self.inner.clone())
+    }
+
+    /// Returns the auto protection policy binding read from the CCFE tables.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str, auto_protection_policy_id: &str, binding_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_auto_protection_policy_binding()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}/bindings/{binding_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_auto_protection_policy_binding(
+        &self,
+    ) -> super::builder::backup_dr::GetAutoProtectionPolicyBinding {
+        super::builder::backup_dr::GetAutoProtectionPolicyBinding::new(self.inner.clone())
+    }
+
+    /// Returns the auto protection policy bindings read from the CCFE tables.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str, auto_protection_policy_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_auto_protection_policy_bindings()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_auto_protection_policy_bindings(
+        &self,
+    ) -> super::builder::backup_dr::ListAutoProtectionPolicyBindings {
+        super::builder::backup_dr::ListAutoProtectionPolicyBindings::new(self.inner.clone())
+    }
+
+    /// Lists AppliedAutoProtectionPolicies in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_applied_auto_protection_policies()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_applied_auto_protection_policies(
+        &self,
+    ) -> super::builder::backup_dr::ListAppliedAutoProtectionPolicies {
+        super::builder::backup_dr::ListAppliedAutoProtectionPolicies::new(self.inner.clone())
+    }
+
+    /// InitiateDeleteAutoProtectionPolicyBinding initiates delete for
+    /// AutoProtectionPolicy Binding
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     let response = client.initiate_delete_auto_protection_policy_binding()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn initiate_delete_auto_protection_policy_binding(
+        &self,
+    ) -> super::builder::backup_dr::InitiateDeleteAutoProtectionPolicyBinding {
+        super::builder::backup_dr::InitiateDeleteAutoProtectionPolicyBinding::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Lists Binding Matching Resources for a given AutoProtectionPolicyBinding.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str, auto_protection_policy_id: &str, binding_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_binding_matching_resources()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}/bindings/{binding_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_binding_matching_resources(
+        &self,
+    ) -> super::builder::backup_dr::ListBindingMatchingResources {
+        super::builder::backup_dr::ListBindingMatchingResources::new(self.inner.clone())
+    }
+
+    /// Creates a new RestoreTemplate in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_restore_template()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .set_restore_template(
+    ///             RestoreTemplate::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_restore_template(&self) -> super::builder::backup_dr::CreateRestoreTemplate {
+        super::builder::backup_dr::CreateRestoreTemplate::new(self.inner.clone())
+    }
+
+    /// Gets details of a RestoreTemplate.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str, restore_template_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_restore_template()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_restore_template(&self) -> super::builder::backup_dr::GetRestoreTemplate {
+        super::builder::backup_dr::GetRestoreTemplate::new(self.inner.clone())
+    }
+
+    /// Lists RestoreTemplates in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_restore_templates()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_restore_templates(&self) -> super::builder::backup_dr::ListRestoreTemplates {
+        super::builder::backup_dr::ListRestoreTemplates::new(self.inner.clone())
+    }
+
+    /// Updates the settings of a RestoreTemplate.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str, restore_template_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_restore_template()
+    ///         .set_restore_template(
+    ///             RestoreTemplate::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_restore_template(&self) -> super::builder::backup_dr::UpdateRestoreTemplate {
+        super::builder::backup_dr::UpdateRestoreTemplate::new(self.inner.clone())
+    }
+
+    /// Deletes a RestoreTemplate.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str, restore_template_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_restore_template()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_restore_template(&self) -> super::builder::backup_dr::DeleteRestoreTemplate {
+        super::builder::backup_dr::DeleteRestoreTemplate::new(self.inner.clone())
+    }
+
+    /// Runs a RestoreTemplate.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     let response = client.run_restore_template()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn run_restore_template(&self) -> super::builder::backup_dr::RunRestoreTemplate {
+        super::builder::backup_dr::RunRestoreTemplate::new(self.inner.clone())
+    }
+
+    /// Gets details of a RestoreTemplateExecution.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str, restore_template_id: &str, execution_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_restore_template_execution()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}/executions/{execution_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_restore_template_execution(
+        &self,
+    ) -> super::builder::backup_dr::GetRestoreTemplateExecution {
+        super::builder::backup_dr::GetRestoreTemplateExecution::new(self.inner.clone())
+    }
+
+    /// Lists RestoreTemplateExecutions in a given project, location and restore
+    /// template.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str, restore_template_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_restore_template_executions()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_restore_template_executions(
+        &self,
+    ) -> super::builder::backup_dr::ListRestoreTemplateExecutions {
+        super::builder::backup_dr::ListRestoreTemplateExecutions::new(self.inner.clone())
+    }
+
+    /// Triggers cleanup of restored resources created during execution.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     let response = client.trigger_restore_cleanup()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn trigger_restore_cleanup(&self) -> super::builder::backup_dr::TriggerRestoreCleanup {
+        super::builder::backup_dr::TriggerRestoreCleanup::new(self.inner.clone())
+    }
+
+    /// Creates a new RestoreVerificationPlan in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::model::RestoreVerificationPlan;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_restore_verification_plan()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .set_restore_verification_plan(
+    ///             RestoreVerificationPlan::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_restore_verification_plan(
+        &self,
+    ) -> super::builder::backup_dr::CreateRestoreVerificationPlan {
+        super::builder::backup_dr::CreateRestoreVerificationPlan::new(self.inner.clone())
+    }
+
+    /// Creates a new RestoreVerificationPlanAssociation in a given
+    /// RestoreVerificationPlan.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::model::RestoreVerificationPlanAssociation;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str, restore_verification_plan_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_restore_verification_plan_association()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/restoreVerificationPlans/{restore_verification_plan_id}"))
+    ///         .set_restore_verification_plan_association(
+    ///             RestoreVerificationPlanAssociation::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_restore_verification_plan_association(
+        &self,
+    ) -> super::builder::backup_dr::CreateRestoreVerificationPlanAssociation {
+        super::builder::backup_dr::CreateRestoreVerificationPlanAssociation::new(self.inner.clone())
+    }
+
+    /// Gets details of a single RestoreVerificationPlanAssociation in a given
+    /// RestoreVerificationPlan.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str, restore_verification_plan_id: &str, association_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_restore_verification_plan_association()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/restoreVerificationPlans/{restore_verification_plan_id}/associations/{association_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_restore_verification_plan_association(
+        &self,
+    ) -> super::builder::backup_dr::GetRestoreVerificationPlanAssociation {
+        super::builder::backup_dr::GetRestoreVerificationPlanAssociation::new(self.inner.clone())
+    }
+
+    /// Lists RestoreVerificationPlanAssociations in a given
+    /// RestoreVerificationPlan.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str, restore_verification_plan_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_restore_verification_plan_associations()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/restoreVerificationPlans/{restore_verification_plan_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_restore_verification_plan_associations(
+        &self,
+    ) -> super::builder::backup_dr::ListRestoreVerificationPlanAssociations {
+        super::builder::backup_dr::ListRestoreVerificationPlanAssociations::new(self.inner.clone())
+    }
+
+    /// Deletes a single RestoreVerificationPlanAssociation in a given
+    /// RestoreVerificationPlan.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str, restore_verification_plan_id: &str, association_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_restore_verification_plan_association()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/restoreVerificationPlans/{restore_verification_plan_id}/associations/{association_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_restore_verification_plan_association(
+        &self,
+    ) -> super::builder::backup_dr::DeleteRestoreVerificationPlanAssociation {
+        super::builder::backup_dr::DeleteRestoreVerificationPlanAssociation::new(self.inner.clone())
+    }
+
+    /// Triggers a new Restore Verification for the association in a given
+    /// RestoreVerificationPlan.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     let response = client.trigger_restore_verification()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn trigger_restore_verification(
+        &self,
+    ) -> super::builder::backup_dr::TriggerRestoreVerification {
+        super::builder::backup_dr::TriggerRestoreVerification::new(self.inner.clone())
+    }
+
+    /// Gets details of a single RestoreVerificationPlan. Returns the requested
+    /// RestoreVerificationPlan.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str, restore_verification_plan_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_restore_verification_plan()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/restoreVerificationPlans/{restore_verification_plan_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_restore_verification_plan(
+        &self,
+    ) -> super::builder::backup_dr::GetRestoreVerificationPlan {
+        super::builder::backup_dr::GetRestoreVerificationPlan::new(self.inner.clone())
+    }
+
+    /// Lists RestoreVerificationPlans in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_restore_verification_plans()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_restore_verification_plans(
+        &self,
+    ) -> super::builder::backup_dr::ListRestoreVerificationPlans {
+        super::builder::backup_dr::ListRestoreVerificationPlans::new(self.inner.clone())
+    }
+
+    /// Deletes a single RestoreVerificationPlan. If the `force` flag is set to
+    /// `true`, any RestoreVerificationPlanAssociations linked to this
+    /// RestoreVerificationPlan will also be deleted.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, project_id: &str, location_id: &str, restore_verification_plan_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_restore_verification_plan()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/restoreVerificationPlans/{restore_verification_plan_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_restore_verification_plan(
+        &self,
+    ) -> super::builder::backup_dr::DeleteRestoreVerificationPlan {
+        super::builder::backup_dr::DeleteRestoreVerificationPlan::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
     ///
     /// # Example

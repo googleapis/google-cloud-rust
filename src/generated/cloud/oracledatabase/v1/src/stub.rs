@@ -484,6 +484,49 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::OracleDatabase::list_odb_dns_zones].
+    fn list_odb_dns_zones(
+        &self,
+        _req: crate::model::ListOdbDnsZonesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListOdbDnsZonesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::get_odb_dns_zone].
+    fn get_odb_dns_zone(
+        &self,
+        _req: crate::model::GetOdbDnsZoneRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::OdbDnsZone>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::create_odb_dns_zone].
+    fn create_odb_dns_zone(
+        &self,
+        _req: crate::model::CreateOdbDnsZoneRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::delete_odb_dns_zone].
+    fn delete_odb_dns_zone(
+        &self,
+        _req: crate::model::DeleteOdbDnsZoneRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::OracleDatabase::list_exadb_vm_clusters].
     fn list_exadb_vm_clusters(
         &self,

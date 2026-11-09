@@ -9852,6 +9852,14 @@ pub struct ZoneDistributionConfig {
     /// MULTI_ZONE, and would be ignored for MULTI_ZONE clusters.
     pub zone: std::string::String,
 
+    /// Optional. Specify the zones of a multi-zone cluster where Redis Cluster
+    /// allocates resources. This flag isn't applicable for single-zone clusters.
+    pub zones: std::vec::Vec<std::string::String>,
+
+    /// Output only. The exact list of zones where the cluster currently has active
+    /// VMs.
+    pub active_zones: std::vec::Vec<std::string::String>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9889,6 +9897,40 @@ impl ZoneDistributionConfig {
     /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
+        self
+    }
+
+    /// Sets the value of [zones][crate::model::ZoneDistributionConfig::zones].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ZoneDistributionConfig;
+    /// let x = ZoneDistributionConfig::new().set_zones(["a", "b", "c"]);
+    /// ```
+    pub fn set_zones<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.zones = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [active_zones][crate::model::ZoneDistributionConfig::active_zones].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_redis_cluster_v1::model::ZoneDistributionConfig;
+    /// let x = ZoneDistributionConfig::new().set_active_zones(["a", "b", "c"]);
+    /// ```
+    pub fn set_active_zones<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.active_zones = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }

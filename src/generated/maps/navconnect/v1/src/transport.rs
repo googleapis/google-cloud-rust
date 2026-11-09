@@ -129,6 +129,7 @@ impl super::stub::NavConnectService for NavConnectService {
 
                 let resource_name = format!("//navigationconnect.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("routePolylineFormat", &req.route_polyline_format)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })

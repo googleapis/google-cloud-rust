@@ -84,6 +84,8 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("server_ca_pool", &self.server_ca_pool);
         debug_struct.field("rotate_server_certificate", &self.rotate_server_certificate);
         debug_struct.field("migration_config", &self.migration_config);
+        debug_struct.field("acl_policy", &self.acl_policy);
+        debug_struct.field("acl_policy_info", &self.acl_policy_info);
         debug_struct.field("import_sources", &self.import_sources);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -161,6 +163,29 @@ impl std::fmt::Debug for super::instance::ConnectionDetail {
     }
 }
 
+impl std::fmt::Debug for super::AclPolicyInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AclPolicyInfo");
+        debug_struct.field("applied_acl_policy", &self.applied_acl_policy);
+        debug_struct.field(
+            "applied_acl_policy_revision",
+            &self.applied_acl_policy_revision,
+        );
+        debug_struct.field(
+            "applied_acl_policy_revision_number",
+            &self.applied_acl_policy_revision_number,
+        );
+        debug_struct.field(
+            "acl_policy_revision_statuses",
+            &self.acl_policy_revision_statuses,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::StartMigrationRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("StartMigrationRequest");
@@ -204,6 +229,85 @@ impl std::fmt::Debug for super::MigrationConfig {
         debug_struct.field("state", &self.state);
         debug_struct.field("force_finish_migration", &self.force_finish_migration);
         debug_struct.field("source", &self.source);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AclPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AclPolicy");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("rules", &self.rules);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field(
+            "instance_acl_policy_attachments",
+            &self.instance_acl_policy_attachments,
+        );
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AclPolicyRevision {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AclPolicyRevision");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("revision_number", &self.revision_number);
+        debug_struct.field("snapshot", &self.snapshot);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("attached_instances", &self.attached_instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AclPolicyRevisionStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AclPolicyRevisionStatus");
+        debug_struct.field("acl_policy_revision", &self.acl_policy_revision);
+        debug_struct.field(
+            "acl_policy_revision_number",
+            &self.acl_policy_revision_number,
+        );
+        debug_struct.field("state", &self.state);
+        debug_struct.field("error_message", &self.error_message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::InstanceAclPolicyAttachment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceAclPolicyAttachment");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field(
+            "acl_policy_revision_statuses",
+            &self.acl_policy_revision_statuses,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AclRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AclRule");
+        debug_struct.field("username", &self.username);
+        debug_struct.field("rule", &self.rule);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -508,6 +612,8 @@ impl std::fmt::Debug for super::ZoneDistributionConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ZoneDistributionConfig");
         debug_struct.field("zone", &self.zone);
+        debug_struct.field("zones", &self.zones);
+        debug_struct.field("active_zones", &self.active_zones);
         debug_struct.field("mode", &self.mode);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -522,6 +628,58 @@ impl std::fmt::Debug for super::RescheduleMaintenanceRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("reschedule_type", &self.reschedule_type);
         debug_struct.field("schedule_time", &self.schedule_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListAclPoliciesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAclPoliciesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListAclPoliciesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAclPoliciesResponse");
+        debug_struct.field("acl_policies", &self.acl_policies);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListAclPolicyRevisionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAclPolicyRevisionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListAclPolicyRevisionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListAclPolicyRevisionsResponse");
+        debug_struct.field("acl_policy_revisions", &self.acl_policy_revisions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -557,10 +715,46 @@ impl std::fmt::Debug for super::ListInstancesResponse {
     }
 }
 
+impl std::fmt::Debug for super::GetAclPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAclPolicyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetAclPolicyRevisionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAclPolicyRevisionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::GetInstanceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetInstanceRequest");
         debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateAclPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateAclPolicyRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("acl_policy_id", &self.acl_policy_id);
+        debug_struct.field("acl_policy", &self.acl_policy);
+        debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -582,12 +776,38 @@ impl std::fmt::Debug for super::CreateInstanceRequest {
     }
 }
 
+impl std::fmt::Debug for super::UpdateAclPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAclPolicyRequest");
+        debug_struct.field("acl_policy", &self.acl_policy);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::UpdateInstanceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateInstanceRequest");
         debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("instance", &self.instance);
         debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteAclPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteAclPolicyRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("etag", &self.etag);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

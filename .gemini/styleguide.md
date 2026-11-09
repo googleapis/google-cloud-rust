@@ -61,7 +61,9 @@ included, or if a feature gate is not exercised in the CI).
 ## Async & Concurrency
 
 - **Send & Sync:** New public `async fn` and Future types MUST be `Send` and
-  `Sync` unless thread-affinity is explicitly intended.
+  `Sync` unless thread-affinity is explicitly intended. Call out new public
+  async functions (especially those taking closures) that lack a compile-time
+  test asserting the returned future is `Send`.
 - **Blocking:** No blocking I/O (e.g., `std::fs`, `std::net`) in async
   functions. Use `tokio::task::spawn_blocking` for CPU-intensive tasks.
 
@@ -74,6 +76,13 @@ included, or if a feature gate is not exercised in the CI).
   should consume `self` for fluent chaining.
 - **Interoperability:** Implement `Debug` for all public types. Implement
   `Default` where appropriate.
+- **Fields vs. options:** Request builders use `set_<field>()` for fields in the
+  request payload and `with_<option>()` for options that change the client
+  library behavior. See "Separate namespace for fields vs. options" in
+  [ARCHITECTURE.md](../ARCHITECTURE.md).
+- **Hand-written crates:** New public APIs in hand-written crates must follow
+  [howto-guide-handwritten-client-api.md](../doc/contributor/howto-guide-handwritten-client-api.md).
+  Use its "Review checklist" when reviewing such changes.
 
 ## Implementation Style
 

@@ -15,6 +15,7 @@
 //! Channel entry lifecycle, atomic accounting, and RAII drop guards.
 
 use crate::client::Channel;
+use crate::retry_delay::extract_status_code_from_error;
 use crate::server_streaming::stream::StreamGuard;
 use google_cloud_gax::error::rpc::Code;
 use std::ops::Deref;
@@ -337,7 +338,7 @@ impl ChannelLease {
     /// Records the result of a standard GAX RPC call, extracting the gRPC status code if present.
     pub(crate) fn record_call_result<T>(&self, result: &crate::Result<T>) {
         self.guard
-            .record_result(result, |error| error.status().map(|status| status.code));
+            .record_result(result, extract_status_code_from_error);
     }
 
     /// Returns a reference to the physical `Channel`.
@@ -373,6 +374,7 @@ mod tests {
     use crate::Result as SpannerResult;
     use crate::generated::gapic_dataplane::stub::Spanner as SpannerStub;
     use crate::model::{CreateSessionRequest, Session};
+    use gaxi::grpc::tonic::Status as TonicStatus;
     use google_cloud_gax::error::Error as GaxError;
     use google_cloud_gax::error::rpc::Status;
     use google_cloud_gax::options::RequestOptions;
@@ -799,6 +801,91 @@ mod tests {
             entry.current_penalty(),
             5,
             "StreamGuard::record_error_code must add penalty load"
+        );
+    }
+
+    #[test]
+    fn channel_lease_record_call_result_status_code_extraction() {
+        let channel = create_mock_channel();
+        let entry = Arc::new(ChannelEntry::new(1, 1, channel));
+        let guard = ActiveRpcGuard::new(Arc::clone(&entry), 5, Duration::from_secs(10), 25);
+        let lease = ChannelLease::new(guard);
+
+        assert_eq!(entry.current_penalty(), 0, "initial penalty load must be 0");
+
+        // 1. Success should not apply penalty
+        let ok_result: SpannerResult<&str> = Ok("success");
+        lease.record_call_result(&ok_result);
+        assert_eq!(
+            entry.current_penalty(),
+            0,
+            "Ok result must not apply penalty"
+        );
+
+        // 2. Non-qualifying status code (e.g. InvalidArgument) should not apply penalty
+        let non_qualifying_result: SpannerResult<&str> = Err(GaxError::service(
+            Status::default().set_code(Code::InvalidArgument),
+        ));
+        lease.record_call_result(&non_qualifying_result);
+        assert_eq!(
+            entry.current_penalty(),
+            0,
+            "non-qualifying error must not apply penalty"
+        );
+
+        // 3. Direct GAX service status code (Unavailable) applies penalty step (+5)
+        let direct_unavailable_result: SpannerResult<&str> = Err(GaxError::service(
+            Status::default().set_code(Code::Unavailable),
+        ));
+        lease.record_call_result(&direct_unavailable_result);
+        assert_eq!(
+            entry.current_penalty(),
+            5,
+            "direct Unavailable status must apply error penalty step"
+        );
+
+        // 4. Nested TonicStatus in error source chain (Unavailable) applies penalty step (+5 -> 10)
+        let nested_tonic_result: SpannerResult<&str> = Err(GaxError::connect(
+            TonicStatus::unavailable("transport stream reset"),
+        ));
+        lease.record_call_result(&nested_tonic_result);
+        assert_eq!(
+            entry.current_penalty(),
+            10,
+            "nested TonicStatus must extract status code and apply error penalty step"
+        );
+
+        // 5. Nested GaxError in error source chain (ResourceExhausted) applies penalty step (+5 -> 15)
+        let nested_gax_result: SpannerResult<&str> = Err(GaxError::exhausted(GaxError::service(
+            Status::default().set_code(Code::ResourceExhausted),
+        )));
+        lease.record_call_result(&nested_gax_result);
+        assert_eq!(
+            entry.current_penalty(),
+            15,
+            "nested GaxError must extract status code and apply error penalty step"
+        );
+
+        // 6. Two-level nested error (GaxError::exhausted wrapping GaxError::connect wrapping TonicStatus)
+        let two_level_nested_result: SpannerResult<&str> =
+            Err(GaxError::exhausted(GaxError::connect(
+                TonicStatus::unavailable("transport stream reset after retries"),
+            )));
+        lease.record_call_result(&two_level_nested_result);
+        assert_eq!(
+            entry.current_penalty(),
+            20,
+            "two-level nested TonicStatus inside exhausted connect error must apply error penalty step"
+        );
+
+        // 7. Generic non-gRPC error without status code does not apply penalty
+        let non_grpc_result: SpannerResult<&str> =
+            Err(GaxError::exhausted("retry policy exhausted"));
+        lease.record_call_result(&non_grpc_result);
+        assert_eq!(
+            entry.current_penalty(),
+            20,
+            "non-gRPC error must not alter penalty load"
         );
     }
 }

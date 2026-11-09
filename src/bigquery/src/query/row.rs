@@ -13,17 +13,8 @@
 // limitations under the License.
 
 use crate::error::{ConvertError, RowError};
-#[cfg(any(
-    google_cloud_unstable_bigquery_arrow,
-    google_cloud_unstable_bigquery_storage_read
-))]
-use crate::query::from_sql::ArrowCell;
-use crate::query::from_sql::SqlValueInner;
+use crate::query::from_sql::{ArrowCell, SqlValueInner};
 use crate::query::{FromSql, Schema};
-#[cfg(any(
-    google_cloud_unstable_bigquery_arrow,
-    google_cloud_unstable_bigquery_storage_read
-))]
 use arrow::record_batch::RecordBatch;
 use google_cloud_bigquery_v2::model::TableFieldSchema;
 use std::sync::Arc;
@@ -80,10 +71,6 @@ pub struct Row {
 #[derive(Clone, Debug)]
 pub(crate) enum RowInner {
     Json(Vec<SqlValueInner>),
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
     Arrow {
         batch: Arc<RecordBatch>,
         row_idx: usize,
@@ -101,10 +88,6 @@ mod sealed {
         fn index(&self, row: &Row) -> Option<usize>;
 
         /// Returns the index of the field in the given Arrow `StructArray`, if it exists.
-        #[cfg(any(
-            google_cloud_unstable_bigquery_arrow,
-            google_cloud_unstable_bigquery_storage_read
-        ))]
         fn arrow_index(&self, struct_arr: &arrow::array::StructArray) -> Option<usize>;
 
         /// Takes a value by column index or field name from `SqlValue`.
@@ -119,10 +102,6 @@ mod sealed {
             row.schema.get_field_by_index(*self).map(|_| *self)
         }
 
-        #[cfg(any(
-            google_cloud_unstable_bigquery_arrow,
-            google_cloud_unstable_bigquery_storage_read
-        ))]
         fn arrow_index(&self, struct_arr: &arrow::array::StructArray) -> Option<usize> {
             (*self < struct_arr.num_columns()).then_some(*self)
         }
@@ -157,10 +136,6 @@ mod sealed {
                     self.take_sql_value(value)
                 }
                 SqlValueInner::Null => Err(ConvertError::NotNull),
-                #[cfg(any(
-                    google_cloud_unstable_bigquery_arrow,
-                    google_cloud_unstable_bigquery_storage_read
-                ))]
                 SqlValueInner::Arrow(cell) => match cell.data_type() {
                     arrow::datatypes::DataType::Struct(_) => cell
                         .struct_field_cell(self)
@@ -192,10 +167,6 @@ mod sealed {
             row.schema.get_field_index_by_name(self)
         }
 
-        #[cfg(any(
-            google_cloud_unstable_bigquery_arrow,
-            google_cloud_unstable_bigquery_storage_read
-        ))]
         fn arrow_index(&self, struct_arr: &arrow::array::StructArray) -> Option<usize> {
             struct_arr.fields().iter().position(|f| f.name() == *self)
         }
@@ -222,10 +193,6 @@ mod sealed {
                     self.take_sql_value(value)
                 }
                 SqlValueInner::Null => Err(ConvertError::NotNull),
-                #[cfg(any(
-                    google_cloud_unstable_bigquery_arrow,
-                    google_cloud_unstable_bigquery_storage_read
-                ))]
                 SqlValueInner::Arrow(cell) => match cell.data_type() {
                     arrow::datatypes::DataType::Struct(_) => cell
                         .struct_field_cell(self)
@@ -250,10 +217,6 @@ mod sealed {
             <&str as ColumnIndex>::index(&self.as_str(), row)
         }
 
-        #[cfg(any(
-            google_cloud_unstable_bigquery_arrow,
-            google_cloud_unstable_bigquery_storage_read
-        ))]
         fn arrow_index(&self, struct_arr: &arrow::array::StructArray) -> Option<usize> {
             self.as_str().arrow_index(struct_arr)
         }
@@ -286,10 +249,6 @@ impl Row {
         })
     }
 
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
     pub(crate) fn try_new_from_arrow(
         batch: &Arc<RecordBatch>,
         row_idx: usize,
@@ -367,10 +326,6 @@ impl Row {
                 })?;
                 self.convert_value_at(idx, val.clone())
             }
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             RowInner::Arrow { batch, row_idx } => {
                 let col = batch
                     .columns()
@@ -438,10 +393,6 @@ impl Row {
                 let owned_val = std::mem::replace(val, SqlValueInner::Null);
                 self.convert_value_at(idx, owned_val)
             }
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             RowInner::Arrow { batch, row_idx } => {
                 let col = batch
                     .columns()
@@ -1540,10 +1491,6 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
     mod arrow_tests {
         use super::*;
         use crate::query::SqlValue;

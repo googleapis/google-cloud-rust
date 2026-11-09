@@ -30,7 +30,6 @@ pub const DEFAULT_REPLAY_BUFFER_SIZE: usize = 32 * 1024 * 1024;
 ///
 /// Must exceed `2 * MAX_WRITE_CHUNK_SIZE` so the worker's high watermark
 /// (`capacity - 2 * MAX_WRITE_CHUNK_SIZE`) is non-zero and leaves room for at least one chunk.
-// TODO(#5716): Enforce this when ReplayBuffer capacity becomes configurable.
 pub const MIN_REPLAY_BUFFER_SIZE: usize = 2 * MAX_WRITE_CHUNK_SIZE + 1;
 
 /// Represents an unacknowledged data chunk retained in the [`ReplayBuffer`].

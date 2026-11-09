@@ -9231,6 +9231,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryTableReferences {
         enum __FieldTag {
             __table_references,
             __property_graph_references,
+            __search_scope,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -9259,6 +9260,8 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryTableReferences {
                             "property_graph_references" => {
                                 Ok(__FieldTag::__property_graph_references)
                             }
+                            "searchScope" => Ok(__FieldTag::__search_scope),
+                            "search_scope" => Ok(__FieldTag::__search_scope),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -9307,6 +9310,15 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryTableReferences {
                                     std::vec::Vec<crate::model::BigQueryPropertyGraphReference>,
                                 >>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__search_scope => {
+                            if !fields.insert(__FieldTag::__search_scope) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for search_scope",
+                                ));
+                            }
+                            result.search_scope =
+                                map.next_value::<std::option::Option<crate::model::SearchScope>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -9425,6 +9437,198 @@ impl<'de> serde::de::Deserialize<'de> for super::BigQueryTableReference {
                             }
                             result.schema =
                                 map.next_value::<std::option::Option<crate::model::Schema>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::BigQueryDatasetReference {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __project_id,
+            __dataset_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BigQueryDatasetReference")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "projectId" => Ok(__FieldTag::__project_id),
+                            "project_id" => Ok(__FieldTag::__project_id),
+                            "datasetId" => Ok(__FieldTag::__dataset_id),
+                            "dataset_id" => Ok(__FieldTag::__dataset_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::BigQueryDatasetReference;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BigQueryDatasetReference")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__project_id => {
+                            if !fields.insert(__FieldTag::__project_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for project_id",
+                                ));
+                            }
+                            result.project_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__dataset_id => {
+                            if !fields.insert(__FieldTag::__dataset_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for dataset_id",
+                                ));
+                            }
+                            result.dataset_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::SearchScope {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __include_project_ids,
+            __include_dataset_references,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SearchScope")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "includeProjectIds" => Ok(__FieldTag::__include_project_ids),
+                            "include_project_ids" => Ok(__FieldTag::__include_project_ids),
+                            "includeDatasetReferences" => {
+                                Ok(__FieldTag::__include_dataset_references)
+                            }
+                            "include_dataset_references" => {
+                                Ok(__FieldTag::__include_dataset_references)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::SearchScope;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SearchScope")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__include_project_ids => {
+                            if !fields.insert(__FieldTag::__include_project_ids) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for include_project_ids",
+                                ));
+                            }
+                            result.include_project_ids = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__include_dataset_references => {
+                            if !fields.insert(__FieldTag::__include_dataset_references) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for include_dataset_references",
+                                ));
+                            }
+                            result.include_dataset_references = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::BigQueryDatasetReference>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

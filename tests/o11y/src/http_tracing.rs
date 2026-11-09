@@ -87,6 +87,7 @@ async fn setup_otel(
         .await?;
     opentelemetry::global::set_meter_provider(meter_provider.clone());
 
+    TestLayer::ensure_max_level_trace();
     let guard = tracing_subscriber::Registry::default()
         .with(crate::tracing::trace_layer(provider.clone()))
         .set_default();
@@ -284,6 +285,7 @@ pub async fn to_otlp_debug_event() -> anyhow::Result<()> {
         .build()
         .await?;
 
+    TestLayer::ensure_max_level_trace();
     let _guard = tracing_subscriber::Registry::default()
         .with(crate::tracing::trace_layer(tracer_provider.clone()))
         .with(crate::tracing::log_layer(logger_provider.clone()))
@@ -728,6 +730,7 @@ pub async fn to_otlp_retries() -> anyhow::Result<()> {
         .build()
         .await?;
 
+    TestLayer::ensure_max_level_trace();
     let _guard = tracing_subscriber::Registry::default()
         .with(crate::tracing::trace_layer(provider.clone()))
         .with(crate::tracing::log_layer(logger_provider.clone()))

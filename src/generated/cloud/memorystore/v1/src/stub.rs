@@ -38,6 +38,17 @@ pub(crate) mod dynamic;
 /// implementation of each method. Most of these implementations just return an
 /// error.
 pub trait Memorystore: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::Memorystore::list_acl_policies].
+    fn list_acl_policies(
+        &self,
+        _req: crate::model::ListAclPoliciesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListAclPoliciesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Memorystore::list_instances].
     fn list_instances(
         &self,
@@ -49,12 +60,32 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Memorystore::get_acl_policy].
+    fn get_acl_policy(
+        &self,
+        _req: crate::model::GetAclPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::AclPolicy>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Memorystore::get_instance].
     fn get_instance(
         &self,
         _req: crate::model::GetInstanceRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Instance>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Memorystore::create_acl_policy].
+    fn create_acl_policy(
+        &self,
+        _req: crate::model::CreateAclPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::AclPolicy>>> + Send
     {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -70,6 +101,17 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Memorystore::update_acl_policy].
+    fn update_acl_policy(
+        &self,
+        _req: crate::model::UpdateAclPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Memorystore::update_instance].
     fn update_instance(
         &self,
@@ -77,6 +119,39 @@ pub trait Memorystore: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Memorystore::delete_acl_policy].
+    fn delete_acl_policy(
+        &self,
+        _req: crate::model::DeleteAclPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Memorystore::get_acl_policy_revision].
+    fn get_acl_policy_revision(
+        &self,
+        _req: crate::model::GetAclPolicyRevisionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::AclPolicyRevision>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Memorystore::list_acl_policy_revisions].
+    fn list_acl_policy_revisions(
+        &self,
+        _req: crate::model::ListAclPolicyRevisionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListAclPolicyRevisionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

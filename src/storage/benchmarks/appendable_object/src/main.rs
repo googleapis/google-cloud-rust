@@ -82,8 +82,6 @@ mod app {
             {
                 Ok(elapsed) => {
                     if i < args.warmup_iterations {
-                        // TODO(#5716): Record and report warmup iteration latencies to evaluate
-                        // whether warmup iterations significantly impact performance.
                         println!("Warmup {:>2}: {:?}", i + 1, elapsed);
                     } else {
                         println!(
