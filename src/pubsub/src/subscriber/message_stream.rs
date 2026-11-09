@@ -2292,9 +2292,8 @@ mod tests {
         let rt = tokio::runtime::Builder::new_current_thread()
             .enable_all()
             .build()?;
-        let (stream, mut nack_rx, _response_tx, _server) = rt.block_on(
-            stream_with_buffered_responses(ShutdownBehavior::WaitForProcessing),
-        )?;
+        let setup = stream_with_buffered_responses(ShutdownBehavior::WaitForProcessing);
+        let (stream, mut nack_rx, _response_tx, _server) = rt.block_on(setup)?;
 
         // Without a runtime, we cannot send the nacks. Dropping the stream
         // must not panic. The service redelivers the buffered messages after
