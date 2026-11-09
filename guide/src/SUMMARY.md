@@ -23,6 +23,5 @@ limitations under the License.
   - [Speed up large object downloads](storage/striped_downloads.md)
   - [Use errors to terminate uploads](storage/terminate_uploads.md)
   - [How to write tests using the Storage client](storage/mocking.md)
-- [Working with Optimistic Concurrency Control (OCC)](occ.md)
 - [Working with enums](working_with_enums.md)
 - [Troubleshooting](troubleshooting.md)
