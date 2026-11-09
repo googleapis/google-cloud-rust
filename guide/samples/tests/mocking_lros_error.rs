@@ -14,7 +14,7 @@
 
 //! Examples showing how to simulate LROs in tests.
 
-// ANCHOR: all
+// [START rust_mocking_lros_error_all] ANCHOR: all
 use gax::Result;
 use gax::response::Response;
 use google_cloud_gax as gax;
@@ -57,9 +57,9 @@ mod my_application {
             .poller();
         while let Some(p) = poller.poll().await {
             match p {
-                // ANCHOR: completed-branch
+                // [START rust_mocking_lros_error_completed_branch] ANCHOR: completed-branch
                 PollingResult::Completed(r) => {
-                    // ANCHOR_END: completed-branch
+                    // [END rust_mocking_lros_error_completed_branch] ANCHOR_END: completed-branch
                     let billed_duration = r.map(|r| r.total_billed_duration);
                     return BatchRecognizeResult {
                         progress_updates,
@@ -75,9 +75,9 @@ mod my_application {
                         progress_updates.push(metadata.progress_percent);
                     }
                 }
-                // ANCHOR: polling-error-branch
+                // [START rust_mocking_lros_error_polling_error_branch] ANCHOR: polling-error-branch
                 PollingResult::PollingError(e) => {
-                    // ANCHOR_END: polling-error-branch
+                    // [END rust_mocking_lros_error_polling_error_branch] ANCHOR_END: polling-error-branch
                     return BatchRecognizeResult {
                         progress_updates,
                         billed_duration: Err(e),
@@ -115,19 +115,19 @@ mod tests {
         Ok(Response::from(operation))
     }
 
-    // ANCHOR: error-op
+    // [START rust_mocking_lros_error_op] ANCHOR: error-op
     fn make_failed_operation(status: rpc::model::Status) -> Result<Response<Operation>> {
         let operation = Operation::new()
             .set_done(true)
             .set_result(OperationResult::Error(status.into()));
         Ok(Response::from(operation))
     }
-    // ANCHOR_END: error-op
+    // [END rust_mocking_lros_error_op] ANCHOR_END: error-op
 
     #[tokio::test]
     async fn error_starting_lro() -> Result<()> {
         let mut mock = MockSpeech::new();
-        // ANCHOR: expectation-initial
+        // [START rust_mocking_lros_error_expectation_initial] ANCHOR: expectation-initial
         mock.expect_batch_recognize().return_once(|_, _| {
             use gax::error::Error;
             use gax::error::rpc::{Code, Status};
@@ -136,7 +136,7 @@ mod tests {
                 .set_message("Resource exhausted");
             Err(Error::service(status))
         });
-        // ANCHOR_END: expectation-initial
+        // [END rust_mocking_lros_error_expectation_initial] ANCHOR_END: expectation-initial
 
         // Create a client, implemented by our mock.
         let client = speech::client::Speech::from_stub(mock);
@@ -170,7 +170,7 @@ mod tests {
             .once()
             .in_sequence(&mut seq)
             .returning(|_, _| make_partial_operation(75));
-        // ANCHOR: expectation-final
+        // [START rust_mocking_lros_error_expectation_final] ANCHOR: expectation-final
         mock.expect_get_operation()
             .once()
             .in_sequence(&mut seq)
@@ -182,7 +182,7 @@ mod tests {
                     .set_message("resource already exists");
                 make_failed_operation(status)
             });
-        // ANCHOR_END: expectation-final
+        // [END rust_mocking_lros_error_expectation_final] ANCHOR_END: expectation-final
 
         // Create a client, implemented by our mock.
         let client = speech::client::Speech::from_stub(mock);
@@ -209,7 +209,7 @@ mod tests {
             .once()
             .in_sequence(&mut seq)
             .returning(|_, _| make_partial_operation(25));
-        // ANCHOR: expectation-polling-error
+        // [START rust_mocking_lros_error_expectation_polling_error] ANCHOR: expectation-polling-error
         mock.expect_get_operation()
             .once()
             .in_sequence(&mut seq)
@@ -221,7 +221,7 @@ mod tests {
                     .set_message("Operation was aborted");
                 Err(Error::service(status))
             });
-        // ANCHOR_END: expectation-polling-error
+        // [END rust_mocking_lros_error_expectation_polling_error] ANCHOR_END: expectation-polling-error
 
         // Create a client, implemented by our mock.
         let client = speech::client::Speech::from_stub(mock);
@@ -240,4 +240,4 @@ mod tests {
         Ok(())
     }
 }
-// ANCHOR_END: all
+// [END rust_mocking_lros_error_all] ANCHOR_END: all

@@ -17,6 +17,7 @@
 //! Provides `ChannelPool`, which unifies both static (fixed-size) and dynamically scaling channel
 //! pool configurations under a single API for the Spanner client.
 
+use crate::RequestOptions;
 use crate::channel_pool::affinity::{ChannelTarget, TransactionAffinity};
 use crate::channel_pool::config::{
     ChannelPoolConfig, DynamicChannelPoolConfig, MAX_SUPPORTED_CHANNELS, StaticChannelPoolConfig,
@@ -24,8 +25,10 @@ use crate::channel_pool::config::{
 use crate::channel_pool::entry::{ActiveRpcGuard, ChannelEntry, ChannelLease};
 use crate::channel_pool::scaler::{scale_down_monitor_loop, scale_up_worker_loop};
 use crate::client::Channel;
+use crate::database_client::DatabaseClient;
 use crate::routing::power_of_two_selector::PowerOfTwoSelector;
 use gaxi::options::ClientConfig;
+use http::HeaderValue;
 use std::fmt::{Debug, Formatter, Result as FmtResult};
 use std::sync::atomic::{AtomicBool, AtomicU64, AtomicUsize, Ordering};
 use std::sync::{Arc, Mutex, MutexGuard, RwLock, RwLockReadGuard, RwLockWriteGuard};
@@ -339,7 +342,7 @@ impl ChannelPool {
     pub(crate) fn set_prime_session(&self, session_name: String) {
         {
             let mut prime = self.inner.write_prime_session();
-            *prime = Some(session_name);
+            *prime = Some(PrimeSession::new(session_name));
         }
         {
             let mut last_scale = self.inner.lock_last_scale_up_time();
@@ -389,15 +392,40 @@ pub(crate) struct ChannelPoolInner {
     pub(crate) shutdown_sender: WatchSender<()>,
     pub(crate) last_scale_up_time: Mutex<Option<Instant>>,
     pub(crate) consecutive_low_load_checks: AtomicUsize,
-    /// Multiplexed session resource name used to prime newly dialed gRPC channels.
+    /// Multiplexed session used to prime newly dialed gRPC channels.
     ///
     /// Priming executes a `SELECT 1` query to establish physical transport connections before
     /// channels are published to the active pool. Once warmed, physical transport connections
     /// serve any database using the same authentication. Multiplexed sessions have a 28-day
     /// server-side lifetime; storing the most recently created or rotated session ensures newly
     /// scaled channels are primed using the freshest active session token.
-    pub(crate) prime_session: RwLock<Option<String>>,
+    pub(crate) prime_session: RwLock<Option<PrimeSession>>,
     pub(crate) selector: PowerOfTwoSelector,
+}
+
+/// The multiplexed session and the request options used to prime newly dialed channels.
+#[derive(Clone, Debug)]
+pub(crate) struct PrimeSession {
+    pub(crate) session_name: String,
+    pub(crate) options: RequestOptions,
+}
+
+impl PrimeSession {
+    /// Creates a `PrimeSession` whose options carry the `google-cloud-resource-prefix` header
+    /// of the database that owns `session_name`.
+    pub(crate) fn new(session_name: String) -> Self {
+        let options = session_name
+            .split_once("/sessions/")
+            .and_then(|(database, _)| HeaderValue::from_str(database).ok())
+            .map(|prefix| {
+                DatabaseClient::attach_resource_prefix_header(&prefix, RequestOptions::default())
+            })
+            .unwrap_or_default();
+        Self {
+            session_name,
+            options,
+        }
+    }
 }
 
 impl Drop for ChannelPoolInner {
@@ -461,10 +489,10 @@ impl ChannelPoolInner {
     /// Acquires a shared read lock on the prime session name, recovering from lock poisoning via `into_inner()`.
     ///
     /// # Poison Recovery Rationale
-    /// `prime_session` holds an `Option<String>` used to prime newly established channels. Recovering
+    /// `prime_session` holds an `Option<PrimeSession>` used to prime newly established channels. Recovering
     /// via `into_inner()` ensures that new channels can still read the prime session name even if an earlier
     /// task panicked.
-    pub(crate) fn read_prime_session(&self) -> RwLockReadGuard<'_, Option<String>> {
+    pub(crate) fn read_prime_session(&self) -> RwLockReadGuard<'_, Option<PrimeSession>> {
         match self.prime_session.read() {
             Ok(guard) => guard,
             Err(poisoned) => poisoned.into_inner(),
@@ -475,7 +503,7 @@ impl ChannelPoolInner {
     ///
     /// # Poison Recovery Rationale
     /// See [`read_prime_session`](Self::read_prime_session).
-    pub(crate) fn write_prime_session(&self) -> RwLockWriteGuard<'_, Option<String>> {
+    pub(crate) fn write_prime_session(&self) -> RwLockWriteGuard<'_, Option<PrimeSession>> {
         match self.prime_session.write() {
             Ok(guard) => guard,
             Err(poisoned) => poisoned.into_inner(),
@@ -528,7 +556,10 @@ impl ChannelPool {
     }
 
     pub(crate) fn prime_session_name(&self) -> Option<String> {
-        self.inner.read_prime_session().clone()
+        self.inner
+            .read_prime_session()
+            .as_ref()
+            .map(|prime| prime.session_name.clone())
     }
 
     pub(crate) fn active_entries(&self) -> Vec<Arc<ChannelEntry>> {
@@ -570,6 +601,34 @@ mod tests {
 
     fn create_mock_channel() -> Channel {
         Channel::new_for_test(MockSpannerStub)
+    }
+
+    #[test]
+    fn prime_session_new_sets_resource_prefix() {
+        use google_cloud_gax::options::internal::RequestOptionsExt as _;
+        use http::HeaderMap;
+
+        let prime = PrimeSession::new("projects/p/instances/i/databases/d/sessions/s".to_string());
+        let prefix = prime
+            .options
+            .get_extension::<HeaderMap>()
+            .and_then(|headers| headers.get("google-cloud-resource-prefix"))
+            .and_then(|value| value.to_str().ok());
+        assert_eq!(
+            prefix,
+            Some("projects/p/instances/i/databases/d"),
+            "prime session must set resource prefix from valid session name"
+        );
+
+        let prime = PrimeSession::new("not-a-session-name".to_string());
+        let prefix = prime
+            .options
+            .get_extension::<HeaderMap>()
+            .and_then(|headers| headers.get("google-cloud-resource-prefix"));
+        assert!(
+            prefix.is_none(),
+            "malformed session names must not set the header"
+        );
     }
 
     #[test]

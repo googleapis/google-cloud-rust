@@ -547,6 +547,12 @@ impl SequentialBatchActor {
         inflight: &mut JoinSet<crate::Result<()>>,
         batch: &mut Batch,
     ) {
+        // `pause()` relies on this: as `flush` drains the batch, the batch is
+        // empty while a batch is inflight, including when that batch fails.
+        debug_assert!(
+            inflight.is_empty(),
+            "messages must not be moved to the batch while a batch is inflight"
+        );
         let mut should_flush = false;
         while let Some(next) = self.pending_msgs.front() {
             if !batch.can_add(next) && !batch.is_empty() {
@@ -570,6 +576,9 @@ impl SequentialBatchActor {
     }
 
     // Pause publish operations.
+    //
+    // Only `pending_msgs` needs to fail: the pending batch is empty because
+    // messages are not moved to it while a batch is inflight.
     fn pause(&mut self) {
         self.paused = true;
         while let Some(publish) = self.pending_msgs.pop_front() {
@@ -1094,6 +1103,72 @@ mod tests {
         // Resume then validate that the actor is no longer paused.
         actor_tx.send(ToBatchActor::ResumePublish())?;
         assert_publish_is_ok!(actor_tx, msg_seq_rx, EXPECTED_BATCHES);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn sequential_actor_flush_inflight_error_pauses() -> anyhow::Result<()> {
+        // The first batch succeeds and the second batch fails. No batch is
+        // sent after the failure.
+        let mut mock = MockGapicPublisherWithFuture::new();
+        let mut seq = Sequence::new();
+        mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|r, o| {
+                Box::pin(async move {
+                    tokio::time::sleep(TIME_PER_BATCH).await;
+                    publish_ok(r, o)
+                })
+            });
+        mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|r, o| {
+                Box::pin(async move {
+                    tokio::time::sleep(TIME_PER_BATCH).await;
+                    publish_err(r, o)
+                })
+            });
+
+        let (actor_tx, actor_rx) = tokio::sync::mpsc::unbounded_channel();
+        tokio::spawn(
+            SequentialBatchActor::new(
+                TOPIC.to_string(),
+                GapicPublisher::from_stub(mock),
+                BatchingOptions::default().set_message_count_threshold(2_u32),
+                actor_rx,
+            )
+            .run(),
+        );
+
+        // The first batch is sent right away and the other messages wait for
+        // it. The flush sends the second batch, which fails while the last 3
+        // messages are pending.
+        let mut ok_rxs = VecDeque::new();
+        publish_random_data!(ok_rxs, actor_tx, 2);
+        let mut err_rxs = VecDeque::new();
+        publish_random_data!(err_rxs, actor_tx, 2);
+        let mut paused_rxs = VecDeque::new();
+        publish_random_data!(paused_rxs, actor_tx, 3);
+        assert_flush!(actor_tx);
+
+        assert_publish_data!(ok_rxs);
+        for (_, publish_rx) in err_rxs {
+            let res = publish_rx.await;
+            assert!(matches!(res, Ok(Err(PublishError::Rpc(_)))), "{res:?}");
+        }
+        for (_, publish_rx) in paused_rxs {
+            let res = publish_rx.await;
+            assert!(
+                matches!(res, Ok(Err(PublishError::OrderingKeyPaused))),
+                "{res:?}"
+            );
+        }
+        assert_actor_is_paused!(actor_tx, 1);
 
         Ok(())
     }

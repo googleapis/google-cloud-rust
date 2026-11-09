@@ -45,6 +45,14 @@ impl std::fmt::Debug for super::TripConfig {
         );
         debug_struct.field("enable_pubsub", &self.enable_pubsub);
         debug_struct.field("pubsub_field_mask", &self.pubsub_field_mask);
+        debug_struct.field(
+            "enable_remaining_route_reporting",
+            &self.enable_remaining_route_reporting,
+        );
+        debug_struct.field(
+            "enable_route_deviation_reporting",
+            &self.enable_route_deviation_reporting,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -70,11 +78,25 @@ impl std::fmt::Debug for super::TripExecution {
         debug_struct.field("origin", &self.origin);
         debug_struct.field("destination", &self.destination);
         debug_struct.field("location", &self.location);
+        debug_struct.field("remaining_route", &self.remaining_route);
+        debug_struct.field("last_route_deviation", &self.last_route_deviation);
         debug_struct.field("traveled_duration", &self.traveled_duration);
         debug_struct.field("remaining_duration", &self.remaining_duration);
         debug_struct.field("traveled_distance_meters", &self.traveled_distance_meters);
         debug_struct.field("remaining_distance_meters", &self.remaining_distance_meters);
         debug_struct.field("stop_added_in_route", &self.stop_added_in_route);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RouteDeviation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RouteDeviation");
+        debug_struct.field("location", &self.location);
+        debug_struct.field("source", &self.source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -106,6 +128,45 @@ impl std::fmt::Debug for super::Location {
     }
 }
 
+impl std::fmt::Debug for super::SimplePolyline {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SimplePolyline");
+        debug_struct.field("points", &self.points);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SpeedReadingInterval {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SpeedReadingInterval");
+        debug_struct.field(
+            "start_polyline_point_index",
+            &self.start_polyline_point_index,
+        );
+        debug_struct.field("end_polyline_point_index", &self.end_polyline_point_index);
+        debug_struct.field("speed", &self.speed);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Route {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Route");
+        debug_struct.field("traffic_information", &self.traffic_information);
+        debug_struct.field("format", &self.format);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::CreateTripRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateTripRequest");
@@ -123,6 +184,7 @@ impl std::fmt::Debug for super::GetTripRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetTripRequest");
         debug_struct.field("name", &self.name);
+        debug_struct.field("route_polyline_format", &self.route_polyline_format);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

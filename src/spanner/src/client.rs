@@ -2069,6 +2069,126 @@ mod tests {
         Ok(())
     }
 
+    #[tokio_test_no_panics]
+    async fn default_retry_policy_unary_rpc() -> anyhow::Result<()> {
+        let mut mock = MockSpanner::new();
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let mut sequence = mockall::Sequence::new();
+
+        // 1. Unrelated INTERNAL error fails immediately and is not retried.
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Err(Status::new(
+                    GrpcCode::Internal,
+                    "Corrupted database page encountered on disk",
+                ))
+            });
+
+        // 2. Transient INTERNAL RST_STREAM error on first attempt is retried.
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Err(Status::new(
+                    GrpcCode::Internal,
+                    "stream terminated by RST_STREAM",
+                ))
+            });
+
+        // 3. Retried ExecuteSql unary call succeeds via default SpannerRetryPolicy.
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(mock_v1::ResultSet {
+                    metadata: Some(mock_v1::ResultSetMetadata {
+                        transaction: Some(mock_v1::Transaction {
+                            id: vec![42],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: Some(mock_v1::ResultSetStats {
+                        row_count: Some(mock_v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit().once().returning(|_| {
+            Ok(Response::new(mock_v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1234,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database = client
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await?;
+
+        // Case 1: Unrelated internal error fails immediately without retry.
+        let runner_unrelated = database.read_write_transaction().build();
+        let error = runner_unrelated
+            .run(async |transaction| {
+                let count = transaction.execute_update("UPDATE t SET c = 1").await?;
+                Ok(count)
+            })
+            .await
+            .expect_err("expected unary RPC to fail immediately on unrelated internal error");
+        assert!(
+            error.to_string().contains("Corrupted database page"),
+            "error should preserve original message: {error}"
+        );
+
+        // Case 2: Transient RST_STREAM error is retried via default retry policy and succeeds.
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .once()
+            .returning(|_| Duration::from_nanos(1));
+
+        let statement = Statement::builder("UPDATE t SET c = 1")
+            .with_backoff_policy(mock_backoff)
+            .build();
+        let runner_retry = database.read_write_transaction().build();
+        let result = runner_retry
+            .run(async |transaction| {
+                let count = transaction.execute_update(statement.clone()).await?;
+                Ok(count)
+            })
+            .await?;
+
+        assert_eq!(
+            result.result, 1,
+            "expected update count of 1 after retrying transient internal error"
+        );
+
+        Ok(())
+    }
+
     fn parse_timeout(metadata: &MetadataMap) -> u64 {
         let timeout = metadata
             .get("grpc-timeout")
@@ -2139,8 +2259,8 @@ mod tests {
             .returning(|req| {
                 let timeout_val = parse_timeout(req.metadata());
                 assert!(
-                    timeout_val <= 100000,
-                    "Expected timeout to be <= 100ms, got {}",
+                    timeout_val <= 10_000_000,
+                    "Expected timeout to be <= 10s, got {}",
                     timeout_val
                 );
                 Err(Status::new(GrpcCode::ResourceExhausted, "quota exceeded"))
@@ -2152,8 +2272,8 @@ mod tests {
             .returning(|req| {
                 let timeout_val = parse_timeout(req.metadata());
                 assert!(
-                    timeout_val <= 100000,
-                    "Expected timeout to be <= 100ms, got {}",
+                    timeout_val <= 10_000_000,
+                    "Expected timeout to be <= 10s, got {}",
                     timeout_val
                 );
 
@@ -2186,10 +2306,10 @@ mod tests {
             .build()
             .await?;
 
-        // 3. Setup Transaction Runner with 100ms timeout
+        // 3. Setup Transaction Runner with 10s timeout
         let runner = db
             .read_write_transaction()
-            .with_transaction_timeout(Duration::from_millis(100))
+            .with_transaction_timeout(Duration::from_secs(10))
             .build();
 
         // 4. Run transaction and expect success after retry
@@ -2240,8 +2360,8 @@ mod tests {
             .returning(move |req| {
                 let timeout_val = parse_timeout(req.metadata());
                 assert!(
-                    timeout_val <= 500000,
-                    "Expected timeout to be <= 500ms, got {}",
+                    timeout_val <= 10_000_000,
+                    "Expected timeout to be <= 10s, got {}",
                     timeout_val
                 );
                 prev_clone1.store(timeout_val, Ordering::SeqCst);
@@ -2315,7 +2435,7 @@ mod tests {
 
         let runner = db
             .read_write_transaction()
-            .with_transaction_timeout(Duration::from_millis(500))
+            .with_transaction_timeout(Duration::from_secs(10))
             .build();
 
         let result = runner

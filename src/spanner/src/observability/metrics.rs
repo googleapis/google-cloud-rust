@@ -39,6 +39,8 @@ pub(crate) const CLIENT_METRICS_PREFIX: &str = "spanner/client/";
 
 #[cfg(feature = "_internal-metrics")]
 use {
+    crate::retry_delay::extract_status_code_from_error,
+    google_cloud_gax::error::rpc::Code,
     google_cloud_gax::options::RequestOptions,
     http::header::{HeaderName, HeaderValue},
     opentelemetry::KeyValue,
@@ -802,9 +804,12 @@ pub(crate) fn normalize_method_name(method: &str) -> Cow<'static, str> {
 
 #[cfg(feature = "_internal-metrics")]
 fn error_to_status_str(error: Option<&Error>) -> &'static str {
-    error.map_or("OK", |e| {
-        e.status().map_or("UNKNOWN", |status| status.code.name())
-    })
+    let Some(error) = error else {
+        return "OK";
+    };
+    extract_status_code_from_error(error)
+        .as_ref()
+        .map_or("UNKNOWN", Code::name)
 }
 
 #[cfg(feature = "_internal-metrics")]
@@ -1004,7 +1009,9 @@ mod disabled_tests {
 #[cfg(all(test, feature = "_internal-metrics"))]
 mod tests {
     use super::*;
+    use gaxi::grpc::tonic::Status as TonicStatus;
     use google_cloud_gax::error::rpc::{Code, Status};
+    use google_cloud_gax::options::internal::RequestOptionsExt as _;
     use http::HeaderValue;
     use opentelemetry_sdk::metrics::data::{AggregatedMetrics, MetricData, ResourceMetrics};
     use opentelemetry_sdk::metrics::{InMemoryMetricExporter, PeriodicReader, SdkMeterProvider};
@@ -1148,18 +1155,65 @@ mod tests {
 
     #[test]
     fn error_to_status_str_conversions() {
-        assert_eq!(error_to_status_str(None), "OK");
+        assert_eq!(error_to_status_str(None), "OK", "None error must map to OK");
 
-        let status_pd = Status::default().set_code(Code::PermissionDenied);
-        let err_pd = Error::service(status_pd);
-        assert_eq!(error_to_status_str(Some(&err_pd)), "PERMISSION_DENIED");
+        let test_cases = [
+            (
+                Error::service(Status::default().set_code(Code::PermissionDenied)),
+                "PERMISSION_DENIED",
+                "direct service PermissionDenied",
+            ),
+            (
+                Error::service(Status::default().set_code(Code::NotFound)),
+                "NOT_FOUND",
+                "direct service NotFound",
+            ),
+            (
+                Error::connect(TonicStatus::unavailable("transport connection refused")),
+                "UNAVAILABLE",
+                "nested TonicStatus in connect error",
+            ),
+            (
+                Error::transport(
+                    HeaderMap::new(),
+                    TonicStatus::unavailable("transport stream reset"),
+                ),
+                "UNAVAILABLE",
+                "nested TonicStatus in transport error",
+            ),
+            (
+                Error::exhausted(Error::service(
+                    Status::default().set_code(Code::ResourceExhausted),
+                )),
+                "RESOURCE_EXHAUSTED",
+                "nested service error inside exhausted error",
+            ),
+            (
+                Error::exhausted(Error::connect(TonicStatus::unavailable(
+                    "transport stream reset after retries",
+                ))),
+                "UNAVAILABLE",
+                "two-level nested TonicStatus inside exhausted connect error",
+            ),
+            (
+                Error::timeout(TonicStatus::deadline_exceeded("deadline exceeded")),
+                "DEADLINE_EXCEEDED",
+                "nested TonicStatus in timeout error",
+            ),
+            (
+                Error::timeout("simulated timeout"),
+                "UNKNOWN",
+                "timeout error without gRPC status code",
+            ),
+        ];
 
-        let status_nf = Status::default().set_code(Code::NotFound);
-        let err_nf = Error::service(status_nf);
-        assert_eq!(error_to_status_str(Some(&err_nf)), "NOT_FOUND");
-
-        let err_timeout = Error::timeout("simulated timeout");
-        assert_eq!(error_to_status_str(Some(&err_timeout)), "UNKNOWN");
+        for (error, expected_status, description) in test_cases {
+            assert_eq!(
+                error_to_status_str(Some(&error)),
+                expected_status,
+                "{description} must map to {expected_status}"
+            );
+        }
     }
 
     #[test]
@@ -1978,8 +2032,6 @@ mod tests {
 
     #[test]
     fn retry_attempts_and_operation_recorded() {
-        use google_cloud_gax::options::internal::RequestOptionsExt as _;
-
         let exporter = InMemoryMetricExporter::default();
         let reader = PeriodicReader::builder(exporter.clone()).build();
         let provider = SdkMeterProvider::builder().with_reader(reader).build();
@@ -2077,8 +2129,6 @@ mod tests {
 
     #[test]
     fn transport_error_status_unknown() {
-        use google_cloud_gax::options::internal::RequestOptionsExt as _;
-
         let exporter = InMemoryMetricExporter::default();
         let reader = PeriodicReader::builder(exporter.clone()).build();
         let provider = SdkMeterProvider::builder().with_reader(reader).build();
@@ -2119,9 +2169,69 @@ mod tests {
     }
 
     #[test]
-    fn missing_server_timing_increments_gfe_connectivity_error_counter() {
-        use google_cloud_gax::options::internal::RequestOptionsExt as _;
+    fn nested_grpc_error_status_extracted() {
+        let exporter = InMemoryMetricExporter::default();
+        let reader = PeriodicReader::builder(exporter.clone()).build();
+        let provider = SdkMeterProvider::builder().with_reader(reader).build();
+        let meter = provider.meter(INSTRUMENTATION_SCOPE);
+        let metrics = SpannerMetrics::new(&meter);
+        let observability = Arc::new(Observability::for_test(metrics));
+        let interceptor = SpannerMetricsInterceptor;
 
+        let options = crate::RequestOptions::default().insert_extension(Arc::clone(&observability));
+        let start_time = Instant::now();
+
+        // Transport connect error containing nested TonicStatus Unavailable
+        let connect_error = Error::connect(TonicStatus::unavailable("connection reset by peer"));
+        interceptor.on_attempt_complete(
+            "/google.spanner.v1.Spanner/ExecuteSql",
+            1,
+            start_time,
+            None,
+            Some(&connect_error),
+            &options,
+        );
+
+        // Record total operation completion with exhausted error wrapping the connect error
+        let exhausted_error = Error::exhausted(connect_error);
+        observability.record_operation(
+            "/google.spanner.v1.Spanner/ExecuteSql",
+            Duration::from_millis(50),
+            Some(&exhausted_error),
+        );
+
+        provider
+            .force_flush()
+            .expect("force_flush should succeed in test");
+        let finished = exporter
+            .get_finished_metrics()
+            .expect("get_finished_metrics should succeed in test");
+
+        let attempt_attrs = extract_all_attributes(
+            &finished,
+            "spanner.googleapis.com/internal/client/attempt_count",
+        );
+        assert_eq!(attempt_attrs.len(), 1, "must record 1 attempt");
+        assert_eq!(
+            attempt_attrs[0].get("status").map(String::as_str),
+            Some("UNAVAILABLE"),
+            "nested TonicStatus in transport error must record attempt status = UNAVAILABLE"
+        );
+
+        let operation_attrs = extract_all_attributes(
+            &finished,
+            "spanner.googleapis.com/internal/client/operation_count",
+        );
+        assert_eq!(operation_attrs.len(), 1, "must record 1 operation");
+        assert_eq!(
+            operation_attrs[0].get("status").map(String::as_str),
+            Some("UNAVAILABLE"),
+            "nested TonicStatus in exhausted error must record operation status = UNAVAILABLE"
+        );
+    }
+
+    #[test]
+    fn missing_server_timing_increments_gfe_connectivity_error_counter() {
         let exporter = InMemoryMetricExporter::default();
         let reader = PeriodicReader::builder(exporter.clone()).build();
         let provider = SdkMeterProvider::builder().with_reader(reader).build();

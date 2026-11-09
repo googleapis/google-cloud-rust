@@ -33,6 +33,8 @@ default-members = [
   "src/spanner/examples",
   "src/storage",
   "src/storage/examples",
+  "src/test-macros",
+  "src/test-utils",
   "src/wkt",
   # We need `cargo test` to run at least some documentation tests for generated
   # libraries. These libraries are implicitly required by the integration tests
@@ -240,6 +242,7 @@ members = [
   "src/generated/cloud/resourcemanager/v3",
   "src/generated/cloud/retail/v2",
   "src/generated/cloud/run/v2",
+  "src/generated/cloud/saasplatform/saasservicemgmt/v1",
   "src/generated/cloud/scheduler/v1",
   "src/generated/cloud/secretmanager/v1",
   "src/generated/cloud/securesourcemanager/v1",
@@ -362,6 +365,8 @@ members = [
   "src/storage/benchmarks/write_object",
   "src/storage/examples",
   "src/storage/tests/scenarios",
+  "src/test-macros",
+  "src/test-utils",
   "src/wkt",
   "tests/auto-populated",
   "tests/bigquery",

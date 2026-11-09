@@ -42,9 +42,10 @@ workspace = true
 features = [
   "default-rustls-provider",
   "images",
+  "instance-groups",
   "instances",
   "machine-types",
-  "region-instances",
+  "region-health-checks",
   "zone-operations",
   "zones",
 ]

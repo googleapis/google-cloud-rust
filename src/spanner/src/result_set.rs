@@ -2067,6 +2067,131 @@ pub(crate) mod tests {
     }
 
     #[tokio_test_no_panics]
+    async fn result_set_retry_behavior_on_internal_errors() -> anyhow::Result<()> {
+        let mut mock = MockSpanner::new();
+        let mut sequence = mockall::Sequence::new();
+
+        // 1. Unrelated INTERNAL error fails immediately and is not retried.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Err(Status::new(
+                    GrpcCode::Internal,
+                    "Corrupted database page encountered on disk",
+                ))
+            });
+
+        // 2. Initial stream yields first row with resume_token and drops with INTERNAL RST_STREAM.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                let stream = adapt([
+                    Ok(PartialResultSet {
+                        metadata: metadata(1),
+                        values: vec![string_val("first")],
+                        resume_token: b"token1".to_vec(),
+                        ..Default::default()
+                    }),
+                    Err(Status::new(
+                        GrpcCode::Internal,
+                        "stream terminated by RST_STREAM",
+                    )),
+                ]);
+                Ok(Response::from(stream))
+            });
+
+        // 3. Resumed stream passes resume_token, yields second row and finishes.
+        mock.expect_execute_streaming_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|request| {
+                let request = request.into_inner();
+                assert_eq!(
+                    request.resume_token,
+                    b"token1".to_vec(),
+                    "resumed request must include last resume token"
+                );
+                let stream = adapt([Ok(PartialResultSet {
+                    values: vec![string_val("second")],
+                    resume_token: b"token2".to_vec(),
+                    last: true,
+                    ..Default::default()
+                })]);
+                Ok(Response::from(stream))
+            });
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+
+        // Case 1: Unrelated internal error is not retried.
+        let transaction1 = db_client.single_use().build();
+        let error = transaction1
+            .execute_query("SELECT 1")
+            .await
+            .expect_err("expected query to fail immediately with unrelated internal error");
+        assert!(
+            error.to_string().contains("Corrupted database page"),
+            "error should preserve original message: {error}"
+        );
+
+        // Case 2: Transient RST_STREAM is retried midstream using default retry policy.
+        let transaction2 = db_client.single_use().build();
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .returning(|_| Duration::from_nanos(1));
+
+        let statement = Statement::builder("SELECT 1")
+            .with_backoff_policy(mock_backoff)
+            .build();
+        let mut result_set: ResultSet = transaction2.execute_query(statement).await?;
+
+        let first_row = result_set
+            .next()
+            .await
+            .expect("stream should yield first row")?;
+        assert_eq!(
+            first_row.raw_values()[0].0,
+            string_val("first"),
+            "first row value should match mock output"
+        );
+
+        let second_row = result_set
+            .next()
+            .await
+            .expect("stream should yield second row")?;
+        assert_eq!(
+            second_row.raw_values()[0].0,
+            string_val("second"),
+            "second row value should match resumed mock output"
+        );
+
+        assert!(
+            result_set.next().await.is_none(),
+            "stream should be exhausted after second row"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
     async fn test_result_set_custom_retry_policy() -> anyhow::Result<()> {
         // Extend the default retry policy to also retry on ResourceExhausted.
         let retry_policy = Aip194Strict.continue_on_too_many_requests();

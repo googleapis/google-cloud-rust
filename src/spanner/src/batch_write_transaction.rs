@@ -296,6 +296,7 @@ impl BatchWriteTransaction {
             exclude_txn_from_change_streams: self.exclude_txn_from_change_streams,
             gax_options: self.gax_options,
             stream: None,
+            terminated: false,
             original_groups,
             total_count,
             completed_count: 0,
@@ -320,7 +321,10 @@ pub struct BatchWriteResponseStream {
     priority: Priority,
     exclude_txn_from_change_streams: bool,
     gax_options: GaxRequestOptions,
+
+    // Stream lifecycle
     stream: Option<BatchWriteStream>,
+    terminated: bool,
 
     // All original mutation groups and tracking of completed groups.
     // Confirmed completed mutation groups are taken (`None`), releasing their payload memory immediately.
@@ -350,6 +354,7 @@ impl Debug for BatchWriteResponseStream {
             .field("priority", &self.priority)
             .field("total_count", &self.total_count)
             .field("completed_count", &self.completed_count)
+            .field("terminated", &self.terminated)
             .finish_non_exhaustive()
     }
 }
@@ -377,10 +382,18 @@ impl BatchWriteResponseStream {
     /// Returns `Some(Ok(BatchWriteResponse))` when a message is successfully received,
     /// `None` when the stream concludes naturally and all mutation groups have been processed,
     /// or `Some(Err(_))` on non-retryable RPC errors or when retries are exhausted.
+    ///
+    /// Once the stream concludes with `None` or yields a terminal `Some(Err(_))`, the stream
+    /// is terminated (fused), and all subsequent calls to `next()` will return `None`.
     pub async fn next(&mut self) -> Option<Result<BatchWriteResponse>> {
+        if self.terminated {
+            return None;
+        }
+
         loop {
             // Check if all mutation groups are already completed and no active stream is running.
             if self.is_complete() && self.stream.is_none() {
+                self.terminated = true;
                 self.record_operation_complete(None);
                 return None;
             }
@@ -464,6 +477,15 @@ impl BatchWriteResponseStream {
         }
     }
 
+    fn record_terminal_error(&mut self, error: Error) -> Error {
+        self.terminated = true;
+        self.stream = None;
+        self.current_stream_indices.clear();
+        self.record_current_attempt(Some(&error));
+        self.record_operation_complete(Some(&error));
+        error
+    }
+
     /// Handles a protobuf response message by translating relative indices back to original indices
     /// and updating the internal completed state.
     fn handle_response_message(
@@ -477,24 +499,16 @@ impl BatchWriteResponseStream {
         // Here, we validate bounds and translate each relative index back to the caller's original 0-indexed positions.
         for &relative_index in &proto_response.indexes {
             if relative_index < 0 {
-                let error = internal_error(format!(
+                return Err(self.record_terminal_error(internal_error(format!(
                     "Spanner returned negative mutation group index: {relative_index}"
-                ));
-                self.stream = None;
-                self.record_current_attempt(Some(&error));
-                self.record_operation_complete(Some(&error));
-                return Err(error);
+                ))));
             }
             let unsigned_index = relative_index as usize;
             let Some(&original_index) = self.current_stream_indices.get(unsigned_index) else {
-                let error = internal_error(format!(
+                return Err(self.record_terminal_error(internal_error(format!(
                     "Spanner returned index {unsigned_index} out of bounds for active stream mutation groups (len {})",
                     self.current_stream_indices.len()
-                ));
-                self.stream = None;
-                self.record_current_attempt(Some(&error));
-                self.record_operation_complete(Some(&error));
-                return Err(error);
+                ))));
             };
 
             // Mark the mutation group as processed and release its payload memory immediately.
@@ -506,7 +520,9 @@ impl BatchWriteResponseStream {
             translated_indexes.push(original_index as i32);
         }
 
-        let mut model_response: BatchWriteResponse = proto_response.cnv().map_err(Error::deser)?;
+        let mut model_response: BatchWriteResponse = proto_response
+            .cnv()
+            .map_err(|error| self.record_terminal_error(Error::deser(error)))?;
         model_response.indexes = translated_indexes;
         Ok(model_response)
     }
@@ -558,6 +574,7 @@ impl BatchWriteResponseStream {
                 Ok(())
             }
             Err(terminal_error) => {
+                self.terminated = true;
                 self.record_operation_complete(Some(&terminal_error));
                 Err(terminal_error)
             }
@@ -606,10 +623,14 @@ impl BatchWriteResponseStream {
     /// This consumes the [`BatchWriteResponseStream`] and returns a stream of responses.
     #[cfg(feature = "unstable-stream")]
     pub fn into_stream(self) -> impl Stream<Item = Result<BatchWriteResponse>> + Unpin {
+        use futures::StreamExt;
         use futures::stream::unfold;
-        Box::pin(unfold(self, |mut stream| async move {
-            stream.next().await.map(|response| (response, stream))
-        }))
+        Box::pin(
+            unfold(self, |mut stream| async move {
+                stream.next().await.map(|response| (response, stream))
+            })
+            .fuse(),
+        )
     }
 }
 
@@ -836,6 +857,10 @@ mod tests {
         assert!(
             stream.next().await.is_none(),
             "empty input must yield None immediately without sending RPC"
+        );
+        assert!(
+            stream.next().await.is_none(),
+            "empty input stream must remain fused and yield None on subsequent calls"
         );
 
         Ok(())
@@ -1227,6 +1252,15 @@ mod tests {
         assert!(result.is_some(), "must yield error after retries exhausted");
         assert!(result.expect("some").is_err());
 
+        assert!(
+            stream.next().await.is_none(),
+            "stream must return None immediately after retries exhausted"
+        );
+        assert!(
+            stream.next().await.is_none(),
+            "stream must continue returning None on subsequent calls"
+        );
+
         Ok(())
     }
 
@@ -1546,6 +1580,15 @@ mod tests {
             "error should indicate premature close, got: {error}"
         );
 
+        assert!(
+            stream.next().await.is_none(),
+            "stream must return None immediately after premature EOF retries exhausted"
+        );
+        assert!(
+            stream.next().await.is_none(),
+            "stream must continue returning None on subsequent calls"
+        );
+
         Ok(())
     }
 
@@ -1641,6 +1684,15 @@ mod tests {
         assert!(
             error.to_string().contains("negative mutation group index"),
             "error should indicate negative index, got: {error}"
+        );
+
+        assert!(
+            stream.next().await.is_none(),
+            "stream must return None immediately after negative index error"
+        );
+        assert!(
+            stream.next().await.is_none(),
+            "stream must continue returning None on subsequent calls"
         );
 
         Ok(())
@@ -1847,6 +1899,257 @@ mod tests {
             result.indexes,
             vec![0],
             "indexes should match the mocked response"
+        );
+        assert!(
+            stream.next().await.is_none(),
+            "into_stream should return None after completion"
+        );
+        assert!(
+            stream.next().await.is_none(),
+            "into_stream should remain fused and continue returning None"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_streaming_fused_after_initial_terminal_error() -> Result<()> {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(mock_v1::Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        // Exactly 1 call expected. If next() is not fused, a second call would trigger an unexpected mock call.
+        mock.expect_batch_write().times(1).returning(|_| {
+            Err(TonicStatus::permission_denied(
+                "Caller does not have write permission",
+            ))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        let groups = vec![create_test_mutation_group("Users", 1)];
+        let transaction = database_client.batch_write_transaction().build();
+        let mut stream = transaction.execute_streaming(groups).await?;
+
+        let first_result = stream.next().await;
+        assert!(
+            first_result.is_some(),
+            "stream must yield error on first call"
+        );
+        let error = first_result.expect("some").expect_err("must be error");
+        assert!(
+            error
+                .to_string()
+                .contains("Caller does not have write permission"),
+            "error should contain permission denied message"
+        );
+
+        // Fused contract: subsequent calls must return None without reconnecting.
+        assert!(
+            stream.next().await.is_none(),
+            "stream must return None immediately after terminal error"
+        );
+        assert!(
+            stream.next().await.is_none(),
+            "stream must continue returning None on subsequent calls"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_streaming_fused_after_midway_terminal_error() -> Result<()> {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(mock_v1::Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_batch_write().times(1).returning(|_| {
+            let response = mock_v1::BatchWriteResponse {
+                indexes: vec![0],
+                status: None,
+                commit_timestamp: None,
+            };
+            let stream = adapt([
+                Ok(response),
+                Err(TonicStatus::unauthenticated("OAuth access token expired")),
+            ]);
+            Ok(Response::from(stream))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        let groups = vec![
+            create_test_mutation_group("Users", 1),
+            create_test_mutation_group("Users", 2),
+        ];
+        let transaction = database_client.batch_write_transaction().build();
+        let mut stream = transaction.execute_streaming(groups).await?;
+
+        let first_response = stream
+            .next()
+            .await
+            .expect("should yield message 1 successfully")?;
+        assert_eq!(first_response.indexes, vec![0]);
+
+        let second_result = stream.next().await;
+        assert!(
+            second_result.is_some(),
+            "stream must yield error on second call"
+        );
+        let error = second_result.expect("some").expect_err("must be error");
+        assert!(
+            error.to_string().contains("OAuth access token expired"),
+            "error should contain unauthenticated message"
+        );
+
+        // Fused contract: subsequent calls must return None without reconnecting.
+        assert!(
+            stream.next().await.is_none(),
+            "stream must return None immediately after terminal error"
+        );
+        assert!(
+            stream.next().await.is_none(),
+            "stream must continue returning None on subsequent calls"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_streaming_fused_after_corrupted_response_index() -> Result<()> {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(mock_v1::Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_batch_write().times(1).returning(|_| {
+            let response = mock_v1::BatchWriteResponse {
+                indexes: vec![99],
+                status: None,
+                commit_timestamp: None,
+            };
+            Ok(Response::from(adapt([Ok(response)])))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        let groups = vec![create_test_mutation_group("Users", 1)];
+        let transaction = database_client.batch_write_transaction().build();
+        let mut stream = transaction.execute_streaming(groups).await?;
+
+        let first_result = stream.next().await;
+        assert!(
+            first_result.is_some(),
+            "must yield error for corrupted index"
+        );
+        let error = first_result.expect("some").expect_err("must be error");
+        assert!(
+            error.to_string().contains("out of bounds"),
+            "error should indicate index out of bounds"
+        );
+
+        // Fused contract: subsequent calls must return None without reconnecting.
+        assert!(
+            stream.next().await.is_none(),
+            "stream must return None immediately after index corruption error"
+        );
+        assert!(
+            stream.next().await.is_none(),
+            "stream must continue returning None on subsequent calls"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn execute_streaming_fused_after_natural_completion() -> Result<()> {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(mock_v1::Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_batch_write().times(1).returning(|_| {
+            let response = mock_v1::BatchWriteResponse {
+                indexes: vec![0],
+                status: None,
+                commit_timestamp: None,
+            };
+            Ok(Response::from(adapt([Ok(response)])))
+        });
+
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        let groups = vec![create_test_mutation_group("Users", 1)];
+        let transaction = database_client.batch_write_transaction().build();
+        let mut stream = transaction.execute_streaming(groups).await?;
+
+        let response = stream
+            .next()
+            .await
+            .expect("stream should yield first response")?;
+        assert_eq!(response.indexes, vec![0]);
+
+        assert!(
+            stream.next().await.is_none(),
+            "stream should return None after all mutation groups processed"
+        );
+        assert!(
+            stream.next().await.is_none(),
+            "stream must remain fused and return None on subsequent calls"
+        );
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    #[cfg(feature = "unstable-stream")]
+    async fn execute_streaming_into_stream_fused_after_terminal_error() -> Result<()> {
+        use futures::StreamExt;
+
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(mock_v1::Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_batch_write()
+            .times(1)
+            .returning(|_| Err(TonicStatus::permission_denied("Denied")));
+
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        let groups = vec![create_test_mutation_group("Users", 1)];
+        let transaction = database_client.batch_write_transaction().build();
+        let stream = transaction.execute_streaming(groups).await?;
+        let mut stream = stream.into_stream();
+
+        let first_result = stream.next().await;
+        assert!(first_result.is_some(), "must yield error");
+        assert!(first_result.expect("some").is_err(), "must be error");
+
+        assert!(
+            stream.next().await.is_none(),
+            "into_stream must return None after terminal error"
+        );
+        assert!(
+            stream.next().await.is_none(),
+            "into_stream must continue returning None on subsequent calls"
         );
 
         Ok(())

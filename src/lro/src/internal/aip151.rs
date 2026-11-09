@@ -350,8 +350,9 @@ mod tests {
 
     use tracing::Instrument;
 
-    fn test_span() -> tracing::Span {
+    fn test_span(parent: &tracing::Span) -> tracing::Span {
         tracing::info_span!(
+            parent: parent,
             "test_span",
             gcp.resource.destination.id = tracing::field::Empty,
         )
@@ -391,7 +392,7 @@ mod tests {
             start,
             query,
         );
-        let p0 = poller.poll().instrument(test_span()).await;
+        let p0 = poller.poll().await;
         match p0.unwrap() {
             PollingResult::InProgress(m) => {
                 assert_eq!(m, Some(Timestamp::clamp(123, 0)));
@@ -401,7 +402,7 @@ mod tests {
             }
         }
 
-        let p1 = poller.poll().instrument(test_span()).await;
+        let p1 = poller.poll().await;
         match p1.unwrap() {
             PollingResult::Completed(r) => {
                 let response = r.unwrap();
@@ -412,7 +413,7 @@ mod tests {
             }
         }
 
-        let p2 = poller.poll().instrument(test_span()).await;
+        let p2 = poller.poll().await;
         assert!(p2.is_none(), "{p2:?}");
     }
 
@@ -503,7 +504,7 @@ mod tests {
             start,
             query,
         );
-        let response = poller.until_done().instrument(test_span()).await?;
+        let response = poller.until_done().await?;
         assert_eq!(response, Duration::clamp(234, 0));
 
         Ok(())
@@ -1049,7 +1050,6 @@ mod tests {
         Error::io("something failed")
     }
 
-    #[ignore = "TODO(#6588) - disabled because it was flaky"]
     #[tokio::test]
     async fn test_poller_tracing() {
         let guard = google_cloud_test_utils::test_layer::TestLayer::initialize();
@@ -1097,7 +1097,7 @@ mod tests {
             query,
         );
 
-        let span = test_span();
+        let span = test_span(&guard.span());
         let poller_ref = &mut poller;
         let recorder = crate::internal::LroRecorder::new(span.clone());
         let _ = recorder
@@ -1118,7 +1118,7 @@ mod tests {
             );
         }
 
-        let span = test_span();
+        let span = test_span(&guard.span());
         let poller_ref2 = &mut poller;
         let recorder2 = crate::internal::LroRecorder::new(span.clone());
         let _ = recorder2
@@ -1140,7 +1140,6 @@ mod tests {
         }
     }
 
-    #[ignore = "TODO(#6588) - disabled because it was flaky"]
     #[tokio::test]
     async fn test_poller_tracing_immediate_done() {
         let guard = google_cloud_test_utils::test_layer::TestLayer::initialize();
@@ -1166,7 +1165,7 @@ mod tests {
             query,
         );
 
-        let span = test_span();
+        let span = test_span(&guard.span());
         let poller_ref = &mut poller;
         let recorder = crate::internal::LroRecorder::new(span.clone());
         let _ = recorder
