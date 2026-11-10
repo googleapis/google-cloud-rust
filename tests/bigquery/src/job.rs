@@ -19,6 +19,7 @@ use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::job_poller::JobPollerError;
 use google_cloud_bigquery_v2::model::list_jobs_request::Projection;
 use google_cloud_bigquery_v2::model::{Job, JobConfiguration, JobConfigurationQuery, JobReference};
+use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_gax::paginator::ItemPaginator;
 use google_cloud_test_utils::runtime_config::project_id;
 
@@ -43,6 +44,7 @@ pub async fn job_service() -> Result<()> {
                         .set_query(JobConfigurationQuery::new().set_query(query)),
                 ),
         )
+        .with_idempotency(true)
         .send()
         .await?;
     println!("CREATE JOB = {job:?}");
@@ -136,6 +138,7 @@ pub async fn job_service_poller() -> Result<()> {
                         .set_query(JobConfigurationQuery::new().set_query(query)),
                 ),
         )
+        .with_idempotency(true)
         .into_job_poller()
         .until_done()
         .await?;
@@ -173,6 +176,7 @@ pub async fn job_service_poller_error() -> Result<()> {
                         .set_query(JobConfigurationQuery::new().set_query(query)),
                 ),
         )
+        .with_idempotency(true)
         .into_job_poller()
         .until_done()
         .await;
@@ -218,6 +222,7 @@ pub async fn job_service_poller_heavy() -> Result<()> {
                         ),
                 ),
         )
+        .with_idempotency(true)
         .into_job_poller()
         .until_done()
         .await?;

@@ -34,8 +34,7 @@ mod http_tracing {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    #[serial]
+    #[tokio::test]
     async fn success_testlayer() -> anyhow::Result<()> {
         integration_tests_o11y::http_tracing::success_testlayer()
             .await
@@ -43,8 +42,7 @@ mod http_tracing {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    #[serial]
+    #[tokio::test]
     async fn parse_error() -> anyhow::Result<()> {
         integration_tests_o11y::http_tracing::parse_error()
             .await
@@ -52,8 +50,7 @@ mod http_tracing {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    #[serial]
+    #[tokio::test]
     async fn api_error() -> anyhow::Result<()> {
         integration_tests_o11y::http_tracing::api_error()
             .await

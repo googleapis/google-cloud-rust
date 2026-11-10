@@ -217,6 +217,66 @@ cargo fmt -p google-cloud-storage
   breaking change: take a breaking version bump of both the proc-macro crate and
   `google-cloud-bigquery`, by hand (librarian defaults to non-breaking bumps).
   Comment-only or formatting edits need the label but no bump.
+- In new proc-macro crates, generated code must only call
+  `#[doc(hidden)] pub mod __private` helpers in the runtime crate, never its
+  user-facing API, and must report ambiguous input (e.g. two fields mapping to
+  the same property name) as an error instead of resolving it silently.
+
+### Hand-written Client Libraries
+
+These rules apply to **new public APIs** in hand-written crates (e.g.
+`src/storage`, `src/pubsub`, `src/bigquery`, `src/datastore`). Some existing
+APIs predate them; do not copy those exceptions, and do not change existing
+public APIs only to conform. [ARCHITECTURE.md](ARCHITECTURE.md) is binding, in
+particular "No client-side validation" and "Separate namespace for fields vs.
+options". The full checklist, with rationale and examples, is in
+[howto-guide-handwritten-client-api.md](doc/contributor/howto-guide-handwritten-client-api.md).
+Read it before designing or reviewing a public API.
+
+Rules that are hard to fix after a release:
+
+- Stub trait methods and RPC wrappers return a named `#[non_exhaustive]`
+  response struct, never `()`, `Vec<T>`, or a primitive. Do not discard server
+  responses. Every stub method has a default implementation.
+- Traits that applications implement (policies, stubs) receive a
+  `#[non_exhaustive]` state struct, not positional arguments.
+- Public enum struct variants are `#[non_exhaustive]`. Error enums use
+  `#[non_exhaustive]` struct variants, not tuple variants with a `String`.
+- Functions that buffer work, validate input, or may fail in the future return
+  `Result` from the start.
+- Setters are infallible; validate in `send()`. Do not enforce service limits on
+  the client, and never validate data decoded from the service. Unknown enum
+  values or new server features must not fail a read.
+- Use `set_<field>()` for request payload fields and `with_<option>()` for
+  options that change the client library behavior.
+- Result iterators use `async fn next(&mut self) -> Option<Result<T>>`, plus
+  `next_as()` and `into_stream()` behind `unstable-stream`. Never return `None`
+  after a terminal error.
+- `Client::builder()` takes no required arguments, and `Client::from_stub(stub)`
+  takes only the stub. Mocked clients must be able to use the builder
+  configuration.
+- Prefer the generated `tracing::X<transport::X>` stub as the transport.
+  Client-level spans use the attributes in `src/storage/src/storage/tracing.rs`,
+  and their names are documented.
+- Use `wkt::Struct` and `wkt::Value` instead of `serde_json` types in public
+  signatures.
+
+Required checks, in the same pull request as the new API:
+
+- Compile-time assertions that the futures returned by public async functions
+  are `Send`, including functions that take closures. Test closures that borrow
+  captured state and `move` closures. Documentation examples use the form the
+  test proves is `Send`.
+- For every public setter on a request, query, or builder, a test using a mock
+  stub that asserts the stub receives the value. If the setter overrides a
+  client-level default, test that the override wins for every request kind that
+  accepts it.
+- For multi-RPC operations (pagination, continuations, resumable reads), tests
+  for a transient failure that recovers, for retries running out, and for the
+  behavior after the terminal error.
+- For APIs that hold server resources (transactions, sessions), tests for the
+  behavior when the future or handle is dropped.
+- If the crate has a `DESIGN.md`, update it when the implementation diverges.
 
 ### Asynchronous Programming
 

@@ -316,6 +316,18 @@ impl serde::ser::Serialize for super::RemoteAgentTool {
         if self.agent_card.is_some() {
             state.serialize_entry("agentCard", &self.agent_card)?;
         }
+        if self.api_authentication.is_some() {
+            state.serialize_entry("apiAuthentication", &self.api_authentication)?;
+        }
+        if !wkt::internal::is_default(&self.stateful_agent) {
+            state.serialize_entry("statefulAgent", &self.stateful_agent)?;
+        }
+        if !self.input_variable_mapping.is_empty() {
+            state.serialize_entry("inputVariableMapping", &self.input_variable_mapping)?;
+        }
+        if !self.output_variable_mapping.is_empty() {
+            state.serialize_entry("outputVariableMapping", &self.output_variable_mapping)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

@@ -1986,6 +1986,8 @@ impl super::stub::DataChatService for DataChatService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
+                let builder =
+                    builder.query(&[("pendingWriteWaitSkipped", &req.pending_write_wait_skipped)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })

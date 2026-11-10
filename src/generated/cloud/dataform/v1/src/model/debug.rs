@@ -1274,6 +1274,23 @@ impl std::fmt::Debug for super::CreateCompilationResultRequest {
     }
 }
 
+impl std::fmt::Debug for super::CreateCompilationResultMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateCompilationResultMetadata");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("target", &self.target);
+        debug_struct.field("state", &self.state);
+        debug_struct.field(
+            "create_compilation_result_request",
+            &self.create_compilation_result_request,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::Target {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Target");
@@ -1474,6 +1491,22 @@ impl std::fmt::Debug for super::compilation_result_action::data_preparation::Err
     }
 }
 
+impl std::fmt::Debug for super::compilation_result_action::BigQueryUnitTest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryUnitTest");
+        debug_struct.field("dependency_targets", &self.dependency_targets);
+        debug_struct.field("disabled", &self.disabled);
+        debug_struct.field("tags", &self.tags);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("test_query", &self.test_query);
+        debug_struct.field("expected_output_query", &self.expected_output_query);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::compilation_result_action::LoadConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LoadConfig");
@@ -1590,6 +1623,8 @@ impl std::fmt::Debug for super::InvocationConfig {
         debug_struct.field("service_account", &self.service_account);
         debug_struct.field("end_user_auth_config", &self.end_user_auth_config);
         debug_struct.field("query_priority", &self.query_priority);
+        debug_struct.field("concurrent_actions_limit", &self.concurrent_actions_limit);
+        debug_struct.field("execution_mode", &self.execution_mode);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1903,6 +1938,25 @@ impl std::fmt::Debug
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ActionIncrementalLoadMode");
         debug_struct.field("column", &self.column);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::workflow_invocation_action::BigQueryUnitTestAction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BigQueryUnitTestAction");
+        debug_struct.field("actual_results_job_id", &self.actual_results_job_id);
+        debug_struct.field("actual_results_sql_script", &self.actual_results_sql_script);
+        debug_struct.field("expected_results_job_id", &self.expected_results_job_id);
+        debug_struct.field(
+            "expected_results_sql_script",
+            &self.expected_results_sql_script,
+        );
+        debug_struct.field("total_processed_bytes", &self.total_processed_bytes);
+        debug_struct.field("total_billed_bytes", &self.total_billed_bytes);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

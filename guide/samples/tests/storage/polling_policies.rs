@@ -15,19 +15,19 @@
 //! Examples showing how to configure the polling policies.
 
 use anyhow::{Result, anyhow};
-// ANCHOR: use
+// [START rust_storage_polling_policies_use] ANCHOR: use
 use google_cloud_storage::client::StorageControl;
-// ANCHOR_END: use
+// [END rust_storage_polling_policies_use] ANCHOR_END: use
 
-// ANCHOR: client-backoff
+// [START rust_storage_polling_policies_client_backoff] ANCHOR: client-backoff
 pub async fn client_backoff(bucket: &str, folder: &str, dest: &str) -> Result<()> {
-    // ANCHOR: client-backoff-use
+    // [START rust_storage_polling_policies_client_backoff_use] ANCHOR: client-backoff-use
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
-    // ANCHOR_END: client-backoff-use
+    // [END rust_storage_polling_policies_client_backoff_use] ANCHOR_END: client-backoff-use
     use google_cloud_lro::Poller;
     use std::time::Duration;
 
-    // ANCHOR: client-backoff-client
+    // [START rust_storage_polling_policies_client_backoff_client] ANCHOR: client-backoff-client
     let client = StorageControl::builder()
         .with_polling_backoff_policy(
             ExponentialBackoffBuilder::new()
@@ -37,91 +37,91 @@ pub async fn client_backoff(bucket: &str, folder: &str, dest: &str) -> Result<()
         )
         .build()
         .await?;
-    // ANCHOR_END: client-backoff-client
+    // [END rust_storage_polling_policies_client_backoff_client] ANCHOR_END: client-backoff-client
 
-    // ANCHOR: client-backoff-builder
+    // [START rust_storage_polling_policies_client_backoff_builder] ANCHOR: client-backoff-builder
     let response = client
         .rename_folder()
-        // ANCHOR_END: client-backoff-builder
-        // ANCHOR: client-backoff-prepare
+        // [END rust_storage_polling_policies_client_backoff_builder] ANCHOR_END: client-backoff-builder
+        // [START rust_storage_polling_policies_client_backoff_prepare] ANCHOR: client-backoff-prepare
         .set_name(format!("projects/_/buckets/{bucket}/folders/{folder}"))
         .set_destination_folder_id(dest)
-        // ANCHOR_END: client-backoff-prepare
-        // ANCHOR: client-backoff-print
+        // [END rust_storage_polling_policies_client_backoff_prepare] ANCHOR_END: client-backoff-prepare
+        // [START rust_storage_polling_policies_client_backoff_print] ANCHOR: client-backoff-print
         .poller()
         .until_done()
         .await?;
 
     println!("LRO completed, response={response:?}");
-    // ANCHOR_END: client-backoff-print
+    // [END rust_storage_polling_policies_client_backoff_print] ANCHOR_END: client-backoff-print
 
     Ok(())
 }
-// ANCHOR_END: client-backoff
+// [END rust_storage_polling_policies_client_backoff] ANCHOR_END: client-backoff
 
-// ANCHOR: rpc-backoff
+// [START rust_storage_polling_policies_rpc_backoff] ANCHOR: rpc-backoff
 pub async fn rpc_backoff(bucket: &str, folder: &str, dest: &str) -> Result<()> {
-    // ANCHOR: rpc-backoff-use
+    // [START rust_storage_polling_policies_rpc_backoff_use] ANCHOR: rpc-backoff-use
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use std::time::Duration;
-    // ANCHOR_END: rpc-backoff-use
-    // ANCHOR: rpc-backoff-builder-trait
+    // [END rust_storage_polling_policies_rpc_backoff_use] ANCHOR_END: rpc-backoff-use
+    // [START rust_storage_polling_policies_rpc_backoff_builder_trait] ANCHOR: rpc-backoff-builder-trait
     use google_cloud_gax::options::RequestOptionsBuilder;
-    // ANCHOR_END: rpc-backoff-builder-trait
+    // [END rust_storage_polling_policies_rpc_backoff_builder_trait] ANCHOR_END: rpc-backoff-builder-trait
     use google_cloud_lro::Poller;
 
-    // ANCHOR: rpc-backoff-client
+    // [START rust_storage_polling_policies_rpc_backoff_client] ANCHOR: rpc-backoff-client
     let client = StorageControl::builder().build().await?;
-    // ANCHOR_END: rpc-backoff-client
+    // [END rust_storage_polling_policies_rpc_backoff_client] ANCHOR_END: rpc-backoff-client
 
-    // ANCHOR: rpc-backoff-builder
+    // [START rust_storage_polling_policies_rpc_backoff_builder] ANCHOR: rpc-backoff-builder
     let response = client
         .rename_folder()
-        // ANCHOR_END: rpc-backoff-builder
-        // ANCHOR: rpc-backoff-rpc-polling-backoff
+        // [END rust_storage_polling_policies_rpc_backoff_builder] ANCHOR_END: rpc-backoff-builder
+        // [START rust_storage_polling_policies_rpc_backoff_rpc_polling_backoff] ANCHOR: rpc-backoff-rpc-polling-backoff
         .with_polling_backoff_policy(
             ExponentialBackoffBuilder::new()
                 .with_initial_delay(Duration::from_millis(250))
                 .with_maximum_delay(Duration::from_secs(10))
                 .build()?,
         )
-        // ANCHOR_END: rpc-backoff-rpc-polling-backoff
-        // ANCHOR: rpc-backoff-prepare
+        // [END rust_storage_polling_policies_rpc_backoff_rpc_polling_backoff] ANCHOR_END: rpc-backoff-rpc-polling-backoff
+        // [START rust_storage_polling_policies_rpc_backoff_prepare] ANCHOR: rpc-backoff-prepare
         .set_name(format!("projects/_/buckets/{bucket}/folders/{folder}"))
         .set_destination_folder_id(dest)
-        // ANCHOR_END: rpc-backoff-prepare
-        // ANCHOR: rpc-backoff-print
+        // [END rust_storage_polling_policies_rpc_backoff_prepare] ANCHOR_END: rpc-backoff-prepare
+        // [START rust_storage_polling_policies_rpc_backoff_print] ANCHOR: rpc-backoff-print
         .poller()
         .until_done()
         .await?;
 
     println!("LRO completed, response={response:?}");
-    // ANCHOR_END: rpc-backoff-print
+    // [END rust_storage_polling_policies_rpc_backoff_print] ANCHOR_END: rpc-backoff-print
 
     Ok(())
 }
-// ANCHOR_END: rpc-backoff
+// [END rust_storage_polling_policies_rpc_backoff] ANCHOR_END: rpc-backoff
 
-// ANCHOR: client-errors
+// [START rust_storage_polling_policies_client_errors] ANCHOR: client-errors
 pub async fn client_errors(bucket: &str, folder: &str, dest: &str) -> Result<()> {
-    // ANCHOR: client-errors-use
+    // [START rust_storage_polling_policies_client_errors_use] ANCHOR: client-errors-use
     use google_cloud_gax::polling_error_policy::Aip194Strict;
     use google_cloud_gax::polling_error_policy::PollingErrorPolicyExt;
     use google_cloud_gax::retry_policy;
     use google_cloud_gax::retry_policy::RetryPolicyExt;
     use std::time::Duration;
-    // ANCHOR_END: client-errors-use
+    // [END rust_storage_polling_policies_client_errors_use] ANCHOR_END: client-errors-use
     use google_cloud_lro::Poller;
 
-    // ANCHOR: client-errors-client
+    // [START rust_storage_polling_policies_client_errors_client] ANCHOR: client-errors-client
     let builder = StorageControl::builder().with_polling_error_policy(
         Aip194Strict
             .with_attempt_limit(100)
             .with_time_limit(Duration::from_secs(300)),
     );
-    // ANCHOR_END: client-errors-client
+    // [END rust_storage_polling_policies_client_errors_client] ANCHOR_END: client-errors-client
 
-    // ANCHOR: client-errors-client-retry
+    // [START rust_storage_polling_policies_client_errors_client_retry] ANCHOR: client-errors-client-retry
     let client = builder
         .with_retry_policy(
             retry_policy::Aip194Strict
@@ -130,43 +130,43 @@ pub async fn client_errors(bucket: &str, folder: &str, dest: &str) -> Result<()>
         )
         .build()
         .await?;
-    // ANCHOR_END: client-errors-client-retry
+    // [END rust_storage_polling_policies_client_errors_client_retry] ANCHOR_END: client-errors-client-retry
 
-    // ANCHOR: client-errors-builder
+    // [START rust_storage_polling_policies_client_errors_builder] ANCHOR: client-errors-builder
     let response = client
         .rename_folder()
-        // ANCHOR_END: client-errors-builder
-        // ANCHOR: client-errors-prepare
+        // [END rust_storage_polling_policies_client_errors_builder] ANCHOR_END: client-errors-builder
+        // [START rust_storage_polling_policies_client_errors_prepare] ANCHOR: client-errors-prepare
         .set_name(format!("projects/_/buckets/{bucket}/folders/{folder}"))
         .set_destination_folder_id(dest)
-        // ANCHOR_END: client-errors-prepare
-        // ANCHOR: client-errors-print
+        // [END rust_storage_polling_policies_client_errors_prepare] ANCHOR_END: client-errors-prepare
+        // [START rust_storage_polling_policies_client_errors_print] ANCHOR: client-errors-print
         .poller()
         .until_done()
         .await?;
 
     println!("LRO completed, response={response:?}");
-    // ANCHOR_END: client-errors-print
+    // [END rust_storage_polling_policies_client_errors_print] ANCHOR_END: client-errors-print
 
     Ok(())
 }
-// ANCHOR_END: client-errors
+// [END rust_storage_polling_policies_client_errors] ANCHOR_END: client-errors
 
-// ANCHOR: rpc-errors
+// [START rust_storage_polling_policies_rpc_errors] ANCHOR: rpc-errors
 pub async fn rpc_errors(bucket: &str, folder: &str, dest: &str) -> Result<()> {
-    // ANCHOR: rpc-errors-use
+    // [START rust_storage_polling_policies_rpc_errors_use] ANCHOR: rpc-errors-use
     use google_cloud_gax::polling_error_policy::Aip194Strict;
     use google_cloud_gax::polling_error_policy::PollingErrorPolicyExt;
     use google_cloud_gax::retry_policy;
     use google_cloud_gax::retry_policy::RetryPolicyExt;
     use std::time::Duration;
-    // ANCHOR_END: rpc-errors-use
-    // ANCHOR: rpc-errors-builder-trait
+    // [END rust_storage_polling_policies_rpc_errors_use] ANCHOR_END: rpc-errors-use
+    // [START rust_storage_polling_policies_rpc_errors_builder_trait] ANCHOR: rpc-errors-builder-trait
     use google_cloud_gax::options::RequestOptionsBuilder;
-    // ANCHOR_END: rpc-errors-builder-trait
+    // [END rust_storage_polling_policies_rpc_errors_builder_trait] ANCHOR_END: rpc-errors-builder-trait
     use google_cloud_lro::Poller;
 
-    // ANCHOR: rpc-errors-client
+    // [START rust_storage_polling_policies_rpc_errors_client] ANCHOR: rpc-errors-client
     let client = StorageControl::builder()
         .with_retry_policy(
             retry_policy::Aip194Strict
@@ -175,34 +175,34 @@ pub async fn rpc_errors(bucket: &str, folder: &str, dest: &str) -> Result<()> {
         )
         .build()
         .await?;
-    // ANCHOR_END: rpc-errors-client
+    // [END rust_storage_polling_policies_rpc_errors_client] ANCHOR_END: rpc-errors-client
 
-    // ANCHOR: rpc-errors-builder
+    // [START rust_storage_polling_policies_rpc_errors_builder] ANCHOR: rpc-errors-builder
     let response = client
         .rename_folder()
-        // ANCHOR_END: rpc-errors-builder
-        // ANCHOR: rpc-errors-rpc-polling-errors
+        // [END rust_storage_polling_policies_rpc_errors_builder] ANCHOR_END: rpc-errors-builder
+        // [START rust_storage_polling_policies_rpc_errors_rpc_polling_errors] ANCHOR: rpc-errors-rpc-polling-errors
         .with_polling_error_policy(
             Aip194Strict
                 .with_attempt_limit(100)
                 .with_time_limit(Duration::from_secs(300)),
         )
-        // ANCHOR_END: rpc-errors-rpc-polling-errors
-        // ANCHOR: rpc-errors-prepare
+        // [END rust_storage_polling_policies_rpc_errors_rpc_polling_errors] ANCHOR_END: rpc-errors-rpc-polling-errors
+        // [START rust_storage_polling_policies_rpc_errors_prepare] ANCHOR: rpc-errors-prepare
         .set_name(format!("projects/_/buckets/{bucket}/folders/{folder}"))
         .set_destination_folder_id(dest)
-        // ANCHOR_END: rpc-errors-prepare
-        // ANCHOR: rpc-errors-print
+        // [END rust_storage_polling_policies_rpc_errors_prepare] ANCHOR_END: rpc-errors-prepare
+        // [START rust_storage_polling_policies_rpc_errors_print] ANCHOR: rpc-errors-print
         .poller()
         .until_done()
         .await?;
 
     println!("LRO completed, response={response:?}");
-    // ANCHOR_END: rpc-errors-print
+    // [END rust_storage_polling_policies_rpc_errors_print] ANCHOR_END: rpc-errors-print
 
     Ok(())
 }
-// ANCHOR_END: rpc-errors
+// [END rust_storage_polling_policies_rpc_errors] ANCHOR_END: rpc-errors
 
 pub async fn test(control: &StorageControl, bucket: &str) -> Result<()> {
     for id in [

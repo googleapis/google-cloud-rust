@@ -34,6 +34,12 @@ mod reopen_appendable_object_request;
 #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
 pub use reopen_appendable_object_request::ReopenAppendableObjectRequest;
 
+#[cfg(google_cloud_unstable_storage_parallel_upload)]
+mod parallel_upload;
+#[cfg(google_cloud_unstable_storage_parallel_upload)]
+#[cfg_attr(docsrs, doc(cfg(google_cloud_unstable_storage_parallel_upload)))]
+pub use parallel_upload::{CreateObjectWriteSessionRequest, Segment};
+
 /// ObjectHighlights contains select metadata from a [crate::model::Object].
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]

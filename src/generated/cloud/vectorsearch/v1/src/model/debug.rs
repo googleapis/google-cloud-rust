@@ -178,6 +178,69 @@ impl std::fmt::Debug for super::TextSearch {
         debug_struct.field("output_fields", &self.output_fields);
         debug_struct.field("top_k", &self.top_k);
         debug_struct.field("filter", &self.filter);
+        debug_struct.field("structured_query", &self.structured_query);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::StructuredQuery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StructuredQuery");
+        debug_struct.field("boost", &self.boost);
+        debug_struct.field("query_type", &self.query_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::TextQuery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TextQuery");
+        debug_struct.field("text", &self.text);
+        debug_struct.field("fields", &self.fields);
+        debug_struct.field("match_type", &self.match_type);
+        debug_struct.field("query_enhancement", &self.query_enhancement);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::QueryEnhancement {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QueryEnhancement");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UnaryQuery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UnaryQuery");
+        debug_struct.field("op", &self.op);
+        debug_struct.field("sub_query", &self.sub_query);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CombinedQuery {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CombinedQuery");
+        debug_struct.field("op", &self.op);
+        debug_struct.field("sub_queries", &self.sub_queries);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

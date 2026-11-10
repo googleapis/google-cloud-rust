@@ -45,7 +45,7 @@ use std::time::Duration;
 /// # Ok(())
 /// # }
 /// ```
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct BatchReadOnlyTransactionBuilder {
     inner: MultiUseReadOnlyTransactionBuilder,
 }
@@ -117,7 +117,7 @@ impl BatchReadOnlyTransactionBuilder {
 /// # Ok(())
 /// # }
 /// ```
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct BatchReadOnlyTransaction {
     inner: MultiUseReadOnlyTransaction,
 }
@@ -616,9 +616,40 @@ pub(crate) mod tests {
 
     #[test]
     fn auto_traits() {
-        assert_impl_all!(BatchReadOnlyTransactionBuilder: Debug, Send, Sync);
-        assert_impl_all!(BatchReadOnlyTransaction: Debug, Send, Sync);
+        assert_impl_all!(BatchReadOnlyTransactionBuilder: Debug, Send, Sync, Clone);
+        assert_impl_all!(BatchReadOnlyTransaction: Debug, Send, Sync, Clone);
         assert_impl_all!(Partition: Debug, Send, Sync, Clone, Serialize, DeserializeOwned);
+    }
+
+    #[tokio_test_no_panics]
+    async fn batch_read_only_transaction_and_builder_clone() {
+        let mut mock = create_session_mock();
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(Response::new(Transaction {
+                id: b"batch-tx-123".to_vec(),
+                read_timestamp: Some(Timestamp {
+                    seconds: 1234567890,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        let builder = database_client
+            .batch_read_only_transaction()
+            .set_timestamp_bound(TimestampBound::strong());
+        let cloned_builder = builder.clone();
+
+        let transaction = cloned_builder
+            .build()
+            .await
+            .expect("failed to build batch read-only transaction");
+        let cloned_transaction = transaction.clone();
+        assert_eq!(
+            cloned_transaction.inner.context.session_name, transaction.inner.context.session_name,
+            "cloned batch transaction should retain session name"
+        );
     }
 
     #[test]

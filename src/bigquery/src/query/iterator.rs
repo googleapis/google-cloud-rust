@@ -14,17 +14,9 @@
 
 use crate::RequestOptions;
 use crate::error::RowError;
-#[cfg(any(
-    google_cloud_unstable_bigquery_arrow,
-    google_cloud_unstable_bigquery_storage_read
-))]
 use crate::query::arrow::{ArrowReader, ArrowResponseReader, RecordBatchSource};
 use crate::query::query_handle::CachedData;
 use crate::query::{CompleteQuery, Row, Schema};
-#[cfg(any(
-    google_cloud_unstable_bigquery_arrow,
-    google_cloud_unstable_bigquery_storage_read
-))]
 use arrow::record_batch::RecordBatch;
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::{GetQueryResultsRequest, JobReference};
@@ -65,32 +57,16 @@ pub struct RowIterator {
     job_ref: Option<JobReference>,
     schema: Arc<Schema>,
     page_token: Option<String>,
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
     current_batch: Option<Arc<RecordBatch>>,
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
     row_index: usize,
     rows: VecDeque<wkt::Struct>,
     page_size: Option<u32>,
     options: RequestOptions,
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
     arrow_reader: Option<ArrowReader>,
 }
 
 impl RowIterator {
     pub(crate) fn new(q: CompleteQuery) -> Self {
-        #[cfg(any(
-            google_cloud_unstable_bigquery_arrow,
-            google_cloud_unstable_bigquery_storage_read
-        ))]
         let (rows, schema, page_token, arrow_reader) = match Self::make_storage_reader(&q) {
             Some(reader) => (
                 VecDeque::new(),
@@ -116,51 +92,20 @@ impl RowIterator {
             }
         };
 
-        #[cfg(not(any(
-            google_cloud_unstable_bigquery_arrow,
-            google_cloud_unstable_bigquery_storage_read
-        )))]
-        let (rows, schema, page_token) = match q.cached_data {
-            CachedData::Rows(rows) => {
-                let schema = Arc::new(Schema::new(q.metadata.schema.unwrap_or_default()));
-                (rows, schema, q.page_token)
-            }
-            // TODO(#7035): remove once google_cloud_unstable_bigquery_arrow is stabilized
-            CachedData::Arrow { .. } => {
-                unimplemented!("Arrow IPC decoding is not yet implemented (#7035)")
-            }
-        };
-
         Self {
             job_service: q.job_service,
             job_ref: q.job_ref,
             schema,
             page_token,
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             current_batch: None,
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             row_index: 0,
             rows,
             page_size: q.page_size,
             options: q.options,
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             arrow_reader,
         }
     }
 
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
     fn extract_schema(q: &CompleteQuery) -> Arc<Schema> {
         let schema = match &q.cached_data {
             CachedData::Arrow {
@@ -173,7 +118,6 @@ impl RowIterator {
         Arc::new(schema)
     }
 
-    #[cfg(google_cloud_unstable_bigquery_storage_read)]
     fn make_storage_reader(q: &CompleteQuery) -> Option<ArrowReader> {
         let (read_client, job_ref) = q.read_client.as_ref().zip(q.job_ref.as_ref())?;
 
@@ -197,14 +141,6 @@ impl RowIterator {
                 job_ref.clone(),
             ))
         })
-    }
-
-    #[cfg(all(
-        google_cloud_unstable_bigquery_arrow,
-        not(google_cloud_unstable_bigquery_storage_read)
-    ))]
-    fn make_storage_reader(_q: &CompleteQuery) -> Option<ArrowReader> {
-        None
     }
 
     /// Sets the maximum number of rows to buffer in memory.
@@ -249,35 +185,29 @@ impl RowIterator {
     /// ```
     pub async fn next(&mut self) -> Option<Result<Row>> {
         loop {
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
-            {
-                if let Some(batch) = &self.current_batch {
-                    if self.row_index < batch.num_rows() {
-                        let idx = self.row_index;
-                        self.row_index += 1;
-                        return Some(Row::try_new_from_arrow(batch, idx, &self.schema));
-                    }
-                    self.current_batch = None;
-                    self.row_index = 0;
+            if let Some(batch) = &self.current_batch {
+                if self.row_index < batch.num_rows() {
+                    let idx = self.row_index;
+                    self.row_index += 1;
+                    return Some(Row::try_new_from_arrow(batch, idx, &self.schema));
                 }
+                self.current_batch = None;
+                self.row_index = 0;
+            }
 
-                if let Some(ref mut arrow_reader) = self.arrow_reader {
-                    match arrow_reader.next_record_batch().await {
-                        Ok(Some(batch)) => {
-                            self.current_batch = Some(Arc::new(batch));
-                            self.row_index = 0;
-                            continue;
-                        }
-                        Ok(None) => {
-                            self.arrow_reader = None;
-                        }
-                        Err(err) => {
-                            self.arrow_reader = None;
-                            return Some(Err(err));
-                        }
+            if let Some(ref mut arrow_reader) = self.arrow_reader {
+                match arrow_reader.next_record_batch().await {
+                    Ok(Some(batch)) => {
+                        self.current_batch = Some(Arc::new(batch));
+                        self.row_index = 0;
+                        continue;
+                    }
+                    Ok(None) => {
+                        self.arrow_reader = None;
+                    }
+                    Err(err) => {
+                        self.arrow_reader = None;
+                        return Some(Err(err));
                     }
                 }
             }
@@ -715,10 +645,6 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
     #[tokio::test]
     async fn test_row_iterator_cached_arrow_multiple_batches() -> TestResult {
         use arrow::array::{Int64Array, StringArray};
@@ -790,10 +716,6 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
     #[tokio::test]
     async fn test_row_iterator_cached_arrow_then_fetch_page() -> TestResult {
         use arrow::array::StringArray;
@@ -856,10 +778,6 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
     #[tokio::test]
     async fn test_row_iterator_cached_arrow_empty_batch_then_json_pagination() -> TestResult {
         let mut mock = MockJobService::new();
@@ -897,10 +815,6 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
     fn create_test_arrow_schema_bytes() -> bytes::Bytes {
         use arrow::datatypes::{DataType, Field, Schema as ArrowSchema};
         use arrow::ipc::writer::StreamWriter;
@@ -916,10 +830,6 @@ mod tests {
         schema_buf.into()
     }
 
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
     #[test_case::test_case(
         bytes::Bytes::from_static(b"\xff\xff\xff\xff\x08\x00\x00\x00invalid_schema"),
         bytes::Bytes::from_static(b"batch");
@@ -971,7 +881,6 @@ mod tests {
         let _ = check;
     }
 
-    #[cfg(google_cloud_unstable_bigquery_storage_read)]
     #[tokio::test]
     async fn test_row_iterator_storage_read_success() -> TestResult {
         use crate::model::{ArrowRecordBatch, ArrowSchema};
@@ -1067,7 +976,6 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_bigquery_storage_read)]
     #[tokio::test]
     async fn test_row_iterator_empty_query_with_storage_read_does_not_open_stream() -> TestResult {
         use crate::query::tests::MockRead;
@@ -1095,7 +1003,6 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_bigquery_storage_read)]
     #[tokio::test]
     async fn test_row_iterator_storage_read_error_surfaces_without_fallback() -> TestResult {
         use crate::query::tests::MockRead;
@@ -1145,7 +1052,6 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_bigquery_storage_read)]
     #[tokio::test]
     async fn test_row_iterator_storage_read_under_threshold_uses_rest() -> TestResult {
         use crate::query::tests::MockRead;
