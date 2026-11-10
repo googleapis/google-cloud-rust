@@ -569,25 +569,40 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn clone_bytes() -> Result {
-        let original = Payload::from(bytes::Bytes::from_static(CONTENTS));
-        let cloned = original.clone();
-        assert_eq!(collect(original).await?, CONTENTS);
-        assert_eq!(collect(cloned).await?, CONTENTS);
+        let mut original = Payload::from(bytes::Bytes::from_static(CONTENTS));
+        let mut cloned = original.clone();
+
+        original.seek(4).await?;
+        cloned.seek(13).await?;
+
+        let t1 = tokio::spawn(async move { collect(original).await });
+        let t2 = tokio::spawn(async move { collect(cloned).await });
+
+        assert_eq!(t1.await??, CONTENTS[4..]);
+        assert_eq!(t2.await??, CONTENTS[13..]);
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn clone_iter_source() -> Result {
-        let original = Payload::from(vec![
+        let mut original = Payload::from(vec![
             bytes::Bytes::from_static(b"how vexingly "),
             bytes::Bytes::from_static(b"quick daft "),
             bytes::Bytes::from_static(b"zebras jump"),
         ]);
-        let cloned = original.clone();
-        assert_eq!(collect(original).await?, CONTENTS);
-        assert_eq!(collect(cloned).await?, CONTENTS);
+        let mut cloned = original.clone();
+
+        let first = original.next().await.transpose()?;
+        assert_eq!(first.as_deref(), Some(&b"how vexingly "[..]));
+        cloned.seek(24).await?;
+
+        let t1 = tokio::spawn(async move { collect(original).await });
+        let t2 = tokio::spawn(async move { collect(cloned).await });
+
+        assert_eq!(t1.await??, CONTENTS[13..]);
+        assert_eq!(t2.await??, CONTENTS[24..]);
         Ok(())
     }
 }
