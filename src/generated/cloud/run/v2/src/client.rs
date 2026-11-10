@@ -688,7 +688,44 @@ impl Instances {
         super::builder::instances::CreateInstance::new(self.inner.clone())
     }
 
-    /// Deletes a Instance
+    /// Updates an Instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Instances;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Instances, project_id: &str, location_id: &str, instance_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_instance()
+    ///         .set_instance(
+    ///             Instance::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_instance(&self) -> super::builder::instances::UpdateInstance {
+        super::builder::instances::UpdateInstance::new(self.inner.clone())
+    }
+
+    /// Deletes an Instance
     ///
     /// # Long running operations
     ///
@@ -719,7 +756,7 @@ impl Instances {
         super::builder::instances::DeleteInstance::new(self.inner.clone())
     }
 
-    /// Gets a Instance
+    /// Gets an Instance
     ///
     /// # Example
     /// ```
@@ -822,6 +859,70 @@ impl Instances {
     /// ```
     pub fn start_instance(&self) -> super::builder::instances::StartInstance {
         super::builder::instances::StartInstance::new(self.inner.clone())
+    }
+
+    /// Gets the IAM Access Control policy currently in effect for the given
+    /// Instance. This result does not include any inherited policies.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Instances;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::instances::GetIamPolicy {
+        super::builder::instances::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Sets the IAM Access control policy for the specified Instance. Overwrites
+    /// any existing policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Instances;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::instances::SetIamPolicy {
+        super::builder::instances::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified Instance.
+    ///
+    /// There are no permissions required for making this API call.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Instances;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::instances::TestIamPermissions {
+        super::builder::instances::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -2043,6 +2144,229 @@ impl Services {
     /// ```
     pub fn wait_operation(&self) -> super::builder::services::WaitOperation {
         super::builder::services::WaitOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Cloud Run Admin API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_run_v2::client::SourceUpload;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = SourceUpload::builder().build().await?;
+///     let response = client.upload_source()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// The Cloud Run Source Upload API allows you to upload source code to deploy
+/// Cloud Run resources.
+///
+/// # Configuration
+///
+/// To configure `SourceUpload` use the `with_*` methods in the type returned
+/// by [builder()][SourceUpload::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://run.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::source_upload::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::source_upload::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `SourceUpload` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `SourceUpload` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct SourceUpload {
+    inner: std::sync::Arc<dyn super::stub::dynamic::SourceUpload>,
+}
+
+impl SourceUpload {
+    /// Returns a builder for [SourceUpload].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_run_v2::client::SourceUpload;
+    /// let client = SourceUpload::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::source_upload::ClientBuilder {
+        crate::new_client_builder(super::builder::source_upload::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::SourceUpload + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::SourceUpload>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::SourceUpload> {
+        super::transport::SourceUpload::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::SourceUpload> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::SourceUpload::new)
+    }
+
+    /// Uploads a source archive to a Google Cloud Storage bucket through Cloud
+    /// Run. The uploaded source object should be used for Cloud Run resource
+    /// deployments. User is responsible for managing the lifecycle of the uploaded
+    /// object.
+    /// If uploading through the Cloud Run API to Cloud Storage is not desired, you
+    /// can use the IAM Deny Policy to deny the `run.locations.uploadSource`
+    /// permission for all principals.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::SourceUpload;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &SourceUpload
+    /// ) -> Result<()> {
+    ///     let response = client.upload_source()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn upload_source(&self) -> super::builder::source_upload::UploadSource {
+        super::builder::source_upload::UploadSource::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::SourceUpload;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &SourceUpload
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::source_upload::ListOperations {
+        super::builder::source_upload::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::SourceUpload;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &SourceUpload
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::source_upload::GetOperation {
+        super::builder::source_upload::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::SourceUpload;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &SourceUpload
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::source_upload::DeleteOperation {
+        super::builder::source_upload::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::SourceUpload;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &SourceUpload
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn wait_operation(&self) -> super::builder::source_upload::WaitOperation {
+        super::builder::source_upload::WaitOperation::new(self.inner.clone())
     }
 }
 

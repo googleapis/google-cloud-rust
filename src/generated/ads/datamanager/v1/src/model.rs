@@ -23,6 +23,7 @@ extern crate async_trait;
 extern crate bytes;
 extern crate gaxi;
 extern crate google_cloud_gax;
+extern crate google_cloud_type;
 extern crate serde;
 extern crate serde_json;
 extern crate serde_with;
@@ -2544,6 +2545,63 @@ impl wkt::message::Message for PartnerProvidedIdData {
     }
 }
 
+/// Information gathered about the call (if any) which led to this event.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CallInfo {
+    /// Required. The time that the phone call started which resulted in this
+    /// event.
+    pub start_timestamp: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CallInfo {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [start_timestamp][crate::model::CallInfo::start_timestamp].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::CallInfo;
+    /// use wkt::Timestamp;
+    /// let x = CallInfo::new().set_start_timestamp(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_timestamp<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_timestamp = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_timestamp][crate::model::CallInfo::start_timestamp].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::CallInfo;
+    /// use wkt::Timestamp;
+    /// let x = CallInfo::new().set_or_clear_start_timestamp(Some(Timestamp::default()/* use setters */));
+    /// let x = CallInfo::new().set_or_clear_start_timestamp(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_timestamp<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_timestamp = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CallInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.CallInfo"
+    }
+}
+
 /// The cart data associated with the event.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -2699,7 +2757,7 @@ pub struct Item {
     pub item_id: std::string::String,
 
     /// Optional. A bucket of any [event parameters related to an
-    /// item](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference/events)
+    /// item](https://developers.google.com/data-manager/api/reference/analytics/recommended-events)
     /// to be included within the event that were not already specified using other
     /// structured fields.
     pub additional_item_parameters: std::vec::Vec<crate::model::ItemParameter>,
@@ -4884,7 +4942,7 @@ pub struct Event {
     pub user_id: std::string::String,
 
     /// Optional. A bucket of any [event
-    /// parameters](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference/events)
+    /// parameters](https://developers.google.com/data-manager/api/reference/analytics/recommended-events)
     /// to be included within the event that were not already specified using other
     /// structured fields.
     pub additional_event_parameters: std::vec::Vec<crate::model::EventParameter>,
@@ -4901,6 +4959,10 @@ pub struct Event {
     /// Optional. A unique identifier for the user instance of an app client for
     /// this GA4 app stream.
     pub app_instance_id: std::string::String,
+
+    /// Optional. Information gathered about the call (if any) which led to this
+    /// event.
+    pub call_info: std::option::Option<crate::model::CallInfo>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5475,6 +5537,39 @@ impl Event {
         self.app_instance_id = v.into();
         self
     }
+
+    /// Sets the value of [call_info][crate::model::Event::call_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::Event;
+    /// use google_ads_datamanager_v1::model::CallInfo;
+    /// let x = Event::new().set_call_info(CallInfo::default()/* use setters */);
+    /// ```
+    pub fn set_call_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CallInfo>,
+    {
+        self.call_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [call_info][crate::model::Event::call_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::Event;
+    /// use google_ads_datamanager_v1::model::CallInfo;
+    /// let x = Event::new().set_or_clear_call_info(Some(CallInfo::default()/* use setters */));
+    /// let x = Event::new().set_or_clear_call_info(None::<CallInfo>);
+    /// ```
+    pub fn set_or_clear_call_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CallInfo>,
+    {
+        self.call_info = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for Event {
@@ -5529,6 +5624,9 @@ pub struct AdIdentifiers {
     /// Optional. A unique identifier for an unauthenticated user (user who is not
     /// signed-in), as defined by the publisher.
     pub visitor_ppid: std::string::String,
+
+    /// Optional. Google generated ID issued when user submits a lead form.
+    pub lead_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -5717,6 +5815,18 @@ impl AdIdentifiers {
     /// ```
     pub fn set_visitor_ppid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.visitor_ppid = v.into();
+        self
+    }
+
+    /// Sets the value of [lead_id][crate::model::AdIdentifiers::lead_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::AdIdentifiers;
+    /// let x = AdIdentifiers::new().set_lead_id("example");
+    /// ```
+    pub fn set_lead_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.lead_id = v.into();
         self
     }
 }
@@ -8197,7 +8307,7 @@ pub mod retrieve_insights_response {
 }
 
 /// A bucket of any [event parameters related to an
-/// item](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference/events)
+/// item](https://developers.google.com/data-manager/api/reference/analytics/recommended-events)
 /// to be included within the event that were not already specified using other
 /// structured fields.
 #[derive(Clone, Default, PartialEq)]
@@ -8923,6 +9033,558 @@ impl wkt::message::Message for PartnerLinkMetadata {
     }
 }
 
+/// A row/entry in a Partner Match report.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PartnerMatchReportEntry {
+    /// The advertiser account details.
+    pub advertiser_account: std::option::Option<crate::model::PartnerMatchAdvertiserAccount>,
+
+    /// The campaign details.  Only returned for Google Ads advertisers.
+    pub campaign: std::option::Option<crate::model::PartnerMatchCampaign>,
+
+    /// The ad group details.
+    pub ad_group: std::option::Option<crate::model::PartnerMatchAdGroup>,
+
+    /// The user list details.
+    pub user_list: std::option::Option<crate::model::PartnerMatchUserList>,
+
+    /// The number of impressions for this entry.
+    pub impression_count: i64,
+
+    /// The media cost associated for this entry.
+    pub media_cost: std::option::Option<google_cloud_type::model::Money>,
+
+    /// The line item details.  Only returned for DV360 advertisers.
+    pub line_item: std::option::Option<crate::model::PartnerMatchLineItem>,
+
+    /// The data fees for this entry. Only returned for DV360 advertisers
+    pub data_fees: std::option::Option<google_cloud_type::model::Money>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PartnerMatchReportEntry {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [advertiser_account][crate::model::PartnerMatchReportEntry::advertiser_account].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchReportEntry;
+    /// use google_ads_datamanager_v1::model::PartnerMatchAdvertiserAccount;
+    /// let x = PartnerMatchReportEntry::new().set_advertiser_account(PartnerMatchAdvertiserAccount::default()/* use setters */);
+    /// ```
+    pub fn set_advertiser_account<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PartnerMatchAdvertiserAccount>,
+    {
+        self.advertiser_account = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [advertiser_account][crate::model::PartnerMatchReportEntry::advertiser_account].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchReportEntry;
+    /// use google_ads_datamanager_v1::model::PartnerMatchAdvertiserAccount;
+    /// let x = PartnerMatchReportEntry::new().set_or_clear_advertiser_account(Some(PartnerMatchAdvertiserAccount::default()/* use setters */));
+    /// let x = PartnerMatchReportEntry::new().set_or_clear_advertiser_account(None::<PartnerMatchAdvertiserAccount>);
+    /// ```
+    pub fn set_or_clear_advertiser_account<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PartnerMatchAdvertiserAccount>,
+    {
+        self.advertiser_account = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [campaign][crate::model::PartnerMatchReportEntry::campaign].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchReportEntry;
+    /// use google_ads_datamanager_v1::model::PartnerMatchCampaign;
+    /// let x = PartnerMatchReportEntry::new().set_campaign(PartnerMatchCampaign::default()/* use setters */);
+    /// ```
+    pub fn set_campaign<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PartnerMatchCampaign>,
+    {
+        self.campaign = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [campaign][crate::model::PartnerMatchReportEntry::campaign].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchReportEntry;
+    /// use google_ads_datamanager_v1::model::PartnerMatchCampaign;
+    /// let x = PartnerMatchReportEntry::new().set_or_clear_campaign(Some(PartnerMatchCampaign::default()/* use setters */));
+    /// let x = PartnerMatchReportEntry::new().set_or_clear_campaign(None::<PartnerMatchCampaign>);
+    /// ```
+    pub fn set_or_clear_campaign<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PartnerMatchCampaign>,
+    {
+        self.campaign = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ad_group][crate::model::PartnerMatchReportEntry::ad_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchReportEntry;
+    /// use google_ads_datamanager_v1::model::PartnerMatchAdGroup;
+    /// let x = PartnerMatchReportEntry::new().set_ad_group(PartnerMatchAdGroup::default()/* use setters */);
+    /// ```
+    pub fn set_ad_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PartnerMatchAdGroup>,
+    {
+        self.ad_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ad_group][crate::model::PartnerMatchReportEntry::ad_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchReportEntry;
+    /// use google_ads_datamanager_v1::model::PartnerMatchAdGroup;
+    /// let x = PartnerMatchReportEntry::new().set_or_clear_ad_group(Some(PartnerMatchAdGroup::default()/* use setters */));
+    /// let x = PartnerMatchReportEntry::new().set_or_clear_ad_group(None::<PartnerMatchAdGroup>);
+    /// ```
+    pub fn set_or_clear_ad_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PartnerMatchAdGroup>,
+    {
+        self.ad_group = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [user_list][crate::model::PartnerMatchReportEntry::user_list].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchReportEntry;
+    /// use google_ads_datamanager_v1::model::PartnerMatchUserList;
+    /// let x = PartnerMatchReportEntry::new().set_user_list(PartnerMatchUserList::default()/* use setters */);
+    /// ```
+    pub fn set_user_list<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PartnerMatchUserList>,
+    {
+        self.user_list = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [user_list][crate::model::PartnerMatchReportEntry::user_list].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchReportEntry;
+    /// use google_ads_datamanager_v1::model::PartnerMatchUserList;
+    /// let x = PartnerMatchReportEntry::new().set_or_clear_user_list(Some(PartnerMatchUserList::default()/* use setters */));
+    /// let x = PartnerMatchReportEntry::new().set_or_clear_user_list(None::<PartnerMatchUserList>);
+    /// ```
+    pub fn set_or_clear_user_list<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PartnerMatchUserList>,
+    {
+        self.user_list = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [impression_count][crate::model::PartnerMatchReportEntry::impression_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchReportEntry;
+    /// let x = PartnerMatchReportEntry::new().set_impression_count(42);
+    /// ```
+    pub fn set_impression_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.impression_count = v.into();
+        self
+    }
+
+    /// Sets the value of [media_cost][crate::model::PartnerMatchReportEntry::media_cost].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchReportEntry;
+    /// use google_cloud_type::model::Money;
+    /// let x = PartnerMatchReportEntry::new().set_media_cost(Money::default()/* use setters */);
+    /// ```
+    pub fn set_media_cost<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Money>,
+    {
+        self.media_cost = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [media_cost][crate::model::PartnerMatchReportEntry::media_cost].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchReportEntry;
+    /// use google_cloud_type::model::Money;
+    /// let x = PartnerMatchReportEntry::new().set_or_clear_media_cost(Some(Money::default()/* use setters */));
+    /// let x = PartnerMatchReportEntry::new().set_or_clear_media_cost(None::<Money>);
+    /// ```
+    pub fn set_or_clear_media_cost<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Money>,
+    {
+        self.media_cost = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [line_item][crate::model::PartnerMatchReportEntry::line_item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchReportEntry;
+    /// use google_ads_datamanager_v1::model::PartnerMatchLineItem;
+    /// let x = PartnerMatchReportEntry::new().set_line_item(PartnerMatchLineItem::default()/* use setters */);
+    /// ```
+    pub fn set_line_item<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PartnerMatchLineItem>,
+    {
+        self.line_item = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [line_item][crate::model::PartnerMatchReportEntry::line_item].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchReportEntry;
+    /// use google_ads_datamanager_v1::model::PartnerMatchLineItem;
+    /// let x = PartnerMatchReportEntry::new().set_or_clear_line_item(Some(PartnerMatchLineItem::default()/* use setters */));
+    /// let x = PartnerMatchReportEntry::new().set_or_clear_line_item(None::<PartnerMatchLineItem>);
+    /// ```
+    pub fn set_or_clear_line_item<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PartnerMatchLineItem>,
+    {
+        self.line_item = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [data_fees][crate::model::PartnerMatchReportEntry::data_fees].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchReportEntry;
+    /// use google_cloud_type::model::Money;
+    /// let x = PartnerMatchReportEntry::new().set_data_fees(Money::default()/* use setters */);
+    /// ```
+    pub fn set_data_fees<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Money>,
+    {
+        self.data_fees = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [data_fees][crate::model::PartnerMatchReportEntry::data_fees].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchReportEntry;
+    /// use google_cloud_type::model::Money;
+    /// let x = PartnerMatchReportEntry::new().set_or_clear_data_fees(Some(Money::default()/* use setters */));
+    /// let x = PartnerMatchReportEntry::new().set_or_clear_data_fees(None::<Money>);
+    /// ```
+    pub fn set_or_clear_data_fees<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Money>,
+    {
+        self.data_fees = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for PartnerMatchReportEntry {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.PartnerMatchReportEntry"
+    }
+}
+
+/// The advertiser account details.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PartnerMatchAdvertiserAccount {
+    /// The type of account (e.g. GOOGLE_ADS, DISPLAY_VIDEO_ADVERTISER).
+    pub account_type: std::string::String,
+
+    /// The Customer ID of the account.
+    pub account_id: std::string::String,
+
+    /// The descriptive name of the account.
+    pub display_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PartnerMatchAdvertiserAccount {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [account_type][crate::model::PartnerMatchAdvertiserAccount::account_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchAdvertiserAccount;
+    /// let x = PartnerMatchAdvertiserAccount::new().set_account_type("example");
+    /// ```
+    pub fn set_account_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.account_type = v.into();
+        self
+    }
+
+    /// Sets the value of [account_id][crate::model::PartnerMatchAdvertiserAccount::account_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchAdvertiserAccount;
+    /// let x = PartnerMatchAdvertiserAccount::new().set_account_id("example");
+    /// ```
+    pub fn set_account_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.account_id = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::PartnerMatchAdvertiserAccount::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchAdvertiserAccount;
+    /// let x = PartnerMatchAdvertiserAccount::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PartnerMatchAdvertiserAccount {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.PartnerMatchAdvertiserAccount"
+    }
+}
+
+/// The campaign details.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PartnerMatchCampaign {
+    /// The ID of the campaign.
+    pub campaign_id: i64,
+
+    /// The descriptive name of the campaign.
+    pub display_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PartnerMatchCampaign {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [campaign_id][crate::model::PartnerMatchCampaign::campaign_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchCampaign;
+    /// let x = PartnerMatchCampaign::new().set_campaign_id(42);
+    /// ```
+    pub fn set_campaign_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.campaign_id = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::PartnerMatchCampaign::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchCampaign;
+    /// let x = PartnerMatchCampaign::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PartnerMatchCampaign {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.PartnerMatchCampaign"
+    }
+}
+
+/// The ad group details.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PartnerMatchAdGroup {
+    /// The ID of the ad group.
+    pub ad_group_id: i64,
+
+    /// The descriptive name of the ad group.
+    pub display_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PartnerMatchAdGroup {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [ad_group_id][crate::model::PartnerMatchAdGroup::ad_group_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchAdGroup;
+    /// let x = PartnerMatchAdGroup::new().set_ad_group_id(42);
+    /// ```
+    pub fn set_ad_group_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.ad_group_id = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::PartnerMatchAdGroup::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchAdGroup;
+    /// let x = PartnerMatchAdGroup::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PartnerMatchAdGroup {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.PartnerMatchAdGroup"
+    }
+}
+
+/// The user list details.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PartnerMatchUserList {
+    /// The ID of the user list.
+    pub user_list_id: i64,
+
+    /// The descriptive name of the user list.
+    pub display_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PartnerMatchUserList {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [user_list_id][crate::model::PartnerMatchUserList::user_list_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchUserList;
+    /// let x = PartnerMatchUserList::new().set_user_list_id(42);
+    /// ```
+    pub fn set_user_list_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.user_list_id = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::PartnerMatchUserList::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchUserList;
+    /// let x = PartnerMatchUserList::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PartnerMatchUserList {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.PartnerMatchUserList"
+    }
+}
+
+/// The line item details.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PartnerMatchLineItem {
+    /// The ID of the line item.
+    pub line_item_id: i64,
+
+    /// The descriptive name of the line item.
+    pub display_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PartnerMatchLineItem {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [line_item_id][crate::model::PartnerMatchLineItem::line_item_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchLineItem;
+    /// let x = PartnerMatchLineItem::new().set_line_item_id(42);
+    /// ```
+    pub fn set_line_item_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.line_item_id = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::PartnerMatchLineItem::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::PartnerMatchLineItem;
+    /// let x = PartnerMatchLineItem::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PartnerMatchLineItem {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.PartnerMatchLineItem"
+    }
+}
+
 /// Error counts for each type of error.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -8979,6 +9641,10 @@ pub struct ErrorCount {
     /// The error reason of the failed records.
     pub reason: crate::model::ProcessingErrorReason,
 
+    /// The 0-based indices of the records in the original request that failed
+    /// with this error reason.
+    pub record_indices: std::vec::Vec<i32>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9015,6 +9681,23 @@ impl ErrorCount {
         v: T,
     ) -> Self {
         self.reason = v.into();
+        self
+    }
+
+    /// Sets the value of [record_indices][crate::model::ErrorCount::record_indices].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::ErrorCount;
+    /// let x = ErrorCount::new().set_record_indices([1, 2, 3]);
+    /// ```
+    pub fn set_record_indices<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.record_indices = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -9080,6 +9763,10 @@ pub struct WarningCount {
     /// The warning reason.
     pub reason: crate::model::ProcessingWarningReason,
 
+    /// The 0-based indices of the records in the original request that had this
+    /// warning reason.
+    pub record_indices: std::vec::Vec<i32>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9116,6 +9803,23 @@ impl WarningCount {
         v: T,
     ) -> Self {
         self.reason = v.into();
+        self
+    }
+
+    /// Sets the value of [record_indices][crate::model::WarningCount::record_indices].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::WarningCount;
+    /// let x = WarningCount::new().set_record_indices([1, 2, 3]);
+    /// ```
+    pub fn set_record_indices<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<i32>,
+    {
+        use std::iter::Iterator;
+        self.record_indices = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -9192,6 +9896,251 @@ impl FieldWarning {
 impl wkt::message::Message for FieldWarning {
     fn typename() -> &'static str {
         "type.googleapis.com/google.ads.datamanager.v1.FieldWarning"
+    }
+}
+
+/// Request message for DM API ReportingService.RetrievePartnerMatchReport
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RetrievePartnerMatchReportRequest {
+    /// Required. The parent account that owns the user list.
+    /// Format: `accountTypes/{account_type}/accounts/{account}`
+    pub parent: std::string::String,
+
+    /// Optional. The currency to return the costs/fees in. If unspecified,
+    /// defaults to the Data Partner's currency
+    pub currency_code: std::string::String,
+
+    /// Optional. A [filter string](https://google.aip.dev/160) to apply to the
+    /// list request. All fields need to be on the left hand side of each condition
+    /// (for example: `user_list_id = 123`). Fields must be specified using either
+    /// all [camel case](https://en.wikipedia.org/wiki/Camel_case) or all [snake
+    /// case](https://en.wikipedia.org/wiki/Snake_case). Don't use a combination of
+    /// camel case and snake case.
+    ///
+    /// **Supported Operations:**
+    ///
+    /// - `AND`
+    /// - `=`
+    /// - `!=`
+    /// - `>`
+    /// - `>=`
+    /// - `<`
+    /// - `<=`
+    ///
+    /// **Supported Functions:**
+    ///
+    /// - `IN(field, value1, value2, ...)`: returns true if the field matches any
+    ///   of the values.  Example: `IN(user_list_id, 123, 456)`
+    ///
+    /// **Supported Fields:**
+    ///
+    /// - `advertiser_account.account_type`
+    /// - `advertiser_account.account_id`
+    /// - `campaign.campaign_id`
+    /// - `ad_group.ad_group_id`
+    /// - `user_list.user_list_id`
+    pub filter: std::string::String,
+
+    /// Required. The start date (inclusive) of the report data to retrieve.  Only
+    /// data from the last 2 years can be retrieved.  If the start date is set to
+    /// an older date, only data from the last 2 years will be returned. Should be
+    /// in the format YYYYMMDD.
+    pub start_date: i64,
+
+    /// Optional. The end date (inclusive) of the report data to retrieve. Defaults
+    /// to the current date if not populated.  Should be in the format YYYYMMDD.
+    pub end_date: i64,
+
+    /// Optional. The maximum number of partner match report entries to return per
+    /// page. The service may return fewer than this value. If unspecified, at most
+    /// 50 reports will be returned. The maximum value is 1000; values above 1000
+    /// will be coerced to 1000.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous
+    /// `RetrievePartnerMatchReport` call. Provide this to retrieve the subsequent
+    /// page.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `RetrievePartnerMatchReport` must match the call that provided the page
+    /// token.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RetrievePartnerMatchReportRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::RetrievePartnerMatchReportRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RetrievePartnerMatchReportRequest;
+    /// let x = RetrievePartnerMatchReportRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [currency_code][crate::model::RetrievePartnerMatchReportRequest::currency_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RetrievePartnerMatchReportRequest;
+    /// let x = RetrievePartnerMatchReportRequest::new().set_currency_code("example");
+    /// ```
+    pub fn set_currency_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.currency_code = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::RetrievePartnerMatchReportRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RetrievePartnerMatchReportRequest;
+    /// let x = RetrievePartnerMatchReportRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [start_date][crate::model::RetrievePartnerMatchReportRequest::start_date].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RetrievePartnerMatchReportRequest;
+    /// let x = RetrievePartnerMatchReportRequest::new().set_start_date(42);
+    /// ```
+    pub fn set_start_date<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.start_date = v.into();
+        self
+    }
+
+    /// Sets the value of [end_date][crate::model::RetrievePartnerMatchReportRequest::end_date].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RetrievePartnerMatchReportRequest;
+    /// let x = RetrievePartnerMatchReportRequest::new().set_end_date(42);
+    /// ```
+    pub fn set_end_date<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.end_date = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::RetrievePartnerMatchReportRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RetrievePartnerMatchReportRequest;
+    /// let x = RetrievePartnerMatchReportRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::RetrievePartnerMatchReportRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RetrievePartnerMatchReportRequest;
+    /// let x = RetrievePartnerMatchReportRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RetrievePartnerMatchReportRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.RetrievePartnerMatchReportRequest"
+    }
+}
+
+/// Response message for DM API ReportingService.RetrievePartnerMatchReport
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RetrievePartnerMatchReportResponse {
+    /// A list of the rows/entries in the partner match report.
+    pub partner_match_report_entries: std::vec::Vec<crate::model::PartnerMatchReportEntry>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RetrievePartnerMatchReportResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [partner_match_report_entries][crate::model::RetrievePartnerMatchReportResponse::partner_match_report_entries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RetrievePartnerMatchReportResponse;
+    /// use google_ads_datamanager_v1::model::PartnerMatchReportEntry;
+    /// let x = RetrievePartnerMatchReportResponse::new()
+    ///     .set_partner_match_report_entries([
+    ///         PartnerMatchReportEntry::default()/* use setters */,
+    ///         PartnerMatchReportEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_partner_match_report_entries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::PartnerMatchReportEntry>,
+    {
+        use std::iter::Iterator;
+        self.partner_match_report_entries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::RetrievePartnerMatchReportResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_ads_datamanager_v1::model::RetrievePartnerMatchReportResponse;
+    /// let x = RetrievePartnerMatchReportResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RetrievePartnerMatchReportResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.ads.datamanager.v1.RetrievePartnerMatchReportResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for RetrievePartnerMatchReportResponse
+{
+    type PageItem = crate::model::PartnerMatchReportEntry;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.partner_match_report_entries
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
     }
 }
 
@@ -13592,13 +14541,13 @@ pub mod user_list {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SizeInfo {
-    /// Output only. Estimated number of members in this user list, on the Google
-    /// Display Network.
+    /// Output only. Estimated number of active members in this user list on the
+    /// Google Display Network over the last 30 days.
     pub display_network_members_count: i64,
 
-    /// Output only. Estimated number of members in this user list in the
-    /// google.com domain. These are the members available for targeting in Search
-    /// campaigns.
+    /// Output only. Estimated number of active members in this user list in the
+    /// google.com domain over the last 30 days. These are the members available
+    /// for targeting in Search campaigns.
     pub search_network_members_count: i64,
 
     /// Output only. Estimated number of members in this user list on YouTube.
@@ -18416,7 +19365,7 @@ pub struct UserProperties {
     pub customer_value_bucket: crate::model::CustomerValueBucket,
 
     /// Optional. A bucket of any additional [user
-    /// properties](https://developers.google.com/analytics/devguides/collection/protocol/ga4/user-properties)
+    /// properties](https://support.google.com/analytics/answer/9355671)
     /// for the user associated with this event.
     pub additional_user_properties: std::vec::Vec<crate::model::UserProperty>,
 
@@ -18495,7 +19444,7 @@ impl wkt::message::Message for UserProperties {
 }
 
 /// A bucket of any additional [user
-/// properties](https://developers.google.com/analytics/devguides/collection/protocol/ga4/user-properties)
+/// properties](https://support.google.com/analytics/answer/9355671)
 /// for the user associated with this event.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -20458,7 +21407,7 @@ pub enum ErrorReason {
     InvalidAudienceMember,
     /// Maximum number of audience members allowed per request is 10,000.
     TooManyAudienceMembers,
-    /// Maximum number of user identifiers allowed per audience member is 10.
+    /// Maximum number of user identifiers allowed per record is 10.
     TooManyUserIdentifiers,
     /// Maximum number of destinations allowed per request is 10.
     TooManyDestinations,
@@ -20483,6 +21432,8 @@ pub enum ErrorReason {
     InvalidConversionActionId,
     /// The conversion action type is not valid.
     InvalidConversionActionType,
+    /// Encryption is not supported for this request.
+    EncryptionNotSupported,
     /// The currency code is not supported.
     InvalidCurrencyCode,
     /// This event is not valid.
@@ -20693,8 +21644,8 @@ pub enum ErrorReason {
     BaselineLocationAutoDetectionFailed,
     /// Insights missing for this dimension.
     InsightsMissingForDimension,
-    /// A required prerequisite link (such as a Google Ads link) must exist for
-    /// the Google Analytics property to perform this operation.
+    /// Deprecated: Error is unused in the Data Manager API.
+    #[deprecated]
     RequiredPrerequisiteLinkMissing,
     /// The remove as of time must be in the past or present. Future timestamps are
     /// not permitted for removing audience members.
@@ -20706,17 +21657,49 @@ pub enum ErrorReason {
     ConversionActionTooRecentlyCreated,
     /// The ad identifier does not belong to the account.
     ///
-    /// For example, the [`gclid`][google.ads.datamanager.v1.AdIdentifiers.gclid]
+    /// For example, the [gclid][google.ads.datamanager.v1.AdIdentifiers.gclid]
     /// isn't associated with the
-    /// [`operating_account`][google.ads.datamanager.v1.Destination.operating_account]
+    /// [operating_account][google.ads.datamanager.v1.Destination.operating_account]
     /// and
-    /// [`product_destination_id`][google.ads.datamanager.v1.Destination.product_destination_id]
+    /// [product_destination_id][google.ads.datamanager.v1.Destination.product_destination_id]
     /// of the destination.
     ///
     /// [google.ads.datamanager.v1.AdIdentifiers.gclid]: crate::model::AdIdentifiers::gclid
     /// [google.ads.datamanager.v1.Destination.operating_account]: crate::model::Destination::operating_account
     /// [google.ads.datamanager.v1.Destination.product_destination_id]: crate::model::Destination::product_destination_id
     InvalidAdIdentifierForAccount,
+    /// The account type is not a supported `client_account_type` for a
+    /// [UserListDirectLicense][google.ads.datamanager.v1.UserListDirectLicense].
+    ///
+    /// [google.ads.datamanager.v1.UserListDirectLicense]: crate::model::UserListDirectLicense
+    UnsupportedAccountTypeForUserListDirectLicense,
+    /// Duplicate elements in a list in the request.
+    DuplicateElements,
+    /// The baseline location is not supported for generating insights.
+    ///
+    /// When
+    /// [location_auto_detection_enabled][google.ads.datamanager.v1.Baseline.location_auto_detection_enabled]
+    /// is set to `true`, this error indicates that the detected majority location
+    /// for the audience is not among the supported locations.
+    ///
+    /// To resolve this, explicitly specify a supported location in
+    /// [baseline_location][google.ads.datamanager.v1.Baseline.baseline_location],
+    /// or retry once the audience list updates with a supported majority location.
+    /// See <https://support.google.com/google-ads/answer/11161206> for the list of
+    /// supported countries.
+    ///
+    /// [google.ads.datamanager.v1.Baseline.baseline_location]: crate::model::Baseline::baseline
+    /// [google.ads.datamanager.v1.Baseline.location_auto_detection_enabled]: crate::model::Baseline::baseline
+    UnsupportedBaselineLocation,
+    /// The [event_timestamp][google.ads.datamanager.v1.Event.event_timestamp]
+    /// cannot be earlier than the
+    /// [start_timestamp][google.ads.datamanager.v1.CallInfo.start_timestamp].
+    ///
+    /// [google.ads.datamanager.v1.CallInfo.start_timestamp]: crate::model::CallInfo::start_timestamp
+    /// [google.ads.datamanager.v1.Event.event_timestamp]: crate::model::Event::event_timestamp
+    ConversionPrecedesCall,
+    /// The date is not valid.
+    InvalidDate,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [ErrorReason::value] or
@@ -20769,6 +21752,7 @@ impl ErrorReason {
             Self::InvalidNumberFormat => std::option::Option::Some(27),
             Self::InvalidConversionActionId => std::option::Option::Some(28),
             Self::InvalidConversionActionType => std::option::Option::Some(29),
+            Self::EncryptionNotSupported => std::option::Option::Some(132),
             Self::InvalidCurrencyCode => std::option::Option::Some(30),
             Self::InvalidEvent => std::option::Option::Some(31),
             Self::TooManyEvents => std::option::Option::Some(32),
@@ -20882,6 +21866,11 @@ impl ErrorReason {
             Self::RequestTooOld => std::option::Option::Some(126),
             Self::ConversionActionTooRecentlyCreated => std::option::Option::Some(127),
             Self::InvalidAdIdentifierForAccount => std::option::Option::Some(128),
+            Self::UnsupportedAccountTypeForUserListDirectLicense => std::option::Option::Some(129),
+            Self::DuplicateElements => std::option::Option::Some(130),
+            Self::UnsupportedBaselineLocation => std::option::Option::Some(131),
+            Self::ConversionPrecedesCall => std::option::Option::Some(133),
+            Self::InvalidDate => std::option::Option::Some(134),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -20934,6 +21923,7 @@ impl ErrorReason {
             Self::InvalidConversionActionType => {
                 std::option::Option::Some("INVALID_CONVERSION_ACTION_TYPE")
             }
+            Self::EncryptionNotSupported => std::option::Option::Some("ENCRYPTION_NOT_SUPPORTED"),
             Self::InvalidCurrencyCode => std::option::Option::Some("INVALID_CURRENCY_CODE"),
             Self::InvalidEvent => std::option::Option::Some("INVALID_EVENT"),
             Self::TooManyEvents => std::option::Option::Some("TOO_MANY_EVENTS"),
@@ -21147,6 +22137,15 @@ impl ErrorReason {
             Self::InvalidAdIdentifierForAccount => {
                 std::option::Option::Some("INVALID_AD_IDENTIFIER_FOR_ACCOUNT")
             }
+            Self::UnsupportedAccountTypeForUserListDirectLicense => {
+                std::option::Option::Some("UNSUPPORTED_ACCOUNT_TYPE_FOR_USER_LIST_DIRECT_LICENSE")
+            }
+            Self::DuplicateElements => std::option::Option::Some("DUPLICATE_ELEMENTS"),
+            Self::UnsupportedBaselineLocation => {
+                std::option::Option::Some("UNSUPPORTED_BASELINE_LOCATION")
+            }
+            Self::ConversionPrecedesCall => std::option::Option::Some("CONVERSION_PRECEDES_CALL"),
+            Self::InvalidDate => std::option::Option::Some("INVALID_DATE"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -21297,6 +22296,12 @@ impl std::convert::From<i32> for ErrorReason {
             126 => Self::RequestTooOld,
             127 => Self::ConversionActionTooRecentlyCreated,
             128 => Self::InvalidAdIdentifierForAccount,
+            129 => Self::UnsupportedAccountTypeForUserListDirectLicense,
+            130 => Self::DuplicateElements,
+            131 => Self::UnsupportedBaselineLocation,
+            132 => Self::EncryptionNotSupported,
+            133 => Self::ConversionPrecedesCall,
+            134 => Self::InvalidDate,
             _ => Self::UnknownValue(error_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -21342,6 +22347,7 @@ impl std::convert::From<&str> for ErrorReason {
             "INVALID_NUMBER_FORMAT" => Self::InvalidNumberFormat,
             "INVALID_CONVERSION_ACTION_ID" => Self::InvalidConversionActionId,
             "INVALID_CONVERSION_ACTION_TYPE" => Self::InvalidConversionActionType,
+            "ENCRYPTION_NOT_SUPPORTED" => Self::EncryptionNotSupported,
             "INVALID_CURRENCY_CODE" => Self::InvalidCurrencyCode,
             "INVALID_EVENT" => Self::InvalidEvent,
             "TOO_MANY_EVENTS" => Self::TooManyEvents,
@@ -21491,6 +22497,13 @@ impl std::convert::From<&str> for ErrorReason {
             "REQUEST_TOO_OLD" => Self::RequestTooOld,
             "CONVERSION_ACTION_TOO_RECENTLY_CREATED" => Self::ConversionActionTooRecentlyCreated,
             "INVALID_AD_IDENTIFIER_FOR_ACCOUNT" => Self::InvalidAdIdentifierForAccount,
+            "UNSUPPORTED_ACCOUNT_TYPE_FOR_USER_LIST_DIRECT_LICENSE" => {
+                Self::UnsupportedAccountTypeForUserListDirectLicense
+            }
+            "DUPLICATE_ELEMENTS" => Self::DuplicateElements,
+            "UNSUPPORTED_BASELINE_LOCATION" => Self::UnsupportedBaselineLocation,
+            "CONVERSION_PRECEDES_CALL" => Self::ConversionPrecedesCall,
+            "INVALID_DATE" => Self::InvalidDate,
             _ => Self::UnknownValue(error_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -21534,6 +22547,7 @@ impl serde::ser::Serialize for ErrorReason {
             Self::InvalidNumberFormat => serializer.serialize_i32(27),
             Self::InvalidConversionActionId => serializer.serialize_i32(28),
             Self::InvalidConversionActionType => serializer.serialize_i32(29),
+            Self::EncryptionNotSupported => serializer.serialize_i32(132),
             Self::InvalidCurrencyCode => serializer.serialize_i32(30),
             Self::InvalidEvent => serializer.serialize_i32(31),
             Self::TooManyEvents => serializer.serialize_i32(32),
@@ -21645,6 +22659,11 @@ impl serde::ser::Serialize for ErrorReason {
             Self::RequestTooOld => serializer.serialize_i32(126),
             Self::ConversionActionTooRecentlyCreated => serializer.serialize_i32(127),
             Self::InvalidAdIdentifierForAccount => serializer.serialize_i32(128),
+            Self::UnsupportedAccountTypeForUserListDirectLicense => serializer.serialize_i32(129),
+            Self::DuplicateElements => serializer.serialize_i32(130),
+            Self::UnsupportedBaselineLocation => serializer.serialize_i32(131),
+            Self::ConversionPrecedesCall => serializer.serialize_i32(133),
+            Self::InvalidDate => serializer.serialize_i32(134),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }
@@ -22544,6 +23563,17 @@ pub enum ProcessingErrorReason {
     /// External attribution data is missing. Sending events to a destination for
     /// an external attribution conversion action isn't supported.
     ExternalAttributionDataMissing,
+    /// The destination was created too recently. Try again in a few hours.
+    DestinationTooRecentlyCreated,
+    /// The matched click is older than the conversion action's configured
+    /// click-through conversion lookback window (or the 90-day click TTL).
+    ExpiredClick,
+    /// The call is still being processed.
+    TooRecentCall,
+    /// The call is too old for this conversion to be imported.
+    ExpiredCall,
+    /// The call was not found.
+    InvalidCall,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [ProcessingErrorReason::value] or
@@ -22615,6 +23645,11 @@ impl ProcessingErrorReason {
             Self::InvalidOperatingAccountForClick => std::option::Option::Some(42),
             Self::ClickNotFound => std::option::Option::Some(43),
             Self::ExternalAttributionDataMissing => std::option::Option::Some(44),
+            Self::DestinationTooRecentlyCreated => std::option::Option::Some(45),
+            Self::ExpiredClick => std::option::Option::Some(46),
+            Self::TooRecentCall => std::option::Option::Some(47),
+            Self::ExpiredCall => std::option::Option::Some(48),
+            Self::InvalidCall => std::option::Option::Some(49),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -22752,6 +23787,17 @@ impl ProcessingErrorReason {
             Self::ExternalAttributionDataMissing => std::option::Option::Some(
                 "PROCESSING_ERROR_REASON_EXTERNAL_ATTRIBUTION_DATA_MISSING",
             ),
+            Self::DestinationTooRecentlyCreated => std::option::Option::Some(
+                "PROCESSING_ERROR_REASON_DESTINATION_TOO_RECENTLY_CREATED",
+            ),
+            Self::ExpiredClick => {
+                std::option::Option::Some("PROCESSING_ERROR_REASON_EXPIRED_CLICK")
+            }
+            Self::TooRecentCall => {
+                std::option::Option::Some("PROCESSING_ERROR_REASON_TOO_RECENT_CALL")
+            }
+            Self::ExpiredCall => std::option::Option::Some("PROCESSING_ERROR_REASON_EXPIRED_CALL"),
+            Self::InvalidCall => std::option::Option::Some("PROCESSING_ERROR_REASON_INVALID_CALL"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -22818,6 +23864,11 @@ impl std::convert::From<i32> for ProcessingErrorReason {
             42 => Self::InvalidOperatingAccountForClick,
             43 => Self::ClickNotFound,
             44 => Self::ExternalAttributionDataMissing,
+            45 => Self::DestinationTooRecentlyCreated,
+            46 => Self::ExpiredClick,
+            47 => Self::TooRecentCall,
+            48 => Self::ExpiredCall,
+            49 => Self::InvalidCall,
             _ => Self::UnknownValue(processing_error_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -22894,6 +23945,13 @@ impl std::convert::From<&str> for ProcessingErrorReason {
             "PROCESSING_ERROR_REASON_EXTERNAL_ATTRIBUTION_DATA_MISSING" => {
                 Self::ExternalAttributionDataMissing
             }
+            "PROCESSING_ERROR_REASON_DESTINATION_TOO_RECENTLY_CREATED" => {
+                Self::DestinationTooRecentlyCreated
+            }
+            "PROCESSING_ERROR_REASON_EXPIRED_CLICK" => Self::ExpiredClick,
+            "PROCESSING_ERROR_REASON_TOO_RECENT_CALL" => Self::TooRecentCall,
+            "PROCESSING_ERROR_REASON_EXPIRED_CALL" => Self::ExpiredCall,
+            "PROCESSING_ERROR_REASON_INVALID_CALL" => Self::InvalidCall,
             _ => Self::UnknownValue(processing_error_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -22956,6 +24014,11 @@ impl serde::ser::Serialize for ProcessingErrorReason {
             Self::InvalidOperatingAccountForClick => serializer.serialize_i32(42),
             Self::ClickNotFound => serializer.serialize_i32(43),
             Self::ExternalAttributionDataMissing => serializer.serialize_i32(44),
+            Self::DestinationTooRecentlyCreated => serializer.serialize_i32(45),
+            Self::ExpiredClick => serializer.serialize_i32(46),
+            Self::TooRecentCall => serializer.serialize_i32(47),
+            Self::ExpiredCall => serializer.serialize_i32(48),
+            Self::InvalidCall => serializer.serialize_i32(49),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }
@@ -23016,6 +24079,21 @@ pub enum ProcessingWarningReason {
     InternalError,
     /// The system failed to authenticate with AWS.
     AwsAuthFailed,
+    /// A [CustomVariable][google.ads.datamanager.v1.CustomVariable] or
+    /// [ItemCustomVariable][google.ads.datamanager.v1.ItemCustomVariable] is not
+    /// enabled in the account.
+    ///
+    /// [google.ads.datamanager.v1.CustomVariable]: crate::model::CustomVariable
+    /// [google.ads.datamanager.v1.ItemCustomVariable]: crate::model::ItemCustomVariable
+    CustomVariableNotEnabled,
+    /// The value of a [CustomVariable][google.ads.datamanager.v1.CustomVariable]
+    /// or [ItemCustomVariable][google.ads.datamanager.v1.ItemCustomVariable] is
+    /// not among the predefined allowed values configured for the custom variable
+    /// on the destination account and will be replaced by an uncategorized value.
+    ///
+    /// [google.ads.datamanager.v1.CustomVariable]: crate::model::CustomVariable
+    /// [google.ads.datamanager.v1.ItemCustomVariable]: crate::model::ItemCustomVariable
+    CustomVariableNotPredefined,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [ProcessingWarningReason::value] or
@@ -23048,6 +24126,8 @@ impl ProcessingWarningReason {
             Self::UserIdentifierDecryptionError => std::option::Option::Some(7),
             Self::InternalError => std::option::Option::Some(8),
             Self::AwsAuthFailed => std::option::Option::Some(9),
+            Self::CustomVariableNotEnabled => std::option::Option::Some(10),
+            Self::CustomVariableNotPredefined => std::option::Option::Some(11),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -23082,6 +24162,12 @@ impl ProcessingWarningReason {
             Self::AwsAuthFailed => {
                 std::option::Option::Some("PROCESSING_WARNING_REASON_AWS_AUTH_FAILED")
             }
+            Self::CustomVariableNotEnabled => {
+                std::option::Option::Some("PROCESSING_WARNING_REASON_CUSTOM_VARIABLE_NOT_ENABLED")
+            }
+            Self::CustomVariableNotPredefined => std::option::Option::Some(
+                "PROCESSING_WARNING_REASON_CUSTOM_VARIABLE_NOT_PREDEFINED",
+            ),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -23113,6 +24199,8 @@ impl std::convert::From<i32> for ProcessingWarningReason {
             7 => Self::UserIdentifierDecryptionError,
             8 => Self::InternalError,
             9 => Self::AwsAuthFailed,
+            10 => Self::CustomVariableNotEnabled,
+            11 => Self::CustomVariableNotPredefined,
             _ => Self::UnknownValue(processing_warning_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -23136,6 +24224,12 @@ impl std::convert::From<&str> for ProcessingWarningReason {
             }
             "PROCESSING_WARNING_REASON_INTERNAL_ERROR" => Self::InternalError,
             "PROCESSING_WARNING_REASON_AWS_AUTH_FAILED" => Self::AwsAuthFailed,
+            "PROCESSING_WARNING_REASON_CUSTOM_VARIABLE_NOT_ENABLED" => {
+                Self::CustomVariableNotEnabled
+            }
+            "PROCESSING_WARNING_REASON_CUSTOM_VARIABLE_NOT_PREDEFINED" => {
+                Self::CustomVariableNotPredefined
+            }
             _ => Self::UnknownValue(processing_warning_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -23159,6 +24253,8 @@ impl serde::ser::Serialize for ProcessingWarningReason {
             Self::UserIdentifierDecryptionError => serializer.serialize_i32(7),
             Self::InternalError => serializer.serialize_i32(8),
             Self::AwsAuthFailed => serializer.serialize_i32(9),
+            Self::CustomVariableNotEnabled => serializer.serialize_i32(10),
+            Self::CustomVariableNotPredefined => serializer.serialize_i32(11),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }
@@ -23275,6 +24371,8 @@ pub enum WarningReason {
     ///
     /// [google.ads.datamanager.v1.CartData.merchant_id]: crate::model::CartData::merchant_id
     InvalidMerchantId,
+    /// The number format is invalid.
+    InvalidNumberFormat,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [WarningReason::value] or
@@ -23312,6 +24410,7 @@ impl WarningReason {
             Self::InvalidDeviceCategory => std::option::Option::Some(12),
             Self::InvalidDeviceScreenResolution => std::option::Option::Some(13),
             Self::InvalidMerchantId => std::option::Option::Some(14),
+            Self::InvalidNumberFormat => std::option::Option::Some(15),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -23361,6 +24460,9 @@ impl WarningReason {
             Self::InvalidMerchantId => {
                 std::option::Option::Some("WARNING_REASON_INVALID_MERCHANT_ID")
             }
+            Self::InvalidNumberFormat => {
+                std::option::Option::Some("WARNING_REASON_INVALID_NUMBER_FORMAT")
+            }
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -23397,6 +24499,7 @@ impl std::convert::From<i32> for WarningReason {
             12 => Self::InvalidDeviceCategory,
             13 => Self::InvalidDeviceScreenResolution,
             14 => Self::InvalidMerchantId,
+            15 => Self::InvalidNumberFormat,
             _ => Self::UnknownValue(warning_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -23431,6 +24534,7 @@ impl std::convert::From<&str> for WarningReason {
                 Self::InvalidDeviceScreenResolution
             }
             "WARNING_REASON_INVALID_MERCHANT_ID" => Self::InvalidMerchantId,
+            "WARNING_REASON_INVALID_NUMBER_FORMAT" => Self::InvalidNumberFormat,
             _ => Self::UnknownValue(warning_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -23459,6 +24563,7 @@ impl serde::ser::Serialize for WarningReason {
             Self::InvalidDeviceCategory => serializer.serialize_i32(12),
             Self::InvalidDeviceScreenResolution => serializer.serialize_i32(13),
             Self::InvalidMerchantId => serializer.serialize_i32(14),
+            Self::InvalidNumberFormat => serializer.serialize_i32(15),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

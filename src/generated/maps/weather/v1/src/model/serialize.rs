@@ -1604,6 +1604,9 @@ impl serde::ser::Serialize for super::LookupMapTileRequest {
             }
             state.serialize_entry("y", &__With(&self.y))?;
         }
+        if self.forecast_time.is_some() {
+            state.serialize_entry("forecastTime", &self.forecast_time)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

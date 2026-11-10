@@ -264,6 +264,47 @@ where
     }
 }
 
+/// Implements a [ReportingService](super::stub::ReportingService) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct ReportingService<T>
+where
+    T: super::stub::ReportingService + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+impl<T> ReportingService<T>
+where
+    T: super::stub::ReportingService + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+impl<T> super::stub::ReportingService for ReportingService<T>
+where
+    T: super::stub::ReportingService + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn retrieve_partner_match_report(
+        &self,
+        req: crate::model::RetrievePartnerMatchReportRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RetrievePartnerMatchReportResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ReportingService::retrieve_partner_match_report",
+            self.inner.retrieve_partner_match_report(req, options));
+        pending.await
+    }
+}
+
 /// Implements a [UserListDirectLicenseService](super::stub::UserListDirectLicenseService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct UserListDirectLicenseService<T>
