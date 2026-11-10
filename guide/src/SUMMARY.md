@@ -18,7 +18,6 @@ limitations under the License.
 
 - [Introduction](introduction.md)
 - [Using Google Cloud Storage](storage.md)
-  - [Push data on object writes](storage/queue.md)
   - [Rewriting objects](storage/rewrite_object.md)
   - [Speed up large object downloads](storage/striped_downloads.md)
   - [Use errors to terminate uploads](storage/terminate_uploads.md)
