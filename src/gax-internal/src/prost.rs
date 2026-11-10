@@ -45,12 +45,24 @@ impl ConvertError {
 type Result<T> = std::result::Result<T, ConvertError>;
 
 /// Converts from `Self` into `T`, where `T` is expected to be a Protobuf-generated type.
+///
+/// Callers must always invoke this method using fully qualified syntax with an
+/// explicit type parameter (`ToProto::<T>::to_proto(x)`) rather than method
+/// syntax (`x.to_proto()`) or bare UFCS (`ToProto::to_proto(x)`), so type
+/// resolution remains unambiguous if multiple implementations exist in the
+/// dependency graph.
 pub trait ToProto<T>: Sized {
     type Output;
     fn to_proto(self) -> Result<Self::Output>;
 }
 
 /// Converts from `Self` into `T`, where `Self` is expected to be a Protobuf-generated type.
+///
+/// Callers must always invoke this method using fully qualified syntax with an
+/// explicit type parameter (`FromProto::<T>::cnv(x)`) rather than method
+/// syntax (`x.cnv()`) or bare UFCS (`FromProto::cnv(x)`), so type resolution
+/// remains unambiguous if multiple implementations exist in the dependency
+/// graph.
 pub trait FromProto<T>: Sized {
     // By convention `from_*` functions do not consume a `self`. And we need
     // `self` so we can write generic code for repeated fields, maps, etc.
