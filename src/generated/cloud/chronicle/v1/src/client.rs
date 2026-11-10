@@ -5086,3 +5086,259 @@ impl RuleExecutionErrorService {
         super::builder::rule_execution_error_service::CancelOperation::new(self.inner.clone())
     }
 }
+
+/// Implements a client for the Chronicle API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_chronicle_v1::client::SearchService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    instance_id: &str,
+///    search_session_id: &str,
+/// ) -> anyhow::Result<()> {
+///     let client = SearchService::builder().build().await?;
+///     let mut list = client.list_searched_results()
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/searchSessions/{search_session_id}"))
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// SearchService provides methods for searching data in Chronicle.
+///
+/// # Configuration
+///
+/// To configure `SearchService` use the `with_*` methods in the type returned
+/// by [builder()][SearchService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://chronicle.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::search_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::search_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `SearchService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `SearchService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct SearchService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::SearchService>,
+}
+
+impl SearchService {
+    /// Returns a builder for [SearchService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_chronicle_v1::client::SearchService;
+    /// let client = SearchService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::search_service::ClientBuilder {
+        crate::new_client_builder(super::builder::search_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::SearchService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::SearchService>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::SearchService> {
+        super::transport::SearchService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::SearchService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::SearchService::new)
+    }
+
+    /// Initiates a long-running search operation.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::SearchService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &SearchService
+    /// ) -> Result<()> {
+    ///     let response = client.search()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn search(&self) -> super::builder::search_service::Search {
+        super::builder::search_service::Search::new(self.inner.clone())
+    }
+
+    /// Retrieves results from a completed Search operation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::SearchService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &SearchService, project_id: &str, location_id: &str, instance_id: &str, search_session_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_searched_results()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/searchSessions/{search_session_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_searched_results(&self) -> super::builder::search_service::ListSearchedResults {
+        super::builder::search_service::ListSearchedResults::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::SearchService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &SearchService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::search_service::ListOperations {
+        super::builder::search_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::SearchService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &SearchService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::search_service::GetOperation {
+        super::builder::search_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::SearchService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &SearchService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::search_service::DeleteOperation {
+        super::builder::search_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::SearchService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &SearchService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::search_service::CancelOperation {
+        super::builder::search_service::CancelOperation::new(self.inner.clone())
+    }
+}

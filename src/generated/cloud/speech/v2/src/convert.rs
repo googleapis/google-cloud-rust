@@ -48,9 +48,11 @@ impl gaxi::prost::ToProto<ExplicitDecodingConfig> for crate::model::ExplicitDeco
     type Output = ExplicitDecodingConfig;
     fn to_proto(self) -> std::result::Result<ExplicitDecodingConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            encoding: self.encoding.to_proto()?,
-            sample_rate_hertz: self.sample_rate_hertz.to_proto()?,
-            audio_channel_count: self.audio_channel_count.to_proto()?,
+            encoding: gaxi::prost::ToProto::<explicit_decoding_config::AudioEncoding>::to_proto(
+                self.encoding,
+            )?,
+            sample_rate_hertz: gaxi::prost::ToProto::<i32>::to_proto(self.sample_rate_hertz)?,
+            audio_channel_count: gaxi::prost::ToProto::<i32>::to_proto(self.audio_channel_count)?,
         })
     }
 }
@@ -70,8 +72,8 @@ impl gaxi::prost::ToProto<SpeakerDiarizationConfig> for crate::model::SpeakerDia
     type Output = SpeakerDiarizationConfig;
     fn to_proto(self) -> std::result::Result<SpeakerDiarizationConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            min_speaker_count: self.min_speaker_count.to_proto()?,
-            max_speaker_count: self.max_speaker_count.to_proto()?,
+            min_speaker_count: gaxi::prost::ToProto::<i32>::to_proto(self.min_speaker_count)?,
+            max_speaker_count: gaxi::prost::ToProto::<i32>::to_proto(self.max_speaker_count)?,
         })
     }
 }
@@ -91,7 +93,9 @@ impl gaxi::prost::ToProto<CustomPromptConfig> for crate::model::CustomPromptConf
     type Output = CustomPromptConfig;
     fn to_proto(self) -> std::result::Result<CustomPromptConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            custom_prompt: self.custom_prompt.to_proto()?,
+            custom_prompt: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.custom_prompt,
+            )?,
         })
     }
 }
@@ -120,18 +124,34 @@ impl gaxi::prost::ToProto<RecognitionFeatures> for crate::model::RecognitionFeat
     type Output = RecognitionFeatures;
     fn to_proto(self) -> std::result::Result<RecognitionFeatures, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            profanity_filter: self.profanity_filter.to_proto()?,
-            enable_word_time_offsets: self.enable_word_time_offsets.to_proto()?,
-            enable_word_confidence: self.enable_word_confidence.to_proto()?,
-            enable_automatic_punctuation: self.enable_automatic_punctuation.to_proto()?,
-            enable_spoken_punctuation: self.enable_spoken_punctuation.to_proto()?,
-            enable_spoken_emojis: self.enable_spoken_emojis.to_proto()?,
-            multi_channel_mode: self.multi_channel_mode.to_proto()?,
-            diarization_config: self.diarization_config.map(|v| v.to_proto()).transpose()?,
-            max_alternatives: self.max_alternatives.to_proto()?,
+            profanity_filter: gaxi::prost::ToProto::<bool>::to_proto(self.profanity_filter)?,
+            enable_word_time_offsets: gaxi::prost::ToProto::<bool>::to_proto(
+                self.enable_word_time_offsets,
+            )?,
+            enable_word_confidence: gaxi::prost::ToProto::<bool>::to_proto(
+                self.enable_word_confidence,
+            )?,
+            enable_automatic_punctuation: gaxi::prost::ToProto::<bool>::to_proto(
+                self.enable_automatic_punctuation,
+            )?,
+            enable_spoken_punctuation: gaxi::prost::ToProto::<bool>::to_proto(
+                self.enable_spoken_punctuation,
+            )?,
+            enable_spoken_emojis: gaxi::prost::ToProto::<bool>::to_proto(
+                self.enable_spoken_emojis,
+            )?,
+            multi_channel_mode:
+                gaxi::prost::ToProto::<recognition_features::MultiChannelMode>::to_proto(
+                    self.multi_channel_mode,
+                )?,
+            diarization_config: self
+                .diarization_config
+                .map(gaxi::prost::ToProto::<SpeakerDiarizationConfig>::to_proto)
+                .transpose()?,
+            max_alternatives: gaxi::prost::ToProto::<i32>::to_proto(self.max_alternatives)?,
             custom_prompt_config: self
                 .custom_prompt_config
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<CustomPromptConfig>::to_proto)
                 .transpose()?,
         })
     }
@@ -149,10 +169,16 @@ impl gaxi::prost::FromProto<crate::model::RecognitionFeatures> for RecognitionFe
             .set_enable_spoken_punctuation(self.enable_spoken_punctuation)
             .set_enable_spoken_emojis(self.enable_spoken_emojis)
             .set_multi_channel_mode(self.multi_channel_mode)
-            .set_or_clear_diarization_config(self.diarization_config.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_diarization_config(
+                self.diarization_config
+                    .map(gaxi::prost::FromProto::<crate::model::SpeakerDiarizationConfig>::cnv)
+                    .transpose()?,
+            )
             .set_max_alternatives(self.max_alternatives)
             .set_or_clear_custom_prompt_config(
-                self.custom_prompt_config.map(|v| v.cnv()).transpose()?,
+                self.custom_prompt_config
+                    .map(gaxi::prost::FromProto::<crate::model::CustomPromptConfig>::cnv)
+                    .transpose()?,
             ))
     }
 }
@@ -165,9 +191,9 @@ impl gaxi::prost::ToProto<transcript_normalization::Entry>
         self,
     ) -> std::result::Result<transcript_normalization::Entry, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            search: self.search.to_proto()?,
-            replace: self.replace.to_proto()?,
-            case_sensitive: self.case_sensitive.to_proto()?,
+            search: gaxi::prost::ToProto::<std::string::String>::to_proto(self.search)?,
+            replace: gaxi::prost::ToProto::<std::string::String>::to_proto(self.replace)?,
+            case_sensitive: gaxi::prost::ToProto::<bool>::to_proto(self.case_sensitive)?,
         })
     }
 }
@@ -193,7 +219,7 @@ impl gaxi::prost::ToProto<TranscriptNormalization> for crate::model::TranscriptN
             entries: self
                 .entries
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<transcript_normalization::Entry>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -206,7 +232,7 @@ impl gaxi::prost::FromProto<crate::model::TranscriptNormalization> for Transcrip
         Ok(crate::model::TranscriptNormalization::new().set_entries(
             self.entries
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<crate::model::transcript_normalization::Entry>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -216,7 +242,9 @@ impl gaxi::prost::ToProto<TranslationConfig> for crate::model::TranslationConfig
     type Output = TranslationConfig;
     fn to_proto(self) -> std::result::Result<TranslationConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            target_language: self.target_language.to_proto()?,
+            target_language: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.target_language,
+            )?,
         })
     }
 }
@@ -235,8 +263,14 @@ impl gaxi::prost::ToProto<speech_adaptation::adaptation_phrase_set::Value>
     type Output = speech_adaptation::adaptation_phrase_set::Value;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::PhraseSet(v) => Ok(Self::Output::PhraseSet(v.to_proto()?)),
-            Self::InlinePhraseSet(v) => Ok(Self::Output::InlinePhraseSet((*v).to_proto()?)),
+            Self::PhraseSet(v) => Ok(Self::Output::PhraseSet(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
+            Self::InlinePhraseSet(v) => Ok(Self::Output::InlinePhraseSet(gaxi::prost::ToProto::<
+                PhraseSet,
+            >::to_proto(
+                *v
+            )?)),
         }
     }
 }
@@ -252,8 +286,12 @@ impl gaxi::prost::FromProto<crate::model::speech_adaptation::adaptation_phrase_s
     > {
         use crate::model::speech_adaptation::adaptation_phrase_set::Value as T;
         match self {
-            Self::PhraseSet(v) => Ok(T::PhraseSet(v.cnv()?)),
-            Self::InlinePhraseSet(v) => Ok(T::InlinePhraseSet(std::boxed::Box::new(v.cnv()?))),
+            Self::PhraseSet(v) => Ok(T::PhraseSet(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
+            Self::InlinePhraseSet(v) => Ok(T::InlinePhraseSet(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::PhraseSet>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -267,7 +305,7 @@ impl gaxi::prost::ToProto<speech_adaptation::AdaptationPhraseSet>
     ) -> std::result::Result<speech_adaptation::AdaptationPhraseSet, gaxi::prost::ConvertError>
     {
         Ok(Self::Output {
-            value: self.value.map(|v| v.to_proto()).transpose()?,
+            value: self.value.map(gaxi::prost::ToProto::<speech_adaptation::adaptation_phrase_set::Value>::to_proto).transpose()?,
         })
     }
 }
@@ -281,8 +319,17 @@ impl gaxi::prost::FromProto<crate::model::speech_adaptation::AdaptationPhraseSet
         crate::model::speech_adaptation::AdaptationPhraseSet,
         gaxi::prost::ConvertError,
     > {
-        Ok(crate::model::speech_adaptation::AdaptationPhraseSet::new()
-            .set_value(self.value.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::speech_adaptation::AdaptationPhraseSet::new().set_value(
+                self.value
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::speech_adaptation::adaptation_phrase_set::Value,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ),
+        )
     }
 }
 
@@ -293,12 +340,12 @@ impl gaxi::prost::ToProto<SpeechAdaptation> for crate::model::SpeechAdaptation {
             phrase_sets: self
                 .phrase_sets
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<speech_adaptation::AdaptationPhraseSet>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             custom_classes: self
                 .custom_classes
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<CustomClass>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -310,13 +357,17 @@ impl gaxi::prost::FromProto<crate::model::SpeechAdaptation> for SpeechAdaptation
             .set_phrase_sets(
                 self.phrase_sets
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::speech_adaptation::AdaptationPhraseSet,
+                        >::cnv,
+                    )
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_custom_classes(
                 self.custom_classes
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::CustomClass>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -326,8 +377,8 @@ impl gaxi::prost::ToProto<DenoiserConfig> for crate::model::DenoiserConfig {
     type Output = DenoiserConfig;
     fn to_proto(self) -> std::result::Result<DenoiserConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            denoise_audio: self.denoise_audio.to_proto()?,
-            snr_threshold: self.snr_threshold.to_proto()?,
+            denoise_audio: gaxi::prost::ToProto::<bool>::to_proto(self.denoise_audio)?,
+            snr_threshold: gaxi::prost::ToProto::<f32>::to_proto(self.snr_threshold)?,
         })
     }
 }
@@ -346,10 +397,16 @@ impl gaxi::prost::ToProto<recognition_config::DecodingConfig>
     type Output = recognition_config::DecodingConfig;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::AutoDecodingConfig(v) => Ok(Self::Output::AutoDecodingConfig((*v).to_proto()?)),
-            Self::ExplicitDecodingConfig(v) => {
-                Ok(Self::Output::ExplicitDecodingConfig((*v).to_proto()?))
+            Self::AutoDecodingConfig(v) => {
+                Ok(Self::Output::AutoDecodingConfig(gaxi::prost::ToProto::<
+                    AutoDetectDecodingConfig,
+                >::to_proto(
+                    *v
+                )?))
             }
+            Self::ExplicitDecodingConfig(v) => Ok(Self::Output::ExplicitDecodingConfig(
+                gaxi::prost::ToProto::<ExplicitDecodingConfig>::to_proto(*v)?,
+            )),
         }
     }
 }
@@ -365,12 +422,12 @@ impl gaxi::prost::FromProto<crate::model::recognition_config::DecodingConfig>
     > {
         use crate::model::recognition_config::DecodingConfig as T;
         match self {
-            Self::AutoDecodingConfig(v) => {
-                Ok(T::AutoDecodingConfig(std::boxed::Box::new(v.cnv()?)))
-            }
-            Self::ExplicitDecodingConfig(v) => {
-                Ok(T::ExplicitDecodingConfig(std::boxed::Box::new(v.cnv()?)))
-            }
+            Self::AutoDecodingConfig(v) => Ok(T::AutoDecodingConfig(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::AutoDetectDecodingConfig>::cnv(v)?,
+            ))),
+            Self::ExplicitDecodingConfig(v) => Ok(T::ExplicitDecodingConfig(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::ExplicitDecodingConfig>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -379,21 +436,36 @@ impl gaxi::prost::ToProto<RecognitionConfig> for crate::model::RecognitionConfig
     type Output = RecognitionConfig;
     fn to_proto(self) -> std::result::Result<RecognitionConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            model: self.model.to_proto()?,
+            model: gaxi::prost::ToProto::<std::string::String>::to_proto(self.model)?,
             language_codes: self
                 .language_codes
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            features: self.features.map(|v| v.to_proto()).transpose()?,
-            adaptation: self.adaptation.map(|v| v.to_proto()).transpose()?,
+            features: self
+                .features
+                .map(gaxi::prost::ToProto::<RecognitionFeatures>::to_proto)
+                .transpose()?,
+            adaptation: self
+                .adaptation
+                .map(gaxi::prost::ToProto::<SpeechAdaptation>::to_proto)
+                .transpose()?,
             transcript_normalization: self
                 .transcript_normalization
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<TranscriptNormalization>::to_proto)
                 .transpose()?,
-            translation_config: self.translation_config.map(|v| v.to_proto()).transpose()?,
-            denoiser_config: self.denoiser_config.map(|v| v.to_proto()).transpose()?,
-            decoding_config: self.decoding_config.map(|v| v.to_proto()).transpose()?,
+            translation_config: self
+                .translation_config
+                .map(gaxi::prost::ToProto::<TranslationConfig>::to_proto)
+                .transpose()?,
+            denoiser_config: self
+                .denoiser_config
+                .map(gaxi::prost::ToProto::<DenoiserConfig>::to_proto)
+                .transpose()?,
+            decoding_config: self
+                .decoding_config
+                .map(gaxi::prost::ToProto::<recognition_config::DecodingConfig>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -402,22 +474,50 @@ impl gaxi::prost::FromProto<crate::model::RecognitionConfig> for RecognitionConf
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::RecognitionConfig, gaxi::prost::ConvertError> {
-        Ok(crate::model::RecognitionConfig::new()
-            .set_model(self.model)
-            .set_language_codes(
-                self.language_codes
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            )
-            .set_or_clear_features(self.features.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_adaptation(self.adaptation.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_transcript_normalization(
-                self.transcript_normalization.map(|v| v.cnv()).transpose()?,
-            )
-            .set_or_clear_translation_config(self.translation_config.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_denoiser_config(self.denoiser_config.map(|v| v.cnv()).transpose()?)
-            .set_decoding_config(self.decoding_config.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::RecognitionConfig::new()
+                .set_model(self.model)
+                .set_language_codes(
+                    self.language_codes
+                        .into_iter()
+                        .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                        .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
+                )
+                .set_or_clear_features(
+                    self.features
+                        .map(gaxi::prost::FromProto::<crate::model::RecognitionFeatures>::cnv)
+                        .transpose()?,
+                )
+                .set_or_clear_adaptation(
+                    self.adaptation
+                        .map(gaxi::prost::FromProto::<crate::model::SpeechAdaptation>::cnv)
+                        .transpose()?,
+                )
+                .set_or_clear_transcript_normalization(
+                    self.transcript_normalization
+                        .map(gaxi::prost::FromProto::<crate::model::TranscriptNormalization>::cnv)
+                        .transpose()?,
+                )
+                .set_or_clear_translation_config(
+                    self.translation_config
+                        .map(gaxi::prost::FromProto::<crate::model::TranslationConfig>::cnv)
+                        .transpose()?,
+                )
+                .set_or_clear_denoiser_config(
+                    self.denoiser_config
+                        .map(gaxi::prost::FromProto::<crate::model::DenoiserConfig>::cnv)
+                        .transpose()?,
+                )
+                .set_decoding_config(
+                    self.decoding_config
+                        .map(
+                            gaxi::prost::FromProto::<
+                                crate::model::recognition_config::DecodingConfig,
+                            >::cnv,
+                        )
+                        .transpose()?,
+                ),
+        )
     }
 }
 
@@ -429,12 +529,15 @@ impl gaxi::prost::ToProto<RecognitionResponseMetadata>
         self,
     ) -> std::result::Result<RecognitionResponseMetadata, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            request_id: self.request_id.to_proto()?,
+            request_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.request_id)?,
             total_billed_duration: self
                 .total_billed_duration
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
                 .transpose()?,
-            prompt: self.prompt.map(|v| v.to_proto()).transpose()?,
+            prompt: self
+                .prompt
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -449,9 +552,15 @@ impl gaxi::prost::FromProto<crate::model::RecognitionResponseMetadata>
         Ok(crate::model::RecognitionResponseMetadata::new()
             .set_request_id(self.request_id)
             .set_or_clear_total_billed_duration(
-                self.total_billed_duration.map(|v| v.cnv()).transpose()?,
+                self.total_billed_duration
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
             )
-            .set_or_clear_prompt(self.prompt.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_prompt(
+                self.prompt
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -463,12 +572,12 @@ impl gaxi::prost::ToProto<SpeechRecognitionAlternative>
         self,
     ) -> std::result::Result<SpeechRecognitionAlternative, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            transcript: self.transcript.to_proto()?,
-            confidence: self.confidence.to_proto()?,
+            transcript: gaxi::prost::ToProto::<std::string::String>::to_proto(self.transcript)?,
+            confidence: gaxi::prost::ToProto::<f32>::to_proto(self.confidence)?,
             words: self
                 .words
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<WordInfo>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -487,7 +596,7 @@ impl gaxi::prost::FromProto<crate::model::SpeechRecognitionAlternative>
             .set_words(
                 self.words
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::WordInfo>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ))
     }
@@ -497,11 +606,19 @@ impl gaxi::prost::ToProto<WordInfo> for crate::model::WordInfo {
     type Output = WordInfo;
     fn to_proto(self) -> std::result::Result<WordInfo, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            start_offset: self.start_offset.map(|v| v.to_proto()).transpose()?,
-            end_offset: self.end_offset.map(|v| v.to_proto()).transpose()?,
-            word: self.word.to_proto()?,
-            confidence: self.confidence.to_proto()?,
-            speaker_label: self.speaker_label.to_proto()?,
+            start_offset: self
+                .start_offset
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                .transpose()?,
+            end_offset: self
+                .end_offset
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                .transpose()?,
+            word: gaxi::prost::ToProto::<std::string::String>::to_proto(self.word)?,
+            confidence: gaxi::prost::ToProto::<f32>::to_proto(self.confidence)?,
+            speaker_label: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.speaker_label,
+            )?,
         })
     }
 }
@@ -509,8 +626,16 @@ impl gaxi::prost::ToProto<WordInfo> for crate::model::WordInfo {
 impl gaxi::prost::FromProto<crate::model::WordInfo> for WordInfo {
     fn cnv(self) -> std::result::Result<crate::model::WordInfo, gaxi::prost::ConvertError> {
         Ok(crate::model::WordInfo::new()
-            .set_or_clear_start_offset(self.start_offset.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_end_offset(self.end_offset.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_start_offset(
+                self.start_offset
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_end_offset(
+                self.end_offset
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            )
             .set_word(self.word)
             .set_confidence(self.confidence)
             .set_speaker_label(self.speaker_label))
@@ -530,9 +655,12 @@ impl gaxi::prost::ToProto<streaming_recognition_features::VoiceActivityTimeout>
         Ok(Self::Output {
             speech_start_timeout: self
                 .speech_start_timeout
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
                 .transpose()?,
-            speech_end_timeout: self.speech_end_timeout.map(|v| v.to_proto()).transpose()?,
+            speech_end_timeout: self
+                .speech_end_timeout
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -549,10 +677,14 @@ impl gaxi::prost::FromProto<crate::model::streaming_recognition_features::VoiceA
         Ok(
             crate::model::streaming_recognition_features::VoiceActivityTimeout::new()
                 .set_or_clear_speech_start_timeout(
-                    self.speech_start_timeout.map(|v| v.cnv()).transpose()?,
+                    self.speech_start_timeout
+                        .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                        .transpose()?,
                 )
                 .set_or_clear_speech_end_timeout(
-                    self.speech_end_timeout.map(|v| v.cnv()).transpose()?,
+                    self.speech_end_timeout
+                        .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                        .transpose()?,
                 ),
         )
     }
@@ -577,15 +709,25 @@ impl gaxi::prost::ToProto<StreamingRecognitionFeatures>
     fn to_proto(
         self,
     ) -> std::result::Result<StreamingRecognitionFeatures, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            enable_voice_activity_events: self.enable_voice_activity_events.to_proto()?,
-            interim_results: self.interim_results.to_proto()?,
-            voice_activity_timeout: self
-                .voice_activity_timeout
-                .map(|v| v.to_proto())
-                .transpose()?,
-            endpointing_sensitivity: self.endpointing_sensitivity.to_proto()?,
-        })
+        Ok(
+            Self::Output {
+                enable_voice_activity_events: gaxi::prost::ToProto::<bool>::to_proto(
+                    self.enable_voice_activity_events,
+                )?,
+                interim_results: gaxi::prost::ToProto::<bool>::to_proto(self.interim_results)?,
+                voice_activity_timeout:
+                    self.voice_activity_timeout
+                        .map(
+                            gaxi::prost::ToProto::<
+                                streaming_recognition_features::VoiceActivityTimeout,
+                            >::to_proto,
+                        )
+                        .transpose()?,
+                endpointing_sensitivity: gaxi::prost::ToProto::<
+                    streaming_recognition_features::EndpointingSensitivity,
+                >::to_proto(self.endpointing_sensitivity)?,
+            },
+        )
     }
 }
 
@@ -600,7 +742,13 @@ impl gaxi::prost::FromProto<crate::model::StreamingRecognitionFeatures>
             .set_enable_voice_activity_events(self.enable_voice_activity_events)
             .set_interim_results(self.interim_results)
             .set_or_clear_voice_activity_timeout(
-                self.voice_activity_timeout.map(|v| v.cnv()).transpose()?,
+                self.voice_activity_timeout
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::streaming_recognition_features::VoiceActivityTimeout,
+                        >::cnv,
+                    )
+                    .transpose()?,
             )
             .set_endpointing_sensitivity(self.endpointing_sensitivity))
     }
@@ -612,9 +760,18 @@ impl gaxi::prost::ToProto<StreamingRecognitionConfig> for crate::model::Streamin
         self,
     ) -> std::result::Result<StreamingRecognitionConfig, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            config: self.config.map(|v| v.to_proto()).transpose()?,
-            config_mask: self.config_mask.map(|v| v.to_proto()).transpose()?,
-            streaming_features: self.streaming_features.map(|v| v.to_proto()).transpose()?,
+            config: self
+                .config
+                .map(gaxi::prost::ToProto::<RecognitionConfig>::to_proto)
+                .transpose()?,
+            config_mask: self
+                .config_mask
+                .map(gaxi::prost::ToProto::<prost_types::FieldMask>::to_proto)
+                .transpose()?,
+            streaming_features: self
+                .streaming_features
+                .map(gaxi::prost::ToProto::<StreamingRecognitionFeatures>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -627,9 +784,21 @@ impl gaxi::prost::FromProto<crate::model::StreamingRecognitionConfig>
     ) -> std::result::Result<crate::model::StreamingRecognitionConfig, gaxi::prost::ConvertError>
     {
         Ok(crate::model::StreamingRecognitionConfig::new()
-            .set_or_clear_config(self.config.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_config_mask(self.config_mask.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_streaming_features(self.streaming_features.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_config(
+                self.config
+                    .map(gaxi::prost::FromProto::<crate::model::RecognitionConfig>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_config_mask(
+                self.config_mask
+                    .map(gaxi::prost::FromProto::<wkt::FieldMask>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_streaming_features(
+                self.streaming_features
+                    .map(gaxi::prost::FromProto::<crate::model::StreamingRecognitionFeatures>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -639,8 +808,14 @@ impl gaxi::prost::ToProto<streaming_recognize_request::StreamingRequest>
     type Output = streaming_recognize_request::StreamingRequest;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::StreamingConfig(v) => Ok(Self::Output::StreamingConfig((*v).to_proto()?)),
-            Self::Audio(v) => Ok(Self::Output::Audio(v.to_proto()?)),
+            Self::StreamingConfig(v) => Ok(Self::Output::StreamingConfig(gaxi::prost::ToProto::<
+                StreamingRecognitionConfig,
+            >::to_proto(
+                *v
+            )?)),
+            Self::Audio(v) => Ok(Self::Output::Audio(
+                gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(v)?,
+            )),
         }
     }
 }
@@ -656,8 +831,10 @@ impl gaxi::prost::FromProto<crate::model::streaming_recognize_request::Streaming
     > {
         use crate::model::streaming_recognize_request::StreamingRequest as T;
         match self {
-            Self::StreamingConfig(v) => Ok(T::StreamingConfig(std::boxed::Box::new(v.cnv()?))),
-            Self::Audio(v) => Ok(T::Audio(v.cnv()?)),
+            Self::StreamingConfig(v) => Ok(T::StreamingConfig(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::StreamingRecognitionConfig>::cnv(v)?,
+            ))),
+            Self::Audio(v) => Ok(T::Audio(gaxi::prost::FromProto::<::bytes::Bytes>::cnv(v)?)),
         }
     }
 }
@@ -666,8 +843,13 @@ impl gaxi::prost::ToProto<StreamingRecognizeRequest> for crate::model::Streaming
     type Output = StreamingRecognizeRequest;
     fn to_proto(self) -> std::result::Result<StreamingRecognizeRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            recognizer: self.recognizer.to_proto()?,
-            streaming_request: self.streaming_request.map(|v| v.to_proto()).transpose()?,
+            recognizer: gaxi::prost::ToProto::<std::string::String>::to_proto(self.recognizer)?,
+            streaming_request: self
+                .streaming_request
+                .map(
+                    gaxi::prost::ToProto::<streaming_recognize_request::StreamingRequest>::to_proto,
+                )
+                .transpose()?,
         })
     }
 }
@@ -679,7 +861,15 @@ impl gaxi::prost::FromProto<crate::model::StreamingRecognizeRequest> for Streami
     {
         Ok(crate::model::StreamingRecognizeRequest::new()
             .set_recognizer(self.recognizer)
-            .set_streaming_request(self.streaming_request.map(|v| v.cnv()).transpose()?))
+            .set_streaming_request(
+                self.streaming_request
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::streaming_recognize_request::StreamingRequest,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ))
     }
 }
 
@@ -692,13 +882,18 @@ impl gaxi::prost::ToProto<StreamingRecognitionResult> for crate::model::Streamin
             alternatives: self
                 .alternatives
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<SpeechRecognitionAlternative>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            is_final: self.is_final.to_proto()?,
-            stability: self.stability.to_proto()?,
-            result_end_offset: self.result_end_offset.map(|v| v.to_proto()).transpose()?,
-            channel_tag: self.channel_tag.to_proto()?,
-            language_code: self.language_code.to_proto()?,
+            is_final: gaxi::prost::ToProto::<bool>::to_proto(self.is_final)?,
+            stability: gaxi::prost::ToProto::<f32>::to_proto(self.stability)?,
+            result_end_offset: self
+                .result_end_offset
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                .transpose()?,
+            channel_tag: gaxi::prost::ToProto::<i32>::to_proto(self.channel_tag)?,
+            language_code: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.language_code,
+            )?,
         })
     }
 }
@@ -714,12 +909,16 @@ impl gaxi::prost::FromProto<crate::model::StreamingRecognitionResult>
             .set_alternatives(
                 self.alternatives
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::SpeechRecognitionAlternative>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_is_final(self.is_final)
             .set_stability(self.stability)
-            .set_or_clear_result_end_offset(self.result_end_offset.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_result_end_offset(
+                self.result_end_offset
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            )
             .set_channel_tag(self.channel_tag)
             .set_language_code(self.language_code))
     }
@@ -746,11 +945,20 @@ impl gaxi::prost::ToProto<StreamingRecognizeResponse> for crate::model::Streamin
             results: self
                 .results
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<StreamingRecognitionResult>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            speech_event_type: self.speech_event_type.to_proto()?,
-            speech_event_offset: self.speech_event_offset.map(|v| v.to_proto()).transpose()?,
-            metadata: self.metadata.map(|v| v.to_proto()).transpose()?,
+            speech_event_type:
+                gaxi::prost::ToProto::<streaming_recognize_response::SpeechEventType>::to_proto(
+                    self.speech_event_type,
+                )?,
+            speech_event_offset: self
+                .speech_event_offset
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                .transpose()?,
+            metadata: self
+                .metadata
+                .map(gaxi::prost::ToProto::<RecognitionResponseMetadata>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -766,14 +974,20 @@ impl gaxi::prost::FromProto<crate::model::StreamingRecognizeResponse>
             .set_results(
                 self.results
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::StreamingRecognitionResult>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_speech_event_type(self.speech_event_type)
             .set_or_clear_speech_event_offset(
-                self.speech_event_offset.map(|v| v.cnv()).transpose()?,
+                self.speech_event_offset
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
             )
-            .set_or_clear_metadata(self.metadata.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_metadata(
+                self.metadata
+                    .map(gaxi::prost::FromProto::<crate::model::RecognitionResponseMetadata>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -781,7 +995,7 @@ impl gaxi::prost::ToProto<custom_class::ClassItem> for crate::model::custom_clas
     type Output = custom_class::ClassItem;
     fn to_proto(self) -> std::result::Result<custom_class::ClassItem, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            value: self.value.to_proto()?,
+            value: gaxi::prost::ToProto::<std::string::String>::to_proto(self.value)?,
         })
     }
 }
@@ -808,28 +1022,47 @@ impl gaxi::prost::ToProto<CustomClass> for crate::model::CustomClass {
     type Output = CustomClass;
     fn to_proto(self) -> std::result::Result<CustomClass, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            uid: self.uid.to_proto()?,
-            display_name: self.display_name.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            uid: gaxi::prost::ToProto::<std::string::String>::to_proto(self.uid)?,
+            display_name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.display_name)?,
             items: self
                 .items
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<custom_class::ClassItem>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            state: self.state.to_proto()?,
-            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
-            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
-            delete_time: self.delete_time.map(|v| v.to_proto()).transpose()?,
-            expire_time: self.expire_time.map(|v| v.to_proto()).transpose()?,
+            state: gaxi::prost::ToProto::<custom_class::State>::to_proto(self.state)?,
+            create_time: self
+                .create_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
+            update_time: self
+                .update_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
+            delete_time: self
+                .delete_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
+            expire_time: self
+                .expire_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
             annotations: self
                 .annotations
                 .into_iter()
-                .map(|(k, v)| gaxi::prost::pair_transpose(k.to_proto(), v.to_proto()))
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(k),
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(v),
+                    )
+                })
                 .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            etag: self.etag.to_proto()?,
-            reconciling: self.reconciling.to_proto()?,
-            kms_key_name: self.kms_key_name.to_proto()?,
-            kms_key_version_name: self.kms_key_version_name.to_proto()?,
+            etag: gaxi::prost::ToProto::<std::string::String>::to_proto(self.etag)?,
+            reconciling: gaxi::prost::ToProto::<bool>::to_proto(self.reconciling)?,
+            kms_key_name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.kms_key_name)?,
+            kms_key_version_name: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.kms_key_version_name,
+            )?,
         })
     }
 }
@@ -843,18 +1076,39 @@ impl gaxi::prost::FromProto<crate::model::CustomClass> for CustomClass {
             .set_items(
                 self.items
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::custom_class::ClassItem>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_state(self.state)
-            .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_delete_time(self.delete_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_expire_time(self.expire_time.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_create_time(
+                self.create_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_update_time(
+                self.update_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_delete_time(
+                self.delete_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_expire_time(
+                self.expire_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
             .set_annotations(
                 self.annotations
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<std::string::String>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             )
             .set_etag(self.etag)
@@ -868,8 +1122,8 @@ impl gaxi::prost::ToProto<phrase_set::Phrase> for crate::model::phrase_set::Phra
     type Output = phrase_set::Phrase;
     fn to_proto(self) -> std::result::Result<phrase_set::Phrase, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            value: self.value.to_proto()?,
-            boost: self.boost.to_proto()?,
+            value: gaxi::prost::ToProto::<std::string::String>::to_proto(self.value)?,
+            boost: gaxi::prost::ToProto::<f32>::to_proto(self.boost)?,
         })
     }
 }
@@ -898,29 +1152,48 @@ impl gaxi::prost::ToProto<PhraseSet> for crate::model::PhraseSet {
     type Output = PhraseSet;
     fn to_proto(self) -> std::result::Result<PhraseSet, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            name: self.name.to_proto()?,
-            uid: self.uid.to_proto()?,
+            name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.name)?,
+            uid: gaxi::prost::ToProto::<std::string::String>::to_proto(self.uid)?,
             phrases: self
                 .phrases
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<phrase_set::Phrase>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            boost: self.boost.to_proto()?,
-            display_name: self.display_name.to_proto()?,
-            state: self.state.to_proto()?,
-            create_time: self.create_time.map(|v| v.to_proto()).transpose()?,
-            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
-            delete_time: self.delete_time.map(|v| v.to_proto()).transpose()?,
-            expire_time: self.expire_time.map(|v| v.to_proto()).transpose()?,
+            boost: gaxi::prost::ToProto::<f32>::to_proto(self.boost)?,
+            display_name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.display_name)?,
+            state: gaxi::prost::ToProto::<phrase_set::State>::to_proto(self.state)?,
+            create_time: self
+                .create_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
+            update_time: self
+                .update_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
+            delete_time: self
+                .delete_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
+            expire_time: self
+                .expire_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
             annotations: self
                 .annotations
                 .into_iter()
-                .map(|(k, v)| gaxi::prost::pair_transpose(k.to_proto(), v.to_proto()))
+                .map(|(k, v)| {
+                    gaxi::prost::pair_transpose(
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(k),
+                        gaxi::prost::ToProto::<std::string::String>::to_proto(v),
+                    )
+                })
                 .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
-            etag: self.etag.to_proto()?,
-            reconciling: self.reconciling.to_proto()?,
-            kms_key_name: self.kms_key_name.to_proto()?,
-            kms_key_version_name: self.kms_key_version_name.to_proto()?,
+            etag: gaxi::prost::ToProto::<std::string::String>::to_proto(self.etag)?,
+            reconciling: gaxi::prost::ToProto::<bool>::to_proto(self.reconciling)?,
+            kms_key_name: gaxi::prost::ToProto::<std::string::String>::to_proto(self.kms_key_name)?,
+            kms_key_version_name: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.kms_key_version_name,
+            )?,
         })
     }
 }
@@ -933,20 +1206,41 @@ impl gaxi::prost::FromProto<crate::model::PhraseSet> for PhraseSet {
             .set_phrases(
                 self.phrases
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::phrase_set::Phrase>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_boost(self.boost)
             .set_display_name(self.display_name)
             .set_state(self.state)
-            .set_or_clear_create_time(self.create_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_delete_time(self.delete_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_expire_time(self.expire_time.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_create_time(
+                self.create_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_update_time(
+                self.update_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_delete_time(
+                self.delete_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_expire_time(
+                self.expire_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
             .set_annotations(
                 self.annotations
                     .into_iter()
-                    .map(|(k, v)| gaxi::prost::pair_transpose(k.cnv(), v.cnv()))
+                    .map(|(k, v)| {
+                        gaxi::prost::pair_transpose(
+                            gaxi::prost::FromProto::<std::string::String>::cnv(k),
+                            gaxi::prost::FromProto::<std::string::String>::cnv(v),
+                        )
+                    })
                     .collect::<std::result::Result<std::collections::HashMap<_, _>, _>>()?,
             )
             .set_etag(self.etag)

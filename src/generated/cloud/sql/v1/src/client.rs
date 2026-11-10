@@ -1798,6 +1798,46 @@ impl SqlInstancesService {
         super::builder::sql_instances_service::Restart::new(self.inner.clone())
     }
 
+    /// Starts a Cloud SQL instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::client::SqlInstancesService;
+    /// use google_cloud_sql_v1::Result;
+    /// async fn sample(
+    ///    client: &SqlInstancesService
+    /// ) -> Result<()> {
+    ///     let response = client.start()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn start(&self) -> super::builder::sql_instances_service::Start {
+        super::builder::sql_instances_service::Start::new(self.inner.clone())
+    }
+
+    /// Stops a Cloud SQL instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::client::SqlInstancesService;
+    /// use google_cloud_sql_v1::Result;
+    /// async fn sample(
+    ///    client: &SqlInstancesService
+    /// ) -> Result<()> {
+    ///     let response = client.stop()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn stop(&self) -> super::builder::sql_instances_service::Stop {
+        super::builder::sql_instances_service::Stop::new(self.inner.clone())
+    }
+
     /// Restores a backup of a Cloud SQL instance. Using this operation might cause
     /// your instance to restart.
     ///
@@ -2142,6 +2182,28 @@ impl SqlInstancesService {
         super::builder::sql_instances_service::GetLatestRecoveryTime::new(self.inner.clone())
     }
 
+    /// Execute SQL statements in read-only mode.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::client::SqlInstancesService;
+    /// use google_cloud_sql_v1::Result;
+    /// async fn sample(
+    ///    client: &SqlInstancesService
+    /// ) -> Result<()> {
+    ///     let response = client.execute_sql_read_only()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn execute_sql_read_only(
+        &self,
+    ) -> super::builder::sql_instances_service::ExecuteSqlReadOnly {
+        super::builder::sql_instances_service::ExecuteSqlReadOnly::new(self.inner.clone())
+    }
+
     /// Execute SQL statements.
     ///
     /// # Example
@@ -2245,6 +2307,31 @@ impl SqlInstancesService {
         &self,
     ) -> super::builder::sql_instances_service::PointInTimeRestore {
         super::builder::sql_instances_service::PointInTimeRestore::new(self.inner.clone())
+    }
+
+    /// Repairs and recreates networking resources for a Cloud SQL instance. For
+    /// Private Service Connect (PSC), this operation recreates PSC DNS write
+    /// endpoints on specified VPC networks and reconciles Private Service Connect
+    /// connectivity infrastructure for the instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::client::SqlInstancesService;
+    /// use google_cloud_sql_v1::Result;
+    /// async fn sample(
+    ///    client: &SqlInstancesService
+    /// ) -> Result<()> {
+    ///     let response = client.reconcile_networking()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn reconcile_networking(
+        &self,
+    ) -> super::builder::sql_instances_service::ReconcileNetworking {
+        super::builder::sql_instances_service::ReconcileNetworking::new(self.inner.clone())
     }
 }
 
@@ -2607,6 +2694,81 @@ impl SqlSslCertsService {
     /// ```
     pub fn list(&self) -> super::builder::sql_ssl_certs_service::List {
         super::builder::sql_ssl_certs_service::List::new(self.inner.clone())
+    }
+
+    /// Upload and update customer managed certificate bundle for an existing Cloud
+    /// SQL instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::client::SqlSslCertsService;
+    /// use google_cloud_sql_v1::Result;
+    /// async fn sample(
+    ///    client: &SqlSslCertsService
+    /// ) -> Result<()> {
+    ///     let response = client.update_customer_managed_certificate()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_customer_managed_certificate(
+        &self,
+    ) -> super::builder::sql_ssl_certs_service::UpdateCustomerManagedCertificate {
+        super::builder::sql_ssl_certs_service::UpdateCustomerManagedCertificate::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Delete customer managed certificate bundle for an existing Cloud SQL
+    /// instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::client::SqlSslCertsService;
+    /// use google_cloud_sql_v1::Result;
+    /// async fn sample(
+    ///    client: &SqlSslCertsService
+    /// ) -> Result<()> {
+    ///     let response = client.delete_customer_managed_certificate()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_customer_managed_certificate(
+        &self,
+    ) -> super::builder::sql_ssl_certs_service::DeleteCustomerManagedCertificate {
+        super::builder::sql_ssl_certs_service::DeleteCustomerManagedCertificate::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// List all customer managed certificate bundles for an existing Cloud SQL
+    /// instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::client::SqlSslCertsService;
+    /// use google_cloud_sql_v1::Result;
+    /// async fn sample(
+    ///    client: &SqlSslCertsService
+    /// ) -> Result<()> {
+    ///     let response = client.list_customer_managed_certificates()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_customer_managed_certificates(
+        &self,
+    ) -> super::builder::sql_ssl_certs_service::ListCustomerManagedCertificates {
+        super::builder::sql_ssl_certs_service::ListCustomerManagedCertificates::new(
+            self.inner.clone(),
+        )
     }
 }
 

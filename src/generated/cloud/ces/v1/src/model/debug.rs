@@ -143,6 +143,10 @@ impl std::fmt::Debug for super::RemoteAgentTool {
         debug_struct.field("name", &self.name);
         debug_struct.field("description", &self.description);
         debug_struct.field("agent_card", &self.agent_card);
+        debug_struct.field("api_authentication", &self.api_authentication);
+        debug_struct.field("stateful_agent", &self.stateful_agent);
+        debug_struct.field("input_variable_mapping", &self.input_variable_mapping);
+        debug_struct.field("output_variable_mapping", &self.output_variable_mapping);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
