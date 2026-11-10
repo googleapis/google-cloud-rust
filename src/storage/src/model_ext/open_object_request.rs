@@ -13,7 +13,9 @@
 // limitations under the License.
 
 use crate::{
-    google::storage::v2::BidiReadObjectSpec, model::CommonObjectRequestParams, model_ext::ReadRange,
+    google::storage::v2::{self, BidiReadObjectSpec},
+    model::CommonObjectRequestParams,
+    model_ext::ReadRange,
 };
 use gaxi::prost::ToProto;
 
@@ -157,7 +159,7 @@ impl From<OpenObjectRequest> for BidiReadObjectSpec {
     fn from(value: OpenObjectRequest) -> Self {
         let proto = value
             .common_object_request_params
-            .map(ToProto::to_proto)
+            .map(ToProto::<v2::CommonObjectRequestParams>::to_proto)
             .transpose()
             .expect("CommonObjectRequestParams to proto never fails");
         Self {

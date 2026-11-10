@@ -23,6 +23,7 @@ use crate::google::storage::v2::{
     BidiWriteObjectRequest, ChecksummedData, bidi_write_object_request::Data,
     bidi_write_object_response::WriteStatus,
 };
+use crate::model::Object;
 use crate::model_ext::{OpenAppendableObjectRequest, ReopenAppendableObjectRequest};
 use crate::stub::AppendableObjectWriter;
 use crate::{Error, Result};
@@ -352,8 +353,8 @@ impl AppendableObjectWriter for AppendableObjectWriterTransport {
             Some(WriteStatus::Resource(r)) if r.finalize_time.is_some() => r,
             _ => return Err(Error::io("finalize did not return a finalized resource")),
         };
-        let object =
-            FromProto::cnv(resource).map_err(|_| Error::deser("converting resource to object"))?;
+        let object = FromProto::<Object>::cnv(resource)
+            .map_err(|_| Error::deser("converting resource to object"))?;
 
         self.drop_and_join_worker().await?;
 

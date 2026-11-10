@@ -82,14 +82,14 @@ mod tests {
     fn schema_conversion() -> anyhow::Result<()> {
         let input = proto_schema();
 
-        let proto: v1::ProtoSchema = input.clone().to_proto()?;
+        let proto: v1::ProtoSchema = ToProto::<v1::ProtoSchema>::to_proto(input.clone())?;
         let descriptor = proto
             .proto_descriptor
             .as_ref()
             .expect("descriptor should be set");
         assert_eq!(descriptor.name.as_deref(), Some("TestMessage"));
 
-        let back: ProtoSchema = proto.cnv()?;
+        let back: ProtoSchema = FromProto::<ProtoSchema>::cnv(proto)?;
         assert_eq!(back, input);
         Ok(())
     }
@@ -98,10 +98,10 @@ mod tests {
     fn schema_conversion_without_descriptor() -> anyhow::Result<()> {
         let input = ProtoSchema::new();
 
-        let proto: v1::ProtoSchema = input.clone().to_proto()?;
+        let proto: v1::ProtoSchema = ToProto::<v1::ProtoSchema>::to_proto(input.clone())?;
         assert!(proto.proto_descriptor.is_none(), "{proto:?}");
 
-        let back: ProtoSchema = proto.cnv()?;
+        let back: ProtoSchema = FromProto::<ProtoSchema>::cnv(proto)?;
         assert_eq!(back, input);
         Ok(())
     }
