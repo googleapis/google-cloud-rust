@@ -153,6 +153,17 @@ list of crates and exact set of lint flags currently subject to these checks.
 > command above for the modified crate) to ensure no new warnings are
 > introduced.
 
+In addition, all calls to the `gax-internal` `ToProto` and `FromProto` conversion
+traits must use fully qualified syntax with an explicit type parameter
+(`ToProto::<T>::to_proto(x)` and `FromProto::<T>::cnv(x)`) rather than
+`.to_proto()` or `.cnv()`. CI verifies this with
+[scripts/check-prost-convert.sh](scripts/check-prost-convert.sh) (invoked from
+[.gcb/scripts/lint.sh](.gcb/scripts/lint.sh)):
+
+```bash
+./scripts/check-prost-convert.sh
+```
+
 ### Code Formatter
 
 To format the code for the entire workspace, use the following command:
