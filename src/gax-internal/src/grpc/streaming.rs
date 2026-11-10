@@ -51,8 +51,7 @@ where
     RequestSender::from_fn(move |item: DomainReq| {
         let req_tx = req_tx.clone();
         async move {
-            let prost_item = item
-                .to_proto()
+            let prost_item = ToProto::<ProstReq>::to_proto(item)
                 .map_err(|e| SendError::Serialization(Box::new(e)))?;
             req_tx
                 .send(prost_item)
@@ -73,7 +72,7 @@ where
 {
     stream.map(|res| {
         res.map_err(to_gax_error)
-            .and_then(|m| m.cnv().map_err(Error::deser))
+            .and_then(|m| FromProto::<DomainResp>::cnv(m).map_err(Error::deser))
     })
 }
 

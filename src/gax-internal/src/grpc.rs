@@ -26,6 +26,7 @@ mod transport_policies;
 pub use grpc_rust::{GrpcRustClient, GrpcRustStreaming};
 
 use crate::attempt_interceptor::AttemptInterceptor;
+use crate::prost::{FromProto, ToProto};
 use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use ::tonic::client::Grpc;
 use ::tonic::metadata::MetadataMap;
@@ -408,9 +409,8 @@ impl Client {
         ProstReq: prost::Message + Clone + 'static,
         ProstResp: prost::Message + Default + crate::prost::FromProto<DomainResp> + 'static,
     {
-        let req = request
-            .to_proto()
-            .map_err(google_cloud_gax::error::Error::ser)?;
+        let req =
+            ToProto::<ProstReq>::to_proto(request).map_err(google_cloud_gax::error::Error::ser)?;
 
         let result = self
             .server_streaming_with_status::<ProstReq, ProstResp>(
@@ -724,7 +724,7 @@ where
     let (metadata, body, _extensions) = response.into_parts();
     Ok(Response::from_parts(
         Parts::new().set_headers(metadata.into_headers()),
-        body.cnv().map_err(Error::deser)?,
+        FromProto::<G>::cnv(body).map_err(Error::deser)?,
     ))
 }
 

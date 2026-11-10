@@ -19,7 +19,7 @@ use super::pool::StreamPool;
 use super::retry_policy::RetryOptions;
 use crate::Error;
 use crate::google::cloud::bigquery::storage::v1::AppendRowsRequest as AppendRowsRequestProto;
-use crate::model::AppendRowsRequest;
+use crate::model::{AppendRowsRequest, AppendRowsResponse};
 use arc_swap::ArcSwap;
 use gaxi::prost::{FromProto, ToProto};
 use google_cloud_gax::retry_result::RetryResult;
@@ -58,7 +58,7 @@ impl Dispatcher {
     ///
     /// Evicts and updates its cached stream on terminal stream errors.
     pub(crate) async fn send(&self, req: AppendRowsRequest) -> AppendResult<AppendResponse> {
-        let req = req.to_proto().map_err(Error::ser)?;
+        let req = ToProto::<AppendRowsRequestProto>::to_proto(req).map_err(Error::ser)?;
 
         // The default stream has at-least-once semantics, so all writes are
         // idempotent.
@@ -168,7 +168,7 @@ impl Dispatcher {
             }
         };
 
-        let resp = resp.cnv().map_err(Error::deser)?;
+        let resp = FromProto::<AppendRowsResponse>::cnv(resp).map_err(Error::deser)?;
         to_result(resp)
     }
 }
