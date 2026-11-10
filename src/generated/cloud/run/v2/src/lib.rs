@@ -33,6 +33,7 @@
 //! * [Jobs](client/struct.Jobs.html)
 //! * [Revisions](client/struct.Revisions.html)
 //! * [Services](client/struct.Services.html)
+//! * [SourceUpload](client/struct.SourceUpload.html)
 //! * [Tasks](client/struct.Tasks.html)
 //! * [WorkerPools](client/struct.WorkerPools.html)
 //!

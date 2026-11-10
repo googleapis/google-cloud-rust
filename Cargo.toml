@@ -561,6 +561,7 @@ google-cloud-type        = { default-features = false, version = "1.6.0", path =
 google-cloud-apphub-v1                          = { default-features = false, version = "1.16.0", path = "src/generated/cloud/apphub/v1" }
 google-cloud-config-v1                          = { default-features = false, version = "1.15.0", path = "src/generated/cloud/config/v1" }
 google-apps-card-v1                             = { default-features = false, version = "1.0.0", path = "src/generated/apps/card/v1" }
+google-backstory                                = { default-features = false, version = "1.1.0", path = "src/generated/backstory" }
 google-cloud-apps-script-type                   = { default-features = false, version = "1.6.0", path = "src/generated/apps/script/gtype" }
 google-cloud-apps-script-type-calendar          = { default-features = false, version = "1.8.0", path = "src/generated/apps/script/calendar" }
 google-cloud-apps-script-type-docs              = { default-features = false, version = "1.8.0", path = "src/generated/apps/script/docs" }

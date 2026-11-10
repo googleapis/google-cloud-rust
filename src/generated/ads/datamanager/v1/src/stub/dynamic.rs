@@ -218,6 +218,29 @@ impl<T: super::PartnerLinkService> PartnerLinkService for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::ReportingService].
+#[async_trait::async_trait]
+pub trait ReportingService: std::fmt::Debug + Send + Sync {
+    async fn retrieve_partner_match_report(
+        &self,
+        req: crate::model::RetrievePartnerMatchReportRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RetrievePartnerMatchReportResponse>>;
+}
+
+/// All implementations of [super::ReportingService] also implement [ReportingService].
+#[async_trait::async_trait]
+impl<T: super::ReportingService> ReportingService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn retrieve_partner_match_report(
+        &self,
+        req: crate::model::RetrievePartnerMatchReportRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RetrievePartnerMatchReportResponse>> {
+        T::retrieve_partner_match_report(self, req, options).await
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::UserListDirectLicenseService].
 #[async_trait::async_trait]
 pub trait UserListDirectLicenseService: std::fmt::Debug + Send + Sync {
