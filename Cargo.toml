@@ -33,6 +33,8 @@ default-members = [
   "src/spanner/examples",
   "src/storage",
   "src/storage/examples",
+  "src/test-macros",
+  "src/test-utils",
   "src/wkt",
   # We need `cargo test` to run at least some documentation tests for generated
   # libraries. These libraries are implicitly required by the integration tests
@@ -363,6 +365,8 @@ members = [
   "src/storage/benchmarks/write_object",
   "src/storage/examples",
   "src/storage/tests/scenarios",
+  "src/test-macros",
+  "src/test-utils",
   "src/wkt",
   "tests/auto-populated",
   "tests/bigquery",
@@ -593,7 +597,7 @@ google-cloud-compute-v1              = { default-features = false, path = "src/g
 google-cloud-storage                 = { default-features = false, path = "src/storage" }
 google-cloud-pubsub                  = { default-features = false, path = "src/pubsub" }
 google-cloud-spanner                 = { default-features = false, path = "src/spanner" }
-google-cloud-bigquery                = { default-features = false, path = "src/bigquery", version = "0.19.0" }
+google-cloud-bigquery                = { default-features = false, path = "src/bigquery", version = "1.0.0" }
 google-cloud-bigquery-derive         = { default-features = false, path = "src/bigquery-derive", version = "0.2.0" }
 google-cloud-bigquery-v2             = { default-features = false, path = "src/generated/cloud/bigquery/v2", version = "1.1.0" }
 google-cloud-bigtable-admin-v2       = { default-features = false, path = "src/generated/bigtable/admin/v2" }

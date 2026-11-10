@@ -112,7 +112,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn retry_loop_retry_success_with_tracing_on() -> Result<()> {
         let guard = TestLayer::initialize();
         // We create a server that will return two transient errors and then succeed.

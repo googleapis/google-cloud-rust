@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ANCHOR: all
+// [START rust_getting_started_all] ANCHOR: all
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     use google_cloud_gax::paginator::ItemPaginator as _;
@@ -29,4 +29,4 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
     Ok(())
 }
-// ANCHOR_END: all
+// [END rust_getting_started_all] ANCHOR_END: all

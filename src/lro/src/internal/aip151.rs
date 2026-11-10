@@ -350,9 +350,8 @@ mod tests {
 
     use tracing::Instrument;
 
-    fn test_span(parent: &tracing::Span) -> tracing::Span {
+    fn test_span() -> tracing::Span {
         tracing::info_span!(
-            parent: parent,
             "test_span",
             gcp.resource.destination.id = tracing::field::Empty,
         )
@@ -1097,7 +1096,7 @@ mod tests {
             query,
         );
 
-        let span = test_span(&guard.span());
+        let span = test_span();
         let poller_ref = &mut poller;
         let recorder = crate::internal::LroRecorder::new(span.clone());
         let _ = recorder
@@ -1118,7 +1117,7 @@ mod tests {
             );
         }
 
-        let span = test_span(&guard.span());
+        let span = test_span();
         let poller_ref2 = &mut poller;
         let recorder2 = crate::internal::LroRecorder::new(span.clone());
         let _ = recorder2
@@ -1165,7 +1164,7 @@ mod tests {
             query,
         );
 
-        let span = test_span(&guard.span());
+        let span = test_span();
         let poller_ref = &mut poller;
         let recorder = crate::internal::LroRecorder::new(span.clone());
         let _ = recorder

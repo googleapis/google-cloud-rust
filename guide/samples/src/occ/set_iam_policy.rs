@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [BEGIN rust_occ_loop]
+// [START rust_occ_set_iam_policy]
 use google_cloud_gax::error::rpc::Code;
 use google_cloud_iam_v1::model::Binding;
 use google_cloud_iam_v1::model::Policy;
@@ -32,7 +32,7 @@ use google_cloud_wkt::FieldMask;
 /// # Returns
 /// The new IAM policy.
 pub async fn sample(project_id: &str, secret_id: &str, member: &str) -> anyhow::Result<Policy> {
-    // ANCHOR: occ-loop
+    // [START rust_occ_loop] ANCHOR: occ-loop
     const ROLE: &str = "roles/secretmanager.secretAccessor";
     const ATTEMPTS: u32 = 5;
 
@@ -76,6 +76,6 @@ pub async fn sample(project_id: &str, secret_id: &str, member: &str) -> anyhow::
         }
     }
     anyhow::bail!("could not set IAM policy after {ATTEMPTS} attempts")
-    // ANCHOR_END: occ-loop
+    // [END rust_occ_loop] ANCHOR_END: occ-loop
 }
-// [END rust_occ_loop]
+// [END rust_occ_set_iam_policy]

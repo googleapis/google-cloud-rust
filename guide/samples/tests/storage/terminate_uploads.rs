@@ -12,20 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ANCHOR: all
-// ANCHOR: my-error-type
+// [START rust_storage_terminate_uploads_all] ANCHOR: all
+// [START rust_storage_terminate_uploads_my_error_type] ANCHOR: my-error-type
 #[derive(Debug)]
 pub enum MyError {
     ExpectedProblem,
     OhNoes,
 }
-// ANCHOR_END: my-error-type
+// [END rust_storage_terminate_uploads_my_error_type] ANCHOR_END: my-error-type
 
-// ANCHOR: my-error-impl-error
+// [START rust_storage_terminate_uploads_my_error_impl_error] ANCHOR: my-error-impl-error
 impl std::error::Error for MyError {}
-// ANCHOR_END: my-error-impl-error
+// [END rust_storage_terminate_uploads_my_error_impl_error] ANCHOR_END: my-error-impl-error
 
-// ANCHOR: my-error-impl-display
+// [START rust_storage_terminate_uploads_my_error_impl_display] ANCHOR: my-error-impl-display
 impl std::fmt::Display for MyError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
@@ -34,21 +34,21 @@ impl std::fmt::Display for MyError {
         }
     }
 }
-// ANCHOR_END: my-error-impl-display
+// [END rust_storage_terminate_uploads_my_error_impl_display] ANCHOR_END: my-error-impl-display
 
-// ANCHOR: my-source
+// [START rust_storage_terminate_uploads_my_source] ANCHOR: my-source
 #[derive(Debug, Default)]
 struct MySource(u32);
-// ANCHOR_END: my-source
+// [END rust_storage_terminate_uploads_my_source] ANCHOR_END: my-source
 
-// ANCHOR: my-source-impl-all
-// ANCHOR: my-source-impl
+// [START rust_storage_terminate_uploads_my_source_impl_all] ANCHOR: my-source-impl-all
+// [START rust_storage_terminate_uploads_my_source_impl] ANCHOR: my-source-impl
 impl google_cloud_storage::streaming_source::StreamingSource for MySource {
-    // ANCHOR_END: my-source-impl
-    // ANCHOR: my-source-impl-error
+    // [END rust_storage_terminate_uploads_my_source_impl] ANCHOR_END: my-source-impl
+    // [START rust_storage_terminate_uploads_my_source_impl_error] ANCHOR: my-source-impl-error
     type Error = MyError;
-    // ANCHOR_END: my-source-impl-error
-    // ANCHOR: my-source-impl-next
+    // [END rust_storage_terminate_uploads_my_source_impl_error] ANCHOR_END: my-source-impl-error
+    // [START rust_storage_terminate_uploads_my_source_impl_next] ANCHOR: my-source-impl-next
     async fn next(&mut self) -> Option<Result<bytes::Bytes, Self::Error>> {
         self.0 += 1;
         match self.0 {
@@ -59,30 +59,30 @@ impl google_cloud_storage::streaming_source::StreamingSource for MySource {
             )))),
         }
     }
-    // ANCHOR_END: my-source-impl-next
+    // [END rust_storage_terminate_uploads_my_source_impl_next] ANCHOR_END: my-source-impl-next
 }
-// ANCHOR_END: my-source-impl-all
+// [END rust_storage_terminate_uploads_my_source_impl_all] ANCHOR_END: my-source-impl-all
 
-// ANCHOR: attempt-upload-client
+// [START rust_storage_terminate_uploads_attempt_upload_client] ANCHOR: attempt-upload-client
 pub async fn attempt_upload(bucket_name: &str) -> anyhow::Result<()> {
     use google_cloud_storage::client::Storage;
     let client = Storage::builder().build().await?;
-    // ANCHOR_END: attempt-upload-client
-    // ANCHOR: attempt-upload-upload
+    // [END rust_storage_terminate_uploads_attempt_upload_client] ANCHOR_END: attempt-upload-client
+    // [START rust_storage_terminate_uploads_attempt_upload_upload] ANCHOR: attempt-upload-upload
     let upload = client
         .write_object(bucket_name, "expect-error", MySource::default())
         .send_buffered()
         .await;
-    // ANCHOR_END: attempt-upload-upload
-    // ANCHOR: attempt-upload-inspect-err
+    // [END rust_storage_terminate_uploads_attempt_upload_upload] ANCHOR_END: attempt-upload-upload
+    // [START rust_storage_terminate_uploads_attempt_upload_inspect_err] ANCHOR: attempt-upload-inspect-err
     println!("Upload result {upload:?}");
     let err = upload.expect_err("the source is supposed to terminate the upload");
     assert!(err.is_serialization(), "{err:?}");
     use std::error::Error as _;
     assert!(err.source().is_some_and(|e| e.is::<MyError>()), "{err:?}");
-    // ANCHOR_END: attempt-upload-inspect-err
-    // ANCHOR: attempt-upload-end
+    // [END rust_storage_terminate_uploads_attempt_upload_inspect_err] ANCHOR_END: attempt-upload-inspect-err
+    // [START rust_storage_terminate_uploads_attempt_upload_end] ANCHOR: attempt-upload-end
     Ok(())
 }
-// ANCHOR_END: attempt-upload-end
-// ANCHOR_END: all
+// [END rust_storage_terminate_uploads_attempt_upload_end] ANCHOR_END: attempt-upload-end
+// [END rust_storage_terminate_uploads_all] ANCHOR_END: all
