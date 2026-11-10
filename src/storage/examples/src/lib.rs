@@ -39,6 +39,11 @@ use google_cloud_wkt::FieldMask;
 use std::time::Duration;
 
 const STALE_BUCKET_CLEANUP_TIMEOUT: Duration = Duration::from_secs(5 * 60);
+/// How long to wait for a rapid cache to reach the "disabled" state. The state
+/// changes within seconds, even though the disable operation can take over an
+/// hour to complete.
+const RAPID_CACHE_DISABLE_TIMEOUT: Duration = Duration::from_secs(60);
+const RAPID_CACHE_DISABLE_POLL_PERIOD: Duration = Duration::from_secs(5);
 
 pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
     let _guard = enable_info_tracing();
@@ -89,9 +94,6 @@ pub async fn run_rapid_cache_examples(buckets: &mut Vec<String>) -> anyhow::Resu
         .expect("bucket name has prefix");
     buckets.push(id.to_string());
 
-    // Wait for the bucket metadata to propagate before creating the cache.
-    tokio::time::sleep(Duration::from_secs(20)).await;
-
     // The Rapid Cache ID must be the same as the zone.
     let cache_id = zone.as_str();
     let cache_name = format!("{}/rapidCaches/{cache_id}", bucket.name);
@@ -105,7 +107,7 @@ pub async fn run_rapid_cache_examples(buckets: &mut Vec<String>) -> anyhow::Resu
     // the cache, even if one of them failed.
     let result = run_rapid_cache_samples_after_create(&client, id, cache_id, &cache_name).await;
     tracing::info!("running control_disable_rapid_cache");
-    let disable = disable_rapid_cache_with_timeout(&client, id, cache_id, &cache_name).await;
+    let disable = disable_rapid_cache_and_wait(&client, id, cache_id, &cache_name).await;
     if let (Err(_), Err(e)) = (&result, &disable) {
         tracing::error!("error disabling rapid cache {cache_name}: {e:?}");
     }
@@ -157,29 +159,35 @@ async fn run_rapid_cache_samples_after_create(
     Ok(())
 }
 
-/// Runs the disable sample with a bounded wait.
+/// Runs the disable sample and waits, with a short bound, for the cache to
+/// reach the "disabled" state.
 ///
-/// The disable operation can take more than an hour to complete, but the cache
-/// enters the "disabled" state within seconds. If the operation does not
-/// complete in time, check the cache state instead. Dropping the poller does
-/// not cancel the operation on the server.
-async fn disable_rapid_cache_with_timeout(
+/// The disable sample does not wait for its long-running operation, which
+/// completes only after the cache is fully removed (often more than an hour).
+/// The cache state changes to "disabled" within seconds, so poll that instead.
+async fn disable_rapid_cache_and_wait(
     client: &StorageControl,
     bucket_id: &str,
     cache_id: &str,
     cache_name: &str,
 ) -> anyhow::Result<()> {
-    let disable = control::disable_rapid_cache::sample(client, bucket_id, cache_id);
-    if let Ok(result) = tokio::time::timeout(Duration::from_secs(600), disable).await {
-        return result;
-    }
-    tracing::info!("disable operation did not complete in time, checking the state");
-    let cache = client.get_rapid_cache().set_name(cache_name).send().await?;
-    anyhow::ensure!(
-        cache.state.eq_ignore_ascii_case("disabled"),
-        "unexpected state after disable: {cache:?}"
-    );
-    Ok(())
+    control::disable_rapid_cache::sample(client, bucket_id, cache_id).await?;
+    let wait = async {
+        loop {
+            let cache = client.get_rapid_cache().set_name(cache_name).send().await?;
+            if cache.state.eq_ignore_ascii_case("disabled") {
+                return anyhow::Ok(());
+            }
+            tokio::time::sleep(RAPID_CACHE_DISABLE_POLL_PERIOD).await;
+        }
+    };
+    tokio::time::timeout(RAPID_CACHE_DISABLE_TIMEOUT, wait)
+        .await
+        .map_err(|_| {
+            anyhow::anyhow!(
+                "rapid cache {cache_name} not disabled after {RAPID_CACHE_DISABLE_TIMEOUT:?}"
+            )
+        })?
 }
 
 pub async fn run_bucket_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
