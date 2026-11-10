@@ -2730,6 +2730,7 @@ impl Compression {
     /// # use google_cloud_pubsub::model::Compression;
     /// use google_cloud_pubsub::model::compression::CompressionAlgorithm;
     /// let x0 = Compression::new().set_compression_algorithm(CompressionAlgorithm::Zlib);
+    /// let x1 = Compression::new().set_compression_algorithm(CompressionAlgorithm::Zstd);
     /// ```
     pub fn set_compression_algorithm<
         T: std::convert::Into<crate::model::compression::CompressionAlgorithm>,
@@ -2794,6 +2795,8 @@ pub mod compression {
         Unspecified,
         /// ZLIB compression.
         Zlib,
+        /// Zstd compression.
+        Zstd,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [CompressionAlgorithm::value] or
@@ -2818,6 +2821,7 @@ pub mod compression {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Zlib => std::option::Option::Some(1),
+                Self::Zstd => std::option::Option::Some(3),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -2830,6 +2834,7 @@ pub mod compression {
             match self {
                 Self::Unspecified => std::option::Option::Some("COMPRESSION_ALGORITHM_UNSPECIFIED"),
                 Self::Zlib => std::option::Option::Some("ZLIB"),
+                Self::Zstd => std::option::Option::Some("ZSTD"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -2853,6 +2858,7 @@ pub mod compression {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Zlib,
+                3 => Self::Zstd,
                 _ => Self::UnknownValue(compression_algorithm::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -2866,6 +2872,7 @@ pub mod compression {
             match value {
                 "COMPRESSION_ALGORITHM_UNSPECIFIED" => Self::Unspecified,
                 "ZLIB" => Self::Zlib,
+                "ZSTD" => Self::Zstd,
                 _ => Self::UnknownValue(compression_algorithm::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -2881,6 +2888,7 @@ pub mod compression {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Zlib => serializer.serialize_i32(1),
+                Self::Zstd => serializer.serialize_i32(3),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

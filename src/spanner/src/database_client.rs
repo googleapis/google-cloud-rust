@@ -15,7 +15,7 @@
 use crate::batch_read_only_transaction::BatchReadOnlyTransactionBuilder;
 use crate::batch_write_transaction::BatchWriteTransactionBuilder;
 use crate::channel_pool::ChannelTarget;
-use crate::client::Spanner;
+use crate::client::{DEFAULT_REQUEST_HEADERS_CAPACITY, Spanner};
 use crate::model::transaction_options::Mode;
 use crate::model::transaction_options::read_only::TimestampBound;
 use crate::model::transaction_selector::Selector;
@@ -55,6 +55,9 @@ use crate::write_only_transaction::WriteOnlyTransactionBuilder;
 use crate::{Error, RequestOptions, Result};
 use bytes::Bytes;
 use google_cloud_gax::error::rpc::Code;
+use google_cloud_gax::options::internal::RequestOptionsExt as _;
+use http::HeaderMap;
+use http::header::{Entry, HeaderName, HeaderValue};
 use std::env;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -90,6 +93,7 @@ pub struct DatabaseClient {
     pub(crate) leader_aware_routing_enabled: bool,
     pub(crate) location_routing: Option<Arc<LocationRoutingState>>,
     pub(crate) o11y: Arc<Observability>,
+    pub(crate) resource_prefix: HeaderValue,
 }
 
 macro_rules! define_db_rpc {
@@ -107,6 +111,7 @@ macro_rules! define_db_rpc {
             options: RequestOptions,
             channel_target: impl Into<ChannelTarget<'a>>,
         ) -> Result<$response_type> {
+            let options = Self::attach_resource_prefix_header(&self.resource_prefix, options);
             let channel_target = channel_target.into();
             let (connection, routing_context) = $pre_route(self, &mut request);
             let lease = connection
@@ -149,6 +154,7 @@ macro_rules! define_db_streaming_rpc {
             options: RequestOptions,
             channel_target: impl Into<ChannelTarget<'a>>,
         ) -> $builder_type {
+            let options = Self::attach_resource_prefix_header(&self.resource_prefix, options);
             let channel_target = channel_target.into();
             let lease = self.spanner.pick_channel_for_target(&channel_target);
             let builder = self.spanner.$method(request, options, lease.channel());
@@ -162,6 +168,7 @@ macro_rules! define_db_streaming_rpc {
             options: RequestOptions,
             channel_target: impl Into<ChannelTarget<'a>>,
         ) -> $builder_type {
+            let options = Self::attach_resource_prefix_header(&self.resource_prefix, options);
             let channel_target = channel_target.into();
             let is_read_write_begin = is_read_write_begin(request.transaction.as_ref());
             // Step 1: When location-aware routing is disabled (standard Cloud Spanner),
@@ -297,6 +304,11 @@ macro_rules! for_all_streaming_db_rpcs {
         );
     };
 }
+
+/// The header that Spanner frontends use to route a request to the regional
+/// endpoint that serves the target database.
+pub(crate) static RESOURCE_PREFIX_HEADER: HeaderName =
+    HeaderName::from_static("google-cloud-resource-prefix");
 
 impl DatabaseClient {
     pub(crate) fn is_emulator(&self) -> bool {
@@ -1146,6 +1158,24 @@ impl DatabaseClient {
             .location_router
             .clear_transaction_affinity(transaction_id);
     }
+
+    /// Adds the `google-cloud-resource-prefix` header to `options`, unless the
+    /// caller has already set it.
+    pub(crate) fn attach_resource_prefix_header(
+        resource_prefix: &HeaderValue,
+        mut options: RequestOptions,
+    ) -> RequestOptions {
+        if let Some(headers) = options.get_extension_mut::<HeaderMap>() {
+            if let Entry::Vacant(entry) = headers.entry(&RESOURCE_PREFIX_HEADER) {
+                entry.insert(resource_prefix.clone());
+            }
+            return options;
+        }
+
+        let mut headers = HeaderMap::with_capacity(DEFAULT_REQUEST_HEADERS_CAPACITY);
+        headers.insert(RESOURCE_PREFIX_HEADER.clone(), resource_prefix.clone());
+        options.insert_extension(headers)
+    }
 }
 
 fn routing_context_from_selector<'a>(
@@ -1213,7 +1243,7 @@ fn is_read_write_begin(selector: Option<&TransactionSelector>) -> bool {
 }
 
 /// A builder for [DatabaseClient].
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct DatabaseClientBuilder {
     spanner: Spanner,
     database_name: String,
@@ -1327,6 +1357,7 @@ impl DatabaseClientBuilder {
         } else {
             self.database_name
         };
+        let resource_prefix = HeaderValue::from_str(&database_name).map_err(Error::ser)?;
 
         #[cfg(feature = "_internal-metrics")]
         let o11y = Arc::new(
@@ -1361,11 +1392,16 @@ impl DatabaseClientBuilder {
             })
             .unwrap_or(false);
 
+        // Used to create, and every 7 days rotate, the multiplexed session.
+        let session_options = DatabaseClient::attach_resource_prefix_header(
+            &resource_prefix,
+            self.options.unwrap_or_default(),
+        );
         let session_maintainer = ManagedSessionMaintainer::create_and_start_maintenance(
             self.spanner.clone(),
             database_name,
             self.database_role.unwrap_or_default(),
-            self.options.unwrap_or_default(),
+            session_options,
             Arc::clone(&o11y),
         )
         .await?;
@@ -1383,6 +1419,7 @@ impl DatabaseClientBuilder {
             leader_aware_routing_enabled: self.leader_aware_routing_enabled,
             location_routing,
             o11y,
+            resource_prefix,
         })
     }
 }
@@ -1760,7 +1797,38 @@ mod tests {
     fn auto_traits() {
         use static_assertions::assert_impl_all;
         assert_impl_all!(DatabaseClient: Send, Sync, Clone, Debug);
-        assert_impl_all!(DatabaseClientBuilder: Debug, Send, Sync);
+        assert_impl_all!(DatabaseClientBuilder: Debug, Send, Sync, Clone);
+    }
+
+    #[tokio_test_no_panics]
+    async fn database_client_builder_clone() {
+        let spanner = Spanner::builder()
+            .with_endpoint("http://localhost:9010")
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("failed to build client");
+
+        let builder = spanner
+            .database_client("projects/test-project/instances/test-instance/databases/test-db")
+            .with_database_role("test-role")
+            .with_leader_aware_routing(false);
+
+        let cloned_builder = builder.clone();
+        assert_eq!(
+            cloned_builder.database_name,
+            "projects/test-project/instances/test-instance/databases/test-db",
+            "cloned database name should match original"
+        );
+        assert_eq!(
+            cloned_builder.database_role.as_deref(),
+            Some("test-role"),
+            "cloned database role should match original"
+        );
+        assert!(
+            !cloned_builder.leader_aware_routing_enabled,
+            "cloned leader aware routing flag should match original"
+        );
     }
 
     #[tokio_test_no_panics]
@@ -1812,6 +1880,215 @@ mod tests {
         );
         assert!(session.multiplexed);
         assert_eq!(session.creator_role, "test-role");
+    }
+
+    #[test]
+    fn attach_resource_prefix_header_adds_header() {
+        let value = HeaderValue::from_static("projects/p/instances/i/databases/d");
+        let options =
+            DatabaseClient::attach_resource_prefix_header(&value, RequestOptions::default());
+        // Applying it twice must not add a second value.
+        let options = DatabaseClient::attach_resource_prefix_header(&value, options);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("headers must be set");
+        let values: Vec<_> = headers.get_all(&RESOURCE_PREFIX_HEADER).iter().collect();
+        assert_eq!(
+            values,
+            [value],
+            "options should contain exactly one resource prefix header"
+        );
+    }
+
+    #[test]
+    fn attach_resource_prefix_header_preserves_existing_header() {
+        let custom = HeaderValue::from_static("projects/p/instances/i/databases/custom");
+        let mut options = RequestOptions::default();
+        options
+            .get_extension_or_default_mut::<HeaderMap>()
+            .insert(RESOURCE_PREFIX_HEADER.clone(), custom.clone());
+
+        let options = DatabaseClient::attach_resource_prefix_header(
+            &HeaderValue::from_static("projects/p/instances/i/databases/d"),
+            options,
+        );
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("headers must be set");
+        let values: Vec<_> = headers.get_all(&RESOURCE_PREFIX_HEADER).iter().collect();
+        assert_eq!(
+            values,
+            [custom],
+            "existing resource prefix header must be preserved"
+        );
+    }
+
+    #[test]
+    fn attach_resource_prefix_header_appends_to_existing_headers() {
+        let custom_header = HeaderName::from_static("x-custom-header");
+        let custom_value = HeaderValue::from_static("custom-value");
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.insert(custom_header.clone(), custom_value.clone());
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let value = HeaderValue::from_static("projects/p/instances/i/databases/d");
+        let options = DatabaseClient::attach_resource_prefix_header(&value, options);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("headers must be set");
+        assert_eq!(
+            headers.get(&custom_header),
+            Some(&custom_value),
+            "custom header must be preserved"
+        );
+        assert_eq!(
+            headers.get(&RESOURCE_PREFIX_HEADER),
+            Some(&value),
+            "resource prefix header must be added alongside existing headers"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn sends_resource_prefix_header() {
+        use std::sync::Mutex;
+
+        const DATABASE: &str = "projects/test-project/instances/test-instance/databases/test-db";
+        type Seen = Arc<Mutex<Vec<(&'static str, Option<String>)>>>;
+        fn record(seen: &Seen, method: &'static str, metadata: &MetadataMap) {
+            let prefix = metadata
+                .get("google-cloud-resource-prefix")
+                .and_then(|value| value.to_str().ok())
+                .map(str::to_string);
+            seen.lock()
+                .expect("lock should succeed")
+                .push((method, prefix));
+        }
+        let seen: Seen = Arc::default();
+
+        let mut mock = MockSpanner::new();
+        let seen_calls = Arc::clone(&seen);
+        mock.expect_create_session().returning(move |request| {
+            record(&seen_calls, "CreateSession", request.metadata());
+            Ok(Response::new(mock_v1::Session {
+                name: format!("{DATABASE}/sessions/s1"),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+        let seen_calls = Arc::clone(&seen);
+        mock.expect_execute_streaming_sql()
+            .returning(move |request| {
+                record(&seen_calls, "ExecuteStreamingSql", request.metadata());
+                Ok(Response::from(adapt([Ok(mock_v1::PartialResultSet {
+                    metadata: Some(mock_v1::ResultSetMetadata {
+                        row_type: Some(mock_v1::StructType {
+                            fields: vec![mock_v1::struct_type::Field {
+                                name: "col".to_string(),
+                                r#type: Some(mock_v1::Type {
+                                    code: mock_v1::TypeCode::Int64 as i32,
+                                    ..Default::default()
+                                }),
+                            }],
+                        }),
+                        ..Default::default()
+                    }),
+                    values: vec![prost_types::Value {
+                        kind: Some(prost_types::value::Kind::StringValue("1".to_string())),
+                    }],
+                    ..Default::default()
+                })])))
+            });
+        let seen_calls = Arc::clone(&seen);
+        mock.expect_execute_sql().returning(move |request| {
+            record(&seen_calls, "ExecuteSql", request.metadata());
+            Ok(Response::new(mock_v1::ResultSet {
+                metadata: Some(mock_v1::ResultSetMetadata {
+                    transaction: Some(mock_v1::Transaction {
+                        id: vec![1, 2, 3],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }),
+                stats: Some(mock_v1::ResultSetStats {
+                    row_count: Some(mock_v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+        let seen_calls = Arc::clone(&seen);
+        mock.expect_commit().returning(move |request| {
+            record(&seen_calls, "Commit", request.metadata());
+            Ok(Response::new(mock_v1::CommitResponse::default()))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+        let database_client = spanner
+            .database_client(DATABASE)
+            .build()
+            .await
+            .expect("Failed to create DatabaseClient");
+
+        // Streaming RPC.
+        let mut result_set = database_client
+            .single_use()
+            .build()
+            .execute_query("SELECT 1")
+            .await
+            .expect("execute_query must succeed");
+        let mut rows_seen = 0;
+        while let Some(row_result) = result_set.next().await {
+            let row = row_result.expect("stream row must be valid");
+            assert_eq!(
+                row.get::<i64>("col").expect("column must exist"),
+                1,
+                "column col must equal 1"
+            );
+            rows_seen += 1;
+        }
+        assert_eq!(rows_seen, 1, "exactly one row should be returned");
+
+        // Unary RPCs: DML (ExecuteSql) and Commit.
+        database_client
+            .read_write_transaction()
+            .build()
+            .run(async |transaction| {
+                transaction
+                    .execute_update("UPDATE T SET C = 1 WHERE TRUE")
+                    .await?;
+                Ok(())
+            })
+            .await
+            .expect("read/write transaction must succeed");
+
+        let seen = seen.lock().expect("lock should succeed");
+        for method in [
+            "CreateSession",
+            "ExecuteStreamingSql",
+            "ExecuteSql",
+            "Commit",
+        ] {
+            let calls: Vec<_> = seen.iter().filter(|(m, _)| *m == method).collect();
+            assert!(!calls.is_empty(), "{method} must be called");
+            for (_, prefix) in calls {
+                assert_eq!(
+                    prefix.as_deref(),
+                    Some(DATABASE),
+                    "{method} must carry google-cloud-resource-prefix"
+                );
+            }
+        }
     }
 
     #[tokio_test_no_panics]
@@ -3262,6 +3539,172 @@ mod tests {
             router.get_transaction_affinity(rollback_tx),
             None,
             "Affinity must be cleared after rollback"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn routing_hint_retained_on_key_range_cache_miss() {
+        let mock = create_test_mock();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let database_client = spanner
+            .database_client("projects/p/instances/i/databases/d")
+            .with_location_aware_routing(true)
+            .build()
+            .await
+            .expect("build should succeed");
+
+        // Seed database_id and key recipe in CacheUpdater, but NO range in KeyRangeCache (cache miss).
+        let recipe = KeyRecipe::new().set_table_name("Users").set_part(vec![
+            Part::new().set_tag(50020u32),
+            Part::new()
+                .set_tag(1u32)
+                .set_identifier("id")
+                .set_type(Type::new().set_code(TypeCode::String))
+                .set_order(Order::Ascending)
+                .set_null_order(NullOrder::NotNull),
+        ]);
+        let cache_update = CacheUpdate::new().set_database_id(42u64).set_key_recipes(
+            RecipeList::new()
+                .set_schema_generation(Bytes::from_static(b"schema-v1"))
+                .set_recipe(vec![recipe]),
+        );
+        database_client.observe_cache_update(Some(cache_update));
+
+        let user_mutation = Mutation::new_insert_builder("Users")
+            .set("id")
+            .to("user123")
+            .build();
+
+        let recipe_cache = database_client
+            .key_recipe_cache()
+            .expect("recipe cache present");
+        let extracted_key =
+            extract_mutation_routing_key(recipe_cache, &user_mutation.clone().build_proto())
+                .expect("mutation routing key should be extracted from cached recipe");
+
+        // 1. resolve_request_route: on cache miss with routing key, returns None connection
+        //    (falls back to gateway channel pool) and Some(hint) retaining the search key.
+        let (connection, hint) = database_client.resolve_request_route(
+            None,
+            None,
+            100,
+            Some(extracted_key.as_slice()),
+            false,
+        );
+        assert!(
+            connection.is_none(),
+            "connection must fall back to gateway (None) on cache miss"
+        );
+        let hint = hint.expect("routing hint must be retained on cache miss");
+        assert_eq!(
+            hint.key.as_ref(),
+            extracted_key.as_slice(),
+            "routing hint must retain the extracted routing key"
+        );
+        assert_eq!(
+            hint.operation_uid, 100,
+            "operation_uid must match requested"
+        );
+        assert_eq!(hint.database_id, 42, "database_id must match active epoch");
+        assert_eq!(hint.group_uid, 0, "group_uid must be 0 on cache miss");
+        assert_eq!(hint.split_id, 0, "split_id must be 0 on cache miss");
+        assert_eq!(hint.tablet_uid, 0, "tablet_uid must be 0 on cache miss");
+        assert!(
+            hint.skipped_tablet_uid.is_empty(),
+            "skipped_tablet_uid must be empty on cache miss"
+        );
+
+        // 2. route_and_attach_hint: attaches the resolved hint to request.routing_hint
+        let mut attached_hint = None;
+        let connection = database_client.route_and_attach_hint(
+            None,
+            None,
+            100,
+            Some(extracted_key.as_slice()),
+            &mut attached_hint,
+            false,
+        );
+        assert!(
+            connection.is_none(),
+            "route_and_attach_hint must return None connection on cache miss"
+        );
+        let attached = attached_hint.expect("attached_hint must be populated on cache miss");
+        assert_eq!(
+            attached.key.as_ref(),
+            extracted_key.as_slice(),
+            "attached hint must contain the search key"
+        );
+        assert_eq!(
+            attached.operation_uid, 100,
+            "attached hint must contain the operation_uid"
+        );
+        assert_eq!(
+            attached.database_id, 42,
+            "attached hint must contain the database_id"
+        );
+
+        // 3. pre_route_begin_transaction: attaches routing hint with key on cache miss
+        let mut begin_request = BeginTransactionRequest::new()
+            .set_options(TransactionOptions::new().set_read_write(ReadWrite::new()))
+            .set_mutation_key(user_mutation.clone().build_proto());
+        let (begin_connection, is_read_write) =
+            database_client.pre_route_begin_transaction(&mut begin_request);
+        assert!(
+            begin_connection.is_none(),
+            "pre_route_begin_transaction must return None connection on cache miss"
+        );
+        assert!(is_read_write, "is_read_write must be true for ReadWrite");
+        let begin_hint = begin_request
+            .routing_hint
+            .expect("begin_request must attach routing hint on cache miss");
+        assert_eq!(
+            begin_hint.key.as_ref(),
+            extracted_key.as_slice(),
+            "begin_request routing hint must retain extracted key"
+        );
+        assert_eq!(
+            begin_hint.database_id, 42,
+            "begin_request routing hint must retain database_id"
+        );
+        assert_eq!(
+            begin_hint.group_uid, 0,
+            "begin_request group_uid must be 0 on cache miss"
+        );
+
+        // 4. pre_route_commit: attaches routing hint with key on cache miss
+        let mut commit_request = CommitRequest::new()
+            .set_single_use_transaction(TransactionOptions::new().set_read_write(ReadWrite::new()))
+            .set_mutations(vec![user_mutation.build_proto()]);
+        let (commit_connection, _transaction_id) =
+            database_client.pre_route_commit(&mut commit_request);
+        assert!(
+            commit_connection.is_none(),
+            "pre_route_commit must return None connection on cache miss"
+        );
+        let commit_hint = commit_request
+            .routing_hint
+            .expect("commit_request must attach routing hint on cache miss");
+        assert_eq!(
+            commit_hint.key.as_ref(),
+            extracted_key.as_slice(),
+            "commit_request routing hint must retain extracted key"
+        );
+        assert_eq!(
+            commit_hint.database_id, 42,
+            "commit_request routing hint must retain database_id"
+        );
+        assert_eq!(
+            commit_hint.group_uid, 0,
+            "commit_request group_uid must be 0 on cache miss"
         );
     }
 

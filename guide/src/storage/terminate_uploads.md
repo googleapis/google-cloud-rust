@@ -120,7 +120,7 @@ As expected, this object write fails. You can inspect the error details:
 
 ## Next Steps
 
-- [Push data on object writes](queue.md)
+- [Push data on object writes](https://docs.cloud.google.com/rust/docs/storage-push-writes)
 
 ## Full Program
 

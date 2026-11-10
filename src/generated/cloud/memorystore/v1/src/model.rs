@@ -7171,6 +7171,10 @@ pub struct PscAutoConnection {
     /// Output only. Type of the PSC connection.
     pub connection_type: crate::model::ConnectionType,
 
+    /// Optional. Immutable. The IP version used for the PSC auto-created
+    /// endpoint. If not specified, defaults to IPV4.
+    pub ip_version: crate::model::IpVersion,
+
     /// Ports of the exposed endpoint.
     pub ports: std::option::Option<crate::model::psc_auto_connection::Ports>,
 
@@ -7293,6 +7297,20 @@ impl PscAutoConnection {
         v: T,
     ) -> Self {
         self.connection_type = v.into();
+        self
+    }
+
+    /// Sets the value of [ip_version][crate::model::PscAutoConnection::ip_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscAutoConnection;
+    /// use google_cloud_memorystore_v1::model::IpVersion;
+    /// let x0 = PscAutoConnection::new().set_ip_version(IpVersion::Ipv4);
+    /// let x1 = PscAutoConnection::new().set_ip_version(IpVersion::Ipv6);
+    /// ```
+    pub fn set_ip_version<T: std::convert::Into<crate::model::IpVersion>>(mut self, v: T) -> Self {
+        self.ip_version = v.into();
         self
     }
 
@@ -12976,6 +12994,138 @@ impl<'de> serde::de::Deserialize<'de> for ConnectionType {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ConnectionType>::new(
             ".google.cloud.memorystore.v1.ConnectionType",
+        ))
+    }
+}
+
+/// IP version for PSC consumer endpoints.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum IpVersion {
+    /// Not specified. Defaults to IPV4 on CreateInstance.
+    Unspecified,
+    /// IPv4 address family.
+    Ipv4,
+    /// IPv6 address family.
+    Ipv6,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [IpVersion::value] or
+    /// [IpVersion::name].
+    UnknownValue(ip_version::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod ip_version {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl IpVersion {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Ipv4 => std::option::Option::Some(1),
+            Self::Ipv6 => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("IP_VERSION_UNSPECIFIED"),
+            Self::Ipv4 => std::option::Option::Some("IPV4"),
+            Self::Ipv6 => std::option::Option::Some("IPV6"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for IpVersion {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for IpVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for IpVersion {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Ipv4,
+            2 => Self::Ipv6,
+            _ => Self::UnknownValue(ip_version::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for IpVersion {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "IP_VERSION_UNSPECIFIED" => Self::Unspecified,
+            "IPV4" => Self::Ipv4,
+            "IPV6" => Self::Ipv6,
+            _ => Self::UnknownValue(ip_version::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for IpVersion {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Ipv4 => serializer.serialize_i32(1),
+            Self::Ipv6 => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for IpVersion {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<IpVersion>::new(
+            ".google.cloud.memorystore.v1.IpVersion",
         ))
     }
 }

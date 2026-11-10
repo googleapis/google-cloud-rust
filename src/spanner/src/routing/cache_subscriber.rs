@@ -26,8 +26,10 @@
 
 use crate::RequestOptions;
 use crate::client::Spanner;
+use crate::database_client::DatabaseClient;
 use crate::google::spanner::v1::CacheUpdate as ProtoCacheUpdate;
 use crate::model::FetchCacheUpdateRequest;
+use crate::retry_delay::extract_status_code_from_error;
 use crate::retry_policy::SpannerRetryPolicy;
 use crate::routing::cache_updater::CacheUpdater;
 use crate::server_streaming::stream::CacheUpdateStream;
@@ -40,6 +42,7 @@ use google_cloud_gax::retry_policy::{RetryPolicy, RetryPolicyArg};
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
 use google_cloud_gax::throttle_result::ThrottleResult;
+use http::HeaderValue;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::sync::watch;
@@ -115,6 +118,7 @@ impl Drop for CacheSubscriber {
 #[derive(Clone, Debug)]
 pub(crate) struct CacheSubscriberBuilder {
     database: String,
+    request_options: RequestOptions,
     spanner: Spanner,
     cache_updater: Arc<CacheUpdater>,
     retry_policy: Arc<dyn RetryPolicy>,
@@ -130,8 +134,14 @@ impl CacheSubscriberBuilder {
         spanner: Spanner,
         cache_updater: Arc<CacheUpdater>,
     ) -> Self {
+        let request_options = HeaderValue::from_str(&database)
+            .map(|prefix| {
+                DatabaseClient::attach_resource_prefix_header(&prefix, RequestOptions::default())
+            })
+            .unwrap_or_default();
         Self {
             database,
+            request_options,
             spanner,
             cache_updater,
             retry_policy: Arc::new(CacheSubscriberRetryPolicy::default()),
@@ -209,9 +219,7 @@ impl Default for CacheSubscriberRetryPolicy {
 
 impl RetryPolicy for CacheSubscriberRetryPolicy {
     fn on_error(&self, state: &RetryState, error: Error) -> RetryResult {
-        if let Some(status) = error.status()
-            && status.code == Code::ResourceExhausted
-        {
+        if extract_status_code_from_error(&error) == Some(Code::ResourceExhausted) {
             return RetryResult::Continue(error);
         }
         self.inner.on_error(state, error)
@@ -392,7 +400,11 @@ async fn execute_subscriber_iteration(
     debug!(database = %config.database, "Connecting to FetchCacheUpdate stream");
     let connect_future = config
         .spanner
-        .fetch_cache_update(request, RequestOptions::default(), channel_lease.channel())
+        .fetch_cache_update(
+            request,
+            config.request_options.clone(),
+            channel_lease.channel(),
+        )
         .with_lifetime_guard(Arc::new(channel_lease.into_guard()))
         .send();
     tokio::pin!(connect_future);
@@ -520,6 +532,7 @@ mod tests {
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use google_cloud_gax::retry_policy::RetryPolicyExt;
     use google_cloud_test_macros::tokio_test_no_panics;
+    use http::HeaderMap;
     use spanner_grpc_mock::MockSpanner;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use std::sync::Arc;
@@ -538,49 +551,96 @@ mod tests {
         let policy = CacheSubscriberRetryPolicy::new();
         let retry_state = RetryState::new(true);
 
-        let resource_exhausted_status = RpcStatus::default()
-            .set_code(Code::ResourceExhausted)
-            .set_message("quota exhausted");
-        let resource_exhausted_error = Error::service(resource_exhausted_status);
-        assert!(
-            policy
-                .on_error(&retry_state, resource_exhausted_error)
-                .is_continue(),
-            "RESOURCE_EXHAUSTED should be retryable"
-        );
+        let test_cases = [
+            (
+                Error::service(
+                    RpcStatus::default()
+                        .set_code(Code::ResourceExhausted)
+                        .set_message("quota exhausted"),
+                ),
+                true,
+                "direct RESOURCE_EXHAUSTED should be retryable",
+            ),
+            (
+                Error::exhausted(Error::service(
+                    RpcStatus::default()
+                        .set_code(Code::ResourceExhausted)
+                        .set_message("quota exhausted after retry attempts"),
+                )),
+                true,
+                "nested GAX RESOURCE_EXHAUSTED in error source chain should be retryable",
+            ),
+            (
+                Error::connect(Status::resource_exhausted("quota exhausted on connect")),
+                true,
+                "nested TonicStatus RESOURCE_EXHAUSTED should be retryable",
+            ),
+            (
+                Error::exhausted(Error::connect(Status::resource_exhausted(
+                    "quota exhausted after reconnect attempts",
+                ))),
+                true,
+                "two-level nested RESOURCE_EXHAUSTED should be retryable",
+            ),
+            (
+                Error::transport(
+                    HeaderMap::new(),
+                    Status::resource_exhausted("quota exhausted mid-stream"),
+                ),
+                true,
+                "nested TonicStatus RESOURCE_EXHAUSTED in transport error should be retryable",
+            ),
+            (
+                Error::service(
+                    RpcStatus::default()
+                        .set_code(Code::Unavailable)
+                        .set_message("server unavailable"),
+                ),
+                true,
+                "UNAVAILABLE should be retryable",
+            ),
+            (
+                Error::service(
+                    RpcStatus::default()
+                        .set_code(Code::PermissionDenied)
+                        .set_message("denied"),
+                ),
+                false,
+                "PERMISSION_DENIED should be permanent",
+            ),
+            (
+                Error::exhausted(Error::service(
+                    RpcStatus::default()
+                        .set_code(Code::PermissionDenied)
+                        .set_message("denied"),
+                )),
+                false,
+                "nested PERMISSION_DENIED should be permanent",
+            ),
+            (
+                Error::service(
+                    RpcStatus::default()
+                        .set_code(Code::NotFound)
+                        .set_message("database not found"),
+                ),
+                false,
+                "NOT_FOUND should be permanent",
+            ),
+            (
+                Error::exhausted("connection error"),
+                false,
+                "generic non-gRPC error without status code should be permanent",
+            ),
+        ];
 
-        let unavailable_status = RpcStatus::default()
-            .set_code(Code::Unavailable)
-            .set_message("server unavailable");
-        let unavailable_error = Error::service(unavailable_status);
-        assert!(
-            policy
-                .on_error(&retry_state, unavailable_error)
-                .is_continue(),
-            "UNAVAILABLE should be retryable"
-        );
-
-        let permission_denied_status = RpcStatus::default()
-            .set_code(Code::PermissionDenied)
-            .set_message("denied");
-        let permission_denied_error = Error::service(permission_denied_status);
-        assert!(
-            policy
-                .on_error(&retry_state, permission_denied_error)
-                .is_permanent(),
-            "PERMISSION_DENIED should be permanent"
-        );
-
-        let not_found_status = RpcStatus::default()
-            .set_code(Code::NotFound)
-            .set_message("database not found");
-        let not_found_error = Error::service(not_found_status);
-        assert!(
-            policy
-                .on_error(&retry_state, not_found_error)
-                .is_permanent(),
-            "NOT_FOUND should be permanent"
-        );
+        for (error, expected_continue, description) in test_cases {
+            let result = policy.on_error(&retry_state, error);
+            if expected_continue {
+                assert!(result.is_continue(), "{description}");
+            } else {
+                assert!(result.is_permanent(), "{description}");
+            }
+        }
     }
 
     #[derive(Debug)]
@@ -717,6 +777,40 @@ mod tests {
     }
 
     #[tokio_test_no_panics]
+    async fn subscriber_sends_resource_prefix_header() {
+        const DATABASE: &str = "projects/p/instances/i/databases/d";
+        let (prefix_sender, mut prefix_receiver) = mpsc::channel(4);
+
+        let mut mock = MockSpanner::new();
+        mock.expect_fetch_cache_update().returning(move |request| {
+            let prefix = request
+                .metadata()
+                .get("google-cloud-resource-prefix")
+                .and_then(|value| value.to_str().ok())
+                .map(str::to_string);
+            let _ = prefix_sender.try_send(prefix);
+            let (_stream_sender, stream_receiver) = mpsc::channel(1);
+            Ok(Response::new(stream_receiver))
+        });
+
+        let (spanner, _server) = setup_spanner(mock).await;
+        let subscriber =
+            CacheSubscriber::builder(DATABASE.to_string(), spanner, sample_cache_updater()).start();
+
+        let prefix = prefix_receiver
+            .recv()
+            .await
+            .expect("FetchCacheUpdate must be called");
+        assert_eq!(
+            prefix.as_deref(),
+            Some(DATABASE),
+            "FetchCacheUpdate must carry google-cloud-resource-prefix"
+        );
+
+        subscriber.wait_for_shutdown().await;
+    }
+
+    #[tokio_test_no_panics]
     async fn subscriber_reconnects_on_transient_stream_error() {
         let cache_updater = sample_cache_updater();
         let (attempt_sender, mut attempt_receiver) = mpsc::channel(4);
@@ -794,6 +888,48 @@ mod tests {
             .recv()
             .await
             .expect("second connection attempt should arrive");
+
+        subscriber.wait_for_shutdown().await;
+    }
+
+    #[tokio_test_no_panics]
+    async fn subscriber_reconnects_on_mid_stream_resource_exhausted() {
+        let cache_updater = sample_cache_updater();
+        let (attempt_sender, mut attempt_receiver) = mpsc::channel(4);
+
+        let mut mock = MockSpanner::new();
+        mock.expect_fetch_cache_update().returning(move |_request| {
+            let _ = attempt_sender.try_send(());
+            let (stream_sender, stream_receiver) = mpsc::channel(1);
+            let _ = stream_sender.try_send(Err(Status::resource_exhausted(
+                "resource exhausted on stream",
+            )));
+            Ok(Response::new(stream_receiver))
+        });
+
+        let (spanner, _server) = setup_spanner(mock).await;
+        let fast_backoff = ExponentialBackoffBuilder::new()
+            .with_initial_delay(Duration::from_nanos(1))
+            .with_maximum_delay(Duration::from_nanos(1))
+            .with_scaling(1.0)
+            .build()
+            .expect("valid backoff policy");
+
+        let subscriber = CacheSubscriber::builder(
+            "projects/p/instances/i/databases/d".to_string(),
+            spanner,
+            Arc::clone(&cache_updater),
+        )
+        .with_backoff_policy(fast_backoff)
+        .start();
+
+        attempt_receiver
+            .recv()
+            .await
+            .expect("first connection attempt should arrive");
+        attempt_receiver.recv().await.expect(
+            "second connection attempt should arrive after mid-stream resource exhausted error",
+        );
 
         subscriber.wait_for_shutdown().await;
     }

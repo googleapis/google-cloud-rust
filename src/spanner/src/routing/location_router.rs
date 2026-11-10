@@ -63,6 +63,7 @@ pub(crate) struct ResolvedRoute {
 
 /// Parameters used to construct a [`RoutingHint`].
 struct RoutingHintParams<'a> {
+    routing_key: Option<&'a [u8]>,
     database_id: u64,
     schema_generation: Option<Bytes>,
     operation_uid: u64,
@@ -380,6 +381,7 @@ impl LocationRouter {
         // Step 4: Construct RoutingHint in the exact same pass if database_id is active.
         let routing_hint = self.build_routing_hint(
             RoutingHintParams {
+                routing_key: context.routing_key,
                 database_id,
                 schema_generation,
                 operation_uid,
@@ -796,7 +798,14 @@ impl LocationRouter {
             .collect()
     }
 
-    /// Constructs a [`RoutingHint`] if `database_id != 0` and a covering range exists.
+    /// Constructs a [`RoutingHint`] if `database_id != 0` and either a covering range exists or a non-empty routing key is present.
+    ///
+    /// When a covering range is found in [`KeyRangeCache`] (cache hit), the routing hint is populated with
+    /// the covering range's keys, `group_uid`, `split_id`, and selected or skipped tablet UIDs.
+    ///
+    /// When no covering range is found (cache miss), the routing hint retains the original `routing_key`,
+    /// `database_id`, and `operation_uid` with zeroed `group_uid`, `split_id`, and `tablet_uid`, cueing the
+    /// Spanner server to return matching splits in its response [`CacheUpdate`].
     fn build_routing_hint(
         &self,
         params: RoutingHintParams<'_>,
@@ -806,21 +815,31 @@ impl LocationRouter {
         if params.database_id == 0 {
             return None;
         }
-        let (range, group) = range_and_group?;
-        let selected_uid = selected_tablet.map(|tablet| tablet.tablet_uid);
-        let tablet_uid = selected_uid.unwrap_or(0);
-        let skipped_tablet_uid =
-            self.collect_skipped_tablets(group, selected_uid, params.directed_read_options);
+
+        let routing_key = params.routing_key.filter(|key| !key.is_empty());
+        if range_and_group.is_none() && routing_key.is_none() {
+            return None;
+        }
 
         let mut hint = RoutingHint::new()
             .set_operation_uid(params.operation_uid)
-            .set_database_id(params.database_id)
-            .set_key(range.start_key.clone())
-            .set_limit_key(range.limit_key.clone())
-            .set_group_uid(range.group_uid)
-            .set_split_id(range.split_id)
-            .set_tablet_uid(tablet_uid)
-            .set_skipped_tablet_uid(skipped_tablet_uid);
+            .set_database_id(params.database_id);
+
+        if let Some((range, group)) = range_and_group {
+            let selected_uid = selected_tablet.map(|tablet| tablet.tablet_uid);
+            let tablet_uid = selected_uid.unwrap_or(0);
+            let skipped_tablet_uid =
+                self.collect_skipped_tablets(group, selected_uid, params.directed_read_options);
+            hint = hint
+                .set_key(range.start_key.clone())
+                .set_limit_key(range.limit_key.clone())
+                .set_group_uid(range.group_uid)
+                .set_split_id(range.split_id)
+                .set_tablet_uid(tablet_uid)
+                .set_skipped_tablet_uid(skipped_tablet_uid);
+        } else if let Some(key) = routing_key {
+            hint = hint.set_key(Bytes::copy_from_slice(key));
+        }
 
         if let Some(schema_generation) = params.schema_generation {
             hint = hint.set_schema_generation(schema_generation);
@@ -949,7 +968,6 @@ impl LocationRouter {
     /// Returns `None` if:
     /// - `database_id` is 0 (uninitialized or unknown server epoch).
     /// - `context.routing_key` is `None` or empty.
-    /// - No covering range is found in [`KeyRangeCache`].
     pub(crate) fn create_routing_hint(
         &self,
         context: &RoutingContext<'_>,
@@ -1710,11 +1728,96 @@ mod tests {
             "create_routing_hint must return None when routing_key is empty"
         );
 
-        // cache miss -> None
-        let hint = router.create_routing_hint(&context, 100, None, 1, None);
+        // cache miss -> retains routing key with zeroed split/group/tablet fields
+        let hint = router
+            .create_routing_hint(&context, 100, None, 1, None)
+            .expect("create_routing_hint must retain routing hint on cache miss");
+        assert_eq!(
+            hint.operation_uid, 1,
+            "operation_uid must match requested operation_uid"
+        );
+        assert_eq!(
+            hint.database_id, 100,
+            "database_id must match requested database_id"
+        );
+        assert_eq!(
+            hint.key.as_ref(),
+            key.as_slice(),
+            "routing hint key must retain the requested key on cache miss"
+        );
         assert!(
-            hint.is_none(),
-            "create_routing_hint must return None on key range cache miss"
+            hint.limit_key.is_empty(),
+            "limit_key must be empty on cache miss"
+        );
+        assert_eq!(hint.group_uid, 0, "group_uid must be 0 on cache miss");
+        assert_eq!(hint.split_id, 0, "split_id must be 0 on cache miss");
+        assert_eq!(hint.tablet_uid, 0, "tablet_uid must be 0 on cache miss");
+        assert!(
+            hint.skipped_tablet_uid.is_empty(),
+            "skipped_tablet_uid must be empty on cache miss"
+        );
+    }
+
+    #[test]
+    fn routing_hint_retained_on_cache_miss() {
+        let router = make_test_router();
+        let key = vec![0x10, 0x20, 0x30];
+        let context = RoutingContext {
+            transaction_id: None,
+            routing_key: Some(&key),
+            prefer_leader: false,
+            use_transaction_affinity: false,
+        };
+
+        let route = router.resolve_route(
+            &context,
+            None,
+            42,
+            Some(Bytes::from_static(b"gen-1")),
+            1001,
+            Some("us-central1"),
+        );
+
+        assert!(
+            route.connection.is_default(),
+            "connection must fall back to default gateway on cache miss"
+        );
+
+        let hint = route
+            .routing_hint
+            .expect("routing hint must be present on cache miss when database_id and key exist");
+        assert_eq!(
+            hint.operation_uid, 1001,
+            "operation_uid must match requested value"
+        );
+        assert_eq!(
+            hint.database_id, 42,
+            "database_id must match requested database_id"
+        );
+        assert_eq!(
+            hint.key.as_ref(),
+            key.as_slice(),
+            "routing hint key must retain the requested key on cache miss"
+        );
+        assert!(
+            hint.limit_key.is_empty(),
+            "limit_key must be empty on cache miss"
+        );
+        assert_eq!(hint.group_uid, 0, "group_uid must be 0 on cache miss");
+        assert_eq!(hint.split_id, 0, "split_id must be 0 on cache miss");
+        assert_eq!(hint.tablet_uid, 0, "tablet_uid must be 0 on cache miss");
+        assert!(
+            hint.skipped_tablet_uid.is_empty(),
+            "skipped_tablet_uid must be empty on cache miss"
+        );
+        assert_eq!(
+            hint.schema_generation,
+            Bytes::from_static(b"gen-1"),
+            "schema_generation must be preserved on cache miss"
+        );
+        assert_eq!(
+            hint.client_location, "us-central1",
+            "client_location must be preserved on cache miss"
         );
     }
 

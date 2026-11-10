@@ -56,7 +56,7 @@ use tokio::sync::futures::OwnedNotified;
 /// # Ok(())
 /// # }
 /// ```
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct SingleUseReadOnlyTransactionBuilder {
     client: DatabaseClient,
     timestamp_bound: Option<TimestampBound>,
@@ -253,7 +253,7 @@ pub enum BeginTransactionOption {
 /// # Ok(())
 /// # }
 /// ```
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct MultiUseReadOnlyTransactionBuilder {
     client: DatabaseClient,
     timestamp_bound: Option<TimestampBound>,
@@ -532,7 +532,7 @@ impl MultiUseReadOnlyTransactionBuilder {
 /// # Ok(())
 /// # }
 /// ```
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct MultiUseReadOnlyTransaction {
     pub(crate) context: ReadContext,
 }
@@ -1334,13 +1334,45 @@ pub(crate) fn merge_request_options(
     if let Some(backoff) = source.backoff_policy() {
         destination.set_backoff_policy(backoff.clone());
     }
-    if let Some(source_headers) = source.get_extension::<HeaderMap>() {
-        let destination_headers = destination.get_extension_or_default_mut::<HeaderMap>();
-        for (name, value) in source_headers.iter() {
-            destination_headers.insert(name.clone(), value.clone());
+    merge_request_headers(destination, source)
+}
+
+fn merge_request_headers(
+    mut destination: GaxRequestOptions,
+    source: &GaxRequestOptions,
+) -> GaxRequestOptions {
+    let Some(source_headers) = source
+        .get_extension::<HeaderMap>()
+        .filter(|headers| !headers.is_empty())
+    else {
+        return destination;
+    };
+
+    let Some(destination_headers) = destination.get_extension_mut::<HeaderMap>() else {
+        return destination.insert_extension(source_headers.clone());
+    };
+
+    merge_headers(destination_headers, source_headers);
+    destination
+}
+
+fn merge_headers(destination_headers: &mut HeaderMap, source_headers: &HeaderMap) {
+    if destination_headers.is_empty() {
+        *destination_headers = source_headers.clone();
+        return;
+    }
+
+    destination_headers.reserve(source_headers.len());
+    for name in source_headers.keys() {
+        let mut values = source_headers.get_all(name).iter();
+        let Some(first_value) = values.next() else {
+            continue;
+        };
+        destination_headers.insert(name.clone(), first_value.clone());
+        for additional_value in values {
+            destination_headers.append(name.clone(), additional_value.clone());
         }
     }
-    destination
 }
 
 /// Helper macro to execute a streaming SQL or streaming read RPC with lazy transaction start tracking.
@@ -1502,11 +1534,11 @@ pub(crate) mod tests {
     #[test]
     fn auto_traits() {
         use std::fmt::Debug;
-        static_assertions::assert_impl_all!(SingleUseReadOnlyTransactionBuilder: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(SingleUseReadOnlyTransactionBuilder: Debug, Send, Sync, Clone);
         static_assertions::assert_impl_all!(SingleUseReadOnlyTransaction: Debug, Send, Sync);
-        static_assertions::assert_impl_all!(MultiUseReadOnlyTransactionBuilder: Debug, Send, Sync);
-        static_assertions::assert_impl_all!(MultiUseReadOnlyTransaction: Debug, Send, Sync);
-        static_assertions::assert_impl_all!(ReadContext: Debug, Send, Sync);
+        static_assertions::assert_impl_all!(MultiUseReadOnlyTransactionBuilder: Debug, Send, Sync, Clone);
+        static_assertions::assert_impl_all!(MultiUseReadOnlyTransaction: Debug, Send, Sync, Clone);
+        static_assertions::assert_impl_all!(ReadContext: Debug, Send, Sync, Clone);
         static_assertions::assert_impl_all!(
             BeginTransactionOption: Send,
             Sync,
@@ -1517,6 +1549,72 @@ pub(crate) mod tests {
             PartialEq,
             Eq
         );
+    }
+
+    #[tokio_test_no_panics]
+    async fn single_use_builder_clone() {
+        let mock = create_session_mock();
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        let builder = database_client
+            .single_use()
+            .set_timestamp_bound(TimestampBound::strong());
+        let cloned_builder = builder.clone();
+        assert!(
+            cloned_builder.timestamp_bound.is_some(),
+            "cloned builder should retain timestamp bound"
+        );
+
+        let transaction = cloned_builder.build();
+        assert_eq!(
+            transaction.context.session_name, "projects/p/instances/i/databases/d/sessions/123",
+            "transaction built from cloned builder should retain session name"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn multi_use_transaction_and_builder_clone() {
+        let mock = create_session_mock();
+        let (database_client, _server) = setup_db_client(mock).await;
+
+        let builder = database_client
+            .read_only_transaction()
+            .set_timestamp_bound(TimestampBound::strong())
+            .set_begin_transaction_option(BeginTransactionOption::InlineBegin);
+        let cloned_builder = builder.clone();
+        assert!(
+            cloned_builder.timestamp_bound.is_some(),
+            "cloned builder should retain timestamp bound"
+        );
+        assert_eq!(
+            cloned_builder.begin_transaction_option,
+            BeginTransactionOption::InlineBegin,
+            "cloned builder should retain begin transaction option"
+        );
+
+        let transaction = builder
+            .build()
+            .await
+            .expect("failed to build multi-use transaction");
+        let cloned_transaction = transaction.clone();
+        assert_eq!(
+            cloned_transaction.context.session_name, transaction.context.session_name,
+            "cloned transaction should retain session name"
+        );
+        if let (
+            ReadContextTransactionSelector::Lazy(original_state),
+            ReadContextTransactionSelector::Lazy(cloned_state),
+        ) = (
+            &transaction.context.transaction_selector,
+            &cloned_transaction.context.transaction_selector,
+        ) {
+            assert!(
+                Arc::ptr_eq(original_state, cloned_state),
+                "cloned transaction must share the same underlying transaction state Arc"
+            );
+        } else {
+            panic!("expected Lazy transaction selector variant");
+        }
     }
 
     pub(crate) fn create_session_mock() -> MockSpanner {
@@ -4140,6 +4238,153 @@ pub(crate) mod tests {
                 .to_str()
                 .expect("valid ascii"),
             "true"
+        );
+    }
+
+    #[test]
+    fn merge_request_options_copies_source_headers_when_destination_has_no_headers() {
+        let destination = RequestOptions::default();
+        let mut source = RequestOptions::default();
+        let mut source_headers = HeaderMap::new();
+        source_headers.insert(
+            HeaderName::from_static("x-custom-header"),
+            HeaderValue::from_static("custom-value"),
+        );
+        source = source.insert_extension(source_headers);
+
+        let merged = merge_request_options(destination, Some(&source));
+        let merged_headers = merged
+            .get_extension::<HeaderMap>()
+            .expect("merged HeaderMap should be present");
+        assert_eq!(
+            merged_headers.get("x-custom-header"),
+            Some(&HeaderValue::from_static("custom-value")),
+            "custom header must be copied to empty destination options"
+        );
+    }
+
+    #[test]
+    fn merge_request_options_destination_empty_map_clones_bulk() {
+        let mut destination = RequestOptions::default();
+        destination = destination.insert_extension(HeaderMap::new());
+
+        let mut source = RequestOptions::default();
+        let mut source_headers = HeaderMap::new();
+        source_headers.insert(
+            HeaderName::from_static("x-custom-header"),
+            HeaderValue::from_static("custom-value"),
+        );
+        source = source.insert_extension(source_headers);
+
+        let merged = merge_request_options(destination, Some(&source));
+        let merged_headers = merged
+            .get_extension::<HeaderMap>()
+            .expect("merged HeaderMap should be present");
+        assert_eq!(
+            merged_headers.get("x-custom-header"),
+            Some(&HeaderValue::from_static("custom-value")),
+            "source headers should be cloned into empty destination map"
+        );
+    }
+
+    #[test]
+    fn merge_request_options_empty_source_headers_does_not_insert_extension() {
+        let destination = RequestOptions::default();
+        let mut source = RequestOptions::default();
+        let empty_headers = HeaderMap::new();
+        source = source.insert_extension(empty_headers);
+
+        let merged = merge_request_options(destination, Some(&source));
+        assert!(
+            merged.get_extension::<HeaderMap>().is_none(),
+            "empty source headers must not insert a redundant HeaderMap extension"
+        );
+    }
+
+    #[test]
+    fn merge_request_options_multi_valued_headers_preserved_consistently() {
+        let multi_header = HeaderName::from_static("x-multi-value");
+        let first_value = HeaderValue::from_static("first-value");
+        let second_value = HeaderValue::from_static("second-value");
+
+        let mut source_headers = HeaderMap::new();
+        source_headers.append(multi_header.clone(), first_value.clone());
+        source_headers.append(multi_header.clone(), second_value.clone());
+        let source = RequestOptions::default().insert_extension(source_headers);
+
+        // Case A: Destination has no initial headers.
+        let destination_empty = RequestOptions::default();
+        let merged_a = merge_request_options(destination_empty, Some(&source));
+        let headers_a = merged_a
+            .get_extension::<HeaderMap>()
+            .expect("headers should be present");
+        let values_a: Vec<_> = headers_a.get_all(&multi_header).iter().collect();
+        assert_eq!(
+            values_a,
+            vec![&first_value, &second_value],
+            "multi-valued headers must be preserved when destination was empty"
+        );
+
+        // Case B: Destination already has existing headers and an older value for the same key.
+        let mut destination_headers = HeaderMap::new();
+        destination_headers.insert(
+            HeaderName::from_static("x-existing-header"),
+            HeaderValue::from_static("existing-value"),
+        );
+        destination_headers.insert(
+            multi_header.clone(),
+            HeaderValue::from_static("old-stale-value"),
+        );
+        let destination_with_headers =
+            RequestOptions::default().insert_extension(destination_headers);
+
+        let merged_b = merge_request_options(destination_with_headers, Some(&source));
+        let headers_b = merged_b
+            .get_extension::<HeaderMap>()
+            .expect("headers should be present");
+        let values_b: Vec<_> = headers_b.get_all(&multi_header).iter().collect();
+        assert_eq!(
+            values_b,
+            vec![&first_value, &second_value],
+            "multi-valued headers must replace existing key values and preserve all items"
+        );
+        assert_eq!(
+            headers_b.get("x-existing-header"),
+            Some(&HeaderValue::from_static("existing-value")),
+            "existing headers on destination must be preserved"
+        );
+    }
+
+    #[test]
+    fn merge_request_options_multi_valued_destination_replaced_by_single_valued_source() {
+        let multi_header = HeaderName::from_static("x-replaced-header");
+        let mut destination_headers = HeaderMap::new();
+        destination_headers.append(
+            multi_header.clone(),
+            HeaderValue::from_static("initial-val-1"),
+        );
+        destination_headers.append(
+            multi_header.clone(),
+            HeaderValue::from_static("initial-val-2"),
+        );
+        let destination = RequestOptions::default().insert_extension(destination_headers);
+
+        let mut source_headers = HeaderMap::new();
+        source_headers.insert(
+            multi_header.clone(),
+            HeaderValue::from_static("replacement-val"),
+        );
+        let source = RequestOptions::default().insert_extension(source_headers);
+
+        let merged = merge_request_options(destination, Some(&source));
+        let merged_headers = merged
+            .get_extension::<HeaderMap>()
+            .expect("merged HeaderMap should be present");
+        let values: Vec<_> = merged_headers.get_all(&multi_header).iter().collect();
+        assert_eq!(
+            values,
+            vec![&HeaderValue::from_static("replacement-val")],
+            "all prior multi-values on destination must be replaced by single source value"
         );
     }
 

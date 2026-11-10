@@ -47,11 +47,13 @@ use google_cloud_spanner_admin_database_v1::builder::database_admin::ClientBuild
 use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ClientBuilder as InstanceAdminBuilder;
 use http::{
     HeaderMap,
-    header::{HeaderName, HeaderValue},
+    header::{Entry, HeaderName, HeaderValue},
 };
+use std::borrow::Cow;
 use std::env;
 use std::sync::Arc;
 use tokio::task::JoinSet;
+use url::Url;
 
 pub use crate::database_client::DatabaseClient;
 #[cfg(feature = "_internal-metrics")]
@@ -383,51 +385,65 @@ impl SpannerBuilderExt for ClientBuilder {
     }
 }
 
-fn parse_emulator_endpoint(endpoint: &str) -> String {
-    match url::Url::parse(endpoint) {
-        Ok(url) if url.has_host() => endpoint.to_string(),
-        _ => format!("http://{}", endpoint),
+fn parse_emulator_endpoint(endpoint: &str) -> Cow<'_, str> {
+    let endpoint =
+        endpoint.trim_matches(|character: char| character.is_whitespace() || character == '/');
+    if endpoint.is_empty() {
+        return Cow::Borrowed("");
+    }
+    if Url::parse(endpoint).is_ok_and(|url| url.has_host()) {
+        return Cow::Borrowed(endpoint);
+    }
+    Cow::Owned(format!("http://{endpoint}"))
+}
+
+fn trim_configured_endpoint(config: &mut ClientConfig) {
+    let Some(endpoint) = config.endpoint.as_mut() else {
+        return;
+    };
+    let trimmed =
+        endpoint.trim_matches(|character: char| character.is_whitespace() || character == '/');
+    if trimmed.len() == endpoint.len() {
+        return;
+    }
+    if endpoint.starts_with(trimmed) {
+        endpoint.truncate(trimmed.len());
+    } else {
+        *endpoint = trimmed.to_string();
     }
 }
 
 fn detect_and_configure_emulator(config: &mut ClientConfig) -> bool {
     let Ok(endpoint) = env::var("SPANNER_EMULATOR_HOST") else {
+        trim_configured_endpoint(config);
         return false;
     };
     detect_and_configure_emulator_from_host(config, &endpoint)
 }
 
 fn detect_and_configure_emulator_from_host(config: &mut ClientConfig, emulator_host: &str) -> bool {
-    if emulator_host.is_empty() {
+    trim_configured_endpoint(config);
+
+    let emulator_endpoint = parse_emulator_endpoint(emulator_host);
+    if emulator_endpoint.is_empty() {
         return false;
     }
 
-    let emulator_endpoint = parse_emulator_endpoint(emulator_host);
-    let is_emulator = match config.endpoint.as_deref() {
-        // If no endpoint was explicitly set on the client config, adopt the emulator host.
-        None => {
-            config.endpoint = Some(emulator_endpoint);
-            true
+    if let Some(configured_endpoint) = config.endpoint.as_deref() {
+        if parse_emulator_endpoint(configured_endpoint) != emulator_endpoint {
+            return false;
         }
-        // If an explicit endpoint was specified, only treat the client as connecting to the
-        // emulator if that endpoint actually points to the emulator host (either raw or parsed URL).
-        Some(configured_endpoint)
-            if configured_endpoint == emulator_host || configured_endpoint == emulator_endpoint =>
-        {
-            true
-        }
-        // An explicit endpoint pointing to another host (e.g. a mock server, Omni, or Cloud Spanner)
-        // is not considered an emulator connection.
-        Some(_) => false,
-    };
+    } else {
+        config.endpoint = Some(emulator_endpoint.into_owned());
+    }
 
     // The emulator does not require authentication; default to anonymous credentials
     // if none were provided.
-    if is_emulator && config.cred.is_none() {
+    if config.cred.is_none() {
         config.cred = Some(anonymous::Builder::new().build());
     }
 
-    is_emulator
+    true
 }
 
 fn resolve_pool_config(
@@ -607,6 +623,13 @@ fn apply_request_defaults(mut options: crate::RequestOptions) -> crate::RequestO
     options
 }
 
+/// Default capacity allocated for HTTP request headers across Cloud Spanner RPCs.
+///
+/// Accommodates `google-cloud-resource-prefix`, `x-goog-spanner-route-to-leader`,
+/// `x-goog-spanner-request-id`, and potential caller-specified custom headers without
+/// triggering internal hash table reallocations.
+pub(crate) const DEFAULT_REQUEST_HEADERS_CAPACITY: usize = 4;
+
 static ROUTE_TO_LEADER_HEADER: HeaderName =
     HeaderName::from_static("x-goog-spanner-route-to-leader");
 static ROUTE_TO_LEADER_VALUE: HeaderValue = HeaderValue::from_static("true");
@@ -615,21 +638,43 @@ pub(crate) fn amend_request_options_for_lar(
     leader_aware_routing_enabled: bool,
     mut options: GaxRequestOptions,
 ) -> GaxRequestOptions {
-    if leader_aware_routing_enabled {
-        options.get_extension_or_default_mut::<HeaderMap>().insert(
-            ROUTE_TO_LEADER_HEADER.clone(),
-            ROUTE_TO_LEADER_VALUE.clone(),
-        );
+    if !leader_aware_routing_enabled {
+        return options;
     }
-    options
+
+    if let Some(headers) = options.get_extension_mut::<HeaderMap>() {
+        match headers.entry(&ROUTE_TO_LEADER_HEADER) {
+            Entry::Vacant(entry) => {
+                entry.insert(ROUTE_TO_LEADER_VALUE.clone());
+            }
+            Entry::Occupied(mut entry) => {
+                if entry.get() != ROUTE_TO_LEADER_VALUE || entry.iter().nth(1).is_some() {
+                    entry.insert(ROUTE_TO_LEADER_VALUE.clone());
+                }
+            }
+        }
+        return options;
+    }
+
+    let mut headers = HeaderMap::with_capacity(DEFAULT_REQUEST_HEADERS_CAPACITY);
+    headers.insert(
+        ROUTE_TO_LEADER_HEADER.clone(),
+        ROUTE_TO_LEADER_VALUE.clone(),
+    );
+    options.insert_extension(headers)
 }
 
-fn map_emulator_admin_endpoint(endpoint: &str, is_emulator: bool) -> String {
-    let mut ep = endpoint.trim_end_matches('/').to_string();
-    if is_emulator && ep.ends_with(":9010") {
-        ep = ep.replace(":9010", ":9020");
+fn map_emulator_admin_endpoint(endpoint: &str, is_emulator: bool) -> Cow<'_, str> {
+    if !is_emulator {
+        return Cow::Borrowed(
+            endpoint.trim_matches(|character: char| character.is_whitespace() || character == '/'),
+        );
     }
-    ep
+    let parsed = parse_emulator_endpoint(endpoint);
+    if let Some(prefix) = parsed.strip_suffix(":9010") {
+        return Cow::Owned(format!("{prefix}:9020"));
+    }
+    parsed
 }
 
 impl Spanner {
@@ -837,22 +882,27 @@ impl Spanner {
         mut options: RequestOptions,
         channel_id: usize,
     ) -> RequestOptions {
-        if options
-            .get_extension::<HeaderMap>()
-            .is_some_and(|headers| headers.contains_key(&REQUEST_ID_HEADER))
-        {
+        let generate_header_value = || {
+            let header_value_string = self.request_id_creator.next_id_prefix(channel_id);
+            HeaderValue::try_from(header_value_string).ok()
+        };
+
+        if let Some(headers) = options.get_extension_mut::<HeaderMap>() {
+            if let Entry::Vacant(entry) = headers.entry(&REQUEST_ID_HEADER)
+                && let Some(header_value) = generate_header_value()
+            {
+                entry.insert(header_value);
+            }
             return options;
         }
 
-        let header_val_str = self.request_id_creator.next_id_prefix(channel_id);
-        let Ok(val) = HeaderValue::from_str(&header_val_str) else {
+        let Some(header_value) = generate_header_value() else {
             return options;
         };
 
-        options
-            .get_extension_or_default_mut::<HeaderMap>()
-            .insert(REQUEST_ID_HEADER.clone(), val);
-        options
+        let mut headers = HeaderMap::with_capacity(DEFAULT_REQUEST_HEADERS_CAPACITY);
+        headers.insert(REQUEST_ID_HEADER.clone(), header_value);
+        options.insert_extension(headers)
     }
 
     define_idempotent_rpc!(
@@ -1106,6 +1156,12 @@ mod tests {
         assert_eq!(
             map_emulator_admin_endpoint("http://localhost:9010", false),
             "http://localhost:9010"
+        );
+
+        // 5. Test emulator endpoint with whitespace (should be trimmed and mapped)
+        assert_eq!(
+            map_emulator_admin_endpoint("  http://127.0.0.1:9010/  ", true),
+            "http://127.0.0.1:9020"
         );
     }
 
@@ -2042,6 +2098,126 @@ mod tests {
         Ok(())
     }
 
+    #[tokio_test_no_panics]
+    async fn default_retry_policy_unary_rpc() -> anyhow::Result<()> {
+        let mut mock = MockSpanner::new();
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let mut sequence = mockall::Sequence::new();
+
+        // 1. Unrelated INTERNAL error fails immediately and is not retried.
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Err(Status::new(
+                    GrpcCode::Internal,
+                    "Corrupted database page encountered on disk",
+                ))
+            });
+
+        // 2. Transient INTERNAL RST_STREAM error on first attempt is retried.
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Err(Status::new(
+                    GrpcCode::Internal,
+                    "stream terminated by RST_STREAM",
+                ))
+            });
+
+        // 3. Retried ExecuteSql unary call succeeds via default SpannerRetryPolicy.
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(mock_v1::ResultSet {
+                    metadata: Some(mock_v1::ResultSetMetadata {
+                        transaction: Some(mock_v1::Transaction {
+                            id: vec![42],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: Some(mock_v1::ResultSetStats {
+                        row_count: Some(mock_v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit().once().returning(|_| {
+            Ok(Response::new(mock_v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1234,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database = client
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await?;
+
+        // Case 1: Unrelated internal error fails immediately without retry.
+        let runner_unrelated = database.read_write_transaction().build();
+        let error = runner_unrelated
+            .run(async |transaction| {
+                let count = transaction.execute_update("UPDATE t SET c = 1").await?;
+                Ok(count)
+            })
+            .await
+            .expect_err("expected unary RPC to fail immediately on unrelated internal error");
+        assert!(
+            error.to_string().contains("Corrupted database page"),
+            "error should preserve original message: {error}"
+        );
+
+        // Case 2: Transient RST_STREAM error is retried via default retry policy and succeeds.
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .once()
+            .returning(|_| Duration::from_nanos(1));
+
+        let statement = Statement::builder("UPDATE t SET c = 1")
+            .with_backoff_policy(mock_backoff)
+            .build();
+        let runner_retry = database.read_write_transaction().build();
+        let result = runner_retry
+            .run(async |transaction| {
+                let count = transaction.execute_update(statement.clone()).await?;
+                Ok(count)
+            })
+            .await?;
+
+        assert_eq!(
+            result.result, 1,
+            "expected update count of 1 after retrying transient internal error"
+        );
+
+        Ok(())
+    }
+
     fn parse_timeout(metadata: &MetadataMap) -> u64 {
         let timeout = metadata
             .get("grpc-timeout")
@@ -2112,8 +2288,8 @@ mod tests {
             .returning(|req| {
                 let timeout_val = parse_timeout(req.metadata());
                 assert!(
-                    timeout_val <= 100000,
-                    "Expected timeout to be <= 100ms, got {}",
+                    timeout_val <= 10_000_000,
+                    "Expected timeout to be <= 10s, got {}",
                     timeout_val
                 );
                 Err(Status::new(GrpcCode::ResourceExhausted, "quota exceeded"))
@@ -2125,8 +2301,8 @@ mod tests {
             .returning(|req| {
                 let timeout_val = parse_timeout(req.metadata());
                 assert!(
-                    timeout_val <= 100000,
-                    "Expected timeout to be <= 100ms, got {}",
+                    timeout_val <= 10_000_000,
+                    "Expected timeout to be <= 10s, got {}",
                     timeout_val
                 );
 
@@ -2159,10 +2335,10 @@ mod tests {
             .build()
             .await?;
 
-        // 3. Setup Transaction Runner with 100ms timeout
+        // 3. Setup Transaction Runner with 10s timeout
         let runner = db
             .read_write_transaction()
-            .with_transaction_timeout(Duration::from_millis(100))
+            .with_transaction_timeout(Duration::from_secs(10))
             .build();
 
         // 4. Run transaction and expect success after retry
@@ -2213,8 +2389,8 @@ mod tests {
             .returning(move |req| {
                 let timeout_val = parse_timeout(req.metadata());
                 assert!(
-                    timeout_val <= 500000,
-                    "Expected timeout to be <= 500ms, got {}",
+                    timeout_val <= 10_000_000,
+                    "Expected timeout to be <= 10s, got {}",
                     timeout_val
                 );
                 prev_clone1.store(timeout_val, Ordering::SeqCst);
@@ -2288,7 +2464,7 @@ mod tests {
 
         let runner = db
             .read_write_transaction()
-            .with_transaction_timeout(Duration::from_millis(500))
+            .with_transaction_timeout(Duration::from_secs(10))
             .build();
 
         let result = runner
@@ -2307,27 +2483,27 @@ mod tests {
     #[test]
     fn test_parse_emulator_endpoint() {
         assert_eq!(
-            super::parse_emulator_endpoint("localhost:9010"),
+            parse_emulator_endpoint("localhost:9010"),
             "http://localhost:9010"
         );
         assert_eq!(
-            super::parse_emulator_endpoint("spanner-emulator:9010"),
+            parse_emulator_endpoint("spanner-emulator:9010"),
             "http://spanner-emulator:9010"
         );
         assert_eq!(
-            super::parse_emulator_endpoint("http://localhost:9010"),
+            parse_emulator_endpoint("http://localhost:9010"),
             "http://localhost:9010"
         );
         assert_eq!(
-            super::parse_emulator_endpoint("https://localhost:9010"),
+            parse_emulator_endpoint("https://localhost:9010"),
             "https://localhost:9010"
         );
         assert_eq!(
-            super::parse_emulator_endpoint("grpc://localhost:9010"),
+            parse_emulator_endpoint("grpc://localhost:9010"),
             "grpc://localhost:9010"
         );
         assert_eq!(
-            super::parse_emulator_endpoint("http_localhost:9010"),
+            parse_emulator_endpoint("http_localhost:9010"),
             "http://http_localhost:9010"
         );
     }
@@ -2423,7 +2599,7 @@ mod tests {
 
         let lease = client.pick_channel();
         let channel = lease.channel();
-        let mut options = crate::RequestOptions::default();
+        let mut options = RequestOptions::default();
         options = client.attach_request_id(options, channel.channel_id);
         let first_headers = options
             .get_extension::<HeaderMap>()
@@ -2452,28 +2628,298 @@ mod tests {
         );
     }
 
+    #[tokio_test_no_panics]
+    async fn attach_request_id_appends_to_existing_headers() {
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let custom_header = HeaderName::from_static("x-custom-header");
+        let custom_value = HeaderValue::from_static("custom-value");
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.insert(custom_header.clone(), custom_value.clone());
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let channel = client.pick_channel();
+        let options = client.attach_request_id(options, channel.channel_id);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+        assert_eq!(
+            headers.get(&custom_header),
+            Some(&custom_value),
+            "custom header must be preserved"
+        );
+        assert!(
+            headers.contains_key(&REQUEST_ID_HEADER),
+            "request ID header must be added alongside existing headers"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn attach_request_id_preserves_custom_request_id_without_generating_new_id() {
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let custom_request_id = HeaderValue::from_static("custom-request-id-value");
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.insert(REQUEST_ID_HEADER.clone(), custom_request_id.clone());
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let channel = client.pick_channel();
+        let options = client.attach_request_id(options, channel.channel_id);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+        assert_eq!(
+            headers.get(&REQUEST_ID_HEADER),
+            Some(&custom_request_id),
+            "custom request ID header must not be overwritten"
+        );
+        assert_eq!(
+            headers.get_all(&REQUEST_ID_HEADER).iter().count(),
+            1,
+            "request ID header must remain singleton"
+        );
+    }
+
     #[test]
     fn amend_request_options_for_lar_idempotent_no_duplicate_headers() {
-        let options = crate::RequestOptions::default();
-        let options = super::amend_request_options_for_lar(true, options);
-        let options = super::amend_request_options_for_lar(true, options);
+        let options = RequestOptions::default();
+        let options = amend_request_options_for_lar(true, options);
+        let options = amend_request_options_for_lar(true, options);
 
         let headers = options
             .get_extension::<HeaderMap>()
             .expect("HeaderMap should be present");
 
         assert_eq!(
-            headers
-                .get_all(&super::ROUTE_TO_LEADER_HEADER)
-                .iter()
-                .count(),
+            headers.get_all(&ROUTE_TO_LEADER_HEADER).iter().count(),
             1,
             "LAR header should only be present once even after multiple amend calls"
         );
         assert_eq!(
-            headers.get(&super::ROUTE_TO_LEADER_HEADER),
-            Some(&super::ROUTE_TO_LEADER_VALUE),
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
             "LAR header should match ROUTE_TO_LEADER_VALUE"
+        );
+    }
+
+    #[test]
+    fn amend_request_options_for_lar_appends_to_existing_headers() {
+        let custom_header = HeaderName::from_static("x-custom-header");
+        let custom_value = HeaderValue::from_static("custom-value");
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.insert(custom_header.clone(), custom_value.clone());
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let options = amend_request_options_for_lar(true, options);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+        assert_eq!(
+            headers.get(&custom_header),
+            Some(&custom_value),
+            "custom header must be preserved"
+        );
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "route-to-leader header must be added alongside existing headers"
+        );
+    }
+
+    #[test]
+    fn amend_request_options_for_lar_disabled_does_not_add_headers() {
+        let options = RequestOptions::default();
+        let options = amend_request_options_for_lar(false, options);
+        assert!(
+            options.get_extension::<HeaderMap>().is_none(),
+            "HeaderMap should not be added when LAR is disabled"
+        );
+    }
+
+    #[test]
+    fn amend_request_options_for_lar_disabled_preserves_existing_headers() {
+        let custom_header = HeaderName::from_static("x-custom-header");
+        let custom_value = HeaderValue::from_static("custom-value");
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.insert(custom_header.clone(), custom_value.clone());
+        initial_headers.insert(
+            REQUEST_ID_HEADER.clone(),
+            HeaderValue::from_static("1.a1b2c3.1.2.3.1"),
+        );
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let options = amend_request_options_for_lar(false, options);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be preserved");
+        assert_eq!(
+            headers.get(&custom_header),
+            Some(&custom_value),
+            "custom header must be preserved"
+        );
+        assert_eq!(
+            headers.get(&REQUEST_ID_HEADER),
+            Some(&HeaderValue::from_static("1.a1b2c3.1.2.3.1")),
+            "request ID header must be preserved"
+        );
+        assert!(
+            headers.get(&ROUTE_TO_LEADER_HEADER).is_none(),
+            "route-to-leader header must not be added when LAR is disabled"
+        );
+    }
+
+    #[test]
+    fn amend_request_options_for_lar_overwrites_conflicting_value() {
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.insert(
+            ROUTE_TO_LEADER_HEADER.clone(),
+            HeaderValue::from_static("false"),
+        );
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let options = amend_request_options_for_lar(true, options);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "conflicting route-to-leader value must be updated to true"
+        );
+        assert_eq!(
+            headers.get_all(&ROUTE_TO_LEADER_HEADER).iter().count(),
+            1,
+            "route-to-leader header must appear exactly once"
+        );
+    }
+
+    #[test]
+    fn amend_request_options_for_lar_collapses_multi_valued_conflicting_headers() {
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.append(
+            ROUTE_TO_LEADER_HEADER.clone(),
+            HeaderValue::from_static("true"),
+        );
+        initial_headers.append(
+            ROUTE_TO_LEADER_HEADER.clone(),
+            HeaderValue::from_static("false"),
+        );
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let options = amend_request_options_for_lar(true, options);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "route-to-leader header must be true"
+        );
+        assert_eq!(
+            headers.get_all(&ROUTE_TO_LEADER_HEADER).iter().count(),
+            1,
+            "multi-valued route-to-leader headers must be collapsed to a single entry"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn attach_headers_chained_composition_with_all_standard_headers() {
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let channel = client.pick_channel();
+        let resource_prefix = HeaderValue::from_static("projects/p/instances/i/databases/d");
+
+        // Chain resource-prefix, route-to-leader, and request-id in sequence.
+        let mut options = RequestOptions::default();
+        options = DatabaseClient::attach_resource_prefix_header(&resource_prefix, options);
+        options = amend_request_options_for_lar(true, options);
+        options = client.attach_request_id(options, channel.channel_id);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+
+        assert_eq!(
+            headers.get("google-cloud-resource-prefix"),
+            Some(&resource_prefix),
+            "resource prefix header must be present"
+        );
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "route-to-leader header must be present"
+        );
+        assert!(
+            headers.contains_key(&REQUEST_ID_HEADER),
+            "request ID header must be present"
+        );
+        assert_eq!(
+            headers.len(),
+            3,
+            "exactly 3 standard headers must be present"
+        );
+
+        // Subsequent calls must be fully idempotent with no duplicate headers.
+        options = DatabaseClient::attach_resource_prefix_header(&resource_prefix, options);
+        options = amend_request_options_for_lar(true, options);
+        options = client.attach_request_id(options, channel.channel_id);
+
+        let final_headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should still be present");
+        assert_eq!(
+            final_headers.len(),
+            3,
+            "duplicate attachment must not introduce new entries"
+        );
+        assert_eq!(
+            final_headers
+                .get_all(&ROUTE_TO_LEADER_HEADER)
+                .iter()
+                .count(),
+            1,
+            "route-to-leader header must remain singleton"
+        );
+        assert_eq!(
+            final_headers.get_all(&REQUEST_ID_HEADER).iter().count(),
+            1,
+            "request ID header must remain singleton"
         );
     }
 
@@ -2735,7 +3181,7 @@ mod tests {
     #[test]
     fn detect_and_configure_emulator_empty_host() {
         let mut config = ClientConfig::default();
-        let is_emulator = super::detect_and_configure_emulator_from_host(&mut config, "");
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "");
         assert!(
             !is_emulator,
             "empty emulator host should not be detected as emulator"
@@ -2747,8 +3193,7 @@ mod tests {
     #[test]
     fn detect_and_configure_emulator_default_endpoint_and_credentials() {
         let mut config = ClientConfig::default();
-        let is_emulator =
-            super::detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
         assert!(is_emulator, "emulator host should be detected as emulator");
         assert_eq!(
             config.endpoint.as_deref(),
@@ -2765,8 +3210,7 @@ mod tests {
     fn detect_and_configure_emulator_distinct_endpoint_not_emulator() {
         let mut config = ClientConfig::default();
         config.endpoint = Some("0.0.0.0:12345".to_string());
-        let is_emulator =
-            super::detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
         assert!(
             !is_emulator,
             "distinct endpoint should not be marked as emulator"
@@ -2786,8 +3230,7 @@ mod tests {
     fn detect_and_configure_emulator_matching_explicit_endpoint() {
         let mut config = ClientConfig::default();
         config.endpoint = Some("localhost:9010".to_string());
-        let is_emulator =
-            super::detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
         assert!(
             is_emulator,
             "matching explicit endpoint should be marked as emulator"
@@ -2800,6 +3243,381 @@ mod tests {
         assert!(
             config.cred.is_some(),
             "anonymous credentials should be configured"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_whitespace_host() {
+        let mut config = ClientConfig::default();
+        let is_emulator =
+            detect_and_configure_emulator_from_host(&mut config, "  localhost:9010  ");
+        assert!(
+            is_emulator,
+            "whitespace-padded emulator host should be detected as emulator"
+        );
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("http://localhost:9010"),
+            "endpoint should be trimmed and populated with emulator URL"
+        );
+        assert!(
+            config.cred.is_some(),
+            "anonymous credentials should be configured"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_whitespace_only_host() {
+        let mut config = ClientConfig::default();
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "   \t\r\n  ");
+        assert!(
+            !is_emulator,
+            "whitespace-only emulator host should not be detected as emulator"
+        );
+        assert!(config.endpoint.is_none(), "endpoint should remain None");
+        assert!(config.cred.is_none(), "credentials should remain None");
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_whitespace_in_explicit_endpoint() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("  localhost:9010  ".to_string());
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        assert!(
+            is_emulator,
+            "explicit endpoint with whitespace should match emulator"
+        );
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("localhost:9010"),
+            "explicit endpoint should be trimmed of whitespace"
+        );
+        assert!(
+            config.cred.is_some(),
+            "anonymous credentials should be configured"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_whitespace_in_both_host_and_explicit_endpoint() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("  http://localhost:9010  ".to_string());
+        let is_emulator =
+            detect_and_configure_emulator_from_host(&mut config, "  localhost:9010  ");
+        assert!(
+            is_emulator,
+            "matching endpoints with whitespace in both should be detected as emulator"
+        );
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("http://localhost:9010"),
+            "explicit endpoint should be trimmed"
+        );
+        assert!(
+            config.cred.is_some(),
+            "anonymous credentials should be configured"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_distinct_endpoint_with_whitespace() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("  0.0.0.0:12345  ".to_string());
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        assert!(
+            !is_emulator,
+            "distinct endpoint should not be marked as emulator"
+        );
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("0.0.0.0:12345"),
+            "distinct endpoint should be trimmed of whitespace"
+        );
+        assert!(
+            config.cred.is_none(),
+            "credentials should not be set for non-emulator endpoint"
+        );
+    }
+
+    #[test]
+    fn parse_emulator_endpoint_table() {
+        let test_cases = [
+            ("localhost:9010", "http://localhost:9010"),
+            ("  localhost:9010  ", "http://localhost:9010"),
+            ("spanner-emulator:9010", "http://spanner-emulator:9010"),
+            ("  spanner-emulator:9010  ", "http://spanner-emulator:9010"),
+            ("http://localhost:9010", "http://localhost:9010"),
+            ("  http://localhost:9010  ", "http://localhost:9010"),
+            ("https://localhost:9010", "https://localhost:9010"),
+            ("  https://localhost:9010  ", "https://localhost:9010"),
+            ("grpc://localhost:9010", "grpc://localhost:9010"),
+            ("  grpc://localhost:9010  ", "grpc://localhost:9010"),
+            ("http_localhost:9010", "http://http_localhost:9010"),
+            ("  http_localhost:9010  ", "http://http_localhost:9010"),
+            ("localhost:9010/", "http://localhost:9010"),
+            ("  localhost:9010/  ", "http://localhost:9010"),
+            ("http://localhost:9010/", "http://localhost:9010"),
+            ("  http://localhost:9010/  ", "http://localhost:9010"),
+            ("https://localhost:9010/", "https://localhost:9010"),
+            ("  https://localhost:9010/  ", "https://localhost:9010"),
+            ("", ""),
+            ("   ", ""),
+            ("/", ""),
+            ("  ///  ", ""),
+            ("data:text/plain", "http://data:text/plain"),
+            ("mailto:user@example.com", "http://mailto:user@example.com"),
+        ];
+
+        for (input, expected) in test_cases {
+            assert_eq!(
+                parse_emulator_endpoint(input),
+                expected,
+                "mismatch for endpoint input '{input}'"
+            );
+        }
+    }
+
+    #[test]
+    fn trim_configured_endpoint_cases() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("  https://spanner.googleapis.com/  ".to_string());
+        trim_configured_endpoint(&mut config);
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("https://spanner.googleapis.com"),
+            "configured endpoint should be trimmed in place of whitespace and trailing slash"
+        );
+
+        let mut config_none = ClientConfig::default();
+        trim_configured_endpoint(&mut config_none);
+        assert!(
+            config_none.endpoint.is_none(),
+            "none endpoint should remain none"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_asymmetric_schemes() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("localhost:9010".to_string());
+        let is_emulator =
+            detect_and_configure_emulator_from_host(&mut config, "http://localhost:9010");
+        assert!(
+            is_emulator,
+            "raw endpoint should match emulator host with scheme"
+        );
+
+        let mut config_with_slash_and_scheme = ClientConfig::default();
+        config_with_slash_and_scheme.endpoint = Some("http://localhost:9010/".to_string());
+        let is_emulator_with_scheme = detect_and_configure_emulator_from_host(
+            &mut config_with_slash_and_scheme,
+            "localhost:9010",
+        );
+        assert!(
+            is_emulator_with_scheme,
+            "endpoint with trailing slash and scheme should match raw emulator host"
+        );
+        assert_eq!(
+            config_with_slash_and_scheme.endpoint.as_deref(),
+            Some("http://localhost:9010"),
+            "configured endpoint trailing slash should be trimmed in place"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_trailing_slash_in_host() {
+        let mut config = ClientConfig::default();
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "localhost:9010/");
+        assert!(
+            is_emulator,
+            "emulator host with trailing slash should be recognized"
+        );
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("http://localhost:9010"),
+            "endpoint should be populated without trailing slash"
+        );
+        assert!(
+            config.cred.is_some(),
+            "anonymous credentials should be configured"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_slash_only_host() {
+        let slash_hosts = ["/", "///", "   /   ", "   ///   "];
+        for slash_host in slash_hosts {
+            let mut config = ClientConfig::default();
+            let is_emulator = detect_and_configure_emulator_from_host(&mut config, slash_host);
+            assert!(
+                !is_emulator,
+                "slash-only emulator host '{slash_host}' should not be detected as emulator"
+            );
+            assert!(
+                config.endpoint.is_none(),
+                "endpoint should remain None for slash-only host '{slash_host}'"
+            );
+            assert!(
+                config.cred.is_none(),
+                "credentials should remain None for slash-only host '{slash_host}'"
+            );
+        }
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_whitespace_only_explicit_endpoint() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("   ".to_string());
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        assert!(
+            !is_emulator,
+            "whitespace-only endpoint should not match emulator"
+        );
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some(""),
+            "whitespace-only endpoint should be trimmed in place"
+        );
+        assert!(
+            config.cred.is_none(),
+            "credentials should remain none for non-matching endpoint"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_preserves_explicit_credentials() {
+        let mut config = ClientConfig::default();
+        config.cred = Some(Anonymous::new().build());
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        assert!(is_emulator, "emulator should be detected");
+        assert!(
+            config.cred.is_some(),
+            "explicit credentials should be preserved"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_unset_env_trims_endpoint() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("  https://spanner.googleapis.com/  ".to_string());
+        let _ = detect_and_configure_emulator(&mut config);
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("https://spanner.googleapis.com"),
+            "configured endpoint should be trimmed of whitespace and trailing slash"
+        );
+    }
+
+    #[test]
+    fn trim_configured_endpoint_already_trimmed() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("https://spanner.googleapis.com".to_string());
+        trim_configured_endpoint(&mut config);
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("https://spanner.googleapis.com"),
+            "already trimmed endpoint should remain unchanged"
+        );
+    }
+
+    #[test]
+    fn map_emulator_admin_endpoint_edge_cases() {
+        assert_eq!(
+            map_emulator_admin_endpoint("  https://spanner.googleapis.com/  ", false),
+            "https://spanner.googleapis.com",
+            "whitespace and trailing slash should be trimmed when is_emulator is false"
+        );
+        assert_eq!(
+            map_emulator_admin_endpoint("  http://127.0.0.1:8080/  ", true),
+            "http://127.0.0.1:8080",
+            "non-9010 port should not be rewritten even with is_emulator true"
+        );
+        assert_eq!(
+            map_emulator_admin_endpoint("", false),
+            "",
+            "empty string should remain empty"
+        );
+        assert_eq!(
+            map_emulator_admin_endpoint("   ", false),
+            "",
+            "whitespace-only string should remain empty"
+        );
+        assert_eq!(
+            map_emulator_admin_endpoint("", true),
+            "",
+            "empty string should remain empty when is_emulator is true"
+        );
+        assert_eq!(
+            map_emulator_admin_endpoint("   ", true),
+            "",
+            "whitespace-only string should remain empty when is_emulator is true"
+        );
+        assert_eq!(
+            map_emulator_admin_endpoint("http://[2001:db8::9010]:9010", true),
+            "http://[2001:db8::9010]:9020",
+            "ipv6 address containing 9010 in host should not have host portion rewritten"
+        );
+    }
+
+    #[test]
+    fn map_emulator_admin_endpoint_schemeless_input() {
+        assert_eq!(
+            map_emulator_admin_endpoint("localhost:9010", true),
+            "http://localhost:9020",
+            "schemeless emulator endpoint should be mapped to http:// URI for REST admin client"
+        );
+    }
+
+    #[test]
+    fn trim_configured_endpoint_whitespace_preceding_slash() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("http://localhost:9010 /".to_string());
+        trim_configured_endpoint(&mut config);
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("http://localhost:9010"),
+            "trailing whitespace preceding slash should be trimmed"
+        );
+    }
+
+    #[test]
+    fn trim_configured_endpoint_trailing_only() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("https://spanner.googleapis.com/".to_string());
+        trim_configured_endpoint(&mut config);
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some("https://spanner.googleapis.com"),
+            "trailing slash only should be trimmed in place"
+        );
+
+        let mut config_trailing_spaces = ClientConfig::default();
+        config_trailing_spaces.endpoint = Some("https://spanner.googleapis.com   ".to_string());
+        trim_configured_endpoint(&mut config_trailing_spaces);
+        assert_eq!(
+            config_trailing_spaces.endpoint.as_deref(),
+            Some("https://spanner.googleapis.com"),
+            "trailing spaces only should be trimmed in place"
+        );
+    }
+
+    #[test]
+    fn detect_and_configure_emulator_slash_only_configured_endpoint() {
+        let mut config = ClientConfig::default();
+        config.endpoint = Some("/".to_string());
+        let is_emulator = detect_and_configure_emulator_from_host(&mut config, "localhost:9010");
+        assert!(
+            !is_emulator,
+            "slash-only configured endpoint should not match emulator"
+        );
+        assert_eq!(
+            config.endpoint.as_deref(),
+            Some(""),
+            "slash-only endpoint should be trimmed in place to empty"
+        );
+        assert!(
+            config.cred.is_none(),
+            "anonymous credentials should not be configured for non-matching endpoint"
         );
     }
 

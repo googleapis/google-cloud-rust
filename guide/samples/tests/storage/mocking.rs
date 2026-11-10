@@ -12,26 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ANCHOR: all
+// [START rust_storage_mocking_all] ANCHOR: all
 use gcs::client::Storage;
 use gcs::model::Object;
 use google_cloud_storage as gcs;
 
-// ANCHOR_END: all
-// ANCHOR: prod-only-interface
+// [END rust_storage_mocking_all] ANCHOR_END: all
+// [START rust_storage_mocking_prod_only_interface] ANCHOR: prod-only-interface
 pub async fn my_function(_client: Storage) {}
-// ANCHOR_END: prod-only-interface
+// [END rust_storage_mocking_prod_only_interface] ANCHOR_END: prod-only-interface
 
-// ANCHOR: testable-interface
+// [START rust_storage_mocking_testable_interface] ANCHOR: testable-interface
 pub async fn my_testable_function<T>(_client: Storage<T>)
 where
     T: gcs::stub::Storage + 'static,
 {
 }
-// ANCHOR_END: testable-interface
+// [END rust_storage_mocking_testable_interface] ANCHOR_END: testable-interface
 
-// ANCHOR: all
-// ANCHOR: count-newlines
+// [START rust_storage_mocking_all] ANCHOR: all
+// [START rust_storage_mocking_count_newlines] ANCHOR: count-newlines
 // Downloads an object from GCS and counts the total lines.
 pub async fn count_newlines<T>(
     client: &Storage<T>,
@@ -52,9 +52,9 @@ where
     }
     Ok(count)
 }
-// ANCHOR_END: count-newlines
+// [END rust_storage_mocking_count_newlines] ANCHOR_END: count-newlines
 
-// ANCHOR: upload
+// [START rust_storage_mocking_upload] ANCHOR: upload
 // Uploads an object to GCS.
 pub async fn upload<T>(client: &Storage<T>, bucket_id: &str, object_id: &str) -> gcs::Result<Object>
 where
@@ -70,7 +70,7 @@ where
         .send_unbuffered()
         .await
 }
-// ANCHOR_END: upload
+// [END rust_storage_mocking_upload] ANCHOR_END: upload
 
 #[cfg(test)]
 mod tests {
@@ -83,7 +83,7 @@ mod tests {
     use gcs::streaming_source::{BytesSource, Payload, Seek, StreamingSource};
     use google_cloud_storage as gcs;
 
-    // ANCHOR: mockall
+    // [START rust_storage_mocking_mockall] ANCHOR: mockall
     mockall::mock! {
         #[derive(Debug)]
         Storage {}
@@ -103,9 +103,9 @@ mod tests {
             ) -> Result<Object>;
         }
     }
-    // ANCHOR_END: mockall
+    // [END rust_storage_mocking_mockall] ANCHOR_END: mockall
 
-    // ANCHOR: fake-read-object-resp
+    // [START rust_storage_mocking_fake_read_object_resp] ANCHOR: fake-read-object-resp
     fn fake_response(size: usize) -> ReadObjectResponse {
         let mut contents = String::new();
         for i in 0..size {
@@ -113,9 +113,9 @@ mod tests {
         }
         ReadObjectResponse::from_source(ObjectHighlights::default(), bytes::Bytes::from(contents))
     }
-    // ANCHOR_END: fake-read-object-resp
+    // [END rust_storage_mocking_fake_read_object_resp] ANCHOR_END: fake-read-object-resp
 
-    // ANCHOR: test-count-lines
+    // [START rust_storage_mocking_test_count_lines] ANCHOR: test-count-lines
     #[tokio::test]
     async fn test_count_lines() -> anyhow::Result<()> {
         let mut mock = MockStorage::new();
@@ -137,19 +137,19 @@ mod tests {
 
         Ok(())
     }
-    // ANCHOR_END: test-count-lines
+    // [END rust_storage_mocking_test_count_lines] ANCHOR_END: test-count-lines
 
-    // ANCHOR: test-upload
+    // [START rust_storage_mocking_test_upload] ANCHOR: test-upload
     #[tokio::test]
     async fn test_upload() -> anyhow::Result<()> {
         let mut mock = MockStorage::new();
-        // ANCHOR: expect-unbuffered
+        // [START rust_storage_mocking_expect_unbuffered] ANCHOR: expect-unbuffered
         mock.expect_write_object_unbuffered()
-            // ANCHOR_END: expect-unbuffered
+            // [END rust_storage_mocking_expect_unbuffered] ANCHOR_END: expect-unbuffered
             .return_once(
-                // ANCHOR: explicit-payload-type
+                // [START rust_storage_mocking_explicit_payload_type] ANCHOR: explicit-payload-type
                 |_payload: Payload<BytesSource>, r, _| {
-                    // ANCHOR_END: explicit-payload-type
+                    // [END rust_storage_mocking_explicit_payload_type] ANCHOR_END: explicit-payload-type
                     // Verify contents of the request
                     assert_eq!(r.spec.if_generation_match, Some(42));
                     let o = r.spec.resource.unwrap_or_default();
@@ -170,6 +170,6 @@ mod tests {
 
         Ok(())
     }
-    // ANCHOR_END: test-upload
+    // [END rust_storage_mocking_test_upload] ANCHOR_END: test-upload
 }
-// ANCHOR_END: all
+// [END rust_storage_mocking_all] ANCHOR_END: all

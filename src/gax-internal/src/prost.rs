@@ -15,6 +15,7 @@
 //! Helper functions to convert from the well-known types to and from their
 //! Prost versions.
 
+use serde_json::Number;
 use std::collections::BTreeMap;
 
 type BoxError = Box<dyn std::error::Error + Send + Sync>;
@@ -166,10 +167,13 @@ impl FromProto<wkt::Value> for prost_types::Value {
             None => wkt::Value::Null,
             Some(kind) => match kind {
                 Kind::NullValue(_) => wkt::Value::Null,
-                Kind::NumberValue(v) => {
-                    let number =
-                        serde_json::Number::from_f64(v).expect("JSON numbers cannot be NaN");
-                    serde_json::Value::Number(number)
+                Kind::NumberValue(value) => {
+                    let number = Number::from_f64(value).ok_or_else(|| {
+                        ConvertError::other(format!(
+                            "JSON numbers cannot be NaN or infinite, got {value}"
+                        ))
+                    })?;
+                    wkt::Value::Number(number)
                 }
                 Kind::StringValue(v) => wkt::Value::String(v),
                 Kind::BoolValue(v) => wkt::Value::Bool(v),
@@ -228,115 +232,6 @@ impl ToProto<prost_types::NullValue> for wkt::NullValue {
 impl FromProto<wkt::NullValue> for prost_types::NullValue {
     fn cnv(self) -> Result<wkt::NullValue> {
         Ok(wkt::NullValue)
-    }
-}
-
-/// A narrow, intentionally incomplete conversion for `DescriptorProto`.
-///  
-/// This conversion drops several AST fields and must not be used as
-/// a general-purpose converter. It exists solely to bypass librarian
-/// limitations when generating `ProtoSchema` in BigQuery.
-// TODO(#6616): Generate this code.
-impl FromProto<wkt::DescriptorProto> for prost_types::DescriptorProto {
-    fn cnv(self) -> Result<wkt::DescriptorProto> {
-        Ok(wkt::DescriptorProto::default()
-            .set_name(self.name.unwrap_or_default())
-            .set_field(
-                self.field
-                    .into_iter()
-                    .map(|v| {
-                        wkt::FieldDescriptorProto::default()
-                            .set_name(v.name.unwrap_or_default())
-                            .set_number(v.number.unwrap_or_default())
-                            .set_label(wkt::field_descriptor_proto::Label::from(
-                                v.label.unwrap_or(0),
-                            ))
-                            .set_type(wkt::field_descriptor_proto::Type::from(
-                                v.r#type.unwrap_or(0),
-                            ))
-                            .set_type_name(v.type_name.unwrap_or_default())
-                            .set_json_name(v.json_name.unwrap_or_default())
-                            .set_default_value(v.default_value.unwrap_or_default())
-                    })
-                    .collect::<Vec<_>>(),
-            )
-            .set_nested_type(
-                self.nested_type
-                    .into_iter()
-                    .map(|v| v.cnv())
-                    .collect::<Result<Vec<_>>>()?,
-            )
-            .set_enum_type(
-                self.enum_type
-                    .into_iter()
-                    .map(|v| {
-                        wkt::EnumDescriptorProto::default()
-                            .set_name(v.name.unwrap_or_default())
-                            .set_value(
-                                v.value
-                                    .into_iter()
-                                    .map(|ev| {
-                                        wkt::EnumValueDescriptorProto::default()
-                                            .set_name(ev.name.unwrap_or_default())
-                                            .set_number(ev.number.unwrap_or_default())
-                                    })
-                                    .collect::<Vec<_>>(),
-                            )
-                    })
-                    .collect::<Vec<_>>(),
-            ))
-    }
-}
-
-/// A narrow, intentionally incomplete conversion for `DescriptorProto`.
-///  
-/// This conversion drops several AST fields and must not be used as
-/// a general-purpose converter. It exists solely to bypass librarian
-/// limitations when generating `ProtoSchema` in BigQuery.
-// TODO(#6616): Generate this code.
-impl ToProto<prost_types::DescriptorProto> for wkt::DescriptorProto {
-    type Output = prost_types::DescriptorProto;
-    fn to_proto(self) -> Result<prost_types::DescriptorProto> {
-        Ok(prost_types::DescriptorProto {
-            name: Some(self.name),
-            field: self
-                .field
-                .into_iter()
-                .map(|v| prost_types::FieldDescriptorProto {
-                    name: Some(v.name),
-                    number: Some(v.number),
-                    label: v.label.value(),
-                    r#type: v.r#type.value(),
-                    type_name: Some(v.type_name).filter(|s| !s.is_empty()),
-                    json_name: Some(v.json_name).filter(|s| !s.is_empty()),
-                    default_value: Some(v.default_value).filter(|s| !s.is_empty()),
-                    ..Default::default()
-                })
-                .collect(),
-            nested_type: self
-                .nested_type
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<Result<Vec<_>>>()?,
-            enum_type: self
-                .enum_type
-                .into_iter()
-                .map(|v| prost_types::EnumDescriptorProto {
-                    name: Some(v.name),
-                    value: v
-                        .value
-                        .into_iter()
-                        .map(|ev| prost_types::EnumValueDescriptorProto {
-                            name: Some(ev.name),
-                            number: Some(ev.number),
-                            ..Default::default()
-                        })
-                        .collect(),
-                    ..Default::default()
-                })
-                .collect(),
-            ..Default::default()
-        })
     }
 }
 
@@ -578,6 +473,88 @@ mod tests {
         Ok(())
     }
 
+    #[test_case(f64::NAN; "nan")]
+    #[test_case(f64::INFINITY; "infinity")]
+    #[test_case(f64::NEG_INFINITY; "neg_infinity")]
+    fn from_proto_value_non_finite_number_fails(number_value: f64) {
+        let input = prost_types::Value {
+            kind: Some(prost_types::value::Kind::NumberValue(number_value)),
+        };
+        let error = input
+            .cnv()
+            .expect_err("expected error converting non-finite float to wkt::Value");
+        let error_message = error.to_string();
+        assert!(
+            error_message.contains("JSON numbers cannot be NaN or infinite"),
+            "expected non-finite error description, got: {error_message}"
+        );
+        assert!(
+            error_message.contains(&format!("got {number_value}")),
+            "expected 'got {number_value}' in error message, got: {error_message}"
+        );
+    }
+
+    #[test_case(0.0; "zero")]
+    #[test_case(-0.0; "negative_zero")]
+    #[test_case(1234.5; "positive_float")]
+    #[test_case(f64::MIN; "min")]
+    #[test_case(f64::MAX; "max")]
+    #[test_case(f64::MIN_POSITIVE; "min_positive")]
+    fn from_proto_value_finite_number_succeeds(number_value: f64) -> anyhow::Result<()> {
+        let input = prost_types::Value {
+            kind: Some(prost_types::value::Kind::NumberValue(number_value)),
+        };
+        let got = input.cnv()?;
+        let want = Number::from_f64(number_value)
+            .map(wkt::Value::Number)
+            .expect("finite float must convert to Number");
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(f64::NAN; "nan")]
+    #[test_case(f64::INFINITY; "infinity")]
+    #[test_case(f64::NEG_INFINITY; "neg_infinity")]
+    fn from_proto_struct_non_finite_number_fails(number_value: f64) {
+        let mut fields = BTreeMap::new();
+        fields.insert(
+            "non_finite".to_string(),
+            prost_types::Value {
+                kind: Some(prost_types::value::Kind::NumberValue(number_value)),
+            },
+        );
+        let input = prost_types::Struct { fields };
+        let error = input.cnv().expect_err(
+            "expected error converting Struct containing non-finite number to wkt::Struct",
+        );
+        assert!(
+            error
+                .to_string()
+                .contains("JSON numbers cannot be NaN or infinite"),
+            "expected non-finite error, got: {error}"
+        );
+    }
+
+    #[test_case(f64::NAN; "nan")]
+    #[test_case(f64::INFINITY; "infinity")]
+    #[test_case(f64::NEG_INFINITY; "neg_infinity")]
+    fn from_proto_list_non_finite_number_fails(number_value: f64) {
+        let input = prost_types::ListValue {
+            values: vec![prost_types::Value {
+                kind: Some(prost_types::value::Kind::NumberValue(number_value)),
+            }],
+        };
+        let error = input.cnv().expect_err(
+            "expected error converting ListValue containing non-finite number to wkt::ListValue",
+        );
+        assert!(
+            error
+                .to_string()
+                .contains("JSON numbers cannot be NaN or infinite"),
+            "expected non-finite error, got: {error}"
+        );
+    }
+
     #[test]
     fn to_proto_null_value() -> anyhow::Result<()> {
         let input = wkt::NullValue;
@@ -686,10 +663,105 @@ mod tests {
             prost_msg.enum_type[0].value[0].name,
             Some("UNKNOWN".to_string())
         );
-        assert_eq!(prost_msg.enum_type[0].value[0].number, Some(0));
+        // Zero maps to `None`, which readers treat as 0.
+        assert_eq!(prost_msg.enum_type[0].value[0].number, None);
 
         let back: wkt::DescriptorProto = prost_msg.cnv()?;
         assert_eq!(back, input);
+        Ok(())
+    }
+
+    #[test]
+    fn test_descriptor_proto_keeps_options_and_ranges() -> anyhow::Result<()> {
+        let input = wkt::DescriptorProto::default()
+            .set_name("TestMessage")
+            .set_field([wkt::FieldDescriptorProto::default()
+                .set_name("values")
+                .set_number(1)
+                .set_label(wkt::field_descriptor_proto::Label::Repeated)
+                .set_type(wkt::field_descriptor_proto::Type::Int64)
+                .set_options(wkt::FieldOptions::default().set_packed(true))])
+            .set_enum_type([wkt::EnumDescriptorProto::default()
+                .set_name("Color")
+                .set_options(wkt::EnumOptions::default().set_allow_alias(true))
+                .set_value([
+                    wkt::EnumValueDescriptorProto::default()
+                        .set_name("RED")
+                        .set_number(1),
+                    wkt::EnumValueDescriptorProto::default()
+                        .set_name("CRIMSON")
+                        .set_number(1),
+                ])])
+            .set_extension_range([wkt::descriptor_proto::ExtensionRange::default()
+                .set_start(100)
+                .set_end(200)])
+            .set_reserved_range([wkt::descriptor_proto::ReservedRange::default()
+                .set_start(10)
+                .set_end(20)])
+            .set_reserved_name(["old_field"]);
+
+        let prost_msg: prost_types::DescriptorProto = input.clone().to_proto()?;
+        assert_eq!(
+            prost_msg.field[0].options.as_ref().and_then(|o| o.packed),
+            Some(true)
+        );
+        assert_eq!(
+            prost_msg.enum_type[0]
+                .options
+                .as_ref()
+                .and_then(|o| o.allow_alias),
+            Some(true)
+        );
+        assert_eq!(prost_msg.extension_range.len(), 1);
+        assert_eq!(prost_msg.reserved_range.len(), 1);
+        assert_eq!(prost_msg.reserved_name, vec!["old_field".to_string()]);
+
+        let back: wkt::DescriptorProto = prost_msg.cnv()?;
+        assert_eq!(back, input);
+        Ok(())
+    }
+
+    #[test]
+    fn test_descriptor_proto_drops_oneofs_and_uninterpreted_options() -> anyhow::Result<()> {
+        let input = prost_types::DescriptorProto {
+            name: Some("TestMessage".into()),
+            field: vec![prost_types::FieldDescriptorProto {
+                name: Some("choice".into()),
+                number: Some(1),
+                // Not 0: zero maps to None even without the skip.
+                oneof_index: Some(1),
+                proto3_optional: Some(true),
+                options: Some(prost_types::FieldOptions {
+                    uninterpreted_option: vec![prost_types::UninterpretedOption {
+                        identifier_value: Some("x".into()),
+                        ..Default::default()
+                    }],
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }],
+            oneof_decl: vec![
+                prost_types::OneofDescriptorProto {
+                    name: Some("first".into()),
+                    ..Default::default()
+                },
+                prost_types::OneofDescriptorProto {
+                    name: Some("second".into()),
+                    ..Default::default()
+                },
+            ],
+            ..Default::default()
+        };
+        let model: wkt::DescriptorProto = input.cnv()?;
+        let back: prost_types::DescriptorProto = model.to_proto()?;
+        assert!(back.oneof_decl.is_empty(), "{back:?}");
+        assert_eq!(back.field[0].oneof_index, None);
+        assert_eq!(back.field[0].proto3_optional, None);
+        let options = back.field[0]
+            .options
+            .as_ref()
+            .expect("options should be kept");
+        assert!(options.uninterpreted_option.is_empty(), "{options:?}");
         Ok(())
     }
 

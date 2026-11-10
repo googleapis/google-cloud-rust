@@ -64,14 +64,31 @@ pub(crate) fn inject_context(span: &Span, headers: &mut HeaderMap) {
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::*;
+    use google_cloud_test_utils::test_layer::TestLayer;
     use opentelemetry::trace::{
         SpanContext, SpanId, TraceFlags, TraceId, TraceState, TracerProvider,
     };
+    use opentelemetry_sdk::logs::SdkLoggerProvider;
     use opentelemetry_sdk::trace::SdkTracerProvider;
     use tracing::Dispatch;
     use tracing_subscriber::layer::SubscriberExt;
+
+    pub(crate) fn ensure_otel_callsites_registered() {
+        static INIT: std::sync::Once = std::sync::Once::new();
+        INIT.call_once(|| {
+            TestLayer::ensure_max_level_trace();
+            // Pre-register the `otel_info!` / `otel_debug!` callsites inside
+            // `opentelemetry_sdk`'s `Drop` implementations while outside
+            // `tracing_core`'s `LOCKED_DISPATCHERS` lock, preventing a
+            // re-entrant `DefaultCallsite::register()` deadlock if a temporary
+            // `Dispatch` clone inside `Rebuilder::for_each` drops the last
+            // provider reference.
+            drop(SdkTracerProvider::builder().build());
+            drop(SdkLoggerProvider::builder().build());
+        });
+    }
 
     #[test]
     fn injector_valid_headers() {
@@ -120,6 +137,7 @@ mod tests {
     }
 
     fn set_up_otel_and_tracing() -> Dispatch {
+        ensure_otel_callsites_registered();
         let tracer_provider = SdkTracerProvider::builder().build();
         let tracer = tracer_provider.tracer("test");
 
@@ -128,7 +146,6 @@ mod tests {
         Dispatch::new(subscriber)
     }
 
-    #[ignore = "TODO(#6077) - disabled because it was flaky"]
     #[test]
     fn inject_context_success() {
         let dispatcher = set_up_otel_and_tracing();
