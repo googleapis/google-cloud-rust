@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use base64::{
-    Engine, alphabet,
-    engine::{DecodePaddingMode, GeneralPurpose, GeneralPurposeConfig, general_purpose::STANDARD},
+    Engine,
+    engine::general_purpose::{STANDARD, STANDARD_PAD_INDIFFERENT, URL_SAFE_PAD_INDIFFERENT},
 };
 use serde_with::{DeserializeAs, SerializeAs};
 
@@ -346,13 +346,15 @@ impl crate::message::MessageSerializer<BytesValue> for BytesValueSerializer {
             .as_str()
             .ok_or_else(expected_string_value)?;
         // ProtoJSON accepts both Base64 alphabets, with or without padding.
-        const CONFIG: GeneralPurposeConfig =
-            GeneralPurposeConfig::new().with_decode_padding_mode(DecodePaddingMode::Indifferent);
-        const STANDARD_DECODER: GeneralPurpose = GeneralPurpose::new(&alphabet::STANDARD, CONFIG);
-        const URL_SAFE_DECODER: GeneralPurpose = GeneralPurpose::new(&alphabet::URL_SAFE, CONFIG);
-        STANDARD_DECODER
+        // Select the decoder matching the input alphabet, so decoding errors
+        // refer to the encoding that was actually used.
+        let decoder = if s.contains(['-', '_']) {
+            &URL_SAFE_PAD_INDIFFERENT
+        } else {
+            &STANDARD_PAD_INDIFFERENT
+        };
+        decoder
             .decode(s)
-            .or_else(|_| URL_SAFE_DECODER.decode(s))
             .map(BytesValue::from)
             .map_err(crate::AnyError::deser)
     }
@@ -500,6 +502,7 @@ mod tests {
     #[test_case("+w", b"\xfb"; "standard without two padding bytes")]
     #[test_case("-w==", b"\xfb"; "url safe two padding bytes")]
     #[test_case("-w", b"\xfb"; "url safe without two padding bytes")]
+    #[test_case("_w==", b"\xff"; "url safe underscore two padding bytes")]
     #[test_case("+/8=", b"\xfb\xff"; "standard one padding byte")]
     #[test_case("+/8", b"\xfb\xff"; "standard without one padding byte")]
     #[test_case("-_8=", b"\xfb\xff"; "url safe one padding byte")]
@@ -536,6 +539,33 @@ mod tests {
             serializer
                 .deserialize_from_map(map.as_object().unwrap())
                 .is_err()
+        );
+
+        Ok(())
+    }
+
+    #[test_case("+x=="; "standard alphabet")]
+    #[test_case("-x=="; "url safe alphabet")]
+    fn test_wrapper_bad_encoding_base64_uses_matching_decoder(input: &str) -> Result {
+        let map = serde_json::json!({
+            "@type": "type.googleapis.com/google.protobuf.BytesValue",
+            "value": input,
+        });
+
+        let serializer = BytesValue::serializer();
+        let e = serializer
+            .deserialize_from_map(map.as_object().unwrap())
+            .expect_err("invalid Base64 should not decode");
+        let e = match e {
+            crate::AnyError::Deserialization(e) => e,
+            e => panic!("unexpected error: {e:?}"),
+        };
+        let e = e
+            .downcast_ref::<base64::DecodeError>()
+            .expect("expected a Base64 decoding error");
+        assert!(
+            matches!(e, base64::DecodeError::InvalidLastSymbol { .. }),
+            "{e:?}"
         );
 
         Ok(())
