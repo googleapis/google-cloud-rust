@@ -23,6 +23,7 @@ use google_cloud_bigquery_v2::model::{
     Dataset, DatasetReference, Table, TableReference, TableSchema,
 };
 use google_cloud_gax::error::rpc::Code;
+use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_gax::paginator::ItemPaginator;
 use rand::{RngExt, distr::Alphanumeric};
 
@@ -55,6 +56,7 @@ pub async fn create_dataset(
                 .set_dataset_reference(DatasetReference::new().set_dataset_id(dataset_id))
                 .set_labels([(INSTANCE_LABEL, "true")]),
         )
+        .with_idempotency(true)
         .send()
         .await?;
     Ok(ds)
@@ -97,6 +99,7 @@ pub async fn create_table(
                 )
                 .set_schema(schema),
         )
+        .with_idempotency(true)
         .send()
         .await?;
 

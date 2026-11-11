@@ -113,7 +113,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::CreateSessionRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -171,7 +172,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::BatchCreateSessionsRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -225,7 +227,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::GetSessionRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -279,7 +282,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::ListSessionsRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -336,7 +340,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::DeleteSessionRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -390,7 +395,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::ExecuteSqlRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -488,7 +494,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::ExecuteBatchDmlRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -542,7 +549,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::ReadRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -639,7 +647,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::BeginTransactionRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -693,7 +702,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::CommitRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -747,7 +757,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::RollbackRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -805,7 +816,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::PartitionQueryRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -862,7 +874,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::PartitionReadRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,

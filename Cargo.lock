@@ -1511,6 +1511,7 @@ dependencies = [
  "bytes",
  "google-cloud-gax",
  "google-cloud-gax-internal",
+ "google-cloud-type",
  "google-cloud-wkt",
  "serde",
  "serde_json",
@@ -2418,7 +2419,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery"
-version = "0.19.0"
+version = "1.0.0"
 dependencies = [
  "anyhow",
  "arc-swap",
@@ -2777,6 +2778,7 @@ dependencies = [
  "anyhow",
  "async-trait",
  "bytes",
+ "google-backstory",
  "google-cloud-api",
  "google-cloud-gax",
  "google-cloud-gax-internal",
@@ -5741,7 +5743,6 @@ dependencies = [
  "tokio",
  "tracing",
  "tracing-subscriber",
- "uuid",
 ]
 
 [[package]]
@@ -10479,8 +10480,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4a0e2d11620c50695fe12bbbfde96b3477fe606e7284c22d505c12ce51214514"
 dependencies = [
  "getrandom 0.4.3",
- "js-sys",
- "wasm-bindgen",
 ]
 
 [[package]]

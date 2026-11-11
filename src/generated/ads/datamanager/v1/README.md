@@ -18,6 +18,7 @@ The main types to work with this crate are the clients:
 - [IngestionService]
 - [MarketingDataInsightsService]
 - [PartnerLinkService]
+- [ReportingService]
 - [UserListDirectLicenseService]
 - [UserListGlobalLicenseService]
 - [UserListService]
@@ -39,6 +40,7 @@ The main types to work with this crate are the clients:
 [IngestionService]: https://docs.rs/google-ads-datamanager-v1/1.4.0/google_ads_datamanager_v1/client/struct.IngestionService.html
 [MarketingDataInsightsService]: https://docs.rs/google-ads-datamanager-v1/1.4.0/google_ads_datamanager_v1/client/struct.MarketingDataInsightsService.html
 [PartnerLinkService]: https://docs.rs/google-ads-datamanager-v1/1.4.0/google_ads_datamanager_v1/client/struct.PartnerLinkService.html
+[ReportingService]: https://docs.rs/google-ads-datamanager-v1/1.4.0/google_ads_datamanager_v1/client/struct.ReportingService.html
 [UserListDirectLicenseService]: https://docs.rs/google-ads-datamanager-v1/1.4.0/google_ads_datamanager_v1/client/struct.UserListDirectLicenseService.html
 [UserListGlobalLicenseService]: https://docs.rs/google-ads-datamanager-v1/1.4.0/google_ads_datamanager_v1/client/struct.UserListGlobalLicenseService.html
 [UserListService]: https://docs.rs/google-ads-datamanager-v1/1.4.0/google_ads_datamanager_v1/client/struct.UserListService.html

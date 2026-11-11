@@ -1337,6 +1337,24 @@ pub struct RemoteAgentTool {
     /// Required. The agent card of the remote agent that this tool invokes.
     pub agent_card: std::option::Option<crate::model::AgentCard>,
 
+    /// Optional. Authentication configuration for calling the remote agent.
+    pub api_authentication: std::option::Option<crate::model::ApiAuthentication>,
+
+    /// Optional. When enabled, the interaction between the CXAS app and the remote
+    /// agent will share the same context. If the remote agent returns a
+    /// context_id, it will be persisted for the entirety of the session for this
+    /// remote agent tool.
+    pub stateful_agent: bool,
+
+    /// Optional. Mapping of input variable names of remote agent to GECX variable
+    /// names.
+    pub input_variable_mapping: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. Mapping of output variable names of remote agent to GECX variable
+    /// names.
+    pub output_variable_mapping:
+        std::collections::HashMap<std::string::String, std::string::String>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1400,6 +1418,93 @@ impl RemoteAgentTool {
         T: std::convert::Into<crate::model::AgentCard>,
     {
         self.agent_card = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [api_authentication][crate::model::RemoteAgentTool::api_authentication].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::RemoteAgentTool;
+    /// use google_cloud_ces_v1::model::ApiAuthentication;
+    /// let x = RemoteAgentTool::new().set_api_authentication(ApiAuthentication::default()/* use setters */);
+    /// ```
+    pub fn set_api_authentication<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ApiAuthentication>,
+    {
+        self.api_authentication = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [api_authentication][crate::model::RemoteAgentTool::api_authentication].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::RemoteAgentTool;
+    /// use google_cloud_ces_v1::model::ApiAuthentication;
+    /// let x = RemoteAgentTool::new().set_or_clear_api_authentication(Some(ApiAuthentication::default()/* use setters */));
+    /// let x = RemoteAgentTool::new().set_or_clear_api_authentication(None::<ApiAuthentication>);
+    /// ```
+    pub fn set_or_clear_api_authentication<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ApiAuthentication>,
+    {
+        self.api_authentication = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [stateful_agent][crate::model::RemoteAgentTool::stateful_agent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::RemoteAgentTool;
+    /// let x = RemoteAgentTool::new().set_stateful_agent(true);
+    /// ```
+    pub fn set_stateful_agent<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.stateful_agent = v.into();
+        self
+    }
+
+    /// Sets the value of [input_variable_mapping][crate::model::RemoteAgentTool::input_variable_mapping].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::RemoteAgentTool;
+    /// let x = RemoteAgentTool::new().set_input_variable_mapping([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_input_variable_mapping<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.input_variable_mapping = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [output_variable_mapping][crate::model::RemoteAgentTool::output_variable_mapping].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ces_v1::model::RemoteAgentTool;
+    /// let x = RemoteAgentTool::new().set_output_variable_mapping([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_output_variable_mapping<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.output_variable_mapping = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 }

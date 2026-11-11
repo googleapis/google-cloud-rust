@@ -103,8 +103,8 @@ guide:
 
 ## Next steps
 
-- [Push data on object uploads](storage/queue.md)
-- [Rewriting objects](storage/rewrite_object.md)
+- [Push data on object writes](https://docs.cloud.google.com/rust/docs/storage-push-writes)
+- [Rewrite objects](https://docs.cloud.google.com/rust/docs/storage-rewrite-objects)
 - [Speed up large object downloads](storage/striped_downloads.md)
 
 ## Full program

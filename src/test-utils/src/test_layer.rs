@@ -14,30 +14,22 @@
 
 use std::borrow::Cow;
 use std::collections::HashMap;
-use std::sync::{Mutex, Once};
-use tracing::{Subscriber, field, span};
-use tracing_subscriber::{self, Layer, layer::Context, prelude::*, registry::SpanRef};
-use uuid::Uuid;
+use std::sync::{Arc, Mutex, OnceLock};
+use tracing::{
+    Event, Metadata, Subscriber, field,
+    level_filters::LevelFilter,
+    span,
+    subscriber::{DefaultGuard, Interest},
+};
+use tracing_subscriber::{self, Layer, layer::Context, prelude::*};
 
-/// RAII guard for the TestLayer.
+/// RAII guard for the [`TestLayer`].
 ///
-/// Contains the unique test ID and the tracing subscriber guard.
+/// Keeps the per-test subscriber active on the current thread while in scope,
+/// and holds the `CapturedSpanLog` for this test.
 pub struct TestLayerGuard {
-    test_id: String,
-    span: tracing::Span,
-    _guard: tracing::span::EnteredSpan,
-}
-
-impl TestLayerGuard {
-    /// Returns a clone of the root `test_layer` span for instrumenting async tasks.
-    pub fn span(&self) -> tracing::Span {
-        self.span.clone()
-    }
-
-    /// Returns the unique test ID for this guard.
-    pub fn test_id(&self) -> &str {
-        &self.test_id
-    }
+    _subscriber_guard: DefaultGuard,
+    log: Arc<CapturedSpanLog>,
 }
 
 /// Represents the value of a captured tracing attribute.
@@ -122,8 +114,6 @@ pub struct CapturedSpan {
     pub attributes: HashMap<String, AttributeValue>,
     /// The count of events in the span.
     pub events: usize,
-    /// The test ID associated with this span, if captured via `TestLayer::initialize`.
-    pub test_id: Option<String>,
 }
 
 /// A `tracing::field::Visit` implementation to extract attribute key-value pairs from span events.
@@ -169,10 +159,7 @@ impl<'a> field::Visit for TestVisitor<'a> {
     }
 }
 
-/// A thread-safe log to store `CapturedSpan` instances.
-///
-/// This struct holds the spans captured by the global `TestLayer`.
-/// It uses a Mutex to ensure safe concurrent access.
+/// A thread-safe log to store `CapturedSpan` instances for a single test guard.
 struct CapturedSpanLog {
     spans: Mutex<Vec<CapturedSpan>>,
 }
@@ -189,65 +176,70 @@ impl CapturedSpanLog {
         self.spans.lock().unwrap().push(span);
     }
 
-    /// Retrieves and removes all spans associated with a given `test_id`.
-    ///
-    /// Spans with the name "test_layer" are excluded.
-    fn take_by_test_id(&self, test_id: &str) -> Vec<CapturedSpan> {
-        let mut spans = self.spans.lock().unwrap();
-        spans
-            .extract_if(.., |span| {
-                span.test_id.as_deref() == Some(test_id) && span.name != "test_layer"
-            })
-            .collect()
+    /// Retrieves and removes all captured spans from the log.
+    fn take_all(&self) -> Vec<CapturedSpan> {
+        std::mem::take(&mut *self.spans.lock().unwrap())
     }
 
-    /// Removes all spans associated with a given `test_id`.
-    fn clear_by_test_id(&self, test_id: &str) {
-        self.spans
-            .lock()
-            .unwrap()
-            .retain(|s| s.test_id.as_deref() != Some(test_id));
+    /// Updates an existing `CapturedSpan` in the log by its `span::Id`.
+    fn update_span<F: FnOnce(&mut CapturedSpan)>(&self, id: &span::Id, f: F) {
+        let mut spans = self.spans.lock().unwrap();
+        if let Some(captured_span) = spans.iter_mut().rfind(|s| s.id == *id) {
+            f(captured_span);
+        }
     }
 }
 
-static SPAN_LOG: CapturedSpanLog = CapturedSpanLog::new();
-static INIT: Once = Once::new();
+/// A lightweight no-op subscriber registered once in `tracing_core`'s
+/// dispatcher list (without setting a global default subscriber) so that
+/// `STATIC_MAX_LEVEL` remains `LevelFilter::TRACE` and callsites never cache
+/// `Interest::never()` when another test installs a lower-level subscriber.
+struct MaxLevelTraceSubscriber;
 
-/// A wrapper type to store the test ID in span extensions.
-#[derive(Clone, Debug)]
-struct TestId(String);
-
-/// Finds the test ID associated with a span by traversing up the span tree.
-///
-/// It looks for a parent span named "test_layer" and extracts the `TestId` from its extensions.
-fn find_test_id<S: Subscriber + for<'b> tracing_subscriber::registry::LookupSpan<'b>>(
-    mut span_ref: SpanRef<'_, S>,
-    _ctx: &Context<'_, S>,
-) -> Option<String> {
-    loop {
-        if span_ref.name() == "test_layer" {
-            return span_ref.extensions().get::<TestId>().map(|t| t.0.clone());
-        }
-        span_ref = span_ref.parent()?;
+impl Subscriber for MaxLevelTraceSubscriber {
+    fn register_callsite(&self, _metadata: &'static Metadata<'static>) -> Interest {
+        Interest::sometimes()
     }
+
+    fn enabled(&self, _metadata: &Metadata<'_>) -> bool {
+        false
+    }
+
+    fn max_level_hint(&self) -> Option<LevelFilter> {
+        Some(LevelFilter::TRACE)
+    }
+
+    fn new_span(&self, _span: &span::Attributes<'_>) -> span::Id {
+        span::Id::from_u64(1)
+    }
+
+    fn record(&self, _span: &span::Id, _values: &span::Record<'_>) {}
+
+    fn record_follows_from(&self, _span: &span::Id, _follows: &span::Id) {}
+
+    fn event(&self, _event: &Event<'_>) {}
+
+    fn enter(&self, _span: &span::Id) {}
+
+    fn exit(&self, _span: &span::Id) {}
 }
 
 /// A tracing layer for capturing and inspecting spans within tests.
 ///
-/// This layer is designed to be installed as a global subscriber during
-/// test execution. It isolates captured spans based on a unique `test_id`
-/// provided during initialization, allowing tests to run in parallel without
-/// interfering with each other's captured trace data.
+/// Each call to [`TestLayer::initialize()`] installs an isolated thread-local
+/// `tracing_subscriber::Registry` and span buffer via
+/// `tracing::dispatcher::set_default`, avoiding any global `Registry` or global
+/// span log contention across parallel tests.
 ///
 /// # Usage
 ///
-/// 1.  **Initialize:** In each test function, call `TestLayer::initialize()`
-///     with a unique `TEST_ID` string. This returns an RAII guard. The
-///     layer will capture spans only while this guard is in scope.
+/// 1.  **Initialize:** In each test function, call `TestLayer::initialize()`.
+///     This returns an RAII [`TestLayerGuard`]. The layer will capture spans on
+///     the current thread while this guard is in scope.
 /// 2.  **Execute Code:** Run the code you want to test, which emits tracing spans.
-/// 3.  **Capture Spans:** Use `TestLayer::capture()` with the same `TEST_ID`
-///     to retrieve all spans captured during the test.
-/// 4.  **Assert:** Make assertions on the captured `CapturedSpan` data.
+/// 3.  **Capture Spans:** Use `TestLayer::capture(&guard)` to retrieve all spans
+///     captured during the test.
+/// 4.  **Assert:** Make assertions on the captured [`CapturedSpan`] data.
 ///
 /// # Example
 ///
@@ -257,56 +249,56 @@ fn find_test_id<S: Subscriber + for<'b> tracing_subscriber::registry::LookupSpan
 ///
 /// #[tokio::test]
 /// async fn my_tracing_test() {
-///     const TEST_ID: &str = "my_tracing_test";
-///     let _guard = TestLayer::initialize(TEST_ID);
+///     let guard = TestLayer::initialize();
 ///
 ///     // Code under test that emits spans
 ///     info_span!("my_operation", foo = "bar").in_scope(|| {
 ///         tracing::info!("Doing something important");
 ///     });
 ///
-///     let captured = TestLayer::capture(TEST_ID);
+///     let captured = TestLayer::capture(&guard);
 ///     assert_eq!(captured.len(), 1);
 ///     let span = &captured[0];
 ///     assert_eq!(span.name, "my_operation");
-///     assert_eq!(span.attributes.get("foo"), Some("bar".into()));
+///     assert_eq!(span.attributes.get("foo"), Some(&"bar".into()));
 /// }
 /// ```
-#[derive(Clone, Default)]
-pub struct TestLayer;
+pub struct TestLayer {
+    log: Arc<CapturedSpanLog>,
+}
 
 impl TestLayer {
-    /// Initializes the TestLayer for the current test scope.
+    /// Ensures `tracing_core`'s global `STATIC_MAX_LEVEL` is permanently kept at
+    /// `LevelFilter::TRACE` and callsites never cache `Interest::never()`,
+    /// without installing a global default subscriber.
+    pub fn ensure_max_level_trace() {
+        static MAX_LEVEL_DISPATCH: OnceLock<tracing::Dispatch> = OnceLock::new();
+        MAX_LEVEL_DISPATCH.get_or_init(|| tracing::Dispatch::new(MaxLevelTraceSubscriber));
+    }
+
+    /// Initializes an isolated [`TestLayer`] for the current thread's test scope.
     ///
-    /// Installs the `TestLayer` as a global subscriber if it hasn't been already.
-    /// It clears any previously captured spans for the given `test_id`.
-    ///
-    /// Returns a `TestLayerGuard` which must be kept in scope for the duration of the test.
+    /// Returns a [`TestLayerGuard`] which must be kept in scope for the duration of the test.
     pub fn initialize() -> TestLayerGuard {
-        INIT.call_once(|| {
-            let layer = TestLayer;
-            let subscriber = tracing_subscriber::registry().with(layer);
-            tracing::subscriber::set_global_default(subscriber)
-                .expect("Failed to set global default subscriber");
-        });
-        let test_id = Uuid::new_v4().to_string();
-        SPAN_LOG.clear_by_test_id(&test_id);
-        let span = tracing::span!(tracing::Level::INFO, "test_layer", test_id = test_id);
-        let _guard = span.clone().entered();
+        Self::ensure_max_level_trace();
+        let log = Arc::new(CapturedSpanLog::new());
+        let layer = TestLayer {
+            log: Arc::clone(&log),
+        };
+        let subscriber = tracing_subscriber::registry().with(layer);
+        let subscriber_guard = tracing::subscriber::set_default(subscriber);
         TestLayerGuard {
-            test_id,
-            span,
-            _guard,
+            _subscriber_guard: subscriber_guard,
+            log,
         }
     }
 
     /// Retrieves all spans captured for the given `TestLayerGuard`.
     ///
-    /// This method consumes the captured spans from the log, so subsequent
-    /// calls for the same `test_id` within the same test run (without re-initializing)
-    /// will return an empty vector unless new spans are emitted.
+    /// This method consumes the captured spans from the guard's log, so subsequent
+    /// calls for the same guard will return an empty vector unless new spans are emitted.
     pub fn capture(guard: &TestLayerGuard) -> Vec<CapturedSpan> {
-        SPAN_LOG.take_by_test_id(&guard.test_id)
+        guard.log.take_all()
     }
 }
 
@@ -316,7 +308,7 @@ where
 {
     /// Called when a new span is created.
     ///
-    /// Captures the span's attributes and associates it with the current `test_id`.
+    /// Captures the span's attributes in this layer's private log.
     fn on_new_span(&self, attrs: &span::Attributes<'_>, id: &span::Id, ctx: Context<'_, S>) {
         let mut span_map = HashMap::new();
         let mut visitor = TestVisitor(&mut span_map);
@@ -324,34 +316,22 @@ where
 
         let span_ref = ctx.span(id).expect("Span not found in registry");
         let name = span_ref.name().to_string();
-        let test_id = if name == "test_layer" {
-            span_map
-                .get("test_id")
-                .and_then(|v| v.as_string())
-                .inspect(|id_str| {
-                    span_ref.extensions_mut().insert(TestId(id_str.clone()));
-                })
-        } else {
-            find_test_id(span_ref, &ctx)
-        };
 
         let captured_span = CapturedSpan {
             id: id.clone(),
             name,
             attributes: span_map,
-            test_id,
             events: 0_usize,
         };
-        SPAN_LOG.push(captured_span);
+        self.log.push(captured_span);
     }
 
     /// Updates the attributes of the existing captured span.
     fn on_record(&self, id: &span::Id, values: &span::Record<'_>, _ctx: Context<'_, S>) {
-        let mut spans = SPAN_LOG.spans.lock().unwrap();
-        if let Some(captured_span) = spans.iter_mut().find(|s| s.id == *id) {
+        self.log.update_span(id, |captured_span| {
             let mut visitor = TestVisitor(&mut captured_span.attributes);
             values.record(&mut visitor);
-        }
+        });
     }
 
     /// Called before `on_event`, to determine if `on_event` should be called.
@@ -364,10 +344,9 @@ where
         let Some(id) = event.parent() else {
             return;
         };
-        let mut spans = SPAN_LOG.spans.lock().unwrap();
-        if let Some(captured_span) = spans.iter_mut().find(|s| s.id == *id) {
+        self.log.update_span(id, |captured_span| {
             captured_span.events += 1;
-        }
+        });
     }
 }
 
@@ -378,61 +357,60 @@ mod tests {
     use tracing::info_span;
 
     /// Helper to create a dummy CapturedSpan for testing the log.
-    fn dummy_span(id: u64, name: &str, test_id: Option<&str>) -> CapturedSpan {
+    fn dummy_span(id: u64, name: &str) -> CapturedSpan {
         CapturedSpan {
             id: tracing::Id::from_u64(id),
             name: name.to_string(),
             attributes: HashMap::new(),
-            test_id: test_id.map(String::from),
             events: 0_usize,
         }
     }
 
-    /// Tests the basic push and take functionality of `CapturedSpanLog`.
+    /// Tests the basic push and take_all functionality of `CapturedSpanLog`.
     #[test]
     fn test_captured_span_log_push_take() {
         let log = CapturedSpanLog::new();
-        log.push(dummy_span(1, "span1", Some("test1")));
-        log.push(dummy_span(2, "span2", Some("test2")));
-        log.push(dummy_span(3, "span3", Some("test1")));
+        log.push(dummy_span(1, "span1"));
+        log.push(dummy_span(2, "span2"));
+        log.push(dummy_span(3, "span3"));
 
-        let test1_spans = log.take_by_test_id("test1");
-        assert_eq!(test1_spans.len(), 2);
-        assert!(test1_spans.iter().any(|s| s.name == "span1"));
-        assert!(test1_spans.iter().any(|s| s.name == "span3"));
-
-        let test2_spans = log.take_by_test_id("test2");
-        assert_eq!(test2_spans.len(), 1);
-        assert_eq!(test2_spans[0].name, "span2");
+        let spans = log.take_all();
+        assert_eq!(spans.len(), 3);
+        assert_eq!(spans[0].name, "span1");
+        assert_eq!(spans[1].name, "span2");
+        assert_eq!(spans[2].name, "span3");
 
         let remaining_spans = log.spans.lock().unwrap();
         assert!(remaining_spans.is_empty(), "{remaining_spans:?}");
     }
 
-    /// Tests the clear functionality of `CapturedSpanLog`.
-    #[test]
-    fn test_captured_span_log_clear() {
-        let log = CapturedSpanLog::new();
-        log.push(dummy_span(1, "span1", Some("test1")));
-        log.push(dummy_span(2, "span2", Some("test2")));
-        log.clear_by_test_id("test1");
-
-        let spans = log.spans.lock().unwrap();
-        assert_eq!(spans.len(), 1);
-        assert_eq!(spans[0].name, "span2");
-    }
-
-    /// Tests taking from an empty or non-matching test ID in `CapturedSpanLog`.
+    /// Tests taking from an empty `CapturedSpanLog`.
     #[test]
     fn test_captured_span_log_take_empty() {
         let log = CapturedSpanLog::new();
-        log.push(dummy_span(1, "span1", Some("test1")));
-        let taken = log.take_by_test_id("nonexistent");
+        let taken = log.take_all();
         assert!(taken.is_empty(), "{taken:?}");
-        assert_eq!(log.spans.lock().unwrap().len(), 1);
     }
 
-    /// Tests that `TestLayer` can handle multiple initializations with different test IDs.
+    /// Tests updating an existing span in `CapturedSpanLog`.
+    #[test]
+    fn test_captured_span_log_update_span() {
+        let log = CapturedSpanLog::new();
+        log.push(dummy_span(1, "span1"));
+        log.push(dummy_span(2, "span2"));
+
+        log.update_span(&tracing::Id::from_u64(2), |span| {
+            span.events += 5;
+            span.attributes.insert("key".to_string(), "val".into());
+        });
+
+        let spans = log.take_all();
+        assert_eq!(spans[0].events, 0);
+        assert_eq!(spans[1].events, 5);
+        assert_eq!(spans[1].attributes.get("key"), Some(&"val".into()));
+    }
+
+    /// Tests that `TestLayer` can handle multiple nested initializations on the same thread.
     #[tokio::test]
     async fn test_layer_multiple_inits() {
         let guard_a = TestLayer::initialize();
@@ -572,5 +550,29 @@ mod tests {
     fn test_attribute_value_as_i64() {
         assert_eq!(AttributeValue::from(123_i64).as_i64(), Some(123));
         assert_eq!(AttributeValue::from("hello").as_i64(), None);
+    }
+
+    #[test]
+    fn test_layer_isolated_across_threads_and_registries() {
+        let guard = TestLayer::initialize();
+        info_span!("main_span").in_scope(|| {});
+
+        // Spans on an unrelated thread without a TestLayerGuard are not captured
+        // and cannot corrupt this guard's Registry.
+        std::thread::spawn(|| {
+            let _unrelated = info_span!("unrelated_thread_span").entered();
+            let sub =
+                tracing_subscriber::registry().with(tracing_subscriber::layer::Identity::new());
+            let _local = tracing::subscriber::set_default(sub);
+            let parent = info_span!("local_parent");
+            let _entered = parent.enter();
+            let _child = info_span!("local_child");
+        })
+        .join()
+        .expect("worker thread should not panic");
+
+        let captured = TestLayer::capture(&guard);
+        assert_eq!(captured.len(), 1, "{captured:?}");
+        assert_eq!(captured[0].name, "main_span");
     }
 }

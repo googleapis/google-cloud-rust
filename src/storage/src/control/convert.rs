@@ -45,7 +45,7 @@ impl ToProto<google::longrunning::Operation> for google_cloud_longrunning::model
         let result = self
             .result
             .map(|result| match result {
-                M::Error(status) => status.to_proto().map(P::Error),
+                M::Error(status) => ToProto::<google::rpc::Status>::to_proto(*status).map(P::Error),
                 M::Response(any) => lro_any_to_prost(*any).map(P::Response),
                 _ => unreachable!(),
             })

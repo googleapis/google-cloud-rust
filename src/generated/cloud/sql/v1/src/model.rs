@@ -8731,6 +8731,140 @@ impl wkt::message::Message for SqlInstancesRestartRequest {
     }
 }
 
+/// Instance start request.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SqlInstancesStartRequest {
+    /// Required. Cloud SQL instance ID. This does not include the project ID.
+    pub instance: std::string::String,
+
+    /// Required. Project ID of the project that contains the instance to be
+    /// started.
+    pub project: std::string::String,
+
+    /// Optional. The region of the Cloud SQL instance, for example `us-central1`.
+    /// If omitted, the region is determined from the instance.
+    pub location: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SqlInstancesStartRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance][crate::model::SqlInstancesStartRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStartRequest;
+    /// let x = SqlInstancesStartRequest::new().set_instance("example");
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [project][crate::model::SqlInstancesStartRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStartRequest;
+    /// let x = SqlInstancesStartRequest::new().set_project("example");
+    /// ```
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlInstancesStartRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStartRequest;
+    /// let x = SqlInstancesStartRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SqlInstancesStartRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.SqlInstancesStartRequest"
+    }
+}
+
+/// Instance stop request.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SqlInstancesStopRequest {
+    /// Required. Cloud SQL instance ID. This does not include the project ID.
+    pub instance: std::string::String,
+
+    /// Required. Project ID of the project that contains the instance to be
+    /// stopped.
+    pub project: std::string::String,
+
+    /// Optional. The region of the Cloud SQL instance, for example `us-central1`.
+    /// If omitted, the region is determined from the instance.
+    pub location: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SqlInstancesStopRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance][crate::model::SqlInstancesStopRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStopRequest;
+    /// let x = SqlInstancesStopRequest::new().set_instance("example");
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [project][crate::model::SqlInstancesStopRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStopRequest;
+    /// let x = SqlInstancesStopRequest::new().set_project("example");
+    /// ```
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlInstancesStopRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesStopRequest;
+    /// let x = SqlInstancesStopRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SqlInstancesStopRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.SqlInstancesStopRequest"
+    }
+}
+
 /// Instance restore backup request.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -13925,6 +14059,15 @@ pub struct DatabaseInstance {
     pub database_center_integration:
         std::option::Option<crate::model::database_instance::DatabaseCenterIntegration>,
 
+    /// Output only. The workload replay configuration for this instance. This
+    /// field is set only for workload replay instances.
+    pub workload_replay_config: std::option::Option<crate::model::WorkloadReplayConfig>,
+
+    /// Output only. The workload capture configuration for this instance. This
+    /// field is set only when an active workload capture is present on the
+    /// instance.
+    pub workload_capture_config: std::option::Option<crate::model::WorkloadCaptureConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -15299,6 +15442,72 @@ impl DatabaseInstance {
         T: std::convert::Into<crate::model::database_instance::DatabaseCenterIntegration>,
     {
         self.database_center_integration = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [workload_replay_config][crate::model::DatabaseInstance::workload_replay_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::WorkloadReplayConfig;
+    /// let x = DatabaseInstance::new().set_workload_replay_config(WorkloadReplayConfig::default()/* use setters */);
+    /// ```
+    pub fn set_workload_replay_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadReplayConfig>,
+    {
+        self.workload_replay_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [workload_replay_config][crate::model::DatabaseInstance::workload_replay_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::WorkloadReplayConfig;
+    /// let x = DatabaseInstance::new().set_or_clear_workload_replay_config(Some(WorkloadReplayConfig::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_workload_replay_config(None::<WorkloadReplayConfig>);
+    /// ```
+    pub fn set_or_clear_workload_replay_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadReplayConfig>,
+    {
+        self.workload_replay_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [workload_capture_config][crate::model::DatabaseInstance::workload_capture_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// let x = DatabaseInstance::new().set_workload_capture_config(WorkloadCaptureConfig::default()/* use setters */);
+    /// ```
+    pub fn set_workload_capture_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadCaptureConfig>,
+    {
+        self.workload_capture_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [workload_capture_config][crate::model::DatabaseInstance::workload_capture_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DatabaseInstance;
+    /// use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// let x = DatabaseInstance::new().set_or_clear_workload_capture_config(Some(WorkloadCaptureConfig::default()/* use setters */));
+    /// let x = DatabaseInstance::new().set_or_clear_workload_capture_config(None::<WorkloadCaptureConfig>);
+    /// ```
+    pub fn set_or_clear_workload_capture_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadCaptureConfig>,
+    {
+        self.workload_capture_config = v.map(|x| x.into());
         self
     }
 }
@@ -16965,6 +17174,1166 @@ pub mod blue_green_deployment_info {
         Source(std::boxed::Box<crate::model::blue_green_deployment_info::SourceRole>),
         /// Output only. The target instance for the Blue-Green deployment.
         Target(std::boxed::Box<crate::model::blue_green_deployment_info::TargetRole>),
+    }
+}
+
+/// The workload replay configuration for a Cloud SQL replay instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WorkloadReplayConfig {
+    /// Output only. The ID of the captured workload being replayed.
+    pub workload_id: std::option::Option<std::string::String>,
+
+    /// Output only. The name of the source instance, excluding the project ID,
+    /// where the workload was captured.
+    pub source_instance: std::option::Option<std::string::String>,
+
+    /// Output only. The mode of the workload replay.
+    pub replay_mode: std::option::Option<crate::model::workload_replay_config::ReplayMode>,
+
+    /// Output only. The state of the workload replay.
+    pub state: std::option::Option<crate::model::workload_replay_config::State>,
+
+    /// Output only. The start time of the workload replay.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The end time of the workload replay. This field is unset while
+    /// the replay is running.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WorkloadReplayConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [workload_id][crate::model::WorkloadReplayConfig::workload_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadReplayConfig;
+    /// let x = WorkloadReplayConfig::new().set_workload_id("example");
+    /// ```
+    pub fn set_workload_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.workload_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [workload_id][crate::model::WorkloadReplayConfig::workload_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadReplayConfig;
+    /// let x = WorkloadReplayConfig::new().set_or_clear_workload_id(Some("example"));
+    /// let x = WorkloadReplayConfig::new().set_or_clear_workload_id(None::<String>);
+    /// ```
+    pub fn set_or_clear_workload_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.workload_id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source_instance][crate::model::WorkloadReplayConfig::source_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadReplayConfig;
+    /// let x = WorkloadReplayConfig::new().set_source_instance("example");
+    /// ```
+    pub fn set_source_instance<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_instance = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_instance][crate::model::WorkloadReplayConfig::source_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadReplayConfig;
+    /// let x = WorkloadReplayConfig::new().set_or_clear_source_instance(Some("example"));
+    /// let x = WorkloadReplayConfig::new().set_or_clear_source_instance(None::<String>);
+    /// ```
+    pub fn set_or_clear_source_instance<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.source_instance = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [replay_mode][crate::model::WorkloadReplayConfig::replay_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadReplayConfig;
+    /// use google_cloud_sql_v1::model::workload_replay_config::ReplayMode;
+    /// let x0 = WorkloadReplayConfig::new().set_replay_mode(ReplayMode::Live);
+    /// let x1 = WorkloadReplayConfig::new().set_replay_mode(ReplayMode::Offline);
+    /// ```
+    pub fn set_replay_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::workload_replay_config::ReplayMode>,
+    {
+        self.replay_mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [replay_mode][crate::model::WorkloadReplayConfig::replay_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadReplayConfig;
+    /// use google_cloud_sql_v1::model::workload_replay_config::ReplayMode;
+    /// let x0 = WorkloadReplayConfig::new().set_or_clear_replay_mode(Some(ReplayMode::Live));
+    /// let x1 = WorkloadReplayConfig::new().set_or_clear_replay_mode(Some(ReplayMode::Offline));
+    /// let x_none = WorkloadReplayConfig::new().set_or_clear_replay_mode(None::<ReplayMode>);
+    /// ```
+    pub fn set_or_clear_replay_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::workload_replay_config::ReplayMode>,
+    {
+        self.replay_mode = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::WorkloadReplayConfig::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadReplayConfig;
+    /// use google_cloud_sql_v1::model::workload_replay_config::State;
+    /// let x0 = WorkloadReplayConfig::new().set_state(State::Running);
+    /// let x1 = WorkloadReplayConfig::new().set_state(State::Completed);
+    /// let x2 = WorkloadReplayConfig::new().set_state(State::Failed);
+    /// ```
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::workload_replay_config::State>,
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state][crate::model::WorkloadReplayConfig::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadReplayConfig;
+    /// use google_cloud_sql_v1::model::workload_replay_config::State;
+    /// let x0 = WorkloadReplayConfig::new().set_or_clear_state(Some(State::Running));
+    /// let x1 = WorkloadReplayConfig::new().set_or_clear_state(Some(State::Completed));
+    /// let x2 = WorkloadReplayConfig::new().set_or_clear_state(Some(State::Failed));
+    /// let x_none = WorkloadReplayConfig::new().set_or_clear_state(None::<State>);
+    /// ```
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::workload_replay_config::State>,
+    {
+        self.state = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::WorkloadReplayConfig::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadReplayConfig;
+    /// use wkt::Timestamp;
+    /// let x = WorkloadReplayConfig::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::WorkloadReplayConfig::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadReplayConfig;
+    /// use wkt::Timestamp;
+    /// let x = WorkloadReplayConfig::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = WorkloadReplayConfig::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::WorkloadReplayConfig::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadReplayConfig;
+    /// use wkt::Timestamp;
+    /// let x = WorkloadReplayConfig::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::WorkloadReplayConfig::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadReplayConfig;
+    /// use wkt::Timestamp;
+    /// let x = WorkloadReplayConfig::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = WorkloadReplayConfig::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for WorkloadReplayConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.WorkloadReplayConfig"
+    }
+}
+
+/// Defines additional types related to [WorkloadReplayConfig].
+pub mod workload_replay_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The mode of workload replay.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ReplayMode {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Live workload replay mode.
+        Live,
+        /// Offline (delayed) workload replay mode.
+        Offline,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ReplayMode::value] or
+        /// [ReplayMode::name].
+        UnknownValue(replay_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod replay_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ReplayMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Live => std::option::Option::Some(1),
+                Self::Offline => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("REPLAY_MODE_UNSPECIFIED"),
+                Self::Live => std::option::Option::Some("LIVE"),
+                Self::Offline => std::option::Option::Some("OFFLINE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ReplayMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ReplayMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ReplayMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Live,
+                2 => Self::Offline,
+                _ => Self::UnknownValue(replay_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ReplayMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "REPLAY_MODE_UNSPECIFIED" => Self::Unspecified,
+                "LIVE" => Self::Live,
+                "OFFLINE" => Self::Offline,
+                _ => Self::UnknownValue(replay_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ReplayMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Live => serializer.serialize_i32(1),
+                Self::Offline => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ReplayMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ReplayMode>::new(
+                ".google.cloud.sql.v1.WorkloadReplayConfig.ReplayMode",
+            ))
+        }
+    }
+
+    /// The state of the workload replay.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Workload replay is currently running.
+        Running,
+        /// Workload replay completed successfully. Cloud SQL sets this state when
+        /// all captured workload files finish replaying or when you explicitly
+        /// stop the replay.
+        Completed,
+        /// Workload replay failed.
+        Failed,
+        /// Workload replay was terminated automatically. Cloud SQL sets this state
+        /// when it automatically stops the replay because of a conflicting
+        /// operation.
+        Terminated,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Running => std::option::Option::Some(1),
+                Self::Completed => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::Terminated => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Completed => std::option::Option::Some("COMPLETED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Terminated => std::option::Option::Some("TERMINATED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Running,
+                2 => Self::Completed,
+                3 => Self::Failed,
+                4 => Self::Terminated,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "RUNNING" => Self::Running,
+                "COMPLETED" => Self::Completed,
+                "FAILED" => Self::Failed,
+                "TERMINATED" => Self::Terminated,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Running => serializer.serialize_i32(1),
+                Self::Completed => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::Terminated => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.sql.v1.WorkloadReplayConfig.State",
+            ))
+        }
+    }
+}
+
+/// The workload capture configuration for a Cloud SQL primary instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WorkloadCaptureConfig {
+    /// Output only. The ID of the captured workload.
+    pub workload_id: std::option::Option<std::string::String>,
+
+    /// Output only. The mode of the workload capture.
+    pub capture_mode: std::option::Option<crate::model::workload_capture_config::CaptureMode>,
+
+    /// Output only. The state of the workload capture.
+    pub state: std::option::Option<crate::model::workload_capture_config::State>,
+
+    /// Output only. The start time of the workload capture.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The end time of the workload capture. This field is unset
+    /// while the capture is running.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The name of the replay instance, excluding the project ID, if
+    /// live replay is enabled.
+    pub replay_instance: std::option::Option<std::string::String>,
+
+    /// Output only. The retention period in days for the captured workload.
+    pub retention_days: std::option::Option<i32>,
+
+    /// Output only. The base backup ID associated with the workload capture.
+    pub backup_id: std::option::Option<std::string::String>,
+
+    /// Output only. The maximum duration for this workload capture.
+    pub max_capture_duration: std::option::Option<wkt::Duration>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WorkloadCaptureConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [workload_id][crate::model::WorkloadCaptureConfig::workload_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// let x = WorkloadCaptureConfig::new().set_workload_id("example");
+    /// ```
+    pub fn set_workload_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.workload_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [workload_id][crate::model::WorkloadCaptureConfig::workload_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// let x = WorkloadCaptureConfig::new().set_or_clear_workload_id(Some("example"));
+    /// let x = WorkloadCaptureConfig::new().set_or_clear_workload_id(None::<String>);
+    /// ```
+    pub fn set_or_clear_workload_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.workload_id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [capture_mode][crate::model::WorkloadCaptureConfig::capture_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// use google_cloud_sql_v1::model::workload_capture_config::CaptureMode;
+    /// let x0 = WorkloadCaptureConfig::new().set_capture_mode(CaptureMode::CaptureOnly);
+    /// let x1 = WorkloadCaptureConfig::new().set_capture_mode(CaptureMode::CaptureAndLiveReplay);
+    /// ```
+    pub fn set_capture_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::workload_capture_config::CaptureMode>,
+    {
+        self.capture_mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [capture_mode][crate::model::WorkloadCaptureConfig::capture_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// use google_cloud_sql_v1::model::workload_capture_config::CaptureMode;
+    /// let x0 = WorkloadCaptureConfig::new().set_or_clear_capture_mode(Some(CaptureMode::CaptureOnly));
+    /// let x1 = WorkloadCaptureConfig::new().set_or_clear_capture_mode(Some(CaptureMode::CaptureAndLiveReplay));
+    /// let x_none = WorkloadCaptureConfig::new().set_or_clear_capture_mode(None::<CaptureMode>);
+    /// ```
+    pub fn set_or_clear_capture_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::workload_capture_config::CaptureMode>,
+    {
+        self.capture_mode = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::WorkloadCaptureConfig::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// use google_cloud_sql_v1::model::workload_capture_config::State;
+    /// let x0 = WorkloadCaptureConfig::new().set_state(State::Running);
+    /// let x1 = WorkloadCaptureConfig::new().set_state(State::Completed);
+    /// let x2 = WorkloadCaptureConfig::new().set_state(State::Failed);
+    /// ```
+    pub fn set_state<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::workload_capture_config::State>,
+    {
+        self.state = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [state][crate::model::WorkloadCaptureConfig::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// use google_cloud_sql_v1::model::workload_capture_config::State;
+    /// let x0 = WorkloadCaptureConfig::new().set_or_clear_state(Some(State::Running));
+    /// let x1 = WorkloadCaptureConfig::new().set_or_clear_state(Some(State::Completed));
+    /// let x2 = WorkloadCaptureConfig::new().set_or_clear_state(Some(State::Failed));
+    /// let x_none = WorkloadCaptureConfig::new().set_or_clear_state(None::<State>);
+    /// ```
+    pub fn set_or_clear_state<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::workload_capture_config::State>,
+    {
+        self.state = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::WorkloadCaptureConfig::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// use wkt::Timestamp;
+    /// let x = WorkloadCaptureConfig::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::WorkloadCaptureConfig::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// use wkt::Timestamp;
+    /// let x = WorkloadCaptureConfig::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = WorkloadCaptureConfig::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::WorkloadCaptureConfig::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// use wkt::Timestamp;
+    /// let x = WorkloadCaptureConfig::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::WorkloadCaptureConfig::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// use wkt::Timestamp;
+    /// let x = WorkloadCaptureConfig::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = WorkloadCaptureConfig::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [replay_instance][crate::model::WorkloadCaptureConfig::replay_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// let x = WorkloadCaptureConfig::new().set_replay_instance("example");
+    /// ```
+    pub fn set_replay_instance<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.replay_instance = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [replay_instance][crate::model::WorkloadCaptureConfig::replay_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// let x = WorkloadCaptureConfig::new().set_or_clear_replay_instance(Some("example"));
+    /// let x = WorkloadCaptureConfig::new().set_or_clear_replay_instance(None::<String>);
+    /// ```
+    pub fn set_or_clear_replay_instance<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.replay_instance = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [retention_days][crate::model::WorkloadCaptureConfig::retention_days].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// let x = WorkloadCaptureConfig::new().set_retention_days(42);
+    /// ```
+    pub fn set_retention_days<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.retention_days = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [retention_days][crate::model::WorkloadCaptureConfig::retention_days].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// let x = WorkloadCaptureConfig::new().set_or_clear_retention_days(Some(42));
+    /// let x = WorkloadCaptureConfig::new().set_or_clear_retention_days(None::<i32>);
+    /// ```
+    pub fn set_or_clear_retention_days<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.retention_days = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [backup_id][crate::model::WorkloadCaptureConfig::backup_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// let x = WorkloadCaptureConfig::new().set_backup_id("example");
+    /// ```
+    pub fn set_backup_id<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.backup_id = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backup_id][crate::model::WorkloadCaptureConfig::backup_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// let x = WorkloadCaptureConfig::new().set_or_clear_backup_id(Some("example"));
+    /// let x = WorkloadCaptureConfig::new().set_or_clear_backup_id(None::<String>);
+    /// ```
+    pub fn set_or_clear_backup_id<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.backup_id = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [max_capture_duration][crate::model::WorkloadCaptureConfig::max_capture_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// use wkt::Duration;
+    /// let x = WorkloadCaptureConfig::new().set_max_capture_duration(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_max_capture_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.max_capture_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [max_capture_duration][crate::model::WorkloadCaptureConfig::max_capture_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCaptureConfig;
+    /// use wkt::Duration;
+    /// let x = WorkloadCaptureConfig::new().set_or_clear_max_capture_duration(Some(Duration::default()/* use setters */));
+    /// let x = WorkloadCaptureConfig::new().set_or_clear_max_capture_duration(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_max_capture_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.max_capture_duration = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for WorkloadCaptureConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.WorkloadCaptureConfig"
+    }
+}
+
+/// Defines additional types related to [WorkloadCaptureConfig].
+pub mod workload_capture_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The mode of workload capture.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CaptureMode {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Captures the workload on the primary instance without live replay.
+        CaptureOnly,
+        /// Captures the workload and simultaneously replays it on a live replay
+        /// instance.
+        CaptureAndLiveReplay,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CaptureMode::value] or
+        /// [CaptureMode::name].
+        UnknownValue(capture_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod capture_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl CaptureMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::CaptureOnly => std::option::Option::Some(1),
+                Self::CaptureAndLiveReplay => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CAPTURE_MODE_UNSPECIFIED"),
+                Self::CaptureOnly => std::option::Option::Some("CAPTURE_ONLY"),
+                Self::CaptureAndLiveReplay => std::option::Option::Some("CAPTURE_AND_LIVE_REPLAY"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for CaptureMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CaptureMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CaptureMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::CaptureOnly,
+                2 => Self::CaptureAndLiveReplay,
+                _ => Self::UnknownValue(capture_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CaptureMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CAPTURE_MODE_UNSPECIFIED" => Self::Unspecified,
+                "CAPTURE_ONLY" => Self::CaptureOnly,
+                "CAPTURE_AND_LIVE_REPLAY" => Self::CaptureAndLiveReplay,
+                _ => Self::UnknownValue(capture_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CaptureMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::CaptureOnly => serializer.serialize_i32(1),
+                Self::CaptureAndLiveReplay => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CaptureMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CaptureMode>::new(
+                ".google.cloud.sql.v1.WorkloadCaptureConfig.CaptureMode",
+            ))
+        }
+    }
+
+    /// The state of the workload capture.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Workload capture is currently running.
+        Running,
+        /// Workload capture completed successfully. Cloud SQL sets this state when
+        /// you explicitly stop the capture.
+        Completed,
+        /// Workload capture failed.
+        Failed,
+        /// Workload capture was terminated automatically. Cloud SQL sets this state
+        /// when it automatically stops the capture because of a conflicting
+        /// operation or because the capture reached its maximum duration.
+        Terminated,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Running => std::option::Option::Some(1),
+                Self::Completed => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::Terminated => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Completed => std::option::Option::Some("COMPLETED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Terminated => std::option::Option::Some("TERMINATED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Running,
+                2 => Self::Completed,
+                3 => Self::Failed,
+                4 => Self::Terminated,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "RUNNING" => Self::Running,
+                "COMPLETED" => Self::Completed,
+                "FAILED" => Self::Failed,
+                "TERMINATED" => Self::Terminated,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Running => serializer.serialize_i32(1),
+                Self::Completed => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::Terminated => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.sql.v1.WorkloadCaptureConfig.State",
+            ))
+        }
     }
 }
 
@@ -19577,6 +20946,108 @@ impl wkt::message::Message for ReplicaConfiguration {
     }
 }
 
+/// Execute SQL statements request.
+/// Execute SQL statements in read-only mode request.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SqlInstancesExecuteSqlReadOnlyRequest {
+    /// Required. Database instance ID. This does not include the project ID.
+    pub instance: std::string::String,
+
+    /// Required. Project ID of the project that contains the instance.
+    pub project: std::string::String,
+
+    /// Required. The request body.
+    pub body: std::option::Option<crate::model::ExecuteSqlReadOnlyPayload>,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SqlInstancesExecuteSqlReadOnlyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance][crate::model::SqlInstancesExecuteSqlReadOnlyRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesExecuteSqlReadOnlyRequest;
+    /// let x = SqlInstancesExecuteSqlReadOnlyRequest::new().set_instance("example");
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [project][crate::model::SqlInstancesExecuteSqlReadOnlyRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesExecuteSqlReadOnlyRequest;
+    /// let x = SqlInstancesExecuteSqlReadOnlyRequest::new().set_project("example");
+    /// ```
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [body][crate::model::SqlInstancesExecuteSqlReadOnlyRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesExecuteSqlReadOnlyRequest;
+    /// use google_cloud_sql_v1::model::ExecuteSqlReadOnlyPayload;
+    /// let x = SqlInstancesExecuteSqlReadOnlyRequest::new().set_body(ExecuteSqlReadOnlyPayload::default()/* use setters */);
+    /// ```
+    pub fn set_body<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ExecuteSqlReadOnlyPayload>,
+    {
+        self.body = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [body][crate::model::SqlInstancesExecuteSqlReadOnlyRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesExecuteSqlReadOnlyRequest;
+    /// use google_cloud_sql_v1::model::ExecuteSqlReadOnlyPayload;
+    /// let x = SqlInstancesExecuteSqlReadOnlyRequest::new().set_or_clear_body(Some(ExecuteSqlReadOnlyPayload::default()/* use setters */));
+    /// let x = SqlInstancesExecuteSqlReadOnlyRequest::new().set_or_clear_body(None::<ExecuteSqlReadOnlyPayload>);
+    /// ```
+    pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ExecuteSqlReadOnlyPayload>,
+    {
+        self.body = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlInstancesExecuteSqlReadOnlyRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesExecuteSqlReadOnlyRequest;
+    /// let x = SqlInstancesExecuteSqlReadOnlyRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SqlInstancesExecuteSqlReadOnlyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.SqlInstancesExecuteSqlReadOnlyRequest"
+    }
+}
+
 #[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -19675,6 +21146,213 @@ impl SqlInstancesExecuteSqlRequest {
 impl wkt::message::Message for SqlInstancesExecuteSqlRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.sql.v1.SqlInstancesExecuteSqlRequest"
+    }
+}
+
+/// The request payload used to execute SQL statements in read-only mode.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteSqlReadOnlyPayload {
+    /// Optional. The name of an existing database user to connect to the database.
+    /// When `auto_iam_authn` is set to true, this field is ignored and the API
+    /// caller's IAM user is used.
+    pub user: std::string::String,
+
+    /// Required. SQL statements to run on the database. It can be a single
+    /// statement or a sequence of statements separated by semicolons.
+    pub sql_statement: std::string::String,
+
+    /// Optional. Name of the database on which the statement will be executed.
+    /// For Postgres and SQL Server it's required, for MySQL it's optional.
+    pub database: std::string::String,
+
+    /// Optional. The maximum number of rows returned per SQL statement.
+    pub row_limit: i64,
+
+    /// Credentials for the database connection.
+    pub user_password:
+        std::option::Option<crate::model::execute_sql_read_only_payload::UserPassword>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteSqlReadOnlyPayload {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [user][crate::model::ExecuteSqlReadOnlyPayload::user].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExecuteSqlReadOnlyPayload;
+    /// let x = ExecuteSqlReadOnlyPayload::new().set_user("example");
+    /// ```
+    pub fn set_user<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.user = v.into();
+        self
+    }
+
+    /// Sets the value of [sql_statement][crate::model::ExecuteSqlReadOnlyPayload::sql_statement].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExecuteSqlReadOnlyPayload;
+    /// let x = ExecuteSqlReadOnlyPayload::new().set_sql_statement("example");
+    /// ```
+    pub fn set_sql_statement<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.sql_statement = v.into();
+        self
+    }
+
+    /// Sets the value of [database][crate::model::ExecuteSqlReadOnlyPayload::database].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExecuteSqlReadOnlyPayload;
+    /// let x = ExecuteSqlReadOnlyPayload::new().set_database("example");
+    /// ```
+    pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.database = v.into();
+        self
+    }
+
+    /// Sets the value of [row_limit][crate::model::ExecuteSqlReadOnlyPayload::row_limit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExecuteSqlReadOnlyPayload;
+    /// let x = ExecuteSqlReadOnlyPayload::new().set_row_limit(42);
+    /// ```
+    pub fn set_row_limit<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.row_limit = v.into();
+        self
+    }
+
+    /// Sets the value of [user_password][crate::model::ExecuteSqlReadOnlyPayload::user_password].
+    ///
+    /// Note that all the setters affecting `user_password` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExecuteSqlReadOnlyPayload;
+    /// use google_cloud_sql_v1::model::execute_sql_read_only_payload::UserPassword;
+    /// let x = ExecuteSqlReadOnlyPayload::new().set_user_password(Some(UserPassword::PasswordSecretVersion("example".to_string())));
+    /// ```
+    pub fn set_user_password<
+        T: std::convert::Into<
+                std::option::Option<crate::model::execute_sql_read_only_payload::UserPassword>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.user_password = v.into();
+        self
+    }
+
+    /// The value of [user_password][crate::model::ExecuteSqlReadOnlyPayload::user_password]
+    /// if it holds a `PasswordSecretVersion`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn password_secret_version(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.user_password.as_ref().and_then(|v| match v {
+            crate::model::execute_sql_read_only_payload::UserPassword::PasswordSecretVersion(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [user_password][crate::model::ExecuteSqlReadOnlyPayload::user_password]
+    /// to hold a `PasswordSecretVersion`.
+    ///
+    /// Note that all the setters affecting `user_password` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExecuteSqlReadOnlyPayload;
+    /// let x = ExecuteSqlReadOnlyPayload::new().set_password_secret_version("example");
+    /// assert!(x.password_secret_version().is_some());
+    /// assert!(x.auto_iam_authn().is_none());
+    /// ```
+    pub fn set_password_secret_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.user_password = std::option::Option::Some(
+            crate::model::execute_sql_read_only_payload::UserPassword::PasswordSecretVersion(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [user_password][crate::model::ExecuteSqlReadOnlyPayload::user_password]
+    /// if it holds a `AutoIamAuthn`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn auto_iam_authn(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.user_password.as_ref().and_then(|v| match v {
+            crate::model::execute_sql_read_only_payload::UserPassword::AutoIamAuthn(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [user_password][crate::model::ExecuteSqlReadOnlyPayload::user_password]
+    /// to hold a `AutoIamAuthn`.
+    ///
+    /// Note that all the setters affecting `user_password` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ExecuteSqlReadOnlyPayload;
+    /// let x = ExecuteSqlReadOnlyPayload::new().set_auto_iam_authn(true);
+    /// assert!(x.auto_iam_authn().is_some());
+    /// assert!(x.password_secret_version().is_none());
+    /// ```
+    pub fn set_auto_iam_authn<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.user_password = std::option::Option::Some(
+            crate::model::execute_sql_read_only_payload::UserPassword::AutoIamAuthn(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ExecuteSqlReadOnlyPayload {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.ExecuteSqlReadOnlyPayload"
+    }
+}
+
+/// Defines additional types related to [ExecuteSqlReadOnlyPayload].
+pub mod execute_sql_read_only_payload {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Credentials for the database connection.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum UserPassword {
+        /// Optional. The resource name of the Secret Manager secret holding the
+        /// password for the user to log into the database. The secret should be
+        /// created using the regional endpoint (for API) or from the Regional
+        /// Secrets page (for UI), and stored in the same region as the Cloud SQL
+        /// instance. The expected resource name format is
+        /// `projects/{project}/locations/{location}/secrets/{secret}/versions/{secret_version}`.
+        /// This field is used together with the `user` field.
+        /// The secret resource name will not be stored.
+        PasswordSecretVersion(std::string::String),
+        /// Optional. When set to true, the API caller identity associated with the
+        /// request is used for database authentication. The API caller must be an
+        /// IAM user in the database.
+        AutoIamAuthn(bool),
     }
 }
 
@@ -20054,6 +21732,154 @@ pub mod execute_sql_payload {
         /// request is used for database authentication. The API caller must be an
         /// IAM user in the database.
         AutoIamAuthn(bool),
+    }
+}
+
+/// Execute SQL statements response.
+/// Execute SQL statements in read-only mode response.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SqlInstancesExecuteSqlReadOnlyResponse {
+    /// A list of notices and warnings generated during query execution.
+    /// For PostgreSQL, this includes all notices and warnings.
+    /// For MySQL, this includes warnings generated by the last executed statement.
+    /// To retrieve all warnings for a multi-statement query, `SHOW WARNINGS` must
+    /// be executed after each statement.
+    pub messages: std::vec::Vec<crate::model::sql_instances_execute_sql_response::Message>,
+
+    /// The additional metadata information regarding the execution of the SQL
+    /// statements.
+    pub metadata: std::option::Option<crate::model::Metadata>,
+
+    /// The list of results after executing all the SQL statements.
+    pub results: std::vec::Vec<crate::model::QueryResult>,
+
+    /// Contains the error from the database if the SQL execution failed.
+    pub status: std::option::Option<google_cloud_rpc::model::Status>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SqlInstancesExecuteSqlReadOnlyResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [messages][crate::model::SqlInstancesExecuteSqlReadOnlyResponse::messages].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesExecuteSqlReadOnlyResponse;
+    /// use google_cloud_sql_v1::model::sql_instances_execute_sql_response::Message;
+    /// let x = SqlInstancesExecuteSqlReadOnlyResponse::new()
+    ///     .set_messages([
+    ///         Message::default()/* use setters */,
+    ///         Message::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_messages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::sql_instances_execute_sql_response::Message>,
+    {
+        use std::iter::Iterator;
+        self.messages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::SqlInstancesExecuteSqlReadOnlyResponse::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesExecuteSqlReadOnlyResponse;
+    /// use google_cloud_sql_v1::model::Metadata;
+    /// let x = SqlInstancesExecuteSqlReadOnlyResponse::new().set_metadata(Metadata::default()/* use setters */);
+    /// ```
+    pub fn set_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Metadata>,
+    {
+        self.metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metadata][crate::model::SqlInstancesExecuteSqlReadOnlyResponse::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesExecuteSqlReadOnlyResponse;
+    /// use google_cloud_sql_v1::model::Metadata;
+    /// let x = SqlInstancesExecuteSqlReadOnlyResponse::new().set_or_clear_metadata(Some(Metadata::default()/* use setters */));
+    /// let x = SqlInstancesExecuteSqlReadOnlyResponse::new().set_or_clear_metadata(None::<Metadata>);
+    /// ```
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Metadata>,
+    {
+        self.metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [results][crate::model::SqlInstancesExecuteSqlReadOnlyResponse::results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesExecuteSqlReadOnlyResponse;
+    /// use google_cloud_sql_v1::model::QueryResult;
+    /// let x = SqlInstancesExecuteSqlReadOnlyResponse::new()
+    ///     .set_results([
+    ///         QueryResult::default()/* use setters */,
+    ///         QueryResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_results<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::QueryResult>,
+    {
+        use std::iter::Iterator;
+        self.results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [status][crate::model::SqlInstancesExecuteSqlReadOnlyResponse::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesExecuteSqlReadOnlyResponse;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = SqlInstancesExecuteSqlReadOnlyResponse::new().set_status(Status::default()/* use setters */);
+    /// ```
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status][crate::model::SqlInstancesExecuteSqlReadOnlyResponse::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesExecuteSqlReadOnlyResponse;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = SqlInstancesExecuteSqlReadOnlyResponse::new().set_or_clear_status(Some(Status::default()/* use setters */));
+    /// let x = SqlInstancesExecuteSqlReadOnlyResponse::new().set_or_clear_status(None::<Status>);
+    /// ```
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.status = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for SqlInstancesExecuteSqlReadOnlyResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.SqlInstancesExecuteSqlReadOnlyResponse"
     }
 }
 
@@ -20956,6 +22782,225 @@ impl SqlInstancesPointInTimeRestoreRequest {
 impl wkt::message::Message for SqlInstancesPointInTimeRestoreRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.sql.v1.SqlInstancesPointInTimeRestoreRequest"
+    }
+}
+
+/// Request message for SqlInstancesService.ReconcileNetworking.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SqlInstancesReconcileNetworkingRequest {
+    /// Required. Cloud SQL instance ID.
+    pub instance: std::string::String,
+
+    /// Required. Project ID of the project that contains the instance.
+    pub project: std::string::String,
+
+    /// Optional. Region of the Cloud SQL instance.
+    pub location: std::string::String,
+
+    /// Specific networking reconciliation task.
+    pub reconcile_data: std::option::Option<
+        crate::model::sql_instances_reconcile_networking_request::ReconcileData,
+    >,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SqlInstancesReconcileNetworkingRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance][crate::model::SqlInstancesReconcileNetworkingRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesReconcileNetworkingRequest;
+    /// let x = SqlInstancesReconcileNetworkingRequest::new().set_instance("example");
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [project][crate::model::SqlInstancesReconcileNetworkingRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesReconcileNetworkingRequest;
+    /// let x = SqlInstancesReconcileNetworkingRequest::new().set_project("example");
+    /// ```
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [location][crate::model::SqlInstancesReconcileNetworkingRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesReconcileNetworkingRequest;
+    /// let x = SqlInstancesReconcileNetworkingRequest::new().set_location("example");
+    /// ```
+    pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location = v.into();
+        self
+    }
+
+    /// Sets the value of [reconcile_data][crate::model::SqlInstancesReconcileNetworkingRequest::reconcile_data].
+    ///
+    /// Note that all the setters affecting `reconcile_data` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesReconcileNetworkingRequest;
+    /// use google_cloud_sql_v1::model::PscDnsReconcileNetworkingRequest;
+    /// let x = SqlInstancesReconcileNetworkingRequest::new().set_reconcile_data(Some(
+    ///     google_cloud_sql_v1::model::sql_instances_reconcile_networking_request::ReconcileData::PscDns(PscDnsReconcileNetworkingRequest::default().into())));
+    /// ```
+    pub fn set_reconcile_data<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::sql_instances_reconcile_networking_request::ReconcileData,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.reconcile_data = v.into();
+        self
+    }
+
+    /// The value of [reconcile_data][crate::model::SqlInstancesReconcileNetworkingRequest::reconcile_data]
+    /// if it holds a `PscDns`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn psc_dns(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PscDnsReconcileNetworkingRequest>> {
+        #[allow(unreachable_patterns)]
+        self.reconcile_data.as_ref().and_then(|v| match v {
+            crate::model::sql_instances_reconcile_networking_request::ReconcileData::PscDns(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [reconcile_data][crate::model::SqlInstancesReconcileNetworkingRequest::reconcile_data]
+    /// to hold a `PscDns`.
+    ///
+    /// Note that all the setters affecting `reconcile_data` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::SqlInstancesReconcileNetworkingRequest;
+    /// use google_cloud_sql_v1::model::PscDnsReconcileNetworkingRequest;
+    /// let x = SqlInstancesReconcileNetworkingRequest::new().set_psc_dns(PscDnsReconcileNetworkingRequest::default()/* use setters */);
+    /// assert!(x.psc_dns().is_some());
+    /// ```
+    pub fn set_psc_dns<
+        T: std::convert::Into<std::boxed::Box<crate::model::PscDnsReconcileNetworkingRequest>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.reconcile_data = std::option::Option::Some(
+            crate::model::sql_instances_reconcile_networking_request::ReconcileData::PscDns(
+                v.into(),
+            ),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for SqlInstancesReconcileNetworkingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.SqlInstancesReconcileNetworkingRequest"
+    }
+}
+
+/// Defines additional types related to [SqlInstancesReconcileNetworkingRequest].
+pub mod sql_instances_reconcile_networking_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Specific networking reconciliation task.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ReconcileData {
+        /// Request to recreate Private Service Connect DNS write endpoints and
+        /// reconcile Private Service Connect connectivity infrastructure for the
+        /// instance.
+        PscDns(std::boxed::Box<crate::model::PscDnsReconcileNetworkingRequest>),
+    }
+}
+
+/// Request parameters specific to PSC DNS networking reconciliation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PscDnsReconcileNetworkingRequest {
+    /// Optional. List of specific consumer VPC networks to reconcile. They must be
+    /// specified as full resource names (e.g.,
+    /// "projects/my-consumer-project/global/networks/prod-vpc"). If empty,
+    /// recreates Write Endpoints for all the consumer networks associated with
+    /// this instance.
+    pub networks: std::vec::Vec<std::string::String>,
+
+    /// Optional. Set `true` to force the reset and reapplication of Private
+    /// Service Connect connectivity infrastructure if standard reconciliation does
+    /// not resolve automated DNS issues. This operation might cause a brief
+    /// disruption in network connectivity for connected VPC networks while
+    /// settings are reapplied. Use this option only when standard reconciliation
+    /// fails to resolve networking issues (for example, if connectivity resources
+    /// are stuck in an updating or creating state).
+    pub force: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PscDnsReconcileNetworkingRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [networks][crate::model::PscDnsReconcileNetworkingRequest::networks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscDnsReconcileNetworkingRequest;
+    /// let x = PscDnsReconcileNetworkingRequest::new().set_networks(["a", "b", "c"]);
+    /// ```
+    pub fn set_networks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.networks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::PscDnsReconcileNetworkingRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::PscDnsReconcileNetworkingRequest;
+    /// let x = PscDnsReconcileNetworkingRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PscDnsReconcileNetworkingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.PscDnsReconcileNetworkingRequest"
     }
 }
 
@@ -29437,6 +31482,9 @@ pub mod operation {
         SwitchoverBlueGreenDeployment,
         /// Deletes a Blue-Green deployment.
         DeleteBlueGreenDeployment,
+        /// Reconciles network infrastructure (e.g. Private Service Connect,
+        /// Automated DNS Records).
+        ReconcileNetworking,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [SqlOperationType::value] or
@@ -29516,6 +31564,7 @@ pub mod operation {
                 Self::CreateBlueGreenDeployment => std::option::Option::Some(56),
                 Self::SwitchoverBlueGreenDeployment => std::option::Option::Some(57),
                 Self::DeleteBlueGreenDeployment => std::option::Option::Some(58),
+                Self::ReconcileNetworking => std::option::Option::Some(64),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -29593,6 +31642,7 @@ pub mod operation {
                 Self::DeleteBlueGreenDeployment => {
                     std::option::Option::Some("DELETE_BLUE_GREEN_DEPLOYMENT")
                 }
+                Self::ReconcileNetworking => std::option::Option::Some("RECONCILE_NETWORKING"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -29671,6 +31721,7 @@ pub mod operation {
                 56 => Self::CreateBlueGreenDeployment,
                 57 => Self::SwitchoverBlueGreenDeployment,
                 58 => Self::DeleteBlueGreenDeployment,
+                64 => Self::ReconcileNetworking,
                 _ => Self::UnknownValue(sql_operation_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -29739,6 +31790,7 @@ pub mod operation {
                 "CREATE_BLUE_GREEN_DEPLOYMENT" => Self::CreateBlueGreenDeployment,
                 "SWITCHOVER_BLUE_GREEN_DEPLOYMENT" => Self::SwitchoverBlueGreenDeployment,
                 "DELETE_BLUE_GREEN_DEPLOYMENT" => Self::DeleteBlueGreenDeployment,
+                "RECONCILE_NETWORKING" => Self::ReconcileNetworking,
                 _ => Self::UnknownValue(sql_operation_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -29809,6 +31861,7 @@ pub mod operation {
                 Self::CreateBlueGreenDeployment => serializer.serialize_i32(56),
                 Self::SwitchoverBlueGreenDeployment => serializer.serialize_i32(57),
                 Self::DeleteBlueGreenDeployment => serializer.serialize_i32(58),
+                Self::ReconcileNetworking => serializer.serialize_i32(64),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -30732,6 +32785,14 @@ pub struct Settings {
     /// Insights configuration, for now relevant only for Postgres.
     pub insights_config: std::option::Option<crate::model::InsightsConfig>,
 
+    /// Optional. Enables Microsoft Distributed Transaction Coordinator (MSDTC) for
+    /// SQL Server.
+    pub msdtc_enabled: std::option::Option<bool>,
+
+    /// Optional. RPC authentication mode for Microsoft Distributed Transaction
+    /// Coordinator (MSDTC).
+    pub msdtc_rpc_auth_mode: std::option::Option<crate::model::settings::MsdtcRpcAuthMode>,
+
     /// The local user password validation policy of the instance for PostgreSQL
     /// and MySQL.
     pub password_validation_policy: std::option::Option<crate::model::PasswordValidationPolicy>,
@@ -30824,6 +32885,10 @@ pub struct Settings {
     /// Optional. Configuration for Performance Capture, provides diagnostic
     /// metrics during high load situations.
     pub performance_capture_config: std::option::Option<crate::model::PerformanceCaptureConfig>,
+
+    /// Optional. Input only. Users to be created on the instance during instance
+    /// creation.
+    pub initial_users_config: std::option::Option<crate::model::InitialUsersConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -31440,6 +33505,74 @@ impl Settings {
         T: std::convert::Into<crate::model::InsightsConfig>,
     {
         self.insights_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [msdtc_enabled][crate::model::Settings::msdtc_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// let x = Settings::new().set_msdtc_enabled(true);
+    /// ```
+    pub fn set_msdtc_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.msdtc_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [msdtc_enabled][crate::model::Settings::msdtc_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// let x = Settings::new().set_or_clear_msdtc_enabled(Some(false));
+    /// let x = Settings::new().set_or_clear_msdtc_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_msdtc_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.msdtc_enabled = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [msdtc_rpc_auth_mode][crate::model::Settings::msdtc_rpc_auth_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::settings::MsdtcRpcAuthMode;
+    /// let x0 = Settings::new().set_msdtc_rpc_auth_mode(MsdtcRpcAuthMode::AllowOnlySecureRpcCalls);
+    /// let x1 = Settings::new().set_msdtc_rpc_auth_mode(MsdtcRpcAuthMode::FallbackToUnsecureRpcIfNecessary);
+    /// let x2 = Settings::new().set_msdtc_rpc_auth_mode(MsdtcRpcAuthMode::TurnOffRpcSecurity);
+    /// ```
+    pub fn set_msdtc_rpc_auth_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::settings::MsdtcRpcAuthMode>,
+    {
+        self.msdtc_rpc_auth_mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [msdtc_rpc_auth_mode][crate::model::Settings::msdtc_rpc_auth_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::settings::MsdtcRpcAuthMode;
+    /// let x0 = Settings::new().set_or_clear_msdtc_rpc_auth_mode(Some(MsdtcRpcAuthMode::AllowOnlySecureRpcCalls));
+    /// let x1 = Settings::new().set_or_clear_msdtc_rpc_auth_mode(Some(MsdtcRpcAuthMode::FallbackToUnsecureRpcIfNecessary));
+    /// let x2 = Settings::new().set_or_clear_msdtc_rpc_auth_mode(Some(MsdtcRpcAuthMode::TurnOffRpcSecurity));
+    /// let x_none = Settings::new().set_or_clear_msdtc_rpc_auth_mode(None::<MsdtcRpcAuthMode>);
+    /// ```
+    pub fn set_or_clear_msdtc_rpc_auth_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::settings::MsdtcRpcAuthMode>,
+    {
+        self.msdtc_rpc_auth_mode = v.map(|x| x.into());
         self
     }
 
@@ -32117,6 +34250,39 @@ impl Settings {
         self.performance_capture_config = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [initial_users_config][crate::model::Settings::initial_users_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::InitialUsersConfig;
+    /// let x = Settings::new().set_initial_users_config(InitialUsersConfig::default()/* use setters */);
+    /// ```
+    pub fn set_initial_users_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::InitialUsersConfig>,
+    {
+        self.initial_users_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [initial_users_config][crate::model::Settings::initial_users_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::Settings;
+    /// use google_cloud_sql_v1::model::InitialUsersConfig;
+    /// let x = Settings::new().set_or_clear_initial_users_config(Some(InitialUsersConfig::default()/* use setters */));
+    /// let x = Settings::new().set_or_clear_initial_users_config(None::<InitialUsersConfig>);
+    /// ```
+    pub fn set_or_clear_initial_users_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::InitialUsersConfig>,
+    {
+        self.initial_users_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for Settings {
@@ -32266,6 +34432,158 @@ pub mod settings {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlActivationPolicy>::new(
                 ".google.cloud.sql.v1.Settings.SqlActivationPolicy",
+            ))
+        }
+    }
+
+    /// RPC authentication modes for Microsoft Distributed Transaction Coordinator
+    /// (MSDTC).
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum MsdtcRpcAuthMode {
+        /// Unspecified RPC authentication mode.
+        Unspecified,
+        /// Allow only secure RPC calls. Both servers (caller and receiver) must
+        /// successfully verify each other's identities, typically using Active
+        /// Directory machine accounts and Kerberos Service Principal Names (SPNs).
+        /// This is equivalent to Mutual Authentication in Microsoft SQL Server on
+        /// Windows.
+        AllowOnlySecureRpcCalls,
+        /// Similar to Incoming authentication mode in Microsoft SQL Server on
+        /// Windows, the caller authenticates to the receiver.
+        /// The receiver verifies the caller's identity, but the Receiver does not
+        /// authenticate itself back to the caller.
+        FallbackToUnsecureRpcIfNecessary,
+        /// No authentication. Highly insecure and thus should only be used on
+        /// already secure networks and never over public IP.
+        TurnOffRpcSecurity,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [MsdtcRpcAuthMode::value] or
+        /// [MsdtcRpcAuthMode::name].
+        UnknownValue(msdtc_rpc_auth_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod msdtc_rpc_auth_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl MsdtcRpcAuthMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::AllowOnlySecureRpcCalls => std::option::Option::Some(1),
+                Self::FallbackToUnsecureRpcIfNecessary => std::option::Option::Some(2),
+                Self::TurnOffRpcSecurity => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MSDTC_RPC_AUTH_MODE_UNSPECIFIED"),
+                Self::AllowOnlySecureRpcCalls => {
+                    std::option::Option::Some("ALLOW_ONLY_SECURE_RPC_CALLS")
+                }
+                Self::FallbackToUnsecureRpcIfNecessary => {
+                    std::option::Option::Some("FALLBACK_TO_UNSECURE_RPC_IF_NECESSARY")
+                }
+                Self::TurnOffRpcSecurity => std::option::Option::Some("TURN_OFF_RPC_SECURITY"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for MsdtcRpcAuthMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for MsdtcRpcAuthMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for MsdtcRpcAuthMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::AllowOnlySecureRpcCalls,
+                2 => Self::FallbackToUnsecureRpcIfNecessary,
+                3 => Self::TurnOffRpcSecurity,
+                _ => Self::UnknownValue(msdtc_rpc_auth_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for MsdtcRpcAuthMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MSDTC_RPC_AUTH_MODE_UNSPECIFIED" => Self::Unspecified,
+                "ALLOW_ONLY_SECURE_RPC_CALLS" => Self::AllowOnlySecureRpcCalls,
+                "FALLBACK_TO_UNSECURE_RPC_IF_NECESSARY" => Self::FallbackToUnsecureRpcIfNecessary,
+                "TURN_OFF_RPC_SECURITY" => Self::TurnOffRpcSecurity,
+                _ => Self::UnknownValue(msdtc_rpc_auth_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for MsdtcRpcAuthMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::AllowOnlySecureRpcCalls => serializer.serialize_i32(1),
+                Self::FallbackToUnsecureRpcIfNecessary => serializer.serialize_i32(2),
+                Self::TurnOffRpcSecurity => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for MsdtcRpcAuthMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<MsdtcRpcAuthMode>::new(
+                ".google.cloud.sql.v1.Settings.MsdtcRpcAuthMode",
             ))
         }
     }
@@ -34184,6 +36502,248 @@ impl wkt::message::Message for SslCertDetail {
     }
 }
 
+/// DNS Entry for the primary instance in a replication topology.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DNSEntry {
+    /// Required. The DNS name.
+    pub dns: std::string::String,
+
+    /// Required. The IP address.
+    pub ipv4_address: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DNSEntry {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [dns][crate::model::DNSEntry::dns].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DNSEntry;
+    /// let x = DNSEntry::new().set_dns("example");
+    /// ```
+    pub fn set_dns<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.dns = v.into();
+        self
+    }
+
+    /// Sets the value of [ipv4_address][crate::model::DNSEntry::ipv4_address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DNSEntry;
+    /// let x = DNSEntry::new().set_ipv4_address("example");
+    /// ```
+    pub fn set_ipv4_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ipv4_address = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DNSEntry {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.DNSEntry"
+    }
+}
+
+/// A single certificate or key in a customer managed certificate bundle.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CustomerManagedCertificate {
+    /// Required. The certificate type.
+    pub certificate_type: crate::model::CertificateType,
+
+    /// Required. Input only. The PEM-encoded certificate or key content in base64
+    /// format.
+    pub content: ::bytes::Bytes,
+
+    /// Output only. File path of the PEM-encoded certificate or key content on the
+    /// database virtual machine. This path can be used by database extensions or
+    /// plugins (for example, to configure `pglogical` in PostgreSQL) that need to
+    /// reference the certificate or key file directly on the VM's filesystem, ex:
+    /// certs/c1/server-ca.pem
+    pub file_path: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CustomerManagedCertificate {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [certificate_type][crate::model::CustomerManagedCertificate::certificate_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CustomerManagedCertificate;
+    /// use google_cloud_sql_v1::model::CertificateType;
+    /// let x0 = CustomerManagedCertificate::new().set_certificate_type(CertificateType::PeerServerCa);
+    /// let x1 = CustomerManagedCertificate::new().set_certificate_type(CertificateType::PeerClientKey);
+    /// let x2 = CustomerManagedCertificate::new().set_certificate_type(CertificateType::PeerClientCertificate);
+    /// ```
+    pub fn set_certificate_type<T: std::convert::Into<crate::model::CertificateType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.certificate_type = v.into();
+        self
+    }
+
+    /// Sets the value of [content][crate::model::CustomerManagedCertificate::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CustomerManagedCertificate;
+    /// let x = CustomerManagedCertificate::new().set_content(bytes::Bytes::from_static(b"example"));
+    /// ```
+    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.content = v.into();
+        self
+    }
+
+    /// Sets the value of [file_path][crate::model::CustomerManagedCertificate::file_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CustomerManagedCertificate;
+    /// let x = CustomerManagedCertificate::new().set_file_path("example");
+    /// ```
+    pub fn set_file_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.file_path = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CustomerManagedCertificate {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.CustomerManagedCertificate"
+    }
+}
+
+/// Customer managed certificate SSL configuration.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CustomerManagedCertificateConfig {
+    /// Output only. The name of the customer managed certificate configuration.
+    /// This name will be used to identify a certificate bundle.
+    pub bundle: std::string::String,
+
+    /// Required. The intent for this customer managed certificate configuration.
+    pub intent: crate::model::Intent,
+
+    /// DNS name associated with the primary instance in a replication topology.
+    /// This is needed to insert a DNS entry in a replica VM.
+    pub primary_dns_record: std::option::Option<crate::model::DNSEntry>,
+
+    /// Required. The server CA certificate, client key and client certificate. You
+    /// can specify up to 3 certificates in a bundle.
+    pub customer_managed_certificates: std::vec::Vec<crate::model::CustomerManagedCertificate>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CustomerManagedCertificateConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [bundle][crate::model::CustomerManagedCertificateConfig::bundle].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CustomerManagedCertificateConfig;
+    /// let x = CustomerManagedCertificateConfig::new().set_bundle("example");
+    /// ```
+    pub fn set_bundle<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.bundle = v.into();
+        self
+    }
+
+    /// Sets the value of [intent][crate::model::CustomerManagedCertificateConfig::intent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CustomerManagedCertificateConfig;
+    /// use google_cloud_sql_v1::model::Intent;
+    /// let x0 = CustomerManagedCertificateConfig::new().set_intent(Intent::PgLogical);
+    /// let x1 = CustomerManagedCertificateConfig::new().set_intent(Intent::NativeReplication);
+    /// ```
+    pub fn set_intent<T: std::convert::Into<crate::model::Intent>>(mut self, v: T) -> Self {
+        self.intent = v.into();
+        self
+    }
+
+    /// Sets the value of [primary_dns_record][crate::model::CustomerManagedCertificateConfig::primary_dns_record].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CustomerManagedCertificateConfig;
+    /// use google_cloud_sql_v1::model::DNSEntry;
+    /// let x = CustomerManagedCertificateConfig::new().set_primary_dns_record(DNSEntry::default()/* use setters */);
+    /// ```
+    pub fn set_primary_dns_record<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DNSEntry>,
+    {
+        self.primary_dns_record = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [primary_dns_record][crate::model::CustomerManagedCertificateConfig::primary_dns_record].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CustomerManagedCertificateConfig;
+    /// use google_cloud_sql_v1::model::DNSEntry;
+    /// let x = CustomerManagedCertificateConfig::new().set_or_clear_primary_dns_record(Some(DNSEntry::default()/* use setters */));
+    /// let x = CustomerManagedCertificateConfig::new().set_or_clear_primary_dns_record(None::<DNSEntry>);
+    /// ```
+    pub fn set_or_clear_primary_dns_record<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DNSEntry>,
+    {
+        self.primary_dns_record = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [customer_managed_certificates][crate::model::CustomerManagedCertificateConfig::customer_managed_certificates].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::CustomerManagedCertificateConfig;
+    /// use google_cloud_sql_v1::model::CustomerManagedCertificate;
+    /// let x = CustomerManagedCertificateConfig::new()
+    ///     .set_customer_managed_certificates([
+    ///         CustomerManagedCertificate::default()/* use setters */,
+    ///         CustomerManagedCertificate::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_customer_managed_certificates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CustomerManagedCertificate>,
+    {
+        use std::iter::Iterator;
+        self.customer_managed_certificates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for CustomerManagedCertificateConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.CustomerManagedCertificateConfig"
+    }
+}
+
 /// Active Directory configuration, relevant only for Cloud SQL for SQL Server.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -34652,6 +37212,332 @@ impl SqlServerEntraIdConfig {
 impl wkt::message::Message for SqlServerEntraIdConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.sql.v1.SqlServerEntraIdConfig"
+    }
+}
+
+/// Configuration for users created during instance creation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InitialUsersConfig {
+    /// Optional. List of IAM users to be created during instance creation.
+    /// A maximum of 5 users are allowed.
+    pub initial_users: std::vec::Vec<crate::model::initial_users_config::InitialUser>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InitialUsersConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [initial_users][crate::model::InitialUsersConfig::initial_users].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::InitialUsersConfig;
+    /// use google_cloud_sql_v1::model::initial_users_config::InitialUser;
+    /// let x = InitialUsersConfig::new()
+    ///     .set_initial_users([
+    ///         InitialUser::default()/* use setters */,
+    ///         InitialUser::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_initial_users<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::initial_users_config::InitialUser>,
+    {
+        use std::iter::Iterator;
+        self.initial_users = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for InitialUsersConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.InitialUsersConfig"
+    }
+}
+
+/// Defines additional types related to [InitialUsersConfig].
+pub mod initial_users_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Configuration for an IAM user created during instance creation.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct InitialUser {
+        /// Required. The name of the user in the Cloud SQL instance.
+        pub name: std::string::String,
+
+        /// Required. The user type. Cannot be BUILT_IN.
+        pub r#type: crate::model::initial_users_config::initial_user::SqlUserType,
+
+        /// Optional. The database roles to be assigned to the user. If empty, will
+        /// grant role `cloudsqlsuperuser`.
+        pub roles: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl InitialUser {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::initial_users_config::InitialUser::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::initial_users_config::InitialUser;
+        /// let x = InitialUser::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [r#type][crate::model::initial_users_config::InitialUser::type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::initial_users_config::InitialUser;
+        /// use google_cloud_sql_v1::model::initial_users_config::initial_user::SqlUserType;
+        /// let x0 = InitialUser::new().set_type(SqlUserType::CloudIamUser);
+        /// let x1 = InitialUser::new().set_type(SqlUserType::CloudIamServiceAccount);
+        /// let x2 = InitialUser::new().set_type(SqlUserType::CloudIamGroup);
+        /// ```
+        pub fn set_type<
+            T: std::convert::Into<crate::model::initial_users_config::initial_user::SqlUserType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.r#type = v.into();
+            self
+        }
+
+        /// Sets the value of [roles][crate::model::initial_users_config::InitialUser::roles].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_sql_v1::model::initial_users_config::InitialUser;
+        /// let x = InitialUser::new().set_roles(["a", "b", "c"]);
+        /// ```
+        pub fn set_roles<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.roles = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for InitialUser {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.sql.v1.InitialUsersConfig.InitialUser"
+        }
+    }
+
+    /// Defines additional types related to [InitialUser].
+    pub mod initial_user {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The user type.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum SqlUserType {
+            /// The database's built-in user type. Not supported for initial user
+            /// creation.
+            BuiltIn,
+            /// Cloud IAM user.
+            /// MySQL will truncate the @ and domain when it stores the user.
+            CloudIamUser,
+            /// Cloud IAM service account.
+            /// For PostgreSQL, omit the .gserviceaccount.com suffix.
+            /// MySQL will truncate the @ and domain when it stores the user.
+            CloudIamServiceAccount,
+            /// Cloud IAM group.
+            CloudIamGroup,
+            /// Login for a user that belongs to the Cloud IAM group. Not supported for
+            /// initial user creation.
+            CloudIamGroupUser,
+            /// Login for a service account that belongs to the
+            /// Cloud IAM group. Not supported for initial user creation.
+            CloudIamGroupServiceAccount,
+            /// Cloud IAM workforce identity.
+            CloudIamWorkforceIdentity,
+            /// Microsoft Entra ID user. Not supported for initial user creation.
+            EntraidUser,
+            /// Active Directory user. Not supported for initial user creation.
+            ActiveDirectoryUser,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [SqlUserType::value] or
+            /// [SqlUserType::name].
+            UnknownValue(sql_user_type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod sql_user_type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl SqlUserType {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::BuiltIn => std::option::Option::Some(0),
+                    Self::CloudIamUser => std::option::Option::Some(1),
+                    Self::CloudIamServiceAccount => std::option::Option::Some(2),
+                    Self::CloudIamGroup => std::option::Option::Some(3),
+                    Self::CloudIamGroupUser => std::option::Option::Some(4),
+                    Self::CloudIamGroupServiceAccount => std::option::Option::Some(5),
+                    Self::CloudIamWorkforceIdentity => std::option::Option::Some(6),
+                    Self::EntraidUser => std::option::Option::Some(7),
+                    Self::ActiveDirectoryUser => std::option::Option::Some(8),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::BuiltIn => std::option::Option::Some("BUILT_IN"),
+                    Self::CloudIamUser => std::option::Option::Some("CLOUD_IAM_USER"),
+                    Self::CloudIamServiceAccount => {
+                        std::option::Option::Some("CLOUD_IAM_SERVICE_ACCOUNT")
+                    }
+                    Self::CloudIamGroup => std::option::Option::Some("CLOUD_IAM_GROUP"),
+                    Self::CloudIamGroupUser => std::option::Option::Some("CLOUD_IAM_GROUP_USER"),
+                    Self::CloudIamGroupServiceAccount => {
+                        std::option::Option::Some("CLOUD_IAM_GROUP_SERVICE_ACCOUNT")
+                    }
+                    Self::CloudIamWorkforceIdentity => {
+                        std::option::Option::Some("CLOUD_IAM_WORKFORCE_IDENTITY")
+                    }
+                    Self::EntraidUser => std::option::Option::Some("ENTRAID_USER"),
+                    Self::ActiveDirectoryUser => std::option::Option::Some("ACTIVE_DIRECTORY_USER"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for SqlUserType {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for SqlUserType {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for SqlUserType {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::BuiltIn,
+                    1 => Self::CloudIamUser,
+                    2 => Self::CloudIamServiceAccount,
+                    3 => Self::CloudIamGroup,
+                    4 => Self::CloudIamGroupUser,
+                    5 => Self::CloudIamGroupServiceAccount,
+                    6 => Self::CloudIamWorkforceIdentity,
+                    7 => Self::EntraidUser,
+                    8 => Self::ActiveDirectoryUser,
+                    _ => Self::UnknownValue(sql_user_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for SqlUserType {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "BUILT_IN" => Self::BuiltIn,
+                    "CLOUD_IAM_USER" => Self::CloudIamUser,
+                    "CLOUD_IAM_SERVICE_ACCOUNT" => Self::CloudIamServiceAccount,
+                    "CLOUD_IAM_GROUP" => Self::CloudIamGroup,
+                    "CLOUD_IAM_GROUP_USER" => Self::CloudIamGroupUser,
+                    "CLOUD_IAM_GROUP_SERVICE_ACCOUNT" => Self::CloudIamGroupServiceAccount,
+                    "CLOUD_IAM_WORKFORCE_IDENTITY" => Self::CloudIamWorkforceIdentity,
+                    "ENTRAID_USER" => Self::EntraidUser,
+                    "ACTIVE_DIRECTORY_USER" => Self::ActiveDirectoryUser,
+                    _ => Self::UnknownValue(sql_user_type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for SqlUserType {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::BuiltIn => serializer.serialize_i32(0),
+                    Self::CloudIamUser => serializer.serialize_i32(1),
+                    Self::CloudIamServiceAccount => serializer.serialize_i32(2),
+                    Self::CloudIamGroup => serializer.serialize_i32(3),
+                    Self::CloudIamGroupUser => serializer.serialize_i32(4),
+                    Self::CloudIamGroupServiceAccount => serializer.serialize_i32(5),
+                    Self::CloudIamWorkforceIdentity => serializer.serialize_i32(6),
+                    Self::EntraidUser => serializer.serialize_i32(7),
+                    Self::ActiveDirectoryUser => serializer.serialize_i32(8),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for SqlUserType {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlUserType>::new(
+                    ".google.cloud.sql.v1.InitialUsersConfig.InitialUser.SqlUserType",
+                ))
+            }
+        }
     }
 }
 
@@ -35471,6 +38357,10 @@ pub struct StartWorkloadReplayContext {
     /// ID to start executing the recorded SQL queries.
     pub workload_id: std::string::String,
 
+    /// Output only. The name of the source Cloud SQL instance where the workload
+    /// was captured, excluding the project ID (for example, `my-source-instance`).
+    pub source_instance: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -35501,6 +38391,18 @@ impl StartWorkloadReplayContext {
     /// ```
     pub fn set_workload_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.workload_id = v.into();
+        self
+    }
+
+    /// Sets the value of [source_instance][crate::model::StartWorkloadReplayContext::source_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::StartWorkloadReplayContext;
+    /// let x = StartWorkloadReplayContext::new().set_source_instance("example");
+    /// ```
+    pub fn set_source_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source_instance = v.into();
         self
     }
 }
@@ -36043,6 +38945,338 @@ impl SslCertsListResponse {
 impl wkt::message::Message for SslCertsListResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.sql.v1.SslCertsListResponse"
+    }
+}
+
+/// Request message for SqlSslCertsService.UpdateCustomerManagedCertificate.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateCustomerManagedCertificateRequest {
+    /// Required. Cloud SQL instance ID. This does not include the project ID.
+    pub instance: std::string::String,
+
+    /// Required. Project ID of the project that contains the instance.
+    pub project: std::string::String,
+
+    /// Required. The customer managed certificate bundle SSL configuration to
+    /// update.
+    pub customer_managed_certificate_config:
+        std::option::Option<crate::model::CustomerManagedCertificateConfig>,
+
+    /// Optional. The list of fields to be updated.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. If set to true, and the customer managed certificate bundle
+    /// configuration is not found, a new customer managed certificate bundle
+    /// configuration will be created. In this situation, `update_mask` is ignored.
+    pub allow_missing: bool,
+
+    /// Required. Name tag of the customer managed certificate bundle to update. It
+    /// must start with a letter, be alphanumeric, and have a maximum length of 10
+    /// characters.
+    pub certificate_bundle: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateCustomerManagedCertificateRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance][crate::model::UpdateCustomerManagedCertificateRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::UpdateCustomerManagedCertificateRequest;
+    /// let x = UpdateCustomerManagedCertificateRequest::new().set_instance("example");
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [project][crate::model::UpdateCustomerManagedCertificateRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::UpdateCustomerManagedCertificateRequest;
+    /// let x = UpdateCustomerManagedCertificateRequest::new().set_project("example");
+    /// ```
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [customer_managed_certificate_config][crate::model::UpdateCustomerManagedCertificateRequest::customer_managed_certificate_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::UpdateCustomerManagedCertificateRequest;
+    /// use google_cloud_sql_v1::model::CustomerManagedCertificateConfig;
+    /// let x = UpdateCustomerManagedCertificateRequest::new().set_customer_managed_certificate_config(CustomerManagedCertificateConfig::default()/* use setters */);
+    /// ```
+    pub fn set_customer_managed_certificate_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomerManagedCertificateConfig>,
+    {
+        self.customer_managed_certificate_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [customer_managed_certificate_config][crate::model::UpdateCustomerManagedCertificateRequest::customer_managed_certificate_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::UpdateCustomerManagedCertificateRequest;
+    /// use google_cloud_sql_v1::model::CustomerManagedCertificateConfig;
+    /// let x = UpdateCustomerManagedCertificateRequest::new().set_or_clear_customer_managed_certificate_config(Some(CustomerManagedCertificateConfig::default()/* use setters */));
+    /// let x = UpdateCustomerManagedCertificateRequest::new().set_or_clear_customer_managed_certificate_config(None::<CustomerManagedCertificateConfig>);
+    /// ```
+    pub fn set_or_clear_customer_managed_certificate_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomerManagedCertificateConfig>,
+    {
+        self.customer_managed_certificate_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateCustomerManagedCertificateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::UpdateCustomerManagedCertificateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCustomerManagedCertificateRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCustomerManagedCertificateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::UpdateCustomerManagedCertificateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCustomerManagedCertificateRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCustomerManagedCertificateRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [allow_missing][crate::model::UpdateCustomerManagedCertificateRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::UpdateCustomerManagedCertificateRequest;
+    /// let x = UpdateCustomerManagedCertificateRequest::new().set_allow_missing(true);
+    /// ```
+    pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.allow_missing = v.into();
+        self
+    }
+
+    /// Sets the value of [certificate_bundle][crate::model::UpdateCustomerManagedCertificateRequest::certificate_bundle].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::UpdateCustomerManagedCertificateRequest;
+    /// let x = UpdateCustomerManagedCertificateRequest::new().set_certificate_bundle("example");
+    /// ```
+    pub fn set_certificate_bundle<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.certificate_bundle = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateCustomerManagedCertificateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.UpdateCustomerManagedCertificateRequest"
+    }
+}
+
+/// Request message for SqlSslCertsService.DeleteCustomerManagedCertificate.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteCustomerManagedCertificateRequest {
+    /// Required. Cloud SQL instance ID. This does not include the project ID.
+    pub instance: std::string::String,
+
+    /// Required. Project ID of the project that contains the instance.
+    pub project: std::string::String,
+
+    /// Required. Name tag of the customer managed certificate bundle to delete. It
+    /// must start with a letter, be alphanumeric, and have a maximum length of 10
+    /// characters.
+    pub certificate_bundle: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteCustomerManagedCertificateRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance][crate::model::DeleteCustomerManagedCertificateRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DeleteCustomerManagedCertificateRequest;
+    /// let x = DeleteCustomerManagedCertificateRequest::new().set_instance("example");
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [project][crate::model::DeleteCustomerManagedCertificateRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DeleteCustomerManagedCertificateRequest;
+    /// let x = DeleteCustomerManagedCertificateRequest::new().set_project("example");
+    /// ```
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+
+    /// Sets the value of [certificate_bundle][crate::model::DeleteCustomerManagedCertificateRequest::certificate_bundle].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::DeleteCustomerManagedCertificateRequest;
+    /// let x = DeleteCustomerManagedCertificateRequest::new().set_certificate_bundle("example");
+    /// ```
+    pub fn set_certificate_bundle<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.certificate_bundle = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteCustomerManagedCertificateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.DeleteCustomerManagedCertificateRequest"
+    }
+}
+
+/// Request message for SqlSslCertsService.ListCustomerManagedCertificates.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListCustomerManagedCertificatesRequest {
+    /// Required. Cloud SQL instance ID. This does not include the project ID.
+    pub instance: std::string::String,
+
+    /// Required. Project ID of the project that contains the instance.
+    pub project: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListCustomerManagedCertificatesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance][crate::model::ListCustomerManagedCertificatesRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ListCustomerManagedCertificatesRequest;
+    /// let x = ListCustomerManagedCertificatesRequest::new().set_instance("example");
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+
+    /// Sets the value of [project][crate::model::ListCustomerManagedCertificatesRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ListCustomerManagedCertificatesRequest;
+    /// let x = ListCustomerManagedCertificatesRequest::new().set_project("example");
+    /// ```
+    pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListCustomerManagedCertificatesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.ListCustomerManagedCertificatesRequest"
+    }
+}
+
+/// Response message for SqlSslCertsService.ListCustomerManagedCertificates.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListCustomerManagedCertificatesResponse {
+    /// Required. List of customer managed SSL configurations for the instance.
+    /// Note: Sensitive private keys (e.g., PEER_CLIENT_KEY) are redacted in this
+    /// response.
+    pub customer_managed_certificates:
+        std::vec::Vec<crate::model::CustomerManagedCertificateConfig>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListCustomerManagedCertificatesResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [customer_managed_certificates][crate::model::ListCustomerManagedCertificatesResponse::customer_managed_certificates].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::ListCustomerManagedCertificatesResponse;
+    /// use google_cloud_sql_v1::model::CustomerManagedCertificateConfig;
+    /// let x = ListCustomerManagedCertificatesResponse::new()
+    ///     .set_customer_managed_certificates([
+    ///         CustomerManagedCertificateConfig::default()/* use setters */,
+    ///         CustomerManagedCertificateConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_customer_managed_certificates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CustomerManagedCertificateConfig>,
+    {
+        use std::iter::Iterator;
+        self.customer_managed_certificates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListCustomerManagedCertificatesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.sql.v1.ListCustomerManagedCertificatesResponse"
     }
 }
 
@@ -38564,6 +41798,9 @@ pub struct WorkloadCapture {
     /// Output only. The base backup ID associated with the workload capture.
     pub backup_id: std::option::Option<std::string::String>,
 
+    /// Output only. The capture mode of the workload capture.
+    pub capture_mode: crate::model::workload_capture::WorkloadCaptureMode,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -38775,6 +42012,25 @@ impl WorkloadCapture {
         self.backup_id = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [capture_mode][crate::model::WorkloadCapture::capture_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_sql_v1::model::WorkloadCapture;
+    /// use google_cloud_sql_v1::model::workload_capture::WorkloadCaptureMode;
+    /// let x0 = WorkloadCapture::new().set_capture_mode(WorkloadCaptureMode::CaptureOnly);
+    /// let x1 = WorkloadCapture::new().set_capture_mode(WorkloadCaptureMode::CaptureAndLiveReplay);
+    /// ```
+    pub fn set_capture_mode<
+        T: std::convert::Into<crate::model::workload_capture::WorkloadCaptureMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.capture_mode = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for WorkloadCapture {
@@ -38933,6 +42189,139 @@ pub mod workload_capture {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
                 ".google.cloud.sql.v1.WorkloadCapture.State",
+            ))
+        }
+    }
+
+    /// Specifies the mode of the workload capture.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum WorkloadCaptureMode {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Records and stores the workload without live replay.
+        CaptureOnly,
+        /// Records the workload and simultaneously replays it on a live replay
+        /// instance.
+        CaptureAndLiveReplay,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [WorkloadCaptureMode::value] or
+        /// [WorkloadCaptureMode::name].
+        UnknownValue(workload_capture_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod workload_capture_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl WorkloadCaptureMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::CaptureOnly => std::option::Option::Some(1),
+                Self::CaptureAndLiveReplay => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("WORKLOAD_CAPTURE_MODE_UNSPECIFIED"),
+                Self::CaptureOnly => std::option::Option::Some("CAPTURE_ONLY"),
+                Self::CaptureAndLiveReplay => std::option::Option::Some("CAPTURE_AND_LIVE_REPLAY"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for WorkloadCaptureMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for WorkloadCaptureMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for WorkloadCaptureMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::CaptureOnly,
+                2 => Self::CaptureAndLiveReplay,
+                _ => Self::UnknownValue(workload_capture_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for WorkloadCaptureMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "WORKLOAD_CAPTURE_MODE_UNSPECIFIED" => Self::Unspecified,
+                "CAPTURE_ONLY" => Self::CaptureOnly,
+                "CAPTURE_AND_LIVE_REPLAY" => Self::CaptureAndLiveReplay,
+                _ => Self::UnknownValue(workload_capture_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for WorkloadCaptureMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::CaptureOnly => serializer.serialize_i32(1),
+                Self::CaptureAndLiveReplay => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for WorkloadCaptureMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<WorkloadCaptureMode>::new(
+                ".google.cloud.sql.v1.WorkloadCapture.WorkloadCaptureMode",
             ))
         }
     }
@@ -40583,6 +43972,285 @@ impl<'de> serde::de::Deserialize<'de> for SqlMaintenanceType {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<SqlMaintenanceType>::new(
             ".google.cloud.sql.v1.SqlMaintenanceType",
+        ))
+    }
+}
+
+/// Certificate type for customer managed certificates.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum CertificateType {
+    /// Unspecified certificate type.
+    Unspecified,
+    /// The x509 PEM-encoded certificate of the CA that signed the source database
+    /// server's certificate.
+    PeerServerCa,
+    /// The unencrypted PKCS#1 or PKCS#8 PEM-encoded private key associated with
+    /// the Client Certificate.
+    PeerClientKey,
+    /// The x509 PEM-encoded certificate used by the client to authenticate
+    /// against the source database server.
+    PeerClientCertificate,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [CertificateType::value] or
+    /// [CertificateType::name].
+    UnknownValue(certificate_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod certificate_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl CertificateType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::PeerServerCa => std::option::Option::Some(1),
+            Self::PeerClientKey => std::option::Option::Some(2),
+            Self::PeerClientCertificate => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("CERTIFICATE_TYPE_UNSPECIFIED"),
+            Self::PeerServerCa => std::option::Option::Some("CERTIFICATE_TYPE_PEER_SERVER_CA"),
+            Self::PeerClientKey => std::option::Option::Some("CERTIFICATE_TYPE_PEER_CLIENT_KEY"),
+            Self::PeerClientCertificate => {
+                std::option::Option::Some("CERTIFICATE_TYPE_PEER_CLIENT_CERTIFICATE")
+            }
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for CertificateType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for CertificateType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for CertificateType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::PeerServerCa,
+            2 => Self::PeerClientKey,
+            3 => Self::PeerClientCertificate,
+            _ => Self::UnknownValue(certificate_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for CertificateType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "CERTIFICATE_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "CERTIFICATE_TYPE_PEER_SERVER_CA" => Self::PeerServerCa,
+            "CERTIFICATE_TYPE_PEER_CLIENT_KEY" => Self::PeerClientKey,
+            "CERTIFICATE_TYPE_PEER_CLIENT_CERTIFICATE" => Self::PeerClientCertificate,
+            _ => Self::UnknownValue(certificate_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for CertificateType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::PeerServerCa => serializer.serialize_i32(1),
+            Self::PeerClientKey => serializer.serialize_i32(2),
+            Self::PeerClientCertificate => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for CertificateType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<CertificateType>::new(
+            ".google.cloud.sql.v1.CertificateType",
+        ))
+    }
+}
+
+/// Intent for the customer managed certificate configuration.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum Intent {
+    /// Unspecified intent.
+    Unspecified,
+    /// Configures customer-managed certificates for pg_logical extension to
+    /// achieve mTLS authentication.
+    PgLogical,
+    /// Configures customer-managed certificates for built-in PostgreSQL native
+    /// replication to achieve mTLS authentication. Supported for Cloud SQL for
+    /// PostgreSQL 10 and later.
+    NativeReplication,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [Intent::value] or
+    /// [Intent::name].
+    UnknownValue(intent::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod intent {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl Intent {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::PgLogical => std::option::Option::Some(1),
+            Self::NativeReplication => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("INTENT_UNSPECIFIED"),
+            Self::PgLogical => std::option::Option::Some("PG_LOGICAL"),
+            Self::NativeReplication => std::option::Option::Some("NATIVE_REPLICATION"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for Intent {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for Intent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for Intent {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::PgLogical,
+            2 => Self::NativeReplication,
+            _ => Self::UnknownValue(intent::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for Intent {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "INTENT_UNSPECIFIED" => Self::Unspecified,
+            "PG_LOGICAL" => Self::PgLogical,
+            "NATIVE_REPLICATION" => Self::NativeReplication,
+            _ => Self::UnknownValue(intent::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for Intent {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::PgLogical => serializer.serialize_i32(1),
+            Self::NativeReplication => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Intent {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<Intent>::new(
+            ".google.cloud.sql.v1.Intent",
         ))
     }
 }

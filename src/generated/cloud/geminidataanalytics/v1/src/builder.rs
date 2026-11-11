@@ -2825,6 +2825,12 @@ pub mod data_chat_service {
             self.0.request.filter = v.into();
             self
         }
+
+        /// Sets the value of [pending_write_wait_skipped][crate::model::ListMessagesRequest::pending_write_wait_skipped].
+        pub fn set_pending_write_wait_skipped<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.pending_write_wait_skipped = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
