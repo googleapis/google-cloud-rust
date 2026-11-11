@@ -20,8 +20,8 @@
 //! `protoc`.
 
 use crate::model::TableFieldSchema;
-use crate::model::table_field_schema::Type;
-use wkt::field_descriptor_proto::Type as ProtoType;
+use crate::model::table_field_schema::{Mode, Type};
+use wkt::field_descriptor_proto::{Label, Type as ProtoType};
 
 /// An error encountered when a BigQuery [`TableSchema`][crate::model::TableSchema]
 /// cannot be converted for the JSON writer.
@@ -42,6 +42,10 @@ pub(crate) enum SchemaErrorKind {
     /// The field did not declare a supported BigQuery data type.
     #[error("invalid or unspecified type '{field_type}' for field '{field}'")]
     InvalidFieldType { field: String, field_type: Type },
+
+    /// The field mode is not one this client version recognizes.
+    #[error("unrecognized mode '{mode}' for field '{field}'")]
+    UnknownMode { field: String, mode: Mode },
 }
 
 /// Maps the BigQuery type of `field` to its protobuf wire type.
@@ -69,6 +73,24 @@ fn field_proto_type(field: &TableFieldSchema) -> Result<ProtoType, SchemaError> 
         _ => Err(SchemaErrorKind::InvalidFieldType {
             field: field.name.clone(),
             field_type: field.r#type.clone(),
+        }
+        .into()),
+    }
+}
+
+/// Maps the BigQuery [`Mode`] of `field` to its `proto2` [`Label`].
+///
+/// Both `NULLABLE` (including unset) and `REQUIRED` columns map to
+/// `LABEL_OPTIONAL`: BigQuery enforces `NOT NULL` across all stream types with
+/// per-row `RowError`s, and leaving omitted `REQUIRED` fields unset on the wire
+/// stays compatible with SQL `DEFAULT` expressions.
+fn field_label(field: &TableFieldSchema) -> Result<Label, SchemaError> {
+    match field.mode {
+        Mode::Repeated => Ok(Label::Repeated),
+        Mode::Required | Mode::Nullable | Mode::Unspecified => Ok(Label::Optional),
+        _ => Err(SchemaErrorKind::UnknownMode {
+            field: field.name.clone(),
+            mode: field.mode.clone(),
         }
         .into()),
     }
@@ -121,5 +143,30 @@ mod tests {
             );
             assert!(err.to_string().contains("bad_col"), "{err}");
         }
+    }
+
+    #[test_case(Mode::Required, Label::Optional)]
+    #[test_case(Mode::Nullable, Label::Optional)]
+    #[test_case(Mode::Unspecified, Label::Optional)]
+    #[test_case(Mode::Repeated, Label::Repeated)]
+    fn modes(mode: Mode, want: Label) {
+        let f = field("f", Type::String).set_mode(mode.clone());
+        let got = field_label(&f).unwrap_or_else(|e| panic!("{mode:?} should convert: {e}"));
+        assert_eq!(got, want);
+    }
+
+    #[test]
+    fn unknown_mode_is_rejected() {
+        let unknown = Mode::from(9999);
+        let f = field("f", Type::String).set_mode(unknown.clone());
+        let err = field_label(&f).expect_err("unknown mode should be rejected");
+        assert_eq!(
+            err.kind,
+            SchemaErrorKind::UnknownMode {
+                field: "f".to_string(),
+                mode: unknown,
+            }
+        );
+        assert_eq!(err.to_string(), "unrecognized mode '9999' for field 'f'");
     }
 }
