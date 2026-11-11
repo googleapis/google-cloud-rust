@@ -156,8 +156,8 @@ list of crates and exact set of lint flags currently subject to these checks.
 In addition, calls to the `gax-internal` `ToProto` and `FromProto` conversion
 traits outside of `gax-internal` must use fully qualified syntax with an
 explicit type parameter (`ToProto::<T>::to_proto(x)` and
-`FromProto::<T>::cnv(x)`) rather than `.to_proto()` or `.cnv()`. This applies
-to library code and unit tests; integration tests, examples, and benchmarks are
+`FromProto::<T>::cnv(x)`) rather than `.to_proto()` or `.cnv()`. This applies to
+library code and unit tests; integration tests, examples, and benchmarks are
 exempt. CI verifies this with
 [scripts/check-prost-convert.sh](scripts/check-prost-convert.sh) (invoked from
 [.gcb/scripts/lint.sh](.gcb/scripts/lint.sh)):
