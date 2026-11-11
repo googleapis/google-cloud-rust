@@ -28,14 +28,16 @@ use wkt::field_descriptor_proto::Type as ProtoType;
 ///
 /// Use [`Display`][std::fmt::Display] to inspect the offending column path and
 /// reason.
-#[derive(thiserror::Error, Clone, Debug, PartialEq)]
+#[derive(thiserror::Error, Debug)]
+#[cfg_attr(test, derive(Clone, PartialEq))]
 #[error(transparent)]
 pub(crate) struct SchemaError {
     #[from]
     pub(crate) kind: SchemaErrorKind,
 }
 
-#[derive(thiserror::Error, Clone, Debug, PartialEq)]
+#[derive(thiserror::Error, Debug)]
+#[cfg_attr(test, derive(Clone, PartialEq))]
 pub(crate) enum SchemaErrorKind {
     /// The field did not declare a supported BigQuery data type.
     #[error("invalid or unspecified type '{field_type}' for field '{field}'")]
@@ -78,14 +80,7 @@ mod tests {
     use static_assertions::assert_impl_all;
     use test_case::test_case;
 
-    assert_impl_all!(
-        SchemaError: Clone,
-        std::fmt::Debug,
-        PartialEq,
-        std::error::Error,
-        Send,
-        Sync
-    );
+    assert_impl_all!(SchemaError: std::fmt::Debug, std::error::Error, Send, Sync);
 
     fn field(name: &str, r#type: Type) -> TableFieldSchema {
         TableFieldSchema::new().set_name(name).set_type(r#type)
