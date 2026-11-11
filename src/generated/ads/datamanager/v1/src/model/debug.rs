@@ -158,6 +158,17 @@ impl std::fmt::Debug for super::PartnerProvidedIdData {
     }
 }
 
+impl std::fmt::Debug for super::CallInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CallInfo");
+        debug_struct.field("start_timestamp", &self.start_timestamp);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::CartData {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CartData");
@@ -371,6 +382,7 @@ impl std::fmt::Debug for super::Event {
         debug_struct.field("third_party_user_data", &self.third_party_user_data);
         debug_struct.field("event_location", &self.event_location);
         debug_struct.field("app_instance_id", &self.app_instance_id);
+        debug_struct.field("call_info", &self.call_info);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -393,6 +405,7 @@ impl std::fmt::Debug for super::AdIdentifiers {
         debug_struct.field("encrypted_user_ids", &self.encrypted_user_ids);
         debug_struct.field("ppid", &self.ppid);
         debug_struct.field("visitor_ppid", &self.visitor_ppid);
+        debug_struct.field("lead_id", &self.lead_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -836,6 +849,85 @@ impl std::fmt::Debug for super::PartnerLinkMetadata {
     }
 }
 
+impl std::fmt::Debug for super::PartnerMatchReportEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartnerMatchReportEntry");
+        debug_struct.field("advertiser_account", &self.advertiser_account);
+        debug_struct.field("campaign", &self.campaign);
+        debug_struct.field("ad_group", &self.ad_group);
+        debug_struct.field("user_list", &self.user_list);
+        debug_struct.field("impression_count", &self.impression_count);
+        debug_struct.field("media_cost", &self.media_cost);
+        debug_struct.field("line_item", &self.line_item);
+        debug_struct.field("data_fees", &self.data_fees);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PartnerMatchAdvertiserAccount {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartnerMatchAdvertiserAccount");
+        debug_struct.field("account_type", &self.account_type);
+        debug_struct.field("account_id", &self.account_id);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PartnerMatchCampaign {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartnerMatchCampaign");
+        debug_struct.field("campaign_id", &self.campaign_id);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PartnerMatchAdGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartnerMatchAdGroup");
+        debug_struct.field("ad_group_id", &self.ad_group_id);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PartnerMatchUserList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartnerMatchUserList");
+        debug_struct.field("user_list_id", &self.user_list_id);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PartnerMatchLineItem {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PartnerMatchLineItem");
+        debug_struct.field("line_item_id", &self.line_item_id);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::ErrorInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ErrorInfo");
@@ -852,6 +944,7 @@ impl std::fmt::Debug for super::ErrorCount {
         let mut debug_struct = f.debug_struct("ErrorCount");
         debug_struct.field("record_count", &self.record_count);
         debug_struct.field("reason", &self.reason);
+        debug_struct.field("record_indices", &self.record_indices);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -875,6 +968,7 @@ impl std::fmt::Debug for super::WarningCount {
         let mut debug_struct = f.debug_struct("WarningCount");
         debug_struct.field("record_count", &self.record_count);
         debug_struct.field("reason", &self.reason);
+        debug_struct.field("record_indices", &self.record_indices);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -888,6 +982,38 @@ impl std::fmt::Debug for super::FieldWarning {
         debug_struct.field("reason", &self.reason);
         debug_struct.field("description", &self.description);
         debug_struct.field("field", &self.field);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RetrievePartnerMatchReportRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetrievePartnerMatchReportRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("currency_code", &self.currency_code);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("start_date", &self.start_date);
+        debug_struct.field("end_date", &self.end_date);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RetrievePartnerMatchReportResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetrievePartnerMatchReportResponse");
+        debug_struct.field(
+            "partner_match_report_entries",
+            &self.partner_match_report_entries,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

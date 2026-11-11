@@ -84,6 +84,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_cloud_exadata_infrastructure(
+        &self,
+        req: crate::model::UpdateCloudExadataInfrastructureRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::update_cloud_exadata_infrastructure",
+            self.inner.update_cloud_exadata_infrastructure(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_cloud_exadata_infrastructure(
         &self,
         req: crate::model::DeleteCloudExadataInfrastructureRequest,
@@ -154,6 +168,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_cloud_vm_cluster(
+        &self,
+        req: crate::model::UpdateCloudVmClusterRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::update_cloud_vm_cluster",
+            self.inner.update_cloud_vm_cluster(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_cloud_vm_cluster(
         &self,
         req: crate::model::DeleteCloudVmClusterRequest,
@@ -168,6 +196,62 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn enable_cloud_vm_cluster_identity_connector(
+        &self,
+        req: crate::model::EnableCloudVmClusterIdentityConnectorRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::enable_cloud_vm_cluster_identity_connector",
+            self.inner.enable_cloud_vm_cluster_identity_connector(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn disable_cloud_vm_cluster_identity_connector(
+        &self,
+        req: crate::model::DisableCloudVmClusterIdentityConnectorRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::disable_cloud_vm_cluster_identity_connector",
+            self.inner.disable_cloud_vm_cluster_identity_connector(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn enable_exadb_vm_cluster_identity_connector(
+        &self,
+        req: crate::model::EnableExadbVmClusterIdentityConnectorRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::enable_exadb_vm_cluster_identity_connector",
+            self.inner.enable_exadb_vm_cluster_identity_connector(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn disable_exadb_vm_cluster_identity_connector(
+        &self,
+        req: crate::model::DisableExadbVmClusterIdentityConnectorRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::disable_exadb_vm_cluster_identity_connector",
+            self.inner.disable_exadb_vm_cluster_identity_connector(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_entitlements(
         &self,
         req: crate::model::ListEntitlementsRequest,
@@ -178,6 +262,20 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::OracleDatabase::list_entitlements",
             self.inner.list_entitlements(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_flex_components(
+        &self,
+        req: crate::model::ListFlexComponentsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListFlexComponentsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::list_flex_components",
+            self.inner.list_flex_components(req, options));
         pending.await
     }
 
@@ -532,6 +630,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_odb_network(
+        &self,
+        req: crate::model::UpdateOdbNetworkRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::update_odb_network",
+            self.inner.update_odb_network(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_odb_network(
         &self,
         req: crate::model::DeleteOdbNetworkRequest,
@@ -584,6 +696,20 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::OracleDatabase::create_odb_subnet",
             self.inner.create_odb_subnet(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_odb_subnet(
+        &self,
+        req: crate::model::UpdateOdbSubnetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::update_odb_subnet",
+            self.inner.update_odb_subnet(req, options));
         pending.await
     }
 
@@ -784,6 +910,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_exascale_db_storage_vault(
+        &self,
+        req: crate::model::UpdateExascaleDbStorageVaultRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::update_exascale_db_storage_vault",
+            self.inner.update_exascale_db_storage_vault(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_exascale_db_storage_vault(
         &self,
         req: crate::model::DeleteExascaleDbStorageVaultRequest,
@@ -808,6 +948,20 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::OracleDatabase::list_db_system_initial_storage_sizes",
             self.inner.list_db_system_initial_storage_sizes(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_db_system_compute_performances(
+        &self,
+        req: crate::model::ListDbSystemComputePerformancesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDbSystemComputePerformancesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::list_db_system_compute_performances",
+            self.inner.list_db_system_compute_performances(req, options));
         pending.await
     }
 
@@ -910,6 +1064,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_db_system(
+        &self,
+        req: crate::model::UpdateDbSystemRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::update_db_system",
+            self.inner.update_db_system(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_db_system(
         &self,
         req: crate::model::DeleteDbSystemRequest,
@@ -962,6 +1130,20 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::OracleDatabase::create_goldengate_deployment",
             self.inner.create_goldengate_deployment(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_goldengate_deployment(
+        &self,
+        req: crate::model::UpdateGoldengateDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::update_goldengate_deployment",
+            self.inner.update_goldengate_deployment(req, options));
         pending.await
     }
 
@@ -1046,6 +1228,20 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::OracleDatabase::create_goldengate_connection",
             self.inner.create_goldengate_connection(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_goldengate_connection(
+        &self,
+        req: crate::model::UpdateGoldengateConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::update_goldengate_connection",
+            self.inner.update_goldengate_connection(req, options));
         pending.await
     }
 
@@ -1190,6 +1386,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_goldengate_connection_assignment(
+        &self,
+        req: crate::model::UpdateGoldengateConnectionAssignmentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::update_goldengate_connection_assignment",
+            self.inner.update_goldengate_connection_assignment(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_goldengate_connection_assignment(
         &self,
         req: crate::model::DeleteGoldengateConnectionAssignmentRequest,
@@ -1214,6 +1424,104 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::OracleDatabase::test_goldengate_connection_assignment",
             self.inner.test_goldengate_connection_assignment(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_database_connections(
+        &self,
+        req: crate::model::ListDatabaseConnectionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDatabaseConnectionsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::list_database_connections",
+            self.inner.list_database_connections(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_database_connection(
+        &self,
+        req: crate::model::GetDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DatabaseConnection>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::get_database_connection",
+            self.inner.get_database_connection(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_database_connection(
+        &self,
+        req: crate::model::CreateDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::create_database_connection",
+            self.inner.create_database_connection(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_database_connection(
+        &self,
+        req: crate::model::UpdateDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::update_database_connection",
+            self.inner.update_database_connection(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_database_connection(
+        &self,
+        req: crate::model::DeleteDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::delete_database_connection",
+            self.inner.delete_database_connection(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn test_database_connection(
+        &self,
+        req: crate::model::TestDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestDatabaseConnectionResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::test_database_connection",
+            self.inner.test_database_connection(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn execute_sql(
+        &self,
+        req: crate::model::ExecuteSqlRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ExecuteSqlResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OracleDatabase::execute_sql",
+            self.inner.execute_sql(req, options));
         pending.await
     }
 

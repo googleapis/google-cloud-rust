@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-chronicle-v1"
-version                = "1.16.0"
+version                = "1.17.0"
 description            = "Google Cloud Client Libraries for Rust - Chronicle API"
 edition.workspace      = true
 authors.workspace      = true
@@ -44,6 +44,7 @@ all-features = true
 async-trait.workspace              = true
 bytes.workspace                    = true
 gaxi                               = { workspace = true, features = ["_internal-http-client"] }
+google-backstory.workspace         = true
 google-cloud-api.workspace         = true
 google-cloud-gax.workspace         = true
 google-cloud-longrunning.workspace = true

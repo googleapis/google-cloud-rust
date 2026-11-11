@@ -26,6 +26,7 @@
 
 use crate::RequestOptions;
 use crate::client::Spanner;
+use crate::database_client::DatabaseClient;
 use crate::google::spanner::v1::CacheUpdate as ProtoCacheUpdate;
 use crate::model::FetchCacheUpdateRequest;
 use crate::retry_delay::extract_status_code_from_error;
@@ -41,6 +42,7 @@ use google_cloud_gax::retry_policy::{RetryPolicy, RetryPolicyArg};
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
 use google_cloud_gax::throttle_result::ThrottleResult;
+use http::HeaderValue;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::sync::watch;
@@ -116,6 +118,7 @@ impl Drop for CacheSubscriber {
 #[derive(Clone, Debug)]
 pub(crate) struct CacheSubscriberBuilder {
     database: String,
+    request_options: RequestOptions,
     spanner: Spanner,
     cache_updater: Arc<CacheUpdater>,
     retry_policy: Arc<dyn RetryPolicy>,
@@ -131,8 +134,14 @@ impl CacheSubscriberBuilder {
         spanner: Spanner,
         cache_updater: Arc<CacheUpdater>,
     ) -> Self {
+        let request_options = HeaderValue::from_str(&database)
+            .map(|prefix| {
+                DatabaseClient::attach_resource_prefix_header(&prefix, RequestOptions::default())
+            })
+            .unwrap_or_default();
         Self {
             database,
+            request_options,
             spanner,
             cache_updater,
             retry_policy: Arc::new(CacheSubscriberRetryPolicy::default()),
@@ -391,7 +400,11 @@ async fn execute_subscriber_iteration(
     debug!(database = %config.database, "Connecting to FetchCacheUpdate stream");
     let connect_future = config
         .spanner
-        .fetch_cache_update(request, RequestOptions::default(), channel_lease.channel())
+        .fetch_cache_update(
+            request,
+            config.request_options.clone(),
+            channel_lease.channel(),
+        )
         .with_lifetime_guard(Arc::new(channel_lease.into_guard()))
         .send();
     tokio::pin!(connect_future);
@@ -758,6 +771,40 @@ mod tests {
         assert_eq!(
             cached_group.tablets[0].server_address,
             "node-1.spanner.internal:1000"
+        );
+
+        subscriber.wait_for_shutdown().await;
+    }
+
+    #[tokio_test_no_panics]
+    async fn subscriber_sends_resource_prefix_header() {
+        const DATABASE: &str = "projects/p/instances/i/databases/d";
+        let (prefix_sender, mut prefix_receiver) = mpsc::channel(4);
+
+        let mut mock = MockSpanner::new();
+        mock.expect_fetch_cache_update().returning(move |request| {
+            let prefix = request
+                .metadata()
+                .get("google-cloud-resource-prefix")
+                .and_then(|value| value.to_str().ok())
+                .map(str::to_string);
+            let _ = prefix_sender.try_send(prefix);
+            let (_stream_sender, stream_receiver) = mpsc::channel(1);
+            Ok(Response::new(stream_receiver))
+        });
+
+        let (spanner, _server) = setup_spanner(mock).await;
+        let subscriber =
+            CacheSubscriber::builder(DATABASE.to_string(), spanner, sample_cache_updater()).start();
+
+        let prefix = prefix_receiver
+            .recv()
+            .await
+            .expect("FetchCacheUpdate must be called");
+        assert_eq!(
+            prefix.as_deref(),
+            Some(DATABASE),
+            "FetchCacheUpdate must carry google-cloud-resource-prefix"
         );
 
         subscriber.wait_for_shutdown().await;

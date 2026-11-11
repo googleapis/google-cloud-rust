@@ -474,17 +474,29 @@ impl wkt::message::Message for SparseVector {
     }
 }
 
-/// Defines a output fields struct for data in DataObject.
+/// Defines an output fields struct for data in DataObject.
+///
+/// Output fields are opt-in. A search or query result contains only the data
+/// object name and ID, plus the fields listed here. If this message is unset or
+/// a list is empty, the corresponding part of the data object (`data`,
+/// `vectors` or metadata) is omitted from the result; it is not an indication
+/// that the stored data object is empty. Use `"*"` in a list to return all
+/// fields of that kind.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OutputFields {
-    /// Optional. The fields from the data fields to include in the output.
+    /// Optional. The fields from the data fields to include in the output. Use
+    /// `"*"` to include all data fields. If empty, `data` is omitted from results.
     pub data_fields: std::vec::Vec<std::string::String>,
 
-    /// Optional. The fields from the vector fields to include in the output.
+    /// Optional. The fields from the vector fields to include in the output. Use
+    /// `"*"` to include all vector fields. If empty, `vectors` is omitted from
+    /// results.
     pub vector_fields: std::vec::Vec<std::string::String>,
 
-    /// Optional. The fields from the DataObject metadata to include in the output.
+    /// Optional. The DataObject metadata fields to include in the output:
+    /// `create_time`, `update_time` and `etag`. Use `"*"` to include all metadata
+    /// fields. If empty, these fields are omitted from results.
     pub metadata_fields: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1077,8 +1089,34 @@ pub struct VectorSearch {
     /// Required. The vector field to search.
     pub search_field: std::string::String,
 
-    /// Optional. A JSON filter expression, e.g. {"genre": {"$eq": "sci-fi"}},
-    /// represented as a google.protobuf.Struct.
+    /// Optional. A JSON filter expression, e.g. `{"genre": {"$eq": "sci-fi"}}`,
+    /// represented as a `google.protobuf.Struct`.
+    ///
+    /// An empty filter (`{}`) matches all data objects. Otherwise, each JSON
+    /// object in the filter must have exactly one key: either a field name mapped
+    /// to one operator (`{"price": {"$lt": 100}}`), or a logical operator: `$and`
+    /// or `$or` with a list of filters, or `$not` with one filter. Field
+    /// operators and their values: `$eq` and `$ne` take a string, number or bool;
+    /// `$lt`, `$lte`, `$gt` and `$gte` take a number; `$in`, `$nin` and `$all`
+    /// take a list of strings; `$exists` takes a bool. Several keys in one object
+    /// (implicit AND) and implicit equality (`{"genre": "sci-fi"}`) are rejected;
+    /// use `$and` and `$eq` instead.
+    ///
+    /// Logical operators can be nested at most 2 levels deep, e.g.
+    /// `{"$and": [{"$or": [{"a": {"$eq": 1}}, {"b": {"$eq": 2}}]}]}`. Deeper
+    /// filters are rejected with `INVALID_ARGUMENT`.
+    ///
+    /// Which filters are accepted depends on how the search is served. If it is
+    /// served by an approximate nearest neighbor (ANN) index (by default when a
+    /// ready index exists on `search_field`, or when one is selected via
+    /// `search_hint.index_hint`), every filtered field must be listed in
+    /// `Index.filter_fields` at index creation, `$or` and `$all` are accepted
+    /// only at the top level of the filter, and `$not` and `$exists` are not
+    /// supported. Not every unsupported filter is rejected: most produce
+    /// `INVALID_ARGUMENT`, but some are silently ignored, so do not rely on the
+    /// error. If no ready index exists on `search_field`, or if
+    /// `search_hint.knn_hint` is set, the search is served by K-Nearest Neighbor
+    /// (KNN) search, which has none of these filter restrictions.
     pub filter: std::option::Option<wkt::Struct>,
 
     /// Optional. The number of nearest neighbors to return.
@@ -1408,8 +1446,34 @@ pub struct SemanticSearch {
     /// Optional. The fields to return in the search results.
     pub output_fields: std::option::Option<crate::model::OutputFields>,
 
-    /// Optional. A JSON filter expression, e.g. {"genre": {"$eq": "sci-fi"}},
-    /// represented as a google.protobuf.Struct.
+    /// Optional. A JSON filter expression, e.g. `{"genre": {"$eq": "sci-fi"}}`,
+    /// represented as a `google.protobuf.Struct`.
+    ///
+    /// An empty filter (`{}`) matches all data objects. Otherwise, each JSON
+    /// object in the filter must have exactly one key: either a field name mapped
+    /// to one operator (`{"price": {"$lt": 100}}`), or a logical operator: `$and`
+    /// or `$or` with a list of filters, or `$not` with one filter. Field
+    /// operators and their values: `$eq` and `$ne` take a string, number or bool;
+    /// `$lt`, `$lte`, `$gt` and `$gte` take a number; `$in`, `$nin` and `$all`
+    /// take a list of strings; `$exists` takes a bool. Several keys in one object
+    /// (implicit AND) and implicit equality (`{"genre": "sci-fi"}`) are rejected;
+    /// use `$and` and `$eq` instead.
+    ///
+    /// Logical operators can be nested at most 2 levels deep, e.g.
+    /// `{"$and": [{"$or": [{"a": {"$eq": 1}}, {"b": {"$eq": 2}}]}]}`. Deeper
+    /// filters are rejected with `INVALID_ARGUMENT`.
+    ///
+    /// Which filters are accepted depends on how the search is served. If it is
+    /// served by an approximate nearest neighbor (ANN) index (by default when a
+    /// ready index exists on `search_field`, or when one is selected via
+    /// `search_hint.index_hint`), every filtered field must be listed in
+    /// `Index.filter_fields` at index creation, `$or` and `$all` are accepted
+    /// only at the top level of the filter, and `$not` and `$exists` are not
+    /// supported. Not every unsupported filter is rejected: most produce
+    /// `INVALID_ARGUMENT`, but some are silently ignored, so do not rely on the
+    /// error. If no ready index exists on `search_field`, or if
+    /// `search_hint.knn_hint` is set, the search is served by K-Nearest Neighbor
+    /// (KNN) search, which has none of these filter restrictions.
     pub filter: std::option::Option<wkt::Struct>,
 
     /// Optional. The number of data objects to return.
@@ -1627,7 +1691,28 @@ pub struct TextSearch {
 
     /// Optional. A JSON filter expression, e.g. `{"genre": {"$eq": "sci-fi"}}`,
     /// represented as a `google.protobuf.Struct`.
+    ///
+    /// An empty filter (`{}`) matches all data objects. Otherwise, each JSON
+    /// object in the filter must have exactly one key: either a field name mapped
+    /// to one operator (`{"price": {"$lt": 100}}`), or a logical operator: `$and`
+    /// or `$or` with a list of filters, or `$not` with one filter. Field
+    /// operators and their values: `$eq` and `$ne` take a string, number or bool;
+    /// `$lt`, `$lte`, `$gt` and `$gte` take a number; `$in`, `$nin` and `$all`
+    /// take a list of strings; `$exists` takes a bool. Several keys in one object
+    /// (implicit AND) and implicit equality (`{"genre": "sci-fi"}`) are rejected;
+    /// use `$and` and `$eq` instead.
+    ///
+    /// Logical operators can be nested at most 2 levels deep, e.g.
+    /// `{"$and": [{"$or": [{"a": {"$eq": 1}}, {"b": {"$eq": 2}}]}]}`. Deeper
+    /// filters are rejected with `INVALID_ARGUMENT`.
     pub filter: std::option::Option<wkt::Struct>,
+
+    /// Optional. Structured query definition. When set, `search_text` and
+    /// `data_field_names` must be left empty; otherwise the request will be
+    /// rejected with an `INVALID_ARGUMENT` error. Conversely, when
+    /// `structured_query` is unset, both `search_text` and `data_field_names`
+    /// are required.
+    pub structured_query: std::option::Option<crate::model::StructuredQuery>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1763,11 +1848,950 @@ impl TextSearch {
         self.filter = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [structured_query][crate::model::TextSearch::structured_query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::TextSearch;
+    /// use google_cloud_vectorsearch_v1::model::StructuredQuery;
+    /// let x = TextSearch::new().set_structured_query(StructuredQuery::default()/* use setters */);
+    /// ```
+    pub fn set_structured_query<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::StructuredQuery>,
+    {
+        self.structured_query = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [structured_query][crate::model::TextSearch::structured_query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::TextSearch;
+    /// use google_cloud_vectorsearch_v1::model::StructuredQuery;
+    /// let x = TextSearch::new().set_or_clear_structured_query(Some(StructuredQuery::default()/* use setters */));
+    /// let x = TextSearch::new().set_or_clear_structured_query(None::<StructuredQuery>);
+    /// ```
+    pub fn set_or_clear_structured_query<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::StructuredQuery>,
+    {
+        self.structured_query = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for TextSearch {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.vectorsearch.v1.TextSearch"
+    }
+}
+
+/// A structured query for text search. Allows expressing field-targeted text
+/// queries combined via boolean operators, with optional per-node boosting.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StructuredQuery {
+    /// Optional. Optional multiplier applied to this query node's contribution to
+    /// the final relevance score. Must be non-negative; if unset or 0, defaults
+    /// to 1.0. Values greater than 1.0 increase its influence on ranking, values
+    /// between 0.0 and 1.0 decrease it.
+    pub boost: f32,
+
+    /// The type of query to execute.
+    pub query_type: std::option::Option<crate::model::structured_query::QueryType>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StructuredQuery {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [boost][crate::model::StructuredQuery::boost].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::StructuredQuery;
+    /// let x = StructuredQuery::new().set_boost(42.0);
+    /// ```
+    pub fn set_boost<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+        self.boost = v.into();
+        self
+    }
+
+    /// Sets the value of [query_type][crate::model::StructuredQuery::query_type].
+    ///
+    /// Note that all the setters affecting `query_type` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::StructuredQuery;
+    /// use google_cloud_vectorsearch_v1::model::TextQuery;
+    /// let x = StructuredQuery::new().set_query_type(Some(
+    ///     google_cloud_vectorsearch_v1::model::structured_query::QueryType::Text(TextQuery::default().into())));
+    /// ```
+    pub fn set_query_type<
+        T: std::convert::Into<std::option::Option<crate::model::structured_query::QueryType>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.query_type = v.into();
+        self
+    }
+
+    /// The value of [query_type][crate::model::StructuredQuery::query_type]
+    /// if it holds a `Text`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn text(&self) -> std::option::Option<&std::boxed::Box<crate::model::TextQuery>> {
+        #[allow(unreachable_patterns)]
+        self.query_type.as_ref().and_then(|v| match v {
+            crate::model::structured_query::QueryType::Text(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [query_type][crate::model::StructuredQuery::query_type]
+    /// to hold a `Text`.
+    ///
+    /// Note that all the setters affecting `query_type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::StructuredQuery;
+    /// use google_cloud_vectorsearch_v1::model::TextQuery;
+    /// let x = StructuredQuery::new().set_text(TextQuery::default()/* use setters */);
+    /// assert!(x.text().is_some());
+    /// assert!(x.unary().is_none());
+    /// assert!(x.combine().is_none());
+    /// ```
+    pub fn set_text<T: std::convert::Into<std::boxed::Box<crate::model::TextQuery>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.query_type =
+            std::option::Option::Some(crate::model::structured_query::QueryType::Text(v.into()));
+        self
+    }
+
+    /// The value of [query_type][crate::model::StructuredQuery::query_type]
+    /// if it holds a `Unary`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn unary(&self) -> std::option::Option<&std::boxed::Box<crate::model::UnaryQuery>> {
+        #[allow(unreachable_patterns)]
+        self.query_type.as_ref().and_then(|v| match v {
+            crate::model::structured_query::QueryType::Unary(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [query_type][crate::model::StructuredQuery::query_type]
+    /// to hold a `Unary`.
+    ///
+    /// Note that all the setters affecting `query_type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::StructuredQuery;
+    /// use google_cloud_vectorsearch_v1::model::UnaryQuery;
+    /// let x = StructuredQuery::new().set_unary(UnaryQuery::default()/* use setters */);
+    /// assert!(x.unary().is_some());
+    /// assert!(x.text().is_none());
+    /// assert!(x.combine().is_none());
+    /// ```
+    pub fn set_unary<T: std::convert::Into<std::boxed::Box<crate::model::UnaryQuery>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.query_type =
+            std::option::Option::Some(crate::model::structured_query::QueryType::Unary(v.into()));
+        self
+    }
+
+    /// The value of [query_type][crate::model::StructuredQuery::query_type]
+    /// if it holds a `Combine`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn combine(&self) -> std::option::Option<&std::boxed::Box<crate::model::CombinedQuery>> {
+        #[allow(unreachable_patterns)]
+        self.query_type.as_ref().and_then(|v| match v {
+            crate::model::structured_query::QueryType::Combine(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [query_type][crate::model::StructuredQuery::query_type]
+    /// to hold a `Combine`.
+    ///
+    /// Note that all the setters affecting `query_type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::StructuredQuery;
+    /// use google_cloud_vectorsearch_v1::model::CombinedQuery;
+    /// let x = StructuredQuery::new().set_combine(CombinedQuery::default()/* use setters */);
+    /// assert!(x.combine().is_some());
+    /// assert!(x.text().is_none());
+    /// assert!(x.unary().is_none());
+    /// ```
+    pub fn set_combine<T: std::convert::Into<std::boxed::Box<crate::model::CombinedQuery>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.query_type =
+            std::option::Option::Some(crate::model::structured_query::QueryType::Combine(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for StructuredQuery {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.vectorsearch.v1.StructuredQuery"
+    }
+}
+
+/// Defines additional types related to [StructuredQuery].
+pub mod structured_query {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The type of query to execute.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum QueryType {
+        /// Optional. A leaf-level text query.
+        Text(std::boxed::Box<crate::model::TextQuery>),
+        /// Optional. A query that applies a unary operator to a sub-query.
+        Unary(std::boxed::Box<crate::model::UnaryQuery>),
+        /// Optional. A query that combines multiple sub-queries with a boolean
+        /// operator.
+        Combine(std::boxed::Box<crate::model::CombinedQuery>),
+    }
+}
+
+/// A leaf-level text query targeting one or more data fields. When multiple
+/// fields are specified, this is equivalent to combining per-field matches with
+/// an OR operator (i.e. the query matches if the text is found in any of the
+/// listed fields).
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TextQuery {
+    /// Required. The text to search for.
+    pub text: std::string::String,
+
+    /// Required. The data fields to search against.
+    pub fields: std::vec::Vec<std::string::String>,
+
+    /// Optional. The matching strategy to apply for this query. If unset, defaults
+    /// to `TEXT`.
+    pub match_type: crate::model::text_query::MatchType,
+
+    /// Optional. The query enhancement settings to apply for this query.
+    pub query_enhancement: std::option::Option<crate::model::QueryEnhancement>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TextQuery {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [text][crate::model::TextQuery::text].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::TextQuery;
+    /// let x = TextQuery::new().set_text("example");
+    /// ```
+    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.text = v.into();
+        self
+    }
+
+    /// Sets the value of [fields][crate::model::TextQuery::fields].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::TextQuery;
+    /// let x = TextQuery::new().set_fields(["a", "b", "c"]);
+    /// ```
+    pub fn set_fields<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.fields = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [match_type][crate::model::TextQuery::match_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::TextQuery;
+    /// use google_cloud_vectorsearch_v1::model::text_query::MatchType;
+    /// let x0 = TextQuery::new().set_match_type(MatchType::Text);
+    /// let x1 = TextQuery::new().set_match_type(MatchType::Exact);
+    /// ```
+    pub fn set_match_type<T: std::convert::Into<crate::model::text_query::MatchType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.match_type = v.into();
+        self
+    }
+
+    /// Sets the value of [query_enhancement][crate::model::TextQuery::query_enhancement].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::TextQuery;
+    /// use google_cloud_vectorsearch_v1::model::QueryEnhancement;
+    /// let x = TextQuery::new().set_query_enhancement(QueryEnhancement::default()/* use setters */);
+    /// ```
+    pub fn set_query_enhancement<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::QueryEnhancement>,
+    {
+        self.query_enhancement = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [query_enhancement][crate::model::TextQuery::query_enhancement].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::TextQuery;
+    /// use google_cloud_vectorsearch_v1::model::QueryEnhancement;
+    /// let x = TextQuery::new().set_or_clear_query_enhancement(Some(QueryEnhancement::default()/* use setters */));
+    /// let x = TextQuery::new().set_or_clear_query_enhancement(None::<QueryEnhancement>);
+    /// ```
+    pub fn set_or_clear_query_enhancement<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::QueryEnhancement>,
+    {
+        self.query_enhancement = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for TextQuery {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.vectorsearch.v1.TextQuery"
+    }
+}
+
+/// Defines additional types related to [TextQuery].
+pub mod text_query {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The matching strategy to apply when comparing `text` against the content
+    /// of `fields`.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum MatchType {
+        /// Defaults to `TEXT`.
+        Unspecified,
+        /// Treats `text` as individual search terms combined with an implicit
+        /// AND: every term must appear in the field, in any order and any
+        /// position. Case-insensitive.
+        Text,
+        /// Matches only when the entire field value is exactly equal to `text`.
+        Exact,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [MatchType::value] or
+        /// [MatchType::name].
+        UnknownValue(match_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod match_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl MatchType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Text => std::option::Option::Some(1),
+                Self::Exact => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MATCH_TYPE_UNSPECIFIED"),
+                Self::Text => std::option::Option::Some("TEXT"),
+                Self::Exact => std::option::Option::Some("EXACT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for MatchType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for MatchType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for MatchType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Text,
+                2 => Self::Exact,
+                _ => Self::UnknownValue(match_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for MatchType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MATCH_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "TEXT" => Self::Text,
+                "EXACT" => Self::Exact,
+                _ => Self::UnknownValue(match_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for MatchType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Text => serializer.serialize_i32(1),
+                Self::Exact => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for MatchType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<MatchType>::new(
+                ".google.cloud.vectorsearch.v1.TextQuery.MatchType",
+            ))
+        }
+    }
+}
+
+/// Query enhancement settings. When enabled, expands the search terms with
+/// stemming, synonyms, and spelling corrections, and removes stop words.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct QueryEnhancement {
+    /// Optional. Whether query enhancement is enabled.
+    pub enabled: bool,
+
+    /// Optional. The IETF BCP 47 language tag, such as "en-US", for query
+    /// enhancement. If unset, the language is detected automatically. See
+    /// <https://en.wikipedia.org/wiki/IETF_language_tag>.
+    pub language_code: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl QueryEnhancement {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::QueryEnhancement::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::QueryEnhancement;
+    /// let x = QueryEnhancement::new().set_enabled(true);
+    /// ```
+    pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [language_code][crate::model::QueryEnhancement::language_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::QueryEnhancement;
+    /// let x = QueryEnhancement::new().set_language_code("example");
+    /// ```
+    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.language_code = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for QueryEnhancement {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.vectorsearch.v1.QueryEnhancement"
+    }
+}
+
+/// A query that applies a unary operator to a sub-query.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UnaryQuery {
+    /// Required. The unary operator to apply.
+    pub op: crate::model::unary_query::Operator,
+
+    /// Required. The sub-query the operator is applied to.
+    pub sub_query: std::option::Option<std::boxed::Box<crate::model::StructuredQuery>>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UnaryQuery {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [op][crate::model::UnaryQuery::op].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::UnaryQuery;
+    /// use google_cloud_vectorsearch_v1::model::unary_query::Operator;
+    /// let x0 = UnaryQuery::new().set_op(Operator::Not);
+    /// ```
+    pub fn set_op<T: std::convert::Into<crate::model::unary_query::Operator>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.op = v.into();
+        self
+    }
+
+    /// Sets the value of [sub_query][crate::model::UnaryQuery::sub_query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::UnaryQuery;
+    /// use google_cloud_vectorsearch_v1::model::StructuredQuery;
+    /// let x = UnaryQuery::new().set_sub_query(StructuredQuery::default()/* use setters */);
+    /// ```
+    pub fn set_sub_query<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::StructuredQuery>,
+    {
+        self.sub_query = std::option::Option::Some(std::boxed::Box::new(v.into()));
+        self
+    }
+
+    /// Sets or clears the value of [sub_query][crate::model::UnaryQuery::sub_query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::UnaryQuery;
+    /// use google_cloud_vectorsearch_v1::model::StructuredQuery;
+    /// let x = UnaryQuery::new().set_or_clear_sub_query(Some(StructuredQuery::default()/* use setters */));
+    /// let x = UnaryQuery::new().set_or_clear_sub_query(None::<StructuredQuery>);
+    /// ```
+    pub fn set_or_clear_sub_query<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::StructuredQuery>,
+    {
+        self.sub_query = v.map(|x| std::boxed::Box::new(x.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for UnaryQuery {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.vectorsearch.v1.UnaryQuery"
+    }
+}
+
+/// Defines additional types related to [UnaryQuery].
+pub mod unary_query {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Unary operators applicable to a sub-query.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Operator {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Negates the sub-query.
+        Not,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Operator::value] or
+        /// [Operator::name].
+        UnknownValue(operator::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod operator {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Operator {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Not => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("OPERATOR_UNSPECIFIED"),
+                Self::Not => std::option::Option::Some("NOT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Operator {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Operator {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Operator {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Not,
+                _ => Self::UnknownValue(operator::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Operator {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "OPERATOR_UNSPECIFIED" => Self::Unspecified,
+                "NOT" => Self::Not,
+                _ => Self::UnknownValue(operator::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Operator {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Not => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Operator {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Operator>::new(
+                ".google.cloud.vectorsearch.v1.UnaryQuery.Operator",
+            ))
+        }
+    }
+}
+
+/// A query that combines multiple sub-queries with a boolean operator.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CombinedQuery {
+    /// Required. The boolean operator used to combine the sub-queries.
+    pub op: crate::model::combined_query::Operator,
+
+    /// Required. The sub-queries to be combined.
+    pub sub_queries: std::vec::Vec<crate::model::StructuredQuery>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CombinedQuery {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [op][crate::model::CombinedQuery::op].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::CombinedQuery;
+    /// use google_cloud_vectorsearch_v1::model::combined_query::Operator;
+    /// let x0 = CombinedQuery::new().set_op(Operator::And);
+    /// let x1 = CombinedQuery::new().set_op(Operator::Or);
+    /// ```
+    pub fn set_op<T: std::convert::Into<crate::model::combined_query::Operator>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.op = v.into();
+        self
+    }
+
+    /// Sets the value of [sub_queries][crate::model::CombinedQuery::sub_queries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::CombinedQuery;
+    /// use google_cloud_vectorsearch_v1::model::StructuredQuery;
+    /// let x = CombinedQuery::new()
+    ///     .set_sub_queries([
+    ///         StructuredQuery::default()/* use setters */,
+    ///         StructuredQuery::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_sub_queries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::StructuredQuery>,
+    {
+        use std::iter::Iterator;
+        self.sub_queries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for CombinedQuery {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.vectorsearch.v1.CombinedQuery"
+    }
+}
+
+/// Defines additional types related to [CombinedQuery].
+pub mod combined_query {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Boolean operators used to combine sub-queries.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Operator {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// All sub-queries must match.
+        And,
+        /// At least one sub-query must match.
+        Or,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Operator::value] or
+        /// [Operator::name].
+        UnknownValue(operator::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod operator {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Operator {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::And => std::option::Option::Some(1),
+                Self::Or => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("OPERATOR_UNSPECIFIED"),
+                Self::And => std::option::Option::Some("AND"),
+                Self::Or => std::option::Option::Some("OR"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Operator {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Operator {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Operator {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::And,
+                2 => Self::Or,
+                _ => Self::UnknownValue(operator::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Operator {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "OPERATOR_UNSPECIFIED" => Self::Unspecified,
+                "AND" => Self::And,
+                "OR" => Self::Or,
+                _ => Self::UnknownValue(operator::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Operator {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::And => serializer.serialize_i32(1),
+                Self::Or => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Operator {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Operator>::new(
+                ".google.cloud.vectorsearch.v1.CombinedQuery.Operator",
+            ))
+        }
     }
 }
 
@@ -2193,8 +3217,22 @@ pub struct AggregateDataObjectsRequest {
     /// Format: `projects/{project}/locations/{location}/collections/{collection}`
     pub parent: std::string::String,
 
-    /// Optional. A JSON filter expression, e.g. {"genre": {"$eq": "sci-fi"}},
-    /// represented as a google.protobuf.Struct.
+    /// Optional. A JSON filter expression, e.g. `{"genre": {"$eq": "sci-fi"}}`,
+    /// represented as a `google.protobuf.Struct`.
+    ///
+    /// An empty filter (`{}`) matches all data objects. Otherwise, each JSON
+    /// object in the filter must have exactly one key: either a field name mapped
+    /// to one operator (`{"price": {"$lt": 100}}`), or a logical operator: `$and`
+    /// or `$or` with a list of filters, or `$not` with one filter. Field
+    /// operators and their values: `$eq` and `$ne` take a string, number or bool;
+    /// `$lt`, `$lte`, `$gt` and `$gte` take a number; `$in`, `$nin` and `$all`
+    /// take a list of strings; `$exists` takes a bool. Several keys in one object
+    /// (implicit AND) and implicit equality (`{"genre": "sci-fi"}`) are rejected;
+    /// use `$and` and `$eq` instead.
+    ///
+    /// Logical operators can be nested at most 2 levels deep, e.g.
+    /// `{"$and": [{"$or": [{"a": {"$eq": 1}}, {"b": {"$eq": 2}}]}]}`. Deeper
+    /// filters are rejected with `INVALID_ARGUMENT`.
     pub filter: std::option::Option<wkt::Struct>,
 
     /// Required. The aggregation method to apply to the query.
@@ -2339,8 +3377,22 @@ pub struct QueryDataObjectsRequest {
     /// Format: `projects/{project}/locations/{location}/collections/{collection}`
     pub parent: std::string::String,
 
-    /// Optional. A JSON filter expression, e.g. {"genre": {"$eq": "sci-fi"}},
-    /// represented as a google.protobuf.Struct.
+    /// Optional. A JSON filter expression, e.g. `{"genre": {"$eq": "sci-fi"}}`,
+    /// represented as a `google.protobuf.Struct`.
+    ///
+    /// An empty filter (`{}`) matches all data objects. Otherwise, each JSON
+    /// object in the filter must have exactly one key: either a field name mapped
+    /// to one operator (`{"price": {"$lt": 100}}`), or a logical operator: `$and`
+    /// or `$or` with a list of filters, or `$not` with one filter. Field
+    /// operators and their values: `$eq` and `$ne` take a string, number or bool;
+    /// `$lt`, `$lte`, `$gt` and `$gte` take a number; `$in`, `$nin` and `$all`
+    /// take a list of strings; `$exists` takes a bool. Several keys in one object
+    /// (implicit AND) and implicit equality (`{"genre": "sci-fi"}`) are rejected;
+    /// use `$and` and `$eq` instead.
+    ///
+    /// Logical operators can be nested at most 2 levels deep, e.g.
+    /// `{"$and": [{"$or": [{"a": {"$eq": 1}}, {"b": {"$eq": 2}}]}]}`. Deeper
+    /// filters are rejected with `INVALID_ARGUMENT`.
     pub filter: std::option::Option<wkt::Struct>,
 
     /// Optional. Mask specifying which fields to return.
