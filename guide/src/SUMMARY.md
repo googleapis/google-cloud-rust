@@ -17,15 +17,8 @@ limitations under the License.
 # Summary
 
 - [Introduction](introduction.md)
-- [Generate text using the Vertex AI Gemini API](generate_text_using_the_vertex_ai_gemini_api.md)
 - [Using Google Cloud Storage](storage.md)
-  - [Push data on object writes](storage/queue.md)
-  - [Rewriting objects](storage/rewrite_object.md)
   - [Speed up large object downloads](storage/striped_downloads.md)
   - [Use errors to terminate uploads](storage/terminate_uploads.md)
-  - [How to write tests using the Storage client](storage/mocking.md)
-- [How to configure a client](configure_client.md)
-- [Working with Optimistic Concurrency Control (OCC)](occ.md)
 - [Working with enums](working_with_enums.md)
 - [Troubleshooting](troubleshooting.md)
-- [How to write tests for long-running operations](mocking_lros.md)

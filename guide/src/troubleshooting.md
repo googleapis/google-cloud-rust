@@ -56,7 +56,7 @@ unless you are certain that it belongs elsewhere. The maintainers may move it to
 a different repository where appropriate, but you will be notified of this using
 the email associated with your GitHub account.
 
-[client-configuration]: configure_client.md#4-configuring-a-proxy
+[client-configuration]: https://docs.cloud.google.com/rust/docs/configure-client#configure-a-proxy
 [enable-logging]: https://docs.cloud.google.com/rust/docs/enable-logging
 [google-cloud-rust]: https://github.com/googleapis/google-cloud-rust
 [support]: https://cloud.google.com/support/

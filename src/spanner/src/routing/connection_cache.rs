@@ -355,8 +355,12 @@ fn is_loopback_address(address: &str) -> bool {
 ///
 /// Ensures that:
 /// 1. The routed endpoint URI has an appropriate scheme (`https://` or `http://`), which Tonic requires.
-/// 2. TLS certificate verification and SNI match the default service host when TLS is enabled.
-/// 3. Any parent TLS configuration is stripped when dialing a plaintext endpoint.
+/// 2. Transport security is strictly inherited from the parent client: a routed endpoint cannot downgrade
+///    a TLS-configured connection to plaintext HTTP (preventing token exfiltration over cleartext).
+/// 3. TLS certificate verification and SNI match the default service host when TLS is enabled, including
+///    pinning the domain name on any existing [`ClientTlsConfig`] or [`TlsConfig`] to ensure routed
+///    endpoints verify certificates against the default service authority.
+/// 4. Any parent TLS configuration is stripped only when dialing an explicitly plaintext parent client (e.g. emulator).
 pub(crate) fn prepare_routed_endpoint_config(
     config: &ClientConfig,
     default_address: &str,
@@ -365,24 +369,27 @@ pub(crate) fn prepare_routed_endpoint_config(
     let mut endpoint_config = config.clone();
 
     // Determine whether this connection is plaintext or TLS.
-    // Plaintext is used if the routed address explicitly requests `http://`,
-    // or if the default connection or client config specifies plaintext and no TLS is configured.
-    let is_plaintext = match endpoint_scheme(routed_address) {
+    // Transport security is inherited from the parent client configuration:
+    // a dynamic routed address cannot downgrade a TLS-secured client to plaintext HTTP.
+    // Plaintext is only permitted if the parent client itself was explicitly configured for plaintext
+    // (e.g. local emulator on loopback or explicit HTTP endpoint).
+    let explicit_parent_scheme = endpoint_scheme(default_address)
+        .or_else(|| config.endpoint.as_deref().and_then(endpoint_scheme));
+
+    let parent_is_plaintext = match explicit_parent_scheme {
         Some(scheme) => scheme == Scheme::HTTP,
         None => {
-            let is_http = |endpoint: &str| {
-                endpoint_scheme(endpoint).is_some_and(|scheme| scheme == Scheme::HTTP)
-            };
             let no_tls_configured = config.extensions.get::<TlsConfig>().is_none()
                 && config.extensions.get::<ClientTlsConfig>().is_none();
 
-            is_http(default_address)
-                || config.endpoint.as_deref().is_some_and(is_http)
-                || (no_tls_configured
-                    && (is_loopback_address(default_address)
-                        || config.endpoint.as_deref().is_some_and(is_loopback_address)))
+            no_tls_configured
+                && (is_loopback_address(default_address)
+                    || config.endpoint.as_deref().is_some_and(is_loopback_address))
         }
     };
+
+    let is_plaintext =
+        parent_is_plaintext && endpoint_scheme(routed_address) != Some(Scheme::HTTPS);
 
     endpoint_config.endpoint = Some(dial_endpoint(routed_address, is_plaintext));
 
@@ -408,7 +415,12 @@ pub(crate) fn prepare_routed_endpoint_config(
         endpoint_config.extensions.insert(omni_tls);
         tonic_tls
     } else if let Some(existing_tonic_tls) = config.extensions.get::<ClientTlsConfig>() {
-        Some(existing_tonic_tls.clone())
+        let mut tls = existing_tonic_tls.clone();
+        if let Some(domain) = default_domain.as_deref() {
+            // Verify certificates against the default service authority for routed endpoints.
+            tls = tls.domain_name(domain);
+        }
+        Some(tls)
     } else if let Some(domain) = default_domain {
         let omni_tls = TlsConfig::new().with_domain_name_override(domain);
         let tonic_tls = omni_tls.to_tonic_client_tls_config();
@@ -1183,6 +1195,38 @@ mod tests {
         );
     }
 
+    #[tokio::test]
+    async fn connection_cache_get_creates_and_caches_routed_endpoint_with_client_tls_config() {
+        let default_connection =
+            create_default_test_connection("https://spanner.googleapis.com:443");
+        let cache = ConnectionCache::new(default_connection);
+        let mut config = test_client_config();
+        config
+            .extensions
+            .insert(ClientTlsConfig::new().with_enabled_roots());
+
+        let routed_address = "10.0.0.2:15000";
+        let connection = cache
+            .get(routed_address, &config)
+            .await
+            .expect("cache.get should succeed constructing routed connection with ClientTlsConfig");
+
+        assert_eq!(
+            connection.address(),
+            routed_address,
+            "created connection address must match requested routed address"
+        );
+        assert_eq!(
+            cache.len(),
+            2,
+            "cache should contain default connection and newly created routed connection"
+        );
+        assert!(
+            cache.get_if_present(routed_address).is_some(),
+            "get_if_present should return the newly created connection"
+        );
+    }
+
     #[test]
     fn prepare_routed_endpoint_config_omni_mtls_client_identity_without_ca() {
         let mut config = test_client_config();
@@ -1259,17 +1303,114 @@ mod tests {
             "routed endpoint dial URI must use https scheme"
         );
 
+        let tls = endpoint_config
+            .extensions
+            .get::<ClientTlsConfig>()
+            .expect("ClientTlsConfig must be preserved in extensions");
+        let debug_output = format!("{tls:?}");
         assert!(
-            endpoint_config
-                .extensions
-                .get::<ClientTlsConfig>()
-                .is_some(),
-            "ClientTlsConfig must be preserved in extensions"
+            debug_output.contains("omni.spanner.internal"),
+            "ClientTlsConfig must have domain_name pinned to default domain: {debug_output}"
         );
     }
 
     #[test]
-    fn prepare_routed_endpoint_config_plaintext_strips_parent_tls() {
+    fn prepare_routed_endpoint_config_existing_client_tls_config_domain_pinning() {
+        struct TestCase {
+            default_address: &'static str,
+            routed_address: &'static str,
+            expected_endpoint: &'static str,
+            expected_domain_fragment: &'static str,
+            description: &'static str,
+        }
+
+        let test_cases = [
+            TestCase {
+                default_address: "spanner.googleapis.com:443",
+                routed_address: "10.0.0.1:15000",
+                expected_endpoint: "https://10.0.0.1:15000",
+                expected_domain_fragment: "spanner.googleapis.com",
+                description: "production Spanner domain is pinned to default host",
+            },
+            TestCase {
+                default_address: "https://spanner.googleapis.com:443",
+                routed_address: "10.0.0.1:15000",
+                expected_endpoint: "https://10.0.0.1:15000",
+                expected_domain_fragment: "spanner.googleapis.com",
+                description: "production Spanner domain with https scheme is pinned",
+            },
+            TestCase {
+                default_address: "127.0.0.1:8443",
+                routed_address: "10.0.0.1:8443",
+                expected_endpoint: "https://10.0.0.1:8443",
+                expected_domain_fragment: "domain: None",
+                description: "IPv4 literal default address leaves domain unpinned",
+            },
+            TestCase {
+                default_address: "https://127.0.0.1:8443",
+                routed_address: "10.0.0.1:8443",
+                expected_endpoint: "https://10.0.0.1:8443",
+                expected_domain_fragment: "domain: None",
+                description: "IPv4 literal with https scheme leaves domain unpinned",
+            },
+            TestCase {
+                default_address: "[::1]:8443",
+                routed_address: "[2001:db8::1]:8443",
+                expected_endpoint: "https://[2001:db8::1]:8443",
+                expected_domain_fragment: "domain: None",
+                description: "IPv6 literal default address leaves domain unpinned",
+            },
+            TestCase {
+                default_address: "https://[::1]:8443",
+                routed_address: "[2001:db8::1]:8443",
+                expected_endpoint: "https://[2001:db8::1]:8443",
+                expected_domain_fragment: "domain: None",
+                description: "IPv6 literal with https scheme leaves domain unpinned",
+            },
+            TestCase {
+                default_address: "",
+                routed_address: "10.0.0.1:8443",
+                expected_endpoint: "https://10.0.0.1:8443",
+                expected_domain_fragment: "domain: None",
+                description: "unextractable default host leaves domain unpinned",
+            },
+        ];
+
+        for test_case in test_cases {
+            let mut config = test_client_config();
+            config
+                .extensions
+                .insert(ClientTlsConfig::new().with_enabled_roots());
+
+            let endpoint_config = prepare_routed_endpoint_config(
+                &config,
+                test_case.default_address,
+                test_case.routed_address,
+            );
+
+            assert_eq!(
+                endpoint_config.endpoint.as_deref(),
+                Some(test_case.expected_endpoint),
+                "routed endpoint dial URI mismatch for test case: {}",
+                test_case.description
+            );
+
+            let tls = endpoint_config
+                .extensions
+                .get::<ClientTlsConfig>()
+                .expect("ClientTlsConfig must be preserved in extensions");
+            let debug_output = format!("{tls:?}");
+            assert!(
+                debug_output.contains(test_case.expected_domain_fragment),
+                "expected domain fragment '{}' in debug output for test case: {}, got: {debug_output}",
+                test_case.expected_domain_fragment,
+                test_case.description
+            );
+        }
+    }
+
+    #[test]
+    fn prepare_routed_endpoint_config_prevents_plaintext_downgrade_when_parent_has_tls() {
         let mut config = test_client_config();
         let omni_tls = TlsConfig::new().with_root_certificate_pem(b"test ca pem");
         config.extensions.insert(omni_tls);
@@ -1285,8 +1426,99 @@ mod tests {
 
         assert_eq!(
             endpoint_config.endpoint.as_deref(),
-            Some("http://10.0.0.1:8443"),
-            "routed endpoint dial URI must use http scheme"
+            Some("https://10.0.0.1:8443"),
+            "routed endpoint dial URI must use https scheme when parent has TLS"
+        );
+
+        assert!(
+            endpoint_config
+                .extensions
+                .get::<ClientTlsConfig>()
+                .is_some(),
+            "ClientTlsConfig must NOT be stripped when parent has TLS"
+        );
+        assert!(
+            endpoint_config.extensions.get::<TlsConfig>().is_some(),
+            "TlsConfig must NOT be stripped when parent has TLS"
+        );
+    }
+
+    #[test]
+    fn prepare_routed_endpoint_config_default_production_schemeless_prevents_downgrade() {
+        let config = test_client_config();
+        let default_address = "spanner.googleapis.com:443";
+        let routed_address = "http://10.0.0.1:8443";
+
+        let endpoint_config =
+            prepare_routed_endpoint_config(&config, default_address, routed_address);
+
+        assert_eq!(
+            endpoint_config.endpoint.as_deref(),
+            Some("https://10.0.0.1:8443"),
+            "routed endpoint dial URI must use https scheme when parent is production Spanner"
+        );
+
+        assert!(
+            endpoint_config
+                .extensions
+                .get::<ClientTlsConfig>()
+                .is_some(),
+            "ClientTlsConfig must be configured when parent is production Spanner"
+        );
+        assert!(
+            endpoint_config.extensions.get::<TlsConfig>().is_some(),
+            "TlsConfig must be configured when parent is production Spanner"
+        );
+    }
+
+    #[test]
+    fn prepare_routed_endpoint_config_explicit_https_default_prevents_downgrade() {
+        let config = test_client_config();
+        let default_address = "https://spanner.googleapis.com:443";
+        let routed_address = "http://10.0.0.1:8443";
+
+        let endpoint_config =
+            prepare_routed_endpoint_config(&config, default_address, routed_address);
+
+        assert_eq!(
+            endpoint_config.endpoint.as_deref(),
+            Some("https://10.0.0.1:8443"),
+            "routed endpoint dial URI must use https scheme when parent explicitly specifies https"
+        );
+
+        assert!(
+            endpoint_config
+                .extensions
+                .get::<ClientTlsConfig>()
+                .is_some(),
+            "ClientTlsConfig must be configured when parent explicitly specifies https"
+        );
+        assert!(
+            endpoint_config.extensions.get::<TlsConfig>().is_some(),
+            "TlsConfig must be configured when parent explicitly specifies https"
+        );
+    }
+
+    #[test]
+    fn prepare_routed_endpoint_config_plaintext_parent_strips_tls() {
+        let mut config = test_client_config();
+        config.endpoint = Some("http://127.0.0.1:9010".to_string());
+        let omni_tls = TlsConfig::new().with_root_certificate_pem(b"test ca pem");
+        config.extensions.insert(omni_tls);
+        config
+            .extensions
+            .insert(ClientTlsConfig::new().with_enabled_roots());
+
+        let default_address = "http://127.0.0.1:9010";
+        let routed_address = "http://127.0.0.1:9020";
+
+        let endpoint_config =
+            prepare_routed_endpoint_config(&config, default_address, routed_address);
+
+        assert_eq!(
+            endpoint_config.endpoint.as_deref(),
+            Some("http://127.0.0.1:9020"),
+            "routed endpoint dial URI must use http scheme when parent is plaintext"
         );
 
         assert!(
@@ -1294,11 +1526,45 @@ mod tests {
                 .extensions
                 .get::<ClientTlsConfig>()
                 .is_none(),
-            "ClientTlsConfig must be stripped from extensions for plaintext endpoint"
+            "ClientTlsConfig must be stripped from extensions for plaintext parent"
         );
         assert!(
             endpoint_config.extensions.get::<TlsConfig>().is_none(),
-            "TlsConfig must be stripped from extensions for plaintext endpoint"
+            "TlsConfig must be stripped from extensions for plaintext parent"
+        );
+    }
+
+    #[test]
+    fn prepare_routed_endpoint_config_fallback_to_config_endpoint_http_scheme() {
+        let mut config = test_client_config();
+        config.endpoint = Some("http://custom-proxy:9010".to_string());
+        let default_address = "custom-proxy:9010";
+        let routed_address = "10.0.0.1:9020";
+
+        let endpoint_config =
+            prepare_routed_endpoint_config(&config, default_address, routed_address);
+
+        assert_eq!(
+            endpoint_config.endpoint.as_deref(),
+            Some("http://10.0.0.1:9020"),
+            "routed endpoint dial URI must use http when config.endpoint specifies http scheme"
+        );
+    }
+
+    #[test]
+    fn prepare_routed_endpoint_config_fallback_to_config_endpoint_loopback() {
+        let mut config = test_client_config();
+        config.endpoint = Some("127.0.0.1:9010".to_string());
+        let default_address = "custom-emulator-host:9010";
+        let routed_address = "127.0.0.1:9020";
+
+        let endpoint_config =
+            prepare_routed_endpoint_config(&config, default_address, routed_address);
+
+        assert_eq!(
+            endpoint_config.endpoint.as_deref(),
+            Some("http://127.0.0.1:9020"),
+            "routed endpoint dial URI must use http when config.endpoint is loopback"
         );
     }
 
@@ -1308,6 +1574,7 @@ mod tests {
         struct CustomExtension(u64);
 
         let mut config = test_client_config();
+        config.endpoint = Some("http://127.0.0.1:9010".to_string());
         config.extensions.insert(InstanceType::Omni);
         config.extensions.insert(CustomExtension(42));
         let mut headers = HeaderMap::new();
@@ -1320,15 +1587,15 @@ mod tests {
             .extensions
             .insert(ClientTlsConfig::new().with_enabled_roots());
 
-        let default_address = "omni.spanner.internal:8443";
-        let routed_address = "http://10.0.0.1:8443";
+        let default_address = "http://127.0.0.1:9010";
+        let routed_address = "http://127.0.0.1:9020";
 
         let endpoint_config =
             prepare_routed_endpoint_config(&config, default_address, routed_address);
 
         assert_eq!(
             endpoint_config.endpoint.as_deref(),
-            Some("http://10.0.0.1:8443"),
+            Some("http://127.0.0.1:9020"),
             "routed endpoint dial URI must use http scheme"
         );
         assert_eq!(
@@ -1629,27 +1896,28 @@ mod tests {
 
     #[tokio::test]
     async fn connection_cache_get_tablet_different_scheme_creates_separate_connections() {
-        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("http://localhost:9010");
         let cache = ConnectionCache::new(default_connection);
-        let config = test_client_config();
+        let mut config = test_client_config();
+        config.endpoint = Some("http://localhost:9010".to_string());
 
         let tls_connection = cache
-            .get("https://10.0.0.1:15000", &config)
+            .get("https://127.0.0.1:15000", &config)
             .await
             .expect("should obtain TLS tablet connection");
         let plaintext_connection = cache
-            .get("http://10.0.0.1:15000", &config)
+            .get("http://127.0.0.1:15000", &config)
             .await
             .expect("should obtain plaintext tablet connection");
 
         assert_eq!(
             tls_connection.address(),
-            "https://10.0.0.1:15000",
+            "https://127.0.0.1:15000",
             "TLS connection address matches request"
         );
         assert_eq!(
             plaintext_connection.address(),
-            "http://10.0.0.1:15000",
+            "http://127.0.0.1:15000",
             "plaintext connection address matches request"
         );
         assert_eq!(

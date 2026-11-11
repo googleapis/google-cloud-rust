@@ -594,6 +594,26 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::SqlInstancesService::start].
+    fn start(
+        &self,
+        _req: crate::model::SqlInstancesStartRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlInstancesService::stop].
+    fn stop(
+        &self,
+        _req: crate::model::SqlInstancesStopRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::SqlInstancesService::restore_backup].
     fn restore_backup(
         &self,
@@ -763,6 +783,19 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::SqlInstancesService::execute_sql_read_only].
+    fn execute_sql_read_only(
+        &self,
+        _req: crate::model::SqlInstancesExecuteSqlReadOnlyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::SqlInstancesExecuteSqlReadOnlyResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::SqlInstancesService::execute_sql].
     fn execute_sql(
         &self,
@@ -810,6 +843,16 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn point_in_time_restore(
         &self,
         _req: crate::model::SqlInstancesPointInTimeRestoreRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlInstancesService::reconcile_networking].
+    fn reconcile_networking(
+        &self,
+        _req: crate::model::SqlInstancesReconcileNetworkingRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
     {
@@ -910,6 +953,39 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::SslCertsListResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlSslCertsService::update_customer_managed_certificate].
+    fn update_customer_managed_certificate(
+        &self,
+        _req: crate::model::UpdateCustomerManagedCertificateRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlSslCertsService::delete_customer_managed_certificate].
+    fn delete_customer_managed_certificate(
+        &self,
+        _req: crate::model::DeleteCustomerManagedCertificateRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlSslCertsService::list_customer_managed_certificates].
+    fn list_customer_managed_certificates(
+        &self,
+        _req: crate::model::ListCustomerManagedCertificatesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::ListCustomerManagedCertificatesResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

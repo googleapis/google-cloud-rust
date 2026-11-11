@@ -149,6 +149,22 @@ The request builders have both `set_<field_name>()` setters and
 `with_<option_name>()` setters. This is a bit awkward, but avoids name clashes
 as RPC requests gain field names and we add new request options.
 
+The rule is:
+
+- `set_<field_name>()` changes the request payload, that is, the data sent to
+  the service. For example, `set_generation()` or `set_page_size()`.
+- `with_<option_name>()` changes how the client library behaves, without
+  changing the payload. For example, `with_retry_policy()`,
+  `with_attempt_timeout()`, `with_idempotency()`, or `with_tracing()`.
+
+Each subset evolves independently: services add fields to requests, and we add
+new options to the client libraries. Keeping them in separate namespaces ensures
+that neither can introduce a name clash with the other.
+
+The rule applies to hand-written crates too, including request types used by
+stubs and any builders or runners that configure requests. Client builders only
+configure the behavior of the client, so their functions use `with_*()`.
+
 ### Auth library
 
 The main type in the auth library (`Credentials`) returns a [CacheableResource]

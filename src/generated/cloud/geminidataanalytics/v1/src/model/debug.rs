@@ -705,6 +705,10 @@ impl std::fmt::Debug for super::ListMessagesRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
+        debug_struct.field(
+            "pending_write_wait_skipped",
+            &self.pending_write_wait_skipped,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
