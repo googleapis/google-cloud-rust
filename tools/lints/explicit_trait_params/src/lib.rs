@@ -147,11 +147,13 @@ impl ExplicitTraitParams {
     ///     method resolves through the where-clause bounds in scope, not by
     ///     impl selection, so new impls cannot make it ambiguous.
     /// (c) `Self` (after peeling `&`/`&mut`) is an ADT defined in the calling
-    ///     crate: under the orphan rules no other crate can add a concrete
-    ///     `impl Trait<_> for Local`. The trait's crate could still add a
-    ///     blanket `impl<T> Trait<X> for T`, which adds a candidate for every
-    ///     receiver; that case is covered by the impl check (`check_impl`),
-    ///     which runs over the trait's crate.
+    ///     crate: a dependency cannot name `Local` (that would need a circular
+    ///     dependency), so it cannot add a concrete `impl Trait<_> for Local`.
+    ///     Crates that depend on the calling crate can add such impls, but
+    ///     they are not visible when the calling crate compiles. The trait's
+    ///     crate could still add a blanket `impl<T> Trait<X> for T`, which adds
+    ///     a candidate for every receiver; that case is covered by the impl
+    ///     check (`check_impl`), which runs over the trait's crate.
     ///
     /// Everything else is flagged, conservatively:
     /// - Foreign ADTs and primitives (`String`, `i32`, `wkt::Timestamp`,
