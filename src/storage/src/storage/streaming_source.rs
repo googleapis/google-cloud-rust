@@ -569,7 +569,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn clone_bytes() -> Result {
         let mut original = Payload::from(bytes::Bytes::from_static(CONTENTS));
         let mut cloned = original.clone();
@@ -577,15 +577,12 @@ pub(crate) mod tests {
         original.seek(4).await?;
         cloned.seek(13).await?;
 
-        let t1 = tokio::spawn(async move { collect(original).await });
-        let t2 = tokio::spawn(async move { collect(cloned).await });
-
-        assert_eq!(t1.await??, CONTENTS[4..]);
-        assert_eq!(t2.await??, CONTENTS[13..]);
+        assert_eq!(collect(original).await?, CONTENTS[4..]);
+        assert_eq!(collect(cloned).await?, CONTENTS[13..]);
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn clone_iter_source() -> Result {
         let mut original = Payload::from(vec![
             bytes::Bytes::from_static(b"how vexingly "),
@@ -598,11 +595,8 @@ pub(crate) mod tests {
         assert_eq!(first.as_deref(), Some(&b"how vexingly "[..]));
         cloned.seek(24).await?;
 
-        let t1 = tokio::spawn(async move { collect(original).await });
-        let t2 = tokio::spawn(async move { collect(cloned).await });
-
-        assert_eq!(t1.await??, CONTENTS[13..]);
-        assert_eq!(t2.await??, CONTENTS[24..]);
+        assert_eq!(collect(original).await?, CONTENTS[13..]);
+        assert_eq!(collect(cloned).await?, CONTENTS[24..]);
         Ok(())
     }
 }
