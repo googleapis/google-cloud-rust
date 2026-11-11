@@ -212,6 +212,45 @@ impl OracleDatabase {
         super::builder::oracle_database::CreateCloudExadataInfrastructure::new(self.inner.clone())
     }
 
+    /// Updates the parameters of a single Exadata Infrastructure.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructure;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, cloud_exadata_infrastructure_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_cloud_exadata_infrastructure()
+    ///         .set_cloud_exadata_infrastructure(
+    ///             CloudExadataInfrastructure::new().set_name(format!("projects/{project_id}/locations/{location_id}/cloudExadataInfrastructures/{cloud_exadata_infrastructure_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_cloud_exadata_infrastructure(
+        &self,
+    ) -> super::builder::oracle_database::UpdateCloudExadataInfrastructure {
+        super::builder::oracle_database::UpdateCloudExadataInfrastructure::new(self.inner.clone())
+    }
+
     /// Deletes a single Exadata Infrastructure.
     ///
     /// # Long running operations
@@ -357,6 +396,43 @@ impl OracleDatabase {
         super::builder::oracle_database::CreateCloudVmCluster::new(self.inner.clone())
     }
 
+    /// Updates the parameters of a single Vm Cluster.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_oracledatabase_v1::model::CloudVmCluster;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, cloud_vm_cluster_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_cloud_vm_cluster()
+    ///         .set_cloud_vm_cluster(
+    ///             CloudVmCluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/cloudVmClusters/{cloud_vm_cluster_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_cloud_vm_cluster(&self) -> super::builder::oracle_database::UpdateCloudVmCluster {
+        super::builder::oracle_database::UpdateCloudVmCluster::new(self.inner.clone())
+    }
+
     /// Deletes a single VM Cluster.
     ///
     /// # Long running operations
@@ -387,6 +463,146 @@ impl OracleDatabase {
         super::builder::oracle_database::DeleteCloudVmCluster::new(self.inner.clone())
     }
 
+    /// Enables the Workload Identity Connector for a Cloud VM Cluster.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.enable_cloud_vm_cluster_identity_connector()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn enable_cloud_vm_cluster_identity_connector(
+        &self,
+    ) -> super::builder::oracle_database::EnableCloudVmClusterIdentityConnector {
+        super::builder::oracle_database::EnableCloudVmClusterIdentityConnector::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Disables the Workload Identity Connector for a Cloud VM Cluster.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.disable_cloud_vm_cluster_identity_connector()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn disable_cloud_vm_cluster_identity_connector(
+        &self,
+    ) -> super::builder::oracle_database::DisableCloudVmClusterIdentityConnector {
+        super::builder::oracle_database::DisableCloudVmClusterIdentityConnector::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Enables the Workload Identity Connector for an Exadb VM Cluster.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.enable_exadb_vm_cluster_identity_connector()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn enable_exadb_vm_cluster_identity_connector(
+        &self,
+    ) -> super::builder::oracle_database::EnableExadbVmClusterIdentityConnector {
+        super::builder::oracle_database::EnableExadbVmClusterIdentityConnector::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Disables the Workload Identity Connector for an Exadb VM Cluster.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.disable_exadb_vm_cluster_identity_connector()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn disable_exadb_vm_cluster_identity_connector(
+        &self,
+    ) -> super::builder::oracle_database::DisableExadbVmClusterIdentityConnector {
+        super::builder::oracle_database::DisableExadbVmClusterIdentityConnector::new(
+            self.inner.clone(),
+        )
+    }
+
     /// Lists the entitlements in a given project.
     ///
     /// # Example
@@ -408,6 +624,29 @@ impl OracleDatabase {
     /// ```
     pub fn list_entitlements(&self) -> super::builder::oracle_database::ListEntitlements {
         super::builder::oracle_database::ListEntitlements::new(self.inner.clone())
+    }
+
+    /// Lists Flex Components in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_flex_components()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_flex_components(&self) -> super::builder::oracle_database::ListFlexComponents {
+        super::builder::oracle_database::ListFlexComponents::new(self.inner.clone())
     }
 
     /// Lists the database servers of an Exadata Infrastructure instance.
@@ -1117,6 +1356,44 @@ impl OracleDatabase {
         super::builder::oracle_database::CreateOdbNetwork::new(self.inner.clone())
     }
 
+    /// Updates the `labels` and `service_connectivity_config` of a single
+    /// OdbNetwork.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_oracledatabase_v1::model::OdbNetwork;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, odb_network_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_odb_network()
+    ///         .set_odb_network(
+    ///             OdbNetwork::new().set_name(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_odb_network(&self) -> super::builder::oracle_database::UpdateOdbNetwork {
+        super::builder::oracle_database::UpdateOdbNetwork::new(self.inner.clone())
+    }
+
     /// Deletes a single ODB Network.
     ///
     /// # Long running operations
@@ -1223,6 +1500,43 @@ impl OracleDatabase {
     /// ```
     pub fn create_odb_subnet(&self) -> super::builder::oracle_database::CreateOdbSubnet {
         super::builder::oracle_database::CreateOdbSubnet::new(self.inner.clone())
+    }
+
+    /// Updates the `labels` of a single ODB Subnet.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_oracledatabase_v1::model::OdbSubnet;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, odb_network_id: &str, odb_subnet_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_odb_subnet()
+    ///         .set_odb_subnet(
+    ///             OdbSubnet::new().set_name(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}/odbSubnets/{odb_subnet_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_odb_subnet(&self) -> super::builder::oracle_database::UpdateOdbSubnet {
+        super::builder::oracle_database::UpdateOdbSubnet::new(self.inner.clone())
     }
 
     /// Deletes a single ODB Subnet.
@@ -1628,6 +1942,45 @@ impl OracleDatabase {
         super::builder::oracle_database::CreateExascaleDbStorageVault::new(self.inner.clone())
     }
 
+    /// Updates the `labels` of a single ExascaleDbStorageVault.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, exascale_db_storage_vault_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_exascale_db_storage_vault()
+    ///         .set_exascale_db_storage_vault(
+    ///             ExascaleDbStorageVault::new().set_name(format!("projects/{project_id}/locations/{location_id}/exascaleDbStorageVaults/{exascale_db_storage_vault_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_exascale_db_storage_vault(
+        &self,
+    ) -> super::builder::oracle_database::UpdateExascaleDbStorageVault {
+        super::builder::oracle_database::UpdateExascaleDbStorageVault::new(self.inner.clone())
+    }
+
     /// Deletes a single ExascaleDB Storage Vault.
     ///
     /// # Long running operations
@@ -1684,6 +2037,32 @@ impl OracleDatabase {
         &self,
     ) -> super::builder::oracle_database::ListDbSystemInitialStorageSizes {
         super::builder::oracle_database::ListDbSystemInitialStorageSizes::new(self.inner.clone())
+    }
+
+    /// Lists all the DbSystemComputePerformances for the given project and
+    /// location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_db_system_compute_performances()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_db_system_compute_performances(
+        &self,
+    ) -> super::builder::oracle_database::ListDbSystemComputePerformances {
+        super::builder::oracle_database::ListDbSystemComputePerformances::new(self.inner.clone())
     }
 
     /// Lists all the Databases for the given project, location and DbSystem.
@@ -1853,6 +2232,43 @@ impl OracleDatabase {
         super::builder::oracle_database::CreateDbSystem::new(self.inner.clone())
     }
 
+    /// Updates the `labels` of a single DbSystem.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_oracledatabase_v1::model::DbSystem;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, db_system_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_db_system()
+    ///         .set_db_system(
+    ///             DbSystem::new().set_name(format!("projects/{project_id}/locations/{location_id}/dbSystems/{db_system_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_db_system(&self) -> super::builder::oracle_database::UpdateDbSystem {
+        super::builder::oracle_database::UpdateDbSystem::new(self.inner.clone())
+    }
+
     /// Deletes a single DbSystem.
     ///
     /// # Long running operations
@@ -1965,6 +2381,45 @@ impl OracleDatabase {
         &self,
     ) -> super::builder::oracle_database::CreateGoldengateDeployment {
         super::builder::oracle_database::CreateGoldengateDeployment::new(self.inner.clone())
+    }
+
+    /// Updates the `labels` of a single GoldengateDeployment.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_oracledatabase_v1::model::GoldengateDeployment;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, goldengate_deployment_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_goldengate_deployment()
+    ///         .set_goldengate_deployment(
+    ///             GoldengateDeployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/goldengateDeployments/{goldengate_deployment_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_goldengate_deployment(
+        &self,
+    ) -> super::builder::oracle_database::UpdateGoldengateDeployment {
+        super::builder::oracle_database::UpdateGoldengateDeployment::new(self.inner.clone())
     }
 
     /// Deletes a single GoldengateDeployment.
@@ -2147,6 +2602,45 @@ impl OracleDatabase {
         &self,
     ) -> super::builder::oracle_database::CreateGoldengateConnection {
         super::builder::oracle_database::CreateGoldengateConnection::new(self.inner.clone())
+    }
+
+    /// Updates the `labels` of a single GoldengateConnection.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_oracledatabase_v1::model::GoldengateConnection;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, goldengate_connection_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_goldengate_connection()
+    ///         .set_goldengate_connection(
+    ///             GoldengateConnection::new().set_name(format!("projects/{project_id}/locations/{location_id}/goldengateConnections/{goldengate_connection_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_goldengate_connection(
+        &self,
+    ) -> super::builder::oracle_database::UpdateGoldengateConnection {
+        super::builder::oracle_database::UpdateGoldengateConnection::new(self.inner.clone())
     }
 
     /// Deletes a single GoldengateConnection.
@@ -2420,6 +2914,47 @@ impl OracleDatabase {
         )
     }
 
+    /// Updates the `labels` of a single GoldengateConnectionAssignment.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_oracledatabase_v1::model::GoldengateConnectionAssignment;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, goldengate_connection_assignment_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_goldengate_connection_assignment()
+    ///         .set_goldengate_connection_assignment(
+    ///             GoldengateConnectionAssignment::new().set_name(format!("projects/{project_id}/locations/{location_id}/goldengateConnectionAssignments/{goldengate_connection_assignment_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_goldengate_connection_assignment(
+        &self,
+    ) -> super::builder::oracle_database::UpdateGoldengateConnectionAssignment {
+        super::builder::oracle_database::UpdateGoldengateConnectionAssignment::new(
+            self.inner.clone(),
+        )
+    }
+
     /// Deletes a single GoldengateConnectionAssignment.
     ///
     /// # Long running operations
@@ -2474,6 +3009,203 @@ impl OracleDatabase {
         &self,
     ) -> super::builder::oracle_database::TestGoldengateConnectionAssignment {
         super::builder::oracle_database::TestGoldengateConnectionAssignment::new(self.inner.clone())
+    }
+
+    /// Lists DatabaseConnections in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_database_connections()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_database_connections(
+        &self,
+    ) -> super::builder::oracle_database::ListDatabaseConnections {
+        super::builder::oracle_database::ListDatabaseConnections::new(self.inner.clone())
+    }
+
+    /// Gets details of a single DatabaseConnection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, database_connection_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_database_connection()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/databaseConnections/{database_connection_id}"))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_database_connection(
+        &self,
+    ) -> super::builder::oracle_database::GetDatabaseConnection {
+        super::builder::oracle_database::GetDatabaseConnection::new(self.inner.clone())
+    }
+
+    /// Creates a new DatabaseConnection in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_database_connection()
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+    ///         .set_database_connection(
+    ///             DatabaseConnection::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_database_connection(
+        &self,
+    ) -> super::builder::oracle_database::CreateDatabaseConnection {
+        super::builder::oracle_database::CreateDatabaseConnection::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of a single DatabaseConnection.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, database_connection_id: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_database_connection()
+    ///         .set_database_connection(
+    ///             DatabaseConnection::new().set_name(format!("projects/{project_id}/locations/{location_id}/databaseConnections/{database_connection_id}"))/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_database_connection(
+        &self,
+    ) -> super::builder::oracle_database::UpdateDatabaseConnection {
+        super::builder::oracle_database::UpdateDatabaseConnection::new(self.inner.clone())
+    }
+
+    /// Deletes a single DatabaseConnection.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, database_connection_id: &str
+    /// ) -> Result<()> {
+    ///     client.delete_database_connection()
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/databaseConnections/{database_connection_id}"))
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_database_connection(
+        &self,
+    ) -> super::builder::oracle_database::DeleteDatabaseConnection {
+        super::builder::oracle_database::DeleteDatabaseConnection::new(self.inner.clone())
+    }
+
+    /// Tests connectivity of a DatabaseConnection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.test_database_connection()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_database_connection(
+        &self,
+    ) -> super::builder::oracle_database::TestDatabaseConnection {
+        super::builder::oracle_database::TestDatabaseConnection::new(self.inner.clone())
+    }
+
+    /// Executes a SQL statement on a DatabaseConnection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.execute_sql()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn execute_sql(&self) -> super::builder::oracle_database::ExecuteSql {
+        super::builder::oracle_database::ExecuteSql::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
