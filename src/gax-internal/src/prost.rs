@@ -45,12 +45,25 @@ impl ConvertError {
 type Result<T> = std::result::Result<T, ConvertError>;
 
 /// Converts from `Self` into `T`, where `T` is expected to be a Protobuf-generated type.
+///
+/// This trait is intentionally not sealed: every crate implements it for its
+/// own crate-local Protobuf types. The type parameter `T` keeps those impls
+/// legal under the orphan rules, so a single type often has several impls
+/// (e.g. `google_cloud_rpc::model::Status` has one per crate that embeds
+/// `google.rpc.Status`).
+///
+/// Because of that, a call that leaves `T` to inference can become ambiguous
+/// (E0283/E0284) when another crate adds an impl in a compatible release.
+/// Outside this crate, always name `T`: `ToProto::<P>::to_proto(x)`.
 pub trait ToProto<T>: Sized {
     type Output;
     fn to_proto(self) -> Result<Self::Output>;
 }
 
 /// Converts from `Self` into `T`, where `Self` is expected to be a Protobuf-generated type.
+///
+/// Like [ToProto], this trait is intentionally not sealed and is generic over
+/// `T`. Outside this crate, always name `T`: `FromProto::<M>::cnv(x)`.
 pub trait FromProto<T>: Sized {
     // By convention `from_*` functions do not consume a `self`. And we need
     // `self` so we can write generic code for repeated fields, maps, etc.
