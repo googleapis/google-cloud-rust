@@ -40,9 +40,7 @@ use google_cloud_auth::credentials::anonymous;
 use google_cloud_gax::client_builder::ClientBuilder as GaxClientBuilder;
 use google_cloud_gax::client_builder::Error as BuilderError;
 use google_cloud_gax::client_builder::internal::new_builder;
-use google_cloud_gax::options::{
-    RequestOptions as GaxRequestOptions, internal::RequestOptionsExt as _,
-};
+use google_cloud_gax::options::internal::RequestOptionsExt as _;
 use google_cloud_spanner_admin_database_v1::builder::database_admin::ClientBuilder as DatabaseAdminBuilder;
 use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ClientBuilder as InstanceAdminBuilder;
 use http::{
@@ -630,18 +628,16 @@ fn apply_request_defaults(mut options: crate::RequestOptions) -> crate::RequestO
 /// triggering internal hash table reallocations.
 pub(crate) const DEFAULT_REQUEST_HEADERS_CAPACITY: usize = 4;
 
-static ROUTE_TO_LEADER_HEADER: HeaderName =
+/// An internal request option extension specifying that the request should route to the leader region.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) struct RouteToLeader;
+
+pub(crate) static ROUTE_TO_LEADER_HEADER: HeaderName =
     HeaderName::from_static("x-goog-spanner-route-to-leader");
-static ROUTE_TO_LEADER_VALUE: HeaderValue = HeaderValue::from_static("true");
+pub(crate) static ROUTE_TO_LEADER_VALUE: HeaderValue = HeaderValue::from_static("true");
 
-pub(crate) fn amend_request_options_for_lar(
-    leader_aware_routing_enabled: bool,
-    mut options: GaxRequestOptions,
-) -> GaxRequestOptions {
-    if !leader_aware_routing_enabled {
-        return options;
-    }
-
+/// Attaches the `x-goog-spanner-route-to-leader: true` header to `options`.
+pub(crate) fn attach_route_to_leader_header(mut options: RequestOptions) -> RequestOptions {
     if let Some(headers) = options.get_extension_mut::<HeaderMap>() {
         match headers.entry(&ROUTE_TO_LEADER_HEADER) {
             Entry::Vacant(entry) => {
@@ -2703,10 +2699,10 @@ mod tests {
     }
 
     #[test]
-    fn amend_request_options_for_lar_idempotent_no_duplicate_headers() {
+    fn attach_route_to_leader_header_idempotent_no_duplicate_headers() {
         let options = RequestOptions::default();
-        let options = amend_request_options_for_lar(true, options);
-        let options = amend_request_options_for_lar(true, options);
+        let options = attach_route_to_leader_header(options);
+        let options = attach_route_to_leader_header(options);
 
         let headers = options
             .get_extension::<HeaderMap>()
@@ -2715,7 +2711,7 @@ mod tests {
         assert_eq!(
             headers.get_all(&ROUTE_TO_LEADER_HEADER).iter().count(),
             1,
-            "LAR header should only be present once even after multiple amend calls"
+            "LAR header should only be present once even after multiple attach calls"
         );
         assert_eq!(
             headers.get(&ROUTE_TO_LEADER_HEADER),
@@ -2725,14 +2721,14 @@ mod tests {
     }
 
     #[test]
-    fn amend_request_options_for_lar_appends_to_existing_headers() {
+    fn attach_route_to_leader_header_appends_to_existing_headers() {
         let custom_header = HeaderName::from_static("x-custom-header");
         let custom_value = HeaderValue::from_static("custom-value");
         let mut initial_headers = HeaderMap::new();
         initial_headers.insert(custom_header.clone(), custom_value.clone());
         let options = RequestOptions::default().insert_extension(initial_headers);
 
-        let options = amend_request_options_for_lar(true, options);
+        let options = attach_route_to_leader_header(options);
 
         let headers = options
             .get_extension::<HeaderMap>()
@@ -2750,50 +2746,7 @@ mod tests {
     }
 
     #[test]
-    fn amend_request_options_for_lar_disabled_does_not_add_headers() {
-        let options = RequestOptions::default();
-        let options = amend_request_options_for_lar(false, options);
-        assert!(
-            options.get_extension::<HeaderMap>().is_none(),
-            "HeaderMap should not be added when LAR is disabled"
-        );
-    }
-
-    #[test]
-    fn amend_request_options_for_lar_disabled_preserves_existing_headers() {
-        let custom_header = HeaderName::from_static("x-custom-header");
-        let custom_value = HeaderValue::from_static("custom-value");
-        let mut initial_headers = HeaderMap::new();
-        initial_headers.insert(custom_header.clone(), custom_value.clone());
-        initial_headers.insert(
-            REQUEST_ID_HEADER.clone(),
-            HeaderValue::from_static("1.a1b2c3.1.2.3.1"),
-        );
-        let options = RequestOptions::default().insert_extension(initial_headers);
-
-        let options = amend_request_options_for_lar(false, options);
-
-        let headers = options
-            .get_extension::<HeaderMap>()
-            .expect("HeaderMap should be preserved");
-        assert_eq!(
-            headers.get(&custom_header),
-            Some(&custom_value),
-            "custom header must be preserved"
-        );
-        assert_eq!(
-            headers.get(&REQUEST_ID_HEADER),
-            Some(&HeaderValue::from_static("1.a1b2c3.1.2.3.1")),
-            "request ID header must be preserved"
-        );
-        assert!(
-            headers.get(&ROUTE_TO_LEADER_HEADER).is_none(),
-            "route-to-leader header must not be added when LAR is disabled"
-        );
-    }
-
-    #[test]
-    fn amend_request_options_for_lar_overwrites_conflicting_value() {
+    fn attach_route_to_leader_header_overwrites_conflicting_value() {
         let mut initial_headers = HeaderMap::new();
         initial_headers.insert(
             ROUTE_TO_LEADER_HEADER.clone(),
@@ -2801,7 +2754,7 @@ mod tests {
         );
         let options = RequestOptions::default().insert_extension(initial_headers);
 
-        let options = amend_request_options_for_lar(true, options);
+        let options = attach_route_to_leader_header(options);
 
         let headers = options
             .get_extension::<HeaderMap>()
@@ -2819,7 +2772,7 @@ mod tests {
     }
 
     #[test]
-    fn amend_request_options_for_lar_collapses_multi_valued_conflicting_headers() {
+    fn attach_route_to_leader_header_collapses_multi_valued_conflicting_headers() {
         let mut initial_headers = HeaderMap::new();
         initial_headers.append(
             ROUTE_TO_LEADER_HEADER.clone(),
@@ -2831,7 +2784,7 @@ mod tests {
         );
         let options = RequestOptions::default().insert_extension(initial_headers);
 
-        let options = amend_request_options_for_lar(true, options);
+        let options = attach_route_to_leader_header(options);
 
         let headers = options
             .get_extension::<HeaderMap>()
@@ -2868,7 +2821,7 @@ mod tests {
         // Chain resource-prefix, route-to-leader, and request-id in sequence.
         let mut options = RequestOptions::default();
         options = DatabaseClient::attach_resource_prefix_header(&resource_prefix, options);
-        options = amend_request_options_for_lar(true, options);
+        options = attach_route_to_leader_header(options);
         options = client.attach_request_id(options, channel.channel_id);
 
         let headers = options
@@ -2897,7 +2850,7 @@ mod tests {
 
         // Subsequent calls must be fully idempotent with no duplicate headers.
         options = DatabaseClient::attach_resource_prefix_header(&resource_prefix, options);
-        options = amend_request_options_for_lar(true, options);
+        options = attach_route_to_leader_header(options);
         options = client.attach_request_id(options, channel.channel_id);
 
         let final_headers = options
@@ -2922,7 +2875,6 @@ mod tests {
             "request ID header must remain singleton"
         );
     }
-
     #[cfg(all(feature = "builtin-metrics", feature = "unstable-metrics"))]
     #[tokio_test_no_panics]
     async fn spanner_builder_with_meter_provider_cloud_spanner_default_does_not_export_builtin_metrics()
