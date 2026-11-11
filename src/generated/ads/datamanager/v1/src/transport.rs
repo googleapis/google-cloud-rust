@@ -759,6 +759,109 @@ impl super::stub::PartnerLinkService for PartnerLinkService {
     }
 }
 
+/// Implements [ReportingService](super::stub::ReportingService) using a [gaxi::http::ReqwestClient].
+#[derive(Clone)]
+pub struct ReportingService {
+    inner: gaxi::http::ReqwestClient,
+}
+
+impl std::fmt::Debug for ReportingService {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        f.debug_struct("ReportingService")
+            .field("inner", &self.inner)
+            .finish()
+    }
+}
+
+impl ReportingService {
+    pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
+        Ok(Self { inner })
+    }
+}
+
+impl super::stub::ReportingService for ReportingService {
+    async fn retrieve_partner_match_report(
+        &self,
+        req: crate::model::RetrievePartnerMatchReportRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RetrievePartnerMatchReportResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("accountTypes/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accounts/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/reports:retrievePartnerMatchReport", var_parent,);
+                let path_template = "/v1/{parent}/reports:retrievePartnerMatchReport";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("currencyCode", &req.currency_code)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("startDate", &req.start_date)]);
+                let builder = builder.query(&[("endDate", &req.end_date)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("accountTypes/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/accounts/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "accountTypes/*/accounts/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.ads.datamanager.v1.ReportingService/RetrievePartnerMatchReport",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+}
+
 /// Implements [UserListDirectLicenseService](super::stub::UserListDirectLicenseService) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
 pub struct UserListDirectLicenseService {

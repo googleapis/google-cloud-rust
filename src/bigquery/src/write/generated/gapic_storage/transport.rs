@@ -117,18 +117,13 @@ impl super::stub::Read for Read {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::cloud::bigquery::storage::v1::CreateReadSessionRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .and_then(
-                gaxi::grpc::to_gax_response::<
-                    TR,
-                    crate::write::generated::gapic_storage::model::ReadSession,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::write::generated::gapic_storage::model::ReadSession>)
     }
 
     async fn read_rows(
@@ -228,18 +223,13 @@ impl super::stub::Read for Read {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::cloud::bigquery::storage::v1::SplitReadStreamRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .and_then(
-                gaxi::grpc::to_gax_response::<
-                    TR,
-                    crate::write::generated::gapic_storage::model::SplitReadStreamResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::write::generated::gapic_storage::model::SplitReadStreamResponse>)
     }
 }
 
@@ -324,18 +314,13 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .and_then(
-                gaxi::grpc::to_gax_response::<
-                    TR,
-                    crate::write::generated::gapic_storage::model::WriteStream,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::write::generated::gapic_storage::model::WriteStream>)
     }
 
     fn append_rows(
@@ -428,18 +413,13 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::cloud::bigquery::storage::v1::GetWriteStreamRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .and_then(
-                gaxi::grpc::to_gax_response::<
-                    TR,
-                    crate::write::generated::gapic_storage::model::WriteStream,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::write::generated::gapic_storage::model::WriteStream>)
     }
 
     async fn finalize_write_stream(
@@ -496,18 +476,13 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .and_then(
-                gaxi::grpc::to_gax_response::<
-                    TR,
-                    crate::write::generated::gapic_storage::model::FinalizeWriteStreamResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::write::generated::gapic_storage::model::FinalizeWriteStreamResponse>)
     }
 
     async fn batch_commit_write_streams(
@@ -566,7 +541,10 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<
+                    crate::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -631,7 +609,10 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::cloud::bigquery::storage::v1::FlushRowsRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,

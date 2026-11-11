@@ -20,7 +20,7 @@ mod tests {
 
     #[test]
     fn known() -> Result<(), Box<dyn std::error::Error>> {
-        // ANCHOR: known
+        // [START rust_enums_known] ANCHOR: known
         use google_cloud_secretmanager_v1::model::secret_version::State;
         let enabled = State::Enabled;
         println!("State::Enabled = {enabled}");
@@ -37,13 +37,13 @@ mod tests {
         assert_eq!(state.value(), Some(1));
         assert_eq!(state.name(), Some("ENABLED"));
         println!("json = {}", serde_json::to_value(&state)?);
-        // ANCHOR_END: known
+        // [END rust_enums_known] ANCHOR_END: known
         Ok(())
     }
 
     #[test]
     fn unknown_string() -> Result<(), Box<dyn std::error::Error>> {
-        // ANCHOR: unknown_string
+        // [START rust_enums_unknown_string] ANCHOR: unknown_string
         use google_cloud_secretmanager_v1::model::secret_version::State;
         use serde_json::json;
         let state = State::from("STATE_NAME_FROM_THE_FUTURE");
@@ -53,13 +53,13 @@ mod tests {
         println!("json = {}", serde_json::to_value(&state)?);
         let u = serde_json::from_value::<State>(json!("STATE_NAME_FROM_THE_FUTURE"))?;
         assert_eq!(state, u);
-        // ANCHOR_END: unknown_string
+        // [END rust_enums_unknown_string] ANCHOR_END: unknown_string
         Ok(())
     }
 
     #[test]
     fn unknown_integer() -> Result<(), Box<dyn std::error::Error>> {
-        // ANCHOR: unknown_integer
+        // [START rust_enums_unknown_integer] ANCHOR: unknown_integer
         use google_cloud_secretmanager_v1::model::secret_version::State;
         use serde_json::json;
         const MAGIC_INT_FROM_THE_FUTURE: i32 = 17;
@@ -70,15 +70,15 @@ mod tests {
         println!("json = {}", serde_json::to_value(&state)?);
         let s2 = serde_json::from_value::<State>(json!(17))?;
         assert_eq!(state, s2);
-        // ANCHOR_END: unknown_integer
+        // [END rust_enums_unknown_integer] ANCHOR_END: unknown_integer
         Ok(())
     }
 
-    // ANCHOR: use
+    // [START rust_enums_use] ANCHOR: use
     use google_cloud_secretmanager_v1::model::secret_version::State;
-    // ANCHOR_END: use
+    // [END rust_enums_use] ANCHOR_END: use
 
-    // ANCHOR: match_with_wildcard
+    // [START rust_enums_match_with_wildcard] ANCHOR: match_with_wildcard
     fn match_with_wildcard(state: State) -> anyhow::Result<()> {
         use anyhow::Error;
         match state {
@@ -99,9 +99,9 @@ mod tests {
         };
         Ok(())
     }
-    // ANCHOR_END: match_with_wildcard
+    // [END rust_enums_match_with_wildcard] ANCHOR_END: match_with_wildcard
 
-    // ANCHOR: match_with_warnings
+    // [START rust_enums_match_with_warnings] ANCHOR: match_with_warnings
     fn match_with_warnings(state: State) -> anyhow::Result<()> {
         use anyhow::Error;
         #[warn(clippy::wildcard_enum_match_arm)]
@@ -127,7 +127,7 @@ mod tests {
         };
         Ok(())
     }
-    // ANCHOR_END: match_with_warnings
+    // [END rust_enums_match_with_warnings] ANCHOR_END: match_with_warnings
 
     #[test_case(State::Enabled)]
     #[test_case(State::Disabled)]

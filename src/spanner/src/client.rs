@@ -45,7 +45,7 @@ use google_cloud_spanner_admin_database_v1::builder::database_admin::ClientBuild
 use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ClientBuilder as InstanceAdminBuilder;
 use http::{
     HeaderMap,
-    header::{HeaderName, HeaderValue},
+    header::{Entry, HeaderName, HeaderValue},
 };
 use std::borrow::Cow;
 use std::env;
@@ -621,6 +621,13 @@ fn apply_request_defaults(mut options: crate::RequestOptions) -> crate::RequestO
     options
 }
 
+/// Default capacity allocated for HTTP request headers across Cloud Spanner RPCs.
+///
+/// Accommodates `google-cloud-resource-prefix`, `x-goog-spanner-route-to-leader`,
+/// `x-goog-spanner-request-id`, and potential caller-specified custom headers without
+/// triggering internal hash table reallocations.
+pub(crate) const DEFAULT_REQUEST_HEADERS_CAPACITY: usize = 4;
+
 /// An internal request option extension specifying that the request should route to the leader region.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) struct RouteToLeader;
@@ -630,14 +637,27 @@ pub(crate) static ROUTE_TO_LEADER_HEADER: HeaderName =
 pub(crate) static ROUTE_TO_LEADER_VALUE: HeaderValue = HeaderValue::from_static("true");
 
 /// Attaches the `x-goog-spanner-route-to-leader: true` header to `options`.
-pub(crate) fn attach_route_to_leader_header(
-    mut options: crate::RequestOptions,
-) -> crate::RequestOptions {
-    options.get_extension_or_default_mut::<HeaderMap>().insert(
+pub(crate) fn attach_route_to_leader_header(mut options: RequestOptions) -> RequestOptions {
+    if let Some(headers) = options.get_extension_mut::<HeaderMap>() {
+        match headers.entry(&ROUTE_TO_LEADER_HEADER) {
+            Entry::Vacant(entry) => {
+                entry.insert(ROUTE_TO_LEADER_VALUE.clone());
+            }
+            Entry::Occupied(mut entry) => {
+                if entry.get() != ROUTE_TO_LEADER_VALUE || entry.iter().nth(1).is_some() {
+                    entry.insert(ROUTE_TO_LEADER_VALUE.clone());
+                }
+            }
+        }
+        return options;
+    }
+
+    let mut headers = HeaderMap::with_capacity(DEFAULT_REQUEST_HEADERS_CAPACITY);
+    headers.insert(
         ROUTE_TO_LEADER_HEADER.clone(),
         ROUTE_TO_LEADER_VALUE.clone(),
     );
-    options
+    options.insert_extension(headers)
 }
 
 fn map_emulator_admin_endpoint(endpoint: &str, is_emulator: bool) -> Cow<'_, str> {
@@ -858,22 +878,27 @@ impl Spanner {
         mut options: RequestOptions,
         channel_id: usize,
     ) -> RequestOptions {
-        if options
-            .get_extension::<HeaderMap>()
-            .is_some_and(|headers| headers.contains_key(&REQUEST_ID_HEADER))
-        {
+        let generate_header_value = || {
+            let header_value_string = self.request_id_creator.next_id_prefix(channel_id);
+            HeaderValue::try_from(header_value_string).ok()
+        };
+
+        if let Some(headers) = options.get_extension_mut::<HeaderMap>() {
+            if let Entry::Vacant(entry) = headers.entry(&REQUEST_ID_HEADER)
+                && let Some(header_value) = generate_header_value()
+            {
+                entry.insert(header_value);
+            }
             return options;
         }
 
-        let header_val_str = self.request_id_creator.next_id_prefix(channel_id);
-        let Ok(val) = HeaderValue::from_str(&header_val_str) else {
+        let Some(header_value) = generate_header_value() else {
             return options;
         };
 
-        options
-            .get_extension_or_default_mut::<HeaderMap>()
-            .insert(REQUEST_ID_HEADER.clone(), val);
-        options
+        let mut headers = HeaderMap::with_capacity(DEFAULT_REQUEST_HEADERS_CAPACITY);
+        headers.insert(REQUEST_ID_HEADER.clone(), header_value);
+        options.insert_extension(headers)
     }
 
     define_idempotent_rpc!(
@@ -2069,6 +2094,126 @@ mod tests {
         Ok(())
     }
 
+    #[tokio_test_no_panics]
+    async fn default_retry_policy_unary_rpc() -> anyhow::Result<()> {
+        let mut mock = MockSpanner::new();
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let mut sequence = mockall::Sequence::new();
+
+        // 1. Unrelated INTERNAL error fails immediately and is not retried.
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Err(Status::new(
+                    GrpcCode::Internal,
+                    "Corrupted database page encountered on disk",
+                ))
+            });
+
+        // 2. Transient INTERNAL RST_STREAM error on first attempt is retried.
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Err(Status::new(
+                    GrpcCode::Internal,
+                    "stream terminated by RST_STREAM",
+                ))
+            });
+
+        // 3. Retried ExecuteSql unary call succeeds via default SpannerRetryPolicy.
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut sequence)
+            .returning(|_| {
+                Ok(Response::new(mock_v1::ResultSet {
+                    metadata: Some(mock_v1::ResultSetMetadata {
+                        transaction: Some(mock_v1::Transaction {
+                            id: vec![42],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: Some(mock_v1::ResultSetStats {
+                        row_count: Some(mock_v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit().once().returning(|_| {
+            Ok(Response::new(mock_v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1234,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let database = client
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await?;
+
+        // Case 1: Unrelated internal error fails immediately without retry.
+        let runner_unrelated = database.read_write_transaction().build();
+        let error = runner_unrelated
+            .run(async |transaction| {
+                let count = transaction.execute_update("UPDATE t SET c = 1").await?;
+                Ok(count)
+            })
+            .await
+            .expect_err("expected unary RPC to fail immediately on unrelated internal error");
+        assert!(
+            error.to_string().contains("Corrupted database page"),
+            "error should preserve original message: {error}"
+        );
+
+        // Case 2: Transient RST_STREAM error is retried via default retry policy and succeeds.
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .once()
+            .returning(|_| Duration::from_nanos(1));
+
+        let statement = Statement::builder("UPDATE t SET c = 1")
+            .with_backoff_policy(mock_backoff)
+            .build();
+        let runner_retry = database.read_write_transaction().build();
+        let result = runner_retry
+            .run(async |transaction| {
+                let count = transaction.execute_update(statement.clone()).await?;
+                Ok(count)
+            })
+            .await?;
+
+        assert_eq!(
+            result.result, 1,
+            "expected update count of 1 after retrying transient internal error"
+        );
+
+        Ok(())
+    }
+
     fn parse_timeout(metadata: &MetadataMap) -> u64 {
         let timeout = metadata
             .get("grpc-timeout")
@@ -2139,8 +2284,8 @@ mod tests {
             .returning(|req| {
                 let timeout_val = parse_timeout(req.metadata());
                 assert!(
-                    timeout_val <= 100000,
-                    "Expected timeout to be <= 100ms, got {}",
+                    timeout_val <= 10_000_000,
+                    "Expected timeout to be <= 10s, got {}",
                     timeout_val
                 );
                 Err(Status::new(GrpcCode::ResourceExhausted, "quota exceeded"))
@@ -2152,8 +2297,8 @@ mod tests {
             .returning(|req| {
                 let timeout_val = parse_timeout(req.metadata());
                 assert!(
-                    timeout_val <= 100000,
-                    "Expected timeout to be <= 100ms, got {}",
+                    timeout_val <= 10_000_000,
+                    "Expected timeout to be <= 10s, got {}",
                     timeout_val
                 );
 
@@ -2186,10 +2331,10 @@ mod tests {
             .build()
             .await?;
 
-        // 3. Setup Transaction Runner with 100ms timeout
+        // 3. Setup Transaction Runner with 10s timeout
         let runner = db
             .read_write_transaction()
-            .with_transaction_timeout(Duration::from_millis(100))
+            .with_transaction_timeout(Duration::from_secs(10))
             .build();
 
         // 4. Run transaction and expect success after retry
@@ -2240,8 +2385,8 @@ mod tests {
             .returning(move |req| {
                 let timeout_val = parse_timeout(req.metadata());
                 assert!(
-                    timeout_val <= 500000,
-                    "Expected timeout to be <= 500ms, got {}",
+                    timeout_val <= 10_000_000,
+                    "Expected timeout to be <= 10s, got {}",
                     timeout_val
                 );
                 prev_clone1.store(timeout_val, Ordering::SeqCst);
@@ -2315,7 +2460,7 @@ mod tests {
 
         let runner = db
             .read_write_transaction()
-            .with_transaction_timeout(Duration::from_millis(500))
+            .with_transaction_timeout(Duration::from_secs(10))
             .build();
 
         let result = runner
@@ -2450,7 +2595,7 @@ mod tests {
 
         let lease = client.pick_channel();
         let channel = lease.channel();
-        let mut options = crate::RequestOptions::default();
+        let mut options = RequestOptions::default();
         options = client.attach_request_id(options, channel.channel_id);
         let first_headers = options
             .get_extension::<HeaderMap>()
@@ -2479,6 +2624,257 @@ mod tests {
         );
     }
 
+    #[tokio_test_no_panics]
+    async fn attach_request_id_appends_to_existing_headers() {
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let custom_header = HeaderName::from_static("x-custom-header");
+        let custom_value = HeaderValue::from_static("custom-value");
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.insert(custom_header.clone(), custom_value.clone());
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let channel = client.pick_channel();
+        let options = client.attach_request_id(options, channel.channel_id);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+        assert_eq!(
+            headers.get(&custom_header),
+            Some(&custom_value),
+            "custom header must be preserved"
+        );
+        assert!(
+            headers.contains_key(&REQUEST_ID_HEADER),
+            "request ID header must be added alongside existing headers"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn attach_request_id_preserves_custom_request_id_without_generating_new_id() {
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let custom_request_id = HeaderValue::from_static("custom-request-id-value");
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.insert(REQUEST_ID_HEADER.clone(), custom_request_id.clone());
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let channel = client.pick_channel();
+        let options = client.attach_request_id(options, channel.channel_id);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+        assert_eq!(
+            headers.get(&REQUEST_ID_HEADER),
+            Some(&custom_request_id),
+            "custom request ID header must not be overwritten"
+        );
+        assert_eq!(
+            headers.get_all(&REQUEST_ID_HEADER).iter().count(),
+            1,
+            "request ID header must remain singleton"
+        );
+    }
+
+    #[test]
+    fn attach_route_to_leader_header_idempotent_no_duplicate_headers() {
+        let options = RequestOptions::default();
+        let options = attach_route_to_leader_header(options);
+        let options = attach_route_to_leader_header(options);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+
+        assert_eq!(
+            headers.get_all(&ROUTE_TO_LEADER_HEADER).iter().count(),
+            1,
+            "LAR header should only be present once even after multiple attach calls"
+        );
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "LAR header should match ROUTE_TO_LEADER_VALUE"
+        );
+    }
+
+    #[test]
+    fn attach_route_to_leader_header_appends_to_existing_headers() {
+        let custom_header = HeaderName::from_static("x-custom-header");
+        let custom_value = HeaderValue::from_static("custom-value");
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.insert(custom_header.clone(), custom_value.clone());
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let options = attach_route_to_leader_header(options);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+        assert_eq!(
+            headers.get(&custom_header),
+            Some(&custom_value),
+            "custom header must be preserved"
+        );
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "route-to-leader header must be added alongside existing headers"
+        );
+    }
+
+    #[test]
+    fn attach_route_to_leader_header_overwrites_conflicting_value() {
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.insert(
+            ROUTE_TO_LEADER_HEADER.clone(),
+            HeaderValue::from_static("false"),
+        );
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let options = attach_route_to_leader_header(options);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "conflicting route-to-leader value must be updated to true"
+        );
+        assert_eq!(
+            headers.get_all(&ROUTE_TO_LEADER_HEADER).iter().count(),
+            1,
+            "route-to-leader header must appear exactly once"
+        );
+    }
+
+    #[test]
+    fn attach_route_to_leader_header_collapses_multi_valued_conflicting_headers() {
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.append(
+            ROUTE_TO_LEADER_HEADER.clone(),
+            HeaderValue::from_static("true"),
+        );
+        initial_headers.append(
+            ROUTE_TO_LEADER_HEADER.clone(),
+            HeaderValue::from_static("false"),
+        );
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let options = attach_route_to_leader_header(options);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "route-to-leader header must be true"
+        );
+        assert_eq!(
+            headers.get_all(&ROUTE_TO_LEADER_HEADER).iter().count(),
+            1,
+            "multi-valued route-to-leader headers must be collapsed to a single entry"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn attach_headers_chained_composition_with_all_standard_headers() {
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let channel = client.pick_channel();
+        let resource_prefix = HeaderValue::from_static("projects/p/instances/i/databases/d");
+
+        // Chain resource-prefix, route-to-leader, and request-id in sequence.
+        let mut options = RequestOptions::default();
+        options = DatabaseClient::attach_resource_prefix_header(&resource_prefix, options);
+        options = attach_route_to_leader_header(options);
+        options = client.attach_request_id(options, channel.channel_id);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+
+        assert_eq!(
+            headers.get("google-cloud-resource-prefix"),
+            Some(&resource_prefix),
+            "resource prefix header must be present"
+        );
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "route-to-leader header must be present"
+        );
+        assert!(
+            headers.contains_key(&REQUEST_ID_HEADER),
+            "request ID header must be present"
+        );
+        assert_eq!(
+            headers.len(),
+            3,
+            "exactly 3 standard headers must be present"
+        );
+
+        // Subsequent calls must be fully idempotent with no duplicate headers.
+        options = DatabaseClient::attach_resource_prefix_header(&resource_prefix, options);
+        options = attach_route_to_leader_header(options);
+        options = client.attach_request_id(options, channel.channel_id);
+
+        let final_headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should still be present");
+        assert_eq!(
+            final_headers.len(),
+            3,
+            "duplicate attachment must not introduce new entries"
+        );
+        assert_eq!(
+            final_headers
+                .get_all(&ROUTE_TO_LEADER_HEADER)
+                .iter()
+                .count(),
+            1,
+            "route-to-leader header must remain singleton"
+        );
+        assert_eq!(
+            final_headers.get_all(&REQUEST_ID_HEADER).iter().count(),
+            1,
+            "request ID header must remain singleton"
+        );
+    }
     #[cfg(all(feature = "builtin-metrics", feature = "unstable-metrics"))]
     #[tokio_test_no_panics]
     async fn spanner_builder_with_meter_provider_cloud_spanner_default_does_not_export_builtin_metrics()

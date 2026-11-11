@@ -282,6 +282,15 @@ impl IngestionService {
     ///
     /// This feature is only available to accounts on an allowlist.
     ///
+    /// Authorization Headers:
+    ///
+    /// This method also requires the following header to define how the API
+    /// authorizes access for the request:
+    ///
+    /// * `login-account`: (Required) The resource name of the Data Partner account
+    ///   where the Google Account of the credentials is a user. Format:
+    ///   `accountTypes/DATA_PARTNER/accounts/{loginAccountId}`
+    ///
     /// [google.ads.datamanager.v1.AdEvent]: crate::model::AdEvent
     ///
     /// # Example
@@ -678,6 +687,143 @@ impl PartnerLinkService {
     /// ```
     pub fn search_partner_links(&self) -> super::builder::partner_link_service::SearchPartnerLinks {
         super::builder::partner_link_service::SearchPartnerLinks::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Data Manager API.
+///
+/// # Example
+/// ```
+/// # use google_ads_datamanager_v1::client::ReportingService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
+///     let client = ReportingService::builder().build().await?;
+///     let mut list = client.retrieve_partner_match_report()
+///         /* set fields */
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+///     Ok(())
+/// }
+/// ```
+///
+/// # Service Description
+///
+/// Service for querying reports.
+///
+/// # Configuration
+///
+/// To configure `ReportingService` use the `with_*` methods in the type returned
+/// by [builder()][ReportingService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://datamanager.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+///   with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::reporting_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::reporting_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `ReportingService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `ReportingService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct ReportingService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::ReportingService>,
+}
+
+impl ReportingService {
+    /// Returns a builder for [ReportingService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_ads_datamanager_v1::client::ReportingService;
+    /// let client = ReportingService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::reporting_service::ClientBuilder {
+        crate::new_client_builder(super::builder::reporting_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::ReportingService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::ReportingService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::ReportingService> {
+        super::transport::ReportingService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::ReportingService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ReportingService::new)
+    }
+
+    /// Retrieves a partner match report.
+    ///
+    /// This feature is only available to data partners.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_ads_datamanager_v1::client::ReportingService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_ads_datamanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ReportingService
+    /// ) -> Result<()> {
+    ///     let mut list = client.retrieve_partner_match_report()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn retrieve_partner_match_report(
+        &self,
+    ) -> super::builder::reporting_service::RetrievePartnerMatchReport {
+        super::builder::reporting_service::RetrievePartnerMatchReport::new(self.inner.clone())
     }
 }
 

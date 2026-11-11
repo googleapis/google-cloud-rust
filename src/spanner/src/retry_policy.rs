@@ -15,6 +15,7 @@
 //! RPC retry policies used by the Spanner client.
 
 use google_cloud_gax::error::Error;
+use google_cloud_gax::error::rpc::Code;
 use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy};
 use google_cloud_gax::retry_state::RetryState;
 use google_cloud_gax::throttle_result::ThrottleResult;
@@ -31,8 +32,9 @@ pub use google_cloud_gax::retry_result::RetryResult;
 /// idempotent requests. In addition — because Spanner allows transport and
 /// connection errors to be retried on idempotent operations — it also retries
 /// transport/network and I/O errors that `Aip194Strict` would classify as
-/// permanent (such as a connection dropped after the request was sent), again
-/// only if the request is idempotent.
+/// permanent (such as a connection dropped after the request was sent), as well
+/// as transient `INTERNAL` errors caused by HTTP/2 stream resets (such as
+/// `stream terminated by RST_STREAM`), again only if the request is idempotent.
 ///
 /// The policy places no limit on the number of attempts or the elapsed time.
 /// Applications that want to bound the client's default retry behavior can
@@ -80,13 +82,17 @@ impl RetryPolicy for SpannerRetryPolicy {
         let result = self.inner.on_error(state, error);
         match result {
             // If the strict AIP-194 checks classified the error as permanent (such as a transport
-            // error that occurred post-headers), we override it to Continue if the request is idempotent.
+            // error that occurred post-headers or a transient stream reset), we override it to Continue
+            // if the request is idempotent.
             RetryResult::Permanent(error)
-                if state.idempotent && (error.is_transport() || error.is_io()) =>
+                if state.idempotent
+                    && (error.is_transport()
+                        || error.is_io()
+                        || is_retryable_internal_error(&error)) =>
             {
                 RetryResult::Continue(error)
             }
-            res => res,
+            result => result,
         }
     }
 
@@ -99,12 +105,45 @@ impl RetryPolicy for SpannerRetryPolicy {
     }
 }
 
+/// Known transient `INTERNAL` error messages indicating HTTP/2 stream resets or connection terminations
+/// that are safe to retry on idempotent requests.
+const RETRYABLE_INTERNAL_ERROR_MESSAGES: &[&str] = &[
+    "HTTP/2 error code: INTERNAL_ERROR",
+    "Connection closed with unknown cause",
+    "Received unexpected EOS on DATA frame from server",
+    "stream terminated by RST_STREAM",
+    "Authentication backend internal server error. Please retry",
+];
+
+/// Returns `true` if the error is a `Code::Internal` error caused by a known transient stream reset or connection drop.
+fn is_retryable_internal_error(error: &Error) -> bool {
+    error.status().is_some_and(|status| {
+        status.code == Code::Internal
+            && RETRYABLE_INTERNAL_ERROR_MESSAGES
+                .iter()
+                .any(|&message| status.message.contains(message))
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use google_cloud_gax::error::Error as GaxError;
     use google_cloud_gax::error::rpc::{Code, Status};
     use http::HeaderMap;
+
+    #[test]
+    fn traits() {
+        use std::fmt::Debug;
+        static_assertions::assert_impl_all!(
+            SpannerRetryPolicy: Send,
+            Sync,
+            Clone,
+            Debug,
+            Default,
+            RetryPolicy,
+        );
+    }
 
     #[test]
     fn test_spanner_retry_policy_idempotent() {
@@ -166,5 +205,79 @@ mod tests {
             policy.on_error(&state, err).is_permanent(),
             "Expected transport connection reset to not be retried when non-idempotent"
         );
+    }
+
+    #[test]
+    fn retryable_internal_error_messages() {
+        let policy = SpannerRetryPolicy::new();
+        let state = RetryState::new(true);
+
+        let messages = [
+            "HTTP/2 error code: INTERNAL_ERROR",
+            "INTERNAL: HTTP/2 error code: INTERNAL_ERROR\nReceived Rst Stream",
+            "Connection closed with unknown cause",
+            "Received unexpected EOS on DATA frame from server",
+            "stream terminated by RST_STREAM",
+            "gRPC call failed: stream terminated by RST_STREAM during streaming",
+            "Authentication backend internal server error. Please retry.",
+        ];
+
+        for message in messages {
+            let status = Status::default()
+                .set_code(Code::Internal)
+                .set_message(message);
+            assert!(
+                policy
+                    .on_error(&state, GaxError::service(status))
+                    .is_continue(),
+                "expected INTERNAL error with message '{message}' to be retried when idempotent"
+            );
+        }
+    }
+
+    #[test]
+    fn non_retryable_scenarios() {
+        let policy = SpannerRetryPolicy::new();
+        let cases = [
+            (
+                RetryState::new(false),
+                GaxError::service(
+                    Status::default()
+                        .set_code(Code::Internal)
+                        .set_message("stream terminated by RST_STREAM"),
+                ),
+                "non-idempotent operation with RST_STREAM",
+            ),
+            (
+                RetryState::new(true),
+                GaxError::service(
+                    Status::default()
+                        .set_code(Code::Internal)
+                        .set_message("Corrupted database page encountered on disk"),
+                ),
+                "unrelated INTERNAL error message",
+            ),
+            (
+                RetryState::new(true),
+                GaxError::service(
+                    Status::default()
+                        .set_code(Code::InvalidArgument)
+                        .set_message("stream terminated by RST_STREAM"),
+                ),
+                "non-INTERNAL code with matching message",
+            ),
+            (
+                RetryState::new(true),
+                GaxError::deser("failed to deserialize payload"),
+                "error without gRPC status",
+            ),
+        ];
+
+        for (state, error, reason) in cases {
+            assert!(
+                policy.on_error(&state, error).is_permanent(),
+                "expected {reason} to be permanent"
+            );
+        }
     }
 }

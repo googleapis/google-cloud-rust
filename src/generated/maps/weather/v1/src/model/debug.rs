@@ -73,6 +73,7 @@ impl std::fmt::Debug for super::ForecastDay {
         debug_struct.field("sun_events", &self.sun_events);
         debug_struct.field("moon_events", &self.moon_events);
         debug_struct.field("max_heat_index", &self.max_heat_index);
+        debug_struct.field("full_day_forecast", &self.full_day_forecast);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -550,6 +551,7 @@ impl std::fmt::Debug for super::LookupMapTileRequest {
         debug_struct.field("zoom", &self.zoom);
         debug_struct.field("x", &self.x);
         debug_struct.field("y", &self.y);
+        debug_struct.field("forecast_time", &self.forecast_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

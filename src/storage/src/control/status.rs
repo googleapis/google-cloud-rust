@@ -21,8 +21,8 @@ impl ToProto<google::rpc::Status> for Status {
     type Output = google::rpc::Status;
     fn to_proto(self) -> Result<Self::Output, ConvertError> {
         Ok(Self::Output {
-            code: self.code.to_proto()?,
-            message: self.message.to_proto()?,
+            code: ToProto::<i32>::to_proto(self.code)?,
+            message: ToProto::<String>::to_proto(self.message)?,
             details: self.details.into_iter().filter_map(any_to_prost).collect(),
         })
     }

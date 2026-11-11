@@ -103,7 +103,8 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::firestore::v1::GetDocumentRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -156,7 +157,8 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::firestore::v1::ListDocumentsRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -204,7 +206,8 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::firestore::v1::UpdateDocumentRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -251,7 +254,8 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::firestore::v1::DeleteDocumentRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -340,7 +344,8 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::firestore::v1::BeginTransactionRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -383,7 +388,8 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::firestore::v1::CommitRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -426,7 +432,8 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::firestore::v1::RollbackRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -555,7 +562,8 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::firestore::v1::PartitionQueryRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -671,7 +679,8 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::firestore::v1::ListCollectionIdsRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -718,7 +727,8 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::firestore::v1::BatchWriteRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -771,7 +781,8 @@ impl super::stub::Firestore for Firestore {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::firestore::v1::CreateDocumentRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,

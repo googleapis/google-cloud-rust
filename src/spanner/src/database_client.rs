@@ -15,7 +15,9 @@
 use crate::batch_read_only_transaction::BatchReadOnlyTransactionBuilder;
 use crate::batch_write_transaction::BatchWriteTransactionBuilder;
 use crate::channel_pool::ChannelTarget;
-use crate::client::{RouteToLeader, Spanner, attach_route_to_leader_header};
+use crate::client::{
+    DEFAULT_REQUEST_HEADERS_CAPACITY, RouteToLeader, Spanner, attach_route_to_leader_header,
+};
 use crate::model::transaction_options::Mode;
 use crate::model::transaction_options::read_only::TimestampBound;
 use crate::model::transaction_selector::Selector;
@@ -56,6 +58,8 @@ use crate::{Error, RequestOptions, Result};
 use bytes::Bytes;
 use google_cloud_gax::error::rpc::Code;
 use google_cloud_gax::options::internal::RequestOptionsExt as _;
+use http::HeaderMap;
+use http::header::{Entry, HeaderName, HeaderValue};
 use std::env;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -91,6 +95,7 @@ pub struct DatabaseClient {
     pub(crate) leader_aware_routing_enabled: bool,
     pub(crate) location_routing: Option<Arc<LocationRoutingState>>,
     pub(crate) o11y: Arc<Observability>,
+    pub(crate) resource_prefix: HeaderValue,
 }
 
 macro_rules! define_db_rpc {
@@ -108,6 +113,7 @@ macro_rules! define_db_rpc {
             options: RequestOptions,
             channel_target: impl Into<ChannelTarget<'a>>,
         ) -> Result<$response_type> {
+            let options = Self::attach_resource_prefix_header(&self.resource_prefix, options);
             let channel_target = channel_target.into();
             let options = self.attach_route_to_leader(&request, options);
             let (connection, routing_context) = $pre_route(self, &mut request);
@@ -151,6 +157,7 @@ macro_rules! define_db_streaming_rpc {
             options: RequestOptions,
             channel_target: impl Into<ChannelTarget<'a>>,
         ) -> $builder_type {
+            let options = Self::attach_resource_prefix_header(&self.resource_prefix, options);
             let options = self.attach_route_to_leader(&request, options);
             let channel_target = channel_target.into();
             let lease = self.spanner.pick_channel_for_target(&channel_target);
@@ -165,6 +172,7 @@ macro_rules! define_db_streaming_rpc {
             options: RequestOptions,
             channel_target: impl Into<ChannelTarget<'a>>,
         ) -> $builder_type {
+            let options = Self::attach_resource_prefix_header(&self.resource_prefix, options);
             let options = self.attach_route_to_leader(&request, options);
             let channel_target = channel_target.into();
             let is_read_write_begin = is_read_write_begin(request.transaction.as_ref());
@@ -301,6 +309,11 @@ macro_rules! for_all_streaming_db_rpcs {
         );
     };
 }
+
+/// The header that Spanner frontends use to route a request to the regional
+/// endpoint that serves the target database.
+pub(crate) static RESOURCE_PREFIX_HEADER: HeaderName =
+    HeaderName::from_static("google-cloud-resource-prefix");
 
 impl DatabaseClient {
     pub(crate) fn is_emulator(&self) -> bool {
@@ -1151,6 +1164,24 @@ impl DatabaseClient {
             .clear_transaction_affinity(transaction_id);
     }
 
+    /// Adds the `google-cloud-resource-prefix` header to `options`, unless the
+    /// caller has already set it.
+    pub(crate) fn attach_resource_prefix_header(
+        resource_prefix: &HeaderValue,
+        mut options: RequestOptions,
+    ) -> RequestOptions {
+        if let Some(headers) = options.get_extension_mut::<HeaderMap>() {
+            if let Entry::Vacant(entry) = headers.entry(&RESOURCE_PREFIX_HEADER) {
+                entry.insert(resource_prefix.clone());
+            }
+            return options;
+        }
+
+        let mut headers = HeaderMap::with_capacity(DEFAULT_REQUEST_HEADERS_CAPACITY);
+        headers.insert(RESOURCE_PREFIX_HEADER.clone(), resource_prefix.clone());
+        options.insert_extension(headers)
+    }
+
     /// Attaches the `x-goog-spanner-route-to-leader` header to `options` if leader-aware routing
     /// is enabled and the request should route to the leader.
     ///
@@ -1250,7 +1281,7 @@ fn is_read_write_begin(selector: Option<&TransactionSelector>) -> bool {
 }
 
 /// A builder for [DatabaseClient].
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct DatabaseClientBuilder {
     spanner: Spanner,
     database_name: String,
@@ -1364,6 +1395,7 @@ impl DatabaseClientBuilder {
         } else {
             self.database_name
         };
+        let resource_prefix = HeaderValue::from_str(&database_name).map_err(Error::ser)?;
 
         #[cfg(feature = "_internal-metrics")]
         let o11y = Arc::new(
@@ -1398,11 +1430,16 @@ impl DatabaseClientBuilder {
             })
             .unwrap_or(false);
 
+        // Used to create, and every 7 days rotate, the multiplexed session.
+        let session_options = DatabaseClient::attach_resource_prefix_header(
+            &resource_prefix,
+            self.options.unwrap_or_default(),
+        );
         let session_maintainer = ManagedSessionMaintainer::create_and_start_maintenance(
             self.spanner.clone(),
             database_name,
             self.database_role.unwrap_or_default(),
-            self.options.unwrap_or_default(),
+            session_options,
             self.leader_aware_routing_enabled,
             Arc::clone(&o11y),
         )
@@ -1421,6 +1458,7 @@ impl DatabaseClientBuilder {
             leader_aware_routing_enabled: self.leader_aware_routing_enabled,
             location_routing,
             o11y,
+            resource_prefix,
         })
     }
 }
@@ -1849,7 +1887,38 @@ mod tests {
     fn auto_traits() {
         use static_assertions::assert_impl_all;
         assert_impl_all!(DatabaseClient: Send, Sync, Clone, Debug);
-        assert_impl_all!(DatabaseClientBuilder: Debug, Send, Sync);
+        assert_impl_all!(DatabaseClientBuilder: Debug, Send, Sync, Clone);
+    }
+
+    #[tokio_test_no_panics]
+    async fn database_client_builder_clone() {
+        let spanner = Spanner::builder()
+            .with_endpoint("http://localhost:9010")
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("failed to build client");
+
+        let builder = spanner
+            .database_client("projects/test-project/instances/test-instance/databases/test-db")
+            .with_database_role("test-role")
+            .with_leader_aware_routing(false);
+
+        let cloned_builder = builder.clone();
+        assert_eq!(
+            cloned_builder.database_name,
+            "projects/test-project/instances/test-instance/databases/test-db",
+            "cloned database name should match original"
+        );
+        assert_eq!(
+            cloned_builder.database_role.as_deref(),
+            Some("test-role"),
+            "cloned database role should match original"
+        );
+        assert!(
+            !cloned_builder.leader_aware_routing_enabled,
+            "cloned leader aware routing flag should match original"
+        );
     }
 
     #[tokio_test_no_panics]
@@ -1901,6 +1970,215 @@ mod tests {
         );
         assert!(session.multiplexed);
         assert_eq!(session.creator_role, "test-role");
+    }
+
+    #[test]
+    fn attach_resource_prefix_header_adds_header() {
+        let value = HeaderValue::from_static("projects/p/instances/i/databases/d");
+        let options =
+            DatabaseClient::attach_resource_prefix_header(&value, RequestOptions::default());
+        // Applying it twice must not add a second value.
+        let options = DatabaseClient::attach_resource_prefix_header(&value, options);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("headers must be set");
+        let values: Vec<_> = headers.get_all(&RESOURCE_PREFIX_HEADER).iter().collect();
+        assert_eq!(
+            values,
+            [value],
+            "options should contain exactly one resource prefix header"
+        );
+    }
+
+    #[test]
+    fn attach_resource_prefix_header_preserves_existing_header() {
+        let custom = HeaderValue::from_static("projects/p/instances/i/databases/custom");
+        let mut options = RequestOptions::default();
+        options
+            .get_extension_or_default_mut::<HeaderMap>()
+            .insert(RESOURCE_PREFIX_HEADER.clone(), custom.clone());
+
+        let options = DatabaseClient::attach_resource_prefix_header(
+            &HeaderValue::from_static("projects/p/instances/i/databases/d"),
+            options,
+        );
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("headers must be set");
+        let values: Vec<_> = headers.get_all(&RESOURCE_PREFIX_HEADER).iter().collect();
+        assert_eq!(
+            values,
+            [custom],
+            "existing resource prefix header must be preserved"
+        );
+    }
+
+    #[test]
+    fn attach_resource_prefix_header_appends_to_existing_headers() {
+        let custom_header = HeaderName::from_static("x-custom-header");
+        let custom_value = HeaderValue::from_static("custom-value");
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.insert(custom_header.clone(), custom_value.clone());
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let value = HeaderValue::from_static("projects/p/instances/i/databases/d");
+        let options = DatabaseClient::attach_resource_prefix_header(&value, options);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("headers must be set");
+        assert_eq!(
+            headers.get(&custom_header),
+            Some(&custom_value),
+            "custom header must be preserved"
+        );
+        assert_eq!(
+            headers.get(&RESOURCE_PREFIX_HEADER),
+            Some(&value),
+            "resource prefix header must be added alongside existing headers"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn sends_resource_prefix_header() {
+        use std::sync::Mutex;
+
+        const DATABASE: &str = "projects/test-project/instances/test-instance/databases/test-db";
+        type Seen = Arc<Mutex<Vec<(&'static str, Option<String>)>>>;
+        fn record(seen: &Seen, method: &'static str, metadata: &MetadataMap) {
+            let prefix = metadata
+                .get("google-cloud-resource-prefix")
+                .and_then(|value| value.to_str().ok())
+                .map(str::to_string);
+            seen.lock()
+                .expect("lock should succeed")
+                .push((method, prefix));
+        }
+        let seen: Seen = Arc::default();
+
+        let mut mock = MockSpanner::new();
+        let seen_calls = Arc::clone(&seen);
+        mock.expect_create_session().returning(move |request| {
+            record(&seen_calls, "CreateSession", request.metadata());
+            Ok(Response::new(mock_v1::Session {
+                name: format!("{DATABASE}/sessions/s1"),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+        let seen_calls = Arc::clone(&seen);
+        mock.expect_execute_streaming_sql()
+            .returning(move |request| {
+                record(&seen_calls, "ExecuteStreamingSql", request.metadata());
+                Ok(Response::from(adapt([Ok(mock_v1::PartialResultSet {
+                    metadata: Some(mock_v1::ResultSetMetadata {
+                        row_type: Some(mock_v1::StructType {
+                            fields: vec![mock_v1::struct_type::Field {
+                                name: "col".to_string(),
+                                r#type: Some(mock_v1::Type {
+                                    code: mock_v1::TypeCode::Int64 as i32,
+                                    ..Default::default()
+                                }),
+                            }],
+                        }),
+                        ..Default::default()
+                    }),
+                    values: vec![prost_types::Value {
+                        kind: Some(prost_types::value::Kind::StringValue("1".to_string())),
+                    }],
+                    ..Default::default()
+                })])))
+            });
+        let seen_calls = Arc::clone(&seen);
+        mock.expect_execute_sql().returning(move |request| {
+            record(&seen_calls, "ExecuteSql", request.metadata());
+            Ok(Response::new(mock_v1::ResultSet {
+                metadata: Some(mock_v1::ResultSetMetadata {
+                    transaction: Some(mock_v1::Transaction {
+                        id: vec![1, 2, 3],
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }),
+                stats: Some(mock_v1::ResultSetStats {
+                    row_count: Some(mock_v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+        let seen_calls = Arc::clone(&seen);
+        mock.expect_commit().returning(move |request| {
+            record(&seen_calls, "Commit", request.metadata());
+            Ok(Response::new(mock_v1::CommitResponse::default()))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+        let database_client = spanner
+            .database_client(DATABASE)
+            .build()
+            .await
+            .expect("Failed to create DatabaseClient");
+
+        // Streaming RPC.
+        let mut result_set = database_client
+            .single_use()
+            .build()
+            .execute_query("SELECT 1")
+            .await
+            .expect("execute_query must succeed");
+        let mut rows_seen = 0;
+        while let Some(row_result) = result_set.next().await {
+            let row = row_result.expect("stream row must be valid");
+            assert_eq!(
+                row.get::<i64>("col").expect("column must exist"),
+                1,
+                "column col must equal 1"
+            );
+            rows_seen += 1;
+        }
+        assert_eq!(rows_seen, 1, "exactly one row should be returned");
+
+        // Unary RPCs: DML (ExecuteSql) and Commit.
+        database_client
+            .read_write_transaction()
+            .build()
+            .run(async |transaction| {
+                transaction
+                    .execute_update("UPDATE T SET C = 1 WHERE TRUE")
+                    .await?;
+                Ok(())
+            })
+            .await
+            .expect("read/write transaction must succeed");
+
+        let seen = seen.lock().expect("lock should succeed");
+        for method in [
+            "CreateSession",
+            "ExecuteStreamingSql",
+            "ExecuteSql",
+            "Commit",
+        ] {
+            let calls: Vec<_> = seen.iter().filter(|(m, _)| *m == method).collect();
+            assert!(!calls.is_empty(), "{method} must be called");
+            for (_, prefix) in calls {
+                assert_eq!(
+                    prefix.as_deref(),
+                    Some(DATABASE),
+                    "{method} must carry google-cloud-resource-prefix"
+                );
+            }
+        }
     }
 
     #[tokio_test_no_panics]

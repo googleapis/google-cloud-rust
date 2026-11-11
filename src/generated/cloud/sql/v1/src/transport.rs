@@ -3691,6 +3691,156 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         self.inner.execute(builder, body, options).await
     }
 
+    async fn start(
+        &self,
+        req: crate::model::SqlInstancesStartRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!(
+                    "/v1/projects/{}/instances/{}:start",
+                    var_project, var_instance,
+                );
+                let path_template = "/v1/projects/{project}/instances/{instance}:start";
+
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "instance",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/Start")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn stop(
+        &self,
+        req: crate::model::SqlInstancesStopRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!(
+                    "/v1/projects/{}/instances/{}:stop",
+                    var_project, var_instance,
+                );
+                let path_template = "/v1/projects/{project}/instances/{instance}:stop";
+
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "instance",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/Stop")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
     async fn restore_backup(
         &self,
         req: crate::model::SqlInstancesRestoreBackupRequest,
@@ -4918,6 +5068,82 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         self.inner.execute(builder, body, options).await
     }
 
+    async fn execute_sql_read_only(
+        &self,
+        req: crate::model::SqlInstancesExecuteSqlReadOnlyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SqlInstancesExecuteSqlReadOnlyResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!(
+                    "/v1/projects/{}/instances/{}/executeSqlReadOnly",
+                    var_project, var_instance,
+                );
+                let path_template =
+                    "/v1/projects/{project}/instances/{instance}/executeSqlReadOnly";
+
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("location", &req.location)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "instance",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/ExecuteSqlReadOnly")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.body, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
     async fn execute_sql(
         &self,
         req: crate::model::SqlInstancesExecuteSqlRequest,
@@ -5276,6 +5502,84 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(req.context, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn reconcile_networking(
+        &self,
+        req: crate::model::SqlInstancesReconcileNetworkingRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!(
+                    "/v1/projects/{}/instances/{}:reconcileNetworking",
+                    var_project, var_instance,
+                );
+                let path_template =
+                    "/v1/projects/{project}/instances/{instance}:reconcileNetworking";
+
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project));
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.instance));
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "instance",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.sql.v1.SqlInstancesService/ReconcileNetworking")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
         self.inner.execute(builder, body, options).await
     }
 }
@@ -5854,6 +6158,243 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.sql.v1.SqlSslCertsService/List")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_customer_managed_certificate(
+        &self,
+        req: crate::model::UpdateCustomerManagedCertificateRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
+        let (builder, method, _path_template, _resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_instance = try_match(Some(&req).map(|m| &m.instance).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_certificate_bundle = try_match(Some(&req).map(|m| &m.certificate_bundle).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/projects/{}/instances/{}/customerManagedCertificates/{}",
+                var_project,
+                var_instance,
+                var_certificate_bundle,
+            );
+            let path_template = "/v1/projects/{project}/instances/{instance}/customerManagedCertificates/{certificate_bundle}";
+
+            let resource_name = format!(
+                "//sqladmin.googleapis.com/projects/{}/instances/{}/customerManagedCertificates/{}",
+                var_project,
+                var_instance,
+                var_certificate_bundle,
+            );
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.project));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.instance));
+            let _ = Some(&mut req).map(|m| std::mem::take(&mut m.certificate_bundle));
+            let builder = self.inner.builder(Method::PATCH, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "instance",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.certificate_bundle).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "certificate_bundle",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.sql.v1.SqlSslCertsService/UpdateCustomerManagedCertificate",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_customer_managed_certificate(
+        &self,
+        req: crate::model::DeleteCustomerManagedCertificateRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_instance = try_match(Some(&req).map(|m| &m.instance).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_certificate_bundle = try_match(Some(&req).map(|m| &m.certificate_bundle).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/v1/projects/{}/instances/{}/customerManagedCertificates/{}",
+                var_project,
+                var_instance,
+                var_certificate_bundle,
+            );
+            let path_template = "/v1/projects/{project}/instances/{instance}/customerManagedCertificates/{certificate_bundle}";
+
+            let resource_name = format!(
+                "//sqladmin.googleapis.com/projects/{}/instances/{}/customerManagedCertificates/{}",
+                var_project,
+                var_instance,
+                var_certificate_bundle,
+            );
+            let builder = self.inner.builder(Method::DELETE, path);
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "instance",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.certificate_bundle).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                    "certificate_bundle",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.sql.v1.SqlSslCertsService/DeleteCustomerManagedCertificate",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_customer_managed_certificates(
+        &self,
+        req: crate::model::ListCustomerManagedCertificatesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListCustomerManagedCertificatesResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!(
+                    "/v1/projects/{}/instances/{}/customerManagedCertificates",
+                    var_project, var_instance,
+                );
+                let path_template =
+                    "/v1/projects/{project}/instances/{instance}/customerManagedCertificates";
+
+                let resource_name = format!(
+                    "//sqladmin.googleapis.com/projects/{}/instances/{}",
+                    var_project, var_instance,
+                );
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "project",
+                        "*",
+                    );
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                        &[Segment::SingleWildcard],
+                        "instance",
+                        "*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.sql.v1.SqlSslCertsService/ListCustomerManagedCertificates",
+                    )
                     .set_url_template(_path_template)
                     .set_resource_name(_resource_name),
             );

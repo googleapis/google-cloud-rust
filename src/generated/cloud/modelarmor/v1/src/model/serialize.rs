@@ -604,6 +604,34 @@ impl serde::ser::Serialize for super::FilterConfig {
         if self.filter_rule_settings.is_some() {
             state.serialize_entry("filterRuleSettings", &self.filter_rule_settings)?;
         }
+        if self.csam_filter_settings.is_some() {
+            state.serialize_entry("csamFilterSettings", &self.csam_filter_settings)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CsamFilterSettings {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.filter_enforcement) {
+            state.serialize_entry("filterEnforcement", &self.filter_enforcement)?;
+        }
+        if !wkt::internal::is_default(&self.confidence_level) {
+            state.serialize_entry("confidenceLevel", &self.confidence_level)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
