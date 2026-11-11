@@ -45,24 +45,12 @@ impl ConvertError {
 type Result<T> = std::result::Result<T, ConvertError>;
 
 /// Converts from `Self` into `T`, where `T` is expected to be a Protobuf-generated type.
-///
-/// Callers must always invoke this method using fully qualified syntax with an
-/// explicit type parameter (`ToProto::<T>::to_proto(x)`) rather than method
-/// syntax (`x.to_proto()`) or bare UFCS (`ToProto::to_proto(x)`), so type
-/// resolution remains unambiguous if multiple implementations exist in the
-/// dependency graph.
 pub trait ToProto<T>: Sized {
     type Output;
     fn to_proto(self) -> Result<Self::Output>;
 }
 
 /// Converts from `Self` into `T`, where `Self` is expected to be a Protobuf-generated type.
-///
-/// Callers must always invoke this method using fully qualified syntax with an
-/// explicit type parameter (`FromProto::<T>::cnv(x)`) rather than method
-/// syntax (`x.cnv()`) or bare UFCS (`FromProto::cnv(x)`), so type resolution
-/// remains unambiguous if multiple implementations exist in the dependency
-/// graph.
 pub trait FromProto<T>: Sized {
     // By convention `from_*` functions do not consume a `self`. And we need
     // `self` so we can write generic code for repeated fields, maps, etc.
@@ -155,9 +143,7 @@ impl FromProto<wkt::Struct> for prost_types::Struct {
     fn cnv(self) -> Result<wkt::Struct> {
         self.fields
             .into_iter()
-            .map(|(k, v)| {
-                pair_transpose(FromProto::<String>::cnv(k), FromProto::<wkt::Value>::cnv(v))
-            })
+            .map(|(k, v)| pair_transpose(k.cnv(), v.cnv()))
             .collect::<Result<serde_json::Map<_, _>>>()
     }
 }
@@ -168,12 +154,7 @@ impl ToProto<prost_types::Struct> for wkt::Struct {
         Ok(prost_types::Struct {
             fields: self
                 .into_iter()
-                .map(|(k, v)| {
-                    pair_transpose(
-                        ToProto::<String>::to_proto(k),
-                        ToProto::<prost_types::Value>::to_proto(v),
-                    )
-                })
+                .map(|(k, v)| pair_transpose(k.to_proto(), v.to_proto()))
                 .collect::<Result<BTreeMap<_, _>>>()?,
         })
     }
@@ -196,8 +177,8 @@ impl FromProto<wkt::Value> for prost_types::Value {
                 }
                 Kind::StringValue(v) => wkt::Value::String(v),
                 Kind::BoolValue(v) => wkt::Value::Bool(v),
-                Kind::StructValue(v) => wkt::Value::Object(FromProto::<wkt::Struct>::cnv(v)?),
-                Kind::ListValue(v) => wkt::Value::Array(FromProto::<wkt::ListValue>::cnv(v)?),
+                Kind::StructValue(v) => wkt::Value::Object(v.cnv()?),
+                Kind::ListValue(v) => wkt::Value::Array(v.cnv()?),
             },
         };
         Ok(kind)
@@ -213,12 +194,8 @@ impl ToProto<prost_types::Value> for wkt::Value {
             serde_json::Value::Number(v) => Kind::NumberValue(v.as_f64().unwrap_or_default()),
             serde_json::Value::String(v) => Kind::StringValue(v),
             serde_json::Value::Bool(v) => Kind::BoolValue(v),
-            serde_json::Value::Array(v) => {
-                Kind::ListValue(ToProto::<prost_types::ListValue>::to_proto(v)?)
-            }
-            serde_json::Value::Object(v) => {
-                Kind::StructValue(ToProto::<prost_types::Struct>::to_proto(v)?)
-            }
+            serde_json::Value::Array(v) => Kind::ListValue(v.to_proto()?),
+            serde_json::Value::Object(v) => Kind::StructValue(v.to_proto()?),
         };
         Ok(prost_types::Value { kind: Some(kind) })
     }
@@ -228,7 +205,7 @@ impl FromProto<wkt::ListValue> for prost_types::ListValue {
     fn cnv(self) -> Result<wkt::ListValue> {
         self.values
             .into_iter()
-            .map(FromProto::<wkt::Value>::cnv)
+            .map(|v| v.cnv())
             .collect::<Result<Vec<_>>>()
     }
 }
@@ -239,7 +216,7 @@ impl ToProto<prost_types::ListValue> for wkt::ListValue {
         Ok(prost_types::ListValue {
             values: self
                 .into_iter()
-                .map(ToProto::<prost_types::Value>::to_proto)
+                .map(|v| v.to_proto())
                 .collect::<Result<Vec<_>>>()?,
         })
     }
@@ -343,18 +320,18 @@ mod tests {
 
     #[test]
     fn primitive_unit() -> anyhow::Result<()> {
-        FromProto::<()>::cnv(())?;
-        ToProto::<()>::to_proto(())?;
+        ().cnv()?;
+        ().to_proto()?;
         Ok(())
     }
 
     #[test]
     fn primitive_bool() -> anyhow::Result<()> {
         let input: bool = true;
-        let got = FromProto::<bool>::cnv(input)?;
+        let got = input.cnv()?;
         assert_eq!(got, input);
         let input: bool = true;
-        let got = ToProto::<bool>::to_proto(input)?;
+        let got = input.to_proto()?;
         assert_eq!(got, input);
         Ok(())
     }
@@ -369,7 +346,7 @@ mod tests {
     where
         T: std::fmt::Debug + Copy + PartialEq + FromProto<T>,
     {
-        let got = FromProto::<T>::cnv(input)?;
+        let got = input.cnv()?;
         assert_eq!(got, input);
         Ok(())
     }
@@ -384,7 +361,7 @@ mod tests {
     where
         T: std::fmt::Debug + Copy + PartialEq + ToProto<T, Output = T>,
     {
-        let got = ToProto::<T>::to_proto(input)?;
+        let got = input.to_proto()?;
         assert_eq!(got, input);
         Ok(())
     }
@@ -392,10 +369,10 @@ mod tests {
     #[test]
     fn primitive_string() -> anyhow::Result<()> {
         let input = "abc".to_string();
-        let got = FromProto::<String>::cnv(input)?;
+        let got = input.cnv()?;
         assert_eq!(got, "abc");
         let input = "abc".to_string();
-        let got = ToProto::<String>::to_proto(input)?;
+        let got = input.to_proto()?;
         assert_eq!(got, "abc");
         Ok(())
     }
@@ -403,10 +380,10 @@ mod tests {
     #[test]
     fn primitive_bytes() -> anyhow::Result<()> {
         let input = bytes::Bytes::from_static(b"abc");
-        let got = FromProto::<bytes::Bytes>::cnv(input.clone())?;
+        let got = input.clone().cnv()?;
         assert_eq!(got, input);
         let input = bytes::Bytes::from_static(b"abc");
-        let got = ToProto::<bytes::Bytes>::to_proto(input.clone())?;
+        let got = input.clone().to_proto()?;
         assert_eq!(got, input);
         Ok(())
     }
@@ -417,7 +394,7 @@ mod tests {
             seconds: 123,
             nanos: 456,
         };
-        let got = FromProto::<wkt::Duration>::cnv(input)?;
+        let got = input.cnv()?;
         assert_eq!(got, wkt::Duration::clamp(123, 456));
         Ok(())
     }
@@ -425,7 +402,7 @@ mod tests {
     #[test]
     fn to_proto_duration() -> anyhow::Result<()> {
         let input = wkt::Duration::clamp(123, 456);
-        let got = ToProto::<prost_types::Duration>::to_proto(input)?;
+        let got = input.to_proto()?;
         assert_eq!(
             got,
             prost_types::Duration {
@@ -441,7 +418,7 @@ mod tests {
         let input = prost_types::FieldMask {
             paths: ["a", "b", "c"].map(str::to_string).to_vec(),
         };
-        let got = FromProto::<wkt::FieldMask>::cnv(input)?;
+        let got = input.cnv()?;
         assert_eq!(got, wkt::FieldMask::default().set_paths(["a", "b", "c"]));
         Ok(())
     }
@@ -449,7 +426,7 @@ mod tests {
     #[test]
     fn to_proto_field_mask() -> anyhow::Result<()> {
         let input = wkt::FieldMask::default().set_paths(["p1", "p2", "p3"]);
-        let got = ToProto::<prost_types::FieldMask>::to_proto(input)?;
+        let got = input.to_proto()?;
         assert_eq!(
             got,
             prost_types::FieldMask {
@@ -465,7 +442,7 @@ mod tests {
             seconds: 123,
             nanos: 456,
         };
-        let got = FromProto::<wkt::Timestamp>::cnv(input)?;
+        let got = input.cnv()?;
         assert_eq!(got, wkt::Timestamp::clamp(123, 456));
         Ok(())
     }
@@ -473,7 +450,7 @@ mod tests {
     #[test]
     fn to_proto_timestamp() -> anyhow::Result<()> {
         let input = wkt::Timestamp::clamp(123, 456);
-        let got = ToProto::<prost_types::Timestamp>::to_proto(input)?;
+        let got = input.to_proto()?;
         assert_eq!(
             got,
             prost_types::Timestamp {
@@ -490,8 +467,8 @@ mod tests {
     #[test_case(json!([true, 1234.5, "xyz", null, {"a": "b"}]))]
     #[test_case(json!({"a": true, "b": "xyz"}))]
     fn wkt_value_roundtrip(input: wkt::Value) -> anyhow::Result<()> {
-        let convert = ToProto::<prost_types::Value>::to_proto(input.clone())?;
-        let got = FromProto::<wkt::Value>::cnv(convert)?;
+        let convert = input.clone().to_proto()?;
+        let got = convert.cnv()?;
         assert_eq!(got, input);
         Ok(())
     }
@@ -503,7 +480,8 @@ mod tests {
         let input = prost_types::Value {
             kind: Some(prost_types::value::Kind::NumberValue(number_value)),
         };
-        let error = FromProto::<wkt::Value>::cnv(input)
+        let error = input
+            .cnv()
             .expect_err("expected error converting non-finite float to wkt::Value");
         let error_message = error.to_string();
         assert!(
@@ -526,7 +504,7 @@ mod tests {
         let input = prost_types::Value {
             kind: Some(prost_types::value::Kind::NumberValue(number_value)),
         };
-        let got = FromProto::<wkt::Value>::cnv(input)?;
+        let got = input.cnv()?;
         let want = Number::from_f64(number_value)
             .map(wkt::Value::Number)
             .expect("finite float must convert to Number");
@@ -546,7 +524,7 @@ mod tests {
             },
         );
         let input = prost_types::Struct { fields };
-        let error = FromProto::<wkt::Struct>::cnv(input).expect_err(
+        let error = input.cnv().expect_err(
             "expected error converting Struct containing non-finite number to wkt::Struct",
         );
         assert!(
@@ -566,7 +544,7 @@ mod tests {
                 kind: Some(prost_types::value::Kind::NumberValue(number_value)),
             }],
         };
-        let error = FromProto::<wkt::ListValue>::cnv(input).expect_err(
+        let error = input.cnv().expect_err(
             "expected error converting ListValue containing non-finite number to wkt::ListValue",
         );
         assert!(
@@ -580,7 +558,7 @@ mod tests {
     #[test]
     fn to_proto_null_value() -> anyhow::Result<()> {
         let input = wkt::NullValue;
-        let got: i32 = ToProto::<prost_types::NullValue>::to_proto(input)?;
+        let got: i32 = input.to_proto()?;
         assert_eq!(got, 0);
         Ok(())
     }
@@ -588,7 +566,7 @@ mod tests {
     #[test]
     fn from_prost_null_value() -> anyhow::Result<()> {
         let input = prost_types::NullValue::NullValue;
-        let got = FromProto::<wkt::NullValue>::cnv(input)?;
+        let got = input.cnv()?;
         assert_eq!(got, wkt::NullValue);
         Ok(())
     }
@@ -596,7 +574,7 @@ mod tests {
     #[test]
     fn to_proto_empty() -> anyhow::Result<()> {
         let input = wkt::Empty::default();
-        let got: super::Empty = ToProto::<super::Empty>::to_proto(input)?;
+        let got: super::Empty = input.to_proto()?;
         assert_eq!(got, super::Empty {});
         Ok(())
     }
@@ -604,7 +582,7 @@ mod tests {
     #[test]
     fn from_prost_empty() -> anyhow::Result<()> {
         let input = super::Empty {};
-        let got = FromProto::<wkt::Empty>::cnv(input)?;
+        let got = input.cnv()?;
         assert_eq!(got, wkt::Empty::default());
         Ok(())
     }
@@ -655,8 +633,7 @@ mod tests {
             .set_name("TestEnum".to_string())
             .set_value(vec![enum_val]);
         input.enum_type = vec![enum_type];
-        let prost_msg: prost_types::DescriptorProto =
-            ToProto::<prost_types::DescriptorProto>::to_proto(input.clone())?;
+        let prost_msg: prost_types::DescriptorProto = input.clone().to_proto()?;
         assert_eq!(prost_msg.name, Some("TestMessage".to_string()));
         assert_eq!(prost_msg.field.len(), 1);
         assert_eq!(prost_msg.field[0].name, Some("test_field".to_string()));
@@ -689,7 +666,7 @@ mod tests {
         // Zero maps to `None`, which readers treat as 0.
         assert_eq!(prost_msg.enum_type[0].value[0].number, None);
 
-        let back: wkt::DescriptorProto = FromProto::<wkt::DescriptorProto>::cnv(prost_msg)?;
+        let back: wkt::DescriptorProto = prost_msg.cnv()?;
         assert_eq!(back, input);
         Ok(())
     }
@@ -723,8 +700,7 @@ mod tests {
                 .set_end(20)])
             .set_reserved_name(["old_field"]);
 
-        let prost_msg: prost_types::DescriptorProto =
-            ToProto::<prost_types::DescriptorProto>::to_proto(input.clone())?;
+        let prost_msg: prost_types::DescriptorProto = input.clone().to_proto()?;
         assert_eq!(
             prost_msg.field[0].options.as_ref().and_then(|o| o.packed),
             Some(true)
@@ -740,7 +716,7 @@ mod tests {
         assert_eq!(prost_msg.reserved_range.len(), 1);
         assert_eq!(prost_msg.reserved_name, vec!["old_field".to_string()]);
 
-        let back: wkt::DescriptorProto = FromProto::<wkt::DescriptorProto>::cnv(prost_msg)?;
+        let back: wkt::DescriptorProto = prost_msg.cnv()?;
         assert_eq!(back, input);
         Ok(())
     }
@@ -776,9 +752,8 @@ mod tests {
             ],
             ..Default::default()
         };
-        let model: wkt::DescriptorProto = FromProto::<wkt::DescriptorProto>::cnv(input)?;
-        let back: prost_types::DescriptorProto =
-            ToProto::<prost_types::DescriptorProto>::to_proto(model)?;
+        let model: wkt::DescriptorProto = input.cnv()?;
+        let back: prost_types::DescriptorProto = model.to_proto()?;
         assert!(back.oneof_decl.is_empty(), "{back:?}");
         assert_eq!(back.field[0].oneof_index, None);
         assert_eq!(back.field[0].proto3_optional, None);
@@ -806,13 +781,12 @@ mod tests {
                     .set_type(wkt::field_descriptor_proto::Type::Int64),
             ]);
 
-        let prost_msg: prost_types::DescriptorProto =
-            ToProto::<prost_types::DescriptorProto>::to_proto(input.clone())?;
+        let prost_msg: prost_types::DescriptorProto = input.clone().to_proto()?;
         assert_eq!(prost_msg.field[0].type_name, None);
         assert_eq!(prost_msg.field[0].json_name, None);
         assert_eq!(prost_msg.field[0].default_value, None);
 
-        let back: wkt::DescriptorProto = FromProto::<wkt::DescriptorProto>::cnv(prost_msg)?;
+        let back: wkt::DescriptorProto = prost_msg.cnv()?;
         assert_eq!(back, input);
         Ok(())
     }
