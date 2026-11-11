@@ -22,6 +22,7 @@ use crate::routing::connection_cache::ConnectionCache;
 use gaxi::options::ClientConfig;
 use std::collections::HashMap;
 use std::collections::HashSet;
+use std::mem::take;
 use std::sync::Arc;
 use std::sync::PoisonError;
 use std::sync::RwLock;
@@ -32,6 +33,7 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 use std::time::Duration;
 use std::time::Instant;
 use tokio::runtime::Handle;
+use tokio::task::AbortHandle;
 use tokio::task::JoinHandle;
 use tokio::time::{MissedTickBehavior, interval};
 use tracing::debug;
@@ -377,18 +379,43 @@ impl EndpointLifecycleManager {
     fn spawn_connection_task(&self, address: &str) -> Option<JoinHandle<()>> {
         let config = self.client_config.as_ref()?;
         let handle = Handle::try_current().ok()?;
+
+        let mut state = self.write_state();
+        // Do not spawn connection tasks for unmanaged or concurrently pruned endpoints.
+        if !state.endpoints.contains_key(address) {
+            return None;
+        }
+        // Deduplicate in-flight connection attempts; replace finished or panicked tasks.
+        if let Some((_, abort_handle)) = state.connection_tasks.get(address) {
+            if !abort_handle.is_finished() {
+                return None;
+            }
+            state.connection_tasks.remove(address);
+        }
+        // Monotonic task ID prevents a delayed older task from removing a newer task.
+        state.next_task_id = state.next_task_id.wrapping_add(1);
+        let task_id = state.next_task_id;
+
         let connection_cache = Arc::clone(&self.connection_cache);
         let config = Arc::clone(config);
         let address_string = address.to_string();
         let weak_state = Arc::downgrade(&self.state);
         let transient_failure_count = Arc::clone(&self.transient_failure_count);
-        Some(handle.spawn(Self::connect_and_record(
+
+        let task = handle.spawn(Self::connect_and_record(
             connection_cache,
             config,
-            address_string,
+            address_string.clone(),
             weak_state,
             transient_failure_count,
-        )))
+            task_id,
+        ));
+
+        state
+            .connection_tasks
+            .insert(address_string, (task_id, task.abort_handle()));
+
+        Some(task)
     }
 
     /// Asynchronous background worker to establish a connection in the cache and record its health.
@@ -398,36 +425,47 @@ impl EndpointLifecycleManager {
         address_string: String,
         weak_state: Weak<RwLock<LifecycleManagerState>>,
         transient_failure_count: Arc<AtomicUsize>,
+        task_id: u64,
     ) {
         let connection = match connection_cache.get(&address_string, &config).await {
             Ok(connection) => connection,
-            Err(err) => {
+            Err(error) => {
                 debug!(
-                    ?err,
+                    ?error,
                     address = %address_string,
                     "Endpoint background connection attempt failed"
                 );
+                if let Some(state) = weak_state.upgrade() {
+                    let mut lifecycle_state = state.write().unwrap_or_else(PoisonError::into_inner);
+                    lifecycle_state.remove_connection_task(&address_string, task_id);
+                }
                 return;
             }
         };
 
-        let is_still_tracked = if let Some(state) = weak_state.upgrade() {
-            // Recover from lock poisoning via into_inner() so background probe results
-            // are safely recorded even if an earlier caller or maintenance task panicked.
-            let mut lifecycle_state = state.write().unwrap_or_else(PoisonError::into_inner);
-            if connection.is_healthy() {
-                lifecycle_state.record_probe_healthy(&address_string, Instant::now());
-                transient_failure_count.store(
-                    lifecycle_state.transient_failure_evicted.len(),
-                    Ordering::Release,
-                );
-            }
-            lifecycle_state.endpoints.contains_key(&address_string)
-        } else {
-            false
+        let Some(state) = weak_state.upgrade() else {
+            // Manager dropped during connection establishment; ensure connection is evicted.
+            debug!(
+                address = %address_string,
+                "Lifecycle manager was dropped during connection establishment, cleaning up"
+            );
+            connection_cache.evict(&address_string);
+            return;
         };
 
-        if !is_still_tracked {
+        // Recover from lock poisoning via into_inner() so background probe results
+        // are safely recorded even if an earlier caller or maintenance task panicked.
+        let mut lifecycle_state = state.write().unwrap_or_else(PoisonError::into_inner);
+        lifecycle_state.remove_connection_task(&address_string, task_id);
+        let is_tracked = lifecycle_state.endpoints.contains_key(&address_string);
+        if is_tracked && connection.is_healthy() {
+            lifecycle_state.record_probe_healthy(&address_string, Instant::now());
+            transient_failure_count.store(
+                lifecycle_state.transient_failure_evicted.len(),
+                Ordering::Release,
+            );
+        } else if !is_tracked {
+            // Evict obsolete connection under write lock to avoid racing recreation.
             debug!(
                 address = %address_string,
                 "Endpoint was evicted during connection establishment, cleaning up"
@@ -535,6 +573,13 @@ impl EndpointLifecycleManager {
                 !is_idle
             });
 
+            // Abort in-flight connection tasks for idle-evicted endpoints.
+            for address in &evicted {
+                if let Some((_, abort_handle)) = state.connection_tasks.remove(address) {
+                    abort_handle.abort();
+                }
+            }
+
             evicted
         };
 
@@ -585,7 +630,7 @@ impl EndpointLifecycleManager {
         self.transient_failure_count.load(Ordering::Acquire) > 0
     }
 
-    /// Pre-warms server connections in background tasks for the given addresses if not already cached.
+    /// Pre-warms server connections in background tasks for the given addresses if tracked and not already cached.
     pub(crate) fn prewarm_endpoints(&self, addresses: &[String]) {
         for address in addresses {
             if address.is_empty() || self.connection_cache.get_if_present(address).is_some() {
@@ -594,20 +639,24 @@ impl EndpointLifecycleManager {
             self.spawn_connection_task(address);
         }
     }
-}
 
-impl Drop for EndpointLifecycleManager {
-    fn drop(&mut self) {
+    /// Clears all tracked endpoint states, in-flight connection tasks, and failure markers.
+    ///
+    /// Note: `next_task_id` is intentionally retained across calls to `clear()` to maintain
+    /// a strictly monotonic sequence across the manager's lifetime, preventing an older task
+    /// from accidentally removing a newer task if it completes late.
+    pub(crate) fn clear(&self) {
         let addresses = {
             let mut state = self.write_state();
-            let addresses: Vec<String> = state
-                .endpoints
-                .drain()
-                .map(|(address, _)| address)
-                .collect();
-            if let Some(handle) = state.maintenance_task.take() {
-                handle.abort();
+            let connection_tasks = take(&mut state.connection_tasks);
+            let mut addresses = Vec::new();
+            for (address, (_task_id, abort_handle)) in connection_tasks {
+                abort_handle.abort();
+                if !state.endpoints.contains_key(&address) {
+                    addresses.push(address);
+                }
             }
+            addresses.extend(state.endpoints.drain().map(|(address, _)| address));
             state.transient_failure_evicted.clear();
             state.active_addresses_per_source.clear();
             self.transient_failure_count.store(0, Ordering::Release);
@@ -620,6 +669,13 @@ impl Drop for EndpointLifecycleManager {
     }
 }
 
+impl Drop for EndpointLifecycleManager {
+    fn drop(&mut self) {
+        self.stop_maintenance();
+        self.clear();
+    }
+}
+
 /// Internal consolidated state for [`EndpointLifecycleManager`].
 #[derive(Debug, Default)]
 struct LifecycleManagerState {
@@ -627,6 +683,8 @@ struct LifecycleManagerState {
     transient_failure_evicted: HashSet<String>,
     active_addresses_per_source: HashMap<String, HashSet<String>>,
     maintenance_task: Option<JoinHandle<()>>,
+    connection_tasks: HashMap<String, (u64, AbortHandle)>,
+    next_task_id: u64,
 }
 
 impl LifecycleManagerState {
@@ -656,8 +714,8 @@ impl LifecycleManagerState {
             endpoint_state.last_probe_at = Some(now);
             endpoint_state.last_ready_at = Some(now);
             endpoint_state.consecutive_transient_failures = 0;
+            self.transient_failure_evicted.remove(address);
         }
-        self.transient_failure_evicted.remove(address);
     }
 
     /// Updates internal state when a probe observes a connection in `TRANSIENT_FAILURE`,
@@ -679,6 +737,10 @@ impl LifecycleManagerState {
 
         if let Some(removed) = self.endpoints.remove(address) {
             self.transient_failure_evicted.insert(removed.address);
+            // Abort any in-flight connection task for the evicted endpoint.
+            if let Some((_, abort_handle)) = self.connection_tasks.remove(address) {
+                abort_handle.abort();
+            }
         }
 
         Some(EvictionReason::TransientFailure)
@@ -730,7 +792,27 @@ impl LifecycleManagerState {
             active
         });
 
+        // Abort in-flight connection tasks for stale endpoints.
+        self.connection_tasks.retain(|address, (_, abort_handle)| {
+            let active = is_active(address);
+            if !active {
+                abort_handle.abort();
+            }
+            active
+        });
+
         stale
+    }
+
+    /// Removes the in-flight connection task for `address` if the recorded task ID matches `task_id`.
+    fn remove_connection_task(&mut self, address: &str, task_id: u64) {
+        if self
+            .connection_tasks
+            .get(address)
+            .is_some_and(|(active_task_id, _)| *active_task_id == task_id)
+        {
+            self.connection_tasks.remove(address);
+        }
     }
 }
 
@@ -869,26 +951,6 @@ impl EndpointLifecycleManager {
         state.endpoints.get(address).cloned()
     }
 
-    /// Clears all tracked endpoint states and failure markers.
-    pub(crate) fn clear(&self) {
-        let addresses = {
-            let mut state = self.write_state();
-            let addresses: Vec<String> = state
-                .endpoints
-                .drain()
-                .map(|(address, _)| address)
-                .collect();
-            state.transient_failure_evicted.clear();
-            state.active_addresses_per_source.clear();
-            self.transient_failure_count.store(0, Ordering::Release);
-            addresses
-        };
-
-        for address in &addresses {
-            self.evict_connection(address, EvictionReason::Shutdown);
-        }
-    }
-
     /// Returns whether the specified endpoint address is currently tracked in the lifecycle manager.
     pub(crate) fn is_managed(&self, address: &str) -> bool {
         let state = self.read_state();
@@ -908,6 +970,7 @@ mod tests {
     use std::sync::Barrier;
     use std::thread;
     use tokio::runtime::Builder;
+    use tokio::spawn;
     use tokio::task::yield_now;
     use tokio::time::sleep;
 
@@ -951,6 +1014,18 @@ mod tests {
         let connection_cache = Arc::new(ConnectionCache::new(default_connection));
         let manager = EndpointLifecycleManager::new(Arc::clone(&connection_cache));
         (manager, connection_cache)
+    }
+
+    impl EndpointLifecycleManager {
+        fn connection_task_count(&self) -> usize {
+            let state = self.read_state();
+            state.connection_tasks.len()
+        }
+
+        fn next_task_id(&self) -> u64 {
+            let state = self.read_state();
+            state.next_task_id
+        }
     }
 
     /// Helper to wait for a background connection task to establish a connection in the cache.
@@ -1901,6 +1976,16 @@ mod tests {
         manager.clear();
         assert_eq!(manager.len(), 0, "manager len should be 0 after clear");
         assert!(manager.is_empty(), "manager should be empty after clear");
+        assert_eq!(
+            manager.connection_task_count(),
+            0,
+            "connection task count should be 0 after clear"
+        );
+        assert_eq!(
+            manager.next_task_id(),
+            0,
+            "next task ID should be 0 when no task was spawned"
+        );
         assert!(
             cache.get_if_present("10.0.0.1:15000").is_none(),
             "connection 1 must be evicted from cache on clear"
@@ -1914,6 +1999,10 @@ mod tests {
         assert!(
             state.endpoints.is_empty(),
             "endpoints must be empty after clear"
+        );
+        assert!(
+            state.connection_tasks.is_empty(),
+            "connection_tasks must be empty after clear"
         );
         assert!(
             state.transient_failure_evicted.is_empty(),
@@ -2113,6 +2202,10 @@ mod tests {
             "endpoints must be empty after drop"
         );
         assert!(
+            state.connection_tasks.is_empty(),
+            "connection_tasks must be empty after drop"
+        );
+        assert!(
             state.transient_failure_evicted.is_empty(),
             "transient_failure_evicted must be empty after drop"
         );
@@ -2155,14 +2248,18 @@ mod tests {
             "endpoint must not be managed after unregistering source"
         );
 
-        // Await connection task completion to verify post-completion cleanup
+        // Await connection task completion to verify it was aborted when source was unregistered
         if let Some(task) = connection_task {
-            task.await.expect("connection task failed");
+            let result = task.await;
+            assert!(
+                matches!(result, Err(ref error) if error.is_cancelled()),
+                "connection task must be aborted when source is unregistered, got: {result:?}"
+            );
         }
 
         assert!(
             cache.get_if_present("10.0.0.1:15000").is_none(),
-            "channel must be evicted from cache if endpoint was evicted before connection finished"
+            "channel must not be in cache when source was unregistered during connection"
         );
     }
 
@@ -2186,15 +2283,391 @@ mod tests {
         // Drop manager while reconnection task is in flight
         drop(manager);
 
-        // Await connection task completion to verify post-drop cleanup
+        // Await connection task completion to verify it was aborted when manager dropped
         if let Some(task) = connection_task {
-            task.await.expect("connection task failed");
+            let result = task.await;
+            assert!(
+                matches!(result, Err(ref error) if error.is_cancelled()),
+                "connection task must be aborted when manager is dropped, got: {result:?}"
+            );
         }
 
         assert!(
             cache.get_if_present("10.0.0.1:15000").is_none(),
-            "channel must be evicted from cache if manager was dropped before connection finished"
+            "channel must not be in cache when manager was dropped during connection"
         );
+    }
+
+    #[tokio::test]
+    async fn lifecycle_manager_connection_tasks_aborted_on_drop() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
+
+        let mut active = HashSet::new();
+        active.insert("10.0.0.1:15000".to_string());
+        active.insert("10.0.0.2:15000".to_string());
+        manager.update_active_addresses("database-1", active);
+
+        // Evict from cache to simulate cold endpoints
+        cache.evict("10.0.0.1:15000");
+        cache.evict("10.0.0.2:15000");
+
+        let task1 = manager.spawn_connection_task("10.0.0.1:15000");
+        let task2 = manager.spawn_connection_task("10.0.0.2:15000");
+
+        assert_eq!(
+            manager.connection_task_count(),
+            2,
+            "both connection tasks must be tracked in lifecycle manager"
+        );
+
+        // Drop manager while tasks are in flight
+        drop(manager);
+
+        if let Some(task) = task1 {
+            let result = task.await;
+            assert!(
+                matches!(result, Err(ref error) if error.is_cancelled()),
+                "task1 must be aborted on manager drop, got: {result:?}"
+            );
+        }
+
+        if let Some(task) = task2 {
+            let result = task.await;
+            assert!(
+                matches!(result, Err(ref error) if error.is_cancelled()),
+                "task2 must be aborted on manager drop, got: {result:?}"
+            );
+        }
+
+        assert!(
+            cache.get_if_present("10.0.0.1:15000").is_none(),
+            "channel1 must not be cached after manager drop"
+        );
+        assert!(
+            cache.get_if_present("10.0.0.2:15000").is_none(),
+            "channel2 must not be cached after manager drop"
+        );
+    }
+
+    #[tokio::test]
+    async fn lifecycle_manager_duplicate_connection_task_deduplicated() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
+
+        let mut active = HashSet::new();
+        active.insert("10.0.0.1:15000".to_string());
+        manager.update_active_addresses("database-1", active);
+        cache.evict("10.0.0.1:15000");
+
+        let first_task = manager.spawn_connection_task("10.0.0.1:15000");
+        assert!(first_task.is_some(), "first task should spawn");
+        assert_eq!(
+            manager.connection_task_count(),
+            1,
+            "first task must be tracked"
+        );
+
+        // Attempting to spawn second task for the same endpoint address while in-flight deduplicates
+        let second_task = manager.spawn_connection_task("10.0.0.1:15000");
+        assert!(
+            second_task.is_none(),
+            "duplicate task for in-flight endpoint must return None"
+        );
+        assert_eq!(
+            manager.connection_task_count(),
+            1,
+            "connection task count must remain 1"
+        );
+
+        // First task is NOT aborted and completes normally
+        if let Some(task) = first_task {
+            task.await
+                .expect("first task should complete normally without being aborted");
+        }
+
+        assert_eq!(
+            manager.connection_task_count(),
+            0,
+            "connection tasks must be empty after first task completes"
+        );
+        assert!(
+            cache.get_if_present("10.0.0.1:15000").is_some(),
+            "connection must be cached after first task completes"
+        );
+    }
+
+    #[tokio::test]
+    async fn lifecycle_manager_clear_aborts_active_connection_tasks() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
+
+        let mut active = HashSet::new();
+        active.insert("10.0.0.1:15000".to_string());
+        manager.update_active_addresses("database-1", active);
+        cache.evict("10.0.0.1:15000");
+
+        let task = manager.spawn_connection_task("10.0.0.1:15000");
+        assert_eq!(
+            manager.connection_task_count(),
+            1,
+            "connection task must be tracked before clear"
+        );
+
+        manager.clear();
+
+        assert_eq!(
+            manager.connection_task_count(),
+            0,
+            "connection tasks must be cleared"
+        );
+        assert_eq!(
+            manager.next_task_id(),
+            1,
+            "next task ID must maintain monotonic sequence across clear to avoid stale task removal"
+        );
+
+        if let Some(task) = task {
+            let result = task.await;
+            assert!(
+                matches!(result, Err(ref error) if error.is_cancelled()),
+                "in-flight task must be aborted on clear, got: {result:?}"
+            );
+        }
+
+        // Verify that spawning a subsequent task after clear monotonically increments ID
+        let mut new_active = HashSet::new();
+        new_active.insert("10.0.0.1:15000".to_string());
+        manager.update_active_addresses("database-1", new_active);
+        cache.evict("10.0.0.1:15000");
+        let _new_task = manager.spawn_connection_task("10.0.0.1:15000");
+        assert_eq!(
+            manager.next_task_id(),
+            2,
+            "subsequent task after clear must receive incremented ID (2) to prevent stale task removal"
+        );
+    }
+
+    #[tokio::test]
+    async fn lifecycle_manager_remove_connection_task_mismatched_id_ignored() {
+        let (manager, _cache) = make_test_manager();
+        let handle = spawn(async {});
+        let mut state = manager.write_state();
+        state
+            .connection_tasks
+            .insert("10.0.0.1:15000".to_string(), (42, handle.abort_handle()));
+
+        // Removing with mismatched task_id should not remove the entry
+        state.remove_connection_task("10.0.0.1:15000", 99);
+        assert_eq!(
+            state.connection_tasks.len(),
+            1,
+            "mismatched task ID must not remove connection task"
+        );
+
+        // Removing with matching task_id removes the entry
+        state.remove_connection_task("10.0.0.1:15000", 42);
+        assert_eq!(
+            state.connection_tasks.len(),
+            0,
+            "matching task ID must remove connection task"
+        );
+    }
+
+    #[tokio::test]
+    async fn lifecycle_manager_idle_eviction_aborts_in_flight_connection_task() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
+
+        let now = Instant::now();
+        let mut active = HashSet::new();
+        active.insert("10.0.0.1:15000".to_string());
+        manager.update_active_addresses_at("database-1", active, now);
+        cache.evict("10.0.0.1:15000");
+
+        let task = manager.spawn_connection_task("10.0.0.1:15000");
+        assert_eq!(
+            manager.connection_task_count(),
+            1,
+            "connection task must be tracked before idle eviction"
+        );
+
+        let future_time = now + manager.idle_eviction_duration() + Duration::from_secs(10);
+        let evicted = manager.check_idle_eviction_at(future_time);
+        assert_eq!(
+            evicted,
+            vec!["10.0.0.1:15000".to_string()],
+            "endpoint must be idle evicted"
+        );
+        assert_eq!(
+            manager.connection_task_count(),
+            0,
+            "connection task must be removed on idle eviction"
+        );
+
+        if let Some(task) = task {
+            let result = task.await;
+            assert!(
+                matches!(result, Err(ref error) if error.is_cancelled()),
+                "in-flight connection task must be aborted when endpoint is idle-evicted, got: {result:?}"
+            );
+        }
+    }
+
+    #[tokio::test]
+    async fn lifecycle_manager_prewarm_endpoints_aborts_on_drop() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
+
+        let mut active = HashSet::new();
+        active.insert("10.0.0.1:15000".to_string());
+        active.insert("10.0.0.2:15000".to_string());
+        manager.update_active_addresses("database-1", active);
+        cache.evict("10.0.0.1:15000");
+        cache.evict("10.0.0.2:15000");
+
+        manager.prewarm_endpoints(&["10.0.0.1:15000".to_string(), "10.0.0.2:15000".to_string()]);
+        assert_eq!(
+            manager.connection_task_count(),
+            2,
+            "both prewarmed connection tasks must be tracked"
+        );
+
+        drop(manager);
+
+        assert!(
+            cache.get_if_present("10.0.0.1:15000").is_none(),
+            "prewarmed connection 1 must not be in cache after drop"
+        );
+        assert!(
+            cache.get_if_present("10.0.0.2:15000").is_none(),
+            "prewarmed connection 2 must not be in cache after drop"
+        );
+    }
+
+    #[tokio::test]
+    async fn lifecycle_manager_probe_sweep_does_not_abort_in_flight_connection_task() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
+
+        let mut active = HashSet::new();
+        active.insert("10.0.0.1:15000".to_string());
+        manager.update_active_addresses("database-1", active);
+        cache.evict("10.0.0.1:15000");
+
+        let task = manager
+            .spawn_connection_task("10.0.0.1:15000")
+            .expect("initial connection task should spawn");
+
+        // Execute a probe sweep while connection task is in flight
+        let _ = manager.probe_all_endpoints();
+
+        // The in-flight task must NOT have been cancelled by the probe sweep
+        task.await.expect(
+            "in-flight connection task must complete normally without being aborted by probe sweep",
+        );
+
+        assert_eq!(
+            manager.connection_task_count(),
+            0,
+            "connection tasks must be empty after task completion"
+        );
+        assert!(
+            cache.get_if_present("10.0.0.1:15000").is_some(),
+            "connection must be cached successfully after task completes"
+        );
+    }
+
+    #[tokio::test]
+    async fn lifecycle_manager_update_active_addresses_aborts_pruned_in_flight_task() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
+
+        let mut active1 = HashSet::new();
+        active1.insert("10.0.0.1:15000".to_string());
+        active1.insert("10.0.0.2:15000".to_string());
+        manager.update_active_addresses("database-1", active1);
+        cache.evict("10.0.0.1:15000");
+
+        let task = manager
+            .spawn_connection_task("10.0.0.1:15000")
+            .expect("connection task should spawn");
+
+        // Update active addresses for database-1 to only contain 10.0.0.2, making 10.0.0.1 stale
+        let mut active2 = HashSet::new();
+        active2.insert("10.0.0.2:15000".to_string());
+        manager.update_active_addresses("database-1", active2);
+
+        // 10.0.0.1 in-flight task must have been aborted
+        let result = task.await;
+        assert!(
+            matches!(result, Err(ref error) if error.is_cancelled()),
+            "in-flight connection task must be aborted when endpoint is pruned via update_active_addresses, got: {result:?}"
+        );
+        assert!(
+            cache.get_if_present("10.0.0.1:15000").is_none(),
+            "pruned endpoint must not be in cache"
+        );
+    }
+
+    #[tokio::test]
+    async fn lifecycle_manager_transient_failure_eviction_aborts_in_flight_connection_task() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
+
+        let mut active = HashSet::new();
+        active.insert("10.0.0.1:15000".to_string());
+        manager.update_active_addresses("database-1", active);
+        cache.evict("10.0.0.1:15000");
+
+        let task = manager.spawn_connection_task("10.0.0.1:15000");
+        assert_eq!(
+            manager.connection_task_count(),
+            1,
+            "connection task must be tracked before failure eviction"
+        );
+
+        let now = Instant::now();
+        {
+            let mut state = manager.write_state();
+            let _ = state.record_probe_transient_failure("10.0.0.1:15000", now);
+            let _ = state.record_probe_transient_failure("10.0.0.1:15000", now);
+            let eviction_reason = state.record_probe_transient_failure("10.0.0.1:15000", now);
+            assert_eq!(
+                eviction_reason,
+                Some(EvictionReason::TransientFailure),
+                "endpoint must be evicted after 3 transient failures"
+            );
+            assert_eq!(
+                state.connection_tasks.len(),
+                0,
+                "connection task must be aborted on transient failure eviction"
+            );
+        }
+
+        if let Some(task) = task {
+            let result = task.await;
+            assert!(
+                matches!(result, Err(ref error) if error.is_cancelled()),
+                "in-flight task must be aborted on transient failure eviction, got: {result:?}"
+            );
+        }
     }
 
     #[test]
@@ -2314,6 +2787,11 @@ mod tests {
         assert!(
             cache.get_if_present(invalid_address).is_none(),
             "failed connection must not be cached"
+        );
+        assert_eq!(
+            manager.connection_task_count(),
+            0,
+            "connection task count should be 0 after error"
         );
     }
 
@@ -2543,6 +3021,277 @@ mod tests {
             manager.write_state().endpoints.len(),
             0,
             "write_state() must recover after read panic on poisoned lock"
+        );
+    }
+
+    #[tokio::test]
+    async fn lifecycle_manager_unregister_source_returns_unique_stale_endpoints_when_task_in_flight()
+     {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
+
+        let mut active = HashSet::new();
+        active.insert("10.0.0.1:15000".to_string());
+        manager.update_active_addresses("database-1", active);
+        cache.evict("10.0.0.1:15000");
+
+        let task = manager
+            .spawn_connection_task("10.0.0.1:15000")
+            .expect("connection task should spawn for tracked endpoint");
+        assert_eq!(
+            manager.connection_task_count(),
+            1,
+            "connection task must be tracked in state"
+        );
+
+        let stale_endpoints = manager.unregister_source("database-1");
+        assert_eq!(
+            stale_endpoints,
+            vec!["10.0.0.1:15000".to_string()],
+            "unregister_source must return stale address exactly once even with in-flight task"
+        );
+        assert_eq!(
+            manager.connection_task_count(),
+            0,
+            "connection tasks must be cleared when source is unregistered"
+        );
+
+        let result = task.await;
+        assert!(
+            matches!(result, Err(ref error) if error.is_cancelled()),
+            "in-flight connection task must be aborted when source is unregistered, got: {result:?}"
+        );
+    }
+
+    #[tokio::test]
+    async fn lifecycle_manager_prune_stale_endpoints_returns_unique_stale_when_task_in_flight() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
+
+        let mut active = HashSet::new();
+        active.insert("10.0.0.1:15000".to_string());
+        active.insert("10.0.0.2:15000".to_string());
+        manager.update_active_addresses("database-1", active);
+        cache.evict("10.0.0.1:15000");
+
+        let task = manager
+            .spawn_connection_task("10.0.0.1:15000")
+            .expect("task must spawn for 10.0.0.1:15000");
+
+        let stale = {
+            let mut state = manager.write_state();
+            let mut updated_active = HashSet::new();
+            updated_active.insert("10.0.0.2:15000".to_string());
+            state
+                .active_addresses_per_source
+                .insert("database-1".to_string(), updated_active);
+            state.prune_stale_endpoints()
+        };
+
+        assert_eq!(
+            stale,
+            vec!["10.0.0.1:15000".to_string()],
+            "prune_stale_endpoints must return stale address exactly once"
+        );
+        assert_eq!(
+            manager.connection_task_count(),
+            0,
+            "connection tasks must be pruned"
+        );
+
+        let result = task.await;
+        assert!(
+            matches!(result, Err(ref error) if error.is_cancelled()),
+            "pruned connection task must be aborted, got: {result:?}"
+        );
+    }
+
+    #[test]
+    fn lifecycle_manager_spawn_connection_task_unmanaged_address_returns_none() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
+
+        let initial_task_id = manager.next_task_id();
+        let unmanaged_address = "10.0.0.99:15000";
+
+        let result = manager.spawn_connection_task(unmanaged_address);
+        assert!(
+            result.is_none(),
+            "spawn_connection_task must return None for unmanaged address"
+        );
+        assert_eq!(
+            manager.connection_task_count(),
+            0,
+            "no connection task must be tracked for unmanaged address"
+        );
+        assert_eq!(
+            manager.next_task_id(),
+            initial_task_id,
+            "next_task_id must not advance for unmanaged address"
+        );
+    }
+
+    #[tokio::test]
+    async fn lifecycle_manager_finished_or_panicked_task_replaced_on_spawn() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
+
+        let address = "10.0.0.1:15000";
+        let mut active = HashSet::new();
+        active.insert(address.to_string());
+        manager.update_active_addresses("database-1", active);
+        cache.evict(address);
+
+        let dummy_task = spawn(async {});
+        let dummy_abort_handle = dummy_task.abort_handle();
+        dummy_task
+            .await
+            .expect("dummy background task must complete");
+        assert!(
+            dummy_abort_handle.is_finished(),
+            "dummy task abort handle must be finished"
+        );
+
+        {
+            let mut state = manager.write_state();
+            state
+                .connection_tasks
+                .insert(address.to_string(), (1, dummy_abort_handle));
+        }
+        assert_eq!(
+            manager.connection_task_count(),
+            1,
+            "zombie task must be initially present in state"
+        );
+
+        let new_task = manager
+            .spawn_connection_task(address)
+            .expect("spawn_connection_task must replace finished or zombie task");
+        assert_eq!(
+            manager.connection_task_count(),
+            1,
+            "exactly one active task must be tracked"
+        );
+
+        new_task.await.expect("new connection task must complete");
+        assert_eq!(
+            manager.connection_task_count(),
+            0,
+            "task count must be 0 after completion"
+        );
+        assert!(
+            cache.get_if_present(address).is_some(),
+            "connection must be established in cache"
+        );
+    }
+
+    #[tokio::test]
+    async fn lifecycle_manager_evicted_endpoint_connection_task_completion_does_not_resurrect_transient_failure()
+     {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
+
+        let address = "10.0.0.1:15000";
+        let mut active = HashSet::new();
+        active.insert(address.to_string());
+        manager.update_active_addresses("database-1", active);
+        cache.evict(address);
+
+        let weak_state = Arc::downgrade(&manager.state);
+        let transient_failure_count = Arc::clone(&manager.transient_failure_count);
+        let client_config = Arc::clone(
+            manager
+                .client_config
+                .as_ref()
+                .expect("client config must be set"),
+        );
+
+        let now = Instant::now();
+        {
+            let mut state = manager.write_state();
+            let _ = state.record_probe_transient_failure(address, now);
+            let _ = state.record_probe_transient_failure(address, now);
+            let reason = state.record_probe_transient_failure(address, now);
+            assert_eq!(
+                reason,
+                Some(EvictionReason::TransientFailure),
+                "endpoint must be evicted on 3 consecutive transient failures"
+            );
+            manager
+                .transient_failure_count
+                .store(state.transient_failure_evicted.len(), Ordering::Release);
+        }
+        assert!(
+            manager.is_transient_failure_evicted(address),
+            "endpoint must be marked as transient failure evicted"
+        );
+        assert!(
+            !manager.is_managed(address),
+            "endpoint must not be in active managed endpoints"
+        );
+
+        EndpointLifecycleManager::connect_and_record(
+            Arc::clone(&cache),
+            client_config,
+            address.to_string(),
+            weak_state,
+            transient_failure_count,
+            999,
+        )
+        .await;
+
+        assert!(
+            manager.is_transient_failure_evicted(address),
+            "transient failure marker must persist despite late connection task completion"
+        );
+        assert!(
+            !manager.is_managed(address),
+            "endpoint must not be resurrected into managed endpoints"
+        );
+        assert!(
+            cache.get_if_present(address).is_none(),
+            "connection must be cleaned up from cache if endpoint was evicted during connect"
+        );
+    }
+
+    #[tokio::test]
+    async fn lifecycle_manager_prewarm_endpoints_skips_unmanaged_addresses() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let manager =
+            EndpointLifecycleManager::with_client_config(Arc::clone(&cache), test_client_config());
+
+        let managed_address = "10.0.0.1:15000";
+        let unmanaged_address = "10.0.0.99:15000";
+        let mut active = HashSet::new();
+        active.insert(managed_address.to_string());
+        manager.update_active_addresses("database-1", active);
+        cache.evict(managed_address);
+
+        manager.prewarm_endpoints(&[
+            "".to_string(),
+            unmanaged_address.to_string(),
+            managed_address.to_string(),
+        ]);
+
+        assert_eq!(
+            manager.connection_task_count(),
+            1,
+            "only the managed cold address must spawn a connection task"
+        );
+        assert!(
+            !manager.is_managed(unmanaged_address),
+            "unmanaged address must remain unmanaged"
         );
     }
 }
