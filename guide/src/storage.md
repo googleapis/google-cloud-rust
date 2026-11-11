@@ -105,7 +105,7 @@ guide:
 
 - [Push data on object writes](https://docs.cloud.google.com/rust/docs/storage-push-writes)
 - [Rewrite objects](https://docs.cloud.google.com/rust/docs/storage-rewrite-objects)
-- [Download Cloud Storage objects with stripes](https://docs.cloud.google.com/rust/docs/storage-striped-downloads)
+- [Speed up Cloud Storage object downloads](https://docs.cloud.google.com/rust/docs/storage-striped-downloads)
 
 ## Full program
 
