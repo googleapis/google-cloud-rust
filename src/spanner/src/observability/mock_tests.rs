@@ -22,6 +22,7 @@ use crate::observability::exporter::{
     convert_metric_to_time_series, resource_to_monitored_resource,
 };
 use crate::observability::metrics::{Observability, SpannerMetrics, client_name};
+use crate::observability::test_utils::{find_metric, get_histogram_counts, get_sum_u64_points};
 use crate::read::ReadRequest;
 use crate::statement::Statement;
 use crate::transaction::{BeginTransactionOption, ReadWriteTransaction};
@@ -34,10 +35,7 @@ use mockall::Sequence;
 use opentelemetry::KeyValue;
 use opentelemetry::metrics::MeterProvider as _;
 use opentelemetry_sdk::Resource;
-use opentelemetry_sdk::metrics::{
-    InMemoryMetricExporter, PeriodicReader, SdkMeterProvider,
-    data::{AggregatedMetrics, Metric as OTelMetric, MetricData, ResourceMetrics},
-};
+use opentelemetry_sdk::metrics::{InMemoryMetricExporter, PeriodicReader, SdkMeterProvider};
 use prost_types::{Value as ProstValue, value::Kind as ProstValueKind};
 use spanner_grpc_mock::MockSpanner;
 use spanner_grpc_mock::google::spanner::v1::{
@@ -2238,58 +2236,4 @@ async fn setup_mock_client_with_metrics(
     database_client.o11y = Arc::new(observability);
 
     Ok((database_client, exporter, meter_provider, server_handle))
-}
-
-fn find_metric<'a>(
-    resource_metrics_list: &'a [ResourceMetrics],
-    expected_name: &str,
-) -> Option<&'a OTelMetric> {
-    for resource_metrics in resource_metrics_list {
-        for scope_metrics in resource_metrics.scope_metrics() {
-            for metric in scope_metrics.metrics() {
-                if metric.name() == expected_name {
-                    return Some(metric);
-                }
-            }
-        }
-    }
-    None
-}
-
-fn get_sum_u64_points(metric: &OTelMetric) -> Vec<(u64, HashMap<String, String>)> {
-    let mut points = Vec::new();
-    if let AggregatedMetrics::U64(MetricData::Sum(sum)) = metric.data() {
-        for data_point in sum.data_points() {
-            let labels: HashMap<String, String> = data_point
-                .attributes()
-                .map(|key_value| {
-                    (
-                        key_value.key.as_str().to_string(),
-                        key_value.value.as_str().to_string(),
-                    )
-                })
-                .collect();
-            points.push((data_point.value(), labels));
-        }
-    }
-    points
-}
-
-fn get_histogram_counts(metric: &OTelMetric) -> Vec<(u64, HashMap<String, String>)> {
-    let mut counts = Vec::new();
-    if let AggregatedMetrics::F64(MetricData::Histogram(histogram)) = metric.data() {
-        for data_point in histogram.data_points() {
-            let labels: HashMap<String, String> = data_point
-                .attributes()
-                .map(|key_value| {
-                    (
-                        key_value.key.as_str().to_string(),
-                        key_value.value.as_str().to_string(),
-                    )
-                })
-                .collect();
-            counts.push((data_point.count(), labels));
-        }
-    }
-    counts
 }
