@@ -2443,6 +2443,7 @@ pub mod compression {
     pub enum CompressionAlgorithm {
         Unspecified = 0,
         Zlib = 1,
+        Zstd = 3,
     }
     impl CompressionAlgorithm {
         /// String value of the enum field names used in the ProtoBuf definition.
@@ -2453,6 +2454,7 @@ pub mod compression {
             match self {
                 Self::Unspecified => "COMPRESSION_ALGORITHM_UNSPECIFIED",
                 Self::Zlib => "ZLIB",
+                Self::Zstd => "ZSTD",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2460,6 +2462,7 @@ pub mod compression {
             match value {
                 "COMPRESSION_ALGORITHM_UNSPECIFIED" => Some(Self::Unspecified),
                 "ZLIB" => Some(Self::Zlib),
+                "ZSTD" => Some(Self::Zstd),
                 _ => None,
             }
         }

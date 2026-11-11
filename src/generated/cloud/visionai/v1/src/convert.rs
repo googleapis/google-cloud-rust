@@ -20,11 +20,20 @@ impl gaxi::prost::ToProto<GstreamerBufferDescriptor> for crate::model::Gstreamer
     type Output = GstreamerBufferDescriptor;
     fn to_proto(self) -> std::result::Result<GstreamerBufferDescriptor, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            caps_string: self.caps_string.to_proto()?,
-            is_key_frame: self.is_key_frame.to_proto()?,
-            pts_time: self.pts_time.map(|v| v.to_proto()).transpose()?,
-            dts_time: self.dts_time.map(|v| v.to_proto()).transpose()?,
-            duration: self.duration.map(|v| v.to_proto()).transpose()?,
+            caps_string: gaxi::prost::ToProto::<std::string::String>::to_proto(self.caps_string)?,
+            is_key_frame: gaxi::prost::ToProto::<bool>::to_proto(self.is_key_frame)?,
+            pts_time: self
+                .pts_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
+            dts_time: self
+                .dts_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
+            duration: self
+                .duration
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -37,9 +46,21 @@ impl gaxi::prost::FromProto<crate::model::GstreamerBufferDescriptor> for Gstream
         Ok(crate::model::GstreamerBufferDescriptor::new()
             .set_caps_string(self.caps_string)
             .set_is_key_frame(self.is_key_frame)
-            .set_or_clear_pts_time(self.pts_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_dts_time(self.dts_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_duration(self.duration.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_pts_time(
+                self.pts_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_dts_time(
+                self.dts_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_duration(
+                self.duration
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -47,9 +68,9 @@ impl gaxi::prost::ToProto<RawImageDescriptor> for crate::model::RawImageDescript
     type Output = RawImageDescriptor;
     fn to_proto(self) -> std::result::Result<RawImageDescriptor, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            format: self.format.to_proto()?,
-            height: self.height.to_proto()?,
-            width: self.width.to_proto()?,
+            format: gaxi::prost::ToProto::<std::string::String>::to_proto(self.format)?,
+            height: gaxi::prost::ToProto::<i32>::to_proto(self.height)?,
+            width: gaxi::prost::ToProto::<i32>::to_proto(self.width)?,
         })
     }
 }
@@ -71,10 +92,16 @@ impl gaxi::prost::ToProto<packet_type::type_descriptor::TypeDetails>
     type Output = packet_type::type_descriptor::TypeDetails;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::GstreamerBufferDescriptor(v) => {
-                Ok(Self::Output::GstreamerBufferDescriptor((*v).to_proto()?))
+            Self::GstreamerBufferDescriptor(v) => Ok(Self::Output::GstreamerBufferDescriptor(
+                gaxi::prost::ToProto::<GstreamerBufferDescriptor>::to_proto(*v)?,
+            )),
+            Self::RawImageDescriptor(v) => {
+                Ok(Self::Output::RawImageDescriptor(gaxi::prost::ToProto::<
+                    RawImageDescriptor,
+                >::to_proto(
+                    *v
+                )?))
             }
-            Self::RawImageDescriptor(v) => Ok(Self::Output::RawImageDescriptor((*v).to_proto()?)),
         }
     }
 }
@@ -91,11 +118,13 @@ impl gaxi::prost::FromProto<crate::model::packet_type::type_descriptor::TypeDeta
         use crate::model::packet_type::type_descriptor::TypeDetails as T;
         match self {
             Self::GstreamerBufferDescriptor(v) => {
-                Ok(T::GstreamerBufferDescriptor(std::boxed::Box::new(v.cnv()?)))
+                Ok(T::GstreamerBufferDescriptor(std::boxed::Box::new(
+                    gaxi::prost::FromProto::<crate::model::GstreamerBufferDescriptor>::cnv(v)?,
+                )))
             }
-            Self::RawImageDescriptor(v) => {
-                Ok(T::RawImageDescriptor(std::boxed::Box::new(v.cnv()?)))
-            }
+            Self::RawImageDescriptor(v) => Ok(T::RawImageDescriptor(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::RawImageDescriptor>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -108,8 +137,11 @@ impl gaxi::prost::ToProto<packet_type::TypeDescriptor>
         self,
     ) -> std::result::Result<packet_type::TypeDescriptor, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            r#type: self.r#type.to_proto()?,
-            type_details: self.type_details.map(|v| v.to_proto()).transpose()?,
+            r#type: gaxi::prost::ToProto::<std::string::String>::to_proto(self.r#type)?,
+            type_details: self
+                .type_details
+                .map(gaxi::prost::ToProto::<packet_type::type_descriptor::TypeDetails>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -123,7 +155,15 @@ impl gaxi::prost::FromProto<crate::model::packet_type::TypeDescriptor>
     {
         Ok(crate::model::packet_type::TypeDescriptor::new()
             .set_type(self.r#type)
-            .set_type_details(self.type_details.map(|v| v.cnv()).transpose()?))
+            .set_type_details(
+                self.type_details
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::packet_type::type_descriptor::TypeDetails,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ))
     }
 }
 
@@ -131,8 +171,11 @@ impl gaxi::prost::ToProto<PacketType> for crate::model::PacketType {
     type Output = PacketType;
     fn to_proto(self) -> std::result::Result<PacketType, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            type_class: self.type_class.to_proto()?,
-            type_descriptor: self.type_descriptor.map(|v| v.to_proto()).transpose()?,
+            type_class: gaxi::prost::ToProto::<std::string::String>::to_proto(self.type_class)?,
+            type_descriptor: self
+                .type_descriptor
+                .map(gaxi::prost::ToProto::<packet_type::TypeDescriptor>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -141,7 +184,11 @@ impl gaxi::prost::FromProto<crate::model::PacketType> for PacketType {
     fn cnv(self) -> std::result::Result<crate::model::PacketType, gaxi::prost::ConvertError> {
         Ok(crate::model::PacketType::new()
             .set_type_class(self.type_class)
-            .set_or_clear_type_descriptor(self.type_descriptor.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_type_descriptor(
+                self.type_descriptor
+                    .map(gaxi::prost::FromProto::<crate::model::packet_type::TypeDescriptor>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -149,8 +196,11 @@ impl gaxi::prost::ToProto<ServerMetadata> for crate::model::ServerMetadata {
     type Output = ServerMetadata;
     fn to_proto(self) -> std::result::Result<ServerMetadata, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            offset: self.offset.to_proto()?,
-            ingest_time: self.ingest_time.map(|v| v.to_proto()).transpose()?,
+            offset: gaxi::prost::ToProto::<i64>::to_proto(self.offset)?,
+            ingest_time: self
+                .ingest_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -159,7 +209,11 @@ impl gaxi::prost::FromProto<crate::model::ServerMetadata> for ServerMetadata {
     fn cnv(self) -> std::result::Result<crate::model::ServerMetadata, gaxi::prost::ConvertError> {
         Ok(crate::model::ServerMetadata::new()
             .set_offset(self.offset)
-            .set_or_clear_ingest_time(self.ingest_time.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_ingest_time(
+                self.ingest_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -167,7 +221,7 @@ impl gaxi::prost::ToProto<SeriesMetadata> for crate::model::SeriesMetadata {
     type Output = SeriesMetadata;
     fn to_proto(self) -> std::result::Result<SeriesMetadata, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            series: self.series.to_proto()?,
+            series: gaxi::prost::ToProto::<std::string::String>::to_proto(self.series)?,
         })
     }
 }
@@ -182,13 +236,30 @@ impl gaxi::prost::ToProto<PacketHeader> for crate::model::PacketHeader {
     type Output = PacketHeader;
     fn to_proto(self) -> std::result::Result<PacketHeader, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            capture_time: self.capture_time.map(|v| v.to_proto()).transpose()?,
-            r#type: self.r#type.map(|v| v.to_proto()).transpose()?,
-            metadata: self.metadata.map(|v| v.to_proto()).transpose()?,
-            server_metadata: self.server_metadata.map(|v| v.to_proto()).transpose()?,
-            series_metadata: self.series_metadata.map(|v| v.to_proto()).transpose()?,
-            flags: self.flags.to_proto()?,
-            trace_context: self.trace_context.to_proto()?,
+            capture_time: self
+                .capture_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
+            r#type: self
+                .r#type
+                .map(gaxi::prost::ToProto::<PacketType>::to_proto)
+                .transpose()?,
+            metadata: self
+                .metadata
+                .map(gaxi::prost::ToProto::<prost_types::Struct>::to_proto)
+                .transpose()?,
+            server_metadata: self
+                .server_metadata
+                .map(gaxi::prost::ToProto::<ServerMetadata>::to_proto)
+                .transpose()?,
+            series_metadata: self
+                .series_metadata
+                .map(gaxi::prost::ToProto::<SeriesMetadata>::to_proto)
+                .transpose()?,
+            flags: gaxi::prost::ToProto::<i32>::to_proto(self.flags)?,
+            trace_context: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.trace_context,
+            )?,
         })
     }
 }
@@ -196,11 +267,31 @@ impl gaxi::prost::ToProto<PacketHeader> for crate::model::PacketHeader {
 impl gaxi::prost::FromProto<crate::model::PacketHeader> for PacketHeader {
     fn cnv(self) -> std::result::Result<crate::model::PacketHeader, gaxi::prost::ConvertError> {
         Ok(crate::model::PacketHeader::new()
-            .set_or_clear_capture_time(self.capture_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_type(self.r#type.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_metadata(self.metadata.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_server_metadata(self.server_metadata.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_series_metadata(self.series_metadata.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_capture_time(
+                self.capture_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_type(
+                self.r#type
+                    .map(gaxi::prost::FromProto::<crate::model::PacketType>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_metadata(
+                self.metadata
+                    .map(gaxi::prost::FromProto::<wkt::Struct>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_server_metadata(
+                self.server_metadata
+                    .map(gaxi::prost::FromProto::<crate::model::ServerMetadata>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_series_metadata(
+                self.series_metadata
+                    .map(gaxi::prost::FromProto::<crate::model::SeriesMetadata>::cnv)
+                    .transpose()?,
+            )
             .set_flags(self.flags)
             .set_trace_context(self.trace_context))
     }
@@ -210,8 +301,11 @@ impl gaxi::prost::ToProto<Packet> for crate::model::Packet {
     type Output = Packet;
     fn to_proto(self) -> std::result::Result<Packet, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            header: self.header.map(|v| v.to_proto()).transpose()?,
-            payload: self.payload.to_proto()?,
+            header: self
+                .header
+                .map(gaxi::prost::ToProto::<PacketHeader>::to_proto)
+                .transpose()?,
+            payload: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.payload)?,
         })
     }
 }
@@ -219,7 +313,11 @@ impl gaxi::prost::ToProto<Packet> for crate::model::Packet {
 impl gaxi::prost::FromProto<crate::model::Packet> for Packet {
     fn cnv(self) -> std::result::Result<crate::model::Packet, gaxi::prost::ConvertError> {
         Ok(crate::model::Packet::new()
-            .set_or_clear_header(self.header.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_header(
+                self.header
+                    .map(gaxi::prost::FromProto::<crate::model::PacketHeader>::cnv)
+                    .transpose()?,
+            )
             .set_payload(self.payload))
     }
 }
@@ -232,14 +330,20 @@ impl gaxi::prost::ToProto<receive_events_request::SetupRequest>
         self,
     ) -> std::result::Result<receive_events_request::SetupRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            cluster: self.cluster.to_proto()?,
-            stream: self.stream.to_proto()?,
-            receiver: self.receiver.to_proto()?,
-            controlled_mode: self.controlled_mode.map(|v| v.to_proto()).transpose()?,
-            heartbeat_interval: self.heartbeat_interval.map(|v| v.to_proto()).transpose()?,
+            cluster: gaxi::prost::ToProto::<std::string::String>::to_proto(self.cluster)?,
+            stream: gaxi::prost::ToProto::<std::string::String>::to_proto(self.stream)?,
+            receiver: gaxi::prost::ToProto::<std::string::String>::to_proto(self.receiver)?,
+            controlled_mode: self
+                .controlled_mode
+                .map(gaxi::prost::ToProto::<ControlledMode>::to_proto)
+                .transpose()?,
+            heartbeat_interval: self
+                .heartbeat_interval
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                .transpose()?,
             writes_done_grace_period: self
                 .writes_done_grace_period
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
                 .transpose()?,
         })
     }
@@ -258,10 +362,20 @@ impl gaxi::prost::FromProto<crate::model::receive_events_request::SetupRequest>
             .set_cluster(self.cluster)
             .set_stream(self.stream)
             .set_receiver(self.receiver)
-            .set_or_clear_controlled_mode(self.controlled_mode.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_heartbeat_interval(self.heartbeat_interval.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_controlled_mode(
+                self.controlled_mode
+                    .map(gaxi::prost::FromProto::<crate::model::ControlledMode>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_heartbeat_interval(
+                self.heartbeat_interval
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            )
             .set_or_clear_writes_done_grace_period(
-                self.writes_done_grace_period.map(|v| v.cnv()).transpose()?,
+                self.writes_done_grace_period
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
             ))
     }
 }
@@ -272,8 +386,12 @@ impl gaxi::prost::ToProto<receive_events_request::Request>
     type Output = receive_events_request::Request;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::SetupRequest(v) => Ok(Self::Output::SetupRequest((*v).to_proto()?)),
-            Self::CommitRequest(v) => Ok(Self::Output::CommitRequest((*v).to_proto()?)),
+            Self::SetupRequest(v) => Ok(Self::Output::SetupRequest(gaxi::prost::ToProto::<
+                receive_events_request::SetupRequest,
+            >::to_proto(*v)?)),
+            Self::CommitRequest(v) => Ok(Self::Output::CommitRequest(gaxi::prost::ToProto::<
+                CommitRequest,
+            >::to_proto(*v)?)),
         }
     }
 }
@@ -287,8 +405,14 @@ impl gaxi::prost::FromProto<crate::model::receive_events_request::Request>
     {
         use crate::model::receive_events_request::Request as T;
         match self {
-            Self::SetupRequest(v) => Ok(T::SetupRequest(std::boxed::Box::new(v.cnv()?))),
-            Self::CommitRequest(v) => Ok(T::CommitRequest(std::boxed::Box::new(v.cnv()?))),
+            Self::SetupRequest(v) => Ok(T::SetupRequest(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::receive_events_request::SetupRequest>::cnv(
+                    v,
+                )?,
+            ))),
+            Self::CommitRequest(v) => Ok(T::CommitRequest(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::CommitRequest>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -297,7 +421,10 @@ impl gaxi::prost::ToProto<ReceiveEventsRequest> for crate::model::ReceiveEventsR
     type Output = ReceiveEventsRequest;
     fn to_proto(self) -> std::result::Result<ReceiveEventsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            request: self.request.map(|v| v.to_proto()).transpose()?,
+            request: self
+                .request
+                .map(gaxi::prost::ToProto::<receive_events_request::Request>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -306,8 +433,11 @@ impl gaxi::prost::FromProto<crate::model::ReceiveEventsRequest> for ReceiveEvent
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::ReceiveEventsRequest, gaxi::prost::ConvertError> {
-        Ok(crate::model::ReceiveEventsRequest::new()
-            .set_request(self.request.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::ReceiveEventsRequest::new().set_request(
+            self.request
+                .map(gaxi::prost::FromProto::<crate::model::receive_events_request::Request>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -315,11 +445,14 @@ impl gaxi::prost::ToProto<EventUpdate> for crate::model::EventUpdate {
     type Output = EventUpdate;
     fn to_proto(self) -> std::result::Result<EventUpdate, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            stream: self.stream.to_proto()?,
-            event: self.event.to_proto()?,
-            series: self.series.to_proto()?,
-            update_time: self.update_time.map(|v| v.to_proto()).transpose()?,
-            offset: self.offset.to_proto()?,
+            stream: gaxi::prost::ToProto::<std::string::String>::to_proto(self.stream)?,
+            event: gaxi::prost::ToProto::<std::string::String>::to_proto(self.event)?,
+            series: gaxi::prost::ToProto::<std::string::String>::to_proto(self.series)?,
+            update_time: self
+                .update_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
+            offset: gaxi::prost::ToProto::<i64>::to_proto(self.offset)?,
         })
     }
 }
@@ -330,7 +463,11 @@ impl gaxi::prost::FromProto<crate::model::EventUpdate> for EventUpdate {
             .set_stream(self.stream)
             .set_event(self.event)
             .set_series(self.series)
-            .set_or_clear_update_time(self.update_time.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_update_time(
+                self.update_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
             .set_offset(self.offset))
     }
 }
@@ -341,8 +478,12 @@ impl gaxi::prost::ToProto<receive_events_control_response::Control>
     type Output = receive_events_control_response::Control;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Heartbeat(v) => Ok(Self::Output::Heartbeat(v.to_proto()?)),
-            Self::WritesDoneRequest(v) => Ok(Self::Output::WritesDoneRequest(v.to_proto()?)),
+            Self::Heartbeat(v) => Ok(Self::Output::Heartbeat(
+                gaxi::prost::ToProto::<bool>::to_proto(v)?,
+            )),
+            Self::WritesDoneRequest(v) => Ok(Self::Output::WritesDoneRequest(
+                gaxi::prost::ToProto::<bool>::to_proto(v)?,
+            )),
         }
     }
 }
@@ -358,8 +499,10 @@ impl gaxi::prost::FromProto<crate::model::receive_events_control_response::Contr
     > {
         use crate::model::receive_events_control_response::Control as T;
         match self {
-            Self::Heartbeat(v) => Ok(T::Heartbeat(v.cnv()?)),
-            Self::WritesDoneRequest(v) => Ok(T::WritesDoneRequest(v.cnv()?)),
+            Self::Heartbeat(v) => Ok(T::Heartbeat(gaxi::prost::FromProto::<bool>::cnv(v)?)),
+            Self::WritesDoneRequest(v) => Ok(T::WritesDoneRequest(
+                gaxi::prost::FromProto::<bool>::cnv(v)?,
+            )),
         }
     }
 }
@@ -372,7 +515,10 @@ impl gaxi::prost::ToProto<ReceiveEventsControlResponse>
         self,
     ) -> std::result::Result<ReceiveEventsControlResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            control: self.control.map(|v| v.to_proto()).transpose()?,
+            control: self
+                .control
+                .map(gaxi::prost::ToProto::<receive_events_control_response::Control>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -384,8 +530,17 @@ impl gaxi::prost::FromProto<crate::model::ReceiveEventsControlResponse>
         self,
     ) -> std::result::Result<crate::model::ReceiveEventsControlResponse, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::ReceiveEventsControlResponse::new()
-            .set_control(self.control.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::ReceiveEventsControlResponse::new().set_control(
+                self.control
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::receive_events_control_response::Control,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ),
+        )
     }
 }
 
@@ -395,8 +550,12 @@ impl gaxi::prost::ToProto<receive_events_response::Response>
     type Output = receive_events_response::Response;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::EventUpdate(v) => Ok(Self::Output::EventUpdate((*v).to_proto()?)),
-            Self::Control(v) => Ok(Self::Output::Control((*v).to_proto()?)),
+            Self::EventUpdate(v) => Ok(Self::Output::EventUpdate(gaxi::prost::ToProto::<
+                EventUpdate,
+            >::to_proto(*v)?)),
+            Self::Control(v) => Ok(Self::Output::Control(gaxi::prost::ToProto::<
+                ReceiveEventsControlResponse,
+            >::to_proto(*v)?)),
         }
     }
 }
@@ -412,8 +571,12 @@ impl gaxi::prost::FromProto<crate::model::receive_events_response::Response>
     > {
         use crate::model::receive_events_response::Response as T;
         match self {
-            Self::EventUpdate(v) => Ok(T::EventUpdate(std::boxed::Box::new(v.cnv()?))),
-            Self::Control(v) => Ok(T::Control(std::boxed::Box::new(v.cnv()?))),
+            Self::EventUpdate(v) => Ok(T::EventUpdate(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::EventUpdate>::cnv(v)?,
+            ))),
+            Self::Control(v) => Ok(T::Control(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::ReceiveEventsControlResponse,
+            >::cnv(v)?))),
         }
     }
 }
@@ -422,7 +585,10 @@ impl gaxi::prost::ToProto<ReceiveEventsResponse> for crate::model::ReceiveEvents
     type Output = ReceiveEventsResponse;
     fn to_proto(self) -> std::result::Result<ReceiveEventsResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            response: self.response.map(|v| v.to_proto()).transpose()?,
+            response: self
+                .response
+                .map(gaxi::prost::ToProto::<receive_events_response::Response>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -431,8 +597,11 @@ impl gaxi::prost::FromProto<crate::model::ReceiveEventsResponse> for ReceiveEven
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::ReceiveEventsResponse, gaxi::prost::ConvertError> {
-        Ok(crate::model::ReceiveEventsResponse::new()
-            .set_response(self.response.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::ReceiveEventsResponse::new().set_response(
+            self.response
+                .map(gaxi::prost::FromProto::<crate::model::receive_events_response::Response>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -440,12 +609,15 @@ impl gaxi::prost::ToProto<RequestMetadata> for crate::model::RequestMetadata {
     type Output = RequestMetadata;
     fn to_proto(self) -> std::result::Result<RequestMetadata, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            stream: self.stream.to_proto()?,
-            event: self.event.to_proto()?,
-            series: self.series.to_proto()?,
-            lease_id: self.lease_id.to_proto()?,
-            owner: self.owner.to_proto()?,
-            lease_term: self.lease_term.map(|v| v.to_proto()).transpose()?,
+            stream: gaxi::prost::ToProto::<std::string::String>::to_proto(self.stream)?,
+            event: gaxi::prost::ToProto::<std::string::String>::to_proto(self.event)?,
+            series: gaxi::prost::ToProto::<std::string::String>::to_proto(self.series)?,
+            lease_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.lease_id)?,
+            owner: gaxi::prost::ToProto::<std::string::String>::to_proto(self.owner)?,
+            lease_term: self
+                .lease_term
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -458,7 +630,11 @@ impl gaxi::prost::FromProto<crate::model::RequestMetadata> for RequestMetadata {
             .set_series(self.series)
             .set_lease_id(self.lease_id)
             .set_owner(self.owner)
-            .set_or_clear_lease_term(self.lease_term.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_lease_term(
+                self.lease_term
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -468,8 +644,12 @@ impl gaxi::prost::ToProto<send_packets_request::Request>
     type Output = send_packets_request::Request;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Packet(v) => Ok(Self::Output::Packet((*v).to_proto()?)),
-            Self::Metadata(v) => Ok(Self::Output::Metadata((*v).to_proto()?)),
+            Self::Packet(v) => Ok(Self::Output::Packet(
+                gaxi::prost::ToProto::<Packet>::to_proto(*v)?,
+            )),
+            Self::Metadata(v) => Ok(Self::Output::Metadata(gaxi::prost::ToProto::<
+                RequestMetadata,
+            >::to_proto(*v)?)),
         }
     }
 }
@@ -483,8 +663,12 @@ impl gaxi::prost::FromProto<crate::model::send_packets_request::Request>
     {
         use crate::model::send_packets_request::Request as T;
         match self {
-            Self::Packet(v) => Ok(T::Packet(std::boxed::Box::new(v.cnv()?))),
-            Self::Metadata(v) => Ok(T::Metadata(std::boxed::Box::new(v.cnv()?))),
+            Self::Packet(v) => Ok(T::Packet(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::Packet,
+            >::cnv(v)?))),
+            Self::Metadata(v) => Ok(T::Metadata(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::RequestMetadata,
+            >::cnv(v)?))),
         }
     }
 }
@@ -493,7 +677,10 @@ impl gaxi::prost::ToProto<SendPacketsRequest> for crate::model::SendPacketsReque
     type Output = SendPacketsRequest;
     fn to_proto(self) -> std::result::Result<SendPacketsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            request: self.request.map(|v| v.to_proto()).transpose()?,
+            request: self
+                .request
+                .map(gaxi::prost::ToProto::<send_packets_request::Request>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -502,8 +689,11 @@ impl gaxi::prost::FromProto<crate::model::SendPacketsRequest> for SendPacketsReq
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::SendPacketsRequest, gaxi::prost::ConvertError> {
-        Ok(crate::model::SendPacketsRequest::new()
-            .set_request(self.request.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::SendPacketsRequest::new().set_request(
+            self.request
+                .map(gaxi::prost::FromProto::<crate::model::send_packets_request::Request>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -528,9 +718,19 @@ impl gaxi::prost::ToProto<receive_packets_request::setup_request::ConsumerMode>
     type Output = receive_packets_request::setup_request::ConsumerMode;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::EagerReceiveMode(v) => Ok(Self::Output::EagerReceiveMode((*v).to_proto()?)),
+            Self::EagerReceiveMode(v) => {
+                Ok(Self::Output::EagerReceiveMode(gaxi::prost::ToProto::<
+                    EagerMode,
+                >::to_proto(
+                    *v
+                )?))
+            }
             Self::ControlledReceiveMode(v) => {
-                Ok(Self::Output::ControlledReceiveMode((*v).to_proto()?))
+                Ok(Self::Output::ControlledReceiveMode(gaxi::prost::ToProto::<
+                    ControlledMode,
+                >::to_proto(
+                    *v
+                )?))
             }
         }
     }
@@ -547,10 +747,12 @@ impl gaxi::prost::FromProto<crate::model::receive_packets_request::setup_request
     > {
         use crate::model::receive_packets_request::setup_request::ConsumerMode as T;
         match self {
-            Self::EagerReceiveMode(v) => Ok(T::EagerReceiveMode(std::boxed::Box::new(v.cnv()?))),
-            Self::ControlledReceiveMode(v) => {
-                Ok(T::ControlledReceiveMode(std::boxed::Box::new(v.cnv()?)))
-            }
+            Self::EagerReceiveMode(v) => Ok(T::EagerReceiveMode(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::EagerMode>::cnv(v)?,
+            ))),
+            Self::ControlledReceiveMode(v) => Ok(T::ControlledReceiveMode(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::ControlledMode>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -562,16 +764,31 @@ impl gaxi::prost::ToProto<receive_packets_request::SetupRequest>
     fn to_proto(
         self,
     ) -> std::result::Result<receive_packets_request::SetupRequest, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            metadata: self.metadata.map(|v| v.to_proto()).transpose()?,
-            receiver: self.receiver.to_proto()?,
-            heartbeat_interval: self.heartbeat_interval.map(|v| v.to_proto()).transpose()?,
-            writes_done_grace_period: self
-                .writes_done_grace_period
-                .map(|v| v.to_proto())
-                .transpose()?,
-            consumer_mode: self.consumer_mode.map(|v| v.to_proto()).transpose()?,
-        })
+        Ok(
+            Self::Output {
+                metadata: self
+                    .metadata
+                    .map(gaxi::prost::ToProto::<RequestMetadata>::to_proto)
+                    .transpose()?,
+                receiver: gaxi::prost::ToProto::<std::string::String>::to_proto(self.receiver)?,
+                heartbeat_interval: self
+                    .heartbeat_interval
+                    .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                    .transpose()?,
+                writes_done_grace_period: self
+                    .writes_done_grace_period
+                    .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                    .transpose()?,
+                consumer_mode:
+                    self.consumer_mode
+                        .map(
+                            gaxi::prost::ToProto::<
+                                receive_packets_request::setup_request::ConsumerMode,
+                            >::to_proto,
+                        )
+                        .transpose()?,
+            },
+        )
     }
 }
 
@@ -585,13 +802,31 @@ impl gaxi::prost::FromProto<crate::model::receive_packets_request::SetupRequest>
         gaxi::prost::ConvertError,
     > {
         Ok(crate::model::receive_packets_request::SetupRequest::new()
-            .set_or_clear_metadata(self.metadata.map(|v| v.cnv()).transpose()?)
-            .set_receiver(self.receiver)
-            .set_or_clear_heartbeat_interval(self.heartbeat_interval.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_writes_done_grace_period(
-                self.writes_done_grace_period.map(|v| v.cnv()).transpose()?,
+            .set_or_clear_metadata(
+                self.metadata
+                    .map(gaxi::prost::FromProto::<crate::model::RequestMetadata>::cnv)
+                    .transpose()?,
             )
-            .set_consumer_mode(self.consumer_mode.map(|v| v.cnv()).transpose()?))
+            .set_receiver(self.receiver)
+            .set_or_clear_heartbeat_interval(
+                self.heartbeat_interval
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_writes_done_grace_period(
+                self.writes_done_grace_period
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            )
+            .set_consumer_mode(
+                self.consumer_mode
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::receive_packets_request::setup_request::ConsumerMode,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ))
     }
 }
 
@@ -601,8 +836,12 @@ impl gaxi::prost::ToProto<receive_packets_request::Request>
     type Output = receive_packets_request::Request;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::SetupRequest(v) => Ok(Self::Output::SetupRequest((*v).to_proto()?)),
-            Self::CommitRequest(v) => Ok(Self::Output::CommitRequest((*v).to_proto()?)),
+            Self::SetupRequest(v) => Ok(Self::Output::SetupRequest(gaxi::prost::ToProto::<
+                receive_packets_request::SetupRequest,
+            >::to_proto(*v)?)),
+            Self::CommitRequest(v) => Ok(Self::Output::CommitRequest(gaxi::prost::ToProto::<
+                CommitRequest,
+            >::to_proto(*v)?)),
         }
     }
 }
@@ -618,8 +857,14 @@ impl gaxi::prost::FromProto<crate::model::receive_packets_request::Request>
     > {
         use crate::model::receive_packets_request::Request as T;
         match self {
-            Self::SetupRequest(v) => Ok(T::SetupRequest(std::boxed::Box::new(v.cnv()?))),
-            Self::CommitRequest(v) => Ok(T::CommitRequest(std::boxed::Box::new(v.cnv()?))),
+            Self::SetupRequest(v) => Ok(T::SetupRequest(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::receive_packets_request::SetupRequest>::cnv(
+                    v,
+                )?,
+            ))),
+            Self::CommitRequest(v) => Ok(T::CommitRequest(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::CommitRequest>::cnv(v)?,
+            ))),
         }
     }
 }
@@ -628,7 +873,10 @@ impl gaxi::prost::ToProto<ReceivePacketsRequest> for crate::model::ReceivePacket
     type Output = ReceivePacketsRequest;
     fn to_proto(self) -> std::result::Result<ReceivePacketsRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            request: self.request.map(|v| v.to_proto()).transpose()?,
+            request: self
+                .request
+                .map(gaxi::prost::ToProto::<receive_packets_request::Request>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -637,8 +885,11 @@ impl gaxi::prost::FromProto<crate::model::ReceivePacketsRequest> for ReceivePack
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::ReceivePacketsRequest, gaxi::prost::ConvertError> {
-        Ok(crate::model::ReceivePacketsRequest::new()
-            .set_request(self.request.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::ReceivePacketsRequest::new().set_request(
+            self.request
+                .map(gaxi::prost::FromProto::<crate::model::receive_packets_request::Request>::cnv)
+                .transpose()?,
+        ))
     }
 }
 
@@ -648,8 +899,12 @@ impl gaxi::prost::ToProto<receive_packets_control_response::Control>
     type Output = receive_packets_control_response::Control;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Heartbeat(v) => Ok(Self::Output::Heartbeat(v.to_proto()?)),
-            Self::WritesDoneRequest(v) => Ok(Self::Output::WritesDoneRequest(v.to_proto()?)),
+            Self::Heartbeat(v) => Ok(Self::Output::Heartbeat(
+                gaxi::prost::ToProto::<bool>::to_proto(v)?,
+            )),
+            Self::WritesDoneRequest(v) => Ok(Self::Output::WritesDoneRequest(
+                gaxi::prost::ToProto::<bool>::to_proto(v)?,
+            )),
         }
     }
 }
@@ -665,8 +920,10 @@ impl gaxi::prost::FromProto<crate::model::receive_packets_control_response::Cont
     > {
         use crate::model::receive_packets_control_response::Control as T;
         match self {
-            Self::Heartbeat(v) => Ok(T::Heartbeat(v.cnv()?)),
-            Self::WritesDoneRequest(v) => Ok(T::WritesDoneRequest(v.cnv()?)),
+            Self::Heartbeat(v) => Ok(T::Heartbeat(gaxi::prost::FromProto::<bool>::cnv(v)?)),
+            Self::WritesDoneRequest(v) => Ok(T::WritesDoneRequest(
+                gaxi::prost::FromProto::<bool>::cnv(v)?,
+            )),
         }
     }
 }
@@ -679,7 +936,10 @@ impl gaxi::prost::ToProto<ReceivePacketsControlResponse>
         self,
     ) -> std::result::Result<ReceivePacketsControlResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            control: self.control.map(|v| v.to_proto()).transpose()?,
+            control: self
+                .control
+                .map(gaxi::prost::ToProto::<receive_packets_control_response::Control>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -691,8 +951,17 @@ impl gaxi::prost::FromProto<crate::model::ReceivePacketsControlResponse>
         self,
     ) -> std::result::Result<crate::model::ReceivePacketsControlResponse, gaxi::prost::ConvertError>
     {
-        Ok(crate::model::ReceivePacketsControlResponse::new()
-            .set_control(self.control.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::ReceivePacketsControlResponse::new().set_control(
+                self.control
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::receive_packets_control_response::Control,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ),
+        )
     }
 }
 
@@ -702,8 +971,12 @@ impl gaxi::prost::ToProto<receive_packets_response::Response>
     type Output = receive_packets_response::Response;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Packet(v) => Ok(Self::Output::Packet((*v).to_proto()?)),
-            Self::Control(v) => Ok(Self::Output::Control((*v).to_proto()?)),
+            Self::Packet(v) => Ok(Self::Output::Packet(
+                gaxi::prost::ToProto::<Packet>::to_proto(*v)?,
+            )),
+            Self::Control(v) => Ok(Self::Output::Control(gaxi::prost::ToProto::<
+                ReceivePacketsControlResponse,
+            >::to_proto(*v)?)),
         }
     }
 }
@@ -719,8 +992,12 @@ impl gaxi::prost::FromProto<crate::model::receive_packets_response::Response>
     > {
         use crate::model::receive_packets_response::Response as T;
         match self {
-            Self::Packet(v) => Ok(T::Packet(std::boxed::Box::new(v.cnv()?))),
-            Self::Control(v) => Ok(T::Control(std::boxed::Box::new(v.cnv()?))),
+            Self::Packet(v) => Ok(T::Packet(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::Packet,
+            >::cnv(v)?))),
+            Self::Control(v) => Ok(T::Control(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::ReceivePacketsControlResponse,
+            >::cnv(v)?))),
         }
     }
 }
@@ -729,7 +1006,10 @@ impl gaxi::prost::ToProto<ReceivePacketsResponse> for crate::model::ReceivePacke
     type Output = ReceivePacketsResponse;
     fn to_proto(self) -> std::result::Result<ReceivePacketsResponse, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            response: self.response.map(|v| v.to_proto()).transpose()?,
+            response: self
+                .response
+                .map(gaxi::prost::ToProto::<receive_packets_response::Response>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -738,8 +1018,13 @@ impl gaxi::prost::FromProto<crate::model::ReceivePacketsResponse> for ReceivePac
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::ReceivePacketsResponse, gaxi::prost::ConvertError> {
-        Ok(crate::model::ReceivePacketsResponse::new()
-            .set_response(self.response.map(|v| v.cnv()).transpose()?))
+        Ok(crate::model::ReceivePacketsResponse::new().set_response(
+            self.response
+                .map(
+                    gaxi::prost::FromProto::<crate::model::receive_packets_response::Response>::cnv,
+                )
+                .transpose()?,
+        ))
     }
 }
 
@@ -763,7 +1048,11 @@ impl gaxi::prost::ToProto<controlled_mode::StartingOffset>
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
             Self::StartingLogicalOffset(v) => {
-                Ok(Self::Output::StartingLogicalOffset(v.to_proto()?))
+                Ok(Self::Output::StartingLogicalOffset(gaxi::prost::ToProto::<
+                    std::string::String,
+                >::to_proto(
+                    v
+                )?))
             }
         }
     }
@@ -778,7 +1067,11 @@ impl gaxi::prost::FromProto<crate::model::controlled_mode::StartingOffset>
     {
         use crate::model::controlled_mode::StartingOffset as T;
         match self {
-            Self::StartingLogicalOffset(v) => Ok(T::StartingLogicalOffset(v.cnv()?)),
+            Self::StartingLogicalOffset(v) => {
+                Ok(T::StartingLogicalOffset(gaxi::prost::FromProto::<
+                    std::string::String,
+                >::cnv(v)?))
+            }
         }
     }
 }
@@ -787,17 +1080,24 @@ impl gaxi::prost::ToProto<ControlledMode> for crate::model::ControlledMode {
     type Output = ControlledMode;
     fn to_proto(self) -> std::result::Result<ControlledMode, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            fallback_starting_offset: self.fallback_starting_offset.to_proto()?,
-            starting_offset: self.starting_offset.map(|v| v.to_proto()).transpose()?,
+            fallback_starting_offset: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.fallback_starting_offset,
+            )?,
+            starting_offset: self
+                .starting_offset
+                .map(gaxi::prost::ToProto::<controlled_mode::StartingOffset>::to_proto)
+                .transpose()?,
         })
     }
 }
 
 impl gaxi::prost::FromProto<crate::model::ControlledMode> for ControlledMode {
     fn cnv(self) -> std::result::Result<crate::model::ControlledMode, gaxi::prost::ConvertError> {
-        Ok(crate::model::ControlledMode::new()
-            .set_fallback_starting_offset(self.fallback_starting_offset)
-            .set_starting_offset(self.starting_offset.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::ControlledMode::new()
+                .set_fallback_starting_offset(self.fallback_starting_offset)
+                .set_starting_offset(self.starting_offset.map(gaxi::prost::FromProto::<crate::model::controlled_mode::StartingOffset>::cnv).transpose()?)
+        )
     }
 }
 
@@ -805,7 +1105,7 @@ impl gaxi::prost::ToProto<CommitRequest> for crate::model::CommitRequest {
     type Output = CommitRequest;
     fn to_proto(self) -> std::result::Result<CommitRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            offset: self.offset.to_proto()?,
+            offset: gaxi::prost::ToProto::<i64>::to_proto(self.offset)?,
         })
     }
 }
@@ -837,7 +1137,9 @@ impl gaxi::prost::ToProto<ingest_asset_request::config::VideoType>
     ) -> std::result::Result<ingest_asset_request::config::VideoType, gaxi::prost::ConvertError>
     {
         Ok(Self::Output {
-            container_format: self.container_format.to_proto()?,
+            container_format: gaxi::prost::ToProto::<
+                ingest_asset_request::config::video_type::ContainerFormat,
+            >::to_proto(self.container_format)?,
         })
     }
 }
@@ -862,7 +1164,9 @@ impl gaxi::prost::ToProto<ingest_asset_request::config::DataType>
     type Output = ingest_asset_request::config::DataType;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::VideoType(v) => Ok(Self::Output::VideoType((*v).to_proto()?)),
+            Self::VideoType(v) => Ok(Self::Output::VideoType(gaxi::prost::ToProto::<
+                ingest_asset_request::config::VideoType,
+            >::to_proto(*v)?)),
         }
     }
 }
@@ -878,7 +1182,11 @@ impl gaxi::prost::FromProto<crate::model::ingest_asset_request::config::DataType
     > {
         use crate::model::ingest_asset_request::config::DataType as T;
         match self {
-            Self::VideoType(v) => Ok(T::VideoType(std::boxed::Box::new(v.cnv()?))),
+            Self::VideoType(v) => Ok(T::VideoType(
+                std::boxed::Box::new(gaxi::prost::FromProto::<
+                    crate::model::ingest_asset_request::config::VideoType,
+                >::cnv(v)?),
+            )),
         }
     }
 }
@@ -891,8 +1199,11 @@ impl gaxi::prost::ToProto<ingest_asset_request::Config>
         self,
     ) -> std::result::Result<ingest_asset_request::Config, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            asset: self.asset.to_proto()?,
-            data_type: self.data_type.map(|v| v.to_proto()).transpose()?,
+            asset: gaxi::prost::ToProto::<std::string::String>::to_proto(self.asset)?,
+            data_type: self
+                .data_type
+                .map(gaxi::prost::ToProto::<ingest_asset_request::config::DataType>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -906,7 +1217,15 @@ impl gaxi::prost::FromProto<crate::model::ingest_asset_request::Config>
     {
         Ok(crate::model::ingest_asset_request::Config::new()
             .set_asset(self.asset)
-            .set_data_type(self.data_type.map(|v| v.cnv()).transpose()?))
+            .set_data_type(
+                self.data_type
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::ingest_asset_request::config::DataType,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ))
     }
 }
 
@@ -918,8 +1237,11 @@ impl gaxi::prost::ToProto<ingest_asset_request::TimeIndexedData>
         self,
     ) -> std::result::Result<ingest_asset_request::TimeIndexedData, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            data: self.data.to_proto()?,
-            temporal_partition: self.temporal_partition.map(|v| v.to_proto()).transpose()?,
+            data: gaxi::prost::ToProto::<::bytes::Bytes>::to_proto(self.data)?,
+            temporal_partition: self
+                .temporal_partition
+                .map(gaxi::prost::ToProto::<partition::TemporalPartition>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -935,7 +1257,11 @@ impl gaxi::prost::FromProto<crate::model::ingest_asset_request::TimeIndexedData>
     > {
         Ok(crate::model::ingest_asset_request::TimeIndexedData::new()
             .set_data(self.data)
-            .set_or_clear_temporal_partition(self.temporal_partition.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_temporal_partition(
+                self.temporal_partition
+                    .map(gaxi::prost::FromProto::<crate::model::partition::TemporalPartition>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -945,8 +1271,14 @@ impl gaxi::prost::ToProto<ingest_asset_request::StreamingRequest>
     type Output = ingest_asset_request::StreamingRequest;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Config(v) => Ok(Self::Output::Config((*v).to_proto()?)),
-            Self::TimeIndexedData(v) => Ok(Self::Output::TimeIndexedData((*v).to_proto()?)),
+            Self::Config(v) => Ok(Self::Output::Config(gaxi::prost::ToProto::<
+                ingest_asset_request::Config,
+            >::to_proto(*v)?)),
+            Self::TimeIndexedData(v) => Ok(Self::Output::TimeIndexedData(gaxi::prost::ToProto::<
+                ingest_asset_request::TimeIndexedData,
+            >::to_proto(
+                *v
+            )?)),
         }
     }
 }
@@ -962,8 +1294,14 @@ impl gaxi::prost::FromProto<crate::model::ingest_asset_request::StreamingRequest
     > {
         use crate::model::ingest_asset_request::StreamingRequest as T;
         match self {
-            Self::Config(v) => Ok(T::Config(std::boxed::Box::new(v.cnv()?))),
-            Self::TimeIndexedData(v) => Ok(T::TimeIndexedData(std::boxed::Box::new(v.cnv()?))),
+            Self::Config(v) => Ok(T::Config(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::ingest_asset_request::Config,
+            >::cnv(v)?))),
+            Self::TimeIndexedData(v) => Ok(T::TimeIndexedData(std::boxed::Box::new(
+                gaxi::prost::FromProto::<crate::model::ingest_asset_request::TimeIndexedData>::cnv(
+                    v,
+                )?,
+            ))),
         }
     }
 }
@@ -972,7 +1310,10 @@ impl gaxi::prost::ToProto<IngestAssetRequest> for crate::model::IngestAssetReque
     type Output = IngestAssetRequest;
     fn to_proto(self) -> std::result::Result<IngestAssetRequest, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            streaming_request: self.streaming_request.map(|v| v.to_proto()).transpose()?,
+            streaming_request: self
+                .streaming_request
+                .map(gaxi::prost::ToProto::<ingest_asset_request::StreamingRequest>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -981,8 +1322,17 @@ impl gaxi::prost::FromProto<crate::model::IngestAssetRequest> for IngestAssetReq
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::IngestAssetRequest, gaxi::prost::ConvertError> {
-        Ok(crate::model::IngestAssetRequest::new()
-            .set_streaming_request(self.streaming_request.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::IngestAssetRequest::new().set_streaming_request(
+                self.streaming_request
+                    .map(
+                        gaxi::prost::FromProto::<
+                            crate::model::ingest_asset_request::StreamingRequest,
+                        >::cnv,
+                    )
+                    .transpose()?,
+            ),
+        )
     }
 }
 
@@ -992,7 +1342,7 @@ impl gaxi::prost::ToProto<IngestAssetResponse> for crate::model::IngestAssetResp
         Ok(Self::Output {
             successfully_ingested_partition: self
                 .successfully_ingested_partition
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<partition::TemporalPartition>::to_proto)
                 .transpose()?,
         })
     }
@@ -1005,7 +1355,7 @@ impl gaxi::prost::FromProto<crate::model::IngestAssetResponse> for IngestAssetRe
         Ok(
             crate::model::IngestAssetResponse::new().set_or_clear_successfully_ingested_partition(
                 self.successfully_ingested_partition
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::partition::TemporalPartition>::cnv)
                     .transpose()?,
             ),
         )
@@ -1020,8 +1370,14 @@ impl gaxi::prost::ToProto<partition::TemporalPartition>
         self,
     ) -> std::result::Result<partition::TemporalPartition, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            start_time: self.start_time.map(|v| v.to_proto()).transpose()?,
-            end_time: self.end_time.map(|v| v.to_proto()).transpose()?,
+            start_time: self
+                .start_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
+            end_time: self
+                .end_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -1034,8 +1390,16 @@ impl gaxi::prost::FromProto<crate::model::partition::TemporalPartition>
     ) -> std::result::Result<crate::model::partition::TemporalPartition, gaxi::prost::ConvertError>
     {
         Ok(crate::model::partition::TemporalPartition::new()
-            .set_or_clear_start_time(self.start_time.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_end_time(self.end_time.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_start_time(
+                self.start_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_end_time(
+                self.end_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -1047,10 +1411,22 @@ impl gaxi::prost::ToProto<partition::SpatialPartition>
         self,
     ) -> std::result::Result<partition::SpatialPartition, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            x_min: self.x_min.map(|v| v.to_proto()).transpose()?,
-            y_min: self.y_min.map(|v| v.to_proto()).transpose()?,
-            x_max: self.x_max.map(|v| v.to_proto()).transpose()?,
-            y_max: self.y_max.map(|v| v.to_proto()).transpose()?,
+            x_min: self
+                .x_min
+                .map(gaxi::prost::ToProto::<i64>::to_proto)
+                .transpose()?,
+            y_min: self
+                .y_min
+                .map(gaxi::prost::ToProto::<i64>::to_proto)
+                .transpose()?,
+            x_max: self
+                .x_max
+                .map(gaxi::prost::ToProto::<i64>::to_proto)
+                .transpose()?,
+            y_max: self
+                .y_max
+                .map(gaxi::prost::ToProto::<i64>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -1063,10 +1439,26 @@ impl gaxi::prost::FromProto<crate::model::partition::SpatialPartition>
     ) -> std::result::Result<crate::model::partition::SpatialPartition, gaxi::prost::ConvertError>
     {
         Ok(crate::model::partition::SpatialPartition::new()
-            .set_or_clear_x_min(self.x_min.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_y_min(self.y_min.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_x_max(self.x_max.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_y_max(self.y_max.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_x_min(
+                self.x_min
+                    .map(gaxi::prost::FromProto::<i64>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_y_min(
+                self.y_min
+                    .map(gaxi::prost::FromProto::<i64>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_x_max(
+                self.x_max
+                    .map(gaxi::prost::FromProto::<i64>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_y_max(
+                self.y_max
+                    .map(gaxi::prost::FromProto::<i64>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -1078,8 +1470,14 @@ impl gaxi::prost::ToProto<partition::RelativeTemporalPartition>
         self,
     ) -> std::result::Result<partition::RelativeTemporalPartition, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            start_offset: self.start_offset.map(|v| v.to_proto()).transpose()?,
-            end_offset: self.end_offset.map(|v| v.to_proto()).transpose()?,
+            start_offset: self
+                .start_offset
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                .transpose()?,
+            end_offset: self
+                .end_offset
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -1094,8 +1492,16 @@ impl gaxi::prost::FromProto<crate::model::partition::RelativeTemporalPartition>
         gaxi::prost::ConvertError,
     > {
         Ok(crate::model::partition::RelativeTemporalPartition::new()
-            .set_or_clear_start_offset(self.start_offset.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_end_offset(self.end_offset.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_start_offset(
+                self.start_offset
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_end_offset(
+                self.end_offset
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -1103,11 +1509,17 @@ impl gaxi::prost::ToProto<Partition> for crate::model::Partition {
     type Output = Partition;
     fn to_proto(self) -> std::result::Result<Partition, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            temporal_partition: self.temporal_partition.map(|v| v.to_proto()).transpose()?,
-            spatial_partition: self.spatial_partition.map(|v| v.to_proto()).transpose()?,
+            temporal_partition: self
+                .temporal_partition
+                .map(gaxi::prost::ToProto::<partition::TemporalPartition>::to_proto)
+                .transpose()?,
+            spatial_partition: self
+                .spatial_partition
+                .map(gaxi::prost::ToProto::<partition::SpatialPartition>::to_proto)
+                .transpose()?,
             relative_temporal_partition: self
                 .relative_temporal_partition
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<partition::RelativeTemporalPartition>::to_proto)
                 .transpose()?,
         })
     }
@@ -1115,13 +1527,11 @@ impl gaxi::prost::ToProto<Partition> for crate::model::Partition {
 
 impl gaxi::prost::FromProto<crate::model::Partition> for Partition {
     fn cnv(self) -> std::result::Result<crate::model::Partition, gaxi::prost::ConvertError> {
-        Ok(crate::model::Partition::new()
-            .set_or_clear_temporal_partition(self.temporal_partition.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_spatial_partition(self.spatial_partition.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_relative_temporal_partition(
-                self.relative_temporal_partition
-                    .map(|v| v.cnv())
-                    .transpose()?,
-            ))
+        Ok(
+            crate::model::Partition::new()
+                .set_or_clear_temporal_partition(self.temporal_partition.map(gaxi::prost::FromProto::<crate::model::partition::TemporalPartition>::cnv).transpose()?)
+                .set_or_clear_spatial_partition(self.spatial_partition.map(gaxi::prost::FromProto::<crate::model::partition::SpatialPartition>::cnv).transpose()?)
+                .set_or_clear_relative_temporal_partition(self.relative_temporal_partition.map(gaxi::prost::FromProto::<crate::model::partition::RelativeTemporalPartition>::cnv).transpose()?)
+        )
     }
 }

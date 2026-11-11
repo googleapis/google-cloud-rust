@@ -521,6 +521,7 @@ impl std::fmt::Debug for super::PscAutoConnection {
         debug_struct.field("service_attachment", &self.service_attachment);
         debug_struct.field("psc_connection_status", &self.psc_connection_status);
         debug_struct.field("connection_type", &self.connection_type);
+        debug_struct.field("ip_version", &self.ip_version);
         debug_struct.field("ports", &self.ports);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

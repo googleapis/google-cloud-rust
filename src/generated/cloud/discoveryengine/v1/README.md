@@ -14,16 +14,20 @@ should not introduce breaking changes to the client libraries.
 
 The main types to work with this crate are the clients:
 
+- [AclConfigService]: enabled by the `acl-config-service` feature.
 - [AssistantService]: enabled by the `assistant-service` feature.
 - [CmekConfigService]: enabled by the `cmek-config-service` feature.
+- [CollectionService]: enabled by the `collection-service` feature.
 - [CompletionService]: enabled by the `completion-service` feature.
 - [ControlService]: enabled by the `control-service` feature.
 - [ConversationalSearchService]: enabled by the `conversational-search-service` feature.
+- [DataConnectorService]: enabled by the `data-connector-service` feature.
 - [DataStoreService]: enabled by the `data-store-service` feature.
 - [DocumentService]: enabled by the `document-service` feature.
 - [EngineService]: enabled by the `engine-service` feature.
 - [GroundedGenerationService]: enabled by the `grounded-generation-service` feature.
 - [IdentityMappingStoreService]: enabled by the `identity-mapping-store-service` feature.
+- [LicenseConfigService]: enabled by the `license-config-service` feature.
 - [ProjectService]: enabled by the `project-service` feature.
 - [RankService]: enabled by the `rank-service` feature.
 - [RecommendationService]: enabled by the `recommendation-service` feature.
@@ -35,6 +39,8 @@ The main types to work with this crate are the clients:
 - [SiteSearchEngineService]: enabled by the `site-search-engine-service` feature.
 - [UserEventService]: enabled by the `user-event-service` feature.
 - [UserLicenseService]: enabled by the `user-license-service` feature.
+- [UserStoreService]: enabled by the `user-store-service` feature.
+- [WidgetConfigService]: enabled by the `widget-config-service` feature.
 
 ## Features
 
@@ -52,16 +58,20 @@ The main types to work with this crate are the clients:
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[AclConfigService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.AclConfigService.html
 [AssistantService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.AssistantService.html
 [CmekConfigService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.CmekConfigService.html
+[CollectionService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.CollectionService.html
 [CompletionService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.CompletionService.html
 [ControlService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.ControlService.html
 [ConversationalSearchService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.ConversationalSearchService.html
+[DataConnectorService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.DataConnectorService.html
 [DataStoreService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.DataStoreService.html
 [DocumentService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.DocumentService.html
 [EngineService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.EngineService.html
 [GroundedGenerationService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.GroundedGenerationService.html
 [IdentityMappingStoreService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.IdentityMappingStoreService.html
+[LicenseConfigService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.LicenseConfigService.html
 [ProjectService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.ProjectService.html
 [RankService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.RankService.html
 [RecommendationService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.RecommendationService.html
@@ -73,3 +83,5 @@ The main types to work with this crate are the clients:
 [SiteSearchEngineService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.SiteSearchEngineService.html
 [UserEventService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.UserEventService.html
 [UserLicenseService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.UserLicenseService.html
+[UserStoreService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.UserStoreService.html
+[WidgetConfigService]: https://docs.rs/google-cloud-discoveryengine-v1/2.17.0/google_cloud_discoveryengine_v1/client/struct.WidgetConfigService.html

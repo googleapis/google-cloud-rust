@@ -537,6 +537,12 @@ pub struct Endpoint {
     /// projects/{project}/locations/{location}/privateConnections/{privateConnection}.
     pub dms_private_connection: std::string::String,
 
+    /// A [Datastream Private
+    /// Connection](https://docs.cloud.google.com/datastream/docs/reference/rest/v1/projects.locations.privateConnections)
+    /// name format:
+    /// projects/{project}/locations/{location}/privateConnections/{privateConnection}.
+    pub datastream_private_connection: std::string::String,
+
     /// A [Cloud Function](https://cloud.google.com/functions). Applicable only to
     /// source endpoint.
     pub cloud_function: std::option::Option<crate::model::endpoint::CloudFunctionEndpoint>,
@@ -824,6 +830,21 @@ impl Endpoint {
         v: T,
     ) -> Self {
         self.dms_private_connection = v.into();
+        self
+    }
+
+    /// Sets the value of [datastream_private_connection][crate::model::Endpoint::datastream_private_connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::Endpoint;
+    /// let x = Endpoint::new().set_datastream_private_connection("example");
+    /// ```
+    pub fn set_datastream_private_connection<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.datastream_private_connection = v.into();
         self
     }
 
@@ -3620,6 +3641,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_instance<T: std::convert::Into<std::boxed::Box<crate::model::InstanceInfo>>>(
         mut self,
@@ -3690,6 +3712,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_firewall<T: std::convert::Into<std::boxed::Box<crate::model::FirewallInfo>>>(
         mut self,
@@ -3760,6 +3783,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_route<T: std::convert::Into<std::boxed::Box<crate::model::RouteInfo>>>(
         mut self,
@@ -3829,6 +3853,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::EndpointInfo>>>(
         mut self,
@@ -3901,6 +3926,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_google_service<
         T: std::convert::Into<std::boxed::Box<crate::model::GoogleServiceInfo>>,
@@ -3975,6 +4001,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_forwarding_rule<
         T: std::convert::Into<std::boxed::Box<crate::model::ForwardingRuleInfo>>,
@@ -4049,6 +4076,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_hybrid_subnet<
         T: std::convert::Into<std::boxed::Box<crate::model::HybridSubnetInfo>>,
@@ -4123,6 +4151,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_vpn_gateway<T: std::convert::Into<std::boxed::Box<crate::model::VpnGatewayInfo>>>(
         mut self,
@@ -4193,6 +4222,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_vpn_tunnel<T: std::convert::Into<std::boxed::Box<crate::model::VpnTunnelInfo>>>(
         mut self,
@@ -4265,6 +4295,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_interconnect_attachment<
         T: std::convert::Into<std::boxed::Box<crate::model::InterconnectAttachmentInfo>>,
@@ -4340,6 +4371,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_vpc_connector<
         T: std::convert::Into<std::boxed::Box<crate::model::VpcConnectorInfo>>,
@@ -4416,6 +4448,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_direct_vpc_egress_connection<
         T: std::convert::Into<std::boxed::Box<crate::model::DirectVpcEgressConnectionInfo>>,
@@ -4493,6 +4526,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_serverless_external_connection<
         T: std::convert::Into<std::boxed::Box<crate::model::ServerlessExternalConnectionInfo>>,
@@ -4566,6 +4600,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_deliver<T: std::convert::Into<std::boxed::Box<crate::model::DeliverInfo>>>(
         mut self,
@@ -4635,6 +4670,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_forward<T: std::convert::Into<std::boxed::Box<crate::model::ForwardInfo>>>(
         mut self,
@@ -4704,6 +4740,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_abort<T: std::convert::Into<std::boxed::Box<crate::model::AbortInfo>>>(
         mut self,
@@ -4773,6 +4810,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_drop<T: std::convert::Into<std::boxed::Box<crate::model::DropInfo>>>(
         mut self,
@@ -4845,6 +4883,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     #[deprecated]
     pub fn set_load_balancer<
@@ -4918,6 +4957,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_network<T: std::convert::Into<std::boxed::Box<crate::model::NetworkInfo>>>(
         mut self,
@@ -4987,6 +5027,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_gke_master<T: std::convert::Into<std::boxed::Box<crate::model::GKEMasterInfo>>>(
         mut self,
@@ -5057,6 +5098,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_gke_pod<T: std::convert::Into<std::boxed::Box<crate::model::GkePodInfo>>>(
         mut self,
@@ -5128,6 +5170,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_ip_masquerading_skipped<
         T: std::convert::Into<std::boxed::Box<crate::model::IpMasqueradingSkippedInfo>>,
@@ -5203,6 +5246,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_gke_network_policy<
         T: std::convert::Into<std::boxed::Box<crate::model::GkeNetworkPolicyInfo>>,
@@ -5279,6 +5323,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_gke_network_policy_skipped<
         T: std::convert::Into<std::boxed::Box<crate::model::GkeNetworkPolicySkippedInfo>>,
@@ -5354,6 +5399,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_cloud_sql_instance<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudSQLInstanceInfo>>,
@@ -5428,6 +5474,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_redis_instance<
         T: std::convert::Into<std::boxed::Box<crate::model::RedisInstanceInfo>>,
@@ -5502,6 +5549,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_redis_cluster<
         T: std::convert::Into<std::boxed::Box<crate::model::RedisClusterInfo>>,
@@ -5576,6 +5624,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_cloud_function<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudFunctionInfo>>,
@@ -5650,6 +5699,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_app_engine_version<
         T: std::convert::Into<std::boxed::Box<crate::model::AppEngineVersionInfo>>,
@@ -5724,6 +5774,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_cloud_run_revision<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudRunRevisionInfo>>,
@@ -5798,6 +5849,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_cloud_run_job<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudRunJobInfo>>,
@@ -5870,6 +5922,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_nat<T: std::convert::Into<std::boxed::Box<crate::model::NatInfo>>>(
         mut self,
@@ -5941,6 +5994,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_proxy_connection<
         T: std::convert::Into<std::boxed::Box<crate::model::ProxyConnectionInfo>>,
@@ -6017,6 +6071,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_load_balancer_backend_info<
         T: std::convert::Into<std::boxed::Box<crate::model::LoadBalancerBackendInfo>>,
@@ -6092,6 +6147,7 @@ impl Step {
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_storage_bucket<
         T: std::convert::Into<std::boxed::Box<crate::model::StorageBucketInfo>>,
@@ -6166,6 +6222,7 @@ impl Step {
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_serverless_neg<
         T: std::convert::Into<std::boxed::Box<crate::model::ServerlessNegInfo>>,
@@ -6240,6 +6297,7 @@ impl Step {
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.dms_private_connection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_ngfw_packet_inspection<
         T: std::convert::Into<std::boxed::Box<crate::model::NgfwPacketInspectionInfo>>,
@@ -6314,6 +6372,7 @@ impl Step {
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
     /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.datastream_private_connection().is_none());
     /// ```
     pub fn set_dms_private_connection<
         T: std::convert::Into<std::boxed::Box<crate::model::PrivateConnectionInfo>>,
@@ -6323,6 +6382,84 @@ impl Step {
     ) -> Self {
         self.step_info =
             std::option::Option::Some(crate::model::step::StepInfo::DmsPrivateConnection(v.into()));
+        self
+    }
+
+    /// The value of [step_info][crate::model::Step::step_info]
+    /// if it holds a `DatastreamPrivateConnection`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn datastream_private_connection(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PrivateConnectionInfo>> {
+        #[allow(unreachable_patterns)]
+        self.step_info.as_ref().and_then(|v| match v {
+            crate::model::step::StepInfo::DatastreamPrivateConnection(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [step_info][crate::model::Step::step_info]
+    /// to hold a `DatastreamPrivateConnection`.
+    ///
+    /// Note that all the setters affecting `step_info` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::Step;
+    /// use google_cloud_networkmanagement_v1::model::PrivateConnectionInfo;
+    /// let x = Step::new().set_datastream_private_connection(PrivateConnectionInfo::default()/* use setters */);
+    /// assert!(x.datastream_private_connection().is_some());
+    /// assert!(x.instance().is_none());
+    /// assert!(x.firewall().is_none());
+    /// assert!(x.route().is_none());
+    /// assert!(x.endpoint().is_none());
+    /// assert!(x.google_service().is_none());
+    /// assert!(x.forwarding_rule().is_none());
+    /// assert!(x.hybrid_subnet().is_none());
+    /// assert!(x.vpn_gateway().is_none());
+    /// assert!(x.vpn_tunnel().is_none());
+    /// assert!(x.interconnect_attachment().is_none());
+    /// assert!(x.vpc_connector().is_none());
+    /// assert!(x.direct_vpc_egress_connection().is_none());
+    /// assert!(x.serverless_external_connection().is_none());
+    /// assert!(x.deliver().is_none());
+    /// assert!(x.forward().is_none());
+    /// assert!(x.abort().is_none());
+    /// assert!(x.drop().is_none());
+    /// assert!(x.load_balancer().is_none());
+    /// assert!(x.network().is_none());
+    /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
+    /// assert!(x.cloud_sql_instance().is_none());
+    /// assert!(x.redis_instance().is_none());
+    /// assert!(x.redis_cluster().is_none());
+    /// assert!(x.cloud_function().is_none());
+    /// assert!(x.app_engine_version().is_none());
+    /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.cloud_run_job().is_none());
+    /// assert!(x.nat().is_none());
+    /// assert!(x.proxy_connection().is_none());
+    /// assert!(x.load_balancer_backend_info().is_none());
+    /// assert!(x.storage_bucket().is_none());
+    /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
+    /// assert!(x.dms_private_connection().is_none());
+    /// ```
+    pub fn set_datastream_private_connection<
+        T: std::convert::Into<std::boxed::Box<crate::model::PrivateConnectionInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.step_info = std::option::Option::Some(
+            crate::model::step::StepInfo::DatastreamPrivateConnection(v.into()),
+        );
         self
     }
 }
@@ -6413,6 +6550,8 @@ pub mod step {
         StartFromServerlessNeg,
         /// Initial state: packet originating from a DMS Private Connection.
         StartFromDmsPrivateConnection,
+        /// Initial state: packet originating from a Datastream Private Connection.
+        StartFromDatastreamPrivateConnection,
         /// Config checking state: verify ingress firewall rule.
         ApplyIngressFirewallRule,
         /// Config checking state: verify egress firewall rule.
@@ -6450,8 +6589,8 @@ pub mod step {
         /// Forwarding state: for packets originating from a serverless endpoint
         /// forwarded through Direct VPC egress.
         DirectVpcEgressConnection,
-        /// Forwarding state: for packets originating from a serverless endpoint
-        /// forwarded through public (external) connectivity.
+        /// Forwarding state: for packets originating from a serverless
+        /// endpoint forwarded through public (external) connectivity.
         ServerlessExternalConnection,
         /// Forwarding state: Layer 7 packet inspection by the firewall endpoint
         /// based on the configured security profile group.
@@ -6527,6 +6666,7 @@ pub mod step {
                 Self::StartFromPscPublishedService => std::option::Option::Some(30),
                 Self::StartFromServerlessNeg => std::option::Option::Some(31),
                 Self::StartFromDmsPrivateConnection => std::option::Option::Some(48),
+                Self::StartFromDatastreamPrivateConnection => std::option::Option::Some(49),
                 Self::ApplyIngressFirewallRule => std::option::Option::Some(4),
                 Self::ApplyEgressFirewallRule => std::option::Option::Some(5),
                 Self::ApplyRoute => std::option::Option::Some(6),
@@ -6608,6 +6748,9 @@ pub mod step {
                 }
                 Self::StartFromDmsPrivateConnection => {
                     std::option::Option::Some("START_FROM_DMS_PRIVATE_CONNECTION")
+                }
+                Self::StartFromDatastreamPrivateConnection => {
+                    std::option::Option::Some("START_FROM_DATASTREAM_PRIVATE_CONNECTION")
                 }
                 Self::ApplyIngressFirewallRule => {
                     std::option::Option::Some("APPLY_INGRESS_FIREWALL_RULE")
@@ -6735,6 +6878,7 @@ pub mod step {
                 46 => Self::ApplyEgressGkeNetworkPolicy,
                 47 => Self::NgfwPacketInspection,
                 48 => Self::StartFromDmsPrivateConnection,
+                49 => Self::StartFromDatastreamPrivateConnection,
                 50 => Self::StartFromCloudRunJob,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
@@ -6765,6 +6909,9 @@ pub mod step {
                 "START_FROM_PSC_PUBLISHED_SERVICE" => Self::StartFromPscPublishedService,
                 "START_FROM_SERVERLESS_NEG" => Self::StartFromServerlessNeg,
                 "START_FROM_DMS_PRIVATE_CONNECTION" => Self::StartFromDmsPrivateConnection,
+                "START_FROM_DATASTREAM_PRIVATE_CONNECTION" => {
+                    Self::StartFromDatastreamPrivateConnection
+                }
                 "APPLY_INGRESS_FIREWALL_RULE" => Self::ApplyIngressFirewallRule,
                 "APPLY_EGRESS_FIREWALL_RULE" => Self::ApplyEgressFirewallRule,
                 "APPLY_ROUTE" => Self::ApplyRoute,
@@ -6826,6 +6973,7 @@ pub mod step {
                 Self::StartFromPscPublishedService => serializer.serialize_i32(30),
                 Self::StartFromServerlessNeg => serializer.serialize_i32(31),
                 Self::StartFromDmsPrivateConnection => serializer.serialize_i32(48),
+                Self::StartFromDatastreamPrivateConnection => serializer.serialize_i32(49),
                 Self::ApplyIngressFirewallRule => serializer.serialize_i32(4),
                 Self::ApplyEgressFirewallRule => serializer.serialize_i32(5),
                 Self::ApplyRoute => serializer.serialize_i32(6),
@@ -6966,6 +7114,8 @@ pub mod step {
         NgfwPacketInspection(std::boxed::Box<crate::model::NgfwPacketInspectionInfo>),
         /// Display information of a DMS Private Connection.
         DmsPrivateConnection(std::boxed::Box<crate::model::PrivateConnectionInfo>),
+        /// Display information of a Datastream Private Connection.
+        DatastreamPrivateConnection(std::boxed::Box<crate::model::PrivateConnectionInfo>),
     }
 }
 
@@ -6976,13 +7126,15 @@ pub struct InstanceInfo {
     /// Name of a Compute Engine instance.
     pub display_name: std::string::String,
 
-    /// URI of a Compute Engine instance.
+    /// URI of a Compute Engine instance in format
+    /// "projects/{project}/zones/{zone}/instances/{instance}"
     pub uri: std::string::String,
 
     /// Name of the network interface of a Compute Engine instance.
     pub interface: std::string::String,
 
-    /// URI of a Compute Engine network.
+    /// URI of a Compute Engine network in format
+    /// "projects/{project}/global/networks/{network}"
     pub network_uri: std::string::String,
 
     /// Internal IP address of the network interface.
@@ -6998,7 +7150,9 @@ pub struct InstanceInfo {
     #[deprecated]
     pub service_account: std::string::String,
 
-    /// URI of the PSC network attachment the NIC is attached to (if relevant).
+    /// URI of the PSC network attachment the NIC is attached to (if relevant) in
+    /// format
+    /// "projects/{project}/regions/{region}/networkAttachments/{network_attachment}"
     pub psc_network_attachment_uri: std::string::String,
 
     /// Indicates whether the Compute Engine instance is running.
@@ -7318,10 +7472,12 @@ pub struct NetworkInfo {
     /// Name of a Compute Engine network.
     pub display_name: std::string::String,
 
-    /// URI of a Compute Engine network.
+    /// URI of a Compute Engine network in format
+    /// "projects/{project}/global/networks/{network}"
     pub uri: std::string::String,
 
-    /// URI of the subnet matching the source IP address of the test.
+    /// URI of the subnet matching the source IP address of the test in format
+    /// "projects/{project}/regions/{region}/subnetworks/{subnetwork}"
     pub matched_subnet_uri: std::string::String,
 
     /// The IP range of the subnet matching the source IP address of the test.
@@ -7421,8 +7577,9 @@ pub struct FirewallInfo {
     /// firewall policy rules.
     pub display_name: std::string::String,
 
-    /// The URI of the firewall rule. This field is not applicable to implied
-    /// VPC firewall rules.
+    /// The URI of the firewall rule in format
+    /// "projects/{project}/global/firewalls/{firewall}". This field is not
+    /// applicable to implied VPC firewall rules.
     pub uri: std::string::String,
 
     /// Possible values: INGRESS, EGRESS
@@ -7434,7 +7591,8 @@ pub struct FirewallInfo {
     /// The priority of the firewall rule.
     pub priority: i32,
 
-    /// The URI of the VPC network that the firewall rule is associated with.
+    /// The URI of the VPC network that the firewall rule is associated with in
+    /// format "projects/{project}/global/networks/{network}".
     /// This field is not applicable to hierarchical firewall policy rules.
     pub network_uri: std::string::String,
 
@@ -7453,6 +7611,13 @@ pub struct FirewallInfo {
     /// The URI of the firewall policy that this rule is associated with.
     /// This field is not applicable to VPC firewall rules and implied VPC firewall
     /// rules.
+    /// Format:
+    ///
+    /// * `locations/global/firewallPolicies/{policy_id}` (hierarchical policy)
+    /// * `projects/{project_id}/global/firewallPolicies/{policy_id}` (global
+    ///   network firewall policy)
+    /// * `projects/{project_id}/regions/{region}/firewallPolicies/{policy_id}`
+    ///   (regional network firewall policy)
     pub policy_uri: std::string::String,
 
     /// The firewall rule's type.
@@ -8053,8 +8218,9 @@ pub struct RouteInfo {
     /// Name of a route.
     pub display_name: std::string::String,
 
-    /// URI of a route. SUBNET, STATIC, PEERING_SUBNET (only for peering network)
-    /// and POLICY_BASED routes only.
+    /// URI of a route in format
+    /// "projects/{project}/global/routes/{route}". SUBNET, STATIC,
+    /// PEERING_SUBNET (only for peering network) and POLICY_BASED routes only.
     pub uri: std::string::String,
 
     /// Region of the route. DYNAMIC, PEERING_DYNAMIC, POLICY_BASED and ADVERTISED
@@ -8073,7 +8239,8 @@ pub struct RouteInfo {
     #[deprecated]
     pub next_hop: std::string::String,
 
-    /// URI of a VPC network where route is located.
+    /// URI of a VPC network where route is located in format
+    /// "projects/{project}/global/networks/{network}".
     pub network_uri: std::string::String,
 
     /// Priority of the route.
@@ -8094,16 +8261,21 @@ pub struct RouteInfo {
     /// Protocols of the route. POLICY_BASED routes only.
     pub protocols: std::vec::Vec<std::string::String>,
 
-    /// URI of the NCC Hub the route is advertised by. PEERING_SUBNET and
+    /// URI of the NCC Hub the route is advertised by in format
+    /// "projects/{project}/locations/global/hubs/{hub}". PEERING_SUBNET and
     /// PEERING_DYNAMIC routes that are advertised by NCC Hub only.
     pub ncc_hub_uri: std::option::Option<std::string::String>,
 
-    /// URI of the destination NCC Spoke. PEERING_SUBNET and PEERING_DYNAMIC routes
-    /// that are advertised by NCC Hub only.
+    /// URI of the destination NCC Spoke in format
+    /// "projects/{project}/locations/{location}/spokes/{spoke}" (regional) or
+    /// "projects/{project}/locations/global/spokes/{spoke}" (global).
+    /// PEERING_SUBNET and PEERING_DYNAMIC routes that are advertised by NCC Hub
+    /// only.
     pub ncc_spoke_uri: std::option::Option<std::string::String>,
 
     /// For ADVERTISED dynamic routes, the URI of the Cloud Router that advertised
-    /// the corresponding IP prefix.
+    /// the corresponding IP prefix in format
+    /// "projects/{project}/regions/{region}/routers/{router}".
     pub advertised_route_source_router_uri: std::option::Option<std::string::String>,
 
     /// For ADVERTISED routes, the URI of their next hop, i.e. the URI of the
@@ -8117,11 +8289,13 @@ pub struct RouteInfo {
     /// URI of the next hop resource.
     pub next_hop_uri: std::string::String,
 
-    /// URI of a VPC network where the next hop resource is located.
+    /// URI of a VPC network where the next hop resource is located in format
+    /// "projects/{project}/global/networks/{network}".
     pub next_hop_network_uri: std::string::String,
 
     /// For PEERING_SUBNET and PEERING_STATIC routes, the URI of the originating
     /// SUBNET/STATIC route.
+    /// Format: `projects/{project_id}/global/routes/{route_id}`
     pub originating_route_uri: std::string::String,
 
     /// For PEERING_SUBNET, PEERING_STATIC and PEERING_DYNAMIC routes, the name of
@@ -8130,6 +8304,8 @@ pub struct RouteInfo {
 
     /// For PEERING_SUBNET and PEERING_DYNAMIC routes that are advertised by NCC
     /// Hub, the URI of the corresponding route in NCC Hub's routing table.
+    /// Format:
+    /// `projects/{project_id}/locations/global/hubs/{hub_id}/routeTables/{route_table_id}/routes/{route_id}`
     pub ncc_hub_route_uri: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9364,7 +9540,10 @@ pub struct ForwardingRuleInfo {
     /// Name of the forwarding rule.
     pub display_name: std::string::String,
 
-    /// URI of the forwarding rule.
+    /// URI of the forwarding rule in format
+    /// "projects/{project}/global/forwardingRules/{forwarding_rule}" (global) or
+    /// "projects/{project}/regions/{region}/forwardingRules/{forwarding_rule}"
+    /// (regional).
     pub uri: std::string::String,
 
     /// Protocol defined in the forwarding rule that matches the packet.
@@ -9379,7 +9558,8 @@ pub struct ForwardingRuleInfo {
     /// Target type of the forwarding rule.
     pub target: std::string::String,
 
-    /// Network URI.
+    /// URI of a VPC network where the forwarding rule is located in format
+    /// "projects/{project}/global/networks/{network}".
     pub network_uri: std::string::String,
 
     /// Region of the forwarding rule. Set only for regional forwarding rules.
@@ -9390,7 +9570,8 @@ pub struct ForwardingRuleInfo {
     pub load_balancer_name: std::string::String,
 
     /// URI of the PSC service attachment this forwarding rule targets (if
-    /// applicable).
+    /// applicable) in format
+    /// "projects/{project}/regions/{region}/serviceAttachments/{service_attachment}".
     pub psc_service_attachment_uri: std::string::String,
 
     /// PSC Google API target this forwarding rule targets (if applicable).
@@ -9578,7 +9759,13 @@ pub struct LoadBalancerInfo {
     /// Type of load balancer's backend configuration.
     pub backend_type: crate::model::load_balancer_info::BackendType,
 
-    /// Backend configuration URI.
+    /// URI of the backend associated with the load balancer.
+    /// Format:
+    ///
+    /// * `projects/{project_id}/regions/{region}/backendServices/{backend_service_id}`
+    /// * `projects/{project_id}/global/backendServices/{backend_service_id}`
+    /// * `projects/{project_id}/regions/{region}/targetPools/{target_pool_id}`
+    /// * `projects/{project_id}/zones/{zone}/targetInstances/{target_instance_id}`
     pub backend_uri: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9992,7 +10179,16 @@ pub struct LoadBalancerBackend {
     /// Name of a Compute Engine instance or network endpoint.
     pub display_name: std::string::String,
 
-    /// URI of a Compute Engine instance or network endpoint.
+    /// URI of the backend instance or network endpoint.
+    /// Format:
+    ///
+    /// * `projects/{project_id}/zones/{zone}/instances/{instance_id}` (instance)
+    /// * `projects/{project_id}/zones/{zone}/networkEndpointGroups/{neg_id}`
+    ///   (zonal NEG)
+    /// * `projects/{project_id}/regions/{region}/networkEndpointGroups/{neg_id}`
+    ///   (regional NEG)
+    /// * `projects/{project_id}/global/networkEndpointGroups/{neg_id}` (global
+    ///   NEG)
     pub uri: std::string::String,
 
     /// State of the health check firewall configuration.
@@ -10248,7 +10444,9 @@ pub struct HybridSubnetInfo {
     /// Name of a hybrid subnet.
     pub display_name: std::string::String,
 
-    /// URI of a hybrid subnet.
+    /// URI of the hybrid subnet.
+    /// Format:
+    /// `projects/{project_id}/regions/{region}/subnetworks/{subnetwork_id}`
     pub uri: std::string::String,
 
     /// Name of a Google Cloud region where the hybrid subnet is configured.
@@ -10313,18 +10511,25 @@ pub struct VpnGatewayInfo {
     /// Name of a VPN gateway.
     pub display_name: std::string::String,
 
-    /// URI of a VPN gateway.
+    /// URI of the VPN gateway.
+    /// Format:
+    ///
+    /// * `projects/{project_id}/regions/{region}/vpnGateways/{vpn_gateway_id}` (HA
+    ///   VPN gateway)
+    /// * `projects/{project_id}/regions/{region}/targetVpnGateways/{target_vpn_gateway_id}` (Classic VPN gateway)
     pub uri: std::string::String,
 
-    /// URI of a Compute Engine network where the VPN gateway is configured.
+    /// URI of the VPC network where the VPN gateway is configured.
+    /// Format: `projects/{project_id}/global/networks/{network_id}`
     pub network_uri: std::string::String,
 
     /// IP address of the VPN gateway.
     pub ip_address: std::string::String,
 
-    /// A VPN tunnel that is associated with this VPN gateway.
+    /// URI of the VPN tunnel associated with the VPN gateway.
     /// There may be multiple VPN tunnels configured on a VPN gateway, and only
     /// the one relevant to the test is displayed.
+    /// Format: `projects/{project_id}/regions/{region}/vpnTunnels/{vpn_tunnel_id}`
     pub vpn_tunnel_uri: std::string::String,
 
     /// Name of a Google Cloud region where this VPN gateway is configured.
@@ -10425,13 +10630,25 @@ pub struct VpnTunnelInfo {
     /// Name of a VPN tunnel.
     pub display_name: std::string::String,
 
-    /// URI of a VPN tunnel.
+    /// URI of the VPN tunnel.
+    /// Format: `projects/{project_id}/regions/{region}/vpnTunnels/{vpn_tunnel_id}`
     pub uri: std::string::String,
 
     /// URI of the VPN gateway at local end of the tunnel.
+    /// Format:
+    ///
+    /// * `projects/{project_id}/regions/{region}/vpnGateways/{vpn_gateway_id}` (HA
+    ///   VPN gateway)
+    /// * `projects/{project_id}/regions/{region}/targetVpnGateways/{target_vpn_gateway_id}` (Classic VPN gateway)
     pub source_gateway: std::string::String,
 
     /// URI of a VPN gateway at remote end of the tunnel.
+    /// Format:
+    ///
+    /// * `projects/{project_id}/regions/{region}/vpnGateways/{vpn_gateway_id}`
+    ///   (GCP HA VPN gateway)
+    /// * `projects/{project_id}/global/peerVpnGateways/{peer_vpn_gateway_id}` (GCP
+    ///   peer VPN gateway)
     pub remote_gateway: std::string::String,
 
     /// Remote VPN gateway's IP address.
@@ -10440,7 +10657,8 @@ pub struct VpnTunnelInfo {
     /// Local VPN gateway's IP address.
     pub source_gateway_ip: std::string::String,
 
-    /// URI of a Compute Engine network where the VPN tunnel is configured.
+    /// URI of the VPC network where the VPN tunnel is configured.
+    /// Format: `projects/{project_id}/global/networks/{network_id}`
     pub network_uri: std::string::String,
 
     /// Name of a Google Cloud region where this VPN tunnel is configured.
@@ -10738,11 +10956,13 @@ pub struct InterconnectAttachmentInfo {
     /// Name of an Interconnect attachment.
     pub display_name: std::string::String,
 
-    /// URI of an Interconnect attachment.
+    /// URI of the Interconnect attachment.
+    /// Format:
+    /// `projects/{project_id}/regions/{region}/interconnectAttachments/{attachment_id}`
     pub uri: std::string::String,
 
-    /// URI of the Interconnect where the Interconnect attachment is
-    /// configured.
+    /// URI of the Interconnect.
+    /// Format: `projects/{project_id}/global/interconnects/{interconnect_id}`
     pub interconnect_uri: std::string::String,
 
     /// Name of a Google Cloud region where the Interconnect attachment is
@@ -10750,6 +10970,7 @@ pub struct InterconnectAttachmentInfo {
     pub region: std::string::String,
 
     /// URI of the Cloud Router to be used for dynamic routing.
+    /// Format: `projects/{project_id}/regions/{region}/routers/{router_id}`
     pub cloud_router_uri: std::string::String,
 
     /// The type of interconnect attachment this is.
@@ -11047,9 +11268,11 @@ pub struct EndpointInfo {
     pub destination_port: i32,
 
     /// URI of the network where this packet originates from.
+    /// Format: `projects/{project_id}/global/networks/{network_id}`
     pub source_network_uri: std::string::String,
 
     /// URI of the network where this packet is sent to.
+    /// Format: `projects/{project_id}/global/networks/{network_id}`
     pub destination_network_uri: std::string::String,
 
     /// URI of the source telemetry agent this packet originates from.
@@ -11184,6 +11407,10 @@ pub struct DeliverInfo {
     pub target: crate::model::deliver_info::Target,
 
     /// URI of the resource that the packet is delivered to.
+    /// For example:
+    ///
+    /// * `"projects/{project}/zones/{zone}/instances/{instance}"`
+    /// * `"projects/{project}/regions/{region}/networkEndpointGroups/{network_endpoint_group}"`
     pub resource_uri: std::string::String,
 
     /// IP address of the target (if applicable).
@@ -11373,6 +11600,8 @@ pub mod deliver_info {
         CloudRunJob,
         /// Target is a DMS Private Connection. Used only for return traces.
         DmsPrivateConnection,
+        /// Target is a Datastream Private Connection. Used only for return traces.
+        DatastreamPrivateConnection,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Target::value] or
@@ -11416,6 +11645,7 @@ pub mod deliver_info {
                 Self::GkePod => std::option::Option::Some(19),
                 Self::CloudRunJob => std::option::Option::Some(20),
                 Self::DmsPrivateConnection => std::option::Option::Some(21),
+                Self::DatastreamPrivateConnection => std::option::Option::Some(22),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -11447,6 +11677,9 @@ pub mod deliver_info {
                 Self::GkePod => std::option::Option::Some("GKE_POD"),
                 Self::CloudRunJob => std::option::Option::Some("CLOUD_RUN_JOB"),
                 Self::DmsPrivateConnection => std::option::Option::Some("DMS_PRIVATE_CONNECTION"),
+                Self::DatastreamPrivateConnection => {
+                    std::option::Option::Some("DATASTREAM_PRIVATE_CONNECTION")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -11489,6 +11722,7 @@ pub mod deliver_info {
                 19 => Self::GkePod,
                 20 => Self::CloudRunJob,
                 21 => Self::DmsPrivateConnection,
+                22 => Self::DatastreamPrivateConnection,
                 _ => Self::UnknownValue(target::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -11521,6 +11755,7 @@ pub mod deliver_info {
                 "GKE_POD" => Self::GkePod,
                 "CLOUD_RUN_JOB" => Self::CloudRunJob,
                 "DMS_PRIVATE_CONNECTION" => Self::DmsPrivateConnection,
+                "DATASTREAM_PRIVATE_CONNECTION" => Self::DatastreamPrivateConnection,
                 _ => Self::UnknownValue(target::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -11555,6 +11790,7 @@ pub mod deliver_info {
                 Self::GkePod => serializer.serialize_i32(19),
                 Self::CloudRunJob => serializer.serialize_i32(20),
                 Self::DmsPrivateConnection => serializer.serialize_i32(21),
+                Self::DatastreamPrivateConnection => serializer.serialize_i32(22),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -11746,6 +11982,12 @@ pub struct ForwardInfo {
     pub target: crate::model::forward_info::Target,
 
     /// URI of the resource that the packet is forwarded to.
+    /// Format:
+    ///
+    /// * `projects/{project_id}/global/networks/{network_id}` (VPC peering
+    ///   network)
+    /// * `projects/{project_id}/regions/{region}/vpnGateways/{vpn_gateway_id}`
+    ///   (VPN gateway)
     pub resource_uri: std::string::String,
 
     /// IP address of the target (if applicable).
@@ -12017,6 +12259,11 @@ pub struct AbortInfo {
     pub cause: crate::model::abort_info::Cause,
 
     /// URI of the resource that caused the abort.
+    /// Format:
+    ///
+    /// * `projects/{project_id}/global/networks/{network_id}` (VPC network)
+    /// * `projects/{project_id}/zones/{zone}/instances/{instance_id}` (VM
+    ///   instance)
     pub resource_uri: std::string::String,
 
     /// IP address that caused the abort.
@@ -12656,6 +12903,10 @@ pub struct DropInfo {
     pub cause: crate::model::drop_info::Cause,
 
     /// URI of the resource that caused the drop.
+    /// Format:
+    ///
+    /// * `projects/{project_id}/global/firewalls/{firewall_id}` (firewall rule)
+    /// * `projects/{project_id}/global/routes/{route_id}` (route)
     pub resource_uri: std::string::String,
 
     /// Source IP address of the dropped packet (if relevant).
@@ -12920,6 +13171,8 @@ pub mod drop_info {
         DroppedInsideCloudSqlService,
         /// Packet was dropped inside DMS Private Connection.
         DroppedInsideDmsPrivateConnection,
+        /// Packet was dropped inside Datastream Private Connection.
+        DroppedInsideDatastreamPrivateConnection,
         /// Packet was dropped because there is no peering between the originating
         /// network and the Google Managed Services Network.
         GoogleManagedServiceNoPeering,
@@ -13193,6 +13446,7 @@ pub mod drop_info {
                 Self::DroppedInsideGkeService => std::option::Option::Some(18),
                 Self::DroppedInsideCloudSqlService => std::option::Option::Some(19),
                 Self::DroppedInsideDmsPrivateConnection => std::option::Option::Some(114),
+                Self::DroppedInsideDatastreamPrivateConnection => std::option::Option::Some(115),
                 Self::GoogleManagedServiceNoPeering => std::option::Option::Some(20),
                 Self::GoogleManagedServiceNoPscEndpoint => std::option::Option::Some(38),
                 Self::GkePscEndpointMissing => std::option::Option::Some(36),
@@ -13378,6 +13632,9 @@ pub mod drop_info {
                 }
                 Self::DroppedInsideDmsPrivateConnection => {
                     std::option::Option::Some("DROPPED_INSIDE_DMS_PRIVATE_CONNECTION")
+                }
+                Self::DroppedInsideDatastreamPrivateConnection => {
+                    std::option::Option::Some("DROPPED_INSIDE_DATASTREAM_PRIVATE_CONNECTION")
                 }
                 Self::GoogleManagedServiceNoPeering => {
                     std::option::Option::Some("GOOGLE_MANAGED_SERVICE_NO_PEERING")
@@ -13702,6 +13959,7 @@ pub mod drop_info {
                 111 => Self::PrivateConnectionNoRunningInstance,
                 113 => Self::CloudRunJobNotReady,
                 114 => Self::DroppedInsideDmsPrivateConnection,
+                115 => Self::DroppedInsideDatastreamPrivateConnection,
                 _ => Self::UnknownValue(cause::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -13773,6 +14031,9 @@ pub mod drop_info {
                 "DROPPED_INSIDE_GKE_SERVICE" => Self::DroppedInsideGkeService,
                 "DROPPED_INSIDE_CLOUD_SQL_SERVICE" => Self::DroppedInsideCloudSqlService,
                 "DROPPED_INSIDE_DMS_PRIVATE_CONNECTION" => Self::DroppedInsideDmsPrivateConnection,
+                "DROPPED_INSIDE_DATASTREAM_PRIVATE_CONNECTION" => {
+                    Self::DroppedInsideDatastreamPrivateConnection
+                }
                 "GOOGLE_MANAGED_SERVICE_NO_PEERING" => Self::GoogleManagedServiceNoPeering,
                 "GOOGLE_MANAGED_SERVICE_NO_PSC_ENDPOINT" => Self::GoogleManagedServiceNoPscEndpoint,
                 "GKE_PSC_ENDPOINT_MISSING" => Self::GkePscEndpointMissing,
@@ -13946,6 +14207,7 @@ pub mod drop_info {
                 Self::DroppedInsideGkeService => serializer.serialize_i32(18),
                 Self::DroppedInsideCloudSqlService => serializer.serialize_i32(19),
                 Self::DroppedInsideDmsPrivateConnection => serializer.serialize_i32(114),
+                Self::DroppedInsideDatastreamPrivateConnection => serializer.serialize_i32(115),
                 Self::GoogleManagedServiceNoPeering => serializer.serialize_i32(20),
                 Self::GoogleManagedServiceNoPscEndpoint => serializer.serialize_i32(38),
                 Self::GkePscEndpointMissing => serializer.serialize_i32(36),
@@ -14040,10 +14302,17 @@ pub mod drop_info {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GKEMasterInfo {
-    /// URI of a GKE cluster.
+    /// URI of the GKE cluster.
+    /// Format:
+    ///
+    /// * `projects/{project_id}/locations/{location}/clusters/{cluster_id}`
+    ///   (regional cluster)
+    /// * `projects/{project_id}/zones/{zone}/clusters/{cluster_id}` (zonal
+    ///   cluster)
     pub cluster_uri: std::string::String,
 
-    /// URI of a GKE cluster network.
+    /// URI of the GKE cluster network.
+    /// Format: `projects/{project_id}/global/networks/{network_id}`
     pub cluster_network_uri: std::string::String,
 
     /// Internal IP address of a GKE cluster control plane.
@@ -14151,6 +14420,7 @@ pub struct GkePodInfo {
     pub ip_address: std::string::String,
 
     /// URI of the network containing the GKE Pod.
+    /// Format: `projects/{project_id}/global/networks/{network_id}`
     pub network_uri: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -14769,11 +15039,12 @@ pub struct CloudSQLInstanceInfo {
     /// Name of a Cloud SQL instance.
     pub display_name: std::string::String,
 
-    /// URI of a Cloud SQL instance.
+    /// URI of a Cloud SQL instance in format
+    /// "projects/{project}/instances/{instance}"
     pub uri: std::string::String,
 
     /// URI of a Cloud SQL instance network or empty string if the instance does
-    /// not have one.
+    /// not have one. In format "projects/{project}/global/networks/{network}".
     pub network_uri: std::string::String,
 
     /// Internal IP address of a Cloud SQL instance.
@@ -14880,10 +15151,12 @@ pub struct RedisInstanceInfo {
     /// Name of a Cloud Redis Instance.
     pub display_name: std::string::String,
 
-    /// URI of a Cloud Redis Instance.
+    /// URI of a Cloud Redis Instance in format
+    /// "projects/{project}/locations/{location}/instances/{instance}"
     pub uri: std::string::String,
 
-    /// URI of a Cloud Redis Instance network.
+    /// URI of a Cloud Redis Instance network in format
+    /// "projects/{project}/global/networks/{network}".
     pub network_uri: std::string::String,
 
     /// Primary endpoint IP address of a Cloud Redis Instance.
@@ -15115,7 +15388,9 @@ pub struct CloudFunctionInfo {
     /// Name of a Cloud Function.
     pub display_name: std::string::String,
 
-    /// URI of a Cloud Function.
+    /// URI of the Cloud Function.
+    /// Format:
+    /// `projects/{project_id}/locations/{location}/functions/{function_id}`
     pub uri: std::string::String,
 
     /// Location in which the Cloud Function is deployed.
@@ -15195,13 +15470,17 @@ pub struct CloudRunRevisionInfo {
     /// Name of a Cloud Run revision.
     pub display_name: std::string::String,
 
-    /// URI of a Cloud Run revision.
+    /// URI of the Cloud Run revision.
+    /// Format:
+    /// `projects/{project_id}/locations/{location}/revisions/{revision_id}`
     pub uri: std::string::String,
 
     /// Location in which this revision is deployed.
     pub location: std::string::String,
 
     /// URI of Cloud Run service this revision belongs to.
+    /// Format: `projects/{project_id}/locations/{location}/services/{service_id}`
+    /// Mutually exclusive with `worker_pool_uri`.
     pub service_uri: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -15275,7 +15554,8 @@ pub struct CloudRunJobInfo {
     /// Name of a Cloud Run job.
     pub display_name: std::string::String,
 
-    /// URI of a Cloud Run job.
+    /// URI of the Cloud Run job.
+    /// Format: `projects/{project_id}/locations/{location}/jobs/{job_id}`
     pub uri: std::string::String,
 
     /// Location in which this job is deployed.
@@ -15340,7 +15620,8 @@ pub struct AppEngineVersionInfo {
     /// Name of an App Engine version.
     pub display_name: std::string::String,
 
-    /// URI of an App Engine version.
+    /// URI of the App Engine version.
+    /// Format: `apps/{app_id}/services/{service_id}/versions/{version_id}`
     pub uri: std::string::String,
 
     /// Runtime of the App Engine version.
@@ -15421,6 +15702,8 @@ pub struct VpcConnectorInfo {
     pub display_name: std::string::String,
 
     /// URI of a VPC connector.
+    /// Format:
+    /// `projects/{project_id}/locations/{location}/connectors/{connector_id}`
     pub uri: std::string::String,
 
     /// Location in which the VPC connector is deployed.
@@ -15483,10 +15766,13 @@ impl wkt::message::Message for VpcConnectorInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DirectVpcEgressConnectionInfo {
-    /// URI of direct access network.
+    /// URI of the VPC network for direct egress.
+    /// Format: `projects/{project_id}/global/networks/{network_id}`
     pub network_uri: std::string::String,
 
-    /// URI of direct access subnetwork.
+    /// URI of the subnetwork for direct egress.
+    /// Format:
+    /// `projects/{project_id}/regions/{region}/subnetworks/{subnetwork_id}`
     pub subnetwork_uri: std::string::String,
 
     /// Selected IP range.
@@ -15628,7 +15914,8 @@ pub struct NatInfo {
     /// IP protocol in string format, for example: "TCP", "UDP", "ICMP".
     pub protocol: std::string::String,
 
-    /// URI of the network where NAT translation takes place.
+    /// URI of the VPC network where NAT translation takes place.
+    /// Format: `projects/{project_id}/global/networks/{network_id}`
     pub network_uri: std::string::String,
 
     /// Source IP address before NAT translation.
@@ -15657,7 +15944,8 @@ pub struct NatInfo {
     /// UDP.
     pub new_destination_port: i32,
 
-    /// Uri of the Cloud Router. Only valid when type is CLOUD_NAT.
+    /// URI of the Cloud Router. Only valid when type is CLOUD_NAT.
+    /// Format: `projects/{project_id}/regions/{region}/routers/{router_id}`
     pub router_uri: std::string::String,
 
     /// The name of Cloud NAT Gateway. Only valid when type is CLOUD_NAT.
@@ -16218,10 +16506,13 @@ pub struct ProxyConnectionInfo {
     /// UDP.
     pub new_destination_port: i32,
 
-    /// Uri of proxy subnet.
+    /// URI of the proxy subnet.
+    /// Format:
+    /// `projects/{project_id}/regions/{region}/subnetworks/{subnetwork_id}`
     pub subnet_uri: std::string::String,
 
-    /// URI of the network where connection is proxied.
+    /// URI of the VPC network where connection is proxied.
+    /// Format: `projects/{project_id}/global/networks/{network_id}`
     pub network_uri: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -16387,30 +16678,52 @@ pub struct LoadBalancerBackendInfo {
     /// endpoint group backends.
     pub name: std::string::String,
 
-    /// URI of the backend instance (if applicable). Populated for instance group
-    /// backends, and zonal NEG backends.
+    /// URI of the backend instance (if applicable) in format
+    /// "projects/{project}/zones/{zone}/instances/{instance}". Populated for
+    /// instance group backends, and zonal NEG backends.
     pub instance_uri: std::string::String,
 
-    /// URI of the backend service this backend belongs to (if applicable).
+    /// URI of the backend service this backend belongs to (if applicable) in
+    /// format
+    /// "projects/{project}/regions/{region}/backendServices/{backend_service}"
+    /// (regional) or "projects/{project}/global/backendServices/{backend_service}"
+    /// (global).
     pub backend_service_uri: std::string::String,
 
-    /// URI of the instance group this backend belongs to (if applicable).
+    /// URI of the instance group this backend belongs to (if applicable) in
+    /// format "projects/{project}/zones/{zone}/instanceGroups/{instance_group}".
     pub instance_group_uri: std::string::String,
 
-    /// URI of the network endpoint group this backend belongs to (if applicable).
+    /// URI of the network endpoint group this backend belongs to (if applicable)
+    /// Format:
+    ///
+    /// * `projects/{project_id}/zones/{zone}/networkEndpointGroups/{neg_id}`
+    ///   (zonal NEG)
+    /// * `projects/{project_id}/regions/{region}/networkEndpointGroups/{neg_id}`
+    ///   (regional NEG)
+    /// * `projects/{project_id}/global/networkEndpointGroups/{neg_id}` (global
+    ///   NEG)
     pub network_endpoint_group_uri: std::string::String,
 
-    /// URI of the backend bucket this backend targets (if applicable).
+    /// URI of the backend bucket this backend targets (if applicable) in format
+    /// "projects/{project}/global/backendBuckets/{backend_bucket}".
     pub backend_bucket_uri: std::string::String,
 
     /// URI of the PSC service attachment this PSC NEG backend targets (if
-    /// applicable).
+    /// applicable) in format
+    /// "projects/{project}/regions/{region}/serviceAttachments/{service_attachment}".
     pub psc_service_attachment_uri: std::string::String,
 
     /// PSC Google API target this PSC NEG backend targets (if applicable).
     pub psc_google_api_target: std::string::String,
 
     /// URI of the health check attached to this backend (if applicable).
+    /// Format:
+    ///
+    /// * `projects/{project_id}/global/healthChecks/{health_check_id}`
+    /// * `projects/{project_id}/regions/{region}/healthChecks/{health_check_id}`
+    /// * `projects/{project_id}/global/httpHealthChecks/{health_check_id}`
+    ///   (legacy)
     pub health_check_uri: std::string::String,
 
     /// Output only. Health check firewalls configuration state for the backend.
@@ -16794,7 +17107,8 @@ impl wkt::message::Message for StorageBucketInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServerlessNegInfo {
-    /// URI of the serverless network endpoint group.
+    /// URI of the serverless network endpoint group in format
+    /// "projects/{project}/regions/{region}/networkEndpointGroups/{network_endpoint_group}".
     pub neg_uri: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -16832,6 +17146,8 @@ impl wkt::message::Message for ServerlessNegInfo {
 pub struct NgfwPacketInspectionInfo {
     /// URI of the security profile group associated with this firewall packet
     /// inspection.
+    /// Format:
+    /// `organizations/{organization_id}/locations/global/securityProfileGroups/{security_profile_group_id}`
     pub security_profile_group_uri: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
