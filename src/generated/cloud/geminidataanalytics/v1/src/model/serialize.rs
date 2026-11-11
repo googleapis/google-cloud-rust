@@ -1597,6 +1597,9 @@ impl serde::ser::Serialize for super::ListMessagesRequest {
         if !self.filter.is_empty() {
             state.serialize_entry("filter", &self.filter)?;
         }
+        if !wkt::internal::is_default(&self.pending_write_wait_skipped) {
+            state.serialize_entry("pendingWriteWaitSkipped", &self.pending_write_wait_skipped)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

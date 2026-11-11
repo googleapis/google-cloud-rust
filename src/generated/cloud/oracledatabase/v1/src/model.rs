@@ -61,13 +61,13 @@ pub struct AutonomousDatabase {
     /// Autonomous Database.
     pub entitlement_id: std::string::String,
 
-    /// Optional. Immutable. The password for the default ADMIN user.
+    /// Optional. Input only. Immutable. The password for the default ADMIN user.
     /// Note: Only one of `admin_password_secret_version` or `admin_password` can
     /// be populated.
     pub admin_password: std::string::String,
 
-    /// Optional. Immutable. The resource name of a secret version in Secret
-    /// Manager which contains the database admin user's password. Format:
+    /// Optional. Input only. Immutable. The resource name of a secret version in
+    /// Secret Manager which contains the database admin user's password. Format:
     /// projects/{project}/secrets/{secret}/versions/{version}. Note: Only one of
     /// `admin_password_secret_version` or `admin_password` can be populated.
     pub admin_password_secret_version: std::string::String,
@@ -7570,6 +7570,22 @@ pub struct IdentityConnector {
     /// Output only. The connection state of the identity connector.
     pub connection_state: crate::model::identity_connector::ConnectionState,
 
+    /// Output only. The resource name of the Workload Identity Pool
+    /// configured for identity federation with OCI. This exact pool name can be
+    /// used to configure VPC Service Controls (VPC-SC) egress rules.
+    /// Format:
+    /// `projects/{project}/locations/global/workloadIdentityPools/{workload_identity_pool}`
+    pub workload_identity_pool: std::string::String,
+
+    /// Output only. The unique partner identifier for the Identity Connector,
+    /// used to establish secure cross-cloud access between Google Cloud and OCI.
+    /// This corresponds directly to the ID of the OracleDbGcpIdentityConnector
+    /// resource in Oracle Cloud Infrastructure (OCI).
+    pub identity_connector_id: std::string::String,
+
+    /// Output only. Additional information about the current lifecycle state.
+    pub lifecycle_state_details: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7611,6 +7627,51 @@ impl IdentityConnector {
         v: T,
     ) -> Self {
         self.connection_state = v.into();
+        self
+    }
+
+    /// Sets the value of [workload_identity_pool][crate::model::IdentityConnector::workload_identity_pool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::IdentityConnector;
+    /// let x = IdentityConnector::new().set_workload_identity_pool("example");
+    /// ```
+    pub fn set_workload_identity_pool<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.workload_identity_pool = v.into();
+        self
+    }
+
+    /// Sets the value of [identity_connector_id][crate::model::IdentityConnector::identity_connector_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::IdentityConnector;
+    /// let x = IdentityConnector::new().set_identity_connector_id("example");
+    /// ```
+    pub fn set_identity_connector_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identity_connector_id = v.into();
+        self
+    }
+
+    /// Sets the value of [lifecycle_state_details][crate::model::IdentityConnector::lifecycle_state_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::IdentityConnector;
+    /// let x = IdentityConnector::new().set_lifecycle_state_details("example");
+    /// ```
+    pub fn set_lifecycle_state_details<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.lifecycle_state_details = v.into();
         self
     }
 }
@@ -7856,24 +7917,24 @@ pub struct Database {
     /// Optional. The DB_UNIQUE_NAME of the Oracle Database being backed up.
     pub db_unique_name: std::string::String,
 
-    /// Optional. The password for the default ADMIN user.
+    /// Optional. Input only. The password for the default ADMIN user.
     /// Note: Only one of `admin_password_secret_version` or `admin_password` can
     /// be populated.
     pub admin_password: std::string::String,
 
-    /// Optional. The resource name of a secret version in Secret Manager which
-    /// contains the database admin user's password. Format:
+    /// Optional. Input only. The resource name of a secret version in Secret
+    /// Manager which contains the database admin user's password. Format:
     /// projects/{project}/secrets/{secret}/versions/{version}. Note: Only one of
     /// `admin_password_secret_version` or `admin_password` can be populated.
     pub admin_password_secret_version: std::string::String,
 
-    /// Optional. The TDE wallet password for the database.
+    /// Optional. Input only. The TDE wallet password for the database.
     /// Note: Only one of `tde_wallet_password_secret_version` or
     /// `tde_wallet_password` can be populated.
     pub tde_wallet_password: std::string::String,
 
-    /// Optional. The resource name of a secret version in Secret Manager which
-    /// contains the TDE wallet password for the database. Format:
+    /// Optional. Input only. The resource name of a secret version in Secret
+    /// Manager which contains the TDE wallet password for the database. Format:
     /// projects/{project}/secrets/{secret}/versions/{version}. Note: Only one of
     /// `tde_wallet_password_secret_version` or `tde_wallet_password` can be
     /// populated.
@@ -10017,6 +10078,1166 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListDatabaseCha
     }
 }
 
+/// Represents DatabaseConnection resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DatabaseConnection {
+    /// Identifier. The resource name of the DatabaseConnection.
+    /// Format:
+    /// projects/{project}/locations/{location}/databaseConnections/{database_connection}
+    pub name: std::string::String,
+
+    /// Optional. Immutable. User-friendly display name for the connection.
+    pub display_name: std::string::String,
+
+    /// Optional. Immutable. The default database username to use for connections.
+    pub username: std::string::String,
+
+    /// Optional. The resource name of the GCP Secret Manager secret version
+    /// containing the password for the specified username.
+    /// Format: projects/{project}/secrets/{secret_id}/versions/{version_id}
+    /// The service's Per-Product Per-Project Service Account (P4SA)
+    /// must have the 'secretmanager.secretAccessor' permission on this secret.
+    pub password_secret_version: std::string::String,
+
+    /// Required. Immutable. Oracle Easy Connect or TNS connection string.
+    /// Example: "your-db-host.example.com:1521/YOUR_SERVICE_NAME"
+    pub connection_string: std::string::String,
+
+    /// Output only. The current state of the connection.
+    pub state: crate::model::database_connection::State,
+
+    /// Optional. Optional: Labels as key-value pairs to organize the resource.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. The create time of the resource.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The update time of the resource.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Additional information about the current state of the
+    /// connection.
+    pub lifecycle_details: std::string::String,
+
+    /// How the Oracle Wallet is supplied for secure TLS/mTLS connections.
+    pub wallet_source: std::option::Option<crate::model::database_connection::WalletSource>,
+
+    /// Network configuration for reaching the database.
+    pub network_configuration:
+        std::option::Option<crate::model::database_connection::NetworkConfiguration>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DatabaseConnection {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DatabaseConnection::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let database_connection_id = "database_connection_id";
+    /// let x = DatabaseConnection::new().set_name(format!("projects/{project_id}/locations/{location_id}/databaseConnections/{database_connection_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::DatabaseConnection::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// let x = DatabaseConnection::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [username][crate::model::DatabaseConnection::username].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// let x = DatabaseConnection::new().set_username("example");
+    /// ```
+    pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.username = v.into();
+        self
+    }
+
+    /// Sets the value of [password_secret_version][crate::model::DatabaseConnection::password_secret_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// let x = DatabaseConnection::new().set_password_secret_version("example");
+    /// ```
+    pub fn set_password_secret_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.password_secret_version = v.into();
+        self
+    }
+
+    /// Sets the value of [connection_string][crate::model::DatabaseConnection::connection_string].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// let x = DatabaseConnection::new().set_connection_string("example");
+    /// ```
+    pub fn set_connection_string<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.connection_string = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::DatabaseConnection::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// use google_cloud_oracledatabase_v1::model::database_connection::State;
+    /// let x0 = DatabaseConnection::new().set_state(State::Creating);
+    /// let x1 = DatabaseConnection::new().set_state(State::Active);
+    /// let x2 = DatabaseConnection::new().set_state(State::Failed);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::database_connection::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::DatabaseConnection::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// let x = DatabaseConnection::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::DatabaseConnection::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// use wkt::Timestamp;
+    /// let x = DatabaseConnection::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::DatabaseConnection::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// use wkt::Timestamp;
+    /// let x = DatabaseConnection::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DatabaseConnection::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::DatabaseConnection::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// use wkt::Timestamp;
+    /// let x = DatabaseConnection::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::DatabaseConnection::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// use wkt::Timestamp;
+    /// let x = DatabaseConnection::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DatabaseConnection::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [lifecycle_details][crate::model::DatabaseConnection::lifecycle_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// let x = DatabaseConnection::new().set_lifecycle_details("example");
+    /// ```
+    pub fn set_lifecycle_details<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.lifecycle_details = v.into();
+        self
+    }
+
+    /// Sets the value of [wallet_source][crate::model::DatabaseConnection::wallet_source].
+    ///
+    /// Note that all the setters affecting `wallet_source` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// use google_cloud_oracledatabase_v1::model::database_connection::WalletSource;
+    /// let x = DatabaseConnection::new().set_wallet_source(Some(WalletSource::WalletSecretVersion("example".to_string())));
+    /// ```
+    pub fn set_wallet_source<
+        T: std::convert::Into<std::option::Option<crate::model::database_connection::WalletSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.wallet_source = v.into();
+        self
+    }
+
+    /// The value of [wallet_source][crate::model::DatabaseConnection::wallet_source]
+    /// if it holds a `WalletSecretVersion`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn wallet_secret_version(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.wallet_source.as_ref().and_then(|v| match v {
+            crate::model::database_connection::WalletSource::WalletSecretVersion(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [wallet_source][crate::model::DatabaseConnection::wallet_source]
+    /// to hold a `WalletSecretVersion`.
+    ///
+    /// Note that all the setters affecting `wallet_source` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// let x = DatabaseConnection::new().set_wallet_secret_version("example");
+    /// assert!(x.wallet_secret_version().is_some());
+    /// ```
+    pub fn set_wallet_secret_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.wallet_source = std::option::Option::Some(
+            crate::model::database_connection::WalletSource::WalletSecretVersion(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [network_configuration][crate::model::DatabaseConnection::network_configuration].
+    ///
+    /// Note that all the setters affecting `network_configuration` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// use google_cloud_oracledatabase_v1::model::database_connection::NetworkConfiguration;
+    /// let x = DatabaseConnection::new().set_network_configuration(Some(NetworkConfiguration::OdbNetwork("example".to_string())));
+    /// ```
+    pub fn set_network_configuration<
+        T: std::convert::Into<
+                std::option::Option<crate::model::database_connection::NetworkConfiguration>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.network_configuration = v.into();
+        self
+    }
+
+    /// The value of [network_configuration][crate::model::DatabaseConnection::network_configuration]
+    /// if it holds a `OdbNetwork`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn odb_network(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.network_configuration.as_ref().and_then(|v| match v {
+            crate::model::database_connection::NetworkConfiguration::OdbNetwork(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [network_configuration][crate::model::DatabaseConnection::network_configuration]
+    /// to hold a `OdbNetwork`.
+    ///
+    /// Note that all the setters affecting `network_configuration` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let odb_network_id = "odb_network_id";
+    /// let x = DatabaseConnection::new().set_odb_network(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"));
+    /// assert!(x.odb_network().is_some());
+    /// ```
+    pub fn set_odb_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.network_configuration = std::option::Option::Some(
+            crate::model::database_connection::NetworkConfiguration::OdbNetwork(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for DatabaseConnection {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.DatabaseConnection"
+    }
+}
+
+/// Defines additional types related to [DatabaseConnection].
+pub mod database_connection {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// States of the DatabaseConnection resource.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Default unspecified value.
+        Unspecified,
+        /// Indicates that the resource is in a creating state.
+        Creating,
+        /// Indicates that the resource is in an active state.
+        Active,
+        /// Indicates that the resource is in a failed state.
+        Failed,
+        /// Indicates that the resource is in a deleting state.
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::Deleting => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Active,
+                3 => Self::Failed,
+                4 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "ACTIVE" => Self::Active,
+                "FAILED" => Self::Failed,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::Deleting => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.oracledatabase.v1.DatabaseConnection.State",
+            ))
+        }
+    }
+
+    /// How the Oracle Wallet is supplied for secure TLS/mTLS connections.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum WalletSource {
+        /// Optional. Optional: The resource name of the GCP Secret Manager secret
+        /// version containing base64 encoded content of the Oracle Wallet ZIP file
+        /// required for mTLS/TLS connections. Format:
+        /// projects/{project}/secrets/{secret_id}/versions/{version_id} The
+        /// service's Per-Product Per-Project Service Account (P4SA) must have the
+        /// 'secretmanager.secretAccessor' permission on this secret.
+        WalletSecretVersion(std::string::String),
+    }
+
+    /// Network configuration for reaching the database.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum NetworkConfiguration {
+        /// Optional. Immutable. For Oracle Database@Google cloud resources.
+        /// Format: projects/{project}/locations/{location}/odbNetworks/{odbNetwork}
+        OdbNetwork(std::string::String),
+    }
+}
+
+/// The request for `DatabaseConnection.Create`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateDatabaseConnectionRequest {
+    /// Required. The parent value for the DatabaseConnection in the following
+    /// format: projects/{project}/locations/{location}.
+    pub parent: std::string::String,
+
+    /// Required. The ID of the DatabaseConnection to create. This value is
+    /// restricted to (^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$) and must be a maximum of
+    /// 63 characters in length. The value must start with a letter and end with a
+    /// letter or a number.
+    pub database_connection_id: std::string::String,
+
+    /// Required. Details of the DatabaseConnection instance to create.
+    pub database_connection: std::option::Option<crate::model::DatabaseConnection>,
+
+    /// Optional. An optional ID to identify the request. This value is used to
+    /// identify duplicate requests. If you make a request with the same request ID
+    /// and the original request is still in progress or completed, the server
+    /// ignores the second request. This prevents clients from
+    /// accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateDatabaseConnectionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateDatabaseConnectionRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::CreateDatabaseConnectionRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateDatabaseConnectionRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [database_connection_id][crate::model::CreateDatabaseConnectionRequest::database_connection_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::CreateDatabaseConnectionRequest;
+    /// let x = CreateDatabaseConnectionRequest::new().set_database_connection_id("example");
+    /// ```
+    pub fn set_database_connection_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.database_connection_id = v.into();
+        self
+    }
+
+    /// Sets the value of [database_connection][crate::model::CreateDatabaseConnectionRequest::database_connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::CreateDatabaseConnectionRequest;
+    /// use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// let x = CreateDatabaseConnectionRequest::new().set_database_connection(DatabaseConnection::default()/* use setters */);
+    /// ```
+    pub fn set_database_connection<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DatabaseConnection>,
+    {
+        self.database_connection = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [database_connection][crate::model::CreateDatabaseConnectionRequest::database_connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::CreateDatabaseConnectionRequest;
+    /// use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// let x = CreateDatabaseConnectionRequest::new().set_or_clear_database_connection(Some(DatabaseConnection::default()/* use setters */));
+    /// let x = CreateDatabaseConnectionRequest::new().set_or_clear_database_connection(None::<DatabaseConnection>);
+    /// ```
+    pub fn set_or_clear_database_connection<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DatabaseConnection>,
+    {
+        self.database_connection = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateDatabaseConnectionRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::CreateDatabaseConnectionRequest;
+    /// let x = CreateDatabaseConnectionRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateDatabaseConnectionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.CreateDatabaseConnectionRequest"
+    }
+}
+
+/// The request for `DatabaseConnection.Delete`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteDatabaseConnectionRequest {
+    /// Required. The name of the resource in the following format:
+    /// projects/{project}/locations/{location}/databaseConnections/{database_connection}.
+    pub name: std::string::String,
+
+    /// Optional. An optional ID to identify the request. This value is used to
+    /// identify duplicate requests. If you make a request with the same request ID
+    /// and the original request is still in progress or completed, the server
+    /// ignores the second request. This prevents clients from
+    /// accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteDatabaseConnectionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteDatabaseConnectionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DeleteDatabaseConnectionRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let database_connection_id = "database_connection_id";
+    /// let x = DeleteDatabaseConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/databaseConnections/{database_connection_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteDatabaseConnectionRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DeleteDatabaseConnectionRequest;
+    /// let x = DeleteDatabaseConnectionRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteDatabaseConnectionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.DeleteDatabaseConnectionRequest"
+    }
+}
+
+/// The request for `DatabaseConnection.List`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDatabaseConnectionsRequest {
+    /// Required. The parent value for the DatabaseConnection in the following
+    /// format: projects/{project}/locations/{location}.
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return.
+    /// If unspecified, at most 50 DatabaseConnections will be returned.
+    /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    pub page_size: i32,
+
+    /// Optional. A token identifying a page of results the server should return.
+    pub page_token: std::string::String,
+
+    /// Optional. An expression for filtering the results of the request.
+    pub filter: std::string::String,
+
+    /// Optional. An expression for ordering the results of the request.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDatabaseConnectionsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListDatabaseConnectionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListDatabaseConnectionsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDatabaseConnectionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListDatabaseConnectionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListDatabaseConnectionsRequest;
+    /// let x = ListDatabaseConnectionsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListDatabaseConnectionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListDatabaseConnectionsRequest;
+    /// let x = ListDatabaseConnectionsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListDatabaseConnectionsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListDatabaseConnectionsRequest;
+    /// let x = ListDatabaseConnectionsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListDatabaseConnectionsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListDatabaseConnectionsRequest;
+    /// let x = ListDatabaseConnectionsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDatabaseConnectionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.ListDatabaseConnectionsRequest"
+    }
+}
+
+/// The response for `DatabaseConnection.List`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDatabaseConnectionsResponse {
+    /// The list of DatabaseConnections.
+    pub database_connections: std::vec::Vec<crate::model::DatabaseConnection>,
+
+    /// A token identifying a page of results the server should return.
+    pub next_page_token: std::string::String,
+
+    /// Unreachable locations when listing resources across all locations using
+    /// wildcard location '-'.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDatabaseConnectionsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [database_connections][crate::model::ListDatabaseConnectionsResponse::database_connections].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListDatabaseConnectionsResponse;
+    /// use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// let x = ListDatabaseConnectionsResponse::new()
+    ///     .set_database_connections([
+    ///         DatabaseConnection::default()/* use setters */,
+    ///         DatabaseConnection::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_database_connections<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DatabaseConnection>,
+    {
+        use std::iter::Iterator;
+        self.database_connections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDatabaseConnectionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListDatabaseConnectionsResponse;
+    /// let x = ListDatabaseConnectionsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListDatabaseConnectionsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListDatabaseConnectionsResponse;
+    /// let x = ListDatabaseConnectionsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDatabaseConnectionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.ListDatabaseConnectionsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDatabaseConnectionsResponse {
+    type PageItem = crate::model::DatabaseConnection;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.database_connections
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The request for `DatabaseConnection.Get`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetDatabaseConnectionRequest {
+    /// Required. The name of the DatabaseConnection in the following format:
+    /// projects/{project}/locations/{location}/databaseConnections/{database_connection}.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetDatabaseConnectionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetDatabaseConnectionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::GetDatabaseConnectionRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let database_connection_id = "database_connection_id";
+    /// let x = GetDatabaseConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/databaseConnections/{database_connection_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetDatabaseConnectionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.GetDatabaseConnectionRequest"
+    }
+}
+
+/// The request for `DatabaseConnection.Update`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateDatabaseConnectionRequest {
+    /// Optional. A mask specifying which fields in the DatabaseConnection should
+    /// be updated. A field specified in the mask is overwritten. If a mask isn't
+    /// provided then all the fields in the DatabaseConnection are overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The resource being updated.
+    pub database_connection: std::option::Option<crate::model::DatabaseConnection>,
+
+    /// Optional. An optional ID to identify the request. This value is used to
+    /// identify duplicate requests. If you make a request with the same request ID
+    /// and the original request is still in progress or completed, the server
+    /// ignores the second request. This prevents clients from
+    /// accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateDatabaseConnectionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateDatabaseConnectionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateDatabaseConnectionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDatabaseConnectionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateDatabaseConnectionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateDatabaseConnectionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDatabaseConnectionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDatabaseConnectionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [database_connection][crate::model::UpdateDatabaseConnectionRequest::database_connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateDatabaseConnectionRequest;
+    /// use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// let x = UpdateDatabaseConnectionRequest::new().set_database_connection(DatabaseConnection::default()/* use setters */);
+    /// ```
+    pub fn set_database_connection<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DatabaseConnection>,
+    {
+        self.database_connection = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [database_connection][crate::model::UpdateDatabaseConnectionRequest::database_connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateDatabaseConnectionRequest;
+    /// use google_cloud_oracledatabase_v1::model::DatabaseConnection;
+    /// let x = UpdateDatabaseConnectionRequest::new().set_or_clear_database_connection(Some(DatabaseConnection::default()/* use setters */));
+    /// let x = UpdateDatabaseConnectionRequest::new().set_or_clear_database_connection(None::<DatabaseConnection>);
+    /// ```
+    pub fn set_or_clear_database_connection<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DatabaseConnection>,
+    {
+        self.database_connection = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateDatabaseConnectionRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateDatabaseConnectionRequest;
+    /// let x = UpdateDatabaseConnectionRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateDatabaseConnectionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.UpdateDatabaseConnectionRequest"
+    }
+}
+
+/// Request message for `DatabaseConnection.TestDatabaseConnection`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TestDatabaseConnectionRequest {
+    /// Required. The name of the DatabaseConnection to test.
+    /// Format:
+    /// projects/{project}/locations/{location}/databaseConnections/{database_connection}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TestDatabaseConnectionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::TestDatabaseConnectionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::TestDatabaseConnectionRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let database_connection_id = "database_connection_id";
+    /// let x = TestDatabaseConnectionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/databaseConnections/{database_connection_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for TestDatabaseConnectionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.TestDatabaseConnectionRequest"
+    }
+}
+
+/// Response message for `DatabaseConnection.TestDatabaseConnection`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TestDatabaseConnectionResponse {
+    /// Whether the test connection was successful.
+    pub success: bool,
+
+    /// Error message if the test connection failed.
+    pub error_message: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TestDatabaseConnectionResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [success][crate::model::TestDatabaseConnectionResponse::success].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::TestDatabaseConnectionResponse;
+    /// let x = TestDatabaseConnectionResponse::new().set_success(true);
+    /// ```
+    pub fn set_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.success = v.into();
+        self
+    }
+
+    /// Sets the value of [error_message][crate::model::TestDatabaseConnectionResponse::error_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::TestDatabaseConnectionResponse;
+    /// let x = TestDatabaseConnectionResponse::new().set_error_message("example");
+    /// ```
+    pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.error_message = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for TestDatabaseConnectionResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.TestDatabaseConnectionResponse"
+    }
+}
+
 /// Details of the database node resource.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/DbNode/>
 #[derive(Clone, Default, PartialEq)]
@@ -10904,10 +12125,10 @@ pub struct DbSystem {
     /// projects/{project}/locations/{region}/dbSystems/{db_system}
     pub name: std::string::String,
 
-    /// Optional. The properties of the DbSystem.
+    /// Optional. Immutable. The properties of the DbSystem.
     pub properties: std::option::Option<crate::model::DbSystemProperties>,
 
-    /// Optional. The GCP Oracle zone where Oracle DbSystem is hosted.
+    /// Optional. Immutable. The GCP Oracle zone where Oracle DbSystem is hosted.
     /// Example: us-east4-b-r2.
     /// If not specified, the system will pick a zone based on availability.
     pub gcp_oracle_zone: std::string::String,
@@ -10915,14 +12136,15 @@ pub struct DbSystem {
     /// Optional. The labels or tags associated with the DbSystem.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// Optional. The name of the OdbNetwork associated with the DbSystem.
-    /// Format: projects/{project}/locations/{location}/odbNetworks/{odb_network}
-    /// It is optional but if specified, this should match the parent ODBNetwork of
-    /// the OdbSubnet.
+    /// Optional. Immutable. The name of the OdbNetwork associated with the
+    /// DbSystem. Format:
+    /// projects/{project}/locations/{location}/odbNetworks/{odb_network} It is
+    /// optional but if specified, this should match the parent ODBNetwork of the
+    /// OdbSubnet.
     pub odb_network: std::string::String,
 
-    /// Required. The name of the OdbSubnet associated with the DbSystem for IP
-    /// allocation. Format:
+    /// Required. Immutable. The name of the OdbSubnet associated with the DbSystem
+    /// for IP allocation. Format:
     /// projects/{project}/locations/{location}/odbNetworks/{odb_network}/odbSubnets/{odb_subnet}
     pub odb_subnet: std::string::String,
 
@@ -10930,8 +12152,8 @@ pub struct DbSystem {
     /// DbSystem
     pub entitlement_id: std::string::String,
 
-    /// Required. The display name for the System db. The name does not have to
-    /// be unique within your project.
+    /// Required. Immutable. The display name for the System db. The name does not
+    /// have to be unique within your project.
     pub display_name: std::string::String,
 
     /// Output only. The date and time that the DbSystem was created.
@@ -12718,6 +13940,129 @@ impl wkt::message::Message for DeleteDbSystemRequest {
     }
 }
 
+/// The request for `DbSystem.Update`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateDbSystemRequest {
+    /// Optional. A mask specifying which fields in the DbSystem should be updated.
+    /// A field specified in the mask is updated. If a mask isn't provided, the
+    /// service treats this as an implied field mask equivalent to all fields that
+    /// are populated (have a non-empty value).
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The resource being updated. Note only labels can be updated.
+    /// The provided labels will completely replace the existing labels.
+    /// Any existing label keys that are not included in the update request will be
+    /// deleted. Not providing labels and update_mask will not update the labels.
+    /// To clear all labels, specify `labels` in the `update_mask` and omit or
+    /// leave the `labels` field empty in the update request. To clear or unset a
+    /// field, the field must be explicitly specified in the `update_mask`.
+    pub db_system: std::option::Option<crate::model::DbSystem>,
+
+    /// Optional. An optional ID to identify the request. This value is used to
+    /// identify duplicate requests. If you make a request with the same request ID
+    /// and the original request is still in progress or completed, the server
+    /// ignores the second request. This prevents clients from
+    /// accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateDbSystemRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateDbSystemRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateDbSystemRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDbSystemRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateDbSystemRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateDbSystemRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDbSystemRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDbSystemRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [db_system][crate::model::UpdateDbSystemRequest::db_system].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateDbSystemRequest;
+    /// use google_cloud_oracledatabase_v1::model::DbSystem;
+    /// let x = UpdateDbSystemRequest::new().set_db_system(DbSystem::default()/* use setters */);
+    /// ```
+    pub fn set_db_system<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DbSystem>,
+    {
+        self.db_system = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [db_system][crate::model::UpdateDbSystemRequest::db_system].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateDbSystemRequest;
+    /// use google_cloud_oracledatabase_v1::model::DbSystem;
+    /// let x = UpdateDbSystemRequest::new().set_or_clear_db_system(Some(DbSystem::default()/* use setters */));
+    /// let x = UpdateDbSystemRequest::new().set_or_clear_db_system(None::<DbSystem>);
+    /// ```
+    pub fn set_or_clear_db_system<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DbSystem>,
+    {
+        self.db_system = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateDbSystemRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateDbSystemRequest;
+    /// let x = UpdateDbSystemRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateDbSystemRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.UpdateDbSystemRequest"
+    }
+}
+
 /// The request for `DbSystem.Get`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -12944,6 +14289,355 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListDbSystemsRe
 
     fn items(self) -> std::vec::Vec<Self::PageItem> {
         self.db_systems
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Details of the DbSystem compute performance resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DbSystemComputePerformance {
+    /// Identifier. The name of the DbSystemComputePerformance resource with the
+    /// format:
+    /// projects/{project}/locations/{location}/dbSystemComputePerformances/{db_system_compute_performance}
+    pub name: std::string::String,
+
+    /// Output only. The shape of the DB system.
+    pub shape: std::string::String,
+
+    /// Output only. List of Compute performance details for the specified DB
+    /// system shape.
+    pub compute_performances: std::vec::Vec<crate::model::ComputePerformance>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DbSystemComputePerformance {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DbSystemComputePerformance::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DbSystemComputePerformance;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let db_system_compute_performance_id = "db_system_compute_performance_id";
+    /// let x = DbSystemComputePerformance::new().set_name(format!("projects/{project_id}/locations/{location_id}/dbSystemComputePerformances/{db_system_compute_performance_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [shape][crate::model::DbSystemComputePerformance::shape].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DbSystemComputePerformance;
+    /// let x = DbSystemComputePerformance::new().set_shape("example");
+    /// ```
+    pub fn set_shape<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.shape = v.into();
+        self
+    }
+
+    /// Sets the value of [compute_performances][crate::model::DbSystemComputePerformance::compute_performances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DbSystemComputePerformance;
+    /// use google_cloud_oracledatabase_v1::model::ComputePerformance;
+    /// let x = DbSystemComputePerformance::new()
+    ///     .set_compute_performances([
+    ///         ComputePerformance::default()/* use setters */,
+    ///         ComputePerformance::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_compute_performances<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ComputePerformance>,
+    {
+        use std::iter::Iterator;
+        self.compute_performances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DbSystemComputePerformance {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.DbSystemComputePerformance"
+    }
+}
+
+/// Parameters detailing the compute performance for a specified DB system shape.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ComputePerformance {
+    /// Output only. The number of CPU cores available.
+    pub cpu_core_count: i32,
+
+    /// Output only. The compute model for Base Database Service.
+    pub compute_model: crate::model::ComputeModel,
+
+    /// Output only. The number of compute servers for the DB system.
+    pub compute_count: i32,
+
+    /// Output only. The amount of memory allocated for the VMDB System in GBs.
+    pub memory_in_gbs: f64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ComputePerformance {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cpu_core_count][crate::model::ComputePerformance::cpu_core_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ComputePerformance;
+    /// let x = ComputePerformance::new().set_cpu_core_count(42);
+    /// ```
+    pub fn set_cpu_core_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.cpu_core_count = v.into();
+        self
+    }
+
+    /// Sets the value of [compute_model][crate::model::ComputePerformance::compute_model].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ComputePerformance;
+    /// use google_cloud_oracledatabase_v1::model::ComputeModel;
+    /// let x0 = ComputePerformance::new().set_compute_model(ComputeModel::Ecpu);
+    /// let x1 = ComputePerformance::new().set_compute_model(ComputeModel::Ocpu);
+    /// ```
+    pub fn set_compute_model<T: std::convert::Into<crate::model::ComputeModel>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compute_model = v.into();
+        self
+    }
+
+    /// Sets the value of [compute_count][crate::model::ComputePerformance::compute_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ComputePerformance;
+    /// let x = ComputePerformance::new().set_compute_count(42);
+    /// ```
+    pub fn set_compute_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.compute_count = v.into();
+        self
+    }
+
+    /// Sets the value of [memory_in_gbs][crate::model::ComputePerformance::memory_in_gbs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ComputePerformance;
+    /// let x = ComputePerformance::new().set_memory_in_gbs(42.0);
+    /// ```
+    pub fn set_memory_in_gbs<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+        self.memory_in_gbs = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ComputePerformance {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.ComputePerformance"
+    }
+}
+
+/// Message for listing DbSystemComputePerformances.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDbSystemComputePerformancesRequest {
+    /// Required. Parent value for ListDbSystemComputePerformancesRequest
+    /// Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default.
+    pub page_size: i32,
+
+    /// Optional. A token identifying a page of results the server should return.
+    pub page_token: std::string::String,
+
+    /// Optional. An expression for filtering the results of the request. Only the
+    /// `db_system_shape` field is supported in the following format:
+    /// `db_system_shape="{db_system_shape}"`.
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDbSystemComputePerformancesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListDbSystemComputePerformancesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemComputePerformancesRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListDbSystemComputePerformancesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListDbSystemComputePerformancesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemComputePerformancesRequest;
+    /// let x = ListDbSystemComputePerformancesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListDbSystemComputePerformancesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemComputePerformancesRequest;
+    /// let x = ListDbSystemComputePerformancesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListDbSystemComputePerformancesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemComputePerformancesRequest;
+    /// let x = ListDbSystemComputePerformancesRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDbSystemComputePerformancesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.ListDbSystemComputePerformancesRequest"
+    }
+}
+
+/// Message for response to listing DbSystemComputePerformances
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDbSystemComputePerformancesResponse {
+    /// The list of DbSystemComputePerformance.
+    pub db_system_compute_performances: std::vec::Vec<crate::model::DbSystemComputePerformance>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDbSystemComputePerformancesResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [db_system_compute_performances][crate::model::ListDbSystemComputePerformancesResponse::db_system_compute_performances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemComputePerformancesResponse;
+    /// use google_cloud_oracledatabase_v1::model::DbSystemComputePerformance;
+    /// let x = ListDbSystemComputePerformancesResponse::new()
+    ///     .set_db_system_compute_performances([
+    ///         DbSystemComputePerformance::default()/* use setters */,
+    ///         DbSystemComputePerformance::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_db_system_compute_performances<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DbSystemComputePerformance>,
+    {
+        use std::iter::Iterator;
+        self.db_system_compute_performances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDbSystemComputePerformancesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemComputePerformancesResponse;
+    /// let x = ListDbSystemComputePerformancesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListDbSystemComputePerformancesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListDbSystemComputePerformancesResponse;
+    /// let x = ListDbSystemComputePerformancesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDbSystemComputePerformancesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.ListDbSystemComputePerformancesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListDbSystemComputePerformancesResponse
+{
+    type PageItem = crate::model::DbSystemComputePerformance;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.db_system_compute_performances
     }
 
     fn next_page_token(&self) -> std::string::String {
@@ -14598,19 +16292,19 @@ pub struct CloudExadataInfrastructure {
     /// projects/{project}/locations/{region}/cloudExadataInfrastructures/{cloud_exadata_infrastructure}
     pub name: std::string::String,
 
-    /// Optional. User friendly name for this resource.
+    /// Optional. Immutable. User friendly name for this resource.
     pub display_name: std::string::String,
 
-    /// Optional. The GCP Oracle zone where Oracle Exadata Infrastructure is
-    /// hosted. Example: us-east4-b-r2. If not specified, the system will pick a
-    /// zone based on availability.
+    /// Optional. Immutable. The GCP Oracle zone where Oracle Exadata
+    /// Infrastructure is hosted. Example: us-east4-b-r2. If not specified, the
+    /// system will pick a zone based on availability.
     pub gcp_oracle_zone: std::string::String,
 
     /// Output only. Entitlement ID of the private offer against which this
     /// infrastructure resource is provisioned.
     pub entitlement_id: std::string::String,
 
-    /// Optional. Various properties of the infra.
+    /// Optional. Immutable. Various properties of the infra.
     pub properties: std::option::Option<crate::model::CloudExadataInfrastructureProperties>,
 
     /// Optional. Labels or tags associated with the resource.
@@ -16286,6 +17980,13 @@ pub struct ExadbVmCluster {
     /// securely access the resources in the customer project.
     pub identity_connector: std::option::Option<crate::model::IdentityConnector>,
 
+    /// Optional. Input only. Immutable. If set to true, disables the automatic
+    /// provisioning of the Workload Identity Connector during creation. If set to
+    /// false or omitted, the Workload Identity Connector will be automatically
+    /// provisioned by default. Note: Provisioning the Workload Identity Connector
+    /// is a prerequisite for enabling Google Cloud CMEK.
+    pub identity_connector_disabled: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -16513,6 +18214,18 @@ impl ExadbVmCluster {
         T: std::convert::Into<crate::model::IdentityConnector>,
     {
         self.identity_connector = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [identity_connector_disabled][crate::model::ExadbVmCluster::identity_connector_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
+    /// let x = ExadbVmCluster::new().set_identity_connector_disabled(true);
+    /// ```
+    pub fn set_identity_connector_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.identity_connector_disabled = v.into();
         self
     }
 }
@@ -17425,17 +19138,17 @@ pub struct ExascaleDbStorageVault {
     /// projects/{project}/locations/{location}/exascaleDbStorageVaults/{exascale_db_storage_vault}
     pub name: std::string::String,
 
-    /// Required. The display name for the ExascaleDbStorageVault. The name does
-    /// not have to be unique within your project. The name must be 1-255
+    /// Required. Immutable. The display name for the ExascaleDbStorageVault. The
+    /// name does not have to be unique within your project. The name must be 1-255
     /// characters long and can only contain alphanumeric characters.
     pub display_name: std::string::String,
 
-    /// Optional. The GCP Oracle zone where Oracle ExascaleDbStorageVault is
-    /// hosted. Example: us-east4-b-r2. If not specified, the system will pick a
-    /// zone based on availability.
+    /// Optional. Immutable. The GCP Oracle zone where Oracle
+    /// ExascaleDbStorageVault is hosted. Example: us-east4-b-r2. If not specified,
+    /// the system will pick a zone based on availability.
     pub gcp_oracle_zone: std::string::String,
 
-    /// Required. The properties of the ExascaleDbStorageVault.
+    /// Required. Immutable. The properties of the ExascaleDbStorageVault.
     pub properties: std::option::Option<crate::model::ExascaleDbStorageVaultProperties>,
 
     /// Output only. The date and time when the ExascaleDbStorageVault was created.
@@ -17448,7 +19161,7 @@ pub struct ExascaleDbStorageVault {
     /// Optional. The labels or tags associated with the ExascaleDbStorageVault.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// Optional. The Exadata Infrastructure resource on which
+    /// Optional. Immutable. The Exadata Infrastructure resource on which
     /// ExascaleDbStorageVault
     /// resource is created, in the following format:
     /// projects/{project}/locations/{region}/cloudExadataInfrastuctures/{cloud_extradata_infrastructure}
@@ -18243,6 +19956,129 @@ impl wkt::message::Message for ExascaleDbStorageDetails {
     }
 }
 
+/// The request for `ExascaleDbStorageVault.Update`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateExascaleDbStorageVaultRequest {
+    /// Optional. A mask specifying which fields in the ExascaleDbStorageVault
+    /// should be updated. A field specified in the mask is updated. If a mask
+    /// isn't provided, the service treats this as an implied field mask equivalent
+    /// to all fields that are populated (have a non-empty value). To clear or
+    /// unset a field, the field must be explicitly specified in the `update_mask`.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The resource being updated. Note only labels can be updated.
+    /// The provided labels will completely replace the existing labels.
+    /// Any existing label keys that are not included in the update request will be
+    /// deleted. Not providing labels and update_mask will not update the labels.
+    /// To clear all labels, specify `labels` in the `update_mask` and omit or
+    /// leave the `labels` field empty in the update request.
+    pub exascale_db_storage_vault: std::option::Option<crate::model::ExascaleDbStorageVault>,
+
+    /// Optional. An optional ID to identify the request. This value is used to
+    /// identify duplicate requests. If you make a request with the same request ID
+    /// and the original request is still in progress or completed, the server
+    /// ignores the second request. This prevents clients from
+    /// accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateExascaleDbStorageVaultRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateExascaleDbStorageVaultRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateExascaleDbStorageVaultRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateExascaleDbStorageVaultRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateExascaleDbStorageVaultRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateExascaleDbStorageVaultRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateExascaleDbStorageVaultRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateExascaleDbStorageVaultRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [exascale_db_storage_vault][crate::model::UpdateExascaleDbStorageVaultRequest::exascale_db_storage_vault].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateExascaleDbStorageVaultRequest;
+    /// use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
+    /// let x = UpdateExascaleDbStorageVaultRequest::new().set_exascale_db_storage_vault(ExascaleDbStorageVault::default()/* use setters */);
+    /// ```
+    pub fn set_exascale_db_storage_vault<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ExascaleDbStorageVault>,
+    {
+        self.exascale_db_storage_vault = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [exascale_db_storage_vault][crate::model::UpdateExascaleDbStorageVaultRequest::exascale_db_storage_vault].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateExascaleDbStorageVaultRequest;
+    /// use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
+    /// let x = UpdateExascaleDbStorageVaultRequest::new().set_or_clear_exascale_db_storage_vault(Some(ExascaleDbStorageVault::default()/* use setters */));
+    /// let x = UpdateExascaleDbStorageVaultRequest::new().set_or_clear_exascale_db_storage_vault(None::<ExascaleDbStorageVault>);
+    /// ```
+    pub fn set_or_clear_exascale_db_storage_vault<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ExascaleDbStorageVault>,
+    {
+        self.exascale_db_storage_vault = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateExascaleDbStorageVaultRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateExascaleDbStorageVaultRequest;
+    /// let x = UpdateExascaleDbStorageVaultRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateExascaleDbStorageVaultRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.UpdateExascaleDbStorageVaultRequest"
+    }
+}
+
 /// The request for `ExascaleDbStorageVault.Get`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -18667,6 +20503,1368 @@ impl wkt::message::Message for DeleteExascaleDbStorageVaultRequest {
     }
 }
 
+/// The request for `DatabaseConnection.ExecuteSql`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteSqlRequest {
+    /// Required. The name of the DatabaseConnection in the following format:
+    /// projects/{project}/locations/{location}/databaseConnections/{database_connection}.
+    pub name: std::string::String,
+
+    /// Required. The SQL statement to execute.
+    pub sql_statement: std::string::String,
+
+    /// Optional. Optional: Bind variables (parameters) to be used with the SQL
+    /// statement. Supports named bind variables (e.g., :dept_id, :status in Oracle
+    /// SQL) or positional parameters (:1, :2).
+    pub params: std::vec::Vec<crate::model::SqlParameter>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteSqlRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ExecuteSqlRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExecuteSqlRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let database_connection_id = "database_connection_id";
+    /// let x = ExecuteSqlRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/databaseConnections/{database_connection_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [sql_statement][crate::model::ExecuteSqlRequest::sql_statement].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExecuteSqlRequest;
+    /// let x = ExecuteSqlRequest::new().set_sql_statement("example");
+    /// ```
+    pub fn set_sql_statement<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.sql_statement = v.into();
+        self
+    }
+
+    /// Sets the value of [params][crate::model::ExecuteSqlRequest::params].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExecuteSqlRequest;
+    /// use google_cloud_oracledatabase_v1::model::SqlParameter;
+    /// let x = ExecuteSqlRequest::new()
+    ///     .set_params([
+    ///         SqlParameter::default()/* use setters */,
+    ///         SqlParameter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_params<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SqlParameter>,
+    {
+        use std::iter::Iterator;
+        self.params = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ExecuteSqlRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.ExecuteSqlRequest"
+    }
+}
+
+/// Represents a bind variable (parameter) for SQL execution.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SqlParameter {
+    /// Optional. The name of the SQL bind parameter (excluding the leading
+    /// colon, e.g. "id"). If omitted, parameters bind positionally based on their
+    /// order in the list.
+    pub name: std::string::String,
+
+    /// Required. Use protobuf.Value so clients can pass ints, bools, and strings
+    /// natively.
+    pub value: std::option::Option<wkt::Value>,
+
+    /// Optional. Optional: Datatype hint for the parameter (e.g., "VARCHAR2",
+    /// "NUMBER", "DATE", "TIMESTAMP"). If omitted, the Oracle driver will infer
+    /// the type from the value string.
+    pub type_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SqlParameter {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SqlParameter::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::SqlParameter;
+    /// let x = SqlParameter::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [value][crate::model::SqlParameter::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::SqlParameter;
+    /// use wkt::Value;
+    /// let x = SqlParameter::new().set_value(Value::default()/* use setters */);
+    /// ```
+    pub fn set_value<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Value>,
+    {
+        self.value = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [value][crate::model::SqlParameter::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::SqlParameter;
+    /// use wkt::Value;
+    /// let x = SqlParameter::new().set_or_clear_value(Some(Value::default()/* use setters */));
+    /// let x = SqlParameter::new().set_or_clear_value(None::<Value>);
+    /// ```
+    pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Value>,
+    {
+        self.value = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [type_name][crate::model::SqlParameter::type_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::SqlParameter;
+    /// let x = SqlParameter::new().set_type_name("example");
+    /// ```
+    pub fn set_type_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.type_name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SqlParameter {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.SqlParameter"
+    }
+}
+
+/// Execute a SQL statement response.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteSqlResponse {
+    /// SqlResult represents the results for the execution of sql statements.
+    pub sql_results: std::vec::Vec<crate::model::SqlResult>,
+
+    /// Any additional metadata information regarding the execution of the sql
+    /// statement.
+    pub metadata: std::option::Option<crate::model::ExecuteSqlMetadata>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteSqlResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [sql_results][crate::model::ExecuteSqlResponse::sql_results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExecuteSqlResponse;
+    /// use google_cloud_oracledatabase_v1::model::SqlResult;
+    /// let x = ExecuteSqlResponse::new()
+    ///     .set_sql_results([
+    ///         SqlResult::default()/* use setters */,
+    ///         SqlResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_sql_results<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SqlResult>,
+    {
+        use std::iter::Iterator;
+        self.sql_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::ExecuteSqlResponse::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExecuteSqlResponse;
+    /// use google_cloud_oracledatabase_v1::model::ExecuteSqlMetadata;
+    /// let x = ExecuteSqlResponse::new().set_metadata(ExecuteSqlMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ExecuteSqlMetadata>,
+    {
+        self.metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metadata][crate::model::ExecuteSqlResponse::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExecuteSqlResponse;
+    /// use google_cloud_oracledatabase_v1::model::ExecuteSqlMetadata;
+    /// let x = ExecuteSqlResponse::new().set_or_clear_metadata(Some(ExecuteSqlMetadata::default()/* use setters */));
+    /// let x = ExecuteSqlResponse::new().set_or_clear_metadata(None::<ExecuteSqlMetadata>);
+    /// ```
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ExecuteSqlMetadata>,
+    {
+        self.metadata = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ExecuteSqlResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.ExecuteSqlResponse"
+    }
+}
+
+/// SqlResult represents the result for the execution of a sql statement.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SqlResult {
+    /// List of columns included in the result, including data type.
+    pub columns: std::vec::Vec<crate::model::sql_result::Column>,
+
+    /// Rows returned by the SQL statement.
+    pub rows: std::vec::Vec<crate::model::sql_result::Row>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SqlResult {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [columns][crate::model::SqlResult::columns].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::SqlResult;
+    /// use google_cloud_oracledatabase_v1::model::sql_result::Column;
+    /// let x = SqlResult::new()
+    ///     .set_columns([
+    ///         Column::default()/* use setters */,
+    ///         Column::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_columns<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::sql_result::Column>,
+    {
+        use std::iter::Iterator;
+        self.columns = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [rows][crate::model::SqlResult::rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::SqlResult;
+    /// use google_cloud_oracledatabase_v1::model::sql_result::Row;
+    /// let x = SqlResult::new()
+    ///     .set_rows([
+    ///         Row::default()/* use setters */,
+    ///         Row::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_rows<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::sql_result::Row>,
+    {
+        use std::iter::Iterator;
+        self.rows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SqlResult {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.SqlResult"
+    }
+}
+
+/// Defines additional types related to [SqlResult].
+pub mod sql_result {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Contains the name and datatype of a column in a SQL Result.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Column {
+        /// Required. Name of the column.
+        pub name: std::string::String,
+
+        /// Required. Database-specific type name (e.g., "VARCHAR2(255)", "NUMBER",
+        /// "DATE", "CLOB")
+        pub r#type: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Column {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::sql_result::Column::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_oracledatabase_v1::model::sql_result::Column;
+        /// let x = Column::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [r#type][crate::model::sql_result::Column::type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_oracledatabase_v1::model::sql_result::Column;
+        /// let x = Column::new().set_type("example");
+        /// ```
+        pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.r#type = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Column {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.oracledatabase.v1.SqlResult.Column"
+        }
+    }
+
+    /// A single row from a sql result.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Row {
+        /// List of values in a row of sql result.
+        pub values: std::vec::Vec<crate::model::sql_result::Value>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Row {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [values][crate::model::sql_result::Row::values].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_oracledatabase_v1::model::sql_result::Row;
+        /// use google_cloud_oracledatabase_v1::model::sql_result::Value;
+        /// let x = Row::new()
+        ///     .set_values([
+        ///         Value::default()/* use setters */,
+        ///         Value::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_values<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::sql_result::Value>,
+        {
+            use std::iter::Iterator;
+            self.values = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Row {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.oracledatabase.v1.SqlResult.Row"
+        }
+    }
+
+    /// A single value in a row from a sql result.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Value {
+        /// The cell value represented in string format.
+        /// Timestamps should be converted using RFC3339Nano format.
+        pub value: std::string::String,
+
+        /// Set to true if the cell value is NULL.
+        pub null_value: std::option::Option<bool>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Value {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [value][crate::model::sql_result::Value::value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_oracledatabase_v1::model::sql_result::Value;
+        /// let x = Value::new().set_value("example");
+        /// ```
+        pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.value = v.into();
+            self
+        }
+
+        /// Sets the value of [null_value][crate::model::sql_result::Value::null_value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_oracledatabase_v1::model::sql_result::Value;
+        /// let x = Value::new().set_null_value(true);
+        /// ```
+        pub fn set_null_value<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.null_value = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [null_value][crate::model::sql_result::Value::null_value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_oracledatabase_v1::model::sql_result::Value;
+        /// let x = Value::new().set_or_clear_null_value(Some(false));
+        /// let x = Value::new().set_or_clear_null_value(None::<bool>);
+        /// ```
+        pub fn set_or_clear_null_value<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.null_value = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for Value {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.oracledatabase.v1.SqlResult.Value"
+        }
+    }
+}
+
+/// Any additional metadata information regarding the execution of the SQL
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteSqlMetadata {
+    /// Message related to SQL execution. This field can be used to convey size
+    /// limit related message.
+    pub message: std::string::String,
+
+    /// Set to true if SQL returned a result set larger than the acceptable
+    /// response size limits and the result was truncated.
+    pub partial_result: bool,
+
+    /// The time duration taken to execute the sql statement.
+    pub execution_duration: std::option::Option<wkt::Duration>,
+
+    /// Output only. Status of SQL execution.
+    pub status: crate::model::execute_sql_metadata::Status,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteSqlMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [message][crate::model::ExecuteSqlMetadata::message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExecuteSqlMetadata;
+    /// let x = ExecuteSqlMetadata::new().set_message("example");
+    /// ```
+    pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.message = v.into();
+        self
+    }
+
+    /// Sets the value of [partial_result][crate::model::ExecuteSqlMetadata::partial_result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExecuteSqlMetadata;
+    /// let x = ExecuteSqlMetadata::new().set_partial_result(true);
+    /// ```
+    pub fn set_partial_result<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.partial_result = v.into();
+        self
+    }
+
+    /// Sets the value of [execution_duration][crate::model::ExecuteSqlMetadata::execution_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExecuteSqlMetadata;
+    /// use wkt::Duration;
+    /// let x = ExecuteSqlMetadata::new().set_execution_duration(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_execution_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.execution_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [execution_duration][crate::model::ExecuteSqlMetadata::execution_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExecuteSqlMetadata;
+    /// use wkt::Duration;
+    /// let x = ExecuteSqlMetadata::new().set_or_clear_execution_duration(Some(Duration::default()/* use setters */));
+    /// let x = ExecuteSqlMetadata::new().set_or_clear_execution_duration(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_execution_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.execution_duration = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [status][crate::model::ExecuteSqlMetadata::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ExecuteSqlMetadata;
+    /// use google_cloud_oracledatabase_v1::model::execute_sql_metadata::Status;
+    /// let x0 = ExecuteSqlMetadata::new().set_status(Status::Ok);
+    /// let x1 = ExecuteSqlMetadata::new().set_status(Status::Partial);
+    /// let x2 = ExecuteSqlMetadata::new().set_status(Status::Error);
+    /// ```
+    pub fn set_status<T: std::convert::Into<crate::model::execute_sql_metadata::Status>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.status = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExecuteSqlMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.ExecuteSqlMetadata"
+    }
+}
+
+/// Defines additional types related to [ExecuteSqlMetadata].
+pub mod execute_sql_metadata {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Status contains all valid statuses a SQL execution can end up in.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Status {
+        /// Default value. Not returned by the service.
+        Unspecified,
+        /// No error during SQL execution i.e. All SQL statements ran to completion.
+        /// The "message" will be empty.
+        Ok,
+        /// Same as OK, except indicates that only partial results were
+        /// returned. The "message" field will contain details on why results were
+        /// truncated. `partial_result` is true if and only if `status` is `PARTIAL`.
+        Partial,
+        /// The database returned an error while executing the SQL statement.
+        /// `message` contains the error text returned by Oracle. `sql_results` is
+        /// empty. The statement runs in autocommit mode; which changes are committed
+        /// or rolled back follows Oracle Database behavior. Authentication failures,
+        /// database availability errors, network errors, and timeouts are returned
+        /// as API errors (AIP-193), not as ERROR.
+        Error,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Status::value] or
+        /// [Status::name].
+        UnknownValue(status::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod status {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Status {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Ok => std::option::Option::Some(1),
+                Self::Partial => std::option::Option::Some(2),
+                Self::Error => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATUS_UNSPECIFIED"),
+                Self::Ok => std::option::Option::Some("OK"),
+                Self::Partial => std::option::Option::Some("PARTIAL"),
+                Self::Error => std::option::Option::Some("ERROR"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Status {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Ok,
+                2 => Self::Partial,
+                3 => Self::Error,
+                _ => Self::UnknownValue(status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Status {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATUS_UNSPECIFIED" => Self::Unspecified,
+                "OK" => Self::Ok,
+                "PARTIAL" => Self::Partial,
+                "ERROR" => Self::Error,
+                _ => Self::UnknownValue(status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Status {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Ok => serializer.serialize_i32(1),
+                Self::Partial => serializer.serialize_i32(2),
+                Self::Error => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Status {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Status>::new(
+                ".google.cloud.oracledatabase.v1.ExecuteSqlMetadata.Status",
+            ))
+        }
+    }
+}
+
+/// Details of the Flex Component resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FlexComponent {
+    /// Identifier. Specifies the name of the Flex Component resource with the
+    /// format:
+    /// projects/{project}/locations/{region}/flexComponents/{flex_component}
+    pub name: std::string::String,
+
+    /// Output only. The properties of the Flex Component.
+    pub properties: std::option::Option<crate::model::FlexComponentProperties>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FlexComponent {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::FlexComponent::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::FlexComponent;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let flex_component_id = "flex_component_id";
+    /// let x = FlexComponent::new().set_name(format!("projects/{project_id}/locations/{location_id}/flexComponents/{flex_component_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [properties][crate::model::FlexComponent::properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::FlexComponent;
+    /// use google_cloud_oracledatabase_v1::model::FlexComponentProperties;
+    /// let x = FlexComponent::new().set_properties(FlexComponentProperties::default()/* use setters */);
+    /// ```
+    pub fn set_properties<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::FlexComponentProperties>,
+    {
+        self.properties = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [properties][crate::model::FlexComponent::properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::FlexComponent;
+    /// use google_cloud_oracledatabase_v1::model::FlexComponentProperties;
+    /// let x = FlexComponent::new().set_or_clear_properties(Some(FlexComponentProperties::default()/* use setters */));
+    /// let x = FlexComponent::new().set_or_clear_properties(None::<FlexComponentProperties>);
+    /// ```
+    pub fn set_or_clear_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::FlexComponentProperties>,
+    {
+        self.properties = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for FlexComponent {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.FlexComponent"
+    }
+}
+
+/// The properties of the Flex Component.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FlexComponentProperties {
+    /// Output only. The name of the Flex Component used for the DB system.
+    pub name: std::string::String,
+
+    /// Output only. The hardware type of the DB (Compute) or Storage (Cell) Server
+    /// for this Flex Component.
+    pub hardware_type: crate::model::flex_component_properties::HardwareType,
+
+    /// Output only. The name of the DB system shape for this Flex Component.
+    pub shape: std::string::String,
+
+    /// Output only. The maximum number of CPU cores that can be enabled on the DB
+    /// system for this shape.
+    pub available_core_count: i32,
+
+    /// Output only. The maximum memory size that can be enabled on the DB Server
+    /// for this Flex Component.
+    pub available_memory_gb: i32,
+
+    /// Output only. The maximum local storage that can be enabled on the DB Server
+    /// for this Flex Component.
+    pub available_local_storage_gb: i32,
+
+    /// Output only. The maximum storage that can be enabled on the Storage Server
+    /// for this Flex Component.
+    pub available_db_node_storage_per_node_gb: i32,
+
+    /// Output only. The minimum number of CPU cores that can be enabled on the DB
+    /// Server for this Flex Component.
+    pub minimum_core_count: i32,
+
+    /// Output only. The runtime minimum number of CPU cores that can be enabled
+    /// for this Flex Component.
+    pub runtime_minimum_core_count: i32,
+
+    /// Output only. The description summary for this Flex Component.
+    pub description_summary: std::string::String,
+
+    /// Output only. The compute model of the DB Server for this Flex Component.
+    pub compute_model: crate::model::ComputeModel,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FlexComponentProperties {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::FlexComponentProperties::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::FlexComponentProperties;
+    /// let x = FlexComponentProperties::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [hardware_type][crate::model::FlexComponentProperties::hardware_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::FlexComponentProperties;
+    /// use google_cloud_oracledatabase_v1::model::flex_component_properties::HardwareType;
+    /// let x0 = FlexComponentProperties::new().set_hardware_type(HardwareType::Compute);
+    /// let x1 = FlexComponentProperties::new().set_hardware_type(HardwareType::Cell);
+    /// ```
+    pub fn set_hardware_type<
+        T: std::convert::Into<crate::model::flex_component_properties::HardwareType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.hardware_type = v.into();
+        self
+    }
+
+    /// Sets the value of [shape][crate::model::FlexComponentProperties::shape].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::FlexComponentProperties;
+    /// let x = FlexComponentProperties::new().set_shape("example");
+    /// ```
+    pub fn set_shape<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.shape = v.into();
+        self
+    }
+
+    /// Sets the value of [available_core_count][crate::model::FlexComponentProperties::available_core_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::FlexComponentProperties;
+    /// let x = FlexComponentProperties::new().set_available_core_count(42);
+    /// ```
+    pub fn set_available_core_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.available_core_count = v.into();
+        self
+    }
+
+    /// Sets the value of [available_memory_gb][crate::model::FlexComponentProperties::available_memory_gb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::FlexComponentProperties;
+    /// let x = FlexComponentProperties::new().set_available_memory_gb(42);
+    /// ```
+    pub fn set_available_memory_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.available_memory_gb = v.into();
+        self
+    }
+
+    /// Sets the value of [available_local_storage_gb][crate::model::FlexComponentProperties::available_local_storage_gb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::FlexComponentProperties;
+    /// let x = FlexComponentProperties::new().set_available_local_storage_gb(42);
+    /// ```
+    pub fn set_available_local_storage_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.available_local_storage_gb = v.into();
+        self
+    }
+
+    /// Sets the value of [available_db_node_storage_per_node_gb][crate::model::FlexComponentProperties::available_db_node_storage_per_node_gb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::FlexComponentProperties;
+    /// let x = FlexComponentProperties::new().set_available_db_node_storage_per_node_gb(42);
+    /// ```
+    pub fn set_available_db_node_storage_per_node_gb<T: std::convert::Into<i32>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.available_db_node_storage_per_node_gb = v.into();
+        self
+    }
+
+    /// Sets the value of [minimum_core_count][crate::model::FlexComponentProperties::minimum_core_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::FlexComponentProperties;
+    /// let x = FlexComponentProperties::new().set_minimum_core_count(42);
+    /// ```
+    pub fn set_minimum_core_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.minimum_core_count = v.into();
+        self
+    }
+
+    /// Sets the value of [runtime_minimum_core_count][crate::model::FlexComponentProperties::runtime_minimum_core_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::FlexComponentProperties;
+    /// let x = FlexComponentProperties::new().set_runtime_minimum_core_count(42);
+    /// ```
+    pub fn set_runtime_minimum_core_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.runtime_minimum_core_count = v.into();
+        self
+    }
+
+    /// Sets the value of [description_summary][crate::model::FlexComponentProperties::description_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::FlexComponentProperties;
+    /// let x = FlexComponentProperties::new().set_description_summary("example");
+    /// ```
+    pub fn set_description_summary<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.description_summary = v.into();
+        self
+    }
+
+    /// Sets the value of [compute_model][crate::model::FlexComponentProperties::compute_model].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::FlexComponentProperties;
+    /// use google_cloud_oracledatabase_v1::model::ComputeModel;
+    /// let x0 = FlexComponentProperties::new().set_compute_model(ComputeModel::Ecpu);
+    /// let x1 = FlexComponentProperties::new().set_compute_model(ComputeModel::Ocpu);
+    /// ```
+    pub fn set_compute_model<T: std::convert::Into<crate::model::ComputeModel>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compute_model = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FlexComponentProperties {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.FlexComponentProperties"
+    }
+}
+
+/// Defines additional types related to [FlexComponentProperties].
+pub mod flex_component_properties {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// HardwareType enum
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum HardwareType {
+        /// Unspecified default
+        Unspecified,
+        /// COMPUTE
+        Compute,
+        /// CELL
+        Cell,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [HardwareType::value] or
+        /// [HardwareType::name].
+        UnknownValue(hardware_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod hardware_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl HardwareType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Compute => std::option::Option::Some(1),
+                Self::Cell => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("HARDWARE_TYPE_UNSPECIFIED"),
+                Self::Compute => std::option::Option::Some("COMPUTE"),
+                Self::Cell => std::option::Option::Some("CELL"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for HardwareType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for HardwareType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for HardwareType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Compute,
+                2 => Self::Cell,
+                _ => Self::UnknownValue(hardware_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for HardwareType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "HARDWARE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "COMPUTE" => Self::Compute,
+                "CELL" => Self::Cell,
+                _ => Self::UnknownValue(hardware_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for HardwareType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Compute => serializer.serialize_i32(1),
+                Self::Cell => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for HardwareType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<HardwareType>::new(
+                ".google.cloud.oracledatabase.v1.FlexComponentProperties.HardwareType",
+            ))
+        }
+    }
+}
+
+/// Message for listing FlexComponents.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListFlexComponentsRequest {
+    /// Required. Parent value for ListFlexComponentsRequest
+    /// Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will pick an appropriate default.
+    pub page_size: i32,
+
+    /// Optional. A token identifying a page of results the server should return.
+    pub page_token: std::string::String,
+
+    /// Optional. An expression for filtering the results of the request. Only the
+    /// `shape` field is supported in the following format: `shape="{shape}"`.
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFlexComponentsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListFlexComponentsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListFlexComponentsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListFlexComponentsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListFlexComponentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListFlexComponentsRequest;
+    /// let x = ListFlexComponentsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListFlexComponentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListFlexComponentsRequest;
+    /// let x = ListFlexComponentsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListFlexComponentsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListFlexComponentsRequest;
+    /// let x = ListFlexComponentsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListFlexComponentsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.ListFlexComponentsRequest"
+    }
+}
+
+/// Message for response to listing FlexComponents
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListFlexComponentsResponse {
+    /// The list of FlexComponent
+    pub flex_components: std::vec::Vec<crate::model::FlexComponent>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListFlexComponentsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [flex_components][crate::model::ListFlexComponentsResponse::flex_components].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListFlexComponentsResponse;
+    /// use google_cloud_oracledatabase_v1::model::FlexComponent;
+    /// let x = ListFlexComponentsResponse::new()
+    ///     .set_flex_components([
+    ///         FlexComponent::default()/* use setters */,
+    ///         FlexComponent::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_flex_components<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::FlexComponent>,
+    {
+        use std::iter::Iterator;
+        self.flex_components = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListFlexComponentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListFlexComponentsResponse;
+    /// let x = ListFlexComponentsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListFlexComponentsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ListFlexComponentsResponse;
+    /// let x = ListFlexComponentsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListFlexComponentsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.ListFlexComponentsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListFlexComponentsResponse {
+    type PageItem = crate::model::FlexComponent;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.flex_components
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
 /// Details of the Oracle Grid Infrastructure (GI) version resource.
 /// <https://docs.oracle.com/en-us/iaas/api/#/en/database/20160918/GiVersionSummary/>
 #[derive(Clone, Default, PartialEq)]
@@ -18732,25 +21930,25 @@ pub struct GoldengateConnection {
     /// projects/{project}/locations/{region}/goldengateConnections/{goldengate_connection}
     pub name: std::string::String,
 
-    /// Required. The properties of the GoldengateConnection.
+    /// Required. Immutable. The properties of the GoldengateConnection.
     pub properties: std::option::Option<crate::model::GoldengateConnectionProperties>,
 
-    /// Optional. The GCP Oracle zone where Oracle GoldengateConnection is hosted.
-    /// Example: us-east4-b-r2.
-    /// If not specified, the system will pick a zone based on availability.
+    /// Optional. Immutable. The GCP Oracle zone where Oracle GoldengateConnection
+    /// is hosted. Example: us-east4-b-r2. If not specified, the system will pick a
+    /// zone based on availability.
     pub gcp_oracle_zone: std::string::String,
 
     /// Optional. The labels or tags associated with the GoldengateConnection.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// Optional. The name of the OdbNetwork associated with the
+    /// Optional. Immutable. The name of the OdbNetwork associated with the
     /// GoldengateConnection. The format is
     /// projects/{project}/locations/{location}/odbNetworks/{odb_network}.
     /// It is optional but if specified, this should match the parent ODBNetwork
     /// of the OdbSubnet.
     pub odb_network: std::string::String,
 
-    /// Optional. The name of the OdbSubnet associated with the
+    /// Optional. Immutable. The name of the OdbSubnet associated with the
     /// GoldengateConnection for IP allocation. Format:
     /// projects/{project}/locations/{location}/odbNetworks/{odb_network}/odbSubnets/{odb_subnet}
     pub odb_subnet: std::string::String,
@@ -33292,6 +36490,129 @@ impl wkt::message::Message for CreateGoldengateConnectionRequest {
     }
 }
 
+/// The request for `GoldengateConnection.Update`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateGoldengateConnectionRequest {
+    /// Optional. A mask specifying which fields in the GoldengateConnection should
+    /// be updated. A field specified in the mask is updated. If a mask isn't
+    /// provided, the service treats this as an implied field mask equivalent to
+    /// all fields that are populated (have a non-empty value). To clear or unset a
+    /// field, the field must be explicitly specified in the `update_mask`.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The resource being updated. Note only labels can be updated.
+    /// The provided labels will completely replace the existing labels.
+    /// Any existing label keys that are not included in the update request will be
+    /// deleted. Not providing labels and update_mask will not update the labels.
+    /// To clear all labels, specify `labels` in the `update_mask` and omit or
+    /// leave the `labels` field empty in the update request.
+    pub goldengate_connection: std::option::Option<crate::model::GoldengateConnection>,
+
+    /// Optional. An optional ID to identify the request. This value is used to
+    /// identify duplicate requests. If you make a request with the same request ID
+    /// and the original request is still in progress or completed, the server
+    /// ignores the second request. This prevents clients from
+    /// accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateGoldengateConnectionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateGoldengateConnectionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateGoldengateConnectionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGoldengateConnectionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateGoldengateConnectionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateGoldengateConnectionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGoldengateConnectionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateGoldengateConnectionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [goldengate_connection][crate::model::UpdateGoldengateConnectionRequest::goldengate_connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateGoldengateConnectionRequest;
+    /// use google_cloud_oracledatabase_v1::model::GoldengateConnection;
+    /// let x = UpdateGoldengateConnectionRequest::new().set_goldengate_connection(GoldengateConnection::default()/* use setters */);
+    /// ```
+    pub fn set_goldengate_connection<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GoldengateConnection>,
+    {
+        self.goldengate_connection = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [goldengate_connection][crate::model::UpdateGoldengateConnectionRequest::goldengate_connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateGoldengateConnectionRequest;
+    /// use google_cloud_oracledatabase_v1::model::GoldengateConnection;
+    /// let x = UpdateGoldengateConnectionRequest::new().set_or_clear_goldengate_connection(Some(GoldengateConnection::default()/* use setters */));
+    /// let x = UpdateGoldengateConnectionRequest::new().set_or_clear_goldengate_connection(None::<GoldengateConnection>);
+    /// ```
+    pub fn set_or_clear_goldengate_connection<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GoldengateConnection>,
+    {
+        self.goldengate_connection = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateGoldengateConnectionRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateGoldengateConnectionRequest;
+    /// let x = UpdateGoldengateConnectionRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateGoldengateConnectionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.UpdateGoldengateConnectionRequest"
+    }
+}
+
 /// The request for `GoldengateConnection.Delete`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -33722,7 +37043,7 @@ pub struct GoldengateConnectionAssignment {
     /// projects/{project}/locations/{region}/goldengateConnectionAssignments/{goldengate_connection_assignment}
     pub name: std::string::String,
 
-    /// Required. The properties of the GoldengateConnectionAssignment.
+    /// Required. Immutable. The properties of the GoldengateConnectionAssignment.
     pub properties: std::option::Option<crate::model::GoldengateConnectionAssignmentProperties>,
 
     /// Output only. The time when the connection assignment was created.
@@ -33732,7 +37053,8 @@ pub struct GoldengateConnectionAssignment {
     /// GoldengateConnectionAssignment.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// Optional. The display name for the GoldengateConnectionAssignment.
+    /// Optional. Immutable. The display name for the
+    /// GoldengateConnectionAssignment.
     pub display_name: std::string::String,
 
     /// Output only. The OCID of the entitlement linked to this resource.
@@ -35053,6 +38375,134 @@ pub mod test_goldengate_connection_assignment_response {
     }
 }
 
+/// Request message for updating a GoldengateConnectionAssignment.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateGoldengateConnectionAssignmentRequest {
+    /// Optional. A mask specifying which fields in the
+    /// GoldengateConnectionAssignment should be updated. A field specified in the
+    /// mask is updated. If a mask isn't provided, the service treats this as an
+    /// implied field mask equivalent to all fields that are populated (have a
+    /// non-empty value). To clear or unset a field, the field must be explicitly
+    /// specified in the `update_mask`.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The resource being updated. Note only labels can be updated.
+    /// The provided labels will completely replace the existing labels.
+    /// Any existing label keys that are not included in the update request will be
+    /// deleted. Not providing labels and update_mask will not update the labels.
+    /// To clear all labels, specify `labels` in the `update_mask` and omit or
+    /// leave the `labels` field empty in the update request.
+    pub goldengate_connection_assignment:
+        std::option::Option<crate::model::GoldengateConnectionAssignment>,
+
+    /// Optional. An optional ID to identify the request. This value is used to
+    /// identify duplicate requests. If you make a request with the same request ID
+    /// and the original request is still in progress or completed, the server
+    /// ignores the second request. This prevents clients from
+    /// accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateGoldengateConnectionAssignmentRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateGoldengateConnectionAssignmentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateGoldengateConnectionAssignmentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGoldengateConnectionAssignmentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateGoldengateConnectionAssignmentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateGoldengateConnectionAssignmentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGoldengateConnectionAssignmentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateGoldengateConnectionAssignmentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [goldengate_connection_assignment][crate::model::UpdateGoldengateConnectionAssignmentRequest::goldengate_connection_assignment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateGoldengateConnectionAssignmentRequest;
+    /// use google_cloud_oracledatabase_v1::model::GoldengateConnectionAssignment;
+    /// let x = UpdateGoldengateConnectionAssignmentRequest::new().set_goldengate_connection_assignment(GoldengateConnectionAssignment::default()/* use setters */);
+    /// ```
+    pub fn set_goldengate_connection_assignment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GoldengateConnectionAssignment>,
+    {
+        self.goldengate_connection_assignment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [goldengate_connection_assignment][crate::model::UpdateGoldengateConnectionAssignmentRequest::goldengate_connection_assignment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateGoldengateConnectionAssignmentRequest;
+    /// use google_cloud_oracledatabase_v1::model::GoldengateConnectionAssignment;
+    /// let x = UpdateGoldengateConnectionAssignmentRequest::new().set_or_clear_goldengate_connection_assignment(Some(GoldengateConnectionAssignment::default()/* use setters */));
+    /// let x = UpdateGoldengateConnectionAssignmentRequest::new().set_or_clear_goldengate_connection_assignment(None::<GoldengateConnectionAssignment>);
+    /// ```
+    pub fn set_or_clear_goldengate_connection_assignment<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::GoldengateConnectionAssignment>,
+    {
+        self.goldengate_connection_assignment = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateGoldengateConnectionAssignmentRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateGoldengateConnectionAssignmentRequest;
+    /// let x = UpdateGoldengateConnectionAssignmentRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateGoldengateConnectionAssignmentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.UpdateGoldengateConnectionAssignmentRequest"
+    }
+}
+
 /// Request message for deleting a GoldengateConnectionAssignment.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -35724,22 +39174,22 @@ pub struct GoldengateDeployment {
     /// projects/{project}/locations/{region}/goldengateDeployments/{goldengate_deployment}
     pub name: std::string::String,
 
-    /// Required. The properties of the GoldengateDeployment.
+    /// Required. Immutable. The properties of the GoldengateDeployment.
     pub properties: std::option::Option<crate::model::GoldengateDeploymentProperties>,
 
-    /// Optional. The GCP Oracle zone where Oracle GoldengateDeployment is hosted.
-    /// Example: us-east4-b-r2.
-    /// If not specified, the system will pick a zone based on availability.
+    /// Optional. Immutable. The GCP Oracle zone where Oracle GoldengateDeployment
+    /// is hosted. Example: us-east4-b-r2. If not specified, the system will pick a
+    /// zone based on availability.
     pub gcp_oracle_zone: std::string::String,
 
     /// Optional. The labels or tags associated with the GoldengateDeployment.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// Optional. The name of the OdbNetwork associated with the
+    /// Optional. Immutable. The name of the OdbNetwork associated with the
     /// GoldengateDeployment.
     pub odb_network: std::string::String,
 
-    /// Required. The name of the OdbSubnet associated with the
+    /// Required. Immutable. The name of the OdbSubnet associated with the
     /// GoldengateDeployment for IP allocation.
     pub odb_subnet: std::string::String,
 
@@ -35747,7 +39197,7 @@ pub struct GoldengateDeployment {
     /// GoldengateDeployment
     pub entitlement_id: std::string::String,
 
-    /// Required. The display name for the GoldengateDeployment.
+    /// Required. Immutable. The display name for the GoldengateDeployment.
     pub display_name: std::string::String,
 
     /// Output only. The date and time that the GoldengateDeployment was created.
@@ -38304,7 +41754,8 @@ pub mod goldengate_ogg_deployment {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DeploymentPasswordOptions {
-        /// Optional. The Goldengate deployment console password in plain text.
+        /// Optional. Input only. The Goldengate deployment console password in plain
+        /// text.
         AdminPassword(std::string::String),
         /// Optional. Input only. The Goldengate deployment console password secret
         /// version.
@@ -39643,6 +43094,129 @@ impl CreateGoldengateDeploymentRequest {
 impl wkt::message::Message for CreateGoldengateDeploymentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.oracledatabase.v1.CreateGoldengateDeploymentRequest"
+    }
+}
+
+/// The request for `GoldengateDeployment.Update`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateGoldengateDeploymentRequest {
+    /// Optional. A mask specifying which fields in the GoldengateDeployment should
+    /// be updated. A field specified in the mask is updated. If a mask isn't
+    /// provided, the service treats this as an implied field mask equivalent to
+    /// all fields that are populated (have a non-empty value). To clear or unset
+    /// a field, the field must be explicitly specified in the `update_mask`.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The resource being updated. Note only labels can be updated.
+    /// The provided labels will completely replace the existing labels.
+    /// Any existing label keys that are not included in the update request will be
+    /// deleted. Not providing labels and update_mask will not update the labels.
+    /// To clear all labels, specify `labels` in the `update_mask` and omit or
+    /// leave the `labels` field empty in the update request.
+    pub goldengate_deployment: std::option::Option<crate::model::GoldengateDeployment>,
+
+    /// Optional. An optional ID to identify the request. This value is used to
+    /// identify duplicate requests. If you make a request with the same request ID
+    /// and the original request is still in progress or completed, the server
+    /// ignores the second request. This prevents clients from
+    /// accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateGoldengateDeploymentRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateGoldengateDeploymentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateGoldengateDeploymentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGoldengateDeploymentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateGoldengateDeploymentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateGoldengateDeploymentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateGoldengateDeploymentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateGoldengateDeploymentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [goldengate_deployment][crate::model::UpdateGoldengateDeploymentRequest::goldengate_deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateGoldengateDeploymentRequest;
+    /// use google_cloud_oracledatabase_v1::model::GoldengateDeployment;
+    /// let x = UpdateGoldengateDeploymentRequest::new().set_goldengate_deployment(GoldengateDeployment::default()/* use setters */);
+    /// ```
+    pub fn set_goldengate_deployment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GoldengateDeployment>,
+    {
+        self.goldengate_deployment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [goldengate_deployment][crate::model::UpdateGoldengateDeploymentRequest::goldengate_deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateGoldengateDeploymentRequest;
+    /// use google_cloud_oracledatabase_v1::model::GoldengateDeployment;
+    /// let x = UpdateGoldengateDeploymentRequest::new().set_or_clear_goldengate_deployment(Some(GoldengateDeployment::default()/* use setters */));
+    /// let x = UpdateGoldengateDeploymentRequest::new().set_or_clear_goldengate_deployment(None::<GoldengateDeployment>);
+    /// ```
+    pub fn set_or_clear_goldengate_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GoldengateDeployment>,
+    {
+        self.goldengate_deployment = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateGoldengateDeploymentRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateGoldengateDeploymentRequest;
+    /// let x = UpdateGoldengateDeploymentRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateGoldengateDeploymentRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.UpdateGoldengateDeploymentRequest"
     }
 }
 
@@ -43237,7 +46811,7 @@ pub struct OdbNetwork {
     /// projects/{project}/locations/{region}/odbNetworks/{odb_network}
     pub name: std::string::String,
 
-    /// Required. The name of the VPC network in the following format:
+    /// Required. Immutable. The name of the VPC network in the following format:
     /// projects/{project}/global/networks/{network}
     pub network: std::string::String,
 
@@ -43254,10 +46828,24 @@ pub struct OdbNetwork {
     /// OdbNetwork.
     pub entitlement_id: std::string::String,
 
-    /// Optional. The GCP Oracle zone where OdbNetwork is hosted.
+    /// Optional. Immutable. The GCP Oracle zone where OdbNetwork is hosted.
     /// Example: us-east4-b-r2.
     /// If not specified, the system will pick a zone based on availability.
     pub gcp_oracle_zone: std::string::String,
+
+    /// Optional. Configuration to enable the service (Oracledatabase@Google Cloud)
+    /// to establish connectivity to the database.
+    ///
+    /// This should be specified if you intend to associate this OdbNetwork with a
+    /// DatabaseConnection resource to `ExecuteSQL` on the database, or to create a
+    /// ServiceIntegration with the Database.
+    ///
+    /// Please don't specify it otherwise to avoid complicating the network setup.
+    pub service_connectivity_config: std::option::Option<crate::model::ServiceConnectivityConfig>,
+
+    /// Output only. Indicates whether the OdbNetwork is currently reconciling
+    /// changes.
+    pub reconciling: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -43388,6 +46976,51 @@ impl OdbNetwork {
     /// ```
     pub fn set_gcp_oracle_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcp_oracle_zone = v.into();
+        self
+    }
+
+    /// Sets the value of [service_connectivity_config][crate::model::OdbNetwork::service_connectivity_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::OdbNetwork;
+    /// use google_cloud_oracledatabase_v1::model::ServiceConnectivityConfig;
+    /// let x = OdbNetwork::new().set_service_connectivity_config(ServiceConnectivityConfig::default()/* use setters */);
+    /// ```
+    pub fn set_service_connectivity_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceConnectivityConfig>,
+    {
+        self.service_connectivity_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service_connectivity_config][crate::model::OdbNetwork::service_connectivity_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::OdbNetwork;
+    /// use google_cloud_oracledatabase_v1::model::ServiceConnectivityConfig;
+    /// let x = OdbNetwork::new().set_or_clear_service_connectivity_config(Some(ServiceConnectivityConfig::default()/* use setters */));
+    /// let x = OdbNetwork::new().set_or_clear_service_connectivity_config(None::<ServiceConnectivityConfig>);
+    /// ```
+    pub fn set_or_clear_service_connectivity_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceConnectivityConfig>,
+    {
+        self.service_connectivity_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [reconciling][crate::model::OdbNetwork::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::OdbNetwork;
+    /// let x = OdbNetwork::new().set_reconciling(true);
+    /// ```
+    pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.reconciling = v.into();
         self
     }
 }
@@ -43725,6 +47358,130 @@ impl wkt::message::Message for DeleteOdbNetworkRequest {
     }
 }
 
+/// The request for `OdbNetwork.Update`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateOdbNetworkRequest {
+    /// Optional. A mask specifying which fields in the OdbNetwork should be
+    /// updated. A field specified in the mask is updated. If a mask isn't
+    /// provided, the service treats this as an implied field mask equivalent to
+    /// all fields that are populated (have a non-empty value). To clear or unset a
+    /// field, the field must be explicitly specified in the `update_mask`.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The resource being updated. Note only `labels` and
+    /// `service_connectivity_config` can be updated.
+    /// The provided labels will completely replace the existing labels.
+    /// Any existing label keys that are not included in the update request will be
+    /// deleted. Not providing labels and update_mask will not update the labels.
+    /// To clear all labels, specify `labels` in the `update_mask` and omit or
+    /// leave the `labels` field empty in the update request.
+    pub odb_network: std::option::Option<crate::model::OdbNetwork>,
+
+    /// Optional. An optional ID to identify the request. This value is used to
+    /// identify duplicate requests. If you make a request with the same request ID
+    /// and the original request is still in progress or completed, the server
+    /// ignores the second request. This prevents clients from
+    /// accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateOdbNetworkRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateOdbNetworkRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateOdbNetworkRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateOdbNetworkRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateOdbNetworkRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateOdbNetworkRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateOdbNetworkRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateOdbNetworkRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [odb_network][crate::model::UpdateOdbNetworkRequest::odb_network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateOdbNetworkRequest;
+    /// use google_cloud_oracledatabase_v1::model::OdbNetwork;
+    /// let x = UpdateOdbNetworkRequest::new().set_odb_network(OdbNetwork::default()/* use setters */);
+    /// ```
+    pub fn set_odb_network<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OdbNetwork>,
+    {
+        self.odb_network = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [odb_network][crate::model::UpdateOdbNetworkRequest::odb_network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateOdbNetworkRequest;
+    /// use google_cloud_oracledatabase_v1::model::OdbNetwork;
+    /// let x = UpdateOdbNetworkRequest::new().set_or_clear_odb_network(Some(OdbNetwork::default()/* use setters */));
+    /// let x = UpdateOdbNetworkRequest::new().set_or_clear_odb_network(None::<OdbNetwork>);
+    /// ```
+    pub fn set_or_clear_odb_network<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OdbNetwork>,
+    {
+        self.odb_network = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateOdbNetworkRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateOdbNetworkRequest;
+    /// let x = UpdateOdbNetworkRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateOdbNetworkRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.UpdateOdbNetworkRequest"
+    }
+}
+
 /// The request for `OdbNetwork.List`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -43959,6 +47716,113 @@ impl wkt::message::Message for GetOdbNetworkRequest {
     }
 }
 
+/// Configuration for a Private Service Connect (PSC) interface used by
+/// Oracledatabase@Google Cloud to establish private connectivity to the
+/// database.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PscInterfaceConfig {
+    /// Optional. The resource name of the Network Attachment that
+    /// Oracledatabase@Google Cloud will use to establish private connectivity to
+    /// the database via a Private Service Connect Interface (PSC-I).
+    /// Format:
+    /// projects/{project}/regions/{region}/networkAttachments/{network_attachment}
+    pub network_attachment: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PscInterfaceConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [network_attachment][crate::model::PscInterfaceConfig::network_attachment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::PscInterfaceConfig;
+    /// let x = PscInterfaceConfig::new().set_network_attachment("example");
+    /// ```
+    pub fn set_network_attachment<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.network_attachment = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PscInterfaceConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.PscInterfaceConfig"
+    }
+}
+
+/// Configuration to enable the service (Oracledatabase@Google Cloud) to
+/// establish connectivity to the database.
+///
+/// This should be specified if you intend to associate this OdbNetwork with a
+/// DatabaseConnection resource to `ExecuteSQL` on the database, or to create a
+/// ServiceIntegration with the Database.
+///
+/// Please don't specify it otherwise to avoid complicating the network setup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ServiceConnectivityConfig {
+    /// Optional. Configuration for Private Service Connect (PSC) interface.
+    pub psc_interface_config: std::option::Option<crate::model::PscInterfaceConfig>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ServiceConnectivityConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [psc_interface_config][crate::model::ServiceConnectivityConfig::psc_interface_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ServiceConnectivityConfig;
+    /// use google_cloud_oracledatabase_v1::model::PscInterfaceConfig;
+    /// let x = ServiceConnectivityConfig::new().set_psc_interface_config(PscInterfaceConfig::default()/* use setters */);
+    /// ```
+    pub fn set_psc_interface_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PscInterfaceConfig>,
+    {
+        self.psc_interface_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [psc_interface_config][crate::model::ServiceConnectivityConfig::psc_interface_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::ServiceConnectivityConfig;
+    /// use google_cloud_oracledatabase_v1::model::PscInterfaceConfig;
+    /// let x = ServiceConnectivityConfig::new().set_or_clear_psc_interface_config(Some(PscInterfaceConfig::default()/* use setters */));
+    /// let x = ServiceConnectivityConfig::new().set_or_clear_psc_interface_config(None::<PscInterfaceConfig>);
+    /// ```
+    pub fn set_or_clear_psc_interface_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PscInterfaceConfig>,
+    {
+        self.psc_interface_config = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ServiceConnectivityConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.ServiceConnectivityConfig"
+    }
+}
+
 /// Represents OdbSubnet resource.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -43967,10 +47831,10 @@ pub struct OdbSubnet {
     /// projects/{project}/locations/{location}/odbNetworks/{odb_network}/odbSubnets/{odb_subnet}
     pub name: std::string::String,
 
-    /// Required. The CIDR range of the subnet.
+    /// Required. Immutable. The CIDR range of the subnet.
     pub cidr_range: std::string::String,
 
-    /// Required. Purpose of the subnet.
+    /// Required. Immutable. Purpose of the subnet.
     pub purpose: crate::model::odb_subnet::Purpose,
 
     /// Optional. Labels or tags associated with the resource.
@@ -44511,6 +48375,129 @@ impl CreateOdbSubnetRequest {
 impl wkt::message::Message for CreateOdbSubnetRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.oracledatabase.v1.CreateOdbSubnetRequest"
+    }
+}
+
+/// The request for `OdbSubnet.Update`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateOdbSubnetRequest {
+    /// Optional. A mask specifying which fields in the OdbSubnet should be
+    /// updated. A field specified in the mask is updated. If a mask isn't
+    /// provided, the service treats this as an implied field mask equivalent to
+    /// all fields that are populated (have a non-empty value). To clear or unset a
+    /// field, the field must be explicitly specified in the `update_mask`.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The resource being updated. Note only labels can be updated.
+    /// The provided labels will completely replace the existing labels.
+    /// Any existing label keys that are not included in the update request will be
+    /// deleted. Not providing labels and update_mask will not update the labels.
+    /// To clear all labels, specify `labels` in the `update_mask` and omit or
+    /// leave the `labels` field empty in the update request.
+    pub odb_subnet: std::option::Option<crate::model::OdbSubnet>,
+
+    /// Optional. An optional ID to identify the request. This value is used to
+    /// identify duplicate requests. If you make a request with the same request ID
+    /// and the original request is still in progress or completed, the server
+    /// ignores the second request. This prevents clients from
+    /// accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateOdbSubnetRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateOdbSubnetRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateOdbSubnetRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateOdbSubnetRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateOdbSubnetRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateOdbSubnetRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateOdbSubnetRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateOdbSubnetRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [odb_subnet][crate::model::UpdateOdbSubnetRequest::odb_subnet].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateOdbSubnetRequest;
+    /// use google_cloud_oracledatabase_v1::model::OdbSubnet;
+    /// let x = UpdateOdbSubnetRequest::new().set_odb_subnet(OdbSubnet::default()/* use setters */);
+    /// ```
+    pub fn set_odb_subnet<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::OdbSubnet>,
+    {
+        self.odb_subnet = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [odb_subnet][crate::model::UpdateOdbSubnetRequest::odb_subnet].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateOdbSubnetRequest;
+    /// use google_cloud_oracledatabase_v1::model::OdbSubnet;
+    /// let x = UpdateOdbSubnetRequest::new().set_or_clear_odb_subnet(Some(OdbSubnet::default()/* use setters */));
+    /// let x = UpdateOdbSubnetRequest::new().set_or_clear_odb_subnet(None::<OdbSubnet>);
+    /// ```
+    pub fn set_or_clear_odb_subnet<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::OdbSubnet>,
+    {
+        self.odb_subnet = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateOdbSubnetRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateOdbSubnetRequest;
+    /// let x = UpdateOdbSubnetRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateOdbSubnetRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.UpdateOdbSubnetRequest"
     }
 }
 
@@ -45166,6 +49153,131 @@ impl wkt::message::Message for CreateCloudExadataInfrastructureRequest {
     }
 }
 
+/// The request for `CloudExadataInfrastructure.Update`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateCloudExadataInfrastructureRequest {
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// Exadata resource by the update. The fields specified in the `update_mask`
+    /// are relative to the resource, not the full request. A field will be
+    /// overwritten if it is in the mask. If the user does not provide a mask then
+    /// the service treats this as an implied field mask equivalent to all fields
+    /// that are populated (have a non-empty value). To clear or unset a field, the
+    /// field must be explicitly specified in the `update_mask`.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The resource being updated. Note only `labels` can be updated.
+    /// The provided `labels` will completely replace the existing labels.
+    /// Any existing label keys that are not included in the update request will be
+    /// deleted. Not providing `labels` and `update_mask` will not update the
+    /// labels. To clear all labels, specify `labels` in the `update_mask` and omit
+    /// or leave the `labels` field empty in the update request.
+    pub cloud_exadata_infrastructure: std::option::Option<crate::model::CloudExadataInfrastructure>,
+
+    /// Optional. An optional ID to identify the request. This value is used to
+    /// identify duplicate requests. If you make a request with the same request ID
+    /// and the original request is still in progress or completed, the server
+    /// ignores the second request. This prevents clients from
+    /// accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateCloudExadataInfrastructureRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateCloudExadataInfrastructureRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateCloudExadataInfrastructureRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCloudExadataInfrastructureRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCloudExadataInfrastructureRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateCloudExadataInfrastructureRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCloudExadataInfrastructureRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCloudExadataInfrastructureRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cloud_exadata_infrastructure][crate::model::UpdateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateCloudExadataInfrastructureRequest;
+    /// use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructure;
+    /// let x = UpdateCloudExadataInfrastructureRequest::new().set_cloud_exadata_infrastructure(CloudExadataInfrastructure::default()/* use setters */);
+    /// ```
+    pub fn set_cloud_exadata_infrastructure<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudExadataInfrastructure>,
+    {
+        self.cloud_exadata_infrastructure = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cloud_exadata_infrastructure][crate::model::UpdateCloudExadataInfrastructureRequest::cloud_exadata_infrastructure].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateCloudExadataInfrastructureRequest;
+    /// use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructure;
+    /// let x = UpdateCloudExadataInfrastructureRequest::new().set_or_clear_cloud_exadata_infrastructure(Some(CloudExadataInfrastructure::default()/* use setters */));
+    /// let x = UpdateCloudExadataInfrastructureRequest::new().set_or_clear_cloud_exadata_infrastructure(None::<CloudExadataInfrastructure>);
+    /// ```
+    pub fn set_or_clear_cloud_exadata_infrastructure<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudExadataInfrastructure>,
+    {
+        self.cloud_exadata_infrastructure = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateCloudExadataInfrastructureRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateCloudExadataInfrastructureRequest;
+    /// let x = UpdateCloudExadataInfrastructureRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateCloudExadataInfrastructureRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.UpdateCloudExadataInfrastructureRequest"
+    }
+}
+
 /// The request for `CloudExadataInfrastructure.Delete`.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -45578,6 +49690,129 @@ impl CreateCloudVmClusterRequest {
 impl wkt::message::Message for CreateCloudVmClusterRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.oracledatabase.v1.CreateCloudVmClusterRequest"
+    }
+}
+
+/// The request for `CloudVmCluster.Update`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateCloudVmClusterRequest {
+    /// Optional. A mask specifying which fields in the VM Cluster should be
+    /// updated. A field specified in the mask is overwritten. If a mask isn't
+    /// provided, the service treats this as an implied field mask equivalent to
+    /// all fields that are populated (have a non-empty value). To clear or unset
+    /// a field, the field must be explicitly specified in the `update_mask`.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The resource being updated. Note only `labels` can be updated.
+    /// The provided `labels` will completely replace the existing labels.
+    /// Any existing label keys that are not included in the update request will be
+    /// deleted. Not providing `labels` and `update_mask` will not update the
+    /// labels. To clear all labels, specify `labels` in the `update_mask` and omit
+    /// or leave the `labels` field empty in the update request.
+    pub cloud_vm_cluster: std::option::Option<crate::model::CloudVmCluster>,
+
+    /// Optional. An optional ID to identify the request. This value is used to
+    /// identify duplicate requests. If you make a request with the same request ID
+    /// and the original request is still in progress or completed, the server
+    /// ignores the second request. This prevents clients from
+    /// accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateCloudVmClusterRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateCloudVmClusterRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateCloudVmClusterRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCloudVmClusterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateCloudVmClusterRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateCloudVmClusterRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCloudVmClusterRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCloudVmClusterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cloud_vm_cluster][crate::model::UpdateCloudVmClusterRequest::cloud_vm_cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateCloudVmClusterRequest;
+    /// use google_cloud_oracledatabase_v1::model::CloudVmCluster;
+    /// let x = UpdateCloudVmClusterRequest::new().set_cloud_vm_cluster(CloudVmCluster::default()/* use setters */);
+    /// ```
+    pub fn set_cloud_vm_cluster<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudVmCluster>,
+    {
+        self.cloud_vm_cluster = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cloud_vm_cluster][crate::model::UpdateCloudVmClusterRequest::cloud_vm_cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateCloudVmClusterRequest;
+    /// use google_cloud_oracledatabase_v1::model::CloudVmCluster;
+    /// let x = UpdateCloudVmClusterRequest::new().set_or_clear_cloud_vm_cluster(Some(CloudVmCluster::default()/* use setters */));
+    /// let x = UpdateCloudVmClusterRequest::new().set_or_clear_cloud_vm_cluster(None::<CloudVmCluster>);
+    /// ```
+    pub fn set_or_clear_cloud_vm_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CloudVmCluster>,
+    {
+        self.cloud_vm_cluster = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateCloudVmClusterRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::UpdateCloudVmClusterRequest;
+    /// let x = UpdateCloudVmClusterRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateCloudVmClusterRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.UpdateCloudVmClusterRequest"
     }
 }
 
@@ -46962,13 +51197,19 @@ impl wkt::message::Message for CreateAutonomousDatabaseRequest {
 #[non_exhaustive]
 pub struct UpdateAutonomousDatabaseRequest {
     /// Optional. Field mask is used to specify the fields to be overwritten in the
-    /// Exadata resource by the update. The fields specified in the update_mask are
-    /// relative to the resource, not the full request. A field will be overwritten
-    /// if it is in the mask. If the user does not provide a mask then all fields
-    /// will be overwritten.
+    /// Exadata resource by the update. The fields specified in the `update_mask`
+    /// are relative to the resource, not the full request. A field will be
+    /// overwritten if it is in the mask. If the user does not provide a mask then
+    /// the service treats this as an implied field mask equivalent to
+    /// all fields that are populated (have a non-empty value). To clear or unset
+    /// a field, the field must be explicitly specified in the `update_mask`.
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
-    /// Required. The resource being updated
+    /// Required. The Autonomous Database resource being updated.
+    /// For `labels`, the provided map completely replaces existing labels; any
+    /// existing keys not included will be deleted. To clear all labels, specify
+    /// `labels` in the `update_mask` and omit or leave the `labels` field empty in
+    /// the update request.
     pub autonomous_database: std::option::Option<crate::model::AutonomousDatabase>,
 
     /// Optional. An optional ID to identify the request. This value is used to
@@ -48632,17 +52873,24 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListExadbVmClus
 }
 
 /// The request for `ExadbVmCluster.Update`. We only support adding the
-/// Virtual Machine to the ExadbVmCluster. Rest of the fields in ExadbVmCluster
-/// are immutable.
+/// Virtual Machine to the ExadbVmCluster and updating labels. Rest of the fields
+/// in ExadbVmCluster are immutable.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateExadbVmClusterRequest {
     /// Optional. A mask specifying which fields in th VM Cluster should be
     /// updated. A field specified in the mask is overwritten. If a mask isn't
-    /// provided then all the fields in the VM Cluster are overwritten.
+    /// provided then the service treats this as an implied field mask equivalent
+    /// to all fields that are populated (have a non-empty value). To clear or
+    /// unset a field, the field must be explicitly specified in the `update_mask`.
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
-    /// Required. The resource being updated.
+    /// Required. The ExadbVmCluster resource being updated.
+    /// Mutable fields that can be updated include `labels` and
+    /// `properties.node_count`. For `labels`, the provided map completely
+    /// replaces existing labels; any existing keys not included will be deleted.
+    /// To clear all labels, specify `labels` in the `update_mask` and omit or
+    /// leave the `labels` field empty in the update request.
     pub exadb_vm_cluster: std::option::Option<crate::model::ExadbVmCluster>,
 
     /// Optional. An optional ID to identify the request. This value is used to
@@ -48828,6 +53076,162 @@ impl RemoveVirtualMachineExadbVmClusterRequest {
 impl wkt::message::Message for RemoveVirtualMachineExadbVmClusterRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.oracledatabase.v1.RemoveVirtualMachineExadbVmClusterRequest"
+    }
+}
+
+/// The request for `CloudVmCluster.EnableCloudVmClusterIdentityConnector`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EnableCloudVmClusterIdentityConnectorRequest {
+    /// Required. The name of the Cloud VM Cluster in the following format:
+    /// projects/{project}/locations/{location}/cloudVmClusters/{cloud_vm_cluster}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EnableCloudVmClusterIdentityConnectorRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::EnableCloudVmClusterIdentityConnectorRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::EnableCloudVmClusterIdentityConnectorRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_vm_cluster_id = "cloud_vm_cluster_id";
+    /// let x = EnableCloudVmClusterIdentityConnectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/cloudVmClusters/{cloud_vm_cluster_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for EnableCloudVmClusterIdentityConnectorRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.EnableCloudVmClusterIdentityConnectorRequest"
+    }
+}
+
+/// The request for `ExadbVmCluster.EnableExadbVmClusterIdentityConnector`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EnableExadbVmClusterIdentityConnectorRequest {
+    /// Required. The name of the Exadb VM Cluster in the following format:
+    /// projects/{project}/locations/{location}/exadbVmClusters/{exadb_vm_cluster}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EnableExadbVmClusterIdentityConnectorRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::EnableExadbVmClusterIdentityConnectorRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::EnableExadbVmClusterIdentityConnectorRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let exadb_vm_cluster_id = "exadb_vm_cluster_id";
+    /// let x = EnableExadbVmClusterIdentityConnectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/exadbVmClusters/{exadb_vm_cluster_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for EnableExadbVmClusterIdentityConnectorRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.EnableExadbVmClusterIdentityConnectorRequest"
+    }
+}
+
+/// The request for `CloudVmCluster.DisableCloudVmClusterIdentityConnector`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DisableCloudVmClusterIdentityConnectorRequest {
+    /// Required. The name of the Cloud VM Cluster in the following format:
+    /// projects/{project}/locations/{location}/cloudVmClusters/{cloud_vm_cluster}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DisableCloudVmClusterIdentityConnectorRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DisableCloudVmClusterIdentityConnectorRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DisableCloudVmClusterIdentityConnectorRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let cloud_vm_cluster_id = "cloud_vm_cluster_id";
+    /// let x = DisableCloudVmClusterIdentityConnectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/cloudVmClusters/{cloud_vm_cluster_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DisableCloudVmClusterIdentityConnectorRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.DisableCloudVmClusterIdentityConnectorRequest"
+    }
+}
+
+/// The request for `ExadbVmCluster.DisableExadbVmClusterIdentityConnector`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DisableExadbVmClusterIdentityConnectorRequest {
+    /// Required. The name of the Exadb VM Cluster in the following format:
+    /// projects/{project}/locations/{location}/exadbVmClusters/{exadb_vm_cluster}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DisableExadbVmClusterIdentityConnectorRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DisableExadbVmClusterIdentityConnectorRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::DisableExadbVmClusterIdentityConnectorRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let exadb_vm_cluster_id = "exadb_vm_cluster_id";
+    /// let x = DisableExadbVmClusterIdentityConnectorRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/exadbVmClusters/{exadb_vm_cluster_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DisableExadbVmClusterIdentityConnectorRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.oracledatabase.v1.DisableExadbVmClusterIdentityConnectorRequest"
     }
 }
 
@@ -50599,15 +55003,15 @@ pub struct CloudVmCluster {
     /// projects/{project}/locations/{region}/cloudVmClusters/{cloud_vm_cluster}
     pub name: std::string::String,
 
-    /// Required. The name of the Exadata Infrastructure resource on which VM
-    /// cluster resource is created, in the following format:
+    /// Required. Immutable. The name of the Exadata Infrastructure resource on
+    /// which VM cluster resource is created, in the following format:
     /// projects/{project}/locations/{region}/cloudExadataInfrastuctures/{cloud_extradata_infrastructure}
     pub exadata_infrastructure: std::string::String,
 
-    /// Optional. User friendly name for this resource.
+    /// Optional. Immutable. User friendly name for this resource.
     pub display_name: std::string::String,
 
-    /// Optional. Various properties of the VM Cluster.
+    /// Optional. Immutable. Various properties of the VM Cluster.
     pub properties: std::option::Option<crate::model::CloudVmClusterProperties>,
 
     /// Optional. Labels or tags associated with the VM Cluster.
@@ -50616,13 +55020,14 @@ pub struct CloudVmCluster {
     /// Output only. The date and time that the VM cluster was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// Optional. Network settings. CIDR to use for cluster IP allocation.
+    /// Optional. Immutable. Network settings. CIDR to use for cluster IP
+    /// allocation.
     pub cidr: std::string::String,
 
-    /// Optional. CIDR range of the backup subnet.
+    /// Optional. Immutable. CIDR range of the backup subnet.
     pub backup_subnet_cidr: std::string::String,
 
-    /// Optional. The name of the VPC network.
+    /// Optional. Immutable. The name of the VPC network.
     /// Format: projects/{project}/global/networks/{network}
     pub network: std::string::String,
 
@@ -50631,20 +55036,20 @@ pub struct CloudVmCluster {
     /// CloudExadataInfrastructure. Example: us-east4-b-r2.
     pub gcp_oracle_zone: std::string::String,
 
-    /// Optional. The name of the OdbNetwork associated with the VM Cluster.
-    /// Format:
+    /// Optional. Immutable. The name of the OdbNetwork associated with the VM
+    /// Cluster. Format:
     /// projects/{project}/locations/{location}/odbNetworks/{odb_network}
     /// It is optional but if specified, this should match the parent ODBNetwork of
     /// the odb_subnet and backup_odb_subnet.
     pub odb_network: std::string::String,
 
-    /// Optional. The name of the OdbSubnet associated with the VM Cluster for
-    /// IP allocation. Format:
+    /// Optional. Immutable. The name of the OdbSubnet associated with the VM
+    /// Cluster for IP allocation. Format:
     /// projects/{project}/locations/{location}/odbNetworks/{odb_network}/odbSubnets/{odb_subnet}
     pub odb_subnet: std::string::String,
 
-    /// Optional. The name of the backup OdbSubnet associated with the VM Cluster.
-    /// Format:
+    /// Optional. Immutable. The name of the backup OdbSubnet associated with the
+    /// VM Cluster. Format:
     /// projects/{project}/locations/{location}/odbNetworks/{odb_network}/odbSubnets/{odb_subnet}
     pub backup_odb_subnet: std::string::String,
 
@@ -50657,10 +55062,17 @@ pub struct CloudVmCluster {
     /// securely access the resources in the customer project.
     pub identity_connector: std::option::Option<crate::model::IdentityConnector>,
 
-    /// Optional. The name of ExascaleDbStorageVault associated with the VM
-    /// Cluster. Format:
+    /// Optional. Immutable. The name of ExascaleDbStorageVault associated with the
+    /// VM Cluster. Format:
     /// projects/{project}/locations/{location}/exascaleDbStorageVaults/{exascale_db_storage_vault}
     pub exascale_db_storage_vault: std::string::String,
+
+    /// Optional. Input only. Immutable. If set to true, disables the automatic
+    /// provisioning of the Workload Identity Connector during creation. If set to
+    /// false or omitted, the Workload Identity Connector will be automatically
+    /// provisioned by default. Note: Provisioning the Workload Identity Connector
+    /// is a prerequisite for enabling Google Cloud CMEK.
+    pub identity_connector_disabled: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -50968,6 +55380,18 @@ impl CloudVmCluster {
         v: T,
     ) -> Self {
         self.exascale_db_storage_vault = v.into();
+        self
+    }
+
+    /// Sets the value of [identity_connector_disabled][crate::model::CloudVmCluster::identity_connector_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_oracledatabase_v1::model::CloudVmCluster;
+    /// let x = CloudVmCluster::new().set_identity_connector_disabled(true);
+    /// ```
+    pub fn set_identity_connector_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.identity_connector_disabled = v.into();
         self
     }
 }
@@ -53147,6 +57571,8 @@ pub enum DBWorkload {
     /// Autonomous Database with the Oracle APEX Application Development workload
     /// type.
     Apex,
+    /// Autonomous Database with the Lakehouse workload type.
+    Lh,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [DBWorkload::value] or
@@ -53174,6 +57600,7 @@ impl DBWorkload {
             Self::Dw => std::option::Option::Some(2),
             Self::Ajd => std::option::Option::Some(3),
             Self::Apex => std::option::Option::Some(4),
+            Self::Lh => std::option::Option::Some(5),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -53189,6 +57616,7 @@ impl DBWorkload {
             Self::Dw => std::option::Option::Some("DW"),
             Self::Ajd => std::option::Option::Some("AJD"),
             Self::Apex => std::option::Option::Some("APEX"),
+            Self::Lh => std::option::Option::Some("LH"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -53215,6 +57643,7 @@ impl std::convert::From<i32> for DBWorkload {
             2 => Self::Dw,
             3 => Self::Ajd,
             4 => Self::Apex,
+            5 => Self::Lh,
             _ => Self::UnknownValue(db_workload::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -53231,6 +57660,7 @@ impl std::convert::From<&str> for DBWorkload {
             "DW" => Self::Dw,
             "AJD" => Self::Ajd,
             "APEX" => Self::Apex,
+            "LH" => Self::Lh,
             _ => Self::UnknownValue(db_workload::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -53249,6 +57679,7 @@ impl serde::ser::Serialize for DBWorkload {
             Self::Dw => serializer.serialize_i32(2),
             Self::Ajd => serializer.serialize_i32(3),
             Self::Apex => serializer.serialize_i32(4),
+            Self::Lh => serializer.serialize_i32(5),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }
