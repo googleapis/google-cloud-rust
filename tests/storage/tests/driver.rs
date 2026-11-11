@@ -216,4 +216,16 @@ mod storage {
             .inspect_err(anydump);
         result
     }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn run_storage_enterprise_storage_classes() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        if !std::env::var("GOOGLE_CLOUD_RUST_TEST_ENTERPRISE").is_ok_and(|s| s == "1") {
+            println!("Skipping Enterprise storage class tests");
+            return Ok(());
+        }
+        integration_tests_storage::enterprise_storage_class::run()
+            .await
+            .inspect_err(anydump)
+    }
 }
