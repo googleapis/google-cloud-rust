@@ -68,7 +68,8 @@ impl FromProto<google_cloud_longrunning::model::Operation> for google::longrunni
         let result = self
             .result
             .map(|result| match result {
-                P::Error(status) => status.cnv().map(|s| M::Error(s.into())),
+                P::Error(status) => FromProto::<google_cloud_rpc::model::Status>::cnv(status)
+                    .map(|s| M::Error(s.into())),
                 P::Response(any) => lro_any_from_prost(any).map(|r| M::Response(r.into())),
             })
             .transpose()?;
@@ -186,8 +187,14 @@ mod tests {
         prost: google::longrunning::Operation,
         wkt: google_cloud_longrunning::model::Operation,
     ) -> anyhow::Result<()> {
-        assert_eq!(prost, wkt.clone().to_proto()?);
-        assert_eq!(wkt, prost.cnv()?);
+        assert_eq!(
+            prost,
+            ToProto::<google::longrunning::Operation>::to_proto(wkt.clone())?
+        );
+        assert_eq!(
+            wkt,
+            FromProto::<google_cloud_longrunning::model::Operation>::cnv(prost)?
+        );
         Ok(())
     }
 
@@ -195,7 +202,7 @@ mod tests {
     fn lro_to_prost_unknown_metadata() -> anyhow::Result<()> {
         let wkt = google_cloud_longrunning::model::Operation::new()
             .set_metadata(wkt::Any::from_msg(&wkt::Duration::default())?);
-        let prost = wkt.to_proto();
+        let prost = ToProto::<google::longrunning::Operation>::to_proto(wkt);
         assert!(matches!(prost, Err(ConvertError::UnexpectedTypeUrl(_))));
         Ok(())
     }
@@ -204,7 +211,7 @@ mod tests {
     fn lro_to_prost_unknown_response() -> anyhow::Result<()> {
         let wkt = google_cloud_longrunning::model::Operation::new()
             .set_response(wkt::Any::from_msg(&wkt::Duration::default())?);
-        let prost = wkt.to_proto();
+        let prost = ToProto::<google::longrunning::Operation>::to_proto(wkt);
         assert!(matches!(prost, Err(ConvertError::UnexpectedTypeUrl(_))));
         Ok(())
     }
@@ -216,7 +223,7 @@ mod tests {
             metadata: Some(unknown),
             ..Default::default()
         };
-        let wkt = prost.cnv();
+        let wkt = FromProto::<google_cloud_longrunning::model::Operation>::cnv(prost);
         assert!(matches!(wkt, Err(ConvertError::UnexpectedTypeUrl(_))));
         Ok(())
     }
@@ -228,7 +235,7 @@ mod tests {
             result: Some(google::longrunning::operation::Result::Response(unknown)),
             ..Default::default()
         };
-        let wkt = prost.cnv();
+        let wkt = FromProto::<google_cloud_longrunning::model::Operation>::cnv(prost);
         assert!(matches!(wkt, Err(ConvertError::UnexpectedTypeUrl(_))));
         Ok(())
     }

@@ -56,7 +56,7 @@ impl ObjectDescriptorTransport {
 
         // Establish the gRPC connection and extract object metadata.
         let (mut initial, headers, connection) = connector.connect(proto_ranges).await?;
-        let object = FromProto::cnv(initial.metadata.take().ok_or_else(|| {
+        let object = FromProto::<Object>::cnv(initial.metadata.take().ok_or_else(|| {
             Error::deser("initial response in bidi read must contain object metadata")
         })?)
         .expect("transforming from proto Object never fails");

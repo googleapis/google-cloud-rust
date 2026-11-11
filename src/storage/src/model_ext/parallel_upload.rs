@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::google::storage::v2;
 use crate::model::{CommonObjectRequestParams, WriteObjectSpec};
 use gaxi::prost::ToProto;
 
@@ -36,7 +37,7 @@ impl TryFrom<CreateObjectWriteSessionRequest>
         let resource = value
             .spec
             .resource
-            .map(ToProto::to_proto)
+            .map(ToProto::<v2::Object>::to_proto)
             .transpose()
             .map_err(crate::Error::deser)?;
         let write_object_spec = crate::google::storage::v2::WriteObjectSpec {
@@ -51,7 +52,7 @@ impl TryFrom<CreateObjectWriteSessionRequest>
         };
         let common_object_request_params = value
             .params
-            .map(ToProto::to_proto)
+            .map(ToProto::<v2::CommonObjectRequestParams>::to_proto)
             .transpose()
             .map_err(crate::Error::deser)?;
 
