@@ -230,6 +230,5 @@ terraform apply /tmp/build.tfplan
 
 Authentication integration tests maintain a separate GCB and Terraform
 configuration targeting the `rust-auth-testing` project under
-[`src/auth/.gcb/`](../../src/auth/.gcb/builds/triggers/main.tf); follow the same
-workflow in `src/auth/.gcb/builds` when updating auth-specific builds or test
-resources.
+[`src/auth/.gcb/`](../../src/auth/.gcb/); follow the same workflow in
+`src/auth/.gcb/builds` when updating auth-specific builds or test resources.
