@@ -704,29 +704,9 @@ async fn run_object_appendable_examples(
     project_id: &str,
     buckets: &mut Vec<String>,
 ) -> anyhow::Result<()> {
-    use google_cloud_test_utils::runtime_config::{region_id, zone_id};
     tracing::info!("create rapid bucket for appendable examples");
-    let rapid_bucket_id = random_bucket_id();
+    let (rapid_bucket_id, _) = create_rapid_bucket(control, project_id).await?;
     buckets.push(rapid_bucket_id.clone());
-    let _ = control
-        .create_bucket()
-        .set_parent("projects/_")
-        .set_bucket_id(rapid_bucket_id.clone())
-        .set_bucket(
-            Bucket::new()
-                .set_project(format!("projects/{project_id}"))
-                .set_location(region_id())
-                .set_custom_placement_config(
-                    CustomPlacementConfig::new().set_data_locations([zone_id()]),
-                )
-                .set_storage_class("RAPID")
-                .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
-                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
-                    UniformBucketLevelAccess::new().set_enabled(true),
-                )),
-        )
-        .send()
-        .await?;
 
     tracing::info!("running open_appendable_object_send_and_append example");
     objects::open_appendable_object_send_and_append::sample(
@@ -989,31 +969,85 @@ pub async fn create_test_rapid_bucket() -> anyhow::Result<(StorageControl, Bucke
     let client = client_for_create_bucket().await?;
     cleanup_stale_buckets(&client, &project_id).await;
 
-    let bucket_id = crate::random_bucket_id();
-
-    let create = client
-        .create_bucket()
-        .set_parent("projects/_")
-        .set_bucket_id(bucket_id)
-        .set_bucket(
-            Bucket::new()
-                .set_project(format!("projects/{project_id}"))
-                .set_location("us-central1")
-                .set_custom_placement_config(
-                    CustomPlacementConfig::new().set_data_locations(["us-central1-a"]),
-                )
-                .set_storage_class("RAPID")
-                .set_labels([("integration-test", "true")])
-                .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
-                .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
-                    UniformBucketLevelAccess::new().set_enabled(true),
-                )),
-        )
-        .with_idempotency(true)
-        .send()
-        .await?;
-    println!("create_test_rapid_bucket(): {create:?}");
+    let (_, create) = create_rapid_bucket(&client, &project_id).await?;
     Ok((client, create))
+}
+
+fn rapid_candidate_zones(default_zone: &str, default_region: &str) -> (String, Vec<String>) {
+    let region = default_zone
+        .rsplit_once('-')
+        .map(|(r, _)| r.to_string())
+        .unwrap_or_else(|| default_region.to_string());
+
+    // Try the preferred zone first, followed by other standard zones in the same region.
+    let mut candidate_zones = vec![default_zone.to_string()];
+    for suffix in ["a", "b", "c", "f"] {
+        let zone = format!("{region}-{suffix}");
+        if !candidate_zones.contains(&zone) {
+            candidate_zones.push(zone);
+        }
+    }
+    (region, candidate_zones)
+}
+
+async fn create_rapid_bucket(
+    client: &StorageControl,
+    project_id: &str,
+) -> anyhow::Result<(String, Bucket)> {
+    use google_cloud_test_utils::runtime_config::{region_id, zone_id};
+    let (region, candidate_zones) = rapid_candidate_zones(&zone_id(), &region_id());
+    create_rapid_bucket_in_zones(client, project_id, &region, &candidate_zones).await
+}
+
+async fn create_rapid_bucket_in_zones(
+    client: &StorageControl,
+    project_id: &str,
+    region: &str,
+    candidate_zones: &[String],
+) -> anyhow::Result<(String, Bucket)> {
+    let mut last_error = None;
+    for zone in candidate_zones {
+        let bucket_id = crate::random_bucket_id();
+        tracing::info!("attempting to create rapid bucket {bucket_id} in {zone}");
+
+        let create = client
+            .create_bucket()
+            .set_parent("projects/_")
+            .set_bucket_id(&bucket_id)
+            .set_bucket(
+                Bucket::new()
+                    .set_project(format!("projects/{project_id}"))
+                    .set_location(region)
+                    .set_custom_placement_config(
+                        CustomPlacementConfig::new().set_data_locations([zone]),
+                    )
+                    .set_storage_class("RAPID")
+                    .set_labels([("integration-test", "true")])
+                    .set_hierarchical_namespace(HierarchicalNamespace::new().set_enabled(true))
+                    .set_iam_config(IamConfig::new().set_uniform_bucket_level_access(
+                        UniformBucketLevelAccess::new().set_enabled(true),
+                    )),
+            )
+            .with_retry_policy(RetryableErrors.with_attempt_limit(5))
+            .with_idempotency(true)
+            .send()
+            .await;
+
+        match create {
+            Ok(bucket) => {
+                println!("create_test_rapid_bucket(): created {bucket_id} in {zone}: {bucket:?}");
+                return Ok((bucket_id, bucket));
+            }
+            Err(e) => {
+                tracing::warn!("failed to create rapid bucket in {zone}: {e:?}");
+                last_error = Some(e);
+            }
+        }
+    }
+
+    Err(last_error
+        .map(anyhow::Error::from)
+        .unwrap_or_else(|| anyhow::anyhow!("no candidate zones available")))
 }
 
 async fn client_for_create_bucket() -> anyhow::Result<StorageControl> {
@@ -1399,5 +1433,118 @@ mod tests {
             std::future::pending::<anyhow::Result<()>>(),
         )
         .await;
+    }
+
+    #[test]
+    fn test_rapid_candidate_zones() {
+        let (region, zones) = rapid_candidate_zones("us-central1-a", "us-central1");
+        assert_eq!(region, "us-central1");
+        assert_eq!(
+            zones,
+            vec![
+                "us-central1-a",
+                "us-central1-b",
+                "us-central1-c",
+                "us-central1-f"
+            ]
+        );
+
+        let (region, zones) = rapid_candidate_zones("us-central1-c", "us-central1");
+        assert_eq!(region, "us-central1");
+        assert_eq!(
+            zones,
+            vec![
+                "us-central1-c",
+                "us-central1-a",
+                "us-central1-b",
+                "us-central1-f"
+            ]
+        );
+
+        let (region, zones) = rapid_candidate_zones("us-east4-b", "us-central1");
+        assert_eq!(region, "us-east4");
+        assert_eq!(
+            zones,
+            vec!["us-east4-b", "us-east4-a", "us-east4-c", "us-east4-f"]
+        );
+    }
+
+    #[derive(Debug)]
+    struct ZonalStockoutStub {
+        attempted_zones: std::sync::Mutex<Vec<String>>,
+        fail_zones: Vec<String>,
+    }
+
+    impl google_cloud_storage::stub::StorageControl for ZonalStockoutStub {
+        async fn create_bucket(
+            &self,
+            req: google_cloud_storage::model::CreateBucketRequest,
+            _options: google_cloud_gax::options::RequestOptions,
+        ) -> google_cloud_gax::Result<google_cloud_gax::response::Response<Bucket>> {
+            use google_cloud_gax::error::rpc::{Code, Status};
+            let bucket = req.bucket.expect("bucket must be set");
+            let zone = bucket
+                .custom_placement_config
+                .as_ref()
+                .and_then(|c| c.data_locations.first())
+                .cloned()
+                .unwrap_or_default();
+            self.attempted_zones.lock().unwrap().push(zone.clone());
+
+            if self.fail_zones.contains(&zone) {
+                return Err(GaxError::service(
+                    Status::default()
+                        .set_code(Code::Internal)
+                        .set_message("A zonal bucket can't currently be created in this zone. Try again later, or try creating the bucket in another zone."),
+                ));
+            }
+
+            Ok(google_cloud_gax::response::Response::from(
+                bucket.set_name(format!("projects/_/buckets/{}", req.bucket_id)),
+            ))
+        }
+    }
+
+    #[tokio::test]
+    async fn create_rapid_bucket_falls_back_on_zonal_stockout() -> anyhow::Result<()> {
+        let stub = std::sync::Arc::new(ZonalStockoutStub {
+            attempted_zones: std::sync::Mutex::new(Vec::new()),
+            fail_zones: vec!["us-central1-a".to_string()],
+        });
+        let client = StorageControl::from_stub::<ZonalStockoutStub>(stub.clone());
+        let zones = vec!["us-central1-a".to_string(), "us-central1-b".to_string()];
+
+        let (bucket_id, bucket) =
+            create_rapid_bucket_in_zones(&client, "my-project", "us-central1", &zones).await?;
+
+        assert_eq!(bucket.name, format!("projects/_/buckets/{bucket_id}"));
+        assert_eq!(
+            *stub.attempted_zones.lock().unwrap(),
+            vec!["us-central1-a".to_string(), "us-central1-b".to_string()]
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn create_rapid_bucket_returns_error_when_all_zones_fail() {
+        let stub = std::sync::Arc::new(ZonalStockoutStub {
+            attempted_zones: std::sync::Mutex::new(Vec::new()),
+            fail_zones: vec!["us-central1-a".to_string(), "us-central1-b".to_string()],
+        });
+        let client = StorageControl::from_stub::<ZonalStockoutStub>(stub.clone());
+        let zones = vec!["us-central1-a".to_string(), "us-central1-b".to_string()];
+
+        let err = create_rapid_bucket_in_zones(&client, "my-project", "us-central1", &zones)
+            .await
+            .unwrap_err();
+
+        assert!(
+            format!("{err:?}").contains("A zonal bucket can't currently be created in this zone"),
+            "unexpected error: {err:?}"
+        );
+        assert_eq!(
+            *stub.attempted_zones.lock().unwrap(),
+            vec!["us-central1-a".to_string(), "us-central1-b".to_string()]
+        );
     }
 }
