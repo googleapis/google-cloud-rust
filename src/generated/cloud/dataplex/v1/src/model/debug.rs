@@ -1867,6 +1867,31 @@ impl std::fmt::Debug for super::data_documentation_result::TableResult {
     }
 }
 
+impl std::fmt::Debug for super::data_documentation_result::DataProductResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataProductResult");
+        debug_struct.field("overview", &self.overview);
+        debug_struct.field("queries", &self.queries);
+        debug_struct.field("asset_descriptions", &self.asset_descriptions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::data_documentation_result::data_product_result::AssetDescription {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AssetDescription");
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("overview", &self.overview);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::data_documentation_result::SchemaRelationship {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SchemaRelationship");

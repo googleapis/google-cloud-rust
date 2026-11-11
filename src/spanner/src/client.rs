@@ -47,7 +47,7 @@ use google_cloud_spanner_admin_database_v1::builder::database_admin::ClientBuild
 use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ClientBuilder as InstanceAdminBuilder;
 use http::{
     HeaderMap,
-    header::{HeaderName, HeaderValue},
+    header::{Entry, HeaderName, HeaderValue},
 };
 use std::borrow::Cow;
 use std::env;
@@ -623,6 +623,13 @@ fn apply_request_defaults(mut options: crate::RequestOptions) -> crate::RequestO
     options
 }
 
+/// Default capacity allocated for HTTP request headers across Cloud Spanner RPCs.
+///
+/// Accommodates `google-cloud-resource-prefix`, `x-goog-spanner-route-to-leader`,
+/// `x-goog-spanner-request-id`, and potential caller-specified custom headers without
+/// triggering internal hash table reallocations.
+pub(crate) const DEFAULT_REQUEST_HEADERS_CAPACITY: usize = 4;
+
 static ROUTE_TO_LEADER_HEADER: HeaderName =
     HeaderName::from_static("x-goog-spanner-route-to-leader");
 static ROUTE_TO_LEADER_VALUE: HeaderValue = HeaderValue::from_static("true");
@@ -631,13 +638,30 @@ pub(crate) fn amend_request_options_for_lar(
     leader_aware_routing_enabled: bool,
     mut options: GaxRequestOptions,
 ) -> GaxRequestOptions {
-    if leader_aware_routing_enabled {
-        options.get_extension_or_default_mut::<HeaderMap>().insert(
-            ROUTE_TO_LEADER_HEADER.clone(),
-            ROUTE_TO_LEADER_VALUE.clone(),
-        );
+    if !leader_aware_routing_enabled {
+        return options;
     }
-    options
+
+    if let Some(headers) = options.get_extension_mut::<HeaderMap>() {
+        match headers.entry(&ROUTE_TO_LEADER_HEADER) {
+            Entry::Vacant(entry) => {
+                entry.insert(ROUTE_TO_LEADER_VALUE.clone());
+            }
+            Entry::Occupied(mut entry) => {
+                if entry.get() != ROUTE_TO_LEADER_VALUE || entry.iter().nth(1).is_some() {
+                    entry.insert(ROUTE_TO_LEADER_VALUE.clone());
+                }
+            }
+        }
+        return options;
+    }
+
+    let mut headers = HeaderMap::with_capacity(DEFAULT_REQUEST_HEADERS_CAPACITY);
+    headers.insert(
+        ROUTE_TO_LEADER_HEADER.clone(),
+        ROUTE_TO_LEADER_VALUE.clone(),
+    );
+    options.insert_extension(headers)
 }
 
 fn map_emulator_admin_endpoint(endpoint: &str, is_emulator: bool) -> Cow<'_, str> {
@@ -858,22 +882,27 @@ impl Spanner {
         mut options: RequestOptions,
         channel_id: usize,
     ) -> RequestOptions {
-        if options
-            .get_extension::<HeaderMap>()
-            .is_some_and(|headers| headers.contains_key(&REQUEST_ID_HEADER))
-        {
+        let generate_header_value = || {
+            let header_value_string = self.request_id_creator.next_id_prefix(channel_id);
+            HeaderValue::try_from(header_value_string).ok()
+        };
+
+        if let Some(headers) = options.get_extension_mut::<HeaderMap>() {
+            if let Entry::Vacant(entry) = headers.entry(&REQUEST_ID_HEADER)
+                && let Some(header_value) = generate_header_value()
+            {
+                entry.insert(header_value);
+            }
             return options;
         }
 
-        let header_val_str = self.request_id_creator.next_id_prefix(channel_id);
-        let Ok(val) = HeaderValue::from_str(&header_val_str) else {
+        let Some(header_value) = generate_header_value() else {
             return options;
         };
 
-        options
-            .get_extension_or_default_mut::<HeaderMap>()
-            .insert(REQUEST_ID_HEADER.clone(), val);
-        options
+        let mut headers = HeaderMap::with_capacity(DEFAULT_REQUEST_HEADERS_CAPACITY);
+        headers.insert(REQUEST_ID_HEADER.clone(), header_value);
+        options.insert_extension(headers)
     }
 
     define_idempotent_rpc!(
@@ -2570,7 +2599,7 @@ mod tests {
 
         let lease = client.pick_channel();
         let channel = lease.channel();
-        let mut options = crate::RequestOptions::default();
+        let mut options = RequestOptions::default();
         options = client.attach_request_id(options, channel.channel_id);
         let first_headers = options
             .get_extension::<HeaderMap>()
@@ -2599,28 +2628,298 @@ mod tests {
         );
     }
 
+    #[tokio_test_no_panics]
+    async fn attach_request_id_appends_to_existing_headers() {
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let custom_header = HeaderName::from_static("x-custom-header");
+        let custom_value = HeaderValue::from_static("custom-value");
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.insert(custom_header.clone(), custom_value.clone());
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let channel = client.pick_channel();
+        let options = client.attach_request_id(options, channel.channel_id);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+        assert_eq!(
+            headers.get(&custom_header),
+            Some(&custom_value),
+            "custom header must be preserved"
+        );
+        assert!(
+            headers.contains_key(&REQUEST_ID_HEADER),
+            "request ID header must be added alongside existing headers"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn attach_request_id_preserves_custom_request_id_without_generating_new_id() {
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let custom_request_id = HeaderValue::from_static("custom-request-id-value");
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.insert(REQUEST_ID_HEADER.clone(), custom_request_id.clone());
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let channel = client.pick_channel();
+        let options = client.attach_request_id(options, channel.channel_id);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+        assert_eq!(
+            headers.get(&REQUEST_ID_HEADER),
+            Some(&custom_request_id),
+            "custom request ID header must not be overwritten"
+        );
+        assert_eq!(
+            headers.get_all(&REQUEST_ID_HEADER).iter().count(),
+            1,
+            "request ID header must remain singleton"
+        );
+    }
+
     #[test]
     fn amend_request_options_for_lar_idempotent_no_duplicate_headers() {
-        let options = crate::RequestOptions::default();
-        let options = super::amend_request_options_for_lar(true, options);
-        let options = super::amend_request_options_for_lar(true, options);
+        let options = RequestOptions::default();
+        let options = amend_request_options_for_lar(true, options);
+        let options = amend_request_options_for_lar(true, options);
 
         let headers = options
             .get_extension::<HeaderMap>()
             .expect("HeaderMap should be present");
 
         assert_eq!(
-            headers
-                .get_all(&super::ROUTE_TO_LEADER_HEADER)
-                .iter()
-                .count(),
+            headers.get_all(&ROUTE_TO_LEADER_HEADER).iter().count(),
             1,
             "LAR header should only be present once even after multiple amend calls"
         );
         assert_eq!(
-            headers.get(&super::ROUTE_TO_LEADER_HEADER),
-            Some(&super::ROUTE_TO_LEADER_VALUE),
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
             "LAR header should match ROUTE_TO_LEADER_VALUE"
+        );
+    }
+
+    #[test]
+    fn amend_request_options_for_lar_appends_to_existing_headers() {
+        let custom_header = HeaderName::from_static("x-custom-header");
+        let custom_value = HeaderValue::from_static("custom-value");
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.insert(custom_header.clone(), custom_value.clone());
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let options = amend_request_options_for_lar(true, options);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+        assert_eq!(
+            headers.get(&custom_header),
+            Some(&custom_value),
+            "custom header must be preserved"
+        );
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "route-to-leader header must be added alongside existing headers"
+        );
+    }
+
+    #[test]
+    fn amend_request_options_for_lar_disabled_does_not_add_headers() {
+        let options = RequestOptions::default();
+        let options = amend_request_options_for_lar(false, options);
+        assert!(
+            options.get_extension::<HeaderMap>().is_none(),
+            "HeaderMap should not be added when LAR is disabled"
+        );
+    }
+
+    #[test]
+    fn amend_request_options_for_lar_disabled_preserves_existing_headers() {
+        let custom_header = HeaderName::from_static("x-custom-header");
+        let custom_value = HeaderValue::from_static("custom-value");
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.insert(custom_header.clone(), custom_value.clone());
+        initial_headers.insert(
+            REQUEST_ID_HEADER.clone(),
+            HeaderValue::from_static("1.a1b2c3.1.2.3.1"),
+        );
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let options = amend_request_options_for_lar(false, options);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be preserved");
+        assert_eq!(
+            headers.get(&custom_header),
+            Some(&custom_value),
+            "custom header must be preserved"
+        );
+        assert_eq!(
+            headers.get(&REQUEST_ID_HEADER),
+            Some(&HeaderValue::from_static("1.a1b2c3.1.2.3.1")),
+            "request ID header must be preserved"
+        );
+        assert!(
+            headers.get(&ROUTE_TO_LEADER_HEADER).is_none(),
+            "route-to-leader header must not be added when LAR is disabled"
+        );
+    }
+
+    #[test]
+    fn amend_request_options_for_lar_overwrites_conflicting_value() {
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.insert(
+            ROUTE_TO_LEADER_HEADER.clone(),
+            HeaderValue::from_static("false"),
+        );
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let options = amend_request_options_for_lar(true, options);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "conflicting route-to-leader value must be updated to true"
+        );
+        assert_eq!(
+            headers.get_all(&ROUTE_TO_LEADER_HEADER).iter().count(),
+            1,
+            "route-to-leader header must appear exactly once"
+        );
+    }
+
+    #[test]
+    fn amend_request_options_for_lar_collapses_multi_valued_conflicting_headers() {
+        let mut initial_headers = HeaderMap::new();
+        initial_headers.append(
+            ROUTE_TO_LEADER_HEADER.clone(),
+            HeaderValue::from_static("true"),
+        );
+        initial_headers.append(
+            ROUTE_TO_LEADER_HEADER.clone(),
+            HeaderValue::from_static("false"),
+        );
+        let options = RequestOptions::default().insert_extension(initial_headers);
+
+        let options = amend_request_options_for_lar(true, options);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "route-to-leader header must be true"
+        );
+        assert_eq!(
+            headers.get_all(&ROUTE_TO_LEADER_HEADER).iter().count(),
+            1,
+            "multi-valued route-to-leader headers must be collapsed to a single entry"
+        );
+    }
+
+    #[tokio_test_no_panics]
+    async fn attach_headers_chained_composition_with_all_standard_headers() {
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let channel = client.pick_channel();
+        let resource_prefix = HeaderValue::from_static("projects/p/instances/i/databases/d");
+
+        // Chain resource-prefix, route-to-leader, and request-id in sequence.
+        let mut options = RequestOptions::default();
+        options = DatabaseClient::attach_resource_prefix_header(&resource_prefix, options);
+        options = amend_request_options_for_lar(true, options);
+        options = client.attach_request_id(options, channel.channel_id);
+
+        let headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should be present");
+
+        assert_eq!(
+            headers.get("google-cloud-resource-prefix"),
+            Some(&resource_prefix),
+            "resource prefix header must be present"
+        );
+        assert_eq!(
+            headers.get(&ROUTE_TO_LEADER_HEADER),
+            Some(&ROUTE_TO_LEADER_VALUE),
+            "route-to-leader header must be present"
+        );
+        assert!(
+            headers.contains_key(&REQUEST_ID_HEADER),
+            "request ID header must be present"
+        );
+        assert_eq!(
+            headers.len(),
+            3,
+            "exactly 3 standard headers must be present"
+        );
+
+        // Subsequent calls must be fully idempotent with no duplicate headers.
+        options = DatabaseClient::attach_resource_prefix_header(&resource_prefix, options);
+        options = amend_request_options_for_lar(true, options);
+        options = client.attach_request_id(options, channel.channel_id);
+
+        let final_headers = options
+            .get_extension::<HeaderMap>()
+            .expect("HeaderMap should still be present");
+        assert_eq!(
+            final_headers.len(),
+            3,
+            "duplicate attachment must not introduce new entries"
+        );
+        assert_eq!(
+            final_headers
+                .get_all(&ROUTE_TO_LEADER_HEADER)
+                .iter()
+                .count(),
+            1,
+            "route-to-leader header must remain singleton"
+        );
+        assert_eq!(
+            final_headers.get_all(&REQUEST_ID_HEADER).iter().count(),
+            1,
+            "request ID header must remain singleton"
         );
     }
 

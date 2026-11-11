@@ -129,16 +129,21 @@ impl gaxi::prost::ToProto<ComputeRouteMatrixRequest> for crate::model::ComputeRo
             origins: self
                 .origins
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<RouteMatrixOrigin>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             destinations: self
                 .destinations
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<RouteMatrixDestination>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            travel_mode: self.travel_mode.to_proto()?,
-            routing_preference: self.routing_preference.to_proto()?,
-            departure_time: self.departure_time.map(|v| v.to_proto()).transpose()?,
+            travel_mode: gaxi::prost::ToProto::<RouteTravelMode>::to_proto(self.travel_mode)?,
+            routing_preference: gaxi::prost::ToProto::<RoutingPreference>::to_proto(
+                self.routing_preference,
+            )?,
+            departure_time: self
+                .departure_time
+                .map(gaxi::prost::ToProto::<prost_types::Timestamp>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -152,18 +157,22 @@ impl gaxi::prost::FromProto<crate::model::ComputeRouteMatrixRequest> for Compute
             .set_origins(
                 self.origins
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::RouteMatrixOrigin>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_destinations(
                 self.destinations
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::RouteMatrixDestination>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_travel_mode(self.travel_mode)
             .set_routing_preference(self.routing_preference)
-            .set_or_clear_departure_time(self.departure_time.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_departure_time(
+                self.departure_time
+                    .map(gaxi::prost::FromProto::<wkt::Timestamp>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -171,8 +180,14 @@ impl gaxi::prost::ToProto<RouteMatrixOrigin> for crate::model::RouteMatrixOrigin
     type Output = RouteMatrixOrigin;
     fn to_proto(self) -> std::result::Result<RouteMatrixOrigin, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            waypoint: self.waypoint.map(|v| v.to_proto()).transpose()?,
-            route_modifiers: self.route_modifiers.map(|v| v.to_proto()).transpose()?,
+            waypoint: self
+                .waypoint
+                .map(gaxi::prost::ToProto::<Waypoint>::to_proto)
+                .transpose()?,
+            route_modifiers: self
+                .route_modifiers
+                .map(gaxi::prost::ToProto::<RouteModifiers>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -182,8 +197,16 @@ impl gaxi::prost::FromProto<crate::model::RouteMatrixOrigin> for RouteMatrixOrig
         self,
     ) -> std::result::Result<crate::model::RouteMatrixOrigin, gaxi::prost::ConvertError> {
         Ok(crate::model::RouteMatrixOrigin::new()
-            .set_or_clear_waypoint(self.waypoint.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_route_modifiers(self.route_modifiers.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_waypoint(
+                self.waypoint
+                    .map(gaxi::prost::FromProto::<crate::model::Waypoint>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_route_modifiers(
+                self.route_modifiers
+                    .map(gaxi::prost::FromProto::<crate::model::RouteModifiers>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -191,7 +214,10 @@ impl gaxi::prost::ToProto<RouteMatrixDestination> for crate::model::RouteMatrixD
     type Output = RouteMatrixDestination;
     fn to_proto(self) -> std::result::Result<RouteMatrixDestination, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            waypoint: self.waypoint.map(|v| v.to_proto()).transpose()?,
+            waypoint: self
+                .waypoint
+                .map(gaxi::prost::ToProto::<Waypoint>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -200,8 +226,13 @@ impl gaxi::prost::FromProto<crate::model::RouteMatrixDestination> for RouteMatri
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::RouteMatrixDestination, gaxi::prost::ConvertError> {
-        Ok(crate::model::RouteMatrixDestination::new()
-            .set_or_clear_waypoint(self.waypoint.map(|v| v.cnv()).transpose()?))
+        Ok(
+            crate::model::RouteMatrixDestination::new().set_or_clear_waypoint(
+                self.waypoint
+                    .map(gaxi::prost::FromProto::<crate::model::Waypoint>::cnv)
+                    .transpose()?,
+            ),
+        )
     }
 }
 
@@ -209,15 +240,18 @@ impl gaxi::prost::ToProto<RouteModifiers> for crate::model::RouteModifiers {
     type Output = RouteModifiers;
     fn to_proto(self) -> std::result::Result<RouteModifiers, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            avoid_tolls: self.avoid_tolls.to_proto()?,
-            avoid_highways: self.avoid_highways.to_proto()?,
-            avoid_ferries: self.avoid_ferries.to_proto()?,
-            avoid_indoor: self.avoid_indoor.to_proto()?,
-            vehicle_info: self.vehicle_info.map(|v| v.to_proto()).transpose()?,
+            avoid_tolls: gaxi::prost::ToProto::<bool>::to_proto(self.avoid_tolls)?,
+            avoid_highways: gaxi::prost::ToProto::<bool>::to_proto(self.avoid_highways)?,
+            avoid_ferries: gaxi::prost::ToProto::<bool>::to_proto(self.avoid_ferries)?,
+            avoid_indoor: gaxi::prost::ToProto::<bool>::to_proto(self.avoid_indoor)?,
+            vehicle_info: self
+                .vehicle_info
+                .map(gaxi::prost::ToProto::<VehicleInfo>::to_proto)
+                .transpose()?,
             toll_passes: self
                 .toll_passes
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<TollPass>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -230,7 +264,11 @@ impl gaxi::prost::FromProto<crate::model::RouteModifiers> for RouteModifiers {
             .set_avoid_highways(self.avoid_highways)
             .set_avoid_ferries(self.avoid_ferries)
             .set_avoid_indoor(self.avoid_indoor)
-            .set_or_clear_vehicle_info(self.vehicle_info.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_vehicle_info(
+                self.vehicle_info
+                    .map(gaxi::prost::FromProto::<crate::model::VehicleInfo>::cnv)
+                    .transpose()?,
+            )
             .set_toll_passes(
                 self.toll_passes
                     .into_iter()
@@ -243,8 +281,12 @@ impl gaxi::prost::ToProto<VehicleInfo> for crate::model::VehicleInfo {
     type Output = VehicleInfo;
     fn to_proto(self) -> std::result::Result<VehicleInfo, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            license_plate_last_character: self.license_plate_last_character.to_proto()?,
-            emission_type: self.emission_type.to_proto()?,
+            license_plate_last_character: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.license_plate_last_character,
+            )?,
+            emission_type: gaxi::prost::ToProto::<VehicleEmissionType>::to_proto(
+                self.emission_type,
+            )?,
         })
     }
 }
@@ -261,8 +303,8 @@ impl gaxi::prost::ToProto<FallbackInfo> for crate::model::FallbackInfo {
     type Output = FallbackInfo;
     fn to_proto(self) -> std::result::Result<FallbackInfo, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            routing_mode: self.routing_mode.to_proto()?,
-            reason: self.reason.to_proto()?,
+            routing_mode: gaxi::prost::ToProto::<FallbackRoutingMode>::to_proto(self.routing_mode)?,
+            reason: gaxi::prost::ToProto::<FallbackReason>::to_proto(self.reason)?,
         })
     }
 }
@@ -279,14 +321,23 @@ impl gaxi::prost::ToProto<RouteTravelAdvisory> for crate::model::RouteTravelAdvi
     type Output = RouteTravelAdvisory;
     fn to_proto(self) -> std::result::Result<RouteTravelAdvisory, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            traffic_restriction: self.traffic_restriction.map(|v| v.to_proto()).transpose()?,
-            toll_info: self.toll_info.map(|v| v.to_proto()).transpose()?,
+            traffic_restriction: self
+                .traffic_restriction
+                .map(gaxi::prost::ToProto::<TrafficRestriction>::to_proto)
+                .transpose()?,
+            toll_info: self
+                .toll_info
+                .map(gaxi::prost::ToProto::<TollInfo>::to_proto)
+                .transpose()?,
             speed_reading_intervals: self
                 .speed_reading_intervals
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<SpeedReadingInterval>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            custom_layer_info: self.custom_layer_info.map(|v| v.to_proto()).transpose()?,
+            custom_layer_info: self
+                .custom_layer_info
+                .map(gaxi::prost::ToProto::<CustomLayerInfo>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -297,16 +348,26 @@ impl gaxi::prost::FromProto<crate::model::RouteTravelAdvisory> for RouteTravelAd
     ) -> std::result::Result<crate::model::RouteTravelAdvisory, gaxi::prost::ConvertError> {
         Ok(crate::model::RouteTravelAdvisory::new()
             .set_or_clear_traffic_restriction(
-                self.traffic_restriction.map(|v| v.cnv()).transpose()?,
+                self.traffic_restriction
+                    .map(gaxi::prost::FromProto::<crate::model::TrafficRestriction>::cnv)
+                    .transpose()?,
             )
-            .set_or_clear_toll_info(self.toll_info.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_toll_info(
+                self.toll_info
+                    .map(gaxi::prost::FromProto::<crate::model::TollInfo>::cnv)
+                    .transpose()?,
+            )
             .set_speed_reading_intervals(
                 self.speed_reading_intervals
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::SpeedReadingInterval>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
-            .set_or_clear_custom_layer_info(self.custom_layer_info.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_custom_layer_info(
+                self.custom_layer_info
+                    .map(gaxi::prost::FromProto::<crate::model::CustomLayerInfo>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -316,7 +377,7 @@ impl gaxi::prost::ToProto<TrafficRestriction> for crate::model::TrafficRestricti
         Ok(Self::Output {
             license_plate_last_character_restriction: self
                 .license_plate_last_character_restriction
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<LicensePlateLastCharacterRestriction>::to_proto)
                 .transpose()?,
         })
     }
@@ -326,12 +387,10 @@ impl gaxi::prost::FromProto<crate::model::TrafficRestriction> for TrafficRestric
     fn cnv(
         self,
     ) -> std::result::Result<crate::model::TrafficRestriction, gaxi::prost::ConvertError> {
-        Ok(crate::model::TrafficRestriction::new()
-            .set_or_clear_license_plate_last_character_restriction(
-                self.license_plate_last_character_restriction
-                    .map(|v| v.cnv())
-                    .transpose()?,
-            ))
+        Ok(
+            crate::model::TrafficRestriction::new()
+                .set_or_clear_license_plate_last_character_restriction(self.license_plate_last_character_restriction.map(gaxi::prost::FromProto::<crate::model::LicensePlateLastCharacterRestriction>::cnv).transpose()?)
+        )
     }
 }
 
@@ -346,7 +405,7 @@ impl gaxi::prost::ToProto<LicensePlateLastCharacterRestriction>
             allowed_last_characters: self
                 .allowed_last_characters
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<std::string::String>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -365,7 +424,7 @@ impl gaxi::prost::FromProto<crate::model::LicensePlateLastCharacterRestriction>
             crate::model::LicensePlateLastCharacterRestriction::new().set_allowed_last_characters(
                 self.allowed_last_characters
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<std::string::String>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             ),
         )
@@ -379,7 +438,7 @@ impl gaxi::prost::ToProto<TollInfo> for crate::model::TollInfo {
             estimated_price: self
                 .estimated_price
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<super::prost::google::r#type::Money>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         })
     }
@@ -390,7 +449,7 @@ impl gaxi::prost::FromProto<crate::model::TollInfo> for TollInfo {
         Ok(crate::model::TollInfo::new().set_estimated_price(
             self.estimated_price
                 .into_iter()
-                .map(|v| v.cnv())
+                .map(gaxi::prost::FromProto::<google_cloud_type::model::Money>::cnv)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
         ))
     }
@@ -412,9 +471,13 @@ impl gaxi::prost::ToProto<SpeedReadingInterval> for crate::model::SpeedReadingIn
     type Output = SpeedReadingInterval;
     fn to_proto(self) -> std::result::Result<SpeedReadingInterval, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            start_polyline_point_index: self.start_polyline_point_index.to_proto()?,
-            end_polyline_point_index: self.end_polyline_point_index.to_proto()?,
-            speed: self.speed.to_proto()?,
+            start_polyline_point_index: gaxi::prost::ToProto::<i32>::to_proto(
+                self.start_polyline_point_index,
+            )?,
+            end_polyline_point_index: gaxi::prost::ToProto::<i32>::to_proto(
+                self.end_polyline_point_index,
+            )?,
+            speed: gaxi::prost::ToProto::<speed_reading_interval::Speed>::to_proto(self.speed)?,
         })
     }
 }
@@ -438,9 +501,14 @@ impl gaxi::prost::ToProto<custom_layer_info::AreaInfo>
         self,
     ) -> std::result::Result<custom_layer_info::AreaInfo, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            area_id: self.area_id.to_proto()?,
-            distance_in_area_meters: self.distance_in_area_meters.to_proto()?,
-            duration_in_area: self.duration_in_area.map(|v| v.to_proto()).transpose()?,
+            area_id: gaxi::prost::ToProto::<std::string::String>::to_proto(self.area_id)?,
+            distance_in_area_meters: gaxi::prost::ToProto::<f32>::to_proto(
+                self.distance_in_area_meters,
+            )?,
+            duration_in_area: self
+                .duration_in_area
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -455,7 +523,11 @@ impl gaxi::prost::FromProto<crate::model::custom_layer_info::AreaInfo>
         Ok(crate::model::custom_layer_info::AreaInfo::new()
             .set_area_id(self.area_id)
             .set_distance_in_area_meters(self.distance_in_area_meters)
-            .set_or_clear_duration_in_area(self.duration_in_area.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_duration_in_area(
+                self.duration_in_area
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -466,12 +538,14 @@ impl gaxi::prost::ToProto<CustomLayerInfo> for crate::model::CustomLayerInfo {
             area_info: self
                 .area_info
                 .into_iter()
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<custom_layer_info::AreaInfo>::to_proto)
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            total_distance_in_areas_meters: self.total_distance_in_areas_meters.to_proto()?,
+            total_distance_in_areas_meters: gaxi::prost::ToProto::<f32>::to_proto(
+                self.total_distance_in_areas_meters,
+            )?,
             total_duration_in_areas: self
                 .total_duration_in_areas
-                .map(|v| v.to_proto())
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
                 .transpose()?,
         })
     }
@@ -483,12 +557,14 @@ impl gaxi::prost::FromProto<crate::model::CustomLayerInfo> for CustomLayerInfo {
             .set_area_info(
                 self.area_info
                     .into_iter()
-                    .map(|v| v.cnv())
+                    .map(gaxi::prost::FromProto::<crate::model::custom_layer_info::AreaInfo>::cnv)
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             )
             .set_total_distance_in_areas_meters(self.total_distance_in_areas_meters)
             .set_or_clear_total_duration_in_areas(
-                self.total_duration_in_areas.map(|v| v.cnv()).transpose()?,
+                self.total_duration_in_areas
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
             ))
     }
 }
@@ -497,15 +573,32 @@ impl gaxi::prost::ToProto<RouteMatrixElement> for crate::model::RouteMatrixEleme
     type Output = RouteMatrixElement;
     fn to_proto(self) -> std::result::Result<RouteMatrixElement, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            origin_index: self.origin_index.to_proto()?,
-            destination_index: self.destination_index.to_proto()?,
-            status: self.status.map(|v| v.to_proto()).transpose()?,
-            condition: self.condition.to_proto()?,
-            distance_meters: self.distance_meters.to_proto()?,
-            duration: self.duration.map(|v| v.to_proto()).transpose()?,
-            static_duration: self.static_duration.map(|v| v.to_proto()).transpose()?,
-            travel_advisory: self.travel_advisory.map(|v| v.to_proto()).transpose()?,
-            fallback_info: self.fallback_info.map(|v| v.to_proto()).transpose()?,
+            origin_index: gaxi::prost::ToProto::<i32>::to_proto(self.origin_index)?,
+            destination_index: gaxi::prost::ToProto::<i32>::to_proto(self.destination_index)?,
+            status: self
+                .status
+                .map(gaxi::prost::ToProto::<super::prost::google::rpc::Status>::to_proto)
+                .transpose()?,
+            condition: gaxi::prost::ToProto::<RouteMatrixElementCondition>::to_proto(
+                self.condition,
+            )?,
+            distance_meters: gaxi::prost::ToProto::<i32>::to_proto(self.distance_meters)?,
+            duration: self
+                .duration
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                .transpose()?,
+            static_duration: self
+                .static_duration
+                .map(gaxi::prost::ToProto::<prost_types::Duration>::to_proto)
+                .transpose()?,
+            travel_advisory: self
+                .travel_advisory
+                .map(gaxi::prost::ToProto::<RouteTravelAdvisory>::to_proto)
+                .transpose()?,
+            fallback_info: self
+                .fallback_info
+                .map(gaxi::prost::ToProto::<FallbackInfo>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -517,13 +610,33 @@ impl gaxi::prost::FromProto<crate::model::RouteMatrixElement> for RouteMatrixEle
         Ok(crate::model::RouteMatrixElement::new()
             .set_origin_index(self.origin_index)
             .set_destination_index(self.destination_index)
-            .set_or_clear_status(self.status.map(|v| v.cnv()).transpose()?)
+            .set_or_clear_status(
+                self.status
+                    .map(gaxi::prost::FromProto::<google_cloud_rpc::model::Status>::cnv)
+                    .transpose()?,
+            )
             .set_condition(self.condition)
             .set_distance_meters(self.distance_meters)
-            .set_or_clear_duration(self.duration.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_static_duration(self.static_duration.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_travel_advisory(self.travel_advisory.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_fallback_info(self.fallback_info.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_duration(
+                self.duration
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_static_duration(
+                self.static_duration
+                    .map(gaxi::prost::FromProto::<wkt::Duration>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_travel_advisory(
+                self.travel_advisory
+                    .map(gaxi::prost::FromProto::<crate::model::RouteTravelAdvisory>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_fallback_info(
+                self.fallback_info
+                    .map(gaxi::prost::FromProto::<crate::model::FallbackInfo>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -531,8 +644,12 @@ impl gaxi::prost::ToProto<waypoint::LocationType> for crate::model::waypoint::Lo
     type Output = waypoint::LocationType;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
         match self {
-            Self::Location(v) => Ok(Self::Output::Location((*v).to_proto()?)),
-            Self::PlaceId(v) => Ok(Self::Output::PlaceId(v.to_proto()?)),
+            Self::Location(v) => Ok(Self::Output::Location(
+                gaxi::prost::ToProto::<Location>::to_proto(*v)?,
+            )),
+            Self::PlaceId(v) => Ok(Self::Output::PlaceId(gaxi::prost::ToProto::<
+                std::string::String,
+            >::to_proto(v)?)),
         }
     }
 }
@@ -543,8 +660,12 @@ impl gaxi::prost::FromProto<crate::model::waypoint::LocationType> for waypoint::
     ) -> std::result::Result<crate::model::waypoint::LocationType, gaxi::prost::ConvertError> {
         use crate::model::waypoint::LocationType as T;
         match self {
-            Self::Location(v) => Ok(T::Location(std::boxed::Box::new(v.cnv()?))),
-            Self::PlaceId(v) => Ok(T::PlaceId(v.cnv()?)),
+            Self::Location(v) => Ok(T::Location(std::boxed::Box::new(gaxi::prost::FromProto::<
+                crate::model::Location,
+            >::cnv(v)?))),
+            Self::PlaceId(v) => Ok(T::PlaceId(
+                gaxi::prost::FromProto::<std::string::String>::cnv(v)?,
+            )),
         }
     }
 }
@@ -553,10 +674,13 @@ impl gaxi::prost::ToProto<Waypoint> for crate::model::Waypoint {
     type Output = Waypoint;
     fn to_proto(self) -> std::result::Result<Waypoint, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            via: self.via.to_proto()?,
-            vehicle_stopover: self.vehicle_stopover.to_proto()?,
-            side_of_road: self.side_of_road.to_proto()?,
-            location_type: self.location_type.map(|v| v.to_proto()).transpose()?,
+            via: gaxi::prost::ToProto::<bool>::to_proto(self.via)?,
+            vehicle_stopover: gaxi::prost::ToProto::<bool>::to_proto(self.vehicle_stopover)?,
+            side_of_road: gaxi::prost::ToProto::<bool>::to_proto(self.side_of_road)?,
+            location_type: self
+                .location_type
+                .map(gaxi::prost::ToProto::<waypoint::LocationType>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -567,7 +691,11 @@ impl gaxi::prost::FromProto<crate::model::Waypoint> for Waypoint {
             .set_via(self.via)
             .set_vehicle_stopover(self.vehicle_stopover)
             .set_side_of_road(self.side_of_road)
-            .set_location_type(self.location_type.map(|v| v.cnv()).transpose()?))
+            .set_location_type(
+                self.location_type
+                    .map(gaxi::prost::FromProto::<crate::model::waypoint::LocationType>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -575,8 +703,14 @@ impl gaxi::prost::ToProto<Location> for crate::model::Location {
     type Output = Location;
     fn to_proto(self) -> std::result::Result<Location, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            lat_lng: self.lat_lng.map(|v| v.to_proto()).transpose()?,
-            heading: self.heading.map(|v| v.to_proto()).transpose()?,
+            lat_lng: self
+                .lat_lng
+                .map(gaxi::prost::ToProto::<super::prost::google::r#type::LatLng>::to_proto)
+                .transpose()?,
+            heading: self
+                .heading
+                .map(gaxi::prost::ToProto::<i32>::to_proto)
+                .transpose()?,
         })
     }
 }
@@ -584,8 +718,16 @@ impl gaxi::prost::ToProto<Location> for crate::model::Location {
 impl gaxi::prost::FromProto<crate::model::Location> for Location {
     fn cnv(self) -> std::result::Result<crate::model::Location, gaxi::prost::ConvertError> {
         Ok(crate::model::Location::new()
-            .set_or_clear_lat_lng(self.lat_lng.map(|v| v.cnv()).transpose()?)
-            .set_or_clear_heading(self.heading.map(|v| v.cnv()).transpose()?))
+            .set_or_clear_lat_lng(
+                self.lat_lng
+                    .map(gaxi::prost::FromProto::<google_cloud_type::model::LatLng>::cnv)
+                    .transpose()?,
+            )
+            .set_or_clear_heading(
+                self.heading
+                    .map(gaxi::prost::FromProto::<wkt::Int32Value>::cnv)
+                    .transpose()?,
+            ))
     }
 }
 
@@ -597,8 +739,8 @@ impl gaxi::prost::ToProto<super::prost::google::r#type::LatLng>
         self,
     ) -> std::result::Result<super::prost::google::r#type::LatLng, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            latitude: self.latitude.to_proto()?,
-            longitude: self.longitude.to_proto()?,
+            latitude: gaxi::prost::ToProto::<f64>::to_proto(self.latitude)?,
+            longitude: gaxi::prost::ToProto::<f64>::to_proto(self.longitude)?,
         })
     }
 }
@@ -621,9 +763,11 @@ impl gaxi::prost::ToProto<super::prost::google::r#type::Money> for google_cloud_
         self,
     ) -> std::result::Result<super::prost::google::r#type::Money, gaxi::prost::ConvertError> {
         Ok(Self::Output {
-            currency_code: self.currency_code.to_proto()?,
-            units: self.units.to_proto()?,
-            nanos: self.nanos.to_proto()?,
+            currency_code: gaxi::prost::ToProto::<std::string::String>::to_proto(
+                self.currency_code,
+            )?,
+            units: gaxi::prost::ToProto::<i64>::to_proto(self.units)?,
+            nanos: gaxi::prost::ToProto::<i32>::to_proto(self.nanos)?,
         })
     }
 }

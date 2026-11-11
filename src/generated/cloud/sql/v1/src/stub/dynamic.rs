@@ -557,6 +557,18 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>>;
 
+    async fn start(
+        &self,
+        req: crate::model::SqlInstancesStartRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn stop(
+        &self,
+        req: crate::model::SqlInstancesStopRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
     async fn restore_backup(
         &self,
         req: crate::model::SqlInstancesRestoreBackupRequest,
@@ -653,6 +665,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>>;
 
+    async fn execute_sql_read_only(
+        &self,
+        req: crate::model::SqlInstancesExecuteSqlReadOnlyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SqlInstancesExecuteSqlReadOnlyResponse>>;
+
     async fn execute_sql(
         &self,
         req: crate::model::SqlInstancesExecuteSqlRequest,
@@ -680,6 +698,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     async fn point_in_time_restore(
         &self,
         req: crate::model::SqlInstancesPointInTimeRestoreRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn reconcile_networking(
+        &self,
+        req: crate::model::SqlInstancesReconcileNetworkingRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>>;
 }
@@ -887,6 +911,24 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn start(
+        &self,
+        req: crate::model::SqlInstancesStartRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::start(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn stop(
+        &self,
+        req: crate::model::SqlInstancesStopRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::stop(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn restore_backup(
         &self,
         req: crate::model::SqlInstancesRestoreBackupRequest,
@@ -1033,6 +1075,15 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn execute_sql_read_only(
+        &self,
+        req: crate::model::SqlInstancesExecuteSqlReadOnlyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SqlInstancesExecuteSqlReadOnlyResponse>> {
+        T::execute_sql_read_only(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn execute_sql(
         &self,
         req: crate::model::SqlInstancesExecuteSqlRequest,
@@ -1075,6 +1126,15 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::point_in_time_restore(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn reconcile_networking(
+        &self,
+        req: crate::model::SqlInstancesReconcileNetworkingRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::reconcile_networking(self, req, options).await
     }
 }
 
@@ -1157,6 +1217,24 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
         req: crate::model::SqlSslCertsListRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::SslCertsListResponse>>;
+
+    async fn update_customer_managed_certificate(
+        &self,
+        req: crate::model::UpdateCustomerManagedCertificateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn delete_customer_managed_certificate(
+        &self,
+        req: crate::model::DeleteCustomerManagedCertificateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn list_customer_managed_certificates(
+        &self,
+        req: crate::model::ListCustomerManagedCertificatesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCustomerManagedCertificatesResponse>>;
 }
 
 /// All implementations of [super::SqlSslCertsService] also implement [SqlSslCertsService].
@@ -1196,6 +1274,33 @@ impl<T: super::SqlSslCertsService> SqlSslCertsService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::SslCertsListResponse>> {
         T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_customer_managed_certificate(
+        &self,
+        req: crate::model::UpdateCustomerManagedCertificateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::update_customer_managed_certificate(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_customer_managed_certificate(
+        &self,
+        req: crate::model::DeleteCustomerManagedCertificateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::delete_customer_managed_certificate(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_customer_managed_certificates(
+        &self,
+        req: crate::model::ListCustomerManagedCertificatesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListCustomerManagedCertificatesResponse>> {
+        T::list_customer_managed_certificates(self, req, options).await
     }
 }
 

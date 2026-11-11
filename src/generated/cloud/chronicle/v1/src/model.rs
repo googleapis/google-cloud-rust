@@ -22,6 +22,7 @@
 extern crate async_trait;
 extern crate bytes;
 extern crate gaxi;
+extern crate google_backstory;
 extern crate google_cloud_api;
 extern crate google_cloud_gax;
 extern crate google_cloud_longrunning;
@@ -12483,6 +12484,261 @@ impl wkt::message::Message for DataTableOperationErrors {
     }
 }
 
+/// An Entity provides additional context about an entity in a UDM event (asset,
+/// user, etc.). For example, a PROCESS_LAUNCH event describes that user
+/// 'abc@example.corp' launched process 'shady.exe'. The event does not include
+/// information that user 'abc@example.com' is a recently terminated employee who
+/// administers a server storing finance data. Information stored in one or more
+/// Entities can add this additional context.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Entity {
+    /// The resource name of the entity.
+    /// Format:
+    /// `projects/{project}/locations/{location}/instances/{instance}/entities/{entity}`
+    /// `projects/{project}/locations/{location}/instances/{instance}/analytics/{analytic}/entities/{entity}`
+    /// `projects/{project}/locations/{location}/instances/{instance}/watchlists/{watchlist}/entities/{entity}`
+    pub name: std::string::String,
+
+    /// Entity metadata such as timestamp, product, etc.
+    pub metadata: std::option::Option<google_backstory::model::EntityMetadata>,
+
+    /// Noun in the UDM event that this entity represents.
+    pub entity: std::option::Option<google_backstory::model::Noun>,
+
+    /// Important entity data that cannot be adequately represented within
+    /// the formal sections of the Entity.
+    pub additional: std::option::Option<wkt::Struct>,
+
+    /// Represents the entity risk scores resource
+    pub risk_score: std::option::Option<google_backstory::model::EntityRisk>,
+
+    /// Metric details of the entity. Used if EntityType is METRIC.
+    pub metric: std::option::Option<google_backstory::model::Metric>,
+
+    /// One or more relationships between the entity (a) and other entities,
+    /// including the relationship type and related entity.
+    pub relations: std::vec::Vec<google_backstory::model::Relation>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Entity {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Entity::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Entity;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let entity_id = "entity_id";
+    /// let x = Entity::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/entities/{entity_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::Entity::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Entity;
+    /// use google_backstory::model::EntityMetadata;
+    /// let x = Entity::new().set_metadata(EntityMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_backstory::model::EntityMetadata>,
+    {
+        self.metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metadata][crate::model::Entity::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Entity;
+    /// use google_backstory::model::EntityMetadata;
+    /// let x = Entity::new().set_or_clear_metadata(Some(EntityMetadata::default()/* use setters */));
+    /// let x = Entity::new().set_or_clear_metadata(None::<EntityMetadata>);
+    /// ```
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_backstory::model::EntityMetadata>,
+    {
+        self.metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [entity][crate::model::Entity::entity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Entity;
+    /// use google_backstory::model::Noun;
+    /// let x = Entity::new().set_entity(Noun::default()/* use setters */);
+    /// ```
+    pub fn set_entity<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_backstory::model::Noun>,
+    {
+        self.entity = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [entity][crate::model::Entity::entity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Entity;
+    /// use google_backstory::model::Noun;
+    /// let x = Entity::new().set_or_clear_entity(Some(Noun::default()/* use setters */));
+    /// let x = Entity::new().set_or_clear_entity(None::<Noun>);
+    /// ```
+    pub fn set_or_clear_entity<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_backstory::model::Noun>,
+    {
+        self.entity = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [additional][crate::model::Entity::additional].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Entity;
+    /// use wkt::Struct;
+    /// let x = Entity::new().set_additional(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_additional<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.additional = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [additional][crate::model::Entity::additional].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Entity;
+    /// use wkt::Struct;
+    /// let x = Entity::new().set_or_clear_additional(Some(Struct::default()/* use setters */));
+    /// let x = Entity::new().set_or_clear_additional(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_additional<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.additional = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [risk_score][crate::model::Entity::risk_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Entity;
+    /// use google_backstory::model::EntityRisk;
+    /// let x = Entity::new().set_risk_score(EntityRisk::default()/* use setters */);
+    /// ```
+    pub fn set_risk_score<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_backstory::model::EntityRisk>,
+    {
+        self.risk_score = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [risk_score][crate::model::Entity::risk_score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Entity;
+    /// use google_backstory::model::EntityRisk;
+    /// let x = Entity::new().set_or_clear_risk_score(Some(EntityRisk::default()/* use setters */));
+    /// let x = Entity::new().set_or_clear_risk_score(None::<EntityRisk>);
+    /// ```
+    pub fn set_or_clear_risk_score<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_backstory::model::EntityRisk>,
+    {
+        self.risk_score = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [metric][crate::model::Entity::metric].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Entity;
+    /// use google_backstory::model::Metric;
+    /// let x = Entity::new().set_metric(Metric::default()/* use setters */);
+    /// ```
+    pub fn set_metric<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_backstory::model::Metric>,
+    {
+        self.metric = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metric][crate::model::Entity::metric].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Entity;
+    /// use google_backstory::model::Metric;
+    /// let x = Entity::new().set_or_clear_metric(Some(Metric::default()/* use setters */));
+    /// let x = Entity::new().set_or_clear_metric(None::<Metric>);
+    /// ```
+    pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_backstory::model::Metric>,
+    {
+        self.metric = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [relations][crate::model::Entity::relations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Entity;
+    /// use google_backstory::model::Relation;
+    /// let x = Entity::new()
+    ///     .set_relations([
+    ///         Relation::default()/* use setters */,
+    ///         Relation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_relations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<google_backstory::model::Relation>,
+    {
+        use std::iter::Iterator;
+        self.relations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Entity {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.Entity"
+    }
+}
+
 /// A watchlist is a list of entities that allows for bulk operations over the
 /// included entities.
 #[derive(Clone, Default, PartialEq)]
@@ -13435,6 +13691,85 @@ impl DeleteWatchlistRequest {
 impl wkt::message::Message for DeleteWatchlistRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.chronicle.v1.DeleteWatchlistRequest"
+    }
+}
+
+/// Event is a resource that contains information about a telemetry event.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Event {
+    /// The resource name of the event.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/events/{event}
+    /// where 'event' is URL-encoded Base64. The unencoded value of 'event' can
+    /// also be found in udm.metadata.id.
+    pub name: std::string::String,
+
+    /// Event data in UDM format.
+    pub udm: std::option::Option<google_backstory::model::Udm>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Event {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Event::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Event;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let event_id = "event_id";
+    /// let x = Event::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/events/{event_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [udm][crate::model::Event::udm].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Event;
+    /// use google_backstory::model::Udm;
+    /// let x = Event::new().set_udm(Udm::default()/* use setters */);
+    /// ```
+    pub fn set_udm<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_backstory::model::Udm>,
+    {
+        self.udm = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [udm][crate::model::Event::udm].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::Event;
+    /// use google_backstory::model::Udm;
+    /// let x = Event::new().set_or_clear_udm(Some(Udm::default()/* use setters */));
+    /// let x = Event::new().set_or_clear_udm(None::<Udm>);
+    /// ```
+    pub fn set_or_clear_udm<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_backstory::model::Udm>,
+    {
+        self.udm = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for Event {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.Event"
     }
 }
 
@@ -48072,6 +48407,3632 @@ pub mod rule_execution_error {
     }
 }
 
+/// SearchSession represents an asynchronous search session.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SearchSession {
+    /// Identifier. The resource name of the search session.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/searchSessions/{search_session}
+    pub name: std::string::String,
+
+    /// Required. The search query, in the dialect set in `dialect`.
+    /// Example: 'ip=/172.*/ AND metadata.event_type!="NETWORK_CONNECTION" AND (
+    /// target.ip = "3.225.179.73" OR target.ip = "23.47.48.70")'
+    pub query: std::string::String,
+
+    /// Required. Time range to search for [Inclusive start time, exclusive end
+    /// time).
+    pub time_range: std::option::Option<google_cloud_type::model::Interval>,
+
+    /// Optional. Specifies how to parse the 'query' string. If not specified, the
+    /// query will be parsed as YL2.
+    pub dialect: crate::model::QueryDialect,
+
+    /// Optional. Data access scope used to filter events. This is intended to be
+    /// used by admins to preview in-development scopes. Should only be called by
+    /// users with global access.  If the caller does not have global access, the
+    /// request will fail.
+    pub draft_data_access_scope: std::option::Option<crate::model::DataAccessScope>,
+
+    /// Output only. Metadata about the search session.
+    pub metadata: std::option::Option<crate::model::SearchSessionMetadata>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SearchSession {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SearchSession::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchSession;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let search_session_id = "search_session_id";
+    /// let x = SearchSession::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/searchSessions/{search_session_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [query][crate::model::SearchSession::query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchSession;
+    /// let x = SearchSession::new().set_query("example");
+    /// ```
+    pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query = v.into();
+        self
+    }
+
+    /// Sets the value of [time_range][crate::model::SearchSession::time_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchSession;
+    /// use google_cloud_type::model::Interval;
+    /// let x = SearchSession::new().set_time_range(Interval::default()/* use setters */);
+    /// ```
+    pub fn set_time_range<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Interval>,
+    {
+        self.time_range = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [time_range][crate::model::SearchSession::time_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchSession;
+    /// use google_cloud_type::model::Interval;
+    /// let x = SearchSession::new().set_or_clear_time_range(Some(Interval::default()/* use setters */));
+    /// let x = SearchSession::new().set_or_clear_time_range(None::<Interval>);
+    /// ```
+    pub fn set_or_clear_time_range<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Interval>,
+    {
+        self.time_range = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dialect][crate::model::SearchSession::dialect].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchSession;
+    /// use google_cloud_chronicle_v1::model::QueryDialect;
+    /// let x0 = SearchSession::new().set_dialect(QueryDialect::Yl2);
+    /// let x1 = SearchSession::new().set_dialect(QueryDialect::Sql);
+    /// ```
+    pub fn set_dialect<T: std::convert::Into<crate::model::QueryDialect>>(mut self, v: T) -> Self {
+        self.dialect = v.into();
+        self
+    }
+
+    /// Sets the value of [draft_data_access_scope][crate::model::SearchSession::draft_data_access_scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchSession;
+    /// use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// let x = SearchSession::new().set_draft_data_access_scope(DataAccessScope::default()/* use setters */);
+    /// ```
+    pub fn set_draft_data_access_scope<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataAccessScope>,
+    {
+        self.draft_data_access_scope = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [draft_data_access_scope][crate::model::SearchSession::draft_data_access_scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchSession;
+    /// use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// let x = SearchSession::new().set_or_clear_draft_data_access_scope(Some(DataAccessScope::default()/* use setters */));
+    /// let x = SearchSession::new().set_or_clear_draft_data_access_scope(None::<DataAccessScope>);
+    /// ```
+    pub fn set_or_clear_draft_data_access_scope<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataAccessScope>,
+    {
+        self.draft_data_access_scope = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::SearchSession::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchSession;
+    /// use google_cloud_chronicle_v1::model::SearchSessionMetadata;
+    /// let x = SearchSession::new().set_metadata(SearchSessionMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SearchSessionMetadata>,
+    {
+        self.metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metadata][crate::model::SearchSession::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchSession;
+    /// use google_cloud_chronicle_v1::model::SearchSessionMetadata;
+    /// let x = SearchSession::new().set_or_clear_metadata(Some(SearchSessionMetadata::default()/* use setters */));
+    /// let x = SearchSession::new().set_or_clear_metadata(None::<SearchSessionMetadata>);
+    /// ```
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SearchSessionMetadata>,
+    {
+        self.metadata = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for SearchSession {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.SearchSession"
+    }
+}
+
+/// SearchedResult contains the results of a Search operation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SearchedResult {
+    /// Identifier. The resource name of the search results.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/searchSessions/{search_session}/searchedResults/{searched_result}
+    pub name: std::string::String,
+
+    /// Contains a flexible row which can support a standard UDM Event, Stats,
+    /// Entity Context, Join result, Data Table, etc.
+    pub result_row: std::option::Option<crate::model::ResultRow>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SearchedResult {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SearchedResult::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchedResult;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let search_session_id = "search_session_id";
+    /// # let searched_result_id = "searched_result_id";
+    /// let x = SearchedResult::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/searchSessions/{search_session_id}/searchedResults/{searched_result_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [result_row][crate::model::SearchedResult::result_row].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchedResult;
+    /// use google_cloud_chronicle_v1::model::ResultRow;
+    /// let x = SearchedResult::new().set_result_row(ResultRow::default()/* use setters */);
+    /// ```
+    pub fn set_result_row<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ResultRow>,
+    {
+        self.result_row = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [result_row][crate::model::SearchedResult::result_row].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchedResult;
+    /// use google_cloud_chronicle_v1::model::ResultRow;
+    /// let x = SearchedResult::new().set_or_clear_result_row(Some(ResultRow::default()/* use setters */));
+    /// let x = SearchedResult::new().set_or_clear_result_row(None::<ResultRow>);
+    /// ```
+    pub fn set_or_clear_result_row<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ResultRow>,
+    {
+        self.result_row = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for SearchedResult {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.SearchedResult"
+    }
+}
+
+/// Request message for the Search method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SearchRequest {
+    /// Required. The resource name of the instance on which to perform the search.
+    /// Format: projects/{project}/locations/{location}/instances/{instance}
+    pub parent: std::string::String,
+
+    /// Required. The search query, in the dialect set in `dialect`.
+    /// Example: 'ip=/172.*/ AND metadata.event_type!="NETWORK_CONNECTION" AND (
+    /// target.ip = "3.225.179.73" OR target.ip = "23.47.48.70")'
+    pub query: std::string::String,
+
+    /// Required. Time range to search for [Inclusive start time, exclusive end
+    /// time).
+    pub time_range: std::option::Option<google_cloud_type::model::Interval>,
+
+    /// Optional. Specifies the dialect the Search Query is written in. If not
+    /// specified, the query will be parsed as YL2.
+    pub dialect: crate::model::QueryDialect,
+
+    /// Optional. Data access scope used to filter events. This is intended to be
+    /// used by admins to preview in-development scopes. Should only be called by
+    /// users with global access.  If the caller does not have global access, the
+    /// request will fail.
+    pub draft_data_access_scope: std::option::Option<crate::model::DataAccessScope>,
+
+    /// Optional. Requested maximum number of rows to materialize. The service may
+    /// return fewer. If unspecified, a server-side default of 10,000 is used. The
+    /// maximum value is 1,000,000. Some dialects have a lower maximum; see
+    /// `QueryDialect`.
+    pub result_limit: i32,
+
+    /// Optional. Specifies visibility of simulated data to include in search
+    /// results.
+    pub simulated_data_visibility: crate::model::SimulatedDataVisibility,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SearchRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::SearchRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// let x = SearchRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [query][crate::model::SearchRequest::query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchRequest;
+    /// let x = SearchRequest::new().set_query("example");
+    /// ```
+    pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.query = v.into();
+        self
+    }
+
+    /// Sets the value of [time_range][crate::model::SearchRequest::time_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchRequest;
+    /// use google_cloud_type::model::Interval;
+    /// let x = SearchRequest::new().set_time_range(Interval::default()/* use setters */);
+    /// ```
+    pub fn set_time_range<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Interval>,
+    {
+        self.time_range = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [time_range][crate::model::SearchRequest::time_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchRequest;
+    /// use google_cloud_type::model::Interval;
+    /// let x = SearchRequest::new().set_or_clear_time_range(Some(Interval::default()/* use setters */));
+    /// let x = SearchRequest::new().set_or_clear_time_range(None::<Interval>);
+    /// ```
+    pub fn set_or_clear_time_range<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_type::model::Interval>,
+    {
+        self.time_range = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dialect][crate::model::SearchRequest::dialect].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchRequest;
+    /// use google_cloud_chronicle_v1::model::QueryDialect;
+    /// let x0 = SearchRequest::new().set_dialect(QueryDialect::Yl2);
+    /// let x1 = SearchRequest::new().set_dialect(QueryDialect::Sql);
+    /// ```
+    pub fn set_dialect<T: std::convert::Into<crate::model::QueryDialect>>(mut self, v: T) -> Self {
+        self.dialect = v.into();
+        self
+    }
+
+    /// Sets the value of [draft_data_access_scope][crate::model::SearchRequest::draft_data_access_scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchRequest;
+    /// use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// let x = SearchRequest::new().set_draft_data_access_scope(DataAccessScope::default()/* use setters */);
+    /// ```
+    pub fn set_draft_data_access_scope<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataAccessScope>,
+    {
+        self.draft_data_access_scope = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [draft_data_access_scope][crate::model::SearchRequest::draft_data_access_scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchRequest;
+    /// use google_cloud_chronicle_v1::model::DataAccessScope;
+    /// let x = SearchRequest::new().set_or_clear_draft_data_access_scope(Some(DataAccessScope::default()/* use setters */));
+    /// let x = SearchRequest::new().set_or_clear_draft_data_access_scope(None::<DataAccessScope>);
+    /// ```
+    pub fn set_or_clear_draft_data_access_scope<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataAccessScope>,
+    {
+        self.draft_data_access_scope = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [result_limit][crate::model::SearchRequest::result_limit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchRequest;
+    /// let x = SearchRequest::new().set_result_limit(42);
+    /// ```
+    pub fn set_result_limit<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.result_limit = v.into();
+        self
+    }
+
+    /// Sets the value of [simulated_data_visibility][crate::model::SearchRequest::simulated_data_visibility].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchRequest;
+    /// use google_cloud_chronicle_v1::model::SimulatedDataVisibility;
+    /// let x0 = SearchRequest::new().set_simulated_data_visibility(SimulatedDataVisibility::SimulatedDataIncluded);
+    /// let x1 = SearchRequest::new().set_simulated_data_visibility(SimulatedDataVisibility::SimulatedDataExcluded);
+    /// ```
+    pub fn set_simulated_data_visibility<
+        T: std::convert::Into<crate::model::SimulatedDataVisibility>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.simulated_data_visibility = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SearchRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.SearchRequest"
+    }
+}
+
+/// Request message for the ListSearchedResults method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSearchedResultsRequest {
+    /// Required. The parent SearchSession resource name.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/searchSessions/{search_session}
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of results to return. The service may return
+    /// fewer. If unspecified, at most 100 results will be returned. The maximum
+    /// value is 1000.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListSearchedResults`
+    /// call. Provide this to retrieve the subsequent page.
+    pub page_token: std::string::String,
+
+    /// Optional. The column to sort the results on. Example: "event_timestamp
+    /// desc", "principal.hostname asc". Multi-columnar sorting is not supported.
+    pub order_by: std::string::String,
+
+    /// Optional. The number of results to skip before starting to return results.
+    /// This field should not be used in conjunction with page_token.
+    pub skip: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSearchedResultsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListSearchedResultsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListSearchedResultsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let search_session_id = "search_session_id";
+    /// let x = ListSearchedResultsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/searchSessions/{search_session_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListSearchedResultsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListSearchedResultsRequest;
+    /// let x = ListSearchedResultsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListSearchedResultsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListSearchedResultsRequest;
+    /// let x = ListSearchedResultsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListSearchedResultsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListSearchedResultsRequest;
+    /// let x = ListSearchedResultsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+
+    /// Sets the value of [skip][crate::model::ListSearchedResultsRequest::skip].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListSearchedResultsRequest;
+    /// let x = ListSearchedResultsRequest::new().set_skip(42);
+    /// ```
+    pub fn set_skip<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.skip = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSearchedResultsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ListSearchedResultsRequest"
+    }
+}
+
+/// Response message for the ListSearchedResults method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSearchedResultsResponse {
+    /// List of Searched Results.
+    pub searched_results: std::vec::Vec<crate::model::SearchedResult>,
+
+    /// Total number of rows in the result set of the search query.
+    pub total_size: i32,
+
+    /// List of column names for the outcome section of the query result.
+    pub column_names: std::option::Option<crate::model::ColumnNames>,
+
+    /// Column schema for the results based on the query columns. Contains metadata
+    /// like data source, event_name etc.
+    pub column_schema: std::option::Option<crate::model::ColumnSchema>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSearchedResultsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [searched_results][crate::model::ListSearchedResultsResponse::searched_results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListSearchedResultsResponse;
+    /// use google_cloud_chronicle_v1::model::SearchedResult;
+    /// let x = ListSearchedResultsResponse::new()
+    ///     .set_searched_results([
+    ///         SearchedResult::default()/* use setters */,
+    ///         SearchedResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_searched_results<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SearchedResult>,
+    {
+        use std::iter::Iterator;
+        self.searched_results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [total_size][crate::model::ListSearchedResultsResponse::total_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListSearchedResultsResponse;
+    /// let x = ListSearchedResultsResponse::new().set_total_size(42);
+    /// ```
+    pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.total_size = v.into();
+        self
+    }
+
+    /// Sets the value of [column_names][crate::model::ListSearchedResultsResponse::column_names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListSearchedResultsResponse;
+    /// use google_cloud_chronicle_v1::model::ColumnNames;
+    /// let x = ListSearchedResultsResponse::new().set_column_names(ColumnNames::default()/* use setters */);
+    /// ```
+    pub fn set_column_names<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ColumnNames>,
+    {
+        self.column_names = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [column_names][crate::model::ListSearchedResultsResponse::column_names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListSearchedResultsResponse;
+    /// use google_cloud_chronicle_v1::model::ColumnNames;
+    /// let x = ListSearchedResultsResponse::new().set_or_clear_column_names(Some(ColumnNames::default()/* use setters */));
+    /// let x = ListSearchedResultsResponse::new().set_or_clear_column_names(None::<ColumnNames>);
+    /// ```
+    pub fn set_or_clear_column_names<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ColumnNames>,
+    {
+        self.column_names = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [column_schema][crate::model::ListSearchedResultsResponse::column_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListSearchedResultsResponse;
+    /// use google_cloud_chronicle_v1::model::ColumnSchema;
+    /// let x = ListSearchedResultsResponse::new().set_column_schema(ColumnSchema::default()/* use setters */);
+    /// ```
+    pub fn set_column_schema<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ColumnSchema>,
+    {
+        self.column_schema = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [column_schema][crate::model::ListSearchedResultsResponse::column_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListSearchedResultsResponse;
+    /// use google_cloud_chronicle_v1::model::ColumnSchema;
+    /// let x = ListSearchedResultsResponse::new().set_or_clear_column_schema(Some(ColumnSchema::default()/* use setters */));
+    /// let x = ListSearchedResultsResponse::new().set_or_clear_column_schema(None::<ColumnSchema>);
+    /// ```
+    pub fn set_or_clear_column_schema<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ColumnSchema>,
+    {
+        self.column_schema = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSearchedResultsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListSearchedResultsResponse;
+    /// let x = ListSearchedResultsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSearchedResultsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ListSearchedResultsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListSearchedResultsResponse {
+    type PageItem = crate::model::SearchedResult;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.searched_results
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Metadata about the search session.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SearchSessionMetadata {
+    /// Output only. The operation id corresponding to the search session which can
+    /// be used to poll the operation resource to know its state and progress.
+    pub operation_id: std::string::String,
+
+    /// Output only. The start time of the session.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The end time of the session, if done.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time when the search results expire.
+    pub expire_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Total number of rows returned in the search session.
+    pub result_row_count: i32,
+
+    /// Output only. If true, there are more search results available than what can
+    /// be returned and have been omitted.
+    pub more_data_available: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SearchSessionMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [operation_id][crate::model::SearchSessionMetadata::operation_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchSessionMetadata;
+    /// let x = SearchSessionMetadata::new().set_operation_id("example");
+    /// ```
+    pub fn set_operation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.operation_id = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::SearchSessionMetadata::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchSessionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = SearchSessionMetadata::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::SearchSessionMetadata::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchSessionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = SearchSessionMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SearchSessionMetadata::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::SearchSessionMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchSessionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = SearchSessionMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::SearchSessionMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchSessionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = SearchSessionMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SearchSessionMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [expire_time][crate::model::SearchSessionMetadata::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchSessionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = SearchSessionMetadata::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expire_time][crate::model::SearchSessionMetadata::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchSessionMetadata;
+    /// use wkt::Timestamp;
+    /// let x = SearchSessionMetadata::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SearchSessionMetadata::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [result_row_count][crate::model::SearchSessionMetadata::result_row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchSessionMetadata;
+    /// let x = SearchSessionMetadata::new().set_result_row_count(42);
+    /// ```
+    pub fn set_result_row_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.result_row_count = v.into();
+        self
+    }
+
+    /// Sets the value of [more_data_available][crate::model::SearchSessionMetadata::more_data_available].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchSessionMetadata;
+    /// let x = SearchSessionMetadata::new().set_more_data_available(true);
+    /// ```
+    pub fn set_more_data_available<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.more_data_available = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SearchSessionMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.SearchSessionMetadata"
+    }
+}
+
+/// Metadata for the google.longrunning.Operation returned by the Search
+/// method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SearchOperationMetadata {
+    /// Output only. State of the Search operation.
+    pub state: crate::model::search_operation_metadata::State,
+
+    /// Output only. The start time of the search.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The end time of the search, if done.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time when the search results expire.
+    pub expire_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Progress Percentage of the search LRO, ranges from 0 to 100.
+    pub progress: i32,
+
+    /// Output only. Metadata of the data table export operation if the search
+    /// results are written to a Data Table.
+    pub datatable_export_metadata: std::option::Option<crate::model::DataTableExportMetadata>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SearchOperationMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [state][crate::model::SearchOperationMetadata::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchOperationMetadata;
+    /// use google_cloud_chronicle_v1::model::search_operation_metadata::State;
+    /// let x0 = SearchOperationMetadata::new().set_state(State::Running);
+    /// let x1 = SearchOperationMetadata::new().set_state(State::Succeeded);
+    /// let x2 = SearchOperationMetadata::new().set_state(State::Failed);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::search_operation_metadata::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::SearchOperationMetadata::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = SearchOperationMetadata::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::SearchOperationMetadata::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = SearchOperationMetadata::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SearchOperationMetadata::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::SearchOperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = SearchOperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::SearchOperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = SearchOperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SearchOperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [expire_time][crate::model::SearchOperationMetadata::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = SearchOperationMetadata::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expire_time][crate::model::SearchOperationMetadata::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = SearchOperationMetadata::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SearchOperationMetadata::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [progress][crate::model::SearchOperationMetadata::progress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchOperationMetadata;
+    /// let x = SearchOperationMetadata::new().set_progress(42);
+    /// ```
+    pub fn set_progress<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.progress = v.into();
+        self
+    }
+
+    /// Sets the value of [datatable_export_metadata][crate::model::SearchOperationMetadata::datatable_export_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchOperationMetadata;
+    /// use google_cloud_chronicle_v1::model::DataTableExportMetadata;
+    /// let x = SearchOperationMetadata::new().set_datatable_export_metadata(DataTableExportMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_datatable_export_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataTableExportMetadata>,
+    {
+        self.datatable_export_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [datatable_export_metadata][crate::model::SearchOperationMetadata::datatable_export_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchOperationMetadata;
+    /// use google_cloud_chronicle_v1::model::DataTableExportMetadata;
+    /// let x = SearchOperationMetadata::new().set_or_clear_datatable_export_metadata(Some(DataTableExportMetadata::default()/* use setters */));
+    /// let x = SearchOperationMetadata::new().set_or_clear_datatable_export_metadata(None::<DataTableExportMetadata>);
+    /// ```
+    pub fn set_or_clear_datatable_export_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataTableExportMetadata>,
+    {
+        self.datatable_export_metadata = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for SearchOperationMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.SearchOperationMetadata"
+    }
+}
+
+/// Defines additional types related to [SearchOperationMetadata].
+pub mod search_operation_metadata {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// State of the Search operation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Unspecified state.
+        Unspecified,
+        /// Initial state, Search operation is running.
+        Running,
+        /// Search operation completed, results are available.
+        Succeeded,
+        /// Search operation failed.
+        Failed,
+        /// Search operation was cancelled.
+        Cancelled,
+        /// Search operation expired.
+        Expired,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Running => std::option::Option::Some(1),
+                Self::Succeeded => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::Cancelled => std::option::Option::Some(4),
+                Self::Expired => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Cancelled => std::option::Option::Some("CANCELLED"),
+                Self::Expired => std::option::Option::Some("EXPIRED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Running,
+                2 => Self::Succeeded,
+                3 => Self::Failed,
+                4 => Self::Cancelled,
+                5 => Self::Expired,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "RUNNING" => Self::Running,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                "CANCELLED" => Self::Cancelled,
+                "EXPIRED" => Self::Expired,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Running => serializer.serialize_i32(1),
+                Self::Succeeded => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::Cancelled => serializer.serialize_i32(4),
+                Self::Expired => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.chronicle.v1.SearchOperationMetadata.State",
+            ))
+        }
+    }
+}
+
+/// Metadata about a DataTable export operation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataTableExportMetadata {
+    /// The name of the DataTable.
+    pub data_table: std::string::String,
+
+    /// Result or error of the export operation.
+    pub result_metadata_or_error:
+        std::option::Option<crate::model::data_table_export_metadata::ResultMetadataOrError>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataTableExportMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [data_table][crate::model::DataTableExportMetadata::data_table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableExportMetadata;
+    /// let x = DataTableExportMetadata::new().set_data_table("example");
+    /// ```
+    pub fn set_data_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.data_table = v.into();
+        self
+    }
+
+    /// Sets the value of [result_metadata_or_error][crate::model::DataTableExportMetadata::result_metadata_or_error].
+    ///
+    /// Note that all the setters affecting `result_metadata_or_error` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableExportMetadata;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = DataTableExportMetadata::new().set_result_metadata_or_error(Some(
+    ///     google_cloud_chronicle_v1::model::data_table_export_metadata::ResultMetadataOrError::Error(Status::default().into())));
+    /// ```
+    pub fn set_result_metadata_or_error<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::data_table_export_metadata::ResultMetadataOrError,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result_metadata_or_error = v.into();
+        self
+    }
+
+    /// The value of [result_metadata_or_error][crate::model::DataTableExportMetadata::result_metadata_or_error]
+    /// if it holds a `Error`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn error(&self) -> std::option::Option<&std::boxed::Box<google_cloud_rpc::model::Status>> {
+        #[allow(unreachable_patterns)]
+        self.result_metadata_or_error
+            .as_ref()
+            .and_then(|v| match v {
+                crate::model::data_table_export_metadata::ResultMetadataOrError::Error(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+    }
+
+    /// Sets the value of [result_metadata_or_error][crate::model::DataTableExportMetadata::result_metadata_or_error]
+    /// to hold a `Error`.
+    ///
+    /// Note that all the setters affecting `result_metadata_or_error` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableExportMetadata;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = DataTableExportMetadata::new().set_error(Status::default()/* use setters */);
+    /// assert!(x.error().is_some());
+    /// assert!(x.result_metadata().is_none());
+    /// ```
+    pub fn set_error<T: std::convert::Into<std::boxed::Box<google_cloud_rpc::model::Status>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result_metadata_or_error = std::option::Option::Some(
+            crate::model::data_table_export_metadata::ResultMetadataOrError::Error(v.into()),
+        );
+        self
+    }
+
+    /// The value of [result_metadata_or_error][crate::model::DataTableExportMetadata::result_metadata_or_error]
+    /// if it holds a `ResultMetadata`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn result_metadata(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::data_table_export_metadata::ResultMetadata>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.result_metadata_or_error
+            .as_ref()
+            .and_then(|v| match v {
+                crate::model::data_table_export_metadata::ResultMetadataOrError::ResultMetadata(
+                    v,
+                ) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+    }
+
+    /// Sets the value of [result_metadata_or_error][crate::model::DataTableExportMetadata::result_metadata_or_error]
+    /// to hold a `ResultMetadata`.
+    ///
+    /// Note that all the setters affecting `result_metadata_or_error` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableExportMetadata;
+    /// use google_cloud_chronicle_v1::model::data_table_export_metadata::ResultMetadata;
+    /// let x = DataTableExportMetadata::new().set_result_metadata(ResultMetadata::default()/* use setters */);
+    /// assert!(x.result_metadata().is_some());
+    /// assert!(x.error().is_none());
+    /// ```
+    pub fn set_result_metadata<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::data_table_export_metadata::ResultMetadata>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result_metadata_or_error = std::option::Option::Some(
+            crate::model::data_table_export_metadata::ResultMetadataOrError::ResultMetadata(
+                v.into(),
+            ),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for DataTableExportMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DataTableExportMetadata"
+    }
+}
+
+/// Defines additional types related to [DataTableExportMetadata].
+pub mod data_table_export_metadata {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The result of the export operation.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ResultMetadata {
+        /// The operation ID of the export operation.
+        pub datatable_export_operation_id: std::string::String,
+
+        /// The number of rows exported to the datatable.
+        pub rows_count: i32,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ResultMetadata {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [datatable_export_operation_id][crate::model::data_table_export_metadata::ResultMetadata::datatable_export_operation_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::data_table_export_metadata::ResultMetadata;
+        /// let x = ResultMetadata::new().set_datatable_export_operation_id("example");
+        /// ```
+        pub fn set_datatable_export_operation_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.datatable_export_operation_id = v.into();
+            self
+        }
+
+        /// Sets the value of [rows_count][crate::model::data_table_export_metadata::ResultMetadata::rows_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::data_table_export_metadata::ResultMetadata;
+        /// let x = ResultMetadata::new().set_rows_count(42);
+        /// ```
+        pub fn set_rows_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.rows_count = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ResultMetadata {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.chronicle.v1.DataTableExportMetadata.ResultMetadata"
+        }
+    }
+
+    /// Result or error of the export operation.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ResultMetadataOrError {
+        /// The error result of the export operation in case of failure.
+        Error(std::boxed::Box<google_cloud_rpc::model::Status>),
+        /// Metadata about the export operation's result in case of success.
+        ResultMetadata(std::boxed::Box<crate::model::data_table_export_metadata::ResultMetadata>),
+    }
+}
+
+/// Metadata about a table used in a query.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TableMetadata {
+    /// The alias of the table in the query.
+    pub table: std::string::String,
+
+    /// The type of data source.
+    pub data_source: crate::model::table_metadata::DataSource,
+
+    /// The index of the table in the query.
+    pub index: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TableMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [table][crate::model::TableMetadata::table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::TableMetadata;
+    /// let x = TableMetadata::new().set_table("example");
+    /// ```
+    pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.table = v.into();
+        self
+    }
+
+    /// Sets the value of [data_source][crate::model::TableMetadata::data_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::TableMetadata;
+    /// use google_cloud_chronicle_v1::model::table_metadata::DataSource;
+    /// let x0 = TableMetadata::new().set_data_source(DataSource::Events);
+    /// let x1 = TableMetadata::new().set_data_source(DataSource::EntityContext);
+    /// let x2 = TableMetadata::new().set_data_source(DataSource::DataTables);
+    /// ```
+    pub fn set_data_source<T: std::convert::Into<crate::model::table_metadata::DataSource>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_source = v.into();
+        self
+    }
+
+    /// Sets the value of [index][crate::model::TableMetadata::index].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::TableMetadata;
+    /// let x = TableMetadata::new().set_index(42);
+    /// ```
+    pub fn set_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.index = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for TableMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.TableMetadata"
+    }
+}
+
+/// Defines additional types related to [TableMetadata].
+pub mod table_metadata {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The type of data source.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DataSource {
+        /// Unspecified data source.
+        Unspecified,
+        /// UDM events.
+        Events,
+        /// Entity context.
+        EntityContext,
+        /// Data tables.
+        DataTables,
+        /// Detections.
+        Detections,
+        /// SOAR cases.
+        SoarCase,
+        /// SOAR case histories.
+        SoarCaseHistory,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DataSource::value] or
+        /// [DataSource::name].
+        UnknownValue(data_source::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod data_source {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl DataSource {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Events => std::option::Option::Some(1),
+                Self::EntityContext => std::option::Option::Some(2),
+                Self::DataTables => std::option::Option::Some(3),
+                Self::Detections => std::option::Option::Some(4),
+                Self::SoarCase => std::option::Option::Some(5),
+                Self::SoarCaseHistory => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DATA_SOURCE_UNSPECIFIED"),
+                Self::Events => std::option::Option::Some("EVENTS"),
+                Self::EntityContext => std::option::Option::Some("ENTITY_CONTEXT"),
+                Self::DataTables => std::option::Option::Some("DATA_TABLES"),
+                Self::Detections => std::option::Option::Some("DETECTIONS"),
+                Self::SoarCase => std::option::Option::Some("SOAR_CASE"),
+                Self::SoarCaseHistory => std::option::Option::Some("SOAR_CASE_HISTORY"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for DataSource {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DataSource {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DataSource {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Events,
+                2 => Self::EntityContext,
+                3 => Self::DataTables,
+                4 => Self::Detections,
+                5 => Self::SoarCase,
+                6 => Self::SoarCaseHistory,
+                _ => Self::UnknownValue(data_source::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DataSource {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DATA_SOURCE_UNSPECIFIED" => Self::Unspecified,
+                "EVENTS" => Self::Events,
+                "ENTITY_CONTEXT" => Self::EntityContext,
+                "DATA_TABLES" => Self::DataTables,
+                "DETECTIONS" => Self::Detections,
+                "SOAR_CASE" => Self::SoarCase,
+                "SOAR_CASE_HISTORY" => Self::SoarCaseHistory,
+                _ => Self::UnknownValue(data_source::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DataSource {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Events => serializer.serialize_i32(1),
+                Self::EntityContext => serializer.serialize_i32(2),
+                Self::DataTables => serializer.serialize_i32(3),
+                Self::Detections => serializer.serialize_i32(4),
+                Self::SoarCase => serializer.serialize_i32(5),
+                Self::SoarCaseHistory => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DataSource {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DataSource>::new(
+                ".google.cloud.chronicle.v1.TableMetadata.DataSource",
+            ))
+        }
+    }
+}
+
+/// Schema of the tables used in a query.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ColumnSchema {
+    /// Metadata about the tables used in the query.
+    pub metadata: std::vec::Vec<crate::model::TableMetadata>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ColumnSchema {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [metadata][crate::model::ColumnSchema::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ColumnSchema;
+    /// use google_cloud_chronicle_v1::model::TableMetadata;
+    /// let x = ColumnSchema::new()
+    ///     .set_metadata([
+    ///         TableMetadata::default()/* use setters */,
+    ///         TableMetadata::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_metadata<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::TableMetadata>,
+    {
+        use std::iter::Iterator;
+        self.metadata = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ColumnSchema {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ColumnSchema"
+    }
+}
+
+/// List of column names for the outcome section of the query result.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ColumnNames {
+    /// List of column names.
+    pub names: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ColumnNames {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [names][crate::model::ColumnNames::names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ColumnNames;
+    /// let x = ColumnNames::new().set_names(["a", "b", "c"]);
+    /// ```
+    pub fn set_names<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.names = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ColumnNames {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ColumnNames"
+    }
+}
+
+/// ResultRow is a flexible collection that captures a search result row. It can
+/// currently support UDM Events, Entity Contexts, Data Tables, Join results,
+/// etc. and will support all other data sources in the future.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ResultRow {
+    /// Outcome fields for an event specified in query request.
+    pub outcomes: std::vec::Vec<crate::model::ColumnType>,
+
+    /// A result row of the search query.
+    pub result: std::option::Option<crate::model::result_row::Result>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ResultRow {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [outcomes][crate::model::ResultRow::outcomes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ResultRow;
+    /// use google_cloud_chronicle_v1::model::ColumnType;
+    /// let x = ResultRow::new()
+    ///     .set_outcomes([
+    ///         ColumnType::default()/* use setters */,
+    ///         ColumnType::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_outcomes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ColumnType>,
+    {
+        use std::iter::Iterator;
+        self.outcomes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [result][crate::model::ResultRow::result].
+    ///
+    /// Note that all the setters affecting `result` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ResultRow;
+    /// use google_cloud_chronicle_v1::model::EventRecord;
+    /// let x = ResultRow::new().set_result(Some(
+    ///     google_cloud_chronicle_v1::model::result_row::Result::EventRecord(EventRecord::default().into())));
+    /// ```
+    pub fn set_result<
+        T: std::convert::Into<std::option::Option<crate::model::result_row::Result>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = v.into();
+        self
+    }
+
+    /// The value of [result][crate::model::ResultRow::result]
+    /// if it holds a `EventRecord`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn event_record(&self) -> std::option::Option<&std::boxed::Box<crate::model::EventRecord>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::result_row::Result::EventRecord(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::ResultRow::result]
+    /// to hold a `EventRecord`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ResultRow;
+    /// use google_cloud_chronicle_v1::model::EventRecord;
+    /// let x = ResultRow::new().set_event_record(EventRecord::default()/* use setters */);
+    /// assert!(x.event_record().is_some());
+    /// assert!(x.stats_record().is_none());
+    /// assert!(x.entity_context_record().is_none());
+    /// assert!(x.join_record().is_none());
+    /// assert!(x.detection_record().is_none());
+    /// assert!(x.data_table_record().is_none());
+    /// ```
+    pub fn set_event_record<T: std::convert::Into<std::boxed::Box<crate::model::EventRecord>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result =
+            std::option::Option::Some(crate::model::result_row::Result::EventRecord(v.into()));
+        self
+    }
+
+    /// The value of [result][crate::model::ResultRow::result]
+    /// if it holds a `StatsRecord`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn stats_record(&self) -> std::option::Option<&std::boxed::Box<crate::model::StatsRecord>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::result_row::Result::StatsRecord(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::ResultRow::result]
+    /// to hold a `StatsRecord`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ResultRow;
+    /// use google_cloud_chronicle_v1::model::StatsRecord;
+    /// let x = ResultRow::new().set_stats_record(StatsRecord::default()/* use setters */);
+    /// assert!(x.stats_record().is_some());
+    /// assert!(x.event_record().is_none());
+    /// assert!(x.entity_context_record().is_none());
+    /// assert!(x.join_record().is_none());
+    /// assert!(x.detection_record().is_none());
+    /// assert!(x.data_table_record().is_none());
+    /// ```
+    pub fn set_stats_record<T: std::convert::Into<std::boxed::Box<crate::model::StatsRecord>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result =
+            std::option::Option::Some(crate::model::result_row::Result::StatsRecord(v.into()));
+        self
+    }
+
+    /// The value of [result][crate::model::ResultRow::result]
+    /// if it holds a `EntityContextRecord`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn entity_context_record(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::EntityContextRecord>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::result_row::Result::EntityContextRecord(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::ResultRow::result]
+    /// to hold a `EntityContextRecord`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ResultRow;
+    /// use google_cloud_chronicle_v1::model::EntityContextRecord;
+    /// let x = ResultRow::new().set_entity_context_record(EntityContextRecord::default()/* use setters */);
+    /// assert!(x.entity_context_record().is_some());
+    /// assert!(x.event_record().is_none());
+    /// assert!(x.stats_record().is_none());
+    /// assert!(x.join_record().is_none());
+    /// assert!(x.detection_record().is_none());
+    /// assert!(x.data_table_record().is_none());
+    /// ```
+    pub fn set_entity_context_record<
+        T: std::convert::Into<std::boxed::Box<crate::model::EntityContextRecord>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = std::option::Option::Some(
+            crate::model::result_row::Result::EntityContextRecord(v.into()),
+        );
+        self
+    }
+
+    /// The value of [result][crate::model::ResultRow::result]
+    /// if it holds a `JoinRecord`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn join_record(&self) -> std::option::Option<&std::boxed::Box<crate::model::JoinRecord>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::result_row::Result::JoinRecord(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::ResultRow::result]
+    /// to hold a `JoinRecord`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ResultRow;
+    /// use google_cloud_chronicle_v1::model::JoinRecord;
+    /// let x = ResultRow::new().set_join_record(JoinRecord::default()/* use setters */);
+    /// assert!(x.join_record().is_some());
+    /// assert!(x.event_record().is_none());
+    /// assert!(x.stats_record().is_none());
+    /// assert!(x.entity_context_record().is_none());
+    /// assert!(x.detection_record().is_none());
+    /// assert!(x.data_table_record().is_none());
+    /// ```
+    pub fn set_join_record<T: std::convert::Into<std::boxed::Box<crate::model::JoinRecord>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result =
+            std::option::Option::Some(crate::model::result_row::Result::JoinRecord(v.into()));
+        self
+    }
+
+    /// The value of [result][crate::model::ResultRow::result]
+    /// if it holds a `DetectionRecord`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn detection_record(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DetectionRecord>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::result_row::Result::DetectionRecord(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::ResultRow::result]
+    /// to hold a `DetectionRecord`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ResultRow;
+    /// use google_cloud_chronicle_v1::model::DetectionRecord;
+    /// let x = ResultRow::new().set_detection_record(DetectionRecord::default()/* use setters */);
+    /// assert!(x.detection_record().is_some());
+    /// assert!(x.event_record().is_none());
+    /// assert!(x.stats_record().is_none());
+    /// assert!(x.entity_context_record().is_none());
+    /// assert!(x.join_record().is_none());
+    /// assert!(x.data_table_record().is_none());
+    /// ```
+    pub fn set_detection_record<
+        T: std::convert::Into<std::boxed::Box<crate::model::DetectionRecord>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result =
+            std::option::Option::Some(crate::model::result_row::Result::DetectionRecord(v.into()));
+        self
+    }
+
+    /// The value of [result][crate::model::ResultRow::result]
+    /// if it holds a `DataTableRecord`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn data_table_record(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DataTableRecord>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::result_row::Result::DataTableRecord(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::ResultRow::result]
+    /// to hold a `DataTableRecord`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ResultRow;
+    /// use google_cloud_chronicle_v1::model::DataTableRecord;
+    /// let x = ResultRow::new().set_data_table_record(DataTableRecord::default()/* use setters */);
+    /// assert!(x.data_table_record().is_some());
+    /// assert!(x.event_record().is_none());
+    /// assert!(x.stats_record().is_none());
+    /// assert!(x.entity_context_record().is_none());
+    /// assert!(x.join_record().is_none());
+    /// assert!(x.detection_record().is_none());
+    /// ```
+    pub fn set_data_table_record<
+        T: std::convert::Into<std::boxed::Box<crate::model::DataTableRecord>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result =
+            std::option::Option::Some(crate::model::result_row::Result::DataTableRecord(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for ResultRow {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ResultRow"
+    }
+}
+
+/// Defines additional types related to [ResultRow].
+pub mod result_row {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A result row of the search query.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Result {
+        /// UDM event.
+        EventRecord(std::boxed::Box<crate::model::EventRecord>),
+        /// Stats record.
+        StatsRecord(std::boxed::Box<crate::model::StatsRecord>),
+        /// Entity context graph.
+        EntityContextRecord(std::boxed::Box<crate::model::EntityContextRecord>),
+        /// Join results.
+        JoinRecord(std::boxed::Box<crate::model::JoinRecord>),
+        /// Detection.
+        DetectionRecord(std::boxed::Box<crate::model::DetectionRecord>),
+        /// Data table.
+        DataTableRecord(std::boxed::Box<crate::model::DataTableRecord>),
+    }
+}
+
+/// StatsRecord contains a row in the response of a stats query.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StatsRecord {
+    /// Contains all columns resulting from a stats query and one row of values.
+    pub results: std::vec::Vec<crate::model::StatsColumnData>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StatsRecord {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [results][crate::model::StatsRecord::results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::StatsRecord;
+    /// use google_cloud_chronicle_v1::model::StatsColumnData;
+    /// let x = StatsRecord::new()
+    ///     .set_results([
+    ///         StatsColumnData::default()/* use setters */,
+    ///         StatsColumnData::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_results<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::StatsColumnData>,
+    {
+        use std::iter::Iterator;
+        self.results = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for StatsRecord {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.StatsRecord"
+    }
+}
+
+/// Represents a single column with a single cell in the set of columns
+/// returned as the stats query result.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StatsColumnData {
+    /// Used to store column names.
+    pub column: std::string::String,
+
+    /// Store the values in a single column.
+    pub values: std::option::Option<crate::model::ColumnType>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StatsColumnData {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [column][crate::model::StatsColumnData::column].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::StatsColumnData;
+    /// let x = StatsColumnData::new().set_column("example");
+    /// ```
+    pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.column = v.into();
+        self
+    }
+
+    /// Sets the value of [values][crate::model::StatsColumnData::values].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::StatsColumnData;
+    /// use google_cloud_chronicle_v1::model::ColumnType;
+    /// let x = StatsColumnData::new().set_values(ColumnType::default()/* use setters */);
+    /// ```
+    pub fn set_values<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ColumnType>,
+    {
+        self.values = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [values][crate::model::StatsColumnData::values].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::StatsColumnData;
+    /// use google_cloud_chronicle_v1::model::ColumnType;
+    /// let x = StatsColumnData::new().set_or_clear_values(Some(ColumnType::default()/* use setters */));
+    /// let x = StatsColumnData::new().set_or_clear_values(None::<ColumnType>);
+    /// ```
+    pub fn set_or_clear_values<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ColumnType>,
+    {
+        self.values = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for StatsColumnData {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.StatsColumnData"
+    }
+}
+
+/// Singular vs list of values in a single column.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ColumnType {
+    /// Store single value or list of values in a column.
+    pub r#type: std::option::Option<crate::model::column_type::Type>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ColumnType {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [r#type][crate::model::ColumnType::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ColumnType;
+    /// use google_cloud_chronicle_v1::model::column_type::ColumnValue;
+    /// let x = ColumnType::new().set_type(Some(
+    ///     google_cloud_chronicle_v1::model::column_type::Type::Value(ColumnValue::default().into())));
+    /// ```
+    pub fn set_type<T: std::convert::Into<std::option::Option<crate::model::column_type::Type>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// The value of [r#type][crate::model::ColumnType::r#type]
+    /// if it holds a `Value`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn value(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::column_type::ColumnValue>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::column_type::Type::Value(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::ColumnType::r#type]
+    /// to hold a `Value`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ColumnType;
+    /// use google_cloud_chronicle_v1::model::column_type::ColumnValue;
+    /// let x = ColumnType::new().set_value(ColumnValue::default()/* use setters */);
+    /// assert!(x.value().is_some());
+    /// assert!(x.list().is_none());
+    /// ```
+    pub fn set_value<
+        T: std::convert::Into<std::boxed::Box<crate::model::column_type::ColumnValue>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = std::option::Option::Some(crate::model::column_type::Type::Value(v.into()));
+        self
+    }
+
+    /// The value of [r#type][crate::model::ColumnType::r#type]
+    /// if it holds a `List`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn list(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::column_type::ColumnValueList>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::column_type::Type::List(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::ColumnType::r#type]
+    /// to hold a `List`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ColumnType;
+    /// use google_cloud_chronicle_v1::model::column_type::ColumnValueList;
+    /// let x = ColumnType::new().set_list(ColumnValueList::default()/* use setters */);
+    /// assert!(x.list().is_some());
+    /// assert!(x.value().is_none());
+    /// ```
+    pub fn set_list<
+        T: std::convert::Into<std::boxed::Box<crate::model::column_type::ColumnValueList>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = std::option::Option::Some(crate::model::column_type::Type::List(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for ColumnType {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ColumnType"
+    }
+}
+
+/// Defines additional types related to [ColumnType].
+pub mod column_type {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents a single value in the set of values returned as the query
+    /// result.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ColumnValue {
+        /// Value of the column based on data type.
+        pub value: std::option::Option<crate::model::column_type::column_value::Value>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ColumnValue {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [value][crate::model::column_type::ColumnValue::value].
+        ///
+        /// Note that all the setters affecting `value` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::column_type::ColumnValue;
+        /// use google_cloud_chronicle_v1::model::column_type::column_value::Value;
+        /// let x = ColumnValue::new().set_value(Some(Value::NullVal(true)));
+        /// ```
+        pub fn set_value<
+            T: std::convert::Into<std::option::Option<crate::model::column_type::column_value::Value>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.value = v.into();
+            self
+        }
+
+        /// The value of [value][crate::model::column_type::ColumnValue::value]
+        /// if it holds a `NullVal`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn null_val(&self) -> std::option::Option<&bool> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::column_type::column_value::Value::NullVal(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::column_type::ColumnValue::value]
+        /// to hold a `NullVal`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::column_type::ColumnValue;
+        /// let x = ColumnValue::new().set_null_val(true);
+        /// assert!(x.null_val().is_some());
+        /// assert!(x.bool_val().is_none());
+        /// assert!(x.bytes_val().is_none());
+        /// assert!(x.double_val().is_none());
+        /// assert!(x.int64_val().is_none());
+        /// assert!(x.uint64_val().is_none());
+        /// assert!(x.string_val().is_none());
+        /// assert!(x.timestamp_val().is_none());
+        /// assert!(x.date_val().is_none());
+        /// assert!(x.proto_val().is_none());
+        /// ```
+        pub fn set_null_val<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::column_type::column_value::Value::NullVal(v.into()),
+            );
+            self
+        }
+
+        /// The value of [value][crate::model::column_type::ColumnValue::value]
+        /// if it holds a `BoolVal`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn bool_val(&self) -> std::option::Option<&bool> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::column_type::column_value::Value::BoolVal(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::column_type::ColumnValue::value]
+        /// to hold a `BoolVal`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::column_type::ColumnValue;
+        /// let x = ColumnValue::new().set_bool_val(true);
+        /// assert!(x.bool_val().is_some());
+        /// assert!(x.null_val().is_none());
+        /// assert!(x.bytes_val().is_none());
+        /// assert!(x.double_val().is_none());
+        /// assert!(x.int64_val().is_none());
+        /// assert!(x.uint64_val().is_none());
+        /// assert!(x.string_val().is_none());
+        /// assert!(x.timestamp_val().is_none());
+        /// assert!(x.date_val().is_none());
+        /// assert!(x.proto_val().is_none());
+        /// ```
+        pub fn set_bool_val<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::column_type::column_value::Value::BoolVal(v.into()),
+            );
+            self
+        }
+
+        /// The value of [value][crate::model::column_type::ColumnValue::value]
+        /// if it holds a `BytesVal`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn bytes_val(&self) -> std::option::Option<&::bytes::Bytes> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::column_type::column_value::Value::BytesVal(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::column_type::ColumnValue::value]
+        /// to hold a `BytesVal`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::column_type::ColumnValue;
+        /// let x = ColumnValue::new().set_bytes_val(bytes::Bytes::from_static(b"example"));
+        /// assert!(x.bytes_val().is_some());
+        /// assert!(x.null_val().is_none());
+        /// assert!(x.bool_val().is_none());
+        /// assert!(x.double_val().is_none());
+        /// assert!(x.int64_val().is_none());
+        /// assert!(x.uint64_val().is_none());
+        /// assert!(x.string_val().is_none());
+        /// assert!(x.timestamp_val().is_none());
+        /// assert!(x.date_val().is_none());
+        /// assert!(x.proto_val().is_none());
+        /// ```
+        pub fn set_bytes_val<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::column_type::column_value::Value::BytesVal(v.into()),
+            );
+            self
+        }
+
+        /// The value of [value][crate::model::column_type::ColumnValue::value]
+        /// if it holds a `DoubleVal`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn double_val(&self) -> std::option::Option<&f64> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::column_type::column_value::Value::DoubleVal(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::column_type::ColumnValue::value]
+        /// to hold a `DoubleVal`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::column_type::ColumnValue;
+        /// let x = ColumnValue::new().set_double_val(42.0);
+        /// assert!(x.double_val().is_some());
+        /// assert!(x.null_val().is_none());
+        /// assert!(x.bool_val().is_none());
+        /// assert!(x.bytes_val().is_none());
+        /// assert!(x.int64_val().is_none());
+        /// assert!(x.uint64_val().is_none());
+        /// assert!(x.string_val().is_none());
+        /// assert!(x.timestamp_val().is_none());
+        /// assert!(x.date_val().is_none());
+        /// assert!(x.proto_val().is_none());
+        /// ```
+        pub fn set_double_val<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::column_type::column_value::Value::DoubleVal(v.into()),
+            );
+            self
+        }
+
+        /// The value of [value][crate::model::column_type::ColumnValue::value]
+        /// if it holds a `Int64Val`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn int64_val(&self) -> std::option::Option<&i64> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::column_type::column_value::Value::Int64Val(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::column_type::ColumnValue::value]
+        /// to hold a `Int64Val`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::column_type::ColumnValue;
+        /// let x = ColumnValue::new().set_int64_val(42);
+        /// assert!(x.int64_val().is_some());
+        /// assert!(x.null_val().is_none());
+        /// assert!(x.bool_val().is_none());
+        /// assert!(x.bytes_val().is_none());
+        /// assert!(x.double_val().is_none());
+        /// assert!(x.uint64_val().is_none());
+        /// assert!(x.string_val().is_none());
+        /// assert!(x.timestamp_val().is_none());
+        /// assert!(x.date_val().is_none());
+        /// assert!(x.proto_val().is_none());
+        /// ```
+        pub fn set_int64_val<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::column_type::column_value::Value::Int64Val(v.into()),
+            );
+            self
+        }
+
+        /// The value of [value][crate::model::column_type::ColumnValue::value]
+        /// if it holds a `Uint64Val`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn uint64_val(&self) -> std::option::Option<&u64> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::column_type::column_value::Value::Uint64Val(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::column_type::ColumnValue::value]
+        /// to hold a `Uint64Val`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::column_type::ColumnValue;
+        /// let x = ColumnValue::new().set_uint64_val(42_u32);
+        /// assert!(x.uint64_val().is_some());
+        /// assert!(x.null_val().is_none());
+        /// assert!(x.bool_val().is_none());
+        /// assert!(x.bytes_val().is_none());
+        /// assert!(x.double_val().is_none());
+        /// assert!(x.int64_val().is_none());
+        /// assert!(x.string_val().is_none());
+        /// assert!(x.timestamp_val().is_none());
+        /// assert!(x.date_val().is_none());
+        /// assert!(x.proto_val().is_none());
+        /// ```
+        pub fn set_uint64_val<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::column_type::column_value::Value::Uint64Val(v.into()),
+            );
+            self
+        }
+
+        /// The value of [value][crate::model::column_type::ColumnValue::value]
+        /// if it holds a `StringVal`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn string_val(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::column_type::column_value::Value::StringVal(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::column_type::ColumnValue::value]
+        /// to hold a `StringVal`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::column_type::ColumnValue;
+        /// let x = ColumnValue::new().set_string_val("example");
+        /// assert!(x.string_val().is_some());
+        /// assert!(x.null_val().is_none());
+        /// assert!(x.bool_val().is_none());
+        /// assert!(x.bytes_val().is_none());
+        /// assert!(x.double_val().is_none());
+        /// assert!(x.int64_val().is_none());
+        /// assert!(x.uint64_val().is_none());
+        /// assert!(x.timestamp_val().is_none());
+        /// assert!(x.date_val().is_none());
+        /// assert!(x.proto_val().is_none());
+        /// ```
+        pub fn set_string_val<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::column_type::column_value::Value::StringVal(v.into()),
+            );
+            self
+        }
+
+        /// The value of [value][crate::model::column_type::ColumnValue::value]
+        /// if it holds a `TimestampVal`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn timestamp_val(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::column_type::column_value::Value::TimestampVal(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::column_type::ColumnValue::value]
+        /// to hold a `TimestampVal`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::column_type::ColumnValue;
+        /// use wkt::Timestamp;
+        /// let x = ColumnValue::new().set_timestamp_val(Timestamp::default()/* use setters */);
+        /// assert!(x.timestamp_val().is_some());
+        /// assert!(x.null_val().is_none());
+        /// assert!(x.bool_val().is_none());
+        /// assert!(x.bytes_val().is_none());
+        /// assert!(x.double_val().is_none());
+        /// assert!(x.int64_val().is_none());
+        /// assert!(x.uint64_val().is_none());
+        /// assert!(x.string_val().is_none());
+        /// assert!(x.date_val().is_none());
+        /// assert!(x.proto_val().is_none());
+        /// ```
+        pub fn set_timestamp_val<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::column_type::column_value::Value::TimestampVal(v.into()),
+            );
+            self
+        }
+
+        /// The value of [value][crate::model::column_type::ColumnValue::value]
+        /// if it holds a `DateVal`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn date_val(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<google_cloud_type::model::Date>> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::column_type::column_value::Value::DateVal(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::column_type::ColumnValue::value]
+        /// to hold a `DateVal`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::column_type::ColumnValue;
+        /// use google_cloud_type::model::Date;
+        /// let x = ColumnValue::new().set_date_val(Date::default()/* use setters */);
+        /// assert!(x.date_val().is_some());
+        /// assert!(x.null_val().is_none());
+        /// assert!(x.bool_val().is_none());
+        /// assert!(x.bytes_val().is_none());
+        /// assert!(x.double_val().is_none());
+        /// assert!(x.int64_val().is_none());
+        /// assert!(x.uint64_val().is_none());
+        /// assert!(x.string_val().is_none());
+        /// assert!(x.timestamp_val().is_none());
+        /// assert!(x.proto_val().is_none());
+        /// ```
+        pub fn set_date_val<
+            T: std::convert::Into<std::boxed::Box<google_cloud_type::model::Date>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::column_type::column_value::Value::DateVal(v.into()),
+            );
+            self
+        }
+
+        /// The value of [value][crate::model::column_type::ColumnValue::value]
+        /// if it holds a `ProtoVal`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn proto_val(&self) -> std::option::Option<&std::boxed::Box<wkt::Any>> {
+            #[allow(unreachable_patterns)]
+            self.value.as_ref().and_then(|v| match v {
+                crate::model::column_type::column_value::Value::ProtoVal(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value][crate::model::column_type::ColumnValue::value]
+        /// to hold a `ProtoVal`.
+        ///
+        /// Note that all the setters affecting `value` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::column_type::ColumnValue;
+        /// use wkt::Any;
+        /// let x = ColumnValue::new().set_proto_val(Any::default()/* use setters */);
+        /// assert!(x.proto_val().is_some());
+        /// assert!(x.null_val().is_none());
+        /// assert!(x.bool_val().is_none());
+        /// assert!(x.bytes_val().is_none());
+        /// assert!(x.double_val().is_none());
+        /// assert!(x.int64_val().is_none());
+        /// assert!(x.uint64_val().is_none());
+        /// assert!(x.string_val().is_none());
+        /// assert!(x.timestamp_val().is_none());
+        /// assert!(x.date_val().is_none());
+        /// ```
+        pub fn set_proto_val<T: std::convert::Into<std::boxed::Box<wkt::Any>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.value = std::option::Option::Some(
+                crate::model::column_type::column_value::Value::ProtoVal(v.into()),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for ColumnValue {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.chronicle.v1.ColumnType.ColumnValue"
+        }
+    }
+
+    /// Defines additional types related to [ColumnValue].
+    pub mod column_value {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Value of the column based on data type.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Value {
+            /// True if the value is NULL.
+            NullVal(bool),
+            /// Boolean value.
+            BoolVal(bool),
+            /// Bytes value.
+            BytesVal(::bytes::Bytes),
+            /// Double value.
+            DoubleVal(f64),
+            /// Integer value (signed).
+            Int64Val(i64),
+            /// Un-signed integer value.
+            Uint64Val(u64),
+            /// String value. Enum values are returned as strings.
+            StringVal(std::string::String),
+            /// Timestamp values.
+            TimestampVal(std::boxed::Box<wkt::Timestamp>),
+            /// Date values.
+            DateVal(std::boxed::Box<google_cloud_type::model::Date>),
+            /// For any proto values that are not any of the above.
+            ProtoVal(std::boxed::Box<wkt::Any>),
+        }
+    }
+
+    /// Store list of values for a single column.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ColumnValueList {
+        /// List of values in one cell of the column.
+        pub values: std::vec::Vec<crate::model::column_type::ColumnValue>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ColumnValueList {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [values][crate::model::column_type::ColumnValueList::values].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_chronicle_v1::model::column_type::ColumnValueList;
+        /// use google_cloud_chronicle_v1::model::column_type::ColumnValue;
+        /// let x = ColumnValueList::new()
+        ///     .set_values([
+        ///         ColumnValue::default()/* use setters */,
+        ///         ColumnValue::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_values<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::column_type::ColumnValue>,
+        {
+            use std::iter::Iterator;
+            self.values = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ColumnValueList {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.chronicle.v1.ColumnType.ColumnValueList"
+        }
+    }
+
+    /// Store single value or list of values in a column.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Single value in a column.
+        Value(std::boxed::Box<crate::model::column_type::ColumnValue>),
+        /// List of values in a column e.g. IPs.
+        List(std::boxed::Box<crate::model::column_type::ColumnValueList>),
+    }
+}
+
+/// Contains a key-value pair of column name and its value. It represents a cell
+/// in the Data Table.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SearchDataTableRowCell {
+    /// The name of the column.
+    pub column: std::string::String,
+
+    /// The value of the column.
+    pub value: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SearchDataTableRowCell {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [column][crate::model::SearchDataTableRowCell::column].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchDataTableRowCell;
+    /// let x = SearchDataTableRowCell::new().set_column("example");
+    /// ```
+    pub fn set_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.column = v.into();
+        self
+    }
+
+    /// Sets the value of [value][crate::model::SearchDataTableRowCell::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::SearchDataTableRowCell;
+    /// let x = SearchDataTableRowCell::new().set_value("example");
+    /// ```
+    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.value = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SearchDataTableRowCell {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.SearchDataTableRowCell"
+    }
+}
+
+/// DataTableRecord contains information about a Data table.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataTableRecord {
+    /// The resource name of the Data table.
+    /// Format:
+    /// projects/{project_id}/locations/{location}/instances/{instances}/dataTables/{data_table}
+    pub data_table: std::string::String,
+
+    /// Stores information about a single row of a Data table.
+    pub cells: std::vec::Vec<crate::model::SearchDataTableRowCell>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataTableRecord {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [data_table][crate::model::DataTableRecord::data_table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableRecord;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let instance_id = "instance_id";
+    /// # let data_table_id = "data_table_id";
+    /// let x = DataTableRecord::new().set_data_table(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/dataTables/{data_table_id}"));
+    /// ```
+    pub fn set_data_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.data_table = v.into();
+        self
+    }
+
+    /// Sets the value of [cells][crate::model::DataTableRecord::cells].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableRecord;
+    /// use google_cloud_chronicle_v1::model::SearchDataTableRowCell;
+    /// let x = DataTableRecord::new()
+    ///     .set_cells([
+    ///         SearchDataTableRowCell::default()/* use setters */,
+    ///         SearchDataTableRowCell::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_cells<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SearchDataTableRowCell>,
+    {
+        use std::iter::Iterator;
+        self.cells = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DataTableRecord {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DataTableRecord"
+    }
+}
+
+/// EventRecord stores information about a UDM event.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EventRecord {
+    /// The UDM Event.
+    pub event: std::option::Option<crate::model::Event>,
+
+    /// Raw log tokens mapped to the event. Can be used to locate the raw log entry
+    /// that generated the event.
+    pub event_log_token: ::bytes::Bytes,
+
+    /// If the event should be treated as an alert, the unique identifier for the
+    /// alert.
+    pub alert_number: i32,
+
+    /// Alert View specific Id. Helps create a link to Alert View.
+    pub alert_view_id: ::bytes::Bytes,
+
+    /// Annotations added to an event.
+    pub annotations: std::vec::Vec<crate::model::event_record::Annotation>,
+
+    /// Detections associated with an event.
+    pub detections: std::vec::Vec<google_backstory::model::Collection>,
+
+    /// User defined table name for the event in joins query.
+    pub table: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EventRecord {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [event][crate::model::EventRecord::event].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EventRecord;
+    /// use google_cloud_chronicle_v1::model::Event;
+    /// let x = EventRecord::new().set_event(Event::default()/* use setters */);
+    /// ```
+    pub fn set_event<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Event>,
+    {
+        self.event = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [event][crate::model::EventRecord::event].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EventRecord;
+    /// use google_cloud_chronicle_v1::model::Event;
+    /// let x = EventRecord::new().set_or_clear_event(Some(Event::default()/* use setters */));
+    /// let x = EventRecord::new().set_or_clear_event(None::<Event>);
+    /// ```
+    pub fn set_or_clear_event<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Event>,
+    {
+        self.event = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [event_log_token][crate::model::EventRecord::event_log_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EventRecord;
+    /// let x = EventRecord::new().set_event_log_token(bytes::Bytes::from_static(b"example"));
+    /// ```
+    pub fn set_event_log_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.event_log_token = v.into();
+        self
+    }
+
+    /// Sets the value of [alert_number][crate::model::EventRecord::alert_number].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EventRecord;
+    /// let x = EventRecord::new().set_alert_number(42);
+    /// ```
+    pub fn set_alert_number<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.alert_number = v.into();
+        self
+    }
+
+    /// Sets the value of [alert_view_id][crate::model::EventRecord::alert_view_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EventRecord;
+    /// let x = EventRecord::new().set_alert_view_id(bytes::Bytes::from_static(b"example"));
+    /// ```
+    pub fn set_alert_view_id<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.alert_view_id = v.into();
+        self
+    }
+
+    /// Sets the value of [annotations][crate::model::EventRecord::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EventRecord;
+    /// use google_cloud_chronicle_v1::model::event_record::Annotation;
+    /// let x = EventRecord::new().set_annotations([
+    ///     Annotation::Alert,
+    /// ]);
+    /// ```
+    pub fn set_annotations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::event_record::Annotation>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [detections][crate::model::EventRecord::detections].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EventRecord;
+    /// use google_backstory::model::Collection;
+    /// let x = EventRecord::new()
+    ///     .set_detections([
+    ///         Collection::default()/* use setters */,
+    ///         Collection::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_detections<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<google_backstory::model::Collection>,
+    {
+        use std::iter::Iterator;
+        self.detections = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [table][crate::model::EventRecord::table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EventRecord;
+    /// let x = EventRecord::new().set_table("example");
+    /// ```
+    pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.table = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for EventRecord {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.EventRecord"
+    }
+}
+
+/// Defines additional types related to [EventRecord].
+pub mod event_record {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Annotation for an event.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Annotation {
+        /// Unspecified - no annotation to display.
+        Unspecified,
+        /// Event is associated with one or more alerts.
+        Alert,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Annotation::value] or
+        /// [Annotation::name].
+        UnknownValue(annotation::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod annotation {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Annotation {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Alert => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ANNOTATION_UNSPECIFIED"),
+                Self::Alert => std::option::Option::Some("ANNOTATION_ALERT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Annotation {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Annotation {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Annotation {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Alert,
+                _ => Self::UnknownValue(annotation::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Annotation {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ANNOTATION_UNSPECIFIED" => Self::Unspecified,
+                "ANNOTATION_ALERT" => Self::Alert,
+                _ => Self::UnknownValue(annotation::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Annotation {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Alert => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Annotation {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Annotation>::new(
+                ".google.cloud.chronicle.v1.EventRecord.Annotation",
+            ))
+        }
+    }
+}
+
+/// EntityContextRecord stores information about a entity context graph.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EntityContextRecord {
+    /// The entity information to be retrieved with UDM ECG search.
+    pub entity: std::option::Option<crate::model::Entity>,
+
+    /// Raw log tokens mapped to the event that created the entity. This is only
+    /// for entity context events.
+    pub event_log_token: std::string::String,
+
+    /// If the entity is timed or not.
+    pub timed: bool,
+
+    /// User defined table name for the entity in joins query.
+    pub table: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EntityContextRecord {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [entity][crate::model::EntityContextRecord::entity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EntityContextRecord;
+    /// use google_cloud_chronicle_v1::model::Entity;
+    /// let x = EntityContextRecord::new().set_entity(Entity::default()/* use setters */);
+    /// ```
+    pub fn set_entity<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Entity>,
+    {
+        self.entity = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [entity][crate::model::EntityContextRecord::entity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EntityContextRecord;
+    /// use google_cloud_chronicle_v1::model::Entity;
+    /// let x = EntityContextRecord::new().set_or_clear_entity(Some(Entity::default()/* use setters */));
+    /// let x = EntityContextRecord::new().set_or_clear_entity(None::<Entity>);
+    /// ```
+    pub fn set_or_clear_entity<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Entity>,
+    {
+        self.entity = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [event_log_token][crate::model::EntityContextRecord::event_log_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EntityContextRecord;
+    /// let x = EntityContextRecord::new().set_event_log_token("example");
+    /// ```
+    pub fn set_event_log_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.event_log_token = v.into();
+        self
+    }
+
+    /// Sets the value of [timed][crate::model::EntityContextRecord::timed].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EntityContextRecord;
+    /// let x = EntityContextRecord::new().set_timed(true);
+    /// ```
+    pub fn set_timed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.timed = v.into();
+        self
+    }
+
+    /// Sets the value of [table][crate::model::EntityContextRecord::table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::EntityContextRecord;
+    /// let x = EntityContextRecord::new().set_table("example");
+    /// ```
+    pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.table = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for EntityContextRecord {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.EntityContextRecord"
+    }
+}
+
+/// JoinRecord stores information about a join result.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct JoinRecord {
+    /// The events that are joined.
+    pub events: std::vec::Vec<crate::model::EventRecord>,
+
+    /// The entities that are joined.
+    pub entities: std::vec::Vec<crate::model::EntityContextRecord>,
+
+    /// The data tables that are joined.
+    pub data_tables: std::vec::Vec<crate::model::DataTableRecord>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl JoinRecord {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [events][crate::model::JoinRecord::events].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::JoinRecord;
+    /// use google_cloud_chronicle_v1::model::EventRecord;
+    /// let x = JoinRecord::new()
+    ///     .set_events([
+    ///         EventRecord::default()/* use setters */,
+    ///         EventRecord::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_events<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EventRecord>,
+    {
+        use std::iter::Iterator;
+        self.events = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [entities][crate::model::JoinRecord::entities].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::JoinRecord;
+    /// use google_cloud_chronicle_v1::model::EntityContextRecord;
+    /// let x = JoinRecord::new()
+    ///     .set_entities([
+    ///         EntityContextRecord::default()/* use setters */,
+    ///         EntityContextRecord::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_entities<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EntityContextRecord>,
+    {
+        use std::iter::Iterator;
+        self.entities = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [data_tables][crate::model::JoinRecord::data_tables].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::JoinRecord;
+    /// use google_cloud_chronicle_v1::model::DataTableRecord;
+    /// let x = JoinRecord::new()
+    ///     .set_data_tables([
+    ///         DataTableRecord::default()/* use setters */,
+    ///         DataTableRecord::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_data_tables<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataTableRecord>,
+    {
+        use std::iter::Iterator;
+        self.data_tables = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for JoinRecord {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.JoinRecord"
+    }
+}
+
+/// DetectionRecord stores information about a detection.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DetectionRecord {
+    /// The ID of the detection.
+    pub id: ::bytes::Bytes,
+
+    /// The detection.
+    pub collection: std::option::Option<google_backstory::model::Collection>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DetectionRecord {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [id][crate::model::DetectionRecord::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DetectionRecord;
+    /// let x = DetectionRecord::new().set_id(bytes::Bytes::from_static(b"example"));
+    /// ```
+    pub fn set_id<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [collection][crate::model::DetectionRecord::collection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DetectionRecord;
+    /// use google_backstory::model::Collection;
+    /// let x = DetectionRecord::new().set_collection(Collection::default()/* use setters */);
+    /// ```
+    pub fn set_collection<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_backstory::model::Collection>,
+    {
+        self.collection = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [collection][crate::model::DetectionRecord::collection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DetectionRecord;
+    /// use google_backstory::model::Collection;
+    /// let x = DetectionRecord::new().set_or_clear_collection(Some(Collection::default()/* use setters */));
+    /// let x = DetectionRecord::new().set_or_clear_collection(None::<Collection>);
+    /// ```
+    pub fn set_or_clear_collection<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_backstory::model::Collection>,
+    {
+        self.collection = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DetectionRecord {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DetectionRecord"
+    }
+}
+
 /// The BigQueryExportPackage entitled for the Chronicle instance.
 ///
 /// # Working with unknown values
@@ -53570,6 +57531,272 @@ impl<'de> serde::de::Deserialize<'de> for RuleView {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<RuleView>::new(
             ".google.cloud.chronicle.v1.RuleView",
+        ))
+    }
+}
+
+/// Specifies the dialect the Search Query is written in.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum QueryDialect {
+    /// Defaults to YL2.
+    Unspecified,
+    /// YL2 query dialect.
+    Yl2,
+    /// SQL query dialect.
+    Sql,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [QueryDialect::value] or
+    /// [QueryDialect::name].
+    UnknownValue(query_dialect::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod query_dialect {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl QueryDialect {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Yl2 => std::option::Option::Some(1),
+            Self::Sql => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("QUERY_DIALECT_UNSPECIFIED"),
+            Self::Yl2 => std::option::Option::Some("YL2"),
+            Self::Sql => std::option::Option::Some("SQL"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for QueryDialect {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for QueryDialect {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for QueryDialect {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Yl2,
+            2 => Self::Sql,
+            _ => Self::UnknownValue(query_dialect::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for QueryDialect {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "QUERY_DIALECT_UNSPECIFIED" => Self::Unspecified,
+            "YL2" => Self::Yl2,
+            "SQL" => Self::Sql,
+            _ => Self::UnknownValue(query_dialect::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for QueryDialect {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Yl2 => serializer.serialize_i32(1),
+            Self::Sql => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for QueryDialect {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<QueryDialect>::new(
+            ".google.cloud.chronicle.v1.QueryDialect",
+        ))
+    }
+}
+
+/// Specifies visibility of simulated data to include. This enum is used in
+/// multiple protos to filter out simulated data from the data returned by the
+/// API (like events, detections, and alerts, etc.).
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum SimulatedDataVisibility {
+    /// If unspecified, simulated data will be excluded.
+    Unspecified,
+    /// If specified, simulated data will be included.
+    SimulatedDataIncluded,
+    /// If specified, simulated data will be excluded.
+    SimulatedDataExcluded,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [SimulatedDataVisibility::value] or
+    /// [SimulatedDataVisibility::name].
+    UnknownValue(simulated_data_visibility::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod simulated_data_visibility {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl SimulatedDataVisibility {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::SimulatedDataIncluded => std::option::Option::Some(1),
+            Self::SimulatedDataExcluded => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SIMULATED_DATA_VISIBILITY_UNSPECIFIED"),
+            Self::SimulatedDataIncluded => std::option::Option::Some("SIMULATED_DATA_INCLUDED"),
+            Self::SimulatedDataExcluded => std::option::Option::Some("SIMULATED_DATA_EXCLUDED"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for SimulatedDataVisibility {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for SimulatedDataVisibility {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for SimulatedDataVisibility {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::SimulatedDataIncluded,
+            2 => Self::SimulatedDataExcluded,
+            _ => Self::UnknownValue(simulated_data_visibility::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for SimulatedDataVisibility {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SIMULATED_DATA_VISIBILITY_UNSPECIFIED" => Self::Unspecified,
+            "SIMULATED_DATA_INCLUDED" => Self::SimulatedDataIncluded,
+            "SIMULATED_DATA_EXCLUDED" => Self::SimulatedDataExcluded,
+            _ => Self::UnknownValue(simulated_data_visibility::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for SimulatedDataVisibility {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::SimulatedDataIncluded => serializer.serialize_i32(1),
+            Self::SimulatedDataExcluded => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for SimulatedDataVisibility {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<SimulatedDataVisibility>::new(
+            ".google.cloud.chronicle.v1.SimulatedDataVisibility",
         ))
     }
 }

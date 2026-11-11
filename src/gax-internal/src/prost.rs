@@ -15,6 +15,7 @@
 //! Helper functions to convert from the well-known types to and from their
 //! Prost versions.
 
+use serde_json::Number;
 use std::collections::BTreeMap;
 
 type BoxError = Box<dyn std::error::Error + Send + Sync>;
@@ -166,10 +167,13 @@ impl FromProto<wkt::Value> for prost_types::Value {
             None => wkt::Value::Null,
             Some(kind) => match kind {
                 Kind::NullValue(_) => wkt::Value::Null,
-                Kind::NumberValue(v) => {
-                    let number =
-                        serde_json::Number::from_f64(v).expect("JSON numbers cannot be NaN");
-                    serde_json::Value::Number(number)
+                Kind::NumberValue(value) => {
+                    let number = Number::from_f64(value).ok_or_else(|| {
+                        ConvertError::other(format!(
+                            "JSON numbers cannot be NaN or infinite, got {value}"
+                        ))
+                    })?;
+                    wkt::Value::Number(number)
                 }
                 Kind::StringValue(v) => wkt::Value::String(v),
                 Kind::BoolValue(v) => wkt::Value::Bool(v),
@@ -467,6 +471,88 @@ mod tests {
         let got = convert.cnv()?;
         assert_eq!(got, input);
         Ok(())
+    }
+
+    #[test_case(f64::NAN; "nan")]
+    #[test_case(f64::INFINITY; "infinity")]
+    #[test_case(f64::NEG_INFINITY; "neg_infinity")]
+    fn from_proto_value_non_finite_number_fails(number_value: f64) {
+        let input = prost_types::Value {
+            kind: Some(prost_types::value::Kind::NumberValue(number_value)),
+        };
+        let error = input
+            .cnv()
+            .expect_err("expected error converting non-finite float to wkt::Value");
+        let error_message = error.to_string();
+        assert!(
+            error_message.contains("JSON numbers cannot be NaN or infinite"),
+            "expected non-finite error description, got: {error_message}"
+        );
+        assert!(
+            error_message.contains(&format!("got {number_value}")),
+            "expected 'got {number_value}' in error message, got: {error_message}"
+        );
+    }
+
+    #[test_case(0.0; "zero")]
+    #[test_case(-0.0; "negative_zero")]
+    #[test_case(1234.5; "positive_float")]
+    #[test_case(f64::MIN; "min")]
+    #[test_case(f64::MAX; "max")]
+    #[test_case(f64::MIN_POSITIVE; "min_positive")]
+    fn from_proto_value_finite_number_succeeds(number_value: f64) -> anyhow::Result<()> {
+        let input = prost_types::Value {
+            kind: Some(prost_types::value::Kind::NumberValue(number_value)),
+        };
+        let got = input.cnv()?;
+        let want = Number::from_f64(number_value)
+            .map(wkt::Value::Number)
+            .expect("finite float must convert to Number");
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(f64::NAN; "nan")]
+    #[test_case(f64::INFINITY; "infinity")]
+    #[test_case(f64::NEG_INFINITY; "neg_infinity")]
+    fn from_proto_struct_non_finite_number_fails(number_value: f64) {
+        let mut fields = BTreeMap::new();
+        fields.insert(
+            "non_finite".to_string(),
+            prost_types::Value {
+                kind: Some(prost_types::value::Kind::NumberValue(number_value)),
+            },
+        );
+        let input = prost_types::Struct { fields };
+        let error = input.cnv().expect_err(
+            "expected error converting Struct containing non-finite number to wkt::Struct",
+        );
+        assert!(
+            error
+                .to_string()
+                .contains("JSON numbers cannot be NaN or infinite"),
+            "expected non-finite error, got: {error}"
+        );
+    }
+
+    #[test_case(f64::NAN; "nan")]
+    #[test_case(f64::INFINITY; "infinity")]
+    #[test_case(f64::NEG_INFINITY; "neg_infinity")]
+    fn from_proto_list_non_finite_number_fails(number_value: f64) {
+        let input = prost_types::ListValue {
+            values: vec![prost_types::Value {
+                kind: Some(prost_types::value::Kind::NumberValue(number_value)),
+            }],
+        };
+        let error = input.cnv().expect_err(
+            "expected error converting ListValue containing non-finite number to wkt::ListValue",
+        );
+        assert!(
+            error
+                .to_string()
+                .contains("JSON numbers cannot be NaN or infinite"),
+            "expected non-finite error, got: {error}"
+        );
     }
 
     #[test]

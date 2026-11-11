@@ -11150,6 +11150,11 @@ pub struct LookupMapTileRequest {
     /// aip.dev/not-precedent: this field needs to keep presence. --)
     pub y: i32,
 
+    /// The UTC timestamp of the weather map tile to retrieve. If not provided,
+    /// defaults to the current time. Must be within the [now, now + 6h] forecast
+    /// window; values outside this range return `INVALID_ARGUMENT`.
+    pub forecast_time: std::option::Option<wkt::Timestamp>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -11206,6 +11211,39 @@ impl LookupMapTileRequest {
     /// ```
     pub fn set_y<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.y = v.into();
+        self
+    }
+
+    /// Sets the value of [forecast_time][crate::model::LookupMapTileRequest::forecast_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_weather_v1::model::LookupMapTileRequest;
+    /// use wkt::Timestamp;
+    /// let x = LookupMapTileRequest::new().set_forecast_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_forecast_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.forecast_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [forecast_time][crate::model::LookupMapTileRequest::forecast_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_maps_weather_v1::model::LookupMapTileRequest;
+    /// use wkt::Timestamp;
+    /// let x = LookupMapTileRequest::new().set_or_clear_forecast_time(Some(Timestamp::default()/* use setters */));
+    /// let x = LookupMapTileRequest::new().set_or_clear_forecast_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_forecast_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.forecast_time = v.map(|x| x.into());
         self
     }
 }

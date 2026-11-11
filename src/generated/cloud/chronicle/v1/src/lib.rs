@@ -41,6 +41,7 @@
 //! * [ReferenceListService](client/struct.ReferenceListService.html)
 //! * [RuleService](client/struct.RuleService.html)
 //! * [RuleExecutionErrorService](client/struct.RuleExecutionErrorService.html)
+//! * [SearchService](client/struct.SearchService.html)
 //!
 //! # Features
 //!
