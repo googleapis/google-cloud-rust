@@ -15,7 +15,11 @@
 
 set -euo pipefail
 
-if git grep -n -E '^([^/]|/[^/])*(\.(to_proto|cnv)\(|ToProto::to_proto|FromProto::cnv)' -- '*.rs'; then
+# gax-internal defines ToProto and FromProto, so a conflicting impl breaks its
+# own build in the same change. Integration tests, examples, and benchmarks are
+# not published. Unit tests in `#[cfg(test)]` modules are still checked.
+if git grep -n -E '^([^/]|/[^/])*(\.(to_proto|cnv)\(|ToProto::to_proto|FromProto::cnv)' -- '*.rs' \
+    ':!src/gax-internal/**' ':!**/tests/**' ':!**/examples/**' ':!**/benches/**'; then
     echo "ERROR: Use fully qualified ToProto::<T>::to_proto(...) and FromProto::<T>::cnv(...) instead of .to_proto() or .cnv()" >&2
     exit 1
 fi
