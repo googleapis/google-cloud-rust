@@ -82,6 +82,11 @@ locals {
       config = "complex.yaml"
       script = "docs-rs"
     }
+    dylint = {
+      config = "complex.yaml"
+      script = "dylint"
+      pool   = "rust-sdk-pool-large"
+    }
     features = {
       config = "complex.yaml"
       script = "features"

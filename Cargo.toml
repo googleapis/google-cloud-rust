@@ -643,3 +643,8 @@ unexpected_cfgs = { level = "deny", check-cfg = [
 
 [workspace.metadata.cargo-machete]
 ignored = ["h2", "lazy_static", "pin-project", "rustc_version"]
+
+# Custom lints run with `cargo dylint --all --workspace`. The lint libraries
+# live outside the workspace and build with their own pinned nightly.
+[workspace.metadata.dylint]
+libraries = [{ path = "tools/lints/explicit_trait_params" }]

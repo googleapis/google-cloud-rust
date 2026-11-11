@@ -1,0 +1,19 @@
+warning: blanket impl of `ToProto` can make unqualified downstream calls ambiguous
+  --> $DIR/main.rs:144:5
+   |
+LL |     impl<T> ToProto<ProtoA> for T {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: adding this is a breaking change for callers that rely on inference (not detected by cargo-semver-checks); if intentional, use `#[allow(explicit_trait_params)]` with a justification and release as a breaking version
+   = note: `#[warn(explicit_trait_params)]` on by default
+
+warning: blanket impl of `ToProto` can make unqualified downstream calls ambiguous
+  --> $DIR/main.rs:149:5
+   |
+LL |     impl<'a, T> ToProto<ProtoB> for &'a T {
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: adding this is a breaking change for callers that rely on inference (not detected by cargo-semver-checks); if intentional, use `#[allow(explicit_trait_params)]` with a justification and release as a breaking version
+
+warning: 2 warnings emitted
+

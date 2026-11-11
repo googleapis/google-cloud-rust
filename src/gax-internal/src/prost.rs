@@ -45,12 +45,30 @@ impl ConvertError {
 type Result<T> = std::result::Result<T, ConvertError>;
 
 /// Converts from `Self` into `T`, where `T` is expected to be a Protobuf-generated type.
+///
+/// This trait is intentionally not sealed: every crate implements it for its
+/// own crate-local Protobuf types. The type parameter `T` keeps those impls
+/// legal under the orphan rules, so a single type often has several impls
+/// (e.g. `google_cloud_rpc::model::Status` has one per crate that embeds
+/// `google.rpc.Status`).
+///
+/// Because of that, calls that leave `T` to inference can become ambiguous
+/// (E0283/E0284) when another crate adds an impl in a compatible release.
+/// Call sites outside this crate on non-local receivers must name `T`, as in
+/// `ToProto::<P>::to_proto(x)`. Do not add blanket impls
+/// (`impl<X> ToProto<_> for X`) without a breaking release.
 pub trait ToProto<T>: Sized {
     type Output;
     fn to_proto(self) -> Result<Self::Output>;
 }
 
 /// Converts from `Self` into `T`, where `Self` is expected to be a Protobuf-generated type.
+///
+/// Like [ToProto], this trait is intentionally not sealed and is generic over
+/// `T`, so a single type can have several impls across crates. Call sites
+/// outside this crate on non-local receivers must name `T`, as in
+/// `FromProto::<M>::cnv(x)`. Do not add blanket impls
+/// (`impl<X> FromProto<_> for X`) without a breaking release.
 pub trait FromProto<T>: Sized {
     // By convention `from_*` functions do not consume a `self`. And we need
     // `self` so we can write generic code for repeated fields, maps, etc.

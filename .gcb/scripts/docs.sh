@@ -30,9 +30,11 @@ cargo doc --no-deps --frozen --all-features -p google-cloud-location
 
 # On PRs, detect any new libraries and compile their documentation. Without this
 # step the post-merge build may break, and we prefer to avoid this problem.
+# Custom lint crates in tools/lints/ need a pinned nightly and are not
+# published, so they are skipped.
 if [[ "${GCB_TRIGGER_NAME:-}" != gcb-pm-* ]]; then
     git fetch --unshallow
-    mapfile -t new_manifests < <(git diff "origin/main...HEAD" --name-only --diff-filter=A | grep /Cargo.toml)
+    mapfile -t new_manifests < <(git diff "origin/main...HEAD" --name-only --diff-filter=A | grep /Cargo.toml | grep -v '^tools/lints/')
     for manifest in "${new_manifests[@]}"; do
         cargo doc --no-deps --frozen --all-features --manifest-path "${manifest}"
     done

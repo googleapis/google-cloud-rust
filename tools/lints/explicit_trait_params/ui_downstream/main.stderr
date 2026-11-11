@@ -1,0 +1,75 @@
+warning: method-call syntax cannot specify the generic parameters of `ToProto`
+  --> $DIR/main.rs:71:13
+   |
+LL |     let _ = s.clone().to_proto(); // FLAG: String
+   |             ^^^^^^^^^^^^^^^^^^^^ help: specify the trait parameters: `ToProto::<String>::to_proto(s.clone())`
+   |
+   = note: receiver type `String` is not defined in this crate; a future `ToProto` impl in another crate could make this call ambiguous
+   = note: `#[warn(explicit_trait_params)]` on by default
+
+warning: method-call syntax cannot specify the generic parameters of `ToProto`
+  --> $DIR/main.rs:72:13
+   |
+LL |     let _ = 1i32.to_proto(); // FLAG: i32
+   |             ^^^^^^^^^^^^^^^ help: specify the trait parameters: `ToProto::<i32>::to_proto(1i32)`
+   |
+   = note: receiver type `i32` is not defined in this crate; a future `ToProto` impl in another crate could make this call ambiguous
+
+warning: method-call syntax cannot specify the generic parameters of `FromProto`
+  --> $DIR/main.rs:73:36
+   |
+LL |     let _: prost::Result<String> = s.clone().cnv(); // FLAG: String
+   |                                    ^^^^^^^^^^^^^^^ help: specify the trait parameters: `FromProto::<String>::cnv(s.clone())`
+   |
+   = note: receiver type `String` is not defined in this crate; a future `FromProto` impl in another crate could make this call ambiguous
+
+warning: generic parameters of `ToProto` are not specified
+  --> $DIR/main.rs:74:13
+   |
+LL |     let _ = ToProto::to_proto(s.clone()); // FLAG
+   |             ^^^^^^^ help: specify the trait parameters: `ToProto::<String>`
+   |
+   = note: receiver type `String` is not defined in this crate; a future `ToProto` impl in another crate could make this call ambiguous
+
+warning: generic parameters of `ToProto` are not specified
+  --> $DIR/main.rs:75:13
+   |
+LL |     let _ = String::to_proto(s.clone()); // FLAG
+   |             ^^^^^^^^^^^^^^^^ help: specify the trait parameters: `<String as ToProto<String>>::to_proto`
+   |
+   = note: receiver type `String` is not defined in this crate; a future `ToProto` impl in another crate could make this call ambiguous
+
+warning: generic parameters of `ToProto` are not specified
+  --> $DIR/main.rs:76:65
+   |
+LL |     let _: Vec<prost::Result<String>> = vec![s].into_iter().map(ToProto::to_proto).collect(); // FLAG
+   |                                                                 ^^^^^^^ help: specify the trait parameters: `ToProto::<String>`
+   |
+   = note: receiver type `String` is not defined in this crate; a future `ToProto` impl in another crate could make this call ambiguous
+
+warning: generic parameters of `ToProto` are not specified
+  --> $DIR/main.rs:91:24
+   |
+LL |     let _ = <String as ToProto<_>>::to_proto(s.clone()); // FLAG: `_` is not explicit
+   |                        ^^^^^^^^^^ help: specify the trait parameters: `ToProto::<String>`
+   |
+   = note: receiver type `String` is not defined in this crate; a future `ToProto` impl in another crate could make this call ambiguous
+
+warning: method-call syntax cannot specify the generic parameters of `ToProto`
+  --> $DIR/main.rs:117:13
+   |
+LL |     let _ = b.to_proto(); // FLAG: the trait's crate could add `impl<T> ToProto<_> for Box<T>`
+   |             ^^^^^^^^^^^^ help: specify the trait parameters: `ToProto::<LocalProto>::to_proto(b)`
+   |
+   = note: receiver type `Box<Local>` is not defined in this crate; a future `ToProto` impl in another crate could make this call ambiguous
+
+warning: method-call syntax cannot specify the generic parameters of `ToProto`
+  --> $DIR/main.rs:118:13
+   |
+LL |     let _ = o.to_proto(); // FLAG: same for `Option<T>`
+   |             ^^^^^^^^^^^^ help: specify the trait parameters: `ToProto::<LocalProto>::to_proto(o)`
+   |
+   = note: receiver type `Option<Local>` is not defined in this crate; a future `ToProto` impl in another crate could make this call ambiguous
+
+warning: 9 warnings emitted
+
