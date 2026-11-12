@@ -92,6 +92,11 @@ locals {
       script = "features-gax-internal"
       pool   = "rust-sdk-pool-large"
     }
+    features-spanner = {
+      config = "complex.yaml"
+      script = "features-spanner"
+      pool   = "rust-sdk-pool-large"
+    }
     per-client-features = {
       config = "complex.yaml"
       script = "per-client-features"

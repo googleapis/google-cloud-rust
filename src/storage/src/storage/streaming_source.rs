@@ -40,6 +40,7 @@ pub type SizeHint = http_body::SizeHint;
 /// assert_eq!(size, buffer.len());
 /// # Ok(()) }
 /// ```
+#[derive(Clone)]
 pub struct Payload<T> {
     payload: T,
 }
@@ -235,6 +236,7 @@ impl Seek for FileSource {
 /// println!("response details={response:?}");
 /// # Ok(()) }
 /// ```
+#[derive(Clone)]
 pub struct BytesSource {
     contents: bytes::Bytes,
     current: Option<bytes::Bytes>,
@@ -271,6 +273,7 @@ impl Seek for BytesSource {
 }
 
 /// Implements [StreamingSource] for a sequence of [bytes::Bytes].
+#[derive(Clone)]
 pub(crate) struct IterSource {
     contents: Vec<bytes::Bytes>,
     current: VecDeque<bytes::Bytes>,
@@ -563,6 +566,37 @@ pub(crate) mod tests {
             assert_eq!(got[..], b[offset..(3 * N)]);
         }
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn clone_bytes() -> Result {
+        let mut original = Payload::from(bytes::Bytes::from_static(CONTENTS));
+        let mut cloned = original.clone();
+
+        original.seek(4).await?;
+        cloned.seek(13).await?;
+
+        assert_eq!(collect(original).await?, CONTENTS[4..]);
+        assert_eq!(collect(cloned).await?, CONTENTS[13..]);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn clone_iter_source() -> Result {
+        let mut original = Payload::from(vec![
+            bytes::Bytes::from_static(b"how vexingly "),
+            bytes::Bytes::from_static(b"quick daft "),
+            bytes::Bytes::from_static(b"zebras jump"),
+        ]);
+        let mut cloned = original.clone();
+
+        let first = original.next().await.transpose()?;
+        assert_eq!(first.as_deref(), Some(&b"how vexingly "[..]));
+        cloned.seek(24).await?;
+
+        assert_eq!(collect(original).await?, CONTENTS[13..]);
+        assert_eq!(collect(cloned).await?, CONTENTS[24..]);
         Ok(())
     }
 }
