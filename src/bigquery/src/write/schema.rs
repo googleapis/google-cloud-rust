@@ -21,6 +21,7 @@
 
 use crate::model::table_field_schema::{Mode, Type};
 use crate::model::{TableFieldSchema, TableSchema};
+use std::collections::HashSet;
 use wkt::field_descriptor_proto::{Label, Type as ProtoType};
 use wkt::{DescriptorProto, FieldDescriptorProto};
 
@@ -51,6 +52,14 @@ pub(crate) enum SchemaErrorKind {
     /// The `TIMESTAMP` field declares a precision this client does not support.
     #[error("unsupported timestamp precision {precision} for field '{field}'")]
     UnsupportedTimestampPrecision { field: String, precision: i64 },
+
+    /// The column name is not a valid protobuf field name.
+    #[error("column name '{field}' is not a valid protobuf field name")]
+    UnsupportedColumnName { field: String },
+
+    /// Two columns in the same record have the same name, ignoring ASCII case.
+    #[error("column name '{field}' is used more than once, ignoring case")]
+    DuplicateColumnName { field: String },
 }
 
 /// Maps the BigQuery type of `field` to its protobuf wire type.
@@ -129,6 +138,7 @@ fn field_label(field: &TableFieldSchema) -> Result<Label, SchemaError> {
 pub(crate) fn table_schema_to_descriptor(
     schema: &TableSchema,
 ) -> Result<DescriptorProto, SchemaError> {
+    check_column_names(&schema.fields)?;
     let fields = schema
         .fields
         .iter()
@@ -146,6 +156,38 @@ pub(crate) fn table_schema_to_descriptor(
         .collect::<Result<Vec<_>, SchemaError>>()?;
 
     Ok(DescriptorProto::new().set_name("root").set_field(fields))
+}
+
+/// Validates that every column name in `fields` is a legal protobuf field
+/// identifier and unique within the record (ignoring ASCII case).
+fn check_column_names(fields: &[TableFieldSchema]) -> Result<(), SchemaError> {
+    let mut seen = HashSet::with_capacity(fields.len());
+    for field in fields {
+        if !is_proto_identifier(&field.name) {
+            return Err(SchemaErrorKind::UnsupportedColumnName {
+                field: field.name.clone(),
+            }
+            .into());
+        }
+        if !seen.insert(field.name.to_ascii_lowercase()) {
+            return Err(SchemaErrorKind::DuplicateColumnName {
+                field: field.name.clone(),
+            }
+            .into());
+        }
+    }
+    Ok(())
+}
+
+/// Returns `true` if `name` matches the protobuf identifier grammar
+/// `[A-Za-z_][A-Za-z0-9_]*`.
+fn is_proto_identifier(name: &str) -> bool {
+    let mut bytes = name.bytes();
+    let Some(first) = bytes.next() else {
+        return false;
+    };
+    (first.is_ascii_alphabetic() || first == b'_')
+        && bytes.all(|b| b.is_ascii_alphanumeric() || b == b'_')
 }
 
 #[cfg(test)]
@@ -303,6 +345,64 @@ mod tests {
         assert_eq!(
             err.to_string(),
             format!("unsupported timestamp precision {precision} for field 'created_at'")
+        );
+    }
+
+    #[test_case("a")]
+    #[test_case("_")]
+    #[test_case("_a")]
+    #[test_case("_1")]
+    #[test_case("a1")]
+    #[test_case("CamelCase")]
+    #[test_case("snake_case")]
+    fn valid_column_names(name: &str) {
+        let schema = TableSchema::new().set_fields([field(name, Type::String)]);
+        table_schema_to_descriptor(&schema)
+            .unwrap_or_else(|e| panic!("{name} should convert: {e}"));
+    }
+
+    #[test_case("")]
+    #[test_case("1st")]
+    #[test_case("$id")]
+    #[test_case("first name")]
+    #[test_case("item-id")]
+    #[test_case("a.b")]
+    #[test_case("価格")]
+    #[test_case("café")]
+    fn unsupported_column_names_are_rejected(name: &str) {
+        let schema = TableSchema::new().set_fields([field(name, Type::String)]);
+        let err = table_schema_to_descriptor(&schema)
+            .expect_err("non-identifier column name should fail");
+        assert_eq!(
+            err.kind,
+            SchemaErrorKind::UnsupportedColumnName {
+                field: name.to_string(),
+            }
+        );
+        assert_eq!(
+            err.to_string(),
+            format!("column name '{name}' is not a valid protobuf field name")
+        );
+    }
+
+    #[test_case("id", "id"; "exact match")]
+    #[test_case("name", "NAME"; "ascii case insensitive")]
+    fn duplicate_column_names_are_rejected(first: &str, duplicate: &str) {
+        let schema = TableSchema::new().set_fields([
+            field(first, Type::String),
+            field("other", Type::Int64),
+            field(duplicate, Type::Int64),
+        ]);
+        let err = table_schema_to_descriptor(&schema).expect_err("duplicate column must fail");
+        assert_eq!(
+            err.kind,
+            SchemaErrorKind::DuplicateColumnName {
+                field: duplicate.to_string(),
+            }
+        );
+        assert_eq!(
+            err.to_string(),
+            format!("column name '{duplicate}' is used more than once, ignoring case")
         );
     }
 }
