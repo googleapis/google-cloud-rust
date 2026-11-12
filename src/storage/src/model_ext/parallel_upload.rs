@@ -12,15 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::model::{CommonObjectRequestParams, WriteObjectSpec};
+use crate::model::{CommonObjectRequestParams, Object};
 use gaxi::prost::ToProto;
 
 /// Represents the parameters of a request to create a parallel upload session.
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateObjectWriteSessionRequest {
-    /// The object attributes for the write operation.
-    pub spec: WriteObjectSpec,
+    /// The destination object metadata.
+    pub resource: Option<Object>,
+    /// A predefined set of access controls to apply to the object.
+    pub predefined_acl: String,
     /// Additional request parameters.
     pub params: Option<CommonObjectRequestParams>,
     /// The preferred segment size in bytes.
@@ -34,20 +36,13 @@ impl TryFrom<CreateObjectWriteSessionRequest>
 
     fn try_from(value: CreateObjectWriteSessionRequest) -> crate::Result<Self> {
         let resource = value
-            .spec
             .resource
             .map(ToProto::to_proto)
             .transpose()
             .map_err(crate::Error::deser)?;
-        let write_object_spec = crate::google::storage::v2::WriteObjectSpec {
+        let object_write_session_spec = crate::google::storage::v2::ObjectWriteSessionSpec {
             resource,
-            predefined_acl: value.spec.predefined_acl,
-            if_generation_match: value.spec.if_generation_match,
-            if_generation_not_match: value.spec.if_generation_not_match,
-            if_metageneration_match: value.spec.if_metageneration_match,
-            if_metageneration_not_match: value.spec.if_metageneration_not_match,
-            object_size: value.spec.object_size,
-            appendable: value.spec.appendable,
+            predefined_acl: value.predefined_acl,
         };
         let common_object_request_params = value
             .params
@@ -56,7 +51,7 @@ impl TryFrom<CreateObjectWriteSessionRequest>
             .map_err(crate::Error::deser)?;
 
         Ok(Self {
-            write_object_spec: Some(write_object_spec),
+            object_write_session_spec: Some(object_write_session_spec),
             common_object_request_params,
             preferred_segment_size_bytes: value.preferred_segment_size_bytes,
         })
@@ -91,28 +86,27 @@ mod tests {
     use crate::google::storage::v2::{
         CommonObjectRequestParams as ProtoParams,
         CreateObjectWriteSessionRequest as ProtoCreateRequest, Object as ProtoObject,
-        Segment as ProtoSegment, WriteObjectSpec as ProtoSpec,
+        ObjectWriteSessionSpec as ProtoSpec, Segment as ProtoSegment,
     };
-    use crate::model::Object;
 
     #[test]
     fn test_create_object_write_session_request_try_from() -> anyhow::Result<()> {
         let req = CreateObjectWriteSessionRequest {
-            spec: WriteObjectSpec::new()
-                .set_resource(Object::new().set_bucket("my-bucket").set_name("my-object")),
+            resource: Some(Object::new().set_bucket("my-bucket").set_name("my-object")),
+            predefined_acl: "private".into(),
             params: Some(CommonObjectRequestParams::new().set_encryption_algorithm("AES256")),
             preferred_segment_size_bytes: 1024,
         };
 
         let got = ProtoCreateRequest::try_from(req)?;
         let want = ProtoCreateRequest {
-            write_object_spec: Some(ProtoSpec {
+            object_write_session_spec: Some(ProtoSpec {
                 resource: Some(ProtoObject {
                     bucket: "my-bucket".into(),
                     name: "my-object".into(),
                     ..ProtoObject::default()
                 }),
-                ..ProtoSpec::default()
+                predefined_acl: "private".into(),
             }),
             common_object_request_params: Some(ProtoParams {
                 encryption_algorithm: "AES256".into(),
