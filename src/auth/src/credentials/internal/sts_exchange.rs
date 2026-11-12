@@ -28,6 +28,7 @@ type Result<T> = std::result::Result<T, CredentialsError>;
 pub struct STSHandler {
     body_encoding: BodyEncoding,
     ca_cert_path: Option<String>,
+    client: Option<reqwest::Client>,
 }
 
 /// Defines the type of body serialization to use for requests to the STS endpoint.
@@ -49,7 +50,15 @@ impl STSHandler {
         self
     }
 
+    /// Sends the exchange with `client` instead of building a client for it.
+    pub(crate) fn with_client(mut self, client: reqwest::Client) -> Self {
+        self.client = Some(client);
+        self
+    }
+
     /// Configures a custom CA certificate path for the handler.
+    ///
+    /// Ignored with [Self::with_client].
     #[cfg_attr(all(not(feature = "gdch"), not(test)), expect(unused))]
     pub(crate) fn with_ca_cert_path(mut self, ca_cert_path: Option<String>) -> Self {
         self.ca_cert_path = ca_cert_path;
@@ -104,15 +113,18 @@ impl STSHandler {
         headers: http::HeaderMap,
         params: HashMap<&str, String>,
     ) -> Result<TokenResponse> {
-        let mut client_builder = reqwest::Client::builder();
-
-        if let Some(path) = self.ca_cert_path {
-            client_builder = add_root_cert(client_builder, path).await?;
-        }
-
-        let client = client_builder
-            .build()
-            .map_err(|e| errors::from_http_error(e, MSG))?;
+        let client = match self.client {
+            Some(client) => client,
+            None => {
+                let mut client_builder = reqwest::Client::builder();
+                if let Some(path) = self.ca_cert_path {
+                    client_builder = add_root_cert(client_builder, path).await?;
+                }
+                client_builder
+                    .build()
+                    .map_err(|e| errors::from_http_error(e, MSG))?
+            }
+        };
 
         let mut headers = headers.clone();
         client_auth.inject_auth(&mut headers)?;

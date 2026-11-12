@@ -387,6 +387,7 @@ impl Builder {
             endpoint,
             scopes: self.scopes.map(|scopes| scopes.join(" ")),
             source: UserTokenSource::AccessToken,
+            http_client: Client::new(),
         };
 
         let token_provider = TokenCache::new(self.retry_builder.build(token_provider));
@@ -398,7 +399,6 @@ impl Builder {
     }
 }
 
-#[derive(PartialEq)]
 pub(crate) struct UserTokenProvider {
     client_id: String,
     client_secret: String,
@@ -406,6 +406,8 @@ pub(crate) struct UserTokenProvider {
     endpoint: String,
     scopes: Option<String>,
     source: UserTokenSource,
+    /// Sends every token request.
+    http_client: Client,
 }
 
 #[derive(PartialEq)]
@@ -443,6 +445,7 @@ impl UserTokenProvider {
             endpoint,
             source: UserTokenSource::IdToken,
             scopes: None,
+            http_client: Client::new(),
         }
     }
 }
@@ -450,7 +453,7 @@ impl UserTokenProvider {
 #[async_trait::async_trait]
 impl TokenProvider for UserTokenProvider {
     async fn token(&self) -> Result<Token> {
-        let client = Client::new();
+        let client = &self.http_client;
 
         // Make the request
         let req = Oauth2RefreshRequest {
@@ -590,16 +593,16 @@ mod tests {
     use crate::constants::DEFAULT_UNIVERSE_DOMAIN;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
-        find_source_error, get_headers_from_cache, get_mock_auth_retry_policy,
-        get_mock_backoff_policy, get_mock_retry_throttler, get_token_from_headers,
-        get_token_type_from_headers,
+        TAGGED_CLIENT_HEADER, find_source_error, get_headers_from_cache,
+        get_mock_auth_retry_policy, get_mock_backoff_policy, get_mock_retry_throttler,
+        get_token_from_headers, get_token_type_from_headers, tagged_http_client,
     };
     use crate::errors::CredentialsError;
     use crate::token::tests::MockTokenProvider;
     use http::StatusCode;
     use http::header::AUTHORIZATION;
     use httptest::cycle;
-    use httptest::matchers::{all_of, json_decoded, request};
+    use httptest::matchers::{all_of, contains, json_decoded, request};
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
     use test_case::test_case;
@@ -704,6 +707,7 @@ mod tests {
             endpoint: OAUTH2_TOKEN_SERVER_URL.to_string(),
             scopes: Some("https://www.googleapis.com/auth/pubsub".to_string()),
             source: UserTokenSource::AccessToken,
+            http_client: Client::new(),
         };
         let fmt = format!("{expected:?}");
         assert!(fmt.contains("test-client-id"), "{fmt}");
@@ -989,6 +993,7 @@ mod tests {
         server.expect(
             Expectation::matching(all_of![
                 request::path("/token"),
+                request::headers(contains(TAGGED_CLIENT_HEADER)),
                 request::body(json_decoded(|req: &Oauth2RefreshRequest| {
                     check_request(req, Some("scope1 scope2".to_string()))
                 }))
@@ -1003,6 +1008,7 @@ mod tests {
             endpoint: server.url("/token").to_string(),
             scopes: Some("scope1 scope2".to_string()),
             source: UserTokenSource::AccessToken,
+            http_client: tagged_http_client(),
         };
         let now = Instant::now();
         let token = tp.token().await?;

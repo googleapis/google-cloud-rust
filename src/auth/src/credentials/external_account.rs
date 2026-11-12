@@ -419,6 +419,7 @@ impl ExternalAccountConfig {
         let token_provider = ExternalAccountTokenProvider {
             subject_token_provider,
             config,
+            http_client: reqwest::Client::builder().build().map_err(non_retryable),
         };
         let token_provider_with_retry = retry_builder.build(token_provider);
         let cache = TokenCache::new(token_provider_with_retry);
@@ -434,6 +435,9 @@ impl ExternalAccountConfig {
 struct ExternalAccountTokenProvider {
     subject_token_provider: Box<dyn dynamic::SubjectTokenProvider>,
     config: ExternalAccountConfig,
+    /// Sends the STS exchange and the impersonation request of every token.
+    /// Initialization errors are returned when fetching a token.
+    http_client: Result<reqwest::Client>,
 }
 
 #[async_trait::async_trait]
@@ -483,7 +487,11 @@ impl TokenProvider for ExternalAccountTokenProvider {
             ..ExchangeTokenRequest::default()
         };
 
-        let token_res = STSHandler::default().exchange_token(req).await?;
+        let client = self.http_client.as_ref().map_err(Clone::clone)?;
+        let token_res = STSHandler::default()
+            .with_client(client.clone())
+            .exchange_token(req)
+            .await?;
 
         if let Some(impersonation_url) = &self.config.service_account_impersonation_url {
             let mut headers = HeaderMap::new();
@@ -494,6 +502,7 @@ impl TokenProvider for ExternalAccountTokenProvider {
             );
 
             return impersonated::generate_access_token(
+                client,
                 headers,
                 None,
                 user_scopes,
@@ -1513,8 +1522,9 @@ mod tests {
         Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
     };
     use crate::credentials::tests::{
-        find_source_error, get_mock_auth_retry_policy, get_mock_backoff_policy,
-        get_mock_retry_throttler, get_token_from_headers,
+        TAGGED_CLIENT_HEADER, find_source_error, get_mock_auth_retry_policy,
+        get_mock_backoff_policy, get_mock_retry_throttler, get_token_from_headers,
+        tagged_http_client,
     };
     use crate::errors::{CredentialsError, SubjectTokenProviderError};
     use httptest::{
@@ -1770,6 +1780,57 @@ mod tests {
                 unreachable!("expected File Sourced credential")
             }
         }
+    }
+
+    #[tokio::test]
+    async fn token_provider_uses_its_http_client() -> anyhow::Result<()> {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::path("/token"),
+                request::headers(contains(TAGGED_CLIENT_HEADER)),
+            ])
+            .respond_with(json_encoded(json!({
+                "access_token": "sts-token",
+                "issued_token_type": ACCESS_TOKEN_TYPE,
+                "token_type": "Bearer",
+                "expires_in": 3600,
+            }))),
+        );
+        server.expect(
+            Expectation::matching(all_of![
+                request::path("/generateAccessToken"),
+                request::headers(contains(TAGGED_CLIENT_HEADER)),
+            ])
+            .respond_with(json_encoded(json!({
+                "accessToken": "impersonated-token",
+                "expireTime": "2099-01-01T00:00:00Z",
+            }))),
+        );
+        let file: ExternalAccountFile = serde_json::from_value(json!({
+            "type": "external_account",
+            "audience": "audience",
+            "subject_token_type": JWT_TOKEN_TYPE,
+            "token_url": server.url_str("/token"),
+            "service_account_impersonation_url": server.url_str("/generateAccessToken"),
+            "credential_source": {"file": "unused"},
+        }))?;
+        let mut token_provider = ExternalAccountTokenProvider {
+            subject_token_provider: Box::new(TestSubjectTokenProvider),
+            config: file.into(),
+            http_client: Ok(tagged_http_client()),
+        };
+        assert_eq!(token_provider.token().await?.token, "impersonated-token");
+
+        token_provider.http_client = reqwest::Client::builder()
+            .user_agent("\n")
+            .build()
+            .map_err(non_retryable);
+        let err = token_provider.token().await.unwrap_err();
+        assert!(!err.is_transient(), "{err:?}");
+        let source = find_source_error::<reqwest::Error>(&err).unwrap();
+        assert!(source.is_builder(), "{err:?}");
+        Ok(())
     }
 
     #[tokio::test]

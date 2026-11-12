@@ -1085,6 +1085,18 @@ pub(crate) mod tests {
         throttler
     }
 
+    /// Builds a client with a marker header so tests can verify token requests use it.
+    pub(crate) fn tagged_http_client() -> reqwest::Client {
+        let (name, value) = TAGGED_CLIENT_HEADER;
+        let headers = HeaderMap::from_iter([(name.parse().unwrap(), value.parse().unwrap())]);
+        reqwest::Client::builder()
+            .default_headers(headers)
+            .build()
+            .unwrap()
+    }
+
+    pub(crate) const TAGGED_CLIENT_HEADER: (&str, &str) = ("x-test-client", "tagged");
+
     pub(crate) fn get_headers_from_cache(
         headers: CacheableResource<HeaderMap>,
     ) -> Result<HeaderMap> {

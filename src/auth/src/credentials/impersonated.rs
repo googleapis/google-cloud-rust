@@ -694,6 +694,7 @@ impl Builder {
             delegates,
             scopes,
             lifetime: self.lifetime.unwrap_or(DEFAULT_LIFETIME),
+            http_client: Client::new(),
         };
         let token_provider = self.retry_builder.build(token_provider);
         Ok((token_provider, quota_project_id, source_credentials))
@@ -874,6 +875,8 @@ struct ImpersonatedTokenProvider {
     delegates: Option<Vec<String>>,
     scopes: Vec<String>,
     lifetime: Duration,
+    /// Sends every token request.
+    http_client: Client,
 }
 
 impl Debug for ImpersonatedTokenProvider {
@@ -900,6 +903,7 @@ struct GenerateAccessTokenRequest {
 }
 
 pub(crate) async fn generate_access_token(
+    client: &Client,
     source_headers: HeaderMap,
     delegates: Option<Vec<String>>,
     scopes: Vec<String>,
@@ -913,7 +917,7 @@ pub(crate) async fn generate_access_token(
         lifetime,
         service_account_impersonation_url.to_string(),
     )
-    .fetch()
+    .fetch(client.clone())
     .await
 }
 
@@ -985,8 +989,7 @@ impl GenerateAccessTokenClient {
         }
     }
 
-    async fn fetch(self) -> Result<Token> {
-        let client = Client::new();
+    async fn fetch(self, client: Client) -> Result<Token> {
         let body = GenerateAccessTokenRequest {
             delegates: self.delegates,
             scope: self.scopes,
@@ -1068,6 +1071,7 @@ impl TokenProvider for ImpersonatedTokenProvider {
             .await;
 
         generate_access_token(
+            &self.http_client,
             source_headers,
             self.delegates.clone(),
             self.scopes.clone(),
@@ -1092,6 +1096,7 @@ mod tests {
     use crate::credentials::service_account::ServiceAccountKey;
     use crate::credentials::tests::MockCredentials;
     use crate::credentials::tests::PKCS8_PK;
+    use crate::credentials::tests::{TAGGED_CLIENT_HEADER, tagged_http_client};
     use crate::credentials::tests::{
         find_source_error, get_mock_auth_retry_policy, get_mock_backoff_policy,
         get_mock_retry_throttler,
@@ -1163,7 +1168,7 @@ mod tests {
         client.retry_policy = Arc::new(get_mock_auth_retry_policy(3));
         client.backoff_policy = Arc::new(get_mock_backoff_policy());
 
-        let token = client.fetch().await?;
+        let token = client.fetch(Client::new()).await?;
         assert_eq!(token.token, "impersonated-token-success");
         Ok(())
     }
@@ -1191,7 +1196,7 @@ mod tests {
         client.retry_policy = Arc::new(get_mock_auth_retry_policy(3));
         client.backoff_policy = Arc::new(get_mock_backoff_policy());
 
-        let err = client.fetch().await.unwrap_err();
+        let err = client.fetch(Client::new()).await.unwrap_err();
         assert!(err.is_transient(), "{err:?}");
     }
 
@@ -1219,6 +1224,7 @@ mod tests {
         let mut headers = HeaderMap::new();
         headers.insert("authorization", "Bearer test-token".parse().unwrap());
         let token = generate_access_token(
+            &Client::new(),
             headers,
             None,
             vec!["scope".to_string()],
@@ -1251,6 +1257,7 @@ mod tests {
         let mut headers = HeaderMap::new();
         headers.insert("authorization", "Bearer test-token".parse().unwrap());
         let err = generate_access_token(
+            &Client::new(),
             headers,
             None,
             vec!["scope".to_string()],
@@ -1279,6 +1286,7 @@ mod tests {
         );
 
         let err = generate_access_token(
+            &Client::new(),
             HeaderMap::new(),
             None,
             vec!["scope".to_string()],
@@ -1320,6 +1328,7 @@ mod tests {
                     "authorization",
                     "Bearer test-user-account-token"
                 ))),
+                request::headers(contains(TAGGED_CLIENT_HEADER)),
                 request::body(json_decoded(eq(json!({
                     "scope": ["scope1", "scope2"],
                     "lifetime": "3600s"
@@ -1342,9 +1351,10 @@ mod tests {
                 "token_uri": server.url("/token").to_string()
             }
         });
-        let (token_provider, _, _) = Builder::new(impersonated_credential)
+        let (mut token_provider, _, _) = Builder::new(impersonated_credential)
             .with_scopes(vec!["scope1", "scope2"])
             .build_components()?;
+        Arc::get_mut(&mut token_provider.inner).unwrap().http_client = tagged_http_client();
 
         let token = token_provider.token().await?;
         assert_eq!(token.token, "test-impersonated-token");
@@ -1590,6 +1600,7 @@ mod tests {
             delegates: Some(vec!["delegate1".to_string()]),
             scopes: vec!["scope1".to_string()],
             lifetime: Duration::from_secs(3600),
+            http_client: Client::new(),
         };
         let fmt = format!("{expected:?}");
         assert!(fmt.contains("UserCredentials"), "{fmt}");
@@ -1669,6 +1680,7 @@ mod tests {
             delegates: Some(vec!["delegate1".to_string()]),
             scopes: vec!["scope1".to_string()],
             lifetime: DEFAULT_LIFETIME,
+            http_client: Client::new(),
         };
 
         let err = token_provider.token().await.unwrap_err();
