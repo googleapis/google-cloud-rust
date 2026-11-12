@@ -103,6 +103,7 @@ guide:
 
 ## Next steps
 
+- [Cancel Cloud Storage object writes with errors](https://docs.cloud.google.com/rust/docs/storage-cancel-writes)
 - [Push data on object writes](https://docs.cloud.google.com/rust/docs/storage-push-writes)
 - [Rewrite objects](https://docs.cloud.google.com/rust/docs/storage-rewrite-objects)
 - [Speed up Cloud Storage object downloads](https://docs.cloud.google.com/rust/docs/storage-striped-downloads)
