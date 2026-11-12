@@ -46,6 +46,22 @@ mod tests {
         result
     }
 
+    #[cfg(feature = "skipped-integration-tests")]
+    #[tokio::test]
+    async fn rapid_cache_examples() -> anyhow::Result<()> {
+        let client = StorageControl::builder().build().await?;
+
+        let mut buckets = Vec::new();
+        let result = run_rapid_cache_examples(&mut buckets)
+            .await
+            .inspect_err(anydump);
+        // Buckets with rapid caches cannot be deleted until the caches are
+        // fully removed, which can take hours. Cleanup is best-effort, the
+        // stale bucket cleanup deletes any bucket left behind.
+        cleanup_all_buckets(client, buckets).await;
+        result
+    }
+
     #[tokio::test]
     async fn bucket_examples() -> anyhow::Result<()> {
         let client = StorageControl::builder().build().await?;
