@@ -45,6 +45,8 @@ mod optimizer;
 mod pending;
 mod pool;
 mod runner;
+#[cfg_attr(not(test), expect(dead_code))]
+mod schema;
 mod stream;
 mod transport;
 mod validate;
