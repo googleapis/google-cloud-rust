@@ -19,9 +19,10 @@
 //! runtime, so the descriptor is built dynamically rather than compiled by
 //! `protoc`.
 
-use crate::model::TableFieldSchema;
 use crate::model::table_field_schema::{Mode, Type};
+use crate::model::{TableFieldSchema, TableSchema};
 use wkt::field_descriptor_proto::{Label, Type as ProtoType};
+use wkt::{DescriptorProto, FieldDescriptorProto};
 
 /// An error encountered when a BigQuery [`TableSchema`][crate::model::TableSchema]
 /// cannot be converted for the JSON writer.
@@ -96,6 +97,34 @@ fn field_label(field: &TableFieldSchema) -> Result<Label, SchemaError> {
     }
 }
 
+/// Converts a BigQuery [`TableSchema`] into a `proto2` [`DescriptorProto`].
+///
+/// The root descriptor is named `"root"` and carries one field per entry in
+/// `schema.fields`, numbered sequentially from 1. Each field sets `json_name`
+/// to the exact column name so `lowerCamelCase` JSON name conversions cannot
+/// collide across columns such as `user_id` and `userId`.
+pub(crate) fn table_schema_to_descriptor(
+    schema: &TableSchema,
+) -> Result<DescriptorProto, SchemaError> {
+    let fields = schema
+        .fields
+        .iter()
+        .enumerate()
+        .map(|(index, field)| {
+            let proto_type = field_proto_type(field)?;
+            Ok(FieldDescriptorProto::new()
+                .set_name(&field.name)
+                .set_json_name(&field.name)
+                // Protobuf field numbers are 1-based.
+                .set_number(index as i32 + 1)
+                .set_label(field_label(field)?)
+                .set_type(proto_type))
+        })
+        .collect::<Result<Vec<_>, SchemaError>>()?;
+
+    Ok(DescriptorProto::new().set_name("root").set_field(fields))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -168,5 +197,60 @@ mod tests {
             }
         );
         assert_eq!(err.to_string(), "unrecognized mode '9999' for field 'f'");
+    }
+
+    #[test]
+    fn empty_schema() {
+        let descriptor =
+            table_schema_to_descriptor(&TableSchema::new()).expect("empty schema converts");
+        assert_eq!(descriptor.name, "root");
+        assert!(descriptor.field.is_empty());
+    }
+
+    #[test]
+    fn descriptor_populates_numbers_labels_types_and_json_names() {
+        let schema = TableSchema::new().set_fields([
+            field("user_id", Type::String).set_mode(Mode::Required),
+            field("userId", Type::Int64),
+            field("tags", Type::String).set_mode(Mode::Repeated),
+        ]);
+        let descriptor = table_schema_to_descriptor(&schema).expect("should convert");
+
+        let summary: Vec<_> = descriptor
+            .field
+            .iter()
+            .map(|f| {
+                (
+                    f.name.as_str(),
+                    f.json_name.as_str(),
+                    f.number,
+                    f.label.clone(),
+                    f.r#type.clone(),
+                )
+            })
+            .collect();
+        assert_eq!(
+            summary,
+            vec![
+                ("user_id", "user_id", 1, Label::Optional, ProtoType::String),
+                ("userId", "userId", 2, Label::Optional, ProtoType::Int64),
+                ("tags", "tags", 3, Label::Repeated, ProtoType::String),
+            ]
+        );
+    }
+
+    #[test]
+    fn error_propagates_from_later_field() {
+        let schema = TableSchema::new()
+            .set_fields([field("ok", Type::String), field("bad", Type::Unspecified)]);
+        let err =
+            table_schema_to_descriptor(&schema).expect_err("invalid field should fail conversion");
+        assert_eq!(
+            err.kind,
+            SchemaErrorKind::InvalidFieldType {
+                field: "bad".to_string(),
+                field_type: Type::Unspecified,
+            }
+        );
     }
 }
