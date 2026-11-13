@@ -47,6 +47,10 @@ pub(crate) enum SchemaErrorKind {
     /// The field mode is not one this client version recognizes.
     #[error("unrecognized mode '{mode}' for field '{field}'")]
     UnknownMode { field: String, mode: Mode },
+
+    /// The `TIMESTAMP` field declares a precision this client does not support.
+    #[error("unsupported timestamp precision {precision} for field '{field}'")]
+    UnsupportedTimestampPrecision { field: String, precision: i64 },
 }
 
 /// Maps the BigQuery type of `field` to its protobuf wire type.
@@ -58,7 +62,11 @@ pub(crate) enum SchemaErrorKind {
 fn field_proto_type(field: &TableFieldSchema) -> Result<ProtoType, SchemaError> {
     match field.r#type {
         Type::Bool => Ok(ProtoType::Bool),
-        Type::Int64 | Type::Timestamp => Ok(ProtoType::Int64),
+        Type::Int64 => Ok(ProtoType::Int64),
+        Type::Timestamp => {
+            check_timestamp_precision(field)?;
+            Ok(ProtoType::Int64)
+        }
         Type::Double => Ok(ProtoType::Double),
         Type::Bytes => Ok(ProtoType::Bytes),
         Type::String
@@ -74,6 +82,21 @@ fn field_proto_type(field: &TableFieldSchema) -> Result<ProtoType, SchemaError> 
         _ => Err(SchemaErrorKind::InvalidFieldType {
             field: field.name.clone(),
             field_type: field.r#type.clone(),
+        }
+        .into()),
+    }
+}
+
+/// Validates that a `TIMESTAMP` column uses microsecond precision.
+///
+/// Unset, `0`, and `6` denote microsecond precision. Picosecond precision
+/// (`12`) and unrecognized precisions are rejected in v1.
+fn check_timestamp_precision(field: &TableFieldSchema) -> Result<(), SchemaError> {
+    match field.timestamp_precision {
+        None | Some(0) | Some(6) => Ok(()),
+        Some(precision) => Err(SchemaErrorKind::UnsupportedTimestampPrecision {
+            field: field.name.clone(),
+            precision,
         }
         .into()),
     }
@@ -251,6 +274,35 @@ mod tests {
                 field: "bad".to_string(),
                 field_type: Type::Unspecified,
             }
+        );
+    }
+
+    #[test_case(None)]
+    #[test_case(Some(0))]
+    #[test_case(Some(6))]
+    fn microsecond_timestamp_precisions(precision: Option<i64>) {
+        let f = field("created_at", Type::Timestamp).set_or_clear_timestamp_precision(precision);
+        assert_eq!(
+            field_proto_type(&f).expect("should convert"),
+            ProtoType::Int64
+        );
+    }
+
+    #[test_case(12)]
+    #[test_case(9)]
+    fn unsupported_timestamp_precision_is_rejected(precision: i64) {
+        let f = field("created_at", Type::Timestamp).set_timestamp_precision(precision);
+        let err = field_proto_type(&f).expect_err("unsupported precision should be rejected");
+        assert_eq!(
+            err.kind,
+            SchemaErrorKind::UnsupportedTimestampPrecision {
+                field: "created_at".to_string(),
+                precision,
+            }
+        );
+        assert_eq!(
+            err.to_string(),
+            format!("unsupported timestamp precision {precision} for field 'created_at'")
         );
     }
 }
