@@ -7286,6 +7286,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "integration-tests-convert-canary"
+version = "0.0.0"
+dependencies = [
+ "bytes",
+ "google-cloud-api",
+ "google-cloud-gax-internal",
+ "google-cloud-iam-v1",
+ "google-cloud-location",
+ "google-cloud-logging-type",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-rpc",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "prost-types",
+]
+
+[[package]]
 name = "integration-tests-default-idempotency"
 version = "0.0.0"
 dependencies = [
