@@ -133,7 +133,8 @@ impl ExecutableSourcedCredentials {
     }
 
     async fn from_output_file(output_file: String) -> Result<String> {
-        let content = std::fs::read_to_string(output_file)
+        let content = tokio::fs::read_to_string(output_file)
+            .await
             .map_err(|e| CredentialsError::from_source(false, e))?;
 
         Self::parse_token(content)
