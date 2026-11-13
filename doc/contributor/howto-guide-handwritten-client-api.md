@@ -423,8 +423,8 @@ See also the "Proc-macro Crates" section in the top-level
   contract test in a module with zero user-facing imports in scope.
 - **Ambiguity is an error:** Reject duplicate field names, direct-vs-`flatten`
   prefix collisions, and pairwise `flatten`-vs-`flatten` prefix overlaps
-  (`p1 == p2` or `p1.starts_with("{p2}.")`) at compile time, and reject
-  duplicate property keys across nested `flatten` structs at runtime.
+  (`p1 == p2` or `p1.starts_with(&format!("{p2}."))`) at compile time, and
+  reject duplicate property keys across nested `flatten` structs at runtime.
 
 ## Design documents
 
