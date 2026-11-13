@@ -82,8 +82,11 @@ included, or if a feature gate is not exercised in the CI).
   library behavior. See "Separate namespace for fields vs. options" in
   [ARCHITECTURE.md](../ARCHITECTURE.md).
 - **Hand-written crates:** New public APIs in hand-written crates must follow
-  [howto-guide-handwritten-client-api.md](../doc/contributor/howto-guide-handwritten-client-api.md).
-  Use its "Review checklist" when reviewing such changes.
+  [howto-guide-handwritten-client-api.md](../doc/contributor/howto-guide-handwritten-client-api.md)
+  (including no `Eq`/`Hash` on open enums, sibling-clearing `oneof` setters,
+  inspectable `PartialEq` stub fields, environment-variable precedence over
+  `ClientBuilder` options, and outer `async fn` `Send` tests). Use its "Review
+  checklist" when reviewing such changes.
 
 ## Implementation Style
 
