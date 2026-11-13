@@ -239,8 +239,8 @@ cargo fmt -p google-cloud-storage
 - Reject ambiguous input as an error instead of resolving it silently: check
   direct field collisions, direct-vs-`flatten` prefix collisions, and pairwise
   `flatten`-vs-`flatten` prefix overlaps (`p1 == p2` or
-  `p1.starts_with("{p2}.")`) at compile time, and reject duplicate property keys
-  across nested `flatten` structs at runtime.
+  `p1.starts_with(&format!("{p2}."))`) at compile time, and reject duplicate
+  property keys across nested `flatten` structs at runtime.
 
 ### Hand-written Client Libraries
 
