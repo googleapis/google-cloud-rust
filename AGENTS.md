@@ -44,6 +44,14 @@ directory:
 cargo build
 ```
 
+Workspace dependencies in the root `Cargo.toml` set `default-features = false`.
+When adding a new binary, sample, integration-test, or conformance crate that
+depends on a client crate via `.workspace = true`, explicitly set
+`default-features = true` on that client dependency (for example,
+`google-cloud-storage = { workspace = true, default-features = true }`).
+Otherwise `default-rustls-provider` is disabled and `reqwest` panics at runtime
+with `No rustls crypto provider is configured`.
+
 ### Running Tests
 
 To run the tests for the entire workspace, use the following command:
@@ -147,6 +155,12 @@ cargo clippy --all-features --no-deps -p google-cloud-storage -- -D missing_docs
 Please refer to [.cargo/config.toml](.cargo/config.toml) for the authoritative
 list of crates and exact set of lint flags currently subject to these checks.
 
+Do not pass `-D missing_docs` via `RUSTFLAGS` (for example,
+`RUSTFLAGS="-D missing_docs" cargo check`). `RUSTFLAGS` applies to workspace
+`build.rs` scripts (such as `src/gax-internal/build.rs`) and breaks the build;
+pass `-D missing_docs -D clippy::exhaustive_enums` after
+`cargo clippy --all-features --no-deps -p ${crate_name} --`.
+
 > [!IMPORTANT]
 > When editing or adding code within any of the handwritten crates, you MUST run
 > the strict clippy check (`cargo clippy-strict` for all crates or the specific
@@ -217,10 +231,16 @@ cargo fmt -p google-cloud-storage
   breaking change: take a breaking version bump of both the proc-macro crate and
   `google-cloud-bigquery`, by hand (librarian defaults to non-breaking bumps).
   Comment-only or formatting edits need the label but no bump.
-- In new proc-macro crates, generated code must only call
-  `#[doc(hidden)] pub mod __private` helpers in the runtime crate, never its
-  user-facing API, and must report ambiguous input (e.g. two fields mapping to
-  the same property name) as an error instead of resolving it silently.
+- In new proc-macro crates, **every** path emitted by generated code—including
+  trait paths in `impl` headers, return/error types, and constructors—must
+  resolve through `#[doc(hidden)] pub mod __private` in the runtime crate, never
+  its user-facing modules. Include a contract test in a module with no
+  user-facing imports in scope to verify hygiene.
+- Reject ambiguous input as an error instead of resolving it silently: check
+  direct field collisions, direct-vs-`flatten` prefix collisions, and pairwise
+  `flatten`-vs-`flatten` prefix overlaps (`p1 == p2` or
+  `p1.starts_with("{p2}.")`) at compile time, and reject duplicate property keys
+  across nested `flatten` structs at runtime.
 
 ### Hand-written Client Libraries
 
@@ -237,7 +257,9 @@ Rules that are hard to fix after a release:
 
 - Stub trait methods and RPC wrappers return a named `#[non_exhaustive]`
   response struct, never `()`, `Vec<T>`, or a primitive. Do not discard server
-  responses. Every stub method has a default implementation.
+  responses. Audit every field of the underlying proto response (such as
+  continuation queries or batch status flags) so server metadata is never
+  dropped. Every stub method has a default implementation.
 - Traits that applications implement (policies, stubs) receive a
   `#[non_exhaustive]` state struct, not positional arguments.
 - Public enum struct variants are `#[non_exhaustive]`. Error enums use
@@ -245,10 +267,32 @@ Rules that are hard to fix after a release:
 - Functions that buffer work, validate input, or may fail in the future return
   `Result` from the start.
 - Setters are infallible; validate in `send()`. Do not enforce service limits on
-  the client, and never validate data decoded from the service. Unknown enum
-  values or new server features must not fail a read.
+  the client, and never validate data decoded from the service.
+- Open protocol enums derive `Clone`, `Debug`, and `PartialEq` only (never `Eq`
+  or `Hash`) and wrap `wkt::internal::UnknownEnumValue` so both integer and
+  REST/ProtoJSON string unknowns round-trip without coercing strings to `0`.
+  Protocol `oneof` message unions (such as values, filters, aggregations, or
+  transforms) likewise include an opaque `Unknown` variant so unrecognized
+  server extensions survive read-modify-write and continuation requests.
+- Model mutually exclusive wire `oneof` branches as an `enum` or clear sibling
+  fields in every `set_*()` method (last-setter-wins); never leave multiple
+  branches `Some` in memory while dropping one during wire encoding.
+- Every field participating in `PartialEq` on a constructible stub request,
+  response, or model type has a public setter and getter; never include hidden
+  `pub(crate)` plumbing fields in derived `PartialEq`.
 - Use `set_<field>()` for request payload fields and `with_<option>()` for
   options that change the client library behavior.
+- Environment variables that configure client behavior, endpoints, or
+  credentials (such as `GOOGLE_CLOUD_UNIVERSE_DOMAIN`,
+  `GOOGLE_CLOUD_RUST_LOGGING`, and `*_EMULATOR_HOST`) take higher precedence
+  than `ClientBuilder` options (`with_endpoint()`, `with_universe_domain()`,
+  `with_credentials()`, `with_tracing()`). Emulator variables also configure
+  anonymous credentials so real credentials are never sent over plaintext HTTP.
+- Outer retry loops (such as transaction runners) must not re-retry errors
+  already retried by `gax` (`error.is_transient_and_before_rpc()` or calls with
+  explicit `idempotent == true`), and HTTP retry classifiers inspect
+  `error.http_status_code()` alongside `error.status()` for bare HTTP
+  502/503/504 responses.
 - Result iterators use `async fn next(&mut self) -> Option<Result<T>>`, plus
   `next_as()` and `into_stream()` behind `unstable-stream`. Never return `None`
   after a terminal error.
@@ -264,18 +308,26 @@ Rules that are hard to fix after a release:
 Required checks, in the same pull request as the new API:
 
 - Compile-time assertions that the futures returned by public async functions
-  are `Send`, including functions that take closures. Test closures that borrow
-  captured state and `move` closures. Documentation examples use the form the
-  test proves is `Send`.
+  are `Send`, including an outer `async fn` that awaits closure-taking methods
+  (`async move |...|`). In Rust, non-`move` `async |...|` closures that borrow
+  outer locals make enclosing futures `!Send`. Documentation examples and
+  samples must use the `async move` form proven `Send`.
 - For every public setter on a request, query, or builder, a test using a mock
-  stub that asserts the stub receives the value. If the setter overrides a
-  client-level default, test that the override wins for every request kind that
-  accepts it.
+  stub that asserts the stub receives the value. For mutually exclusive `oneof`
+  setters, test chaining in both orders (`set_a().set_b()` and
+  `set_b().set_a()`). If a setter overrides a client-level default, test that
+  the override wins for every request kind that accepts it, and test that
+  environment variables override `ClientBuilder` options (isolating ambient
+  variables with `scoped_env::ScopedEnv`).
 - For multi-RPC operations (pagination, continuations, resumable reads), tests
   for a transient failure that recovers, for retries running out, and for the
   behavior after the terminal error.
 - For APIs that hold server resources (transactions, sessions), tests for the
   behavior when the future or handle is dropped.
+- `TestLayer` span tests covering both named resources and empty/default
+  resource segments (for example, default database `""` without a trailing
+  slash) and verifying application callback errors do not mark client spans as
+  `"ERROR"`.
 - If the crate has a `DESIGN.md`, update it when the implementation diverges.
 
 ### Asynchronous Programming
