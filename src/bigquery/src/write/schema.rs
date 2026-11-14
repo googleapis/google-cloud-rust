@@ -64,6 +64,11 @@ pub(crate) enum SchemaErrorKind {
     /// A `STRUCT` column has no fields.
     #[error("STRUCT column '{field}' has no fields")]
     EmptyStruct { field: String },
+
+    /// The `RANGE` field did not declare a supported element type (`DATE`,
+    /// `DATETIME`, or `TIMESTAMP`).
+    #[error("invalid RANGE element type '{element_type}' for field '{field}'")]
+    InvalidRangeElementType { field: String, element_type: Type },
 }
 
 impl SchemaError {
@@ -75,7 +80,8 @@ impl SchemaError {
             | SchemaErrorKind::UnsupportedTimestampPrecision { field, .. }
             | SchemaErrorKind::UnsupportedColumnName { field }
             | SchemaErrorKind::DuplicateColumnName { field }
-            | SchemaErrorKind::EmptyStruct { field } => field,
+            | SchemaErrorKind::EmptyStruct { field }
+            | SchemaErrorKind::InvalidRangeElementType { field, .. } => field,
         };
         *field = format!("{parent}.{field}");
         self
@@ -98,7 +104,7 @@ fn field_proto_type(field: &TableFieldSchema) -> Result<ProtoType, SchemaError> 
         }
         Type::Double => Ok(ProtoType::Double),
         Type::Bytes => Ok(ProtoType::Bytes),
-        Type::Struct => Ok(ProtoType::Message),
+        Type::Struct | Type::Range => Ok(ProtoType::Message),
         Type::String
         | Type::Date
         | Type::Time
@@ -108,7 +114,6 @@ fn field_proto_type(field: &TableFieldSchema) -> Result<ProtoType, SchemaError> 
         | Type::Bignumeric
         | Type::Interval
         | Type::Json => Ok(ProtoType::String),
-        // TODO(#6783): map Type::Range to ProtoType::Message.
         _ => Err(SchemaErrorKind::InvalidFieldType {
             field: field.name.clone(),
             field_type: field.r#type.clone(),
@@ -157,7 +162,7 @@ fn field_label(field: &TableFieldSchema) -> Result<Label, SchemaError> {
 /// to the exact column name so `lowerCamelCase` JSON name conversions cannot
 /// collide across columns such as `user_id` and `userId`.
 ///
-/// Each `STRUCT` column becomes a message field with type defined in
+/// Each `STRUCT` or `RANGE` column becomes a message field with type defined in
 /// `root.nested_type`.
 pub(crate) fn table_schema_to_descriptor(
     schema: &TableSchema,
@@ -201,10 +206,56 @@ fn convert_fields(
                     let type_name = nested.add_message(subfields);
                     Ok(proto_field.set_type_name(type_name))
                 }
+                Type::Range => {
+                    let type_name = nested.add_message(range_fields(field)?);
+                    Ok(proto_field.set_type_name(type_name))
+                }
                 _ => Ok(proto_field),
             }
         })
         .collect()
+}
+
+/// Builds the `start` and `end` [`FieldDescriptorProto`]s for a `RANGE` message.
+///
+/// BigQuery encodes a `RANGE` value as a message with two optional fields
+/// (`start = 1`, `end = 2`). Leaving `start` or `end` unset marks that bound as
+/// `UNBOUNDED`.
+fn range_fields(field: &TableFieldSchema) -> Result<Vec<FieldDescriptorProto>, SchemaError> {
+    let bound_type = range_element_proto_type(field)?;
+    let bound = |name: &str, number: i32, r#type: ProtoType| {
+        FieldDescriptorProto::new()
+            .set_name(name)
+            .set_json_name(name)
+            .set_number(number)
+            .set_label(Label::Optional)
+            .set_type(r#type)
+    };
+    Ok(vec![
+        bound("start", 1, bound_type.clone()),
+        bound("end", 2, bound_type),
+    ])
+}
+
+/// Maps a `RANGE` field's element type to the [`ProtoType`] of its `start` and
+/// `end` bounds.
+fn range_element_proto_type(field: &TableFieldSchema) -> Result<ProtoType, SchemaError> {
+    let element_type = field
+        .range_element_type
+        .as_ref()
+        .map_or(&Type::Unspecified, |e| &e.r#type);
+    match element_type {
+        Type::Date | Type::Datetime => Ok(ProtoType::String),
+        Type::Timestamp => {
+            check_timestamp_precision(field)?;
+            Ok(ProtoType::Int64)
+        }
+        _ => Err(SchemaErrorKind::InvalidRangeElementType {
+            field: field.name.clone(),
+            element_type: element_type.clone(),
+        }
+        .into()),
+    }
 }
 
 /// Collects helper `DescriptorProto` messages for `root.nested_type`.
@@ -283,6 +334,7 @@ fn is_proto_identifier(name: &str) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::model::table_field_schema::FieldElementType;
     use static_assertions::assert_impl_all;
     use test_case::test_case;
 
@@ -296,11 +348,16 @@ mod tests {
         field(name, Type::Struct).set_fields(fields)
     }
 
+    fn range(name: &str, element: Type) -> TableFieldSchema {
+        field(name, Type::Range).set_range_element_type(FieldElementType::new().set_type(element))
+    }
+
     #[test_case(Type::Bool, ProtoType::Bool)]
     #[test_case(Type::Int64, ProtoType::Int64)]
     #[test_case(Type::Double, ProtoType::Double)]
     #[test_case(Type::Bytes, ProtoType::Bytes)]
     #[test_case(Type::Struct, ProtoType::Message)]
+    #[test_case(Type::Range, ProtoType::Message)]
     #[test_case(Type::String, ProtoType::String)]
     #[test_case(Type::Geography, ProtoType::String)]
     #[test_case(Type::Json, ProtoType::String)]
@@ -537,5 +594,102 @@ mod tests {
         let schema = TableSchema::new().set_fields([record("a", [inner])]);
         let err = table_schema_to_descriptor(&schema).expect_err("should fail");
         assert!(err.to_string().contains(want), "got: {err}");
+    }
+
+    #[test]
+    fn range_columns() {
+        let schema = TableSchema::new().set_fields([
+            range("dates", Type::Date),
+            range("datetimes", Type::Datetime),
+            range("timestamps", Type::Timestamp)
+                .set_timestamp_precision(6)
+                .set_mode(Mode::Repeated),
+            record("event", [range("window", Type::Date)]),
+        ]);
+        let root = table_schema_to_descriptor(&schema).expect("should convert");
+        assert_eq!(root.field[2].label, Label::Repeated);
+
+        let event_msg = root
+            .nested_type
+            .iter()
+            .find(|m| m.name == root.field[3].type_name)
+            .expect("event struct nested message");
+
+        for (col, want_type) in [
+            (&root.field[0], ProtoType::String),
+            (&root.field[1], ProtoType::String),
+            (&root.field[2], ProtoType::Int64),
+            (&event_msg.field[0], ProtoType::String),
+        ] {
+            assert_eq!(col.r#type, ProtoType::Message);
+            let msg = root
+                .nested_type
+                .iter()
+                .find(|m| m.name == col.type_name)
+                .expect("range nested message");
+            let bounds: Vec<_> = msg
+                .field
+                .iter()
+                .map(|f| {
+                    (
+                        f.name.as_str(),
+                        f.json_name.as_str(),
+                        f.number,
+                        &f.label,
+                        &f.r#type,
+                    )
+                })
+                .collect();
+            assert_eq!(
+                bounds,
+                [
+                    ("start", "start", 1, &Label::Optional, &want_type),
+                    ("end", "end", 2, &Label::Optional, &want_type),
+                ]
+            );
+        }
+    }
+
+    #[test_case(
+        field("r", Type::Range),
+        SchemaErrorKind::InvalidRangeElementType {
+            field: "a.r".to_string(),
+            element_type: Type::Unspecified,
+        },
+        "invalid RANGE element type 'TYPE_UNSPECIFIED' for field 'a.r'"
+    )]
+    #[test_case(
+        range("r", Type::Int64),
+        SchemaErrorKind::InvalidRangeElementType {
+            field: "a.r".to_string(),
+            element_type: Type::Int64,
+        },
+        "invalid RANGE element type 'INT64' for field 'a.r'"
+    )]
+    #[test_case(
+        range("r", Type::from(9999)),
+        SchemaErrorKind::InvalidRangeElementType {
+            field: "a.r".to_string(),
+            element_type: Type::from(9999),
+        },
+        "invalid RANGE element type '9999' for field 'a.r'"
+    )]
+    #[test_case(
+        range("r", Type::Timestamp).set_timestamp_precision(12),
+        SchemaErrorKind::UnsupportedTimestampPrecision {
+            field: "a.r".to_string(),
+            precision: 12,
+        },
+        "unsupported timestamp precision 12 for field 'a.r'"
+    )]
+    fn invalid_range_columns_are_rejected(
+        col: TableFieldSchema,
+        want_kind: SchemaErrorKind,
+        want_msg: &str,
+    ) {
+        let schema = TableSchema::new().set_fields([record("a", [col])]);
+        let err = table_schema_to_descriptor(&schema).expect_err("should fail");
+        assert_eq!(err.kind, want_kind);
+        assert_eq!(err.to_string(), want_msg);
     }
 }
