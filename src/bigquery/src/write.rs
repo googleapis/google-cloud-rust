@@ -50,6 +50,9 @@ mod schema;
 mod stream;
 mod transport;
 mod validate;
+// TODO(#7088) - remove the `allow` once `ToRow` uses the encoder.
+#[allow(dead_code)]
+mod wire_format;
 
 // TODO(#4832) - remove handwritten code.
 mod status;
