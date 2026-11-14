@@ -21,7 +21,8 @@
 
 use crate::model::table_field_schema::{Mode, Type};
 use crate::model::{TableFieldSchema, TableSchema};
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
+use std::hash::{Hash, Hasher};
 use wkt::field_descriptor_proto::{Label, Type as ProtoType};
 use wkt::{DescriptorProto, FieldDescriptorProto};
 
@@ -264,9 +265,11 @@ fn range_element_proto_type(field: &TableFieldSchema) -> Result<ProtoType, Schem
 /// inline; it sets `type_name` to the name of a `DescriptorProto` in
 /// `root.nested_type`. BigQuery ignores message names and matches columns by
 /// field name, so we name these messages `m1`, `m2`, and so on, skipping any
-/// name already used by a column in `root`.
+/// name already used by a column in `root`. Columns that produce the same
+/// protobuf fields share one nested message.
 struct NestedTypes {
     messages: Vec<DescriptorProto>,
+    by_fields: HashMap<MessageKey, String>,
     root_columns: HashSet<String>,
     next_id: usize,
 }
@@ -280,22 +283,52 @@ impl NestedTypes {
             .collect();
         Self {
             messages: Vec::new(),
+            by_fields: HashMap::new(),
             root_columns,
             next_id: 0,
         }
     }
 
     fn add_message(&mut self, fields: Vec<FieldDescriptorProto>) -> String {
-        let name = loop {
-            self.next_id += 1;
-            let candidate = format!("m{}", self.next_id);
-            if !self.root_columns.contains(&candidate) {
-                break candidate;
-            }
-        };
-        self.messages
-            .push(DescriptorProto::new().set_name(&name).set_field(fields));
-        name
+        self.by_fields
+            .entry(MessageKey(fields))
+            .or_insert_with_key(|key| {
+                let name = loop {
+                    self.next_id += 1;
+                    let candidate = format!("m{}", self.next_id);
+                    if !self.root_columns.contains(&candidate) {
+                        break candidate;
+                    }
+                };
+                self.messages.push(
+                    DescriptorProto::new()
+                        .set_name(&name)
+                        .set_field(key.0.clone()),
+                );
+                name
+            })
+            .clone()
+    }
+}
+
+/// Wraps a nested message's fields for `HashMap` lookup, since generated `wkt`
+/// types only derive `PartialEq` (not `Eq` or `Hash`).
+#[derive(PartialEq)]
+struct MessageKey(Vec<FieldDescriptorProto>);
+
+impl Eq for MessageKey {}
+
+impl Hash for MessageKey {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        // Hash the fields we populate. `json_name` is always equal to `name`.
+        self.0.len().hash(state);
+        for f in &self.0 {
+            f.name.hash(state);
+            f.number.hash(state);
+            f.label.value().hash(state);
+            f.r#type.value().hash(state);
+            f.type_name.hash(state);
+        }
     }
 }
 
@@ -691,5 +724,58 @@ mod tests {
         let err = table_schema_to_descriptor(&schema).expect_err("should fail");
         assert_eq!(err.kind, want_kind);
         assert_eq!(err.to_string(), want_msg);
+    }
+
+    #[test]
+    fn deduplicates_identical_nested_types() {
+        let addr = |name| {
+            record(
+                name,
+                [field("city", Type::String), range("valid_for", Type::Date)],
+            )
+        };
+        let schema = TableSchema::new().set_fields([
+            addr("home"),
+            addr("work"),
+            record(
+                "other",
+                [field("city", Type::String), field("country", Type::String)],
+            ),
+            record(
+                "repeated_city",
+                [
+                    field("city", Type::String).set_mode(Mode::Repeated),
+                    field("country", Type::String),
+                ],
+            ),
+            range("datetimes", Type::Datetime),
+        ]);
+        let root = table_schema_to_descriptor(&schema).expect("should convert");
+
+        // `home.valid_for`, `work.valid_for`, and `datetimes` all share `"m1"`.
+        // Because their inner ranges share `"m1"`, `home` and `work` also share `"m2"`.
+        let assigned: Vec<_> = root
+            .field
+            .iter()
+            .map(|f| (f.name.as_str(), f.type_name.as_str()))
+            .collect();
+        assert_eq!(
+            assigned,
+            [
+                ("home", "m2"),
+                ("work", "m2"),
+                ("other", "m3"),
+                ("repeated_city", "m4"),
+                ("datetimes", "m1"),
+            ]
+        );
+
+        let home_msg = root
+            .nested_type
+            .iter()
+            .find(|m| m.name == "m2")
+            .expect("home nested message");
+        assert_eq!(home_msg.field[1].type_name, "m1");
+        assert_eq!(root.nested_type.len(), 4);
     }
 }
