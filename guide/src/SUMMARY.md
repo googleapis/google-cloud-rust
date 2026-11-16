@@ -18,4 +18,3 @@ limitations under the License.
 
 - [Introduction](introduction.md)
 - [Using Google Cloud Storage](storage.md)
-- [Working with enums](working_with_enums.md)
