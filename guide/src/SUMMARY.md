@@ -17,4 +17,3 @@ limitations under the License.
 # Summary
 
 - [Introduction](introduction.md)
-- [Using Google Cloud Storage](storage.md)
