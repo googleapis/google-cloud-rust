@@ -16,61 +16,10 @@
 
 use crate::model::Object;
 use crate::model_ext::Segment;
-use crate::storage::parallel_upload::stub::dynamic::{
-    ParallelUploadSession as ParallelUploadSessionStub, SegmentSource,
-};
-use crate::streaming_source::{Payload, Seek, SizeHint, StreamingSource};
+use crate::storage::parallel_upload::segment_payload::SegmentPayload;
+use crate::storage::parallel_upload::stub::dynamic::ParallelUploadSession as ParallelUploadSessionStub;
+use crate::streaming_source::{Payload, Seek, StreamingSource};
 use std::sync::Arc;
-
-/// A type-erased rewindable and cloneable payload for a single segment write.
-pub(crate) struct SegmentPayload {
-    inner: Box<dyn SegmentSource>,
-}
-
-impl SegmentPayload {
-    pub(crate) fn new<P>(payload: Payload<P>) -> Self
-    where
-        P: StreamingSource + Seek + Clone + Send + Sync + 'static,
-    {
-        Self {
-            inner: Box::new(payload),
-        }
-    }
-}
-
-impl Clone for SegmentPayload {
-    fn clone(&self) -> Self {
-        Self {
-            inner: self.inner.clone_box(),
-        }
-    }
-}
-
-impl std::fmt::Debug for SegmentPayload {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("SegmentPayload").finish_non_exhaustive()
-    }
-}
-
-impl StreamingSource for SegmentPayload {
-    type Error = crate::Error;
-
-    async fn next(&mut self) -> Option<crate::Result<bytes::Bytes>> {
-        self.inner.next().await
-    }
-
-    async fn size_hint(&self) -> crate::Result<SizeHint> {
-        self.inner.size_hint().await
-    }
-}
-
-impl Seek for SegmentPayload {
-    type Error = crate::Error;
-
-    async fn seek(&mut self, offset: u64) -> crate::Result<()> {
-        self.inner.seek(offset).await
-    }
-}
 
 /// An active parallel upload session ready to write segments concurrently.
 #[cfg_attr(docsrs, doc(cfg(google_cloud_unstable_storage_parallel_upload)))]
@@ -143,7 +92,6 @@ mod tests {
     use bytes::Bytes;
     use mockall::mock;
     use static_assertions::assert_impl_all;
-    use std::io::{Error as IoError, ErrorKind};
 
     mock! {
         #[derive(Debug)]
@@ -163,46 +111,9 @@ mod tests {
         }
     }
 
-    #[derive(Clone)]
-    struct FailingSource {
-        fail_next: bool,
-        fail_size_hint: bool,
-        fail_seek: bool,
-    }
-
-    impl StreamingSource for FailingSource {
-        type Error = IoError;
-
-        async fn next(&mut self) -> Option<Result<Bytes, Self::Error>> {
-            if self.fail_next {
-                return Some(Err(IoError::new(ErrorKind::BrokenPipe, "next failed")));
-            }
-            None
-        }
-
-        async fn size_hint(&self) -> Result<SizeHint, Self::Error> {
-            if self.fail_size_hint {
-                return Err(IoError::other("size_hint failed"));
-            }
-            Ok(SizeHint::with_exact(42))
-        }
-    }
-
-    impl Seek for FailingSource {
-        type Error = IoError;
-
-        async fn seek(&mut self, _offset: u64) -> Result<(), Self::Error> {
-            if self.fail_seek {
-                return Err(IoError::new(ErrorKind::InvalidInput, "seek failed"));
-            }
-            Ok(())
-        }
-    }
-
     #[test]
     fn impls() {
         assert_impl_all!(ParallelUploadSession: Clone, std::fmt::Debug, Send, Sync);
-        assert_impl_all!(SegmentPayload: Clone, std::fmt::Debug, Send, Sync);
     }
 
     #[tokio::test]
@@ -289,58 +200,5 @@ mod tests {
         session.abort().await?;
         let _ = session.into_parts();
         Ok(())
-    }
-
-    #[tokio::test]
-    async fn segment_payload_clone_and_seek() -> anyhow::Result<()> {
-        let mut payload = SegmentPayload::new(Payload::from(vec![
-            Bytes::from_static(b"hello "),
-            Bytes::from_static(b"world"),
-        ]));
-        assert!(format!("{payload:?}").contains("SegmentPayload"));
-        assert_eq!(payload.size_hint().await?.exact(), Some(11));
-
-        let mut cloned = payload.clone();
-        assert_eq!(
-            payload.next().await.transpose()?,
-            Some(Bytes::from_static(b"hello "))
-        );
-
-        // The clone maintains an independent cursor starting at offset 0.
-        assert_eq!(
-            cloned.next().await.transpose()?,
-            Some(Bytes::from_static(b"hello "))
-        );
-        assert_eq!(
-            cloned.next().await.transpose()?,
-            Some(Bytes::from_static(b"world"))
-        );
-        assert_eq!(cloned.next().await.transpose()?, None);
-
-        // Rewinding `payload` resets its cursor independently.
-        payload.seek(0).await?;
-        assert_eq!(
-            payload.next().await.transpose()?,
-            Some(Bytes::from_static(b"hello "))
-        );
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn segment_payload_maps_errors() {
-        let mut payload = SegmentPayload::new(Payload::from_stream(FailingSource {
-            fail_next: true,
-            fail_size_hint: true,
-            fail_seek: true,
-        }));
-
-        let next_err = payload.next().await.transpose().unwrap_err();
-        assert!(next_err.is_serialization(), "{next_err:?}");
-
-        let hint_err = payload.size_hint().await.unwrap_err();
-        assert!(hint_err.is_serialization(), "{hint_err:?}");
-
-        let seek_err = payload.seek(0).await.unwrap_err();
-        assert!(seek_err.is_serialization(), "{seek_err:?}");
     }
 }

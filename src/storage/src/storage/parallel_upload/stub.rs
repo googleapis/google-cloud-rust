@@ -13,45 +13,9 @@
 // limitations under the License.
 
 pub(crate) mod dynamic {
+    use super::super::segment_payload::SegmentPayload;
     use crate::model::Object;
     use crate::model_ext::Segment;
-    use crate::parallel_upload_session::SegmentPayload;
-    use crate::streaming_source::{Payload, Seek, SizeHint, StreamingSource};
-
-    /// An object-safe dynamic trait for rewindable and cloneable segment payloads.
-    #[async_trait::async_trait]
-    pub trait SegmentSource: Send + Sync {
-        async fn next(&mut self) -> Option<crate::Result<bytes::Bytes>>;
-        async fn size_hint(&self) -> crate::Result<SizeHint>;
-        async fn seek(&mut self, offset: u64) -> crate::Result<()>;
-        fn clone_box(&self) -> Box<dyn SegmentSource>;
-    }
-
-    #[async_trait::async_trait]
-    impl<P> SegmentSource for Payload<P>
-    where
-        P: StreamingSource + Seek + Clone + Send + Sync + 'static,
-    {
-        async fn next(&mut self) -> Option<crate::Result<bytes::Bytes>> {
-            StreamingSource::next(self)
-                .await
-                .map(|r| r.map_err(crate::Error::ser))
-        }
-
-        async fn size_hint(&self) -> crate::Result<SizeHint> {
-            StreamingSource::size_hint(self)
-                .await
-                .map_err(crate::Error::ser)
-        }
-
-        async fn seek(&mut self, offset: u64) -> crate::Result<()> {
-            Seek::seek(self, offset).await.map_err(crate::Error::ser)
-        }
-
-        fn clone_box(&self) -> Box<dyn SegmentSource> {
-            Box::new(self.clone())
-        }
-    }
 
     /// An object-safe dynamic trait for [crate::parallel_upload_session::ParallelUploadSession].
     #[async_trait::async_trait]
