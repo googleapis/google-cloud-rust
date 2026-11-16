@@ -454,7 +454,7 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
 
     let id = random_bucket_id();
     buckets.push(id.clone());
-    buckets::create_bucket_hierarchical_namespace::sample(&control, &project_id, &id).await?;
+    buckets::create_bucket::sample(&control, &project_id, &id).await?;
 
     let (archived_copy, archived_delete) = make_test_objects(&client, &id).await?;
 
