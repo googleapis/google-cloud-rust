@@ -14,6 +14,9 @@
 
 //! Internal traits and types for parallel uploads.
 
+pub(crate) mod builder;
+pub(crate) mod stub;
+
 use crate::google::storage::v2::{
     AbortObjectWriteSessionRequest, BidiWriteSegmentRequest, BidiWriteSegmentResponse,
     CreateObjectWriteSessionRequest, FinalizeObjectWriteSessionRequest, Object, ObjectWriteSession,

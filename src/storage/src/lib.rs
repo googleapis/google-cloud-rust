@@ -60,6 +60,9 @@ pub(crate) use google_cloud_gax::response::Response;
 pub mod appendable_object_writer;
 pub mod backoff_policy;
 pub mod object_descriptor;
+#[cfg(google_cloud_unstable_storage_parallel_upload)]
+#[cfg_attr(docsrs, doc(cfg(google_cloud_unstable_storage_parallel_upload)))]
+pub mod parallel_upload_session;
 pub mod read_object;
 pub mod read_resume_policy;
 pub mod retry_policy;
@@ -102,6 +105,9 @@ pub mod builder {
         #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
         pub use crate::storage::open_appendable_object::OpenAppendableObject;
         pub use crate::storage::open_object::OpenObject;
+        #[cfg(google_cloud_unstable_storage_parallel_upload)]
+        #[cfg_attr(docsrs, doc(cfg(google_cloud_unstable_storage_parallel_upload)))]
+        pub use crate::storage::parallel_upload::builder::ParallelUpload;
         pub use crate::storage::post_policy::{PostPolicyV4Builder, PostPolicyV4Result};
         pub use crate::storage::read_object::ReadObject;
         #[cfg(google_cloud_unstable_storage_bidi)]
