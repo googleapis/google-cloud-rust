@@ -84,4 +84,4 @@ Apache 2.0 - See [LICENSE] for more information.
 [futures::stream::stream]: https://docs.rs/futures/latest/futures/stream/trait.Stream.html
 [license]: LICENSE
 [set up development environment]: doc/contributor/howto-guide-set-up-development-environment.md
-[user guide]: https://googleapis.github.io/google-cloud-rust
+[user guide]: https://docs.cloud.google.com/rust/docs/overview
