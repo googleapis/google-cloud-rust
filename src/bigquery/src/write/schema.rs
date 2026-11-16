@@ -60,6 +60,26 @@ pub(crate) enum SchemaErrorKind {
     /// Two columns in the same record have the same name, ignoring ASCII case.
     #[error("column name '{field}' is used more than once, ignoring case")]
     DuplicateColumnName { field: String },
+
+    /// A `STRUCT` column has no fields.
+    #[error("STRUCT column '{field}' has no fields")]
+    EmptyStruct { field: String },
+}
+
+impl SchemaError {
+    /// Prepends `parent` to the error's field name (for example, `"address.zip"`).
+    fn prepend_field(mut self, parent: &str) -> Self {
+        let field = match &mut self.kind {
+            SchemaErrorKind::InvalidFieldType { field, .. }
+            | SchemaErrorKind::UnknownMode { field, .. }
+            | SchemaErrorKind::UnsupportedTimestampPrecision { field, .. }
+            | SchemaErrorKind::UnsupportedColumnName { field }
+            | SchemaErrorKind::DuplicateColumnName { field }
+            | SchemaErrorKind::EmptyStruct { field } => field,
+        };
+        *field = format!("{parent}.{field}");
+        self
+    }
 }
 
 /// Maps the BigQuery type of `field` to its protobuf wire type.
@@ -78,6 +98,7 @@ fn field_proto_type(field: &TableFieldSchema) -> Result<ProtoType, SchemaError> 
         }
         Type::Double => Ok(ProtoType::Double),
         Type::Bytes => Ok(ProtoType::Bytes),
+        Type::Struct => Ok(ProtoType::Message),
         Type::String
         | Type::Date
         | Type::Time
@@ -87,7 +108,7 @@ fn field_proto_type(field: &TableFieldSchema) -> Result<ProtoType, SchemaError> 
         | Type::Bignumeric
         | Type::Interval
         | Type::Json => Ok(ProtoType::String),
-        // TODO(#6783): map Type::Struct and Type::Range to ProtoType::Message.
+        // TODO(#6783): map Type::Range to ProtoType::Message.
         _ => Err(SchemaErrorKind::InvalidFieldType {
             field: field.name.clone(),
             field_type: field.r#type.clone(),
@@ -135,27 +156,96 @@ fn field_label(field: &TableFieldSchema) -> Result<Label, SchemaError> {
 /// `schema.fields`, numbered sequentially from 1. Each field sets `json_name`
 /// to the exact column name so `lowerCamelCase` JSON name conversions cannot
 /// collide across columns such as `user_id` and `userId`.
+///
+/// Each `STRUCT` column becomes a message field with type defined in
+/// `root.nested_type`.
 pub(crate) fn table_schema_to_descriptor(
     schema: &TableSchema,
 ) -> Result<DescriptorProto, SchemaError> {
-    check_column_names(&schema.fields)?;
-    let fields = schema
-        .fields
+    let mut nested = NestedTypes::new(&schema.fields);
+    let fields = convert_fields(&schema.fields, &mut nested)?;
+    Ok(DescriptorProto::new()
+        .set_name("root")
+        .set_field(fields)
+        .set_nested_type(nested.messages))
+}
+
+/// Converts BigQuery fields into `proto2` field descriptors.
+fn convert_fields(
+    fields: &[TableFieldSchema],
+    nested: &mut NestedTypes,
+) -> Result<Vec<FieldDescriptorProto>, SchemaError> {
+    check_column_names(fields)?;
+    fields
         .iter()
         .enumerate()
         .map(|(index, field)| {
-            let proto_type = field_proto_type(field)?;
-            Ok(FieldDescriptorProto::new()
+            let proto_field = FieldDescriptorProto::new()
                 .set_name(&field.name)
                 .set_json_name(&field.name)
                 // Protobuf field numbers are 1-based.
                 .set_number(index as i32 + 1)
                 .set_label(field_label(field)?)
-                .set_type(proto_type))
-        })
-        .collect::<Result<Vec<_>, SchemaError>>()?;
+                .set_type(field_proto_type(field)?);
 
-    Ok(DescriptorProto::new().set_name("root").set_field(fields))
+            match field.r#type {
+                Type::Struct => {
+                    if field.fields.is_empty() {
+                        return Err(SchemaErrorKind::EmptyStruct {
+                            field: field.name.clone(),
+                        }
+                        .into());
+                    }
+                    let subfields = convert_fields(&field.fields, nested)
+                        .map_err(|e| e.prepend_field(&field.name))?;
+                    let type_name = nested.add_message(subfields);
+                    Ok(proto_field.set_type_name(type_name))
+                }
+                _ => Ok(proto_field),
+            }
+        })
+        .collect()
+}
+
+/// Collects helper `DescriptorProto` messages for `root.nested_type`.
+///
+/// Unlike `TableFieldSchema`, a `FieldDescriptorProto` cannot hold subfields
+/// inline; it sets `type_name` to the name of a `DescriptorProto` in
+/// `root.nested_type`. BigQuery ignores message names and matches columns by
+/// field name, so we name these messages `m1`, `m2`, and so on, skipping any
+/// name already used by a column in `root`.
+struct NestedTypes {
+    messages: Vec<DescriptorProto>,
+    root_columns: HashSet<String>,
+    next_id: usize,
+}
+
+impl NestedTypes {
+    fn new(root_fields: &[TableFieldSchema]) -> Self {
+        // BigQuery column names are case-insensitive, so reserve `M1` as well as `m1`.
+        let root_columns = root_fields
+            .iter()
+            .map(|f| f.name.to_ascii_lowercase())
+            .collect();
+        Self {
+            messages: Vec::new(),
+            root_columns,
+            next_id: 0,
+        }
+    }
+
+    fn add_message(&mut self, fields: Vec<FieldDescriptorProto>) -> String {
+        let name = loop {
+            self.next_id += 1;
+            let candidate = format!("m{}", self.next_id);
+            if !self.root_columns.contains(&candidate) {
+                break candidate;
+            }
+        };
+        self.messages
+            .push(DescriptorProto::new().set_name(&name).set_field(fields));
+        name
+    }
 }
 
 /// Validates that every column name in `fields` is a legal protobuf field
@@ -202,10 +292,15 @@ mod tests {
         TableFieldSchema::new().set_name(name).set_type(r#type)
     }
 
+    fn record<const N: usize>(name: &str, fields: [TableFieldSchema; N]) -> TableFieldSchema {
+        field(name, Type::Struct).set_fields(fields)
+    }
+
     #[test_case(Type::Bool, ProtoType::Bool)]
     #[test_case(Type::Int64, ProtoType::Int64)]
     #[test_case(Type::Double, ProtoType::Double)]
     #[test_case(Type::Bytes, ProtoType::Bytes)]
+    #[test_case(Type::Struct, ProtoType::Message)]
     #[test_case(Type::String, ProtoType::String)]
     #[test_case(Type::Geography, ProtoType::String)]
     #[test_case(Type::Json, ProtoType::String)]
@@ -404,5 +499,43 @@ mod tests {
             err.to_string(),
             format!("column name '{duplicate}' is used more than once, ignoring case")
         );
+    }
+
+    #[test]
+    fn nested_and_repeated_structs() {
+        let geo = record(
+            "geo",
+            [field("lat", Type::Double), field("lng", Type::Double)],
+        );
+        let schema = TableSchema::new().set_fields([
+            field("m1", Type::String),
+            record("address", [field("city", Type::String), geo]),
+            record("tags", [field("key", Type::String)]).set_mode(Mode::Repeated),
+        ]);
+        let root = table_schema_to_descriptor(&schema).expect("should convert");
+
+        // Column `m1` reserves `"m1"`, so nested messages start at `"m2"`.
+        assert_eq!(root.field[1].r#type, ProtoType::Message);
+        assert_eq!(root.field[1].type_name, "m3");
+        assert_eq!(root.field[1].json_name, "address");
+        assert_eq!(root.field[2].label, Label::Repeated);
+        assert_eq!(root.field[2].type_name, "m4");
+
+        let names: Vec<_> = root.nested_type.iter().map(|m| m.name.as_str()).collect();
+        assert_eq!(names, ["m2", "m3", "m4"]);
+        assert_eq!(root.nested_type[1].field[1].type_name, "m2");
+    }
+
+    #[test_case(vec![], "STRUCT column 'a.b' has no fields")]
+    #[test_case(vec![field("bad name", Type::String)], "column name 'a.b.bad name'")]
+    #[test_case(vec![field("x", Type::Int64), field("X", Type::Int64)], "column name 'a.b.X'")]
+    #[test_case(vec![field("ts", Type::Timestamp).set_timestamp_precision(12)], "for field 'a.b.ts'")]
+    #[test_case(vec![field("u", Type::Unspecified)], "for field 'a.b.u'")]
+    #[test_case(vec![field("m", Type::String).set_mode(Mode::from(9999))], "for field 'a.b.m'")]
+    fn nested_struct_errors_include_full_path(subfields: Vec<TableFieldSchema>, want: &str) {
+        let inner = field("b", Type::Struct).set_fields(subfields);
+        let schema = TableSchema::new().set_fields([record("a", [inner])]);
+        let err = table_schema_to_descriptor(&schema).expect_err("should fail");
+        assert!(err.to_string().contains(want), "got: {err}");
     }
 }
