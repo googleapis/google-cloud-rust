@@ -439,6 +439,8 @@ impl TryFrom<std::time::SystemTime> for Timestamp {
     }
 }
 
+/// DEPRECATED: [`chrono` is unmaintained][rustsec].
+///
 /// Converts from [chrono::DateTime] to [Timestamp].
 ///
 /// This conversion may fail if the [chrono::DateTime] value is out of range.
@@ -452,6 +454,8 @@ impl TryFrom<std::time::SystemTime> for Timestamp {
 /// assert_eq!(String::from(ts), "2025-05-16T10:15:00Z");
 /// # Ok::<(), anyhow::Error>(())
 /// ```
+///
+/// [rustsec]: https://rustsec.org/advisories/RUSTSEC-2026-0543.html
 #[cfg(feature = "chrono")]
 #[cfg_attr(docsrs, doc(cfg(feature = "chrono")))]
 impl TryFrom<chrono::DateTime<chrono::Utc>> for Timestamp {
@@ -463,6 +467,8 @@ impl TryFrom<chrono::DateTime<chrono::Utc>> for Timestamp {
     }
 }
 
+/// DEPRECATED: [`chrono` is unmaintained][rustsec].
+///
 /// Converts from [Timestamp] to [chrono::DateTime].
 ///
 /// # Example
@@ -473,6 +479,8 @@ impl TryFrom<chrono::DateTime<chrono::Utc>> for Timestamp {
 /// let date = DateTime::try_from(ts)?;
 /// # Ok::<(), anyhow::Error>(())
 /// ```
+///
+/// [rustsec]: https://rustsec.org/advisories/RUSTSEC-2026-0543.html
 #[cfg(feature = "chrono")]
 #[cfg_attr(docsrs, doc(cfg(feature = "chrono")))]
 impl TryFrom<Timestamp> for chrono::DateTime<chrono::Utc> {
