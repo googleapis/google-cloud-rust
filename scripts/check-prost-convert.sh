@@ -23,7 +23,8 @@ set -euo pipefail
 # the status so errors fail the check instead of passing silently.
 status=0
 git grep -n -E '^([^/]|/[^/])*(\.(to_proto|cnv)\(|ToProto::to_proto|FromProto::cnv)' -- '*.rs' \
-    ':!src/gax-internal/**' ':!**/tests/**' ':!**/examples/**' ':!**/benches/**' || status=$?
+    ':(exclude)src/gax-internal/**' ':(exclude,glob)**/tests/**' \
+    ':(exclude,glob)**/examples/**' ':(exclude,glob)**/benches/**' || status=$?
 
 if [[ "${status}" -eq 0 ]]; then
     echo "ERROR: Use fully qualified ToProto::<T>::to_proto(...) and FromProto::<T>::cnv(...) instead of .to_proto() or .cnv()" >&2
