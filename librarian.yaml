@@ -961,7 +961,7 @@ libraries:
     copyright_year: "2025"
     output: src/gax
   - name: google-cloud-gax-internal
-    version: 0.7.22
+    version: 0.7.23
     copyright_year: "2025"
     output: src/gax-internal
     roots:
@@ -1614,7 +1614,7 @@ libraries:
           item_field: items
       quickstart_service_override: SqlInstancesService
   - name: google-cloud-storage
-    version: 1.22.0
+    version: 1.23.0
     copyright_year: "2025"
     output: src/storage
     rust:

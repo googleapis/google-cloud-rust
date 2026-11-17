@@ -3647,7 +3647,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax-internal"
-version = "0.7.22"
+version = "0.7.23"
 dependencies = [
  "anyhow",
  "bytes",
@@ -5534,7 +5534,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-storage"
-version = "1.22.0"
+version = "1.23.0"
 dependencies = [
  "anyhow",
  "async-trait",
