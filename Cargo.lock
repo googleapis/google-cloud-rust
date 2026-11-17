@@ -451,8 +451,8 @@ dependencies = [
  "clap",
  "google-cloud-auth",
  "google-cloud-bigquery",
- "humantime",
  "integration-tests-o11y",
+ "jiff",
  "opentelemetry",
  "opentelemetry_sdk",
  "serde",
@@ -510,7 +510,7 @@ dependencies = [
  "clap",
  "google-cloud-bigquery",
  "google-cloud-bigquery-v2",
- "humantime",
+ "jiff",
  "rand 0.10.3",
  "tokio",
 ]
@@ -6904,12 +6904,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "humantime"
-version = "2.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "15cdd26707701c53297e2fa6afb323d55fbc1d0810c3aec078ae3ef0424c3c15"
-
-[[package]]
 name = "hybrid-array"
 version = "0.4.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -8589,7 +8583,7 @@ dependencies = [
  "clap",
  "google-cloud-auth",
  "google-cloud-pubsub",
- "humantime",
+ "jiff",
  "prost",
  "pubsub-grpc-mock",
  "rand 0.10.3",
@@ -8623,7 +8617,7 @@ dependencies = [
  "bytes",
  "clap",
  "google-cloud-pubsub",
- "humantime",
+ "jiff",
  "tokio",
 ]
 
@@ -9631,7 +9625,7 @@ dependencies = [
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-storage",
- "humantime",
+ "jiff",
  "parse-size",
  "rand 0.10.3",
  "test-case",
@@ -9679,7 +9673,7 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-storage",
  "http",
- "humantime",
+ "jiff",
  "rand 0.10.3",
  "test-case",
  "tokio",
@@ -9698,8 +9692,8 @@ dependencies = [
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-storage",
- "humantime",
  "integration-tests-o11y",
+ "jiff",
  "opentelemetry_sdk",
  "parse-size",
  "pin-project",

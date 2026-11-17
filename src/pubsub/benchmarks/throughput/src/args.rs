@@ -13,7 +13,8 @@
 // limitations under the License.
 
 use clap::{Args, Parser, Subcommand};
-use humantime::parse_duration;
+use jiff::fmt::friendly::SpanParser;
+use std::time::Duration;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about = "Cloud Pub/Sub Throughput Benchmark", long_about = None)]
@@ -35,11 +36,11 @@ pub struct CommonArgs {
     #[arg(long, default_value = "", env = "GOOGLE_CLOUD_PROJECT")]
     pub project: String,
 
-    #[arg(long, value_parser = parse_duration, default_value = "5s")]
-    pub report_interval: std::time::Duration,
+    #[arg(long, value_parser = |s: &str| SpanParser::new().parse_unsigned_duration(s), default_value = "5s")]
+    pub report_interval: Duration,
 
-    #[arg(long, value_parser = parse_duration, default_value = "5m")]
-    pub duration: std::time::Duration,
+    #[arg(long, value_parser = |s: &str| SpanParser::new().parse_unsigned_duration(s), default_value = "5m")]
+    pub duration: Duration,
 
     #[arg(long, default_value_t = 1)]
     pub grpc_channels: usize,
@@ -65,8 +66,8 @@ pub struct PublisherArgs {
     #[arg(long, default_value_t = 10 * 1024 * 1024)] // 10 MB
     pub batch_bytes: u32,
 
-    #[arg(long, value_parser = parse_duration, default_value = "100ms")]
-    pub batch_delay: std::time::Duration,
+    #[arg(long, value_parser = |s: &str| SpanParser::new().parse_unsigned_duration(s), default_value = "100ms")]
+    pub batch_delay: Duration,
 
     #[arg(long, default_value_t = 0)]
     pub ordering_keys: usize,
@@ -89,4 +90,36 @@ pub struct SubscriberArgs {
 
 pub fn parse_args() -> Config {
     Config::parse()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn parse_durations() -> anyhow::Result<()> {
+        let cfg = Config::try_parse_from(["pubsub-throughput", "publisher", "--topic-id=t"])?;
+        let Commands::Publisher(args) = cfg.command else {
+            anyhow::bail!("expected publisher subcommand");
+        };
+        assert_eq!(args.common.report_interval, Duration::from_secs(5));
+        assert_eq!(args.common.duration, Duration::from_secs(300));
+        assert_eq!(args.batch_delay, Duration::from_millis(100));
+
+        let cfg = Config::try_parse_from([
+            "pubsub-throughput",
+            "publisher",
+            "--topic-id=t",
+            "--report-interval=10s",
+            "--duration=1h",
+            "--batch-delay=25ms",
+        ])?;
+        let Commands::Publisher(args) = cfg.command else {
+            anyhow::bail!("expected publisher subcommand");
+        };
+        assert_eq!(args.common.report_interval, Duration::from_secs(10));
+        assert_eq!(args.common.duration, Duration::from_secs(3600));
+        assert_eq!(args.batch_delay, Duration::from_millis(25));
+        Ok(())
+    }
 }
