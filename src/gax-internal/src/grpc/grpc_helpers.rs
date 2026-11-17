@@ -76,6 +76,42 @@ pub(crate) fn make_headers(
     request_params: &str,
     options: &RequestOptions,
 ) -> Result<HeaderMap> {
+    make_headers_with(
+        extensions,
+        api_client_header,
+        request_params,
+        options,
+        crate::api_header::XGoogApiClient::grpc_header_value,
+    )
+}
+
+/// Builds gRPC request headers, formatting any [`XGoogApiClient`] extension for
+/// the `grpc-rust` transport (`grpc/<version>-grpc-rust`).
+///
+/// [`XGoogApiClient`]: crate::api_header::XGoogApiClient
+#[cfg(google_cloud_unstable_grpc_rust)]
+pub(crate) fn make_grpc_rust_headers(
+    extensions: &crate::options::Extensions,
+    api_client_header: &'static str,
+    request_params: &str,
+    options: &RequestOptions,
+) -> Result<HeaderMap> {
+    make_headers_with(
+        extensions,
+        api_client_header,
+        request_params,
+        options,
+        crate::api_header::XGoogApiClient::grpc_rust_header_value,
+    )
+}
+
+fn make_headers_with(
+    extensions: &crate::options::Extensions,
+    api_client_header: &'static str,
+    request_params: &str,
+    options: &RequestOptions,
+    format_api_client: fn(&crate::api_header::XGoogApiClient) -> String,
+) -> Result<HeaderMap> {
     let mut headers = HeaderMap::new();
 
     if let Some(global_headers) = extensions.get::<HeaderMap>() {
@@ -108,7 +144,7 @@ pub(crate) fn make_headers(
 
     headers.insert(
         X_GOOG_API_CLIENT,
-        crate::api_header::resolve_grpc_header_value(extensions, api_client_header)?,
+        crate::api_header::resolve_header_value(extensions, api_client_header, format_api_client)?,
     );
 
     if !request_params.is_empty() {

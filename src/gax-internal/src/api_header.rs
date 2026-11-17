@@ -44,24 +44,22 @@ mod build_info {
 impl XGoogApiClient {
     /// Format the struct as needed for the `x-goog-api-client` header.
     pub fn rest_header_value(&self) -> String {
-        // Strip out the initial "rustc " string from `RUSTC_VERSION`. If not
-        // found, leave RUSTC_VERSION unchanged.
-        let rustc_version = build_info::RUSTC_VERSION;
-        let rustc_version = rustc_version
-            .strip_prefix("rustc ")
-            .unwrap_or(build_info::RUSTC_VERSION);
-
-        // Capture the gax version too.
-        let gax_version = build_info::PKG_VERSION;
-
-        format!(
-            "gl-rust/{rustc_version} gax/{gax_version} rest/{gax_version}-reqwest {}/{}",
-            self.library_type, self.version
-        )
+        self.header_value("rest", "reqwest")
     }
 
     /// Format the struct as needed for the `x-goog-api-client` header.
     pub fn grpc_header_value(&self) -> String {
+        self.header_value("grpc", "tonic")
+    }
+
+    /// Formats the struct for the `x-goog-api-client` header when using the
+    /// `grpc-rust` transport.
+    #[cfg(google_cloud_unstable_grpc_rust)]
+    pub fn grpc_rust_header_value(&self) -> String {
+        self.header_value("grpc", "grpc-rust")
+    }
+
+    fn header_value(&self, protocol: &str, transport: &str) -> String {
         // Strip out the initial "rustc " string from `RUSTC_VERSION`. If not
         // found, leave RUSTC_VERSION unchanged.
         let rustc_version = build_info::RUSTC_VERSION;
@@ -73,7 +71,7 @@ impl XGoogApiClient {
         let gax_version = build_info::PKG_VERSION;
 
         format!(
-            "gl-rust/{rustc_version} gax/{gax_version} grpc/{gax_version}-tonic {}/{}",
+            "gl-rust/{rustc_version} gax/{gax_version} {protocol}/{gax_version}-{transport} {}/{}",
             self.library_type, self.version
         )
     }
@@ -85,12 +83,13 @@ impl XGoogApiClient {
 /// 1. Client-level `XGoogApiClient`
 /// 2. Default static header value
 #[cfg(feature = "_internal-grpc-client")]
-pub(crate) fn resolve_grpc_header_value(
+pub(crate) fn resolve_header_value(
     extensions: &Extensions,
     default_header: &'static str,
+    format: fn(&XGoogApiClient) -> String,
 ) -> Result<HeaderValue, Error> {
     if let Some(h) = extensions.get::<XGoogApiClient>() {
-        return HeaderValue::from_str(&h.grpc_header_value()).map_err(Error::ser);
+        return HeaderValue::from_str(&format(h)).map_err(Error::ser);
     }
     Ok(HeaderValue::from_static(default_header))
 }
@@ -98,6 +97,7 @@ pub(crate) fn resolve_grpc_header_value(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use pretty_assertions::assert_eq;
     use std::collections::HashMap;
 
     fn breakdown(formatted: &str) -> HashMap<String, String> {
@@ -156,7 +156,10 @@ mod tests {
         assert_eq!(got.as_deref(), Some(build_info::PKG_VERSION));
 
         let got = fields.get("grpc");
-        assert!(got.is_some(), "{fields:?}");
+        assert_eq!(
+            got.map(String::as_str),
+            Some(format!("{}-tonic", build_info::PKG_VERSION).as_str())
+        );
 
         let got = fields.get("rest");
         assert!(got.is_none(), "{fields:?}");
@@ -171,12 +174,43 @@ mod tests {
         );
     }
 
+    #[cfg(google_cloud_unstable_grpc_rust)]
+    #[test]
+    fn test_format_grpc_rust() {
+        // Arrange
+        let header = XGoogApiClient {
+            name: "unused",
+            version: "1.2.3",
+            library_type: GCCL,
+        };
+
+        // Act
+        let fields = breakdown(header.grpc_rust_header_value().as_str());
+
+        // Assert
+        let want_grpc = format!("{}-grpc-rust", build_info::PKG_VERSION);
+        assert_eq!(fields.get(GCCL).map(String::as_str), Some("1.2.3"));
+        assert_eq!(
+            fields.get("gax").map(String::as_str),
+            Some(build_info::PKG_VERSION)
+        );
+        assert_eq!(
+            fields.get("grpc").map(String::as_str),
+            Some(want_grpc.as_str())
+        );
+        assert_eq!(fields.get("rest"), None);
+    }
+
     #[cfg(feature = "_internal-grpc-client")]
     #[test]
     fn test_resolve_grpc_default() {
         let extensions = Extensions::new();
-        let resolved = resolve_grpc_header_value(&extensions, "default-header")
-            .expect("should resolve default header");
+        let resolved = resolve_header_value(
+            &extensions,
+            "default-header",
+            XGoogApiClient::grpc_header_value,
+        )
+        .expect("should resolve default header");
         assert_eq!(
             resolved.to_str().expect("valid header string"),
             "default-header"
@@ -193,10 +227,15 @@ mod tests {
             version: "0.1.0",
         });
 
-        let resolved = resolve_grpc_header_value(&extensions, "default-header")
-            .expect("should resolve client extension header");
+        let resolved = resolve_header_value(
+            &extensions,
+            "default-header",
+            XGoogApiClient::grpc_header_value,
+        )
+        .expect("should resolve client extension header");
         let val = resolved.to_str().expect("valid header string");
+        let want_grpc = format!("grpc/{}-tonic", build_info::PKG_VERSION);
         assert!(val.contains("gccl/0.1.0"), "{val}");
-        assert!(val.contains("grpc/"), "{val}");
+        assert!(val.contains(&want_grpc), "{val}");
     }
 }

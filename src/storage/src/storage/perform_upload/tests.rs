@@ -114,6 +114,10 @@ async fn start_resumable_upload_headers() -> Result {
         ("x-goog-encryption-algorithm", "AES256".to_string()),
         ("x-goog-encryption-key", key_base64),
         ("x-goog-encryption-key-sha256", key_sha256_base64),
+        (
+            "x-goog-api-client",
+            X_GOOG_API_CLIENT_REST_HEADER.to_string(),
+        ),
     ];
 
     for (name, value) in want {
