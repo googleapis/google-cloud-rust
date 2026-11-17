@@ -32,7 +32,7 @@ bytes.workspace     = true
 clap                = { workspace = true, features = ["derive", "env", "help", "std"] }
 google-cloud-auth   = { workspace = true }
 google-cloud-pubsub = { workspace = true, features = ["default-rustls-provider"] }
-humantime.workspace = true
+jiff                = { workspace = true, features = ["std"] }
 prost.workspace     = true
 pubsub-grpc-mock    = { workspace = true }
 rand.workspace      = true

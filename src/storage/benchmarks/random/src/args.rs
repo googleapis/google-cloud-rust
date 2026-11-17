@@ -16,7 +16,7 @@ use super::random_size::{RandomSize, parse_random_size_arg};
 use super::sample::Protocol;
 use anyhow::bail;
 use clap::Parser;
-use humantime::parse_duration;
+use jiff::fmt::friendly::SpanParser;
 use std::time::Duration;
 
 /// Configuration options for the benchmark.
@@ -46,7 +46,7 @@ pub struct Args {
     pub iterations: u64,
 
     /// The rampup period between new tasks.
-    #[arg(long, value_parser = parse_duration, default_value = "500ms")]
+    #[arg(long, value_parser = |s: &str| SpanParser::new().parse_unsigned_duration(s), default_value = "500ms")]
     pub rampup_period: Duration,
 
     /// The minimum number of ranges per object.
@@ -113,6 +113,16 @@ mod tests {
     fn validate_success() -> anyhow::Result<()> {
         let args = Args::try_parse_from(["program", "--bucket-name=bucket", "json"])?;
         assert_eq!(args.bucket_name, "bucket");
+        assert_eq!(args.rampup_period, Duration::from_millis(500));
+        args.validate()?;
+
+        let args = Args::try_parse_from([
+            "program",
+            "--bucket-name=bucket",
+            "--rampup-period=2s",
+            "json",
+        ])?;
+        assert_eq!(args.rampup_period, Duration::from_secs(2));
         args.validate()?;
         Ok(())
     }
