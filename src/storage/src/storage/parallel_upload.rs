@@ -14,10 +14,6 @@
 
 //! Internal traits and types for parallel uploads.
 
-pub(crate) mod builder;
-pub(crate) mod segment_payload;
-pub(crate) mod stub;
-
 use crate::google::storage::v2::{
     AbortObjectWriteSessionRequest, BidiWriteSegmentRequest, BidiWriteSegmentResponse,
     CreateObjectWriteSessionRequest, FinalizeObjectWriteSessionRequest, Object, ObjectWriteSession,
@@ -26,6 +22,10 @@ use gaxi::grpc::tonic::{Extensions, Response as TonicResponse, Result as TonicRe
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use std::future::Future;
 use tokio::sync::mpsc::Receiver;
+
+pub(crate) mod builder;
+pub(crate) mod segment_payload;
+pub(crate) mod stub;
 
 pub(crate) type GrpcClient = gaxi::grpc::Client;
 pub(crate) type GrpcStream = Streaming<BidiWriteSegmentResponse>;

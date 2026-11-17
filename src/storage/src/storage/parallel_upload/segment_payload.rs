@@ -162,7 +162,7 @@ mod tests {
             Some(Bytes::from_static(b"hello "))
         );
 
-        // The clone maintains an independent cursor starting at offset 0.
+        // Advancing `payload` does not affect `cloned`, which retains its own cursor at offset 0.
         assert_eq!(
             cloned.next().await.transpose()?,
             Some(Bytes::from_static(b"hello "))
@@ -184,6 +184,8 @@ mod tests {
 
     #[tokio::test]
     async fn segment_payload_maps_errors() {
+        use std::error::Error as _;
+
         let mut payload = SegmentPayload::new(Payload::from_stream(FailingSource {
             fail_next: true,
             fail_size_hint: true,
@@ -192,11 +194,32 @@ mod tests {
 
         let next_err = payload.next().await.transpose().unwrap_err();
         assert!(next_err.is_serialization(), "{next_err:?}");
+        assert_eq!(
+            next_err
+                .source()
+                .and_then(|e| e.downcast_ref::<IoError>())
+                .map(IoError::kind),
+            Some(ErrorKind::BrokenPipe)
+        );
 
         let hint_err = payload.size_hint().await.unwrap_err();
         assert!(hint_err.is_serialization(), "{hint_err:?}");
+        assert_eq!(
+            hint_err
+                .source()
+                .and_then(|e| e.downcast_ref::<IoError>())
+                .map(IoError::kind),
+            Some(ErrorKind::Other)
+        );
 
         let seek_err = payload.seek(0).await.unwrap_err();
         assert!(seek_err.is_serialization(), "{seek_err:?}");
+        assert_eq!(
+            seek_err
+                .source()
+                .and_then(|e| e.downcast_ref::<IoError>())
+                .map(IoError::kind),
+            Some(ErrorKind::InvalidInput)
+        );
     }
 }

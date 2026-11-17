@@ -129,21 +129,22 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
-    async fn options() -> anyhow::Result<()> {
-        let client = Storage::builder()
-            .with_credentials(Anonymous::new().build())
-            .build()
-            .await?;
+    #[derive(Debug)]
+    struct StorageStub;
+    impl crate::stub::Storage for StorageStub {}
 
-        let builder = client
-            .parallel_upload(BUCKET_NAME, OBJECT_NAME)
-            .with_max_concurrency(8)
-            .with_enable_hedging(true);
+    #[test]
+    fn options() {
+        let builder = ParallelUpload::new(
+            Arc::new(StorageStub),
+            BUCKET_NAME,
+            OBJECT_NAME,
+            RequestOptions::new(),
+        )
+        .with_max_concurrency(8)
+        .with_enable_hedging(true);
 
         assert_eq!(builder.max_concurrency, Some(8));
         assert!(builder.enable_hedging);
-
-        Ok(())
     }
 }

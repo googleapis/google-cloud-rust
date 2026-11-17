@@ -12,8 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::segment_payload::SegmentPayload;
+
 pub(crate) mod dynamic {
-    use super::super::segment_payload::SegmentPayload;
+    use super::SegmentPayload;
     use crate::model::Object;
     use crate::model_ext::Segment;
 
