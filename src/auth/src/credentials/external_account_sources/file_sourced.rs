@@ -54,7 +54,8 @@ const JSON_FORMAT_TYPE: &str = "json";
 impl SubjectTokenProvider for FileSourcedCredentials {
     type Error = CredentialsError;
     async fn subject_token(&self) -> Result<SubjectToken> {
-        let content = std::fs::read_to_string(&self.file)
+        let content = tokio::fs::read_to_string(&self.file)
+            .await
             .map_err(|e| CredentialsError::from_source(false, e))?;
 
         match self.format.as_str() {
