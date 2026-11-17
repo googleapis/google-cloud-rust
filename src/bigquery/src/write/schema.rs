@@ -21,6 +21,9 @@
 
 use crate::model::table_field_schema::{Mode, Type};
 use crate::model::{TableFieldSchema, TableSchema};
+use gaxi::prost::ToProto;
+use prost_reflect::{DescriptorPool, MessageDescriptor};
+use prost_types::FileDescriptorProto;
 use std::collections::{HashMap, HashSet};
 use std::hash::{Hash, Hasher};
 use wkt::field_descriptor_proto::{Label, Type as ProtoType};
@@ -70,21 +73,28 @@ pub(crate) enum SchemaErrorKind {
     /// `DATETIME`, or `TIMESTAMP`).
     #[error("invalid RANGE element type '{element_type}' for field '{field}'")]
     InvalidRangeElementType { field: String, element_type: Type },
+
+    /// The protobuf descriptor built from the schema is invalid.
+    #[error("invalid protobuf descriptor: {detail}")]
+    InvalidDescriptor { detail: String },
 }
 
 impl SchemaError {
     /// Prepends `parent` to the error's field name (for example, `"address.zip"`).
     fn prepend_field(mut self, parent: &str) -> Self {
-        let field = match &mut self.kind {
+        match &mut self.kind {
             SchemaErrorKind::InvalidFieldType { field, .. }
             | SchemaErrorKind::UnknownMode { field, .. }
             | SchemaErrorKind::UnsupportedTimestampPrecision { field, .. }
             | SchemaErrorKind::UnsupportedColumnName { field }
             | SchemaErrorKind::DuplicateColumnName { field }
             | SchemaErrorKind::EmptyStruct { field }
-            | SchemaErrorKind::InvalidRangeElementType { field, .. } => field,
-        };
-        *field = format!("{parent}.{field}");
+            | SchemaErrorKind::InvalidRangeElementType { field, .. } => {
+                *field = format!("{parent}.{field}");
+            }
+            // Whole-descriptor error; not tied to a single field.
+            SchemaErrorKind::InvalidDescriptor { .. } => {}
+        }
         self
     }
 }
@@ -364,10 +374,45 @@ fn is_proto_identifier(name: &str) -> bool {
         && bytes.all(|b| b.is_ascii_alphanumeric() || b == b'_')
 }
 
+/// Builds a `proto2` [`MessageDescriptor`] for the `"root"` message in `descriptor`.
+///
+/// BigQuery treats omitted fields as SQL `NULL`, so `proto2` explicit presence
+/// is required to keep zero values (`0`, `false`, `""`) on the wire.
+pub(crate) fn build_message_descriptor(
+    descriptor: DescriptorProto,
+) -> Result<MessageDescriptor, SchemaError> {
+    let prost_descriptor =
+        descriptor
+            .to_proto()
+            .map_err(|e| SchemaErrorKind::InvalidDescriptor {
+                detail: e.to_string(),
+            })?;
+    // In-memory wrapper for `DescriptorPool`; never sent to BigQuery.
+    let file = FileDescriptorProto {
+        name: Some("root.proto".into()),
+        syntax: Some("proto2".into()),
+        message_type: vec![prost_descriptor],
+        ..Default::default()
+    };
+    let mut pool = DescriptorPool::new();
+    pool.add_file_descriptor_proto(file)
+        .map_err(|e| SchemaErrorKind::InvalidDescriptor {
+            detail: e.to_string(),
+        })?;
+    pool.get_message_by_name("root").ok_or_else(|| {
+        SchemaErrorKind::InvalidDescriptor {
+            detail: "descriptor pool missing 'root' message".to_string(),
+        }
+        .into()
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::model::table_field_schema::FieldElementType;
+    use prost::Message;
+    use prost_reflect::{DynamicMessage, Syntax, Value};
     use static_assertions::assert_impl_all;
     use test_case::test_case;
 
@@ -777,5 +822,124 @@ mod tests {
             .expect("home nested message");
         assert_eq!(home_msg.field[1].type_name, "m1");
         assert_eq!(root.nested_type.len(), 4);
+    }
+
+    #[test]
+    fn build_message_descriptor_resolves_presence_and_nested_types() {
+        let nested_message = |parent: &MessageDescriptor, field_name: &str| {
+            parent
+                .get_field_by_name(field_name)
+                .and_then(|f| f.kind().as_message().cloned())
+                .expect(field_name)
+        };
+
+        let schema = TableSchema::new().set_fields([
+            field("b", Type::Bool).set_mode(Mode::Required),
+            field("user_id", Type::String),
+            field("userId", Type::String),
+            field("id", Type::Int64),
+            field("id_", Type::Int64),
+            field("m1", Type::String),
+            record(
+                "addr",
+                [field("city", Type::String), range("valid_for", Type::Date)],
+            ),
+            range("prev_valid_for", Type::Date),
+            range("ts_window", Type::Timestamp).set_mode(Mode::Repeated),
+        ]);
+        let proto = table_schema_to_descriptor(&schema).expect("valid schema");
+        let root = build_message_descriptor(proto).expect("valid descriptor");
+
+        assert_eq!(root.name(), "root");
+        assert_eq!(root.parent_file().syntax(), Syntax::Proto2);
+        assert_eq!(root.fields().count(), 9);
+        for f in root.fields() {
+            assert_eq!(f.json_name(), f.name());
+            assert_eq!(f.supports_presence(), !f.is_list(), "{}", f.name());
+        }
+
+        let addr = nested_message(&root, "addr");
+        assert!(addr.get_field_by_name("city").unwrap().supports_presence());
+
+        let addr_range = nested_message(&addr, "valid_for");
+        assert_eq!(addr_range, nested_message(&root, "prev_valid_for"));
+        assert_ne!(addr_range, nested_message(&root, "ts_window"));
+        assert!(
+            addr_range
+                .get_field_by_name("start")
+                .unwrap()
+                .supports_presence()
+        );
+        assert!(
+            addr_range
+                .get_field_by_name("end")
+                .unwrap()
+                .supports_presence()
+        );
+    }
+
+    #[test]
+    fn proto2_preserves_zero_values_and_omits_unset() {
+        let schema = TableSchema::new().set_fields([
+            field("b", Type::Bool).set_mode(Mode::Required),
+            field("i", Type::Int64),
+            field("s", Type::String),
+            field("opt", Type::Int64),
+        ]);
+        let proto = table_schema_to_descriptor(&schema).expect("valid schema");
+        let root = build_message_descriptor(proto).expect("valid descriptor");
+
+        let mut msg = DynamicMessage::new(root.clone());
+        assert!(msg.encode_to_vec().is_empty());
+
+        msg.set_field_by_name("b", Value::Bool(false));
+        msg.set_field_by_name("i", Value::I64(0));
+        msg.set_field_by_name("s", Value::String(String::new()));
+        let wire = msg.encode_to_vec();
+        assert!(!wire.is_empty());
+
+        let mut decoded = DynamicMessage::decode(root, wire.as_slice()).unwrap();
+        assert_eq!(decoded.take_field_by_name("b"), Some(Value::Bool(false)));
+        assert_eq!(decoded.take_field_by_name("i"), Some(Value::I64(0)));
+        assert_eq!(
+            decoded.take_field_by_name("s"),
+            Some(Value::String(String::new()))
+        );
+        assert_eq!(decoded.take_field_by_name("opt"), None);
+    }
+
+    #[test_case(DescriptorProto::new().set_name("other"); "missing_root_message")]
+    #[test_case(
+        DescriptorProto::new().set_name("root").set_field([FieldDescriptorProto::new()
+            .set_name("x")
+            .set_number(1)
+            .set_type(ProtoType::from("UNKNOWN"))]);
+        "unknown_field_type_enum"
+    )]
+    #[test_case(
+        DescriptorProto::new().set_name("root").set_field([FieldDescriptorProto::new()
+            .set_name("x")
+            .set_number(1)
+            .set_label(Label::Optional)
+            .set_type(ProtoType::Message)
+            .set_type_name("missing")]);
+        "unresolved_nested_type"
+    )]
+    #[test_case(
+        DescriptorProto::new().set_name("root").set_field([FieldDescriptorProto::new()
+            .set_name("x")
+            .set_number(19_000)
+            .set_label(Label::Optional)
+            .set_type(ProtoType::Int64)]);
+        "reserved_field_number"
+    )]
+    fn build_message_descriptor_rejects_invalid_descriptors(bad: DescriptorProto) {
+        let err = build_message_descriptor(bad).expect_err("invalid descriptor should fail");
+        assert!(matches!(
+            err.kind,
+            SchemaErrorKind::InvalidDescriptor { .. }
+        ));
+        assert!(err.to_string().starts_with("invalid protobuf descriptor: "));
+        assert_eq!(err.clone().prepend_field("parent"), err);
     }
 }
