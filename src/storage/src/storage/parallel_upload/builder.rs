@@ -52,6 +52,18 @@ impl<S> ParallelUpload<S> {
             options,
         }
     }
+
+    /// Sets the maximum number of concurrent segment uploads.
+    pub fn with_max_concurrency(mut self, max_concurrency: usize) -> Self {
+        self.max_concurrency = Some(max_concurrency);
+        self
+    }
+
+    /// Enables or disables hedging for segment uploads.
+    pub fn with_enable_hedging(mut self, enable_hedging: bool) -> Self {
+        self.enable_hedging = enable_hedging;
+        self
+    }
 }
 
 impl<S> ParallelUpload<S>
@@ -113,6 +125,24 @@ mod tests {
         assert_send(&create_fut);
         assert_static(&create_fut);
         drop(create_fut);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn options() -> anyhow::Result<()> {
+        let client = Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let builder = client
+            .parallel_upload(BUCKET_NAME, OBJECT_NAME)
+            .with_max_concurrency(8)
+            .with_enable_hedging(true);
+
+        assert_eq!(builder.max_concurrency, Some(8));
+        assert!(builder.enable_hedging);
 
         Ok(())
     }
