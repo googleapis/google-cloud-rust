@@ -379,12 +379,10 @@ fn is_proto_identifier(name: &str) -> bool {
 /// BigQuery treats omitted fields as SQL `NULL`, so `proto2` explicit presence
 /// is required to keep zero values (`0`, `false`, `""`) on the wire.
 pub(crate) fn build_message_descriptor(
-    descriptor: &DescriptorProto,
+    descriptor: DescriptorProto,
 ) -> Result<MessageDescriptor, SchemaError> {
-    // Callers also pass `descriptor` into `ProtoSchema`, and `to_proto` consumes `self`.
     let prost_descriptor =
         descriptor
-            .clone()
             .to_proto()
             .map_err(|e| SchemaErrorKind::InvalidDescriptor {
                 detail: e.to_string(),
@@ -850,7 +848,7 @@ mod tests {
             range("ts_window", Type::Timestamp).set_mode(Mode::Repeated),
         ]);
         let proto = table_schema_to_descriptor(&schema).expect("valid schema");
-        let root = build_message_descriptor(&proto).expect("valid descriptor");
+        let root = build_message_descriptor(proto).expect("valid descriptor");
 
         assert_eq!(root.name(), "root");
         assert_eq!(root.parent_file().syntax(), Syntax::Proto2);
@@ -889,7 +887,7 @@ mod tests {
             field("opt", Type::Int64),
         ]);
         let proto = table_schema_to_descriptor(&schema).expect("valid schema");
-        let root = build_message_descriptor(&proto).expect("valid descriptor");
+        let root = build_message_descriptor(proto).expect("valid descriptor");
 
         let mut msg = DynamicMessage::new(root.clone());
         assert!(msg.encode_to_vec().is_empty());
@@ -936,11 +934,12 @@ mod tests {
         "reserved_field_number"
     )]
     fn build_message_descriptor_rejects_invalid_descriptors(bad: DescriptorProto) {
-        let err = build_message_descriptor(&bad).expect_err("invalid descriptor should fail");
+        let err = build_message_descriptor(bad).expect_err("invalid descriptor should fail");
         assert!(matches!(
             err.kind,
             SchemaErrorKind::InvalidDescriptor { .. }
         ));
         assert!(err.to_string().starts_with("invalid protobuf descriptor: "));
+        assert_eq!(err.clone().prepend_field("parent"), err);
     }
 }
