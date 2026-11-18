@@ -50,6 +50,10 @@ where
 }
 
 /// A type-erased rewindable and cloneable payload for a single segment write.
+///
+/// Cloning a `SegmentPayload` preserves the current read offset rather than
+/// rewinding to `0`, while giving each clone an independent cursor from that
+/// point onward. Call [`Seek::seek`] with `0` to rewind before or after cloning.
 pub(crate) struct SegmentPayload {
     inner: Box<dyn SegmentSource>,
 }
@@ -66,6 +70,7 @@ impl SegmentPayload {
 }
 
 impl Clone for SegmentPayload {
+    /// Clones the payload at its current read offset with an independent cursor.
     fn clone(&self) -> Self {
         Self {
             inner: self.inner.clone_box(),
@@ -179,6 +184,44 @@ mod tests {
             payload.next().await.transpose()?,
             Some(Bytes::from_static(b"hello "))
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn segment_payload_clone_mid_stream() -> anyhow::Result<()> {
+        let mut payload = SegmentPayload::new(Payload::from(vec![
+            Bytes::from_static(b"hello "),
+            Bytes::from_static(b"world"),
+        ]));
+
+        // Advance past the first chunk before cloning.
+        assert_eq!(
+            payload.next().await.transpose()?,
+            Some(Bytes::from_static(b"hello "))
+        );
+
+        // Cloning mid-stream preserves the current offset rather than rewinding to 0,
+        // while giving both handles independent cursors.
+        let mut mid_clone = payload.clone();
+        assert_eq!(
+            mid_clone.next().await.transpose()?,
+            Some(Bytes::from_static(b"world"))
+        );
+        assert_eq!(mid_clone.next().await.transpose()?, None);
+
+        assert_eq!(
+            payload.next().await.transpose()?,
+            Some(Bytes::from_static(b"world"))
+        );
+        assert_eq!(payload.next().await.transpose()?, None);
+
+        // Seeking one handle back to 0 does not affect the already-exhausted clone.
+        payload.seek(0).await?;
+        assert_eq!(
+            payload.next().await.transpose()?,
+            Some(Bytes::from_static(b"hello "))
+        );
+        assert_eq!(mid_clone.next().await.transpose()?, None);
         Ok(())
     }
 
