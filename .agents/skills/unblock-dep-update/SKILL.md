@@ -30,81 +30,121 @@ ______________________________________________________________________
      numeric (`^[0-9]+$`).
 1. **PR Origin Verification Before Checkout**:
    - Before running `gh pr checkout` or executing any local build/test commands,
-     verify that the PR is authored by `dependabot[bot]` (or a trusted
-     repository maintainer) targeting `googleapis/google-cloud-rust`. **NEVER**
-     check out and execute untrusted code from an unverified external fork
-     without explicit user confirmation.
+     verify that the PR is authored by `app/dependabot` / `dependabot[bot]` (or
+     a trusted repository maintainer) targeting `googleapis/google-cloud-rust`.
+     **NEVER** check out and execute untrusted code from an unverified external
+     fork without explicit user confirmation.
    - Verify the PR author and repository owner using:
      ```shell
-     gh pr view "${PR_NUMBER}" --json author,headRepositoryOwner
+     gh pr view "${PR_NUMBER}" --repo googleapis/google-cloud-rust --json author,headRepositoryOwner
      ```
 
 ______________________________________________________________________
 
 ## Triage the build failure
 
-The first thing to do is to inspect the build failure.
-
-You can determine the commit SHA with:
+First, inspect which CI checks failed on the PR:
 
 ```shell
-COMMIT_SHA=$(gh pr view "$PR_NUMBER" --json commits --jq '.commits[-1].oid')
+gh pr view "$PR_NUMBER" --repo googleapis/google-cloud-rust \
+    --json statusCheckRollup \
+    --jq '[.statusCheckRollup[] | select(.conclusion == "FAILURE") | {name, detailsUrl}]'
 ```
 
-You can enumerate the failed build IDs with:
+- **Google Cloud Build checks (`gcb-pr-<name>`)**:
+  - Each `gcb-pr-<name>` check typically runs `.gcb/scripts/<name>.sh` (or
+    `.gcb/format.yaml` for `gcb-pr-format`).
+  - Extract the `BUILD_ID` (UUID) and GCP project (`rust-sdk-testing` or
+    `rust-auth-testing`) from `detailsUrl`, then inspect the tail of the log:
+    ```shell
+    gcloud builds log "$BUILD_ID" --project=rust-sdk-testing --region=us-central1 | tail -n 200
+    ```
+  - Alternatively, you can look up failed builds by commit SHA (use `mapfile` so
+    multiple retried builds do not concatenate into a single string):
+    ```shell
+    COMMIT_SHA=$(gh pr view "$PR_NUMBER" --repo googleapis/google-cloud-rust --json commits --jq '.commits[-1].oid')
+    mapfile -t FAILED_BUILDS < <(gcloud builds list \
+        --project=rust-sdk-testing \
+        --region=us-central1 \
+        --filter="status='FAILURE'" \
+        --limit=100 \
+        --format="json" | jq -r --arg SHA "$COMMIT_SHA" '.[] | select(.substitutions.COMMIT_SHA == $SHA) | .id')
+    BUILD_ID="${FAILED_BUILDS[0]}"
+    ```
+- **GitHub Actions checks**:
+  - Extract the run ID from `detailsUrl` and inspect failed step logs with:
+    ```shell
+    gh run view "$RUN_ID" --repo googleapis/google-cloud-rust --log-failed
+    ```
 
-```shell
-FAILED_BUILDS=$(gcloud builds list \
-    --project=rust-sdk-testing \
-    --region=us-central1 \
-    --filter="status='FAILURE'" \
-    --limit=100 \
-    --format="json" | jq -r --arg SHA "$COMMIT_SHA" '.[] | select(.substitutions.COMMIT_SHA == $SHA) | .id')
-```
-
-You can look at the last lines of output with:
-
-```shell
-BUILD_ID=${FAILED_BUILDS[0]} # Typically one build is sufficient.
-gcloud builds log "$BUILD_ID" --project=rust-sdk-testing --region=us-central1 | tail -n 200
-```
-
-In the output, identify the specific command that failed, and why. e.g. a
-`cargo test -p google-cloud-<package>`.
+In the output, identify the specific command or check that failed, and why (e.g.
+`cargo test -p google-cloud-<package>`, `gcb-pr-regenerate`, or `gcb-pr-deny`).
 
 ## Checkout the code
 
 ```shell
-gh pr checkout ${PR_NUMBER}
+gh pr checkout "${PR_NUMBER}"
 ```
 
 ## Fix the build failure
 
-Reproduce the build failure locally. Then iteratively fix the error.
+Reproduce the build failure locally, then iteratively fix the error.
 
-When the command succeeds, report success!
+Common dependency-update failure modes:
 
-## Report success
+- **Proto / code regeneration (`gcb-pr-regenerate`)**: When a code-generation
+  dependency such as `prost-build` or `tonic-prost-build` changes its output,
+  `.gcb/scripts/regenerate.sh` fails on `git diff --exit-code`. Regenerate using
+  the pinned `librarian` version from `librarian.yaml` (requires `go`, `taplo`,
+  and `rustfmt`):
+  ```shell
+  V=$(sed -n 's/^version: *//p' librarian.yaml)
+  go run "github.com/googleapis/librarian/cmd/librarian@${V}" install
+  go run "github.com/googleapis/librarian/cmd/librarian@${V}" generate --all
+  ```
+  Verify formatting via `cargo fmt -p <crate> --check` rather than invoking
+  standalone `rustfmt` directly on `include!`-ed `prost/*.rs` files (which are
+  formatted by `librarian` / `prettyplease` and skipped via `#[rustfmt::skip]`).
+- **Compile, lint, or test failures (`gcb-pr-test-*`, `gcb-pr-lint*`)**: Fix API
+  or lint breakages in handwritten crates and verify with
+  `cargo test -p <crate>` and `cargo clippy-strict` (per `AGENTS.md`). Do not
+  hand-edit files under `src/generated/**`; if template changes are required,
+  update `librarian` first.
+- **License or duplicate-dependency checks (`gcb-pr-deny`)**: Reproduce locally
+  with `cargo deny check` (see `.gcb/scripts/deny.sh` and `deny.toml`).
+
+Verify `typos` and relevant crate tests/lints pass before finishing.
+
+## Report success (or push if requested)
 
 Explain the changes and show the diff to the user.
 
-Determine a good commit message for the changes.
+Prepare a commit message following `CONTRIBUTING.md#commit-messages`
+(Conventional Commits, title under 50 characters):
 
 ```shell
-COMMIT_MSG=... # e.g. "update foo to be more like bar"
-```
-
-Determine the upstream branch we checked out.
-
-```shell
+COMMIT_MSG=... # e.g. "chore: regenerate protos for prost-build 0.14.5"
 BRANCH=$(git branch --show-current)
 ```
 
-Suggest to the user how to commit the changes and push them upstream. e.g.:
+Always add a **new commit** on top of the PR branch — **never** `--amend`,
+`rebase`, or `--force` push.
 
-> To commit these changes and push them to the dependabot branch, run:
->
-> ```
-> git commit -m "${COMMIT_MSG}" .
-> git push upstream HEAD:${BRANCH}
-> ```
+- **If the user explicitly asked to push to the PR**: verify `git status` to
+  ensure only intended files are staged, commit, and push to `upstream`:
+
+  ```shell
+  git add -u
+  git commit -m "${COMMIT_MSG}"
+  git push upstream "HEAD:${BRANCH}"
+  ```
+
+- **Otherwise**, suggest the commands to the user:
+
+  > To commit these changes and push them to the dependabot branch, run:
+  >
+  > ```shell
+  > git add -u
+  > git commit -m "${COMMIT_MSG}"
+  > git push upstream "HEAD:${BRANCH}"
+  > ```
