@@ -86,19 +86,22 @@ mod tests {
         let root = build_message_descriptor(proto).expect("valid descriptor");
         let map = ColumnMap::new(&root, &schema.fields);
 
+        let want_user_id = (1, "user_id", Kind::String, &Type::String);
+        let want_userid = (2, "UserId", Kind::Int64, &Type::Int64);
+        let want_created_at = (3, "CreatedAt", Kind::Int64, &Type::Timestamp);
         for (key, want) in [
-            ("user_id", (1, "user_id", Kind::String, &Type::String)),
-            ("USER_ID", (1, "user_id", Kind::String, &Type::String)),
-            ("userid", (2, "UserId", Kind::Int64, &Type::Int64)),
-            ("UserId", (2, "UserId", Kind::Int64, &Type::Int64)),
-            ("USERID", (2, "UserId", Kind::Int64, &Type::Int64)),
-            ("createdat", (3, "CreatedAt", Kind::Int64, &Type::Timestamp)),
-            ("createdAt", (3, "CreatedAt", Kind::Int64, &Type::Timestamp)),
-            ("CREATEDAT", (3, "CreatedAt", Kind::Int64, &Type::Timestamp)),
+            ("user_id", &want_user_id),
+            ("USER_ID", &want_user_id),
+            ("userid", &want_userid),
+            ("UserId", &want_userid),
+            ("USERID", &want_userid),
+            ("createdat", &want_created_at),
+            ("createdAt", &want_created_at),
+            ("CREATEDAT", &want_created_at),
         ] {
             let c = map.get(key).expect(key);
             assert_eq!(
-                (c.proto.number(), c.proto.name(), c.proto.kind(), &c.r#type),
+                &(c.proto.number(), c.proto.name(), c.proto.kind(), &c.r#type),
                 want
             );
         }
