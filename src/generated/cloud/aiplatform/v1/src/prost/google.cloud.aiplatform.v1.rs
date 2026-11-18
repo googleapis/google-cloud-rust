@@ -1486,12 +1486,7 @@ pub struct GenerationConfig {
     pub routing_config: ::core::option::Option<generation_config::RoutingConfig>,
     #[prost(bool, optional, tag = "20")]
     pub audio_timestamp: ::core::option::Option<bool>,
-    #[prost(
-        enumeration = "generation_config::Modality",
-        repeated,
-        packed = "false",
-        tag = "21"
-    )]
+    #[prost(enumeration = "generation_config::Modality", repeated, tag = "21")]
     pub response_modalities: ::prost::alloc::vec::Vec<i32>,
     #[prost(enumeration = "generation_config::MediaResolution", optional, tag = "22")]
     pub media_resolution: ::core::option::Option<i32>,

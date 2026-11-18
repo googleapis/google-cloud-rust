@@ -220,12 +220,7 @@ pub struct SearchLineageStreamingRequest {
 pub mod search_lineage_streaming_request {
     #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct SearchFilters {
-        #[prost(
-            enumeration = "super::DependencyType",
-            repeated,
-            packed = "false",
-            tag = "1"
-        )]
+        #[prost(enumeration = "super::DependencyType", repeated, tag = "1")]
         pub dependency_types: ::prost::alloc::vec::Vec<i32>,
         #[prost(enumeration = "EntitySet", tag = "2")]
         pub entity_set: i32,
