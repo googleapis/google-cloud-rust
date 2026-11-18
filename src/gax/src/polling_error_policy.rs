@@ -181,23 +181,7 @@ impl PollingErrorPolicy for Aip194Strict {
         if error.is_transient_and_before_rpc() {
             return RetryResult::Continue(error);
         }
-        if error.is_io() {
-            return RetryResult::Continue(error);
-        }
-        if let Some(status) = error.status() {
-            return if status.code == crate::error::rpc::Code::Unavailable {
-                RetryResult::Continue(error)
-            } else {
-                RetryResult::Permanent(error)
-            };
-        }
-
-        match error.http_status_code() {
-            Some(code) if code == http::StatusCode::SERVICE_UNAVAILABLE.as_u16() => {
-                RetryResult::Continue(error)
-            }
-            _ => RetryResult::Permanent(error),
-        }
+        crate::retry_policy::aip194_on_idempotent_error(error)
     }
 }
 
@@ -562,6 +546,26 @@ mod tests {
         Ok(())
     }
 
+    #[test_case::test_case(http_bad_gateway_html(), true)]
+    #[test_case::test_case(http_unavailable(), true)]
+    #[test_case::test_case(unknown_with_http_status(502), true)]
+    #[test_case::test_case(unknown_with_http_status(503), true)]
+    #[test_case::test_case(unknown_with_http_status(504), false)]
+    #[test_case::test_case(http_error(504, "GATEWAY TIMEOUT"), false)]
+    #[test_case::test_case(http_error(500, "INTERNAL SERVER ERROR"), false)]
+    #[test_case::test_case(http_permission_denied(), false)]
+    #[test_case::test_case(permanent_rpc_with_http_status(502), false)]
+    #[test_case::test_case(permanent_rpc_with_http_status(503), false)]
+    fn aip194_strict_http_and_status_combinations(error: Error, expect_continue: bool) {
+        let p = Aip194Strict;
+        let result = p.on_error(&PollingState::default(), error);
+        if expect_continue {
+            assert!(result.is_continue(), "{result:?}");
+        } else {
+            assert!(result.is_permanent(), "{result:?}");
+        }
+    }
+
     #[test]
     fn always_continue() {
         let p = AlwaysContinue;
@@ -649,8 +653,31 @@ mod tests {
         http_error(503, "SERVICE UNAVAILABLE")
     }
 
+    fn http_bad_gateway_html() -> Error {
+        let payload = bytes::Bytes::from_static(
+            b"<!DOCTYPE html><title>Error 502 (Server Error)!!1</title><p><b>502.</b>",
+        );
+        Error::http(502, HeaderMap::new(), payload)
+    }
+
     fn http_permission_denied() -> Error {
         http_error(403, "PERMISSION DENIED")
+    }
+
+    fn unknown_with_http_status(http_status: u16) -> Error {
+        use crate::error::rpc::Code;
+        let status = crate::error::rpc::Status::default()
+            .set_code(Code::Unknown)
+            .set_message("UNKNOWN");
+        Error::service_full(status, Some(http_status), None, Some("source error".into()))
+    }
+
+    fn permanent_rpc_with_http_status(http_status: u16) -> Error {
+        use crate::error::rpc::Code;
+        let status = crate::error::rpc::Status::default()
+            .set_code(Code::PermissionDenied)
+            .set_message("PERMISSION_DENIED");
+        Error::service_full(status, Some(http_status), None, Some("source error".into()))
     }
 
     fn unavailable() -> Error {
