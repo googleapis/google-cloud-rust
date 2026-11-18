@@ -54,22 +54,22 @@ gh pr view "$PR_NUMBER" --repo googleapis/google-cloud-rust \
 - **Google Cloud Build checks (`gcb-pr-<name>`)**:
   - Each `gcb-pr-<name>` check typically runs `.gcb/scripts/<name>.sh` (or
     `.gcb/format.yaml` for `gcb-pr-format`).
-  - Extract the `BUILD_ID` (UUID) and GCP project (`rust-sdk-testing` or
-    `rust-auth-testing`) from `detailsUrl`, then inspect the tail of the log:
+  - Extract the `BUILD_ID` (UUID) from `detailsUrl` and `GCP_PROJECT`
+    (`rust-sdk-testing` or `rust-auth-testing`, shown in parentheses in the
+    check `name`), then inspect the tail of the log:
     ```shell
-    gcloud builds log "$BUILD_ID" --project=rust-sdk-testing --region=us-central1 | tail -n 200
+    GCP_PROJECT=... # rust-sdk-testing or rust-auth-testing
+    gcloud builds log "$BUILD_ID" --project="$GCP_PROJECT" --region=us-central1 | tail -n 200
     ```
-  - Alternatively, you can look up failed builds by commit SHA (use `mapfile` so
-    multiple retried builds do not concatenate into a single string):
+  - Alternatively, you can look up a failed build by commit SHA:
     ```shell
     COMMIT_SHA=$(gh pr view "$PR_NUMBER" --repo googleapis/google-cloud-rust --json commits --jq '.commits[-1].oid')
-    mapfile -t FAILED_BUILDS < <(gcloud builds list \
-        --project=rust-sdk-testing \
+    BUILD_ID=$(gcloud builds list \
+        --project="$GCP_PROJECT" \
         --region=us-central1 \
         --filter="status='FAILURE'" \
         --limit=100 \
-        --format="json" | jq -r --arg SHA "$COMMIT_SHA" '.[] | select(.substitutions.COMMIT_SHA == $SHA) | .id')
-    BUILD_ID="${FAILED_BUILDS[0]}"
+        --format="json" | jq -r --arg SHA "$COMMIT_SHA" '.[] | select(.substitutions.COMMIT_SHA == $SHA) | .id' | head -n 1)
     ```
 - **GitHub Actions checks**:
   - Extract the run ID from `detailsUrl` and inspect failed step logs with:
@@ -83,7 +83,7 @@ In the output, identify the specific command or check that failed, and why (e.g.
 ## Checkout the code
 
 ```shell
-gh pr checkout "${PR_NUMBER}"
+gh pr checkout "${PR_NUMBER}" --repo googleapis/google-cloud-rust
 ```
 
 ## Fix the build failure
@@ -125,18 +125,21 @@ Prepare a commit message following `CONTRIBUTING.md#commit-messages`
 ```shell
 COMMIT_MSG=... # e.g. "chore: regenerate protos for prost-build 0.14.5"
 BRANCH=$(git branch --show-current)
+REMOTE=$(git config --get "branch.${BRANCH}.remote")
 ```
 
 Always add a **new commit** on top of the PR branch — **never** `--amend`,
-`rebase`, or `--force` push.
+`rebase`, or `--force` push. Using `branch.${BRANCH}.remote` pushes to the exact
+remote (or repository URL) configured by `gh pr checkout`, whether the local
+clone uses `upstream`, `origin`, or a fork-only remote setup.
 
 - **If the user explicitly asked to push to the PR**: verify `git status` to
-  ensure only intended files are staged, commit, and push to `upstream`:
+  ensure only intended files are staged, commit, and push:
 
   ```shell
   git add -u
   git commit -m "${COMMIT_MSG}"
-  git push upstream "HEAD:${BRANCH}"
+  git push "${REMOTE}" "HEAD:${BRANCH}"
   ```
 
 - **Otherwise**, suggest the commands to the user:
@@ -146,5 +149,5 @@ Always add a **new commit** on top of the PR branch — **never** `--amend`,
   > ```shell
   > git add -u
   > git commit -m "${COMMIT_MSG}"
-  > git push upstream "HEAD:${BRANCH}"
+  > git push "${REMOTE}" "HEAD:${BRANCH}"
   > ```
