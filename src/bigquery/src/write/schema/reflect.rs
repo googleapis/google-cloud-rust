@@ -24,7 +24,7 @@ use wkt::DescriptorProto;
 ///
 /// BigQuery treats omitted fields as SQL `NULL`, so `proto2` explicit presence
 /// is required to keep zero values (`0`, `false`, `""`) on the wire.
-pub(super) fn build_message_descriptor(
+pub(crate) fn build_message_descriptor(
     descriptor: DescriptorProto,
 ) -> Result<MessageDescriptor, SchemaError> {
     let prost_descriptor =
@@ -99,7 +99,7 @@ mod tests {
         assert_eq!(root.parent_file().syntax(), Syntax::Proto2);
         assert_eq!(root.fields().count(), 9);
         for f in root.fields() {
-            assert_eq!(f.json_name(), f.name());
+            assert_eq!(f.json_name(), f.name().to_ascii_lowercase());
             assert_eq!(f.supports_presence(), !f.is_list(), "{}", f.name());
         }
 

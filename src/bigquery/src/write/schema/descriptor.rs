@@ -28,12 +28,13 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 ///
 /// The root descriptor is named `"root"` and carries one field per entry in
 /// `schema.fields`, numbered sequentially from 1. Each field sets `json_name`
-/// to the exact column name so `lowerCamelCase` JSON name conversions cannot
-/// collide across columns such as `user_id` and `userId`.
+/// to the lowercased column name for case-insensitive JSON key lookup, while
+/// keeping underscores intact so columns such as `user_id` and `userId` do not
+/// collide under protobuf's default `lowerCamelCase` conversion.
 ///
 /// Each `STRUCT` or `RANGE` column becomes a message field with type defined in
 /// `root.nested_type`.
-pub(super) fn table_schema_to_descriptor(
+pub(crate) fn table_schema_to_descriptor(
     schema: &TableSchema,
 ) -> Result<DescriptorProto, SchemaError> {
     let mut nested = NestedTypes::new(&schema.fields);
@@ -56,7 +57,7 @@ fn convert_fields(
         .map(|(index, field)| {
             let proto_field = FieldDescriptorProto::new()
                 .set_name(&field.name)
-                .set_json_name(&field.name)
+                .set_json_name(field.name.to_ascii_lowercase())
                 // Protobuf field numbers are 1-based.
                 .set_number(index as i32 + 1)
                 .set_label(field_label(field)?)
@@ -167,7 +168,7 @@ impl Eq for MessageKey {}
 
 impl Hash for MessageKey {
     fn hash<H: Hasher>(&self, state: &mut H) {
-        // Hash the fields we populate. `json_name` is always equal to `name`.
+        // Hash the fields we populate. `json_name` is derived from `name`.
         self.0.len().hash(state);
         for f in &self.0 {
             f.name.hash(state);
@@ -220,7 +221,7 @@ mod tests {
             summary,
             vec![
                 ("user_id", "user_id", 1, Label::Optional, ProtoType::String),
-                ("userId", "userId", 2, Label::Optional, ProtoType::Int64),
+                ("userId", "userid", 2, Label::Optional, ProtoType::Int64),
                 ("tags", "tags", 3, Label::Repeated, ProtoType::String),
             ]
         );
