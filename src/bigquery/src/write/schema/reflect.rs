@@ -24,7 +24,7 @@ use wkt::DescriptorProto;
 ///
 /// BigQuery treats omitted fields as SQL `NULL`, so `proto2` explicit presence
 /// is required to keep zero values (`0`, `false`, `""`) on the wire.
-pub(super) fn build_message_descriptor(
+pub(crate) fn build_message_descriptor(
     descriptor: DescriptorProto,
 ) -> Result<MessageDescriptor, SchemaError> {
     let prost_descriptor =
