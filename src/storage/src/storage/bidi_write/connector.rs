@@ -133,7 +133,7 @@ where
     ) -> Result<(BidiWriteObjectResponse, Connection<T::Stream>)> {
         let resource = match req.spec.resource {
             Some(r) => {
-                let object: Object = r.to_proto().map_err(Error::deser)?;
+                let object: Object = ToProto::<Object>::to_proto(r).map_err(Error::deser)?;
                 Some(object)
             }
             None => None,
@@ -150,7 +150,7 @@ where
         };
         self.params = req
             .params
-            .map(|p| p.to_proto().map_err(Error::deser))
+            .map(|p| ToProto::<CommonObjectRequestParams>::to_proto(p).map_err(Error::deser))
             .transpose()?;
         *self.spec.lock().expect("never poisoned") = AppendObjectSpecState::Write {
             spec: Box::new(spec),
@@ -181,7 +181,7 @@ where
         };
         self.params = req
             .params
-            .map(|p| p.to_proto().map_err(Error::deser))
+            .map(|p| ToProto::<CommonObjectRequestParams>::to_proto(p).map_err(Error::deser))
             .transpose()?;
         *self.spec.lock().expect("never poisoned") = AppendObjectSpecState::Append {
             spec,

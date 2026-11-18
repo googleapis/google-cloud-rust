@@ -17,8 +17,8 @@ use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
 use crate::from_row::FromRow;
 use crate::google::spanner::v1::{self, PartialResultSet};
-use crate::model::ResultSetStats;
 use crate::model::result_set_stats::RowCount;
+use crate::model::{CacheUpdate, MultiplexedSessionPrecommitToken, ResultSetStats};
 use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::{AbortedInfo, AbortedState, ReadContextTransactionSelector};
 use crate::request_id_interceptor::update_request_id_attempt;
@@ -511,7 +511,7 @@ impl ResultSet {
             partial_result_set
                 .precommit_token
                 .take()
-                .and_then(|token| token.cnv().ok()),
+                .and_then(|token| FromProto::<MultiplexedSessionPrecommitToken>::cnv(token).ok()),
         );
 
         if partial_result_set.last {
@@ -521,7 +521,7 @@ impl ResultSet {
         let cache_update = partial_result_set
             .cache_update
             .take()
-            .and_then(|cache_update| cache_update.cnv().ok());
+            .and_then(|cache_update| FromProto::<CacheUpdate>::cnv(cache_update).ok());
         self.client.observe_cache_update(cache_update);
 
         match (
@@ -697,8 +697,7 @@ impl ResultSet {
                 return Err(internal_error("Additional stats received after first"));
             }
             (None, Some(s)) => {
-                let converted_stats = s
-                    .cnv()
+                let converted_stats = FromProto::<ResultSetStats>::cnv(s)
                     .map_err(|e| internal_error(format!("failed to convert stats: {}", e)))?;
                 self.stats = Some(converted_stats);
             }

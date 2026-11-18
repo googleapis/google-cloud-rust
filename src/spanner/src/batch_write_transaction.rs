@@ -520,9 +520,9 @@ impl BatchWriteResponseStream {
             translated_indexes.push(original_index as i32);
         }
 
-        let mut model_response: BatchWriteResponse = proto_response
-            .cnv()
-            .map_err(|error| self.record_terminal_error(Error::deser(error)))?;
+        let mut model_response: BatchWriteResponse =
+            FromProto::<BatchWriteResponse>::cnv(proto_response)
+                .map_err(|error| self.record_terminal_error(Error::deser(error)))?;
         model_response.indexes = translated_indexes;
         Ok(model_response)
     }

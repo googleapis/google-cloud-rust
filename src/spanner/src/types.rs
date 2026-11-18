@@ -118,7 +118,9 @@ impl From<Type> for model::Type {
 impl Type {
     pub(crate) fn from_proto(value: ProtoType) -> Self {
         use gaxi::prost::FromProto;
-        value.cnv().unwrap_or_default().into()
+        FromProto::<model::Type>::cnv(value)
+            .unwrap_or_default()
+            .into()
     }
 
     /// Returns the type code.

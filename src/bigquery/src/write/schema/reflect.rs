@@ -28,11 +28,11 @@ pub(super) fn build_message_descriptor(
     descriptor: DescriptorProto,
 ) -> Result<MessageDescriptor, SchemaError> {
     let prost_descriptor =
-        descriptor
-            .to_proto()
-            .map_err(|e| SchemaErrorKind::InvalidDescriptor {
+        ToProto::<prost_types::DescriptorProto>::to_proto(descriptor).map_err(|e| {
+            SchemaErrorKind::InvalidDescriptor {
                 detail: e.to_string(),
-            })?;
+            }
+        })?;
     // In-memory wrapper for `DescriptorPool`; never sent to BigQuery.
     let file = FileDescriptorProto {
         name: Some("root.proto".into()),

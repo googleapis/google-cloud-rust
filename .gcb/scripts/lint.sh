@@ -31,5 +31,8 @@ cargo clippy --all-features --all-targets --profile=test -p google-cloud-aiplatf
 echo "==== cargo clippy strict (handwritten crates non-test mode) ===="
 cargo clippy-strict
 
+echo "==== Verify ToProto::to_proto and FromProto::cnv are fully qualified ===="
+./scripts/check-prost-convert.sh
+
 echo "==== DONE ===="
 /workspace/.bin/sccache --show-stats
