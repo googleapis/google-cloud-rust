@@ -1791,10 +1791,7 @@ impl super::stub::Echo for Echo {
         req: crate::model::ExpandRequest,
         options: crate::RequestOptions,
     ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::EchoResponse>> {
-        let x_goog_request_params = [None::<String>; 0]
-            .into_iter()
-            .flatten()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = String::new();
 
         let extensions = {
             let mut e = gaxi::grpc::tonic::Extensions::new();
@@ -5060,13 +5057,11 @@ impl super::stub::Messaging for Messaging {
         options: crate::RequestOptions,
     ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::StreamBlurbsResponse>>
     {
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         let extensions = {
             let mut e = gaxi::grpc::tonic::Extensions::new();
@@ -6325,13 +6320,11 @@ impl super::stub::SequenceService for SequenceService {
     ) -> Result<
         google_cloud_gax::streaming::ResponseStream<crate::model::AttemptStreamingSequenceResponse>,
     > {
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         let extensions = {
             let mut e = gaxi::grpc::tonic::Extensions::new();

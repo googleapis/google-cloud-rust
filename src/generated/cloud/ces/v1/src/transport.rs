@@ -4385,14 +4385,12 @@ impl super::stub::SessionService for SessionService {
         req: crate::model::RunSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::RunSessionResponse>> {
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .and_then(|m| m.config.as_ref())
             .map(|m| &m.session)
             .map(|s| s.as_str())
-            .map(|v| format!("config.session={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("config.session", v))]);
 
         let extensions = {
             let mut e = gaxi::grpc::tonic::Extensions::new();

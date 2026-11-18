@@ -81,13 +81,11 @@ impl super::stub::Publisher for Publisher {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.pubsub.v1.Publisher/Publish");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.topic)
             .map(|s| s.as_str())
-            .map(|v| format!("topic={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("topic", v))]);
 
         type TR = crate::google::pubsub::v1::PublishResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -172,13 +170,11 @@ impl super::stub::Subscriber for Subscriber {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.pubsub.v1.Subscriber/ModifyAckDeadline");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.subscription)
             .map(|s| s.as_str())
-            .map(|v| format!("subscription={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("subscription", v))]);
 
         type TR = ();
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -230,13 +226,11 @@ impl super::stub::Subscriber for Subscriber {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.pubsub.v1.Subscriber/Acknowledge");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.subscription)
             .map(|s| s.as_str())
-            .map(|v| format!("subscription={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("subscription", v))]);
 
         type TR = ();
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
