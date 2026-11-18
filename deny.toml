@@ -25,7 +25,10 @@ feature-depth = 1
 # https://embarkstudios.github.io/cargo-deny/checks/advisories/cfg.html
 [advisories]
 git-fetch-with-cli = false
-ignore             = [{ id = "RUSTSEC-2023-0071", reason = "Only used in tests and no new version available" }]
+ignore = [
+  { id = "RUSTSEC-2023-0071", reason = "Only used in tests and no new version available" },
+  { id = "RUSTSEC-2026-0543", reason = "We already exposed `chrono` in our public API. Now it is unmaintained. We cannot remove these APIs without taking a major version bump in all of our crates." },
+]
 
 [licenses]
 allow                = ["Apache-2.0", "BSD-3-Clause", "CC0-1.0", "ISC", "MIT", "Unicode-3.0"]

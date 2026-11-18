@@ -48,6 +48,7 @@ default-members = [
   "tests/auto-populated",
   "tests/bigquery",
   "tests/bigtable",
+  "tests/convert-canary",
   "tests/default-idempotency",
   "tests/discovery",
   "tests/dns",
@@ -371,6 +372,7 @@ members = [
   "tests/auto-populated",
   "tests/bigquery",
   "tests/bigtable",
+  "tests/convert-canary",
   "tests/crypto-providers/auth-with-default",
   "tests/crypto-providers/auth-without-default",
   "tests/crypto-providers/gaxi-with-aws-lc-rs",
@@ -423,7 +425,7 @@ license      = "Apache-2.0"
 repository   = "https://github.com/googleapis/google-cloud-rust/tree/main"
 keywords     = ["gcp", "google-cloud", "google-cloud-rust", "sdk"]
 categories   = ["network-programming"]
-rust-version = "1.91.0"
+rust-version = "1.92.0"
 
 # Define a custom profile for builds on GHA. The standard profiles exhaust the
 # available disk space on the free GHA runners. The GHA builds cannot take
@@ -451,7 +453,6 @@ h2                    = { default-features = false, version = "0.4.14" }
 hex                   = { default-features = false, version = "0.4.3" }
 http                  = { default-features = false, version = "1.1", features = ["std"] }
 http-body             = { default-features = false, version = "1.1" }
-humantime             = { default-features = false, version = "2" }
 hyper                 = { default-features = false, version = "1.10" }
 jiff                  = { default-features = false, version = "0.2.32" }
 jsonwebtoken          = { default-features = false, version = "11" }
@@ -465,6 +466,7 @@ opentelemetry-otlp    = { default-features = false, version = "0.33" }
 parse-size            = { default-features = false, version = "1.1" }
 percent-encoding      = { default-features = false, version = "2.3" }
 pin-project           = { default-features = false, version = "1.1.13" }
+prost-reflect         = { default-features = false, version = "0.16.5" }
 rand                  = { default-features = false, version = "0.10" }
 p256                  = { default-features = false, version = "0.14" }
 rust_decimal          = { default-features = false, version = "1.42.0", features = ["std"] }
