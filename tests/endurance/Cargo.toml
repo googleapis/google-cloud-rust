@@ -29,3 +29,6 @@ tokio.workspace      = true
 # Local dependencies
 google-cloud-gax              = { workspace = true }
 google-cloud-secretmanager-v1 = { workspace = true, features = ["default"] }
+
+[lints]
+workspace = true

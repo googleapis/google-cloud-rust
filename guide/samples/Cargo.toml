@@ -43,10 +43,8 @@ google-cloud-test-utils       = { workspace = true }
 google-cloud-lro              = { workspace = true, features = ["unstable-stream"] }
 google-cloud-rpc.workspace    = true
 google-cloud-secretmanager-v1 = { workspace = true, features = ["default"] }
-google-cloud-speech-v2        = { workspace = true, features = ["default"] }
 google-cloud-storage          = { workspace = true, features = ["default"] }
 google-cloud-wkt.workspace    = true
-storage-samples.workspace     = true
 serde_json.workspace          = true
 tokio                         = { workspace = true, features = ["full", "macros"] }
 tracing-subscriber            = { workspace = true, features = ["json"] }
@@ -65,11 +63,13 @@ google-cloud-compute-v1 = { workspace = true, default-features = false, features
 ] }
 
 [dev-dependencies]
-anyhow.workspace    = true
-bytes.workspace     = true
-mockall.workspace   = true
-tempfile.workspace  = true
-test-case.workspace = true
+anyhow.workspace          = true
+bytes.workspace           = true
+google-cloud-speech-v2    = { workspace = true, features = ["default"] }
+mockall.workspace         = true
+storage-samples.workspace = true
+tempfile.workspace        = true
+test-case.workspace       = true
 
 [features]
 run-integration-tests = []
