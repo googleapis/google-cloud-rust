@@ -94,10 +94,7 @@ impl<S> ParallelUpload<S> {
     }
 
     /// Sets the object custom contexts.
-    pub fn set_contexts<V>(mut self, v: V) -> Self
-    where
-        V: Into<ObjectContexts>,
-    {
+    pub fn set_contexts<V: Into<ObjectContexts>>(mut self, v: V) -> Self {
         self.mut_resource().contexts = Some(v.into());
         self
     }
@@ -121,10 +118,7 @@ impl<S> ParallelUpload<S> {
     }
 
     /// Sets the resource name of the Cloud KMS key used to encrypt this object.
-    pub fn set_kms_key<V>(mut self, v: V) -> Self
-    where
-        V: Into<String>,
-    {
+    pub fn set_kms_key<V: Into<String>>(mut self, v: V) -> Self {
         self.mut_resource().kms_key = v.into();
         self
     }
@@ -141,10 +135,7 @@ impl<S> ParallelUpload<S> {
     }
 
     /// Configures this object to use one of the predefined ACLs.
-    pub fn set_predefined_acl<V>(mut self, v: V) -> Self
-    where
-        V: Into<String>,
-    {
+    pub fn set_predefined_acl<V: Into<String>>(mut self, v: V) -> Self {
         self.request.predefined_acl = v.into();
         self
     }
@@ -156,19 +147,13 @@ impl<S> ParallelUpload<S> {
     }
 
     /// Sets the retention configuration for the new object.
-    pub fn set_retention<V>(mut self, v: V) -> Self
-    where
-        V: Into<Retention>,
-    {
+    pub fn set_retention<V: Into<Retention>>(mut self, v: V) -> Self {
         self.mut_resource().retention = Some(v.into());
         self
     }
 
     /// Sets the storage class for the new object.
-    pub fn set_storage_class<V>(mut self, v: V) -> Self
-    where
-        V: Into<String>,
-    {
+    pub fn set_storage_class<V: Into<String>>(mut self, v: V) -> Self {
         self.mut_resource().storage_class = v.into();
         self
     }
@@ -201,7 +186,7 @@ impl<S> ParallelUpload<S> {
     }
 
     /// Sets the project that will be billed for this upload.
-    pub fn with_quota_project(mut self, project: impl Into<String>) -> Self {
+    pub fn with_quota_project<V: Into<String>>(mut self, project: V) -> Self {
         self.options.set_quota_project(project);
         self
     }
@@ -225,7 +210,7 @@ impl<S> ParallelUpload<S> {
     }
 
     /// Sets the `User-Agent` header for this upload.
-    pub fn with_user_agent(mut self, user_agent: impl Into<String>) -> Self {
+    pub fn with_user_agent<V: Into<String>>(mut self, user_agent: V) -> Self {
         self.options.user_agent = Some(user_agent.into());
         self
     }
@@ -397,11 +382,31 @@ mod tests {
         let client = Storage::builder()
             .with_credentials(Anonymous::new().build())
             .with_retry_policy(google_cloud_gax::retry_policy::NeverRetry)
+            .with_backoff_policy(
+                google_cloud_gax::exponential_backoff::ExponentialBackoff::default(),
+            )
+            .with_retry_throttler(google_cloud_gax::retry_throttler::CircuitBreaker::new(
+                1000, 250, 10,
+            )?)
             .build()
             .await?;
 
-        let builder = client
-            .parallel_upload(BUCKET_NAME, OBJECT_NAME)
+        let default_builder = client.parallel_upload(BUCKET_NAME, OBJECT_NAME);
+        let default_gax_debug = format!("{:?}", default_builder.options.gax());
+        assert!(
+            default_gax_debug.contains("NeverRetry"),
+            "{default_gax_debug}"
+        );
+        assert!(
+            default_gax_debug.contains("ExponentialBackoff"),
+            "{default_gax_debug}"
+        );
+        assert!(
+            default_gax_debug.contains("CircuitBreaker"),
+            "{default_gax_debug}"
+        );
+
+        let builder = default_builder
             .with_max_concurrency(8)
             .with_enable_hedging(true)
             .with_user_agent("test-agent")
