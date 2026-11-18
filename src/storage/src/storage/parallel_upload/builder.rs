@@ -75,6 +75,10 @@ where
     /// # Errors
     ///
     /// Returns an error if the session creation RPC fails.
+    ///
+    /// # Panics
+    ///
+    /// Panics because session creation is not implemented yet.
     pub async fn create_session(self) -> Result<ParallelUploadSession> {
         let _ = (
             self.stub,
@@ -83,7 +87,7 @@ where
             self.enable_hedging,
             self.options,
         );
-        unimplemented!("{}", gaxi::unimplemented::UNIMPLEMENTED)
+        unimplemented!("not implemented yet")
     }
 }
 
