@@ -41,6 +41,8 @@ mod committed;
 mod default;
 mod dispatcher;
 mod entry;
+#[cfg_attr(not(test), expect(dead_code))]
+mod json;
 mod optimizer;
 mod pending;
 mod pool;
