@@ -39,14 +39,14 @@ if [[ $# -ge 1 && "${1}" != "--force" ]]; then
   fi
   ELIGIBLE_LINE=$(echo "${RELEASES}" | grep -E "^Version ${TARGET_MSRV//./\\.} \([0-9]{4}-[0-9]{2}-[0-9]{2}\)" | head -n 1 || true)
 else
-  # Find the oldest 1.XX.0 release within the past year (dropping support for releases older than 1 year).
+  # Find the oldest Rust release within the past year (dropping support for releases older than 1 year).
   CUTOFF=$(date -u -d '1 year ago' +%F 2>/dev/null || date -u -v-1y +%F || true)
   if [[ ! "${CUTOFF}" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
     echo "Error: Failed to calculate a valid 1-year cutoff date." >&2
     exit 1
   fi
   ELIGIBLE_LINE=$(echo "${RELEASES}" | \
-    grep -E '^Version 1\.[0-9]+\.0 \([0-9]{4}-[0-9]{2}-[0-9]{2}\)' | \
+    grep -E '^Version 1\.[0-9]+\.[0-9]+ \([0-9]{4}-[0-9]{2}-[0-9]{2}\)' | \
     awk -v cutoff="${CUTOFF}" '
       match($0, /[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/) {
         d = substr($0, RSTART, RLENGTH)
