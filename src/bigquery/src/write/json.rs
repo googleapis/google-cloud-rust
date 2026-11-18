@@ -27,39 +27,52 @@ struct Column {
 }
 
 /// Case-insensitive lookup map from JSON object keys to BigQuery columns.
+///
+/// Stores each [`Column`] once in `columns`, with `by_exact` handling keys that
+/// match the table schema's exact casing and `by_lower` handling case-insensitive
+/// fallback lookups.
 #[derive(Debug)]
 struct ColumnMap {
-    by_lower_name: HashMap<String, Column>,
+    columns: Vec<Column>,
+    by_exact: HashMap<String, usize>,
+    by_lower: HashMap<String, usize>,
 }
 
 impl ColumnMap {
     /// Builds a [`ColumnMap`] from a record `descriptor` and its validated `fields`.
     fn new(descriptor: &MessageDescriptor, fields: &[TableFieldSchema]) -> Self {
-        let by_lower_name = fields
-            .iter()
-            .map(|field| {
-                let proto = descriptor
-                    .get_field_by_name(&field.name)
-                    .expect("descriptor built from schema contains every field");
-                (
-                    field.name.to_ascii_lowercase(),
-                    Column {
-                        proto,
-                        r#type: field.r#type.clone(),
-                    },
-                )
-            })
-            .collect();
-        Self { by_lower_name }
+        let mut columns = Vec::with_capacity(fields.len());
+        let mut by_exact = HashMap::with_capacity(fields.len());
+        let mut by_lower = HashMap::with_capacity(fields.len());
+        for (index, field) in fields.iter().enumerate() {
+            let proto = descriptor
+                .get_field_by_name(&field.name)
+                .expect("descriptor built from schema contains every field");
+            by_exact.insert(field.name.clone(), index);
+            by_lower.insert(field.name.to_ascii_lowercase(), index);
+            columns.push(Column {
+                proto,
+                r#type: field.r#type.clone(),
+            });
+        }
+        Self {
+            columns,
+            by_exact,
+            by_lower,
+        }
     }
 
-    /// Looks up a column by JSON object key, ignoring ASCII case.
+    /// Looks up a column by JSON object key, checking exact schema casing first
+    /// and falling back to ASCII-lowercased matching.
     fn get(&self, key: &str) -> Option<&Column> {
-        if key.bytes().any(|b| b.is_ascii_uppercase()) {
-            self.by_lower_name.get(&key.to_ascii_lowercase())
-        } else {
-            self.by_lower_name.get(key)
-        }
+        let &index = self.by_exact.get(key).or_else(|| {
+            if key.bytes().any(|b| b.is_ascii_uppercase()) {
+                self.by_lower.get(&key.to_ascii_lowercase())
+            } else {
+                self.by_lower.get(key)
+            }
+        })?;
+        self.columns.get(index)
     }
 }
 
