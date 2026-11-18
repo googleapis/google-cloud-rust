@@ -15,7 +15,7 @@
 //! Defines the session handle for [Storage::parallel_upload][crate::client::Storage::parallel_upload].
 
 use crate::model::Object;
-use crate::model_ext::Segment;
+use crate::model_ext::{AbortSessionResponse, Segment};
 use crate::storage::parallel_upload::segment_payload::SegmentPayload;
 use crate::storage::parallel_upload::stub::dynamic::ParallelUploadSession as ParallelUploadSessionStub;
 use crate::streaming_source::{Payload, Seek, StreamingSource};
@@ -71,7 +71,7 @@ impl ParallelUploadSession {
     /// # Errors
     ///
     /// Returns an error if the abort RPC fails.
-    pub async fn abort(&self) -> crate::Result<()> {
+    pub async fn abort(&self) -> crate::Result<AbortSessionResponse> {
         self.inner.abort().await
     }
 
@@ -107,7 +107,7 @@ mod tests {
                 segment_payload: SegmentPayload,
             ) -> crate::Result<Segment>;
             async fn finalize(&self) -> crate::Result<Object>;
-            async fn abort(&self) -> crate::Result<()>;
+            async fn abort(&self) -> crate::Result<AbortSessionResponse>;
         }
     }
 
@@ -169,7 +169,8 @@ mod tests {
             });
         mock.expect_finalize()
             .returning(|| Ok(Object::new().set_name("obj").set_size(11)));
-        mock.expect_abort().returning(|| Ok(()));
+        mock.expect_abort()
+            .returning(|| Ok(AbortSessionResponse::default()));
 
         let session = ParallelUploadSession::from_dynamic(Arc::new(mock));
         assert_eq!(
@@ -197,7 +198,8 @@ mod tests {
         assert_eq!(obj.name, "obj");
         assert_eq!(obj.size, 11);
 
-        session.abort().await?;
+        let abort_resp = session.abort().await?;
+        assert_eq!(abort_resp, AbortSessionResponse::default());
         let _ = session.into_parts();
         Ok(())
     }

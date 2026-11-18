@@ -80,6 +80,11 @@ impl From<crate::google::storage::v2::Segment> for Segment {
     }
 }
 
+/// Response from aborting a parallel upload session.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AbortSessionResponse {}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -129,5 +134,20 @@ mod tests {
         assert_eq!(got.name, "test-segment");
         assert_eq!(got.size_bytes, 1024);
         assert_eq!(got.segment_crc32c, 42);
+    }
+
+    #[test]
+    fn test_abort_session_response_traits() {
+        static_assertions::assert_impl_all!(
+            AbortSessionResponse: Clone,
+            std::fmt::Debug,
+            Default,
+            PartialEq,
+            Send,
+            Sync
+        );
+        let resp = AbortSessionResponse::default();
+        assert_eq!(resp.clone(), AbortSessionResponse {});
+        assert!(format!("{resp:?}").contains("AbortSessionResponse"));
     }
 }

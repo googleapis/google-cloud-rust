@@ -17,7 +17,7 @@ use super::segment_payload::SegmentPayload;
 pub(crate) mod dynamic {
     use super::SegmentPayload;
     use crate::model::Object;
-    use crate::model_ext::Segment;
+    use crate::model_ext::{AbortSessionResponse, Segment};
 
     /// An object-safe dynamic trait for [crate::parallel_upload_session::ParallelUploadSession].
     #[async_trait::async_trait]
@@ -30,6 +30,6 @@ pub(crate) mod dynamic {
             segment_payload: SegmentPayload,
         ) -> crate::Result<Segment>;
         async fn finalize(&self) -> crate::Result<Object>;
-        async fn abort(&self) -> crate::Result<()>;
+        async fn abort(&self) -> crate::Result<AbortSessionResponse>;
     }
 }
