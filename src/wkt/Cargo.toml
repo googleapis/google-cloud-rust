@@ -63,3 +63,6 @@ test-case.workspace = true
 time                = { workspace = true, features = ["formatting", "macros", "parsing"] }
 google-cloud-wkt    = { path = ".", features = ["chrono", "time"] }
 common              = { path = "tests/common" }
+
+[lints]
+workspace = true

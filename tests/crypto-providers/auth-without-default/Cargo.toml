@@ -32,3 +32,6 @@ rustls        = { workspace = true, features = ["ring"] }
 tokio         = { workspace = true, features = ["test-util"] }
 test-metadata = { default-features = false, path = "../test-metadata" }
 test-auth     = { default-features = false, path = "../test-auth" }
+
+[lints]
+workspace = true

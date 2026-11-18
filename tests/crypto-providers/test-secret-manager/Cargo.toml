@@ -40,3 +40,6 @@ path             = "../../../src/generated/cloud/secretmanager/v1"
 
 [features]
 with-default = ["google-cloud-secretmanager-v1/default"]
+
+[lints]
+workspace = true

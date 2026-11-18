@@ -30,3 +30,6 @@ rust-version.workspace = true
 anyhow            = { workspace = true, features = ["std"] }
 google-cloud-auth = { workspace = true, features = ["default", "idtoken"] }
 test-metadata     = { path = "../test-metadata" }
+
+[lints]
+workspace = true

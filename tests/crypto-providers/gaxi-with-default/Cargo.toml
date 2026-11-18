@@ -31,3 +31,6 @@ anyhow        = { workspace = true, features = ["std"] }
 tokio         = { workspace = true, features = ["test-util"] }
 test-gaxi     = { path = "../test-gaxi", features = ["with-default"] }
 test-metadata = { path = "../test-metadata" }
+
+[lints]
+workspace = true

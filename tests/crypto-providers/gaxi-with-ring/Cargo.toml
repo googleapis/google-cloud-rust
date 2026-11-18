@@ -32,3 +32,6 @@ rustls        = { workspace = true, features = ["ring"] }
 tokio         = { workspace = true, features = ["test-util"] }
 test-gaxi     = { path = "../test-gaxi" }
 test-metadata = { path = "../test-metadata" }
+
+[lints]
+workspace = true

@@ -7193,7 +7193,6 @@ dependencies = [
  "google-cloud-build-v1",
  "google-cloud-gax",
  "google-cloud-gax-internal",
- "google-cloud-speech-v2",
  "google-cloud-storage",
  "google-cloud-telcoautomation-v1",
  "google-cloud-test-utils",
