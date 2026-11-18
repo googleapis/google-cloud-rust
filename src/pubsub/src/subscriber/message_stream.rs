@@ -115,6 +115,10 @@ pub struct MessageStreamImpl {
 
     /// A token that can initiate shutdown after a stream error.
     shutdown: CancellationToken,
+
+    /// Handle to the runtime used to spawn background nack RPCs when the
+    /// stream closes or is dropped.
+    runtime: tokio::runtime::Handle,
 }
 
 // We would rather always allocate enough space to hold the stream on the stack
@@ -179,6 +183,7 @@ impl MessageStream {
             message_tx,
             ack_tx,
             shutdown: shutdown.clone(),
+            runtime: tokio::runtime::Handle::current(),
         };
         Self {
             inner,
@@ -435,12 +440,11 @@ impl MessageStreamImpl {
         if ack_ids.is_empty() {
             return;
         }
-        // We may be called from `Drop`, outside of a runtime.
-        let Ok(runtime) = tokio::runtime::Handle::try_current() else {
-            return;
-        };
         let subscription = self.initial_req.subscription.clone();
-        runtime.spawn(nack_ack_ids(self.stub.clone(), subscription, ack_ids));
+        // We may be called from `Drop`, outside of a runtime context. Use the
+        // runtime that created the stream.
+        self.runtime
+            .spawn(nack_ack_ids(self.stub.clone(), subscription, ack_ids));
     }
 }
 
@@ -2196,6 +2200,39 @@ mod tests {
         Ok(sorted(nacked))
     }
 
+    /// Waits until the responses sent on `response_tx` are buffered in the
+    /// client, without reading them from the stream.
+    ///
+    /// The client exposes no signal for "response buffered", so we use a
+    /// barrier instead:
+    /// 1. Wait until the mock server has taken every response from the
+    ///    channel, so they are queued on the HTTP/2 connection.
+    /// 2. Make a unary RPC on the same connection. HTTP/2 frames on a
+    ///    connection arrive in order, so once the client has the unary
+    ///    response, it has also received the streaming responses sent before
+    ///    it.
+    async fn wait_until_buffered(
+        stream: &MessageStream,
+        response_tx: &tokio::sync::mpsc::Sender<
+            std::result::Result<v1::StreamingPullResponse, TonicStatus>,
+        >,
+    ) -> anyhow::Result<()> {
+        tokio::time::timeout(Duration::from_secs(10), async {
+            while response_tx.capacity() != response_tx.max_capacity() {
+                tokio::task::yield_now().await;
+            }
+        })
+        .await?;
+        let req =
+            crate::model::AcknowledgeRequest::new().set_subscription("projects/p/subscriptions/s");
+        stream
+            .inner
+            .stub
+            .acknowledge(req, crate::RequestOptions::default())
+            .await?;
+        Ok(())
+    }
+
     /// Sets up a stream that has read one message (acked), and has responses
     /// for messages 1..4 buffered, but not yet read.
     async fn stream_with_buffered_responses(
@@ -2240,8 +2277,7 @@ mod tests {
         // The server sends more messages, which the application does not read.
         response_tx.send(Ok(test_response(1..3))).await?;
         response_tx.send(Ok(test_response(3..4))).await?;
-        // Give the responses time to reach the client's gRPC buffers.
-        tokio::time::sleep(Duration::from_millis(200)).await;
+        wait_until_buffered(&stream, &response_tx).await?;
 
         Ok((stream, nack_rx, response_tx, server))
     }
@@ -2295,15 +2331,28 @@ mod tests {
         let setup = stream_with_buffered_responses(ShutdownBehavior::WaitForProcessing);
         let (stream, mut nack_rx, _response_tx, _server) = rt.block_on(setup)?;
 
-        // Without a runtime, we cannot send the nacks. Dropping the stream
-        // must not panic. The service redelivers the buffered messages after
-        // their ack deadline.
+        // Dropping the stream outside an entered runtime context still spawns
+        // the nack task onto the runtime that created the stream.
         drop(stream);
 
-        let nack = rt.block_on(async {
-            tokio::time::timeout(Duration::from_millis(200), nack_rx.recv()).await
-        });
-        assert!(nack.is_err(), "unexpected nack: {nack:?}");
+        let nacked = rt.block_on(recv_nacked(&mut nack_rx, 3))?;
+        assert_eq!(nacked, test_ids(1..4));
+
+        Ok(())
+    }
+
+    #[test]
+    fn drop_after_runtime_shutdown() -> anyhow::Result<()> {
+        let rt = tokio::runtime::Builder::new_current_thread()
+            .enable_all()
+            .build()?;
+        let setup = stream_with_buffered_responses(ShutdownBehavior::WaitForProcessing);
+        let (stream, _nack_rx, _response_tx, _server) = rt.block_on(setup)?;
+
+        // If the runtime itself has already shut down, `Handle::spawn` drops
+        // the task immediately without panicking.
+        drop(rt);
+        drop(stream);
 
         Ok(())
     }
