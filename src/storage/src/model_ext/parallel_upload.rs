@@ -30,6 +30,37 @@ pub struct CreateObjectWriteSessionRequest {
     pub preferred_segment_size_bytes: i64,
 }
 
+impl CreateObjectWriteSessionRequest {
+    /// Creates a new instance.
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    /// Sets the destination object metadata.
+    pub fn set_resource<V: Into<Object>>(mut self, v: V) -> Self {
+        self.resource = Some(v.into());
+        self
+    }
+
+    /// Sets the predefined ACL to apply to the object.
+    pub fn set_predefined_acl<V: Into<String>>(mut self, v: V) -> Self {
+        self.predefined_acl = v.into();
+        self
+    }
+
+    /// Sets additional request parameters.
+    pub fn set_params<V: Into<CommonObjectRequestParams>>(mut self, v: V) -> Self {
+        self.params = Some(v.into());
+        self
+    }
+
+    /// Sets the preferred segment size in bytes.
+    pub fn set_preferred_segment_size_bytes(mut self, v: i64) -> Self {
+        self.preferred_segment_size_bytes = v;
+        self
+    }
+}
+
 impl TryFrom<CreateObjectWriteSessionRequest>
     for crate::google::storage::v2::CreateObjectWriteSessionRequest
 {
@@ -71,6 +102,31 @@ pub struct Segment {
     pub segment_crc32c: u32,
 }
 
+impl Segment {
+    /// Creates a new instance.
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    /// Sets the resource name of the segment.
+    pub fn set_name<V: Into<String>>(mut self, v: V) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the size of the segment in bytes.
+    pub fn set_size_bytes(mut self, v: i64) -> Self {
+        self.size_bytes = v;
+        self
+    }
+
+    /// Sets the CRC32C checksum of the segment data.
+    pub fn set_segment_crc32c(mut self, v: u32) -> Self {
+        self.segment_crc32c = v;
+        self
+    }
+}
+
 impl From<crate::google::storage::v2::Segment> for Segment {
     fn from(value: crate::google::storage::v2::Segment) -> Self {
         Self {
@@ -86,6 +142,13 @@ impl From<crate::google::storage::v2::Segment> for Segment {
 #[non_exhaustive]
 pub struct AbortSessionResponse {}
 
+impl AbortSessionResponse {
+    /// Creates a new instance.
+    pub fn new() -> Self {
+        Self::default()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -97,12 +160,11 @@ mod tests {
 
     #[test]
     fn test_create_object_write_session_request_try_from() -> anyhow::Result<()> {
-        let req = CreateObjectWriteSessionRequest {
-            resource: Some(Object::new().set_bucket("my-bucket").set_name("my-object")),
-            predefined_acl: "private".into(),
-            params: Some(CommonObjectRequestParams::new().set_encryption_algorithm("AES256")),
-            preferred_segment_size_bytes: 1024,
-        };
+        let req = CreateObjectWriteSessionRequest::new()
+            .set_resource(Object::new().set_bucket("my-bucket").set_name("my-object"))
+            .set_predefined_acl("private")
+            .set_params(CommonObjectRequestParams::new().set_encryption_algorithm("AES256"))
+            .set_preferred_segment_size_bytes(1024);
 
         let got = ProtoCreateRequest::try_from(req)?;
         let want = ProtoCreateRequest {
@@ -132,9 +194,11 @@ mod tests {
             segment_crc32c: 42,
         };
         let got = Segment::from(proto);
-        assert_eq!(got.name, "test-segment");
-        assert_eq!(got.size_bytes, 1024);
-        assert_eq!(got.segment_crc32c, 42);
+        let want = Segment::new()
+            .set_name("test-segment")
+            .set_size_bytes(1024)
+            .set_segment_crc32c(42);
+        assert_eq!(got, want);
     }
 
     #[test]
@@ -147,8 +211,8 @@ mod tests {
             Send,
             Sync
         );
-        let resp = AbortSessionResponse::default();
-        assert_eq!(resp.clone(), AbortSessionResponse {});
+        let resp = AbortSessionResponse::new();
+        assert_eq!(resp.clone(), AbortSessionResponse::default());
         assert!(format!("{resp:?}").contains("AbortSessionResponse"));
     }
 }
