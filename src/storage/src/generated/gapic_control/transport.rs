@@ -184,7 +184,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -203,7 +203,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -280,7 +280,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -299,7 +299,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -461,7 +461,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -480,7 +480,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -557,7 +557,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -576,7 +576,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -652,7 +652,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -671,7 +671,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -823,7 +823,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -842,7 +842,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -907,7 +907,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -926,7 +926,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -1070,7 +1070,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -1092,7 +1092,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "managed_folder.name",
                     "projects/*/buckets/*/**",
@@ -1233,7 +1233,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -1255,7 +1255,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "anywhere_cache.name",
                     "projects/*/buckets/*/**",
@@ -1320,7 +1320,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -1339,7 +1339,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -1404,7 +1404,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -1423,7 +1423,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -1488,7 +1488,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -1507,7 +1507,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -1572,7 +1572,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -1591,7 +1591,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -1811,7 +1811,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -1833,7 +1833,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "rapid_cache.name",
                     "projects/*/buckets/*/**",
@@ -1901,7 +1901,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -1920,7 +1920,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -1988,7 +1988,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -2007,7 +2007,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -2521,7 +2521,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .or_else(|| {
@@ -2548,7 +2548,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "resource",
                     "projects/*/buckets/*/**",
@@ -2624,7 +2624,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .or_else(|| {
@@ -2651,7 +2651,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "resource",
                     "projects/*/buckets/*/**",
@@ -2728,7 +2728,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::SingleWildcard,
                         ],
                         &[
-                            Segment::Literal("managedFolders"),
+                            Segment::Literal("/managedFolders"),
                             Segment::TrailingMultiWildcard,
                         ],
                     )
@@ -2743,7 +2743,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::Literal("objects"), Segment::TrailingMultiWildcard],
+                        &[Segment::Literal("/objects"), Segment::TrailingMultiWildcard],
                     )
                 })
                 .or_else(|| {
@@ -2770,7 +2770,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("managedFolders"),
+                        Segment::Literal("/managedFolders"),
                         Segment::TrailingMultiWildcard,
                     ],
                     "resource",
@@ -2787,7 +2787,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("objects"),
+                        Segment::Literal("/objects"),
                         Segment::TrailingMultiWildcard,
                     ],
                     "resource",
@@ -3170,7 +3170,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -3189,7 +3189,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
