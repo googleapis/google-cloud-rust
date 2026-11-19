@@ -1,4 +1,4 @@
-# Gemini Instructions for the `guide/` Directory
+# Agent Instructions for the `guide/` Directory
 
 This directory contains the user guide for the "Google Cloud Client Libraries
 for Rust". The guide is built using

@@ -16,7 +16,8 @@ releases do not require a bump.
 
 > [!NOTE]
 > Bumping the Minimum Supported Rust Version (MSRV) is managed independently
-> under the 1-year policy.
+> under the 1-year policy using the `rust-msrv-bump` skill
+> (`./scripts/bump-msrv.sh`).
 
 ______________________________________________________________________
 

@@ -287,32 +287,43 @@ pub struct Aip194Strict;
 
 impl RetryPolicy for Aip194Strict {
     fn on_error(&self, state: &RetryState, error: Error) -> RetryResult {
-        use crate::error::rpc::Code;
-        use http::StatusCode;
-
         if error.is_transient_and_before_rpc() {
             return RetryResult::Continue(error);
         }
         if !state.idempotent {
             return RetryResult::Permanent(error);
         }
-        if error.is_io() {
-            return RetryResult::Continue(error);
-        }
-        if error.status().is_some_and(|s| s.code == Code::Unavailable) {
-            return RetryResult::Continue(error);
-        }
-        // Some services return a status of "Unknown" and a http status code of 503
-        // (SERVICE_UNAVAILABLE). That is not how gRPC status codes are supposed to work, but the
-        // intent is clear: we need to retry.
-        if error
-            .http_status_code()
-            .is_some_and(|code| code == StatusCode::SERVICE_UNAVAILABLE.as_u16())
-        {
-            return RetryResult::Continue(error);
-        }
-        RetryResult::Permanent(error)
+        aip194_on_idempotent_error(error)
     }
+}
+
+pub(crate) fn aip194_on_idempotent_error(error: Error) -> RetryResult {
+    use crate::error::rpc::Code;
+    use http::StatusCode;
+
+    let is_transient_http = |code: u16| {
+        code == StatusCode::BAD_GATEWAY.as_u16() || code == StatusCode::SERVICE_UNAVAILABLE.as_u16()
+    };
+
+    if error.is_io() {
+        return RetryResult::Continue(error);
+    }
+    if let Some(status) = error.status() {
+        return match status.code {
+            Code::Unavailable => RetryResult::Continue(error),
+            // Some services or intermediaries return a status of "Unknown" and an HTTP status code
+            // of 502 (BAD_GATEWAY) or 503 (SERVICE_UNAVAILABLE). That is not how gRPC status codes
+            // are supposed to work, but the intent is clear: we need to retry.
+            Code::Unknown if error.http_status_code().is_some_and(is_transient_http) => {
+                RetryResult::Continue(error)
+            }
+            _ => RetryResult::Permanent(error),
+        };
+    }
+    if error.http_status_code().is_some_and(is_transient_http) {
+        return RetryResult::Continue(error);
+    }
+    RetryResult::Permanent(error)
 }
 
 /// A retry policy that retries all errors.
@@ -737,6 +748,40 @@ pub(crate) mod tests {
         );
     }
 
+    #[test_case::test_case(true, http_bad_gateway_html(), true)]
+    #[test_case::test_case(false, http_bad_gateway_html(), false)]
+    #[test_case::test_case(true, unknown_with_http_status(502), true)]
+    #[test_case::test_case(false, unknown_with_http_status(502), false)]
+    #[test_case::test_case(true, unknown_with_http_status(503), true)]
+    #[test_case::test_case(false, unknown_with_http_status(503), false)]
+    #[test_case::test_case(true, unknown_with_http_status(504), false)]
+    #[test_case::test_case(true, unknown_with_http_status(500), false)]
+    #[test_case::test_case(true, http_status_error(504, "GATEWAY TIMEOUT"), false)]
+    #[test_case::test_case(false, http_status_error(504, "GATEWAY TIMEOUT"), false)]
+    #[test_case::test_case(true, http_status_error(500, "INTERNAL SERVER ERROR"), false)]
+    #[test_case::test_case(false, http_status_error(500, "INTERNAL SERVER ERROR"), false)]
+    #[test_case::test_case(true, permanent_rpc_with_http_status(502), false)]
+    #[test_case::test_case(true, permanent_rpc_with_http_status(503), false)]
+    fn aip194_strict_http_and_status_combinations(
+        idempotent: bool,
+        error: Error,
+        expect_continue: bool,
+    ) {
+        let p = Aip194Strict;
+        let now = Instant::now();
+        let state = if idempotent {
+            idempotent_state(now)
+        } else {
+            non_idempotent_state(now)
+        };
+        let result = p.on_error(&state, error);
+        if expect_continue {
+            assert!(result.is_continue(), "{result:?}");
+        } else {
+            assert!(result.is_permanent(), "{result:?}");
+        }
+    }
+
     #[test]
     fn always_retry() {
         let p = AlwaysRetry;
@@ -850,18 +895,25 @@ pub(crate) mod tests {
     }
 
     fn http_unavailable() -> Error {
-        Error::http(
-            503_u16,
-            HeaderMap::new(),
-            bytes::Bytes::from_owner("SERVICE UNAVAILABLE".to_string()),
+        http_status_error(503, "SERVICE UNAVAILABLE")
+    }
+
+    fn http_bad_gateway_html() -> Error {
+        http_status_error(
+            502,
+            "<!DOCTYPE html><title>Error 502 (Server Error)!!1</title><p><b>502.</b>",
         )
     }
 
     fn http_permission_denied() -> Error {
+        http_status_error(403, "PERMISSION DENIED")
+    }
+
+    fn http_status_error(code: u16, body: &str) -> Error {
         Error::http(
-            403_u16,
+            code,
             HeaderMap::new(),
-            bytes::Bytes::from_owner("PERMISSION DENIED".to_string()),
+            bytes::Bytes::from_owner(body.to_string()),
         )
     }
 
@@ -874,11 +926,23 @@ pub(crate) mod tests {
     }
 
     fn unknown_and_503() -> Error {
+        unknown_with_http_status(503)
+    }
+
+    fn unknown_with_http_status(http_status: u16) -> Error {
         use crate::error::rpc::Code;
         let status = crate::error::rpc::Status::default()
             .set_code(Code::Unknown)
-            .set_message("UNAVAILABLE");
-        Error::service_full(status, Some(503), None, Some("source error".into()))
+            .set_message("UNKNOWN");
+        Error::service_full(status, Some(http_status), None, Some("source error".into()))
+    }
+
+    fn permanent_rpc_with_http_status(http_status: u16) -> Error {
+        use crate::error::rpc::Code;
+        let status = crate::error::rpc::Status::default()
+            .set_code(Code::PermissionDenied)
+            .set_message("PERMISSION_DENIED");
+        Error::service_full(status, Some(http_status), None, Some("source error".into()))
     }
 
     fn permission_denied() -> Error {

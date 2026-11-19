@@ -53,3 +53,6 @@ features = ["_internal-http-client"]
 
 [features]
 with-default = ["google-cloud-gax-internal/_default-rustls-provider"]
+
+[lints]
+workspace = true

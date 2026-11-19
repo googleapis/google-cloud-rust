@@ -2635,7 +2635,7 @@ pub struct StreamingPullRequest {
     pub subscription: ::prost::alloc::string::String,
     #[prost(string, repeated, tag = "2")]
     pub ack_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    #[prost(int32, repeated, packed = "false", tag = "3")]
+    #[prost(int32, repeated, tag = "3")]
     pub modify_deadline_seconds: ::prost::alloc::vec::Vec<i32>,
     #[prost(string, repeated, tag = "4")]
     pub modify_deadline_ack_ids: ::prost::alloc::vec::Vec<

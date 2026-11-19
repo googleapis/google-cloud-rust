@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use clap::Parser;
-use humantime::parse_duration;
+use jiff::fmt::friendly::SpanParser;
 use std::time::Duration;
 
 #[derive(Parser, Debug, Clone)]
@@ -27,10 +27,10 @@ pub struct Config {
     #[arg(long, default_value = "", env = "GOOGLE_CLOUD_PROJECT")]
     pub project: String,
 
-    #[arg(long, value_parser = parse_duration, default_value = "5s")]
+    #[arg(long, value_parser = |s: &str| SpanParser::new().parse_unsigned_duration(s), default_value = "5s")]
     pub report_interval: Duration,
 
-    #[arg(long, value_parser = parse_duration, default_value = "1m")]
+    #[arg(long, value_parser = |s: &str| SpanParser::new().parse_unsigned_duration(s), default_value = "1m")]
     pub duration: Duration,
 
     #[arg(long, default_value_t = 1024)]
@@ -64,6 +64,8 @@ mod tests {
     #[test]
     fn test_parse_args_defaults() -> anyhow::Result<()> {
         let args = Config::try_parse_from(["cmd"])?;
+        assert_eq!(args.report_interval, Duration::from_secs(5));
+        assert_eq!(args.duration, Duration::from_secs(60));
         assert_eq!(args.row_size, 1024);
         assert_eq!(args.rows_per_batch, 1000);
         assert_eq!(args.num_tables, 1);
@@ -79,6 +81,10 @@ mod tests {
             "cmd",
             "--project",
             "test-project",
+            "--report-interval",
+            "10s",
+            "--duration",
+            "2m",
             "--row-size",
             "2048",
             "--rows-per-batch",
@@ -93,6 +99,8 @@ mod tests {
             "my_dataset",
         ])?;
         assert_eq!(args.project, "test-project");
+        assert_eq!(args.report_interval, Duration::from_secs(10));
+        assert_eq!(args.duration, Duration::from_secs(120));
         assert_eq!(args.row_size, 2048);
         assert_eq!(args.rows_per_batch, 50);
         assert_eq!(args.num_tables, 3);

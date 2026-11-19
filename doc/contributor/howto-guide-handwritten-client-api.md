@@ -321,8 +321,8 @@ In addition to the
 
 ## Proc-macro crates
 
-See also the "Proc-macro Crates" section in the top-level `GEMINI.md`. These
-rules apply to new proc-macro crates.
+See also the "Proc-macro Crates" section in the top-level
+[`AGENTS.md`](../../AGENTS.md). These rules apply to new proc-macro crates.
 
 - Generated code calls only a `#[doc(hidden)] pub mod __private` module in the
   runtime crate, never the user-facing API. Otherwise every method used by the

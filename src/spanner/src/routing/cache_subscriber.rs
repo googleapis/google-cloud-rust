@@ -28,7 +28,7 @@ use crate::RequestOptions;
 use crate::client::Spanner;
 use crate::database_client::DatabaseClient;
 use crate::google::spanner::v1::CacheUpdate as ProtoCacheUpdate;
-use crate::model::FetchCacheUpdateRequest;
+use crate::model::{CacheUpdate, FetchCacheUpdateRequest};
 use crate::retry_delay::extract_status_code_from_error;
 use crate::retry_policy::SpannerRetryPolicy;
 use crate::routing::cache_updater::CacheUpdater;
@@ -289,7 +289,7 @@ fn build_fetch_request(
 }
 
 fn handle_stream_message(proto_cache_update: ProtoCacheUpdate, cache_updater: &CacheUpdater) {
-    match proto_cache_update.cnv() {
+    match FromProto::<CacheUpdate>::cnv(proto_cache_update) {
         Ok(cache_update) => {
             cache_updater.process_cache_update(cache_update);
         }

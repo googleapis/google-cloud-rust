@@ -979,7 +979,7 @@ pub struct AgentCoachingSuggestion {
 pub mod agent_coaching_suggestion {
     #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct Sources {
-        #[prost(int32, repeated, packed = "false", tag = "2")]
+        #[prost(int32, repeated, tag = "2")]
         pub instruction_indexes: ::prost::alloc::vec::Vec<i32>,
     }
     impl ::prost::Name for Sources {
@@ -2092,7 +2092,7 @@ impl ::prost::Name for Segment {
 pub struct GroundingSupport {
     #[prost(message, optional, tag = "1")]
     pub segment: ::core::option::Option<Segment>,
-    #[prost(int32, repeated, packed = "false", tag = "2")]
+    #[prost(int32, repeated, tag = "2")]
     pub grounding_chunk_indices: ::prost::alloc::vec::Vec<i32>,
 }
 impl ::prost::Name for GroundingSupport {
@@ -2158,12 +2158,7 @@ pub struct Intent {
     pub parameters: ::prost::alloc::vec::Vec<intent::Parameter>,
     #[prost(message, repeated, tag = "14")]
     pub messages: ::prost::alloc::vec::Vec<intent::Message>,
-    #[prost(
-        enumeration = "intent::message::Platform",
-        repeated,
-        packed = "false",
-        tag = "15"
-    )]
+    #[prost(enumeration = "intent::message::Platform", repeated, tag = "15")]
     pub default_response_platforms: ::prost::alloc::vec::Vec<i32>,
     #[prost(string, tag = "16")]
     pub root_followup_intent_name: ::prost::alloc::string::String,

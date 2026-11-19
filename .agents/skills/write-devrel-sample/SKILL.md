@@ -238,7 +238,7 @@ When this passes, clean up the code.
 - Run `cargo fmt -p <service-samples>`.
 - Run
   `cargo clippy -p <service-samples> --all-features --all-targets -- -D warnings`.
-- Look over other things from `GEMINI.md` and `.gemini/styleguide.md`. This
+- Look over other things from `AGENTS.md` and `.gemini/styleguide.md`. This
   applies to the test driver too, not only the sample.
 
 If you make any changes, test the code again.

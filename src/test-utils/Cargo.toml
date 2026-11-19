@@ -36,3 +36,6 @@ tokio                 = { workspace = true, features = ["macros", "rt-multi-thre
 [features]
 # Enable additional logging in the integration tests.
 log-integration-tests = []
+
+[lints]
+workspace = true

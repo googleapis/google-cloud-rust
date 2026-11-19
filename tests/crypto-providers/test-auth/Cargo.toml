@@ -36,3 +36,6 @@ path             = "../../../src/auth"
 
 [features]
 with-default = ["google-cloud-auth/default"]
+
+[lints]
+workspace = true

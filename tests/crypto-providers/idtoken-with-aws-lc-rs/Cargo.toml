@@ -31,3 +31,6 @@ anyhow            = { workspace = true, features = ["std"] }
 jsonwebtoken      = { workspace = true, features = ["aws_lc_rs"] }
 google-cloud-auth = { workspace = true, features = ["idtoken"] }
 test-metadata     = { path = "../test-metadata" }
+
+[lints]
+workspace = true

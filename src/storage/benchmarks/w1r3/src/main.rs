@@ -36,9 +36,9 @@ use google_cloud_storage::Result as StorageResult;
 use google_cloud_storage::client::{Storage, StorageControl};
 use google_cloud_storage::model::Object;
 use google_cloud_storage::retry_policy::RetryableErrors;
-use humantime::parse_duration;
 use instrumented_future::Instrumented;
 use instrumented_retry::DebugRetry;
+use jiff::fmt::friendly::SpanParser;
 use opentelemetry_sdk::trace::SdkTracerProvider;
 use rand::{
     RngExt,
@@ -744,15 +744,15 @@ struct Args {
     max_delete_batch: usize,
 
     /// The maximum time for the retry loop.
-    #[arg(long, value_parser = parse_duration)]
+    #[arg(long, value_parser = |s: &str| SpanParser::new().parse_unsigned_duration(s))]
     retry_timeout: Option<Duration>,
 
     /// The maximum time for each attempt.
-    #[arg(long, value_parser = parse_duration, default_value = "30s")]
+    #[arg(long, value_parser = |s: &str| SpanParser::new().parse_unsigned_duration(s), default_value = "30s")]
     attempt_timeout: Duration,
 
     /// The rampup period between new tasks.
-    #[arg(long, value_parser = parse_duration, default_value = "500ms")]
+    #[arg(long, value_parser = |s: &str| SpanParser::new().parse_unsigned_duration(s), default_value = "500ms")]
     rampup_period: Duration,
 
     /// Sets the number of reads on each object.
@@ -778,4 +778,38 @@ struct Args {
 fn parse_size_arg(arg: &str) -> anyhow::Result<u64> {
     let value = parse_size::parse_size(arg)?;
     Ok(value)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn parse_durations() -> anyhow::Result<()> {
+        let args = Args::try_parse_from(["storage-w1r3", "--bucket-name=bucket"])?;
+        assert_eq!(args.retry_timeout, None);
+        assert_eq!(args.attempt_timeout, Duration::from_secs(30));
+        assert_eq!(args.rampup_period, Duration::from_millis(500));
+
+        let args = Args::try_parse_from([
+            "storage-w1r3",
+            "--bucket-name=bucket",
+            "--retry-timeout=15m",
+            "--attempt-timeout=1m 30s",
+            "--rampup-period=250ms",
+        ])?;
+        assert_eq!(args.retry_timeout, Some(Duration::from_secs(900)));
+        assert_eq!(args.attempt_timeout, Duration::from_secs(90));
+        assert_eq!(args.rampup_period, Duration::from_millis(250));
+
+        assert!(
+            Args::try_parse_from(["storage-w1r3", "--bucket-name=b", "--attempt-timeout=-5s"])
+                .is_err()
+        );
+        assert!(
+            Args::try_parse_from(["storage-w1r3", "--bucket-name=b", "--attempt-timeout=bad"])
+                .is_err()
+        );
+        Ok(())
+    }
 }

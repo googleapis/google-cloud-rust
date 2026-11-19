@@ -15,6 +15,8 @@
 use super::request_options::RequestOptions;
 #[cfg(google_cloud_unstable_storage_bidi)]
 use crate::builder::storage::OpenAppendableObject;
+#[cfg(google_cloud_unstable_storage_parallel_upload)]
+use crate::builder::storage::ParallelUpload;
 use crate::builder::storage::ReadObject;
 #[cfg(google_cloud_unstable_storage_bidi)]
 use crate::builder::storage::ReopenAppendableObject;
@@ -356,6 +358,22 @@ where
             generation,
             self.options.clone(),
         )
+    }
+
+    #[cfg(google_cloud_unstable_storage_parallel_upload)]
+    #[cfg_attr(docsrs, doc(cfg(google_cloud_unstable_storage_parallel_upload)))]
+    /// Starts a parallel upload for an object.
+    ///
+    /// # Parameters
+    /// * `bucket` - the bucket name containing the object. In
+    ///   `projects/_/buckets/{bucket_id}` format.
+    /// * `object` - the object name.
+    pub fn parallel_upload<B, O>(&self, bucket: B, object: O) -> ParallelUpload<S>
+    where
+        B: Into<String>,
+        O: Into<String>,
+    {
+        ParallelUpload::new(self.stub.clone(), bucket, object, self.options.clone())
     }
 }
 

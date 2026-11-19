@@ -917,7 +917,6 @@ pub struct ComputeRouteMatrixRequest {
     #[prost(
         enumeration = "compute_route_matrix_request::ExtraComputation",
         repeated,
-        packed = "false",
         tag = "8"
     )]
     pub extra_computations: ::prost::alloc::vec::Vec<i32>,

@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use clap::{Parser, ValueEnum};
-use humantime::parse_duration;
+use jiff::fmt::friendly::SpanParser;
 use std::path::PathBuf;
 use std::time::Duration;
 
@@ -87,7 +87,7 @@ pub struct Args {
     /// Total runtime duration for the benchmark or endurance test (e.g. "30s", "10m", "2h").
     ///
     /// When set, tasks will continue executing queries until the duration expires.
-    #[arg(long, value_parser = parse_duration)]
+    #[arg(long, value_parser = |s: &str| SpanParser::new().parse_unsigned_duration(s))]
     pub duration: Option<Duration>,
 
     /// The maximum number of rows per page returned from BigQuery.
@@ -103,11 +103,11 @@ pub struct Args {
     pub use_query_cache: bool,
 
     /// Ramp-up delay between spawning subsequent worker tasks to prevent thundering herd.
-    #[arg(long, value_parser = parse_duration, default_value = "250ms")]
+    #[arg(long, value_parser = |s: &str| SpanParser::new().parse_unsigned_duration(s), default_value = "250ms")]
     pub rampup_period: Duration,
 
     /// Timeout for an individual query iteration (including send, until_done, and row streaming).
-    #[arg(long, value_parser = parse_duration, default_value = "120s")]
+    #[arg(long, value_parser = |s: &str| SpanParser::new().parse_unsigned_duration(s), default_value = "120s")]
     pub query_timeout: Duration,
 
     /// Directory where raw CSV samples and summary JSON metrics will be written.
@@ -159,5 +159,26 @@ mod tests {
             "5m",
         ]);
         assert!(args.validate().is_err());
+    }
+
+    #[test]
+    fn test_parse_durations() -> anyhow::Result<()> {
+        let args = Args::try_parse_from(["bigquery-benchmark-queries"])?;
+        assert_eq!(args.duration, None);
+        assert_eq!(args.rampup_period, Duration::from_millis(250));
+        assert_eq!(args.query_timeout, Duration::from_secs(120));
+
+        let args = Args::try_parse_from([
+            "bigquery-benchmark-queries",
+            "--duration=24h",
+            "--rampup-period=1s",
+            "--query-timeout=2m 30s",
+        ])?;
+        assert_eq!(args.duration, Some(Duration::from_secs(86_400)));
+        assert_eq!(args.rampup_period, Duration::from_secs(1));
+        assert_eq!(args.query_timeout, Duration::from_secs(150));
+
+        assert!(Args::try_parse_from(["bigquery-benchmark-queries", "--duration=-1s"]).is_err());
+        Ok(())
     }
 }

@@ -30,12 +30,17 @@ futures.workspace          = true
 google-cloud-auth          = { workspace = true }
 google-cloud-pubsub        = { workspace = true, features = ["default", "unstable-stream"] }
 google-cloud-gax.workspace = true
-google-cloud-test-utils    = { workspace = true }
 google-cloud-wkt.workspace = true
 rand.workspace             = true
 tokio.workspace            = true
 tracing.workspace          = true
 
+[dev-dependencies]
+google-cloud-test-utils = { workspace = true }
+
 [features]
 run-integration-tests     = []
 skipped-integration-tests = []
+
+[lints]
+workspace = true

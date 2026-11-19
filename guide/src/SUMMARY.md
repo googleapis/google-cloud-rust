@@ -17,8 +17,3 @@ limitations under the License.
 # Summary
 
 - [Introduction](introduction.md)
-- [Using Google Cloud Storage](storage.md)
-  - [Speed up large object downloads](storage/striped_downloads.md)
-  - [Use errors to terminate uploads](storage/terminate_uploads.md)
-- [Working with enums](working_with_enums.md)
-- [Troubleshooting](troubleshooting.md)

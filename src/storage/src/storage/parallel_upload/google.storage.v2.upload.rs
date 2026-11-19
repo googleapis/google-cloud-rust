@@ -15,7 +15,7 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateObjectWriteSessionRequest {
     #[prost(message, optional, tag = "1")]
-    pub write_object_spec: ::core::option::Option<WriteObjectSpec>,
+    pub object_write_session_spec: ::core::option::Option<ObjectWriteSessionSpec>,
     #[prost(message, optional, tag = "2")]
     pub common_object_request_params: ::core::option::Option<CommonObjectRequestParams>,
     #[prost(int64, tag = "3")]
@@ -29,6 +29,23 @@ impl ::prost::Name for CreateObjectWriteSessionRequest {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.storage.v2.CreateObjectWriteSessionRequest".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ObjectWriteSessionSpec {
+    #[prost(message, optional, tag = "1")]
+    pub resource: ::core::option::Option<Object>,
+    #[prost(string, tag = "2")]
+    pub predefined_acl: ::prost::alloc::string::String,
+}
+impl ::prost::Name for ObjectWriteSessionSpec {
+    const NAME: &'static str = "ObjectWriteSessionSpec";
+    const PACKAGE: &'static str = "google.storage.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.v2.ObjectWriteSessionSpec".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.v2.ObjectWriteSessionSpec".into()
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]

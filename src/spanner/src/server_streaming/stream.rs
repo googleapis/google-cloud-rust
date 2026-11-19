@@ -186,7 +186,7 @@ where
     ) -> Pin<Box<dyn Future<Output = Option<Result<ProtoMessage>>> + Send + 'a>> {
         Box::pin(async move {
             match self.stream.get_mut().next().await {
-                Some(Ok(message)) => match message.to_proto() {
+                Some(Ok(message)) => match ToProto::<ProtoMessage>::to_proto(message) {
                     Ok(proto_message) => Some(Ok(proto_message)),
                     Err(error) => Some(Err(Error::deser(error))),
                 },

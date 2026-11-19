@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use clap::Parser;
-use humantime::parse_duration;
+use jiff::fmt::friendly::SpanParser;
 use std::time::Duration;
 
 #[derive(Parser, Debug, Clone)]
@@ -24,10 +24,10 @@ use std::time::Duration;
     long_about = "A benchmark tool to evaluate Cloud Pub/Sub publish latency with and without request hedging."
 )]
 pub struct Args {
-    #[arg(long, value_parser = parse_duration, default_value = "5s")]
+    #[arg(long, value_parser = |s: &str| SpanParser::new().parse_unsigned_duration(s), default_value = "5s")]
     pub warmup: Duration,
 
-    #[arg(long, value_parser = parse_duration, default_value = "30s")]
+    #[arg(long, value_parser = |s: &str| SpanParser::new().parse_unsigned_duration(s), default_value = "30s")]
     pub duration: Duration,
 
     #[arg(long, default_value_t = 200, value_parser = clap::value_parser!(u64).range(1..))]
@@ -36,7 +36,7 @@ pub struct Args {
     #[arg(long, default_value_t = false)]
     pub enable_hedging: bool,
 
-    #[arg(long, value_parser = parse_duration, default_value = "100ms")]
+    #[arg(long, value_parser = |s: &str| SpanParser::new().parse_unsigned_duration(s), default_value = "100ms")]
     pub hedge_delay: Duration,
 
     #[arg(long, default_value_t = 50)]
@@ -48,4 +48,28 @@ pub struct Args {
 
 pub fn parse_args() -> Args {
     Args::parse()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn parse_durations() -> anyhow::Result<()> {
+        let args = Args::try_parse_from(["pubsub-hedging"])?;
+        assert_eq!(args.warmup, Duration::from_secs(5));
+        assert_eq!(args.duration, Duration::from_secs(30));
+        assert_eq!(args.hedge_delay, Duration::from_millis(100));
+
+        let args = Args::try_parse_from([
+            "pubsub-hedging",
+            "--warmup=10s",
+            "--duration=2m",
+            "--hedge-delay=50ms",
+        ])?;
+        assert_eq!(args.warmup, Duration::from_secs(10));
+        assert_eq!(args.duration, Duration::from_secs(120));
+        assert_eq!(args.hedge_delay, Duration::from_millis(50));
+        Ok(())
+    }
 }

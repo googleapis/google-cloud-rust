@@ -448,6 +448,8 @@ impl From<Duration> for time::Duration {
     }
 }
 
+/// DEPRECATED: [`chrono` is unmaintained][rustsec].
+///
 /// Converts from [chrono::Duration] to [Duration].
 ///
 /// The conversion may fail if the input value is out of range.
@@ -460,6 +462,8 @@ impl From<Duration> for time::Duration {
 /// assert_eq!(d.nanos(), 340_000_000);
 /// # Ok::<(), DurationError>(())
 /// ```
+///
+/// [rustsec]: https://rustsec.org/advisories/RUSTSEC-2026-0543.html
 #[cfg(feature = "chrono")]
 #[cfg_attr(docsrs, doc(cfg(feature = "chrono")))]
 impl TryFrom<chrono::Duration> for Duration {
@@ -470,6 +474,8 @@ impl TryFrom<chrono::Duration> for Duration {
     }
 }
 
+/// DEPRECATED: [`chrono` is unmaintained][rustsec].
+///
 /// Converts from [Duration] to [chrono::Duration].
 ///
 /// # Example
@@ -480,6 +486,8 @@ impl TryFrom<chrono::Duration> for Duration {
 /// assert_eq!(d.subsec_nanos(), 340_000_000);
 /// # Ok::<(), DurationError>(())
 /// ```
+///
+/// [rustsec]: https://rustsec.org/advisories/RUSTSEC-2026-0543.html
 #[cfg(feature = "chrono")]
 #[cfg_attr(docsrs, doc(cfg(feature = "chrono")))]
 impl From<Duration> for chrono::Duration {

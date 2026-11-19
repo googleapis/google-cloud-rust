@@ -3,7 +3,7 @@ name: fix-issue
 description: >-
   Use this skill to prepare a plan and implement a fix for an issue in google-cloud-rust
   (e.g., https://github.com/googleapis/google-cloud-rust/issues/NNNN or issue number NNNN).
-  Enforces worktree isolation, adherence to GEMINI.md in google-cloud-rust and AGENTS.md in librarian,
+  Enforces worktree isolation, adherence to AGENTS.md in google-cloud-rust and librarian,
   subagent PR review for librarian changes, a two-commit rule when code generator changes are involved,
   and commit titles strictly under 50 characters.
 ---
@@ -19,7 +19,7 @@ It enforces:
 1. **Worktree & Branch Isolation**: Always work in a dedicated worktree and
    branch.
 1. **Project Guidelines**:
-   - Follow [`GEMINI.md`](../../../GEMINI.md) and
+   - Follow [`AGENTS.md`](../../../AGENTS.md) and
      [`CONTRIBUTING.md`](../../../CONTRIBUTING.md) in `google-cloud-rust`.
    - Follow `AGENTS.md` in `librarian` whenever generator changes are involved.
 1. **Subagent Code Review**: Use a subagent to run the `review-pr` skill on
@@ -118,7 +118,7 @@ artifact adhering to the Jetski `/plan` standard.
 #### Key Guidelines to Follow:
 
 - **`google-cloud-rust` Rules**: Strictly follow
-  [`GEMINI.md`](../../../GEMINI.md) and
+  [`AGENTS.md`](../../../AGENTS.md) and
   [`CONTRIBUTING.md`](../../../CONTRIBUTING.md):
   - **Formatting**: Must pass `cargo fmt --check`.
   - **Spell checking**: Must pass `typos`.
