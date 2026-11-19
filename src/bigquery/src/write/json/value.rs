@@ -20,12 +20,13 @@ use prost_reflect::Value;
 use serde::de::{self, DeserializeSeed, Deserializer, MapAccess, SeqAccess, Visitor};
 use std::fmt;
 
-/// Encodes one column's JSON value into a [`prost_reflect::Value`], returning
-/// `Ok(None)` when the JSON token is `null`.
+/// Encodes a single JSON value for a [`Column`] into a [`prost_reflect::Value`],
+/// returning `Ok(None)` when the JSON token is `null`.
 ///
 /// Every `serde_json` token callback is overridden so type mismatches report
 /// only the field name and expected BigQuery type, never quoting input values
 /// via `serde`'s default visitor errors.
+#[derive(Debug)]
 pub(super) struct ValueEncoder<'a>(pub(super) &'a Column);
 
 impl ValueEncoder<'_> {
@@ -70,12 +71,12 @@ impl<'de> Visitor<'de> for ValueEncoder<'_> {
 
     fn visit_str<E: de::Error>(self, v: &str) -> Result<Self::Value, E> {
         if v.eq_ignore_ascii_case("true") {
-            Ok(Some(Value::Bool(true)))
-        } else if v.eq_ignore_ascii_case("false") {
-            Ok(Some(Value::Bool(false)))
-        } else {
-            self.invalid_value()
+            return Ok(Some(Value::Bool(true)));
         }
+        if v.eq_ignore_ascii_case("false") {
+            return Ok(Some(Value::Bool(false)));
+        }
+        self.invalid_value()
     }
 
     fn visit_i64<E: de::Error>(self, _: i64) -> Result<Self::Value, E> {
@@ -112,14 +113,17 @@ mod tests {
     use super::*;
     use crate::model::{TableFieldSchema, TableSchema};
     use crate::write::schema::{build_message_descriptor, table_schema_to_descriptor};
+    use anyhow::Context;
 
-    fn encode(name: &str, r#type: Type, json: &str) -> Result<Option<Value>, serde_json::Error> {
+    fn column_map(name: &str, r#type: Type) -> anyhow::Result<ColumnMap> {
         let schema = TableSchema::new()
             .set_fields([TableFieldSchema::new().set_name(name).set_type(r#type)]);
-        let proto = table_schema_to_descriptor(&schema).expect("valid schema");
-        let root = build_message_descriptor(proto).expect("valid descriptor");
-        let map = ColumnMap::new(&root, &schema.fields);
-        let col = map.get(name).expect("column present");
+        let proto = table_schema_to_descriptor(&schema)?;
+        let root = build_message_descriptor(proto)?;
+        Ok(ColumnMap::new(&root, &schema.fields))
+    }
+
+    fn encode(col: &Column, json: &str) -> Result<Option<Value>, serde_json::Error> {
         let mut de = serde_json::Deserializer::from_str(json);
         let v = ValueEncoder(col).deserialize(&mut de)?;
         de.end()?;
@@ -127,7 +131,9 @@ mod tests {
     }
 
     #[test]
-    fn bool_values() {
+    fn bool_values() -> anyhow::Result<()> {
+        let map = column_map("flag", Type::Bool)?;
+        let col = map.get("flag").context("column present")?;
         for (json, want) in [
             ("true", Some(Value::Bool(true))),
             ("false", Some(Value::Bool(false))),
@@ -135,14 +141,19 @@ mod tests {
             (r#""false""#, Some(Value::Bool(false))),
             (r#""TRUE""#, Some(Value::Bool(true))),
             (r#""False""#, Some(Value::Bool(false))),
+            (r#""\u0074rue""#, Some(Value::Bool(true))),
             ("null", None),
         ] {
-            assert_eq!(encode("flag", Type::Bool, json).unwrap(), want, "{json}");
+            let got = encode(col, json).context(json)?;
+            assert_eq!(got, want, "{json}");
         }
+        Ok(())
     }
 
     #[test]
-    fn bool_rejects_invalid_values() {
+    fn bool_rejects_invalid_values() -> anyhow::Result<()> {
+        let map = column_map("flag", Type::Bool)?;
+        let col = map.get("flag").context("column present")?;
         for json in [
             r#""secret_pii""#,
             r#""fal\u017fe""#,
@@ -153,7 +164,7 @@ mod tests {
             r#"["secret_pii"]"#,
             r#"{"secret_pii": true}"#,
         ] {
-            let err = encode("flag", Type::Bool, json).unwrap_err();
+            let err = encode(col, json).expect_err(json);
             assert!(err.is_data(), "{json}: {err}");
             let msg = err.to_string();
             assert!(
@@ -164,18 +175,22 @@ mod tests {
         }
 
         for bad_syntax in ["{bad}", "[1,"] {
-            let err = encode("flag", Type::Bool, bad_syntax).unwrap_err();
+            let err = encode(col, bad_syntax).expect_err(bad_syntax);
             assert!(!err.is_data(), "{bad_syntax}: {err}");
         }
+        Ok(())
     }
 
     #[test]
-    fn unsupported_type() {
-        let err = encode("id", Type::Int64, "42").unwrap_err();
+    fn unsupported_type() -> anyhow::Result<()> {
+        let map = column_map("id", Type::Int64)?;
+        let col = map.get("id").context("column present")?;
+        let err = encode(col, "42").expect_err("unsupported type should fail");
         assert!(
             err.to_string()
                 .starts_with("unsupported type 'INT64' for field 'id'"),
             "{err}"
         );
+        Ok(())
     }
 }
