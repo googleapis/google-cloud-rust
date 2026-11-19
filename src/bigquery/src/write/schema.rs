@@ -24,7 +24,11 @@ mod error;
 mod field;
 mod reflect;
 
+#[cfg_attr(not(test), expect(unused_imports))]
+pub(crate) use descriptor::table_schema_to_descriptor;
 pub(crate) use error::{SchemaError, SchemaErrorKind};
+#[cfg_attr(not(test), expect(unused_imports))]
+pub(crate) use reflect::build_message_descriptor;
 
 /// Shared `TableFieldSchema` builders for `write::schema` unit tests.
 #[cfg(test)]

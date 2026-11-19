@@ -26,7 +26,7 @@ use crate::model::Message;
 use crate::{Error, Result};
 use futures::FutureExt;
 use futures::future::{BoxFuture, Shared};
-use gaxi::prost::FromProto as _;
+use gaxi::prost::FromProto;
 use google_cloud_gax::retry_result::RetryResult;
 use std::collections::VecDeque;
 use std::sync::Arc;
@@ -387,7 +387,7 @@ impl MessageStreamImpl {
                 ack_id: rm.ack_id,
                 lease_info,
             });
-            let message = match message.cnv().map_err(Error::deser) {
+            let message = match FromProto::<Message>::cnv(message).map_err(Error::deser) {
                 Ok(message) => message,
                 Err(e) => return Some(Err(e)),
             };

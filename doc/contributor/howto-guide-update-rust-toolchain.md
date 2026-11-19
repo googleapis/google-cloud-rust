@@ -106,16 +106,22 @@ release date** (checked automatically weekly by
 `.github/workflows/rust-toolchain-check.yaml` or manually at
 [releases.rs](https://releases.rs/)).
 
-To bump the MSRV, update `rust-version` in `Cargo.toml`.
-
-Then search for the current MSRV version number across the repository and update
-it everywhere else it is used (escape the dot, e.g., using the actual current
-MSRV instead of 1.XX):
+To bump the MSRV, run the automated script from the repository root:
 
 ```bash
-git grep -n "1\.XX\.0"
-git grep -n "1\.XX"
+./scripts/bump-msrv.sh
 ```
+
+The script will:
+
+1. Calculate the eligible MSRV under the 1-year policy from `RELEASES.md` (or
+   accept an explicit version argument, e.g. `./scripts/bump-msrv.sh 1.XX.0`).
+1. Update the MSRV across `Cargo.toml`, `.clippy.toml`, `.gcb/msrv.yaml`,
+   `README.md`, and
+   `doc/contributor/howto-guide-set-up-development-environment.md`, and verify
+   each file was updated.
+1. Run clippy verification (since bumping `msrv` in `.clippy.toml` can enable
+   newer MSRV-gated lints).
 
 Submit a PR with the MSRV update:
 

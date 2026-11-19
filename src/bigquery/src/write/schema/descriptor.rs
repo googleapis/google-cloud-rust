@@ -33,7 +33,7 @@ use wkt::{DescriptorProto, FieldDescriptorProto};
 ///
 /// Each `STRUCT` or `RANGE` column becomes a message field with type defined in
 /// `root.nested_type`.
-pub(super) fn table_schema_to_descriptor(
+pub(crate) fn table_schema_to_descriptor(
     schema: &TableSchema,
 ) -> Result<DescriptorProto, SchemaError> {
     let mut nested = NestedTypes::new(&schema.fields);

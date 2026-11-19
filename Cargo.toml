@@ -420,7 +420,6 @@ members = [
 [workspace.package]
 edition      = "2024"
 authors      = ["Google LLC"]
-description  = "Google Cloud Client Libraries for Rust"
 license      = "Apache-2.0"
 repository   = "https://github.com/googleapis/google-cloud-rust/tree/main"
 keywords     = ["gcp", "google-cloud", "google-cloud-rust", "sdk"]
@@ -530,7 +529,6 @@ md5               = { default-features = false, version = "0.8" }
 mockall           = { default-features = false, version = "0.15" }
 multer            = { default-features = false, version = "3" }
 mutants           = { default-features = false, version = "0.0.4" }
-once_cell         = { default-features = false, version = "1.19.0" }
 pastey            = { default-features = false, version = "0.2.3" }
 pretty_assertions = { default-features = false, version = "1.4.1", features = ["alloc"] }
 proc-macro2       = { default-features = false, version = "1.0.106" }
@@ -617,15 +615,19 @@ secretmanager-openapi-v1             = { default-features = false, path = "src/g
 # Local test packages (never add a version)
 google-cloud-test-macros  = { path = "src/test-macros" }
 google-cloud-test-utils   = { default-features = false, path = "src/test-utils" }
-integration-tests         = { path = "tests/integration" }
 integration-tests-o11y    = { default-features = false, path = "tests/o11y" }
 integration-tests-spanner = { path = "tests/spanner" }
 bigquery-samples          = { path = "src/bigquery/examples" }
 pubsub-grpc-mock          = { path = "src/pubsub/grpc-mock" }
 pubsub-samples            = { path = "src/pubsub/examples" }
-spanner-samples           = { path = "src/spanner/examples" }
 storage-grpc-mock         = { path = "src/storage/grpc-mock" }
 storage-samples           = { path = "src/storage/examples" }
+
+[workspace.lints.cargo]
+# `unused_dependencies` produces false positives for dependencies only used in
+# doctests (such as `anyhow` across generated crates), behind `#[cfg(...)]`
+# flags, or for feature-activation tests.
+unused_dependencies = "allow"
 
 [workspace.lints.rust]
 unexpected_cfgs = { level = "deny", check-cfg = [

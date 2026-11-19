@@ -20,6 +20,6 @@
 # Only the minor version is pinned, so `rustup update` picks up patch releases
 # without changes to this file.
 [toolchain]
-channel    = "1.99"
+channel    = "1.100"
 components = ["clippy", "rustfmt"]
 profile    = "minimal"
