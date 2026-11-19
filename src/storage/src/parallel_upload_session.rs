@@ -16,7 +16,7 @@
 
 use crate::model::Object;
 use crate::model_ext::{AbortSessionResponse, Segment};
-use crate::storage::parallel_upload::segment_payload::SegmentPayload;
+pub use crate::storage::parallel_upload::segment_payload::SegmentPayload;
 use crate::storage::parallel_upload::stub::dynamic::ParallelUploadSession as ParallelUploadSessionStub;
 use crate::streaming_source::{Payload, Seek, StreamingSource};
 use std::sync::Arc;
@@ -75,9 +75,17 @@ impl ParallelUploadSession {
         self.inner.abort().await
     }
 
-    #[allow(dead_code)]
-    pub(crate) fn from_dynamic(inner: Arc<dyn ParallelUploadSessionStub>) -> Self {
-        Self { inner }
+    /// Creates a new instance from a stub implementation.
+    ///
+    /// Application developers should only need to create a `ParallelUploadSession`
+    /// in unit tests.
+    pub fn new<T>(inner: T) -> Self
+    where
+        T: crate::stub::ParallelUploadSession + 'static,
+    {
+        Self {
+            inner: Arc::new(inner),
+        }
     }
 
     #[allow(dead_code)]
@@ -97,8 +105,7 @@ mod tests {
         #[derive(Debug)]
         Session {}
 
-        #[async_trait::async_trait]
-        impl ParallelUploadSessionStub for Session {
+        impl crate::stub::ParallelUploadSession for Session {
             fn name(&self) -> &str;
             fn segment_size_bytes(&self) -> u64;
             async fn write_segment(
@@ -123,13 +130,12 @@ mod tests {
 
         let mut mock = MockSession::new();
         mock.expect_write_segment().returning(|num, _| {
-            Ok(Segment {
-                name: format!("seg-{num}"),
-                size_bytes: 5,
-                segment_crc32c: 123,
-            })
+            Ok(Segment::new()
+                .set_name(format!("seg-{num}"))
+                .set_size_bytes(5)
+                .set_segment_crc32c(123))
         });
-        let session = ParallelUploadSession::from_dynamic(Arc::new(mock));
+        let session = ParallelUploadSession::new(mock);
         assert_static(&session);
 
         let write_fut = session.write_segment(1, "hello");
@@ -161,18 +167,17 @@ mod tests {
             .withf(|num, _| *num == 1)
             .returning(move |_, payload| {
                 *captured.lock().expect("never poisoned") = Some(payload);
-                Ok(Segment {
-                    name: "projects/_/buckets/b/objectWriteSessions/s1/segments/1".into(),
-                    size_bytes: 11,
-                    segment_crc32c: 99,
-                })
+                Ok(Segment::new()
+                    .set_name("projects/_/buckets/b/objectWriteSessions/s1/segments/1")
+                    .set_size_bytes(11)
+                    .set_segment_crc32c(99))
             });
         mock.expect_finalize()
             .returning(|| Ok(Object::new().set_name("obj").set_size(11)));
         mock.expect_abort()
-            .returning(|| Ok(AbortSessionResponse::default()));
+            .returning(|| Ok(AbortSessionResponse::new()));
 
-        let session = ParallelUploadSession::from_dynamic(Arc::new(mock));
+        let session = ParallelUploadSession::new(mock);
         assert_eq!(
             session.name(),
             "projects/_/buckets/b/objectWriteSessions/s1"
@@ -199,7 +204,7 @@ mod tests {
         assert_eq!(obj.size, 11);
 
         let abort_resp = session.abort().await?;
-        assert_eq!(abort_resp, AbortSessionResponse::default());
+        assert_eq!(abort_resp, AbortSessionResponse::new());
         let _ = session.into_parts();
         Ok(())
     }

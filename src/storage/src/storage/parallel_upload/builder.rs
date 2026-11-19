@@ -232,16 +232,12 @@ where
     ///
     /// # Panics
     ///
-    /// Panics because session creation is not implemented yet.
+    /// Panics with the default transport until session creation is implemented.
     pub async fn create_session(self) -> Result<ParallelUploadSession> {
-        let _ = (
-            self.stub,
-            self.request,
-            self.max_concurrency,
-            self.enable_hedging,
-            self.options,
-        );
-        unimplemented!("not implemented yet")
+        let _ = (self.max_concurrency, self.enable_hedging);
+        self.stub
+            .create_object_write_session(self.request, self.options)
+            .await
     }
 }
 
