@@ -647,11 +647,21 @@ impl ClientBuilder {
 
     /// Configure the timeout for each read from an HTTP connection.
     ///
-    /// The timeout resets after every successful read, so it bounds how long
-    /// a stalled transfer waits for data, without limiting the total duration
-    /// of large downloads. By default there is no read timeout. This only
-    /// applies to requests made over HTTP, such as
-    /// [read_object][Storage::read_object] and
+    /// For downloads via [read_object][Storage::read_object], the timeout
+    /// resets after every successful read, so it bounds how long a stalled
+    /// transfer waits for data, without limiting the total duration of large
+    /// downloads.
+    ///
+    /// For uploads via [write_object][Storage::write_object], the timer starts
+    /// when a request is sent and does not reset until response headers arrive.
+    /// Because the service only sends response headers after receiving the
+    /// request body, this bounds the entire upload duration of a
+    /// [send_unbuffered()][crate::builder::storage::WriteObject::send_unbuffered]
+    /// request (or each buffered chunk in
+    /// [send_buffered()][crate::builder::storage::WriteObject::send_buffered]).
+    ///
+    /// By default there is no read timeout. This only applies to requests
+    /// made over HTTP, such as [read_object][Storage::read_object] and
     /// [write_object][Storage::write_object].
     ///
     /// # Example
