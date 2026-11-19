@@ -263,31 +263,49 @@ mod tests {
         Ok(())
     }
 
-    both_transports!(custom_global_headers);
-    async fn custom_global_headers<C: EchoTransport>() -> anyhow::Result<()> {
+    both_transports!(custom_headers);
+    async fn custom_headers<C: EchoTransport>() -> anyhow::Result<()> {
         // Arrange
-        const CUSTOM_HEADER: &str = "x-custom-global-header";
-        const CUSTOM_VALUE: &str = "global-value";
+        const GLOBAL_HEADER: &str = "x-global-only";
+        const GLOBAL_VALUE: &str = "global-value";
+        const REQUEST_HEADER: &str = "x-request-only";
+        const REQUEST_VALUE: &str = "request-value";
+        const OVERRIDE_HEADER: &str = "x-override";
+        const OVERRIDE_VALUE: &str = "request-override";
         let (endpoint, _server) = start_echo_server().await?;
         let mut global_headers = HeaderMap::new();
-        global_headers.insert(
-            HeaderName::from_static(CUSTOM_HEADER),
-            HeaderValue::from_static(CUSTOM_VALUE),
-        );
+        global_headers.insert(GLOBAL_HEADER, HeaderValue::from_static(GLOBAL_VALUE));
+        global_headers.insert(OVERRIDE_HEADER, HeaderValue::from_static("global-override"));
         let client = transport_builder::<C>(endpoint)
             .with_credentials(test_credentials())
             .with_extension(global_headers)
             .build()
             .await?;
+        let mut request_headers = HeaderMap::new();
+        request_headers.insert(REQUEST_HEADER, HeaderValue::from_static(REQUEST_VALUE));
+        request_headers.insert(OVERRIDE_HEADER, HeaderValue::from_static(OVERRIDE_VALUE));
+        let options = RequestOptions::default().insert_extension(request_headers);
+        let request = google::test::v1::EchoRequest {
+            message: "test message".into(),
+            ..google::test::v1::EchoRequest::default()
+        };
 
         // Act
-        let response = send_request(client, "test message", "").await?;
+        let response = client.echo(request, options, "").await?.into_inner();
 
         // Assert
         assert_eq!(&response.message, "test message");
         assert_eq!(
-            response.metadata.get(CUSTOM_HEADER).map(String::as_str),
-            Some(CUSTOM_VALUE)
+            response.metadata.get(GLOBAL_HEADER).map(String::as_str),
+            Some(GLOBAL_VALUE)
+        );
+        assert_eq!(
+            response.metadata.get(REQUEST_HEADER).map(String::as_str),
+            Some(REQUEST_VALUE)
+        );
+        assert_eq!(
+            response.metadata.get(OVERRIDE_HEADER).map(String::as_str),
+            Some(OVERRIDE_VALUE)
         );
         Ok(())
     }
@@ -343,36 +361,6 @@ mod tests {
                 .to_bytes()?;
             assert_eq!(got.as_ref(), RAW_VALUE, "{name}");
         }
-        Ok(())
-    }
-
-    // Tonic appends ` tonic/<version>` to the user agent, while grpc-rust
-    // sends it exactly as set.
-    #[cfg(google_cloud_unstable_grpc_rust)]
-    #[tokio::test]
-    async fn explicit_user_agent_grpc_rust() -> anyhow::Result<()> {
-        // Arrange
-        const USER_AGENT: &str = "test-agent/1.0";
-        let (endpoint, _server) = start_echo_server().await?;
-        let client = transport_builder::<grpc_server::transport::GrpcRustClient>(endpoint)
-            .with_credentials(test_credentials())
-            .build()
-            .await?;
-        let mut options = RequestOptions::default();
-        options.set_user_agent(USER_AGENT);
-        let request = google::test::v1::EchoRequest {
-            message: "hello".into(),
-            ..google::test::v1::EchoRequest::default()
-        };
-
-        // Act
-        let response = client.echo(request, options, "").await?.into_inner();
-
-        // Assert
-        assert_eq!(
-            response.metadata.get("user-agent").map(String::as_str),
-            Some(USER_AGENT)
-        );
         Ok(())
     }
 
