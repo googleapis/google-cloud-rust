@@ -2136,13 +2136,11 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/GetProjectIntelligenceConfig",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -2197,14 +2195,12 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/UpdateProjectIntelligenceConfig",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .and_then(|m| m.intelligence_config.as_ref())
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("intelligence_config.name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("intelligence_config.name", v))]);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -2265,13 +2261,11 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/GetFolderIntelligenceConfig",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -2326,14 +2320,12 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/UpdateFolderIntelligenceConfig",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .and_then(|m| m.intelligence_config.as_ref())
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("intelligence_config.name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("intelligence_config.name", v))]);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -2391,13 +2383,11 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/GetOrganizationIntelligenceConfig",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -2455,14 +2445,12 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/UpdateOrganizationIntelligenceConfig",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .and_then(|m| m.intelligence_config.as_ref())
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("intelligence_config.name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("intelligence_config.name", v))]);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -2868,13 +2856,11 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/GetIntelligenceFinding",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = crate::google::storage::control::v2::IntelligenceFinding;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -2927,13 +2913,11 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/ListIntelligenceFindings",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.parent)
             .map(|s| s.as_str())
-            .map(|v| format!("parent={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("parent", v))]);
 
         type TR = crate::google::storage::control::v2::ListIntelligenceFindingsResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -2988,13 +2972,11 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/SummarizeIntelligenceFindings",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.parent)
             .map(|s| s.as_str())
-            .map(|v| format!("parent={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("parent", v))]);
 
         type TR = crate::google::storage::control::v2::SummarizeIntelligenceFindingsResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -3049,13 +3031,11 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/GetIntelligenceFindingRevision",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = crate::google::storage::control::v2::IntelligenceFindingRevision;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -3110,13 +3090,11 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/ListIntelligenceFindingRevisions",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.parent)
             .map(|s| s.as_str())
-            .map(|v| format!("parent={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("parent", v))]);
 
         type TR = crate::google::storage::control::v2::ListIntelligenceFindingRevisionsResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -3273,13 +3251,11 @@ impl super::stub::StorageControl for StorageControl {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.longrunning.Operations/GetOperation");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = crate::google::longrunning::Operation;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {

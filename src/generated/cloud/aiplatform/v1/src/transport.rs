@@ -126936,13 +126936,11 @@ impl super::stub::FeaturestoreOnlineServingService for FeaturestoreOnlineServing
         options: crate::RequestOptions,
     ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::ReadFeatureValuesResponse>>
     {
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.entity_type)
             .map(|s| s.as_str())
-            .map(|v| format!("entity_type={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("entity_type", v))]);
 
         let extensions = {
             let mut e = gaxi::grpc::tonic::Extensions::new();
@@ -383644,13 +383642,11 @@ impl super::stub::PredictionService for PredictionService {
         options: crate::RequestOptions,
     ) -> Result<google_cloud_gax::streaming::ResponseStream<google_cloud_api::model::HttpBody>>
     {
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.endpoint)
             .map(|s| s.as_str())
-            .map(|v| format!("endpoint={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("endpoint", v))]);
 
         let extensions = {
             let mut e = gaxi::grpc::tonic::Extensions::new();
@@ -383943,13 +383939,11 @@ impl super::stub::PredictionService for PredictionService {
         options: crate::RequestOptions,
     ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::StreamingPredictResponse>>
     {
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.endpoint)
             .map(|s| s.as_str())
-            .map(|v| format!("endpoint={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("endpoint", v))]);
 
         let extensions = {
             let mut e = gaxi::grpc::tonic::Extensions::new();
@@ -384265,13 +384259,11 @@ impl super::stub::PredictionService for PredictionService {
         options: crate::RequestOptions,
     ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::GenerateContentResponse>>
     {
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.model)
             .map(|s| s.as_str())
-            .map(|v| format!("model={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("model", v))]);
 
         let extensions = {
             let mut e = gaxi::grpc::tonic::Extensions::new();
@@ -399638,13 +399630,11 @@ impl super::stub::ReasoningEngineExecutionService for ReasoningEngineExecutionSe
         options: crate::RequestOptions,
     ) -> Result<google_cloud_gax::streaming::ResponseStream<google_cloud_api::model::HttpBody>>
     {
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         let extensions = {
             let mut e = gaxi::grpc::tonic::Extensions::new();
@@ -479812,13 +479802,11 @@ impl super::stub::TensorboardService for TensorboardService {
     ) -> Result<
         google_cloud_gax::streaming::ResponseStream<crate::model::ReadTensorboardBlobDataResponse>,
     > {
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.time_series)
             .map(|s| s.as_str())
-            .map(|v| format!("time_series={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("time_series", v))]);
 
         let extensions = {
             let mut e = gaxi::grpc::tonic::Extensions::new();

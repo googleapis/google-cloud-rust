@@ -3007,13 +3007,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
     ) -> Result<
         google_cloud_gax::streaming::ResponseStream<crate::model::ConversationalSearchResponse>,
     > {
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.placement)
             .map(|s| s.as_str())
-            .map(|v| format!("placement={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("placement", v))]);
 
         let extensions = {
             let mut e = gaxi::grpc::tonic::Extensions::new();

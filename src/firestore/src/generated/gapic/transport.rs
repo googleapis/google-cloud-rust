@@ -85,13 +85,11 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/GetDocument");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = crate::google::firestore::v1::Document;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -133,19 +131,18 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/ListDocuments");
-        let x_goog_request_params = [
+        let x_goog_request_params = gaxi::routing_parameter::format(&[
             Some(&req)
                 .map(|m| &m.parent)
                 .map(|s| s.as_str())
-                .map(|v| format!("parent={v}")),
+                .filter(|v| !v.is_empty())
+                .map(|v| ("parent", v)),
             Some(&req)
                 .map(|m| &m.collection_id)
                 .map(|s| s.as_str())
-                .map(|v| format!("collection_id={v}")),
-        ]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+                .filter(|v| !v.is_empty())
+                .map(|v| ("collection_id", v)),
+        ]);
 
         type TR = crate::google::firestore::v1::ListDocumentsResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -187,14 +184,12 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/UpdateDocument");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .and_then(|m| m.document.as_ref())
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("document.name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("document.name", v))]);
 
         type TR = crate::google::firestore::v1::Document;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -236,13 +231,11 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/DeleteDocument");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = ();
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -281,13 +274,11 @@ impl super::stub::Firestore for Firestore {
         let path = http::uri::PathAndQuery::from_static(
             "/google.firestore.v1.Firestore/BatchGetDocuments",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.database)
             .map(|s| s.as_str())
-            .map(|v| format!("database={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("database", v))]);
 
         self.inner
             .execute_server_streaming::<
@@ -326,13 +317,11 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/BeginTransaction");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.database)
             .map(|s| s.as_str())
-            .map(|v| format!("database={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("database", v))]);
 
         type TR = crate::google::firestore::v1::BeginTransactionResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -370,13 +359,11 @@ impl super::stub::Firestore for Firestore {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/Commit");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.database)
             .map(|s| s.as_str())
-            .map(|v| format!("database={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("database", v))]);
 
         type TR = crate::google::firestore::v1::CommitResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -414,13 +401,11 @@ impl super::stub::Firestore for Firestore {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/Rollback");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.database)
             .map(|s| s.as_str())
-            .map(|v| format!("database={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("database", v))]);
 
         type TR = ();
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -456,13 +441,11 @@ impl super::stub::Firestore for Firestore {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/RunQuery");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.parent)
             .map(|s| s.as_str())
-            .map(|v| format!("parent={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("parent", v))]);
 
         self.inner
             .execute_server_streaming::<
@@ -499,13 +482,11 @@ impl super::stub::Firestore for Firestore {
         let path = http::uri::PathAndQuery::from_static(
             "/google.firestore.v1.Firestore/RunAggregationQuery",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.parent)
             .map(|s| s.as_str())
-            .map(|v| format!("parent={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("parent", v))]);
 
         self.inner
             .execute_server_streaming::<
@@ -544,13 +525,11 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/PartitionQuery");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.parent)
             .map(|s| s.as_str())
-            .map(|v| format!("parent={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("parent", v))]);
 
         type TR = crate::google::firestore::v1::PartitionQueryResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -661,13 +640,11 @@ impl super::stub::Firestore for Firestore {
         let path = http::uri::PathAndQuery::from_static(
             "/google.firestore.v1.Firestore/ListCollectionIds",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.parent)
             .map(|s| s.as_str())
-            .map(|v| format!("parent={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("parent", v))]);
 
         type TR = crate::google::firestore::v1::ListCollectionIdsResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -709,13 +686,11 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/BatchWrite");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.database)
             .map(|s| s.as_str())
-            .map(|v| format!("database={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("database", v))]);
 
         type TR = crate::google::firestore::v1::BatchWriteResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -757,19 +732,18 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/CreateDocument");
-        let x_goog_request_params = [
+        let x_goog_request_params = gaxi::routing_parameter::format(&[
             Some(&req)
                 .map(|m| &m.parent)
                 .map(|s| s.as_str())
-                .map(|v| format!("parent={v}")),
+                .filter(|v| !v.is_empty())
+                .map(|v| ("parent", v)),
             Some(&req)
                 .map(|m| &m.collection_id)
                 .map(|s| s.as_str())
-                .map(|v| format!("collection_id={v}")),
-        ]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+                .filter(|v| !v.is_empty())
+                .map(|v| ("collection_id", v)),
+        ]);
 
         type TR = crate::google::firestore::v1::Document;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
