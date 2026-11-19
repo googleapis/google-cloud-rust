@@ -415,12 +415,16 @@ In addition to the
 See also the "Proc-macro Crates" section in the top-level
 [`AGENTS.md`](../../AGENTS.md). These rules apply to new proc-macro crates.
 
-- **100% `__private` hygiene:** Every path emitted by generated code—including
-  trait paths in `impl` headers, return/error types, and constructors—goes
-  through `#[doc(hidden)] pub mod __private` in the runtime crate, never its
-  user-facing modules. Otherwise every item referenced by the macro is frozen,
-  and `cargo-semver-checks` cannot detect violations. Add a compile-only
-  contract test in a module with zero user-facing imports in scope.
+- **Prefer the public API over `__private`:** Prefer to offer a simple,
+  maintainable public API surface and use it in the implementation emitted by
+  the macro. Only resort to a `#[doc(hidden)] pub mod __private` module in the
+  runtime crate if you absolutely have to, keeping in mind that
+  `cargo-semver-checks` cannot detect breaking changes to items referenced by
+  generated code (whether public or hidden).
+- **Path hygiene:** Emit fully-qualified paths (`::std::...`,
+  `::google_cloud_<service>::...`) in generated code so callers do not need
+  traits or types in scope, and add compile-only contract tests covering
+  zero-import invocation and shadowed prelude names.
 - **Ambiguity is an error:** Reject duplicate field names, direct-vs-`flatten`
   prefix collisions, and pairwise `flatten`-vs-`flatten` prefix overlaps
   (`p1 == p2` or `p1.starts_with(&format!("{p2}."))`) at compile time, and

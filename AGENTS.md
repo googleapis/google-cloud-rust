@@ -244,11 +244,12 @@ cargo fmt -p google-cloud-storage
   breaking change: take a breaking version bump of both the proc-macro crate and
   `google-cloud-bigquery`, by hand (librarian defaults to non-breaking bumps).
   Comment-only or formatting edits need the label but no bump.
-- In new proc-macro crates, **every** path emitted by generated code—including
-  trait paths in `impl` headers, return/error types, and constructors—must
-  resolve through `#[doc(hidden)] pub mod __private` in the runtime crate, never
-  its user-facing modules. Include a contract test in a module with no
-  user-facing imports in scope to verify hygiene.
+- In new proc-macro crates, prefer to offer a simple, maintainable public API
+  surface in the runtime crate and use it in the implementation emitted by the
+  macro; only resort to a `#[doc(hidden)] pub mod __private` module if you
+  absolutely have to. Emitted code must use fully-qualified paths so callers do
+  not need traits or types in scope; include contract tests with no imports in
+  scope and shadowed prelude names to verify hygiene.
 - Reject ambiguous input as an error instead of resolving it silently: check
   direct field collisions, direct-vs-`flatten` prefix collisions, and pairwise
   `flatten`-vs-`flatten` prefix overlaps (`p1 == p2` or
