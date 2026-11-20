@@ -37,7 +37,7 @@ mod info {
 /// Implements [StorageControl](super::stub::StorageControl) using a gRPC client.
 #[derive(Clone)]
 pub struct StorageControl {
-    inner: gaxi::grpc::Client,
+    pub(crate) inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for StorageControl {

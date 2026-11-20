@@ -37,7 +37,7 @@ mod info {
 /// Implements [Firestore](super::stub::Firestore) using a gRPC client.
 #[derive(Clone)]
 pub struct Firestore {
-    inner: gaxi::grpc::Client,
+    pub(crate) inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for Firestore {

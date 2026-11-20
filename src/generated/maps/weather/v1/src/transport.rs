@@ -54,7 +54,7 @@ impl super::stub::Weather for Weather {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/currentConditions:lookup".to_string();
                 let path_template = "/v1/currentConditions:lookup";
@@ -92,7 +92,7 @@ impl super::stub::Weather for Weather {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.maps.weather.v1.Weather/LookupCurrentConditions")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -115,7 +115,7 @@ impl super::stub::Weather for Weather {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/forecast/hours:lookup".to_string();
                 let path_template = "/v1/forecast/hours:lookup";
@@ -159,7 +159,7 @@ impl super::stub::Weather for Weather {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.maps.weather.v1.Weather/LookupForecastHours")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -182,7 +182,7 @@ impl super::stub::Weather for Weather {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/forecast/days:lookup".to_string();
                 let path_template = "/v1/forecast/days:lookup";
@@ -226,7 +226,7 @@ impl super::stub::Weather for Weather {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.maps.weather.v1.Weather/LookupForecastDays")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -249,7 +249,7 @@ impl super::stub::Weather for Weather {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/history/hours:lookup".to_string();
                 let path_template = "/v1/history/hours:lookup";
@@ -293,7 +293,7 @@ impl super::stub::Weather for Weather {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.maps.weather.v1.Weather/LookupHistoryHours")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -316,7 +316,7 @@ impl super::stub::Weather for Weather {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/publicAlerts:lookup".to_string();
                 let path_template = "/v1/publicAlerts:lookup";
@@ -355,7 +355,7 @@ impl super::stub::Weather for Weather {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.maps.weather.v1.Weather/LookupPublicAlerts")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -378,7 +378,7 @@ impl super::stub::Weather for Weather {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/forecast/minutes:lookup".to_string();
                 let path_template = "/v1/forecast/minutes:lookup";
@@ -414,7 +414,7 @@ impl super::stub::Weather for Weather {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.maps.weather.v1.Weather/LookupForecastMinutes")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
