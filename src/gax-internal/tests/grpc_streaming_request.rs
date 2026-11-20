@@ -96,6 +96,7 @@ mod tests {
         assert_eq!(err.code(), tonic::Code::InvalidArgument, "{err:?}");
         assert!(err.message().contains("empty message"), "{err:?}");
 
+        // Keep `tx` open to verify that the server error alone ends the stream.
         let r = stream.message().await;
         assert!(matches!(r, Ok(None)), "{r:?}");
         drop(tx);
