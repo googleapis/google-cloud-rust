@@ -213,7 +213,13 @@ async fn handle_object_response(response: Response) -> Result<Object> {
     if !response.status().is_success() {
         return gaxi::http::to_http_error(response).await;
     }
-    let response = response.json::<v1::Object>().await.map_err(Error::deser)?;
+    let response = response.json::<v1::Object>().await.map_err(|e| {
+        if e.is_timeout() {
+            Error::timeout(e)
+        } else {
+            Error::deser(e)
+        }
+    })?;
     Ok(Object::from(response))
 }
 
