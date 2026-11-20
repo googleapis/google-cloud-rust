@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.53.1-0.20261119205916-42f027f9c245
+version: v0.53.1-0.20261120000825-493fe378edaf
 repo: googleapis/google-cloud-rust
 sources:
   comment: sources.discovery is pinned to 066be1f6 because newer Compute discovery documents use API version 2026-11-01, which production does not accept yet. Bump sources.discovery after the GCE rollout that serves API version 2026-11-01 reaches production.
@@ -147,8 +147,6 @@ default:
       - redundant_explicit_links
     generate_setter_samples: "true"
     generate_rpc_samples: "true"
-    detailed_tracing_attributes: true
-    lro_stub_options: true
 libraries:
   - name: bigquery-grpc-mock
     copyright_year: "2026"
@@ -517,8 +515,7 @@ libraries:
           output: src/bigquery/src/write/generated/convert/storage
           api_path: google/cloud/bigquery/storage/v1
           template: convert-prost
-        - extend_grpc_transport: true
-          handwritten_surface: .google.cloud.bigquery.storage.v1.BigQueryWrite
+        - handwritten_surface: .google.cloud.bigquery.storage.v1.BigQueryWrite
           extensible_builders:
             - .google.cloud.bigquery.storage.v1.BigQueryRead.ReadRows
           module_path: crate::write::generated::gapic_storage::model
@@ -1417,8 +1414,7 @@ libraries:
           service_config: google/pubsub/v1/pubsub_v1.yaml
           api_path: google/pubsub/v1
           template: http-client
-        - extend_grpc_transport: true
-          generate_setter_samples: "false"
+        - generate_setter_samples: "false"
           generate_rpc_samples: "false"
           has_veneer: true
           included_ids:
@@ -1547,8 +1543,7 @@ libraries:
           output: src/spanner/src/generated/convert/spanner
           api_path: google/spanner/v1
           template: convert-prost
-        - extend_grpc_transport: true
-          generate_setter_samples: "false"
+        - generate_setter_samples: "false"
           generate_rpc_samples: "false"
           has_veneer: true
           internal_builders: true

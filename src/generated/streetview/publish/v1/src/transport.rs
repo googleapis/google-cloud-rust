@@ -54,7 +54,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/photo:startUpload".to_string();
                 let path_template = "/v1/photo:startUpload";
@@ -77,7 +77,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
                     .set_rpc_method(
                         "google.streetview.publish.v1.StreetViewPublishService/StartUpload",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -100,7 +100,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/photo".to_string();
                 let path_template = "/v1/photo";
@@ -123,7 +123,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
                     .set_rpc_method(
                         "google.streetview.publish.v1.StreetViewPublishService/CreatePhoto",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -148,7 +148,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_photo_id = try_match(
                     Some(&req).map(|m| &m.photo_id).map(|s| s.as_str()),
@@ -183,7 +183,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
                     .set_rpc_method(
                         "google.streetview.publish.v1.StreetViewPublishService/GetPhoto",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -206,7 +206,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/photos:batchGet".to_string();
                 let path_template = "/v1/photos:batchGet";
@@ -235,7 +235,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
                     .set_rpc_method(
                         "google.streetview.publish.v1.StreetViewPublishService/BatchGetPhotos",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -258,7 +258,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/photos".to_string();
                 let path_template = "/v1/photos";
@@ -286,7 +286,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
                     .set_rpc_method(
                         "google.streetview.publish.v1.StreetViewPublishService/ListPhotos",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -311,7 +311,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_photo_photo_id_id = try_match(
                     Some(&req)
@@ -364,7 +364,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
                     .set_rpc_method(
                         "google.streetview.publish.v1.StreetViewPublishService/UpdatePhoto",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -387,7 +387,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/photos:batchUpdate".to_string();
                 let path_template = "/v1/photos:batchUpdate";
@@ -410,7 +410,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
                     .set_rpc_method(
                         "google.streetview.publish.v1.StreetViewPublishService/BatchUpdatePhotos",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -435,7 +435,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_photo_id = try_match(
                     Some(&req).map(|m| &m.photo_id).map(|s| s.as_str()),
@@ -468,7 +468,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
                     .set_rpc_method(
                         "google.streetview.publish.v1.StreetViewPublishService/DeletePhoto",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -497,7 +497,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/photos:batchDelete".to_string();
                 let path_template = "/v1/photos:batchDelete";
@@ -520,7 +520,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
                     .set_rpc_method(
                         "google.streetview.publish.v1.StreetViewPublishService/BatchDeletePhotos",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -543,7 +543,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/photoSequence:startUpload".to_string();
                 let path_template = "/v1/photoSequence:startUpload";
@@ -564,7 +564,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.streetview.publish.v1.StreetViewPublishService/StartPhotoSequenceUpload")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -587,7 +587,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/photoSequence".to_string();
                 let path_template = "/v1/photoSequence";
@@ -611,7 +611,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
                     .set_rpc_method(
                         "google.streetview.publish.v1.StreetViewPublishService/CreatePhotoSequence",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -636,7 +636,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_sequence_id = try_match(
                     Some(&req).map(|m| &m.sequence_id).map(|s| s.as_str()),
@@ -671,7 +671,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
                     .set_rpc_method(
                         "google.streetview.publish.v1.StreetViewPublishService/GetPhotoSequence",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -694,7 +694,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/photoSequences".to_string();
                 let path_template = "/v1/photoSequences";
@@ -720,7 +720,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
                     .set_rpc_method(
                         "google.streetview.publish.v1.StreetViewPublishService/ListPhotoSequences",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -745,7 +745,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_sequence_id = try_match(
                     Some(&req).map(|m| &m.sequence_id).map(|s| s.as_str()),
@@ -778,7 +778,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
                     .set_rpc_method(
                         "google.streetview.publish.v1.StreetViewPublishService/DeletePhotoSequence",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -809,7 +809,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -846,7 +846,7 @@ impl super::stub::StreetViewPublishService for StreetViewPublishService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(

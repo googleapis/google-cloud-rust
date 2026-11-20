@@ -66,7 +66,7 @@ impl super::stub::Routes for Routes {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/directions/v2:computeRoutes".to_string();
                 let path_template = "/directions/v2:computeRoutes";
@@ -87,7 +87,7 @@ impl super::stub::Routes for Routes {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.maps.routing.v2.Routes/ComputeRoutes")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(

@@ -54,7 +54,7 @@ impl super::stub::IamChecker for IamChecker {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/iam:troubleshoot".to_string();
                 let path_template = "/v1/iam:troubleshoot";
@@ -77,7 +77,7 @@ impl super::stub::IamChecker for IamChecker {
                     .set_rpc_method(
                         "google.cloud.policytroubleshooter.v1.IamChecker/TroubleshootIamPolicy",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
