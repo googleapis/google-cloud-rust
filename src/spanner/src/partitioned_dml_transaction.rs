@@ -14,7 +14,7 @@
 
 use crate::Result;
 use crate::channel_pool::TransactionAffinity;
-use crate::client::amend_request_options_for_lar;
+use crate::client::RouteToLeader;
 use crate::database_client::DatabaseClient;
 use crate::error::SpannerInternalError;
 use crate::google::spanner::v1::PartialResultSet;
@@ -38,8 +38,10 @@ use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::error::rpc::Code;
 use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
+use google_cloud_gax::options::internal::RequestOptionsExt as _;
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
+use std::mem::take;
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 use tokio::time::sleep;
@@ -287,10 +289,7 @@ impl PartitionedDmlTransaction {
     }
 
     fn amend_gax_options(&self, options: &mut GaxRequestOptions) {
-        *options = amend_request_options_for_lar(
-            self.client.leader_aware_routing_enabled,
-            options.clone(),
-        );
+        *options = take(options).insert_extension(RouteToLeader);
     }
 }
 
