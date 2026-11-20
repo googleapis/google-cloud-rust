@@ -44,7 +44,12 @@ impl<'de> DeserializeSeed<'de> for ValueEncoder<'_> {
 
     fn deserialize<D: Deserializer<'de>>(self, deserializer: D) -> Result<Self::Value, D::Error> {
         match self.0.r#type {
-            Type::Bool => deserializer.deserialize_any(self),
+            Type::Bool
+            | Type::Date
+            | Type::Datetime
+            | Type::Time
+            | Type::Geography
+            | Type::Interval => deserializer.deserialize_any(self),
             _ => Err(de::Error::custom(format!(
                 "unsupported type '{}' for field '{}'",
                 self.0.r#type,
@@ -66,17 +71,21 @@ impl<'de> Visitor<'de> for ValueEncoder<'_> {
     }
 
     fn visit_bool<E: de::Error>(self, v: bool) -> Result<Self::Value, E> {
-        Ok(Some(Value::Bool(v)))
+        if self.0.r#type == Type::Bool {
+            return Ok(Some(Value::Bool(v)));
+        }
+        self.invalid_value()
     }
 
     fn visit_str<E: de::Error>(self, v: &str) -> Result<Self::Value, E> {
-        if v.eq_ignore_ascii_case("true") {
-            return Ok(Some(Value::Bool(true)));
+        match self.0.r#type {
+            Type::Bool if v.eq_ignore_ascii_case("true") => Ok(Some(Value::Bool(true))),
+            Type::Bool if v.eq_ignore_ascii_case("false") => Ok(Some(Value::Bool(false))),
+            Type::Date | Type::Datetime | Type::Time | Type::Geography | Type::Interval => {
+                Ok(Some(Value::String(v.to_owned())))
+            }
+            _ => self.invalid_value(),
         }
-        if v.eq_ignore_ascii_case("false") {
-            return Ok(Some(Value::Bool(false)));
-        }
-        self.invalid_value()
     }
 
     fn visit_i64<E: de::Error>(self, _: i64) -> Result<Self::Value, E> {
@@ -114,6 +123,7 @@ mod tests {
     use crate::model::{TableFieldSchema, TableSchema};
     use crate::write::schema::{build_message_descriptor, table_schema_to_descriptor};
     use anyhow::Context;
+    use test_case::test_case;
 
     fn column_map(name: &str, r#type: Type) -> anyhow::Result<ColumnMap> {
         let schema = TableSchema::new()
@@ -191,6 +201,59 @@ mod tests {
                 .starts_with("unsupported type 'INT64' for field 'id'"),
             "{err}"
         );
+        Ok(())
+    }
+
+    #[test_case(Type::Date, r#""2026-11-19""#, Some("2026-11-19"))]
+    #[test_case(
+        Type::Datetime,
+        r#""2026-11-19 12:34:56""#,
+        Some("2026-11-19 12:34:56")
+    )]
+    #[test_case(Type::Time, r#""12:34:56.789""#, Some("12:34:56.789"))]
+    #[test_case(Type::Geography, r#""POINT(1 2)""#, Some("POINT(1 2)"))]
+    #[test_case(Type::Interval, r#""1-2 3 4:5:6""#, Some("1-2 3 4:5:6"))]
+    #[test_case(Type::Date, r#""""#, Some(""))]
+    #[test_case(Type::Date, r#""2026\u002d11\u002d19""#, Some("2026-11-19"))]
+    #[test_case(Type::Date, "null", None)]
+    fn passthrough_string_values(
+        r#type: Type,
+        json: &str,
+        want: Option<&str>,
+    ) -> anyhow::Result<()> {
+        let map = column_map("col", r#type)?;
+        let col = map.get("col").context("column present")?;
+        assert_eq!(
+            encode(col, json)?,
+            want.map(|s| Value::String(s.to_owned()))
+        );
+        Ok(())
+    }
+
+    #[test_case(Type::Date, "true", "DATE")]
+    #[test_case(Type::Date, "false", "DATE")]
+    #[test_case(Type::Datetime, "0", "DATETIME")]
+    #[test_case(Type::Time, "-1", "TIME")]
+    #[test_case(Type::Geography, "1.5", "GEOGRAPHY")]
+    #[test_case(Type::Interval, r#"["secret_pii"]"#, "INTERVAL")]
+    #[test_case(Type::Date, r#"{"secret_pii": 1}"#, "DATE")]
+    fn passthrough_string_rejects_non_strings(
+        r#type: Type,
+        json: &str,
+        want_type: &str,
+    ) -> anyhow::Result<()> {
+        let map = column_map("col", r#type)?;
+        let col = map.get("col").context("column present")?;
+        let err = encode(col, json).expect_err("non-string should fail");
+        assert!(err.is_data(), "{err}");
+        let msg = err.to_string();
+        assert!(
+            msg.starts_with(&format!(
+                "invalid value for field 'col': expected {want_type}"
+            )),
+            "{msg}"
+        );
+        assert!(!msg.contains("secret_pii"), "{msg}");
         Ok(())
     }
 }
