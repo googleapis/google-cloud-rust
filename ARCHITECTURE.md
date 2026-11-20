@@ -65,6 +65,14 @@ There are basically three implementations of the `Stub`:
   transport.
 - Any mocks provided by the application for their own testing.
 
+Hand-crafted clients that add outer retry or continuation loops (such as
+optimistic-concurrency transaction runners or deferred-key lookups) coordinate
+with the `Transport` retry policy so retry budgets never multiply. In
+particular, `Aip194Strict` retries pre-RPC transient errors
+(`Error::is_transient_and_before_rpc()`) even on non-idempotent requests, and
+HTTP proxies or load balancers may return bare 502/503/504 responses without a
+JSON `Status` payload; outer policies account for both.
+
 ## Pagination
 
 When appropriate, request builders implement `by_page()` and `by_item()`
@@ -142,6 +150,13 @@ requirements that `serde` cannot easily support, such as:
 - **Field masks:** Supporting precise field updates.
 - **Well-known types:** Consistent handling of Protobuf well-known types across
   all services.
+- **Unknown enum values:** Over REST/ProtoJSON, new server enum values arrive as
+  strings (`wkt::internal::UnknownEnumValue::String`) rather than integers;
+  codecs preserve both representations without coercing string unknowns to `0`.
+- **Unrecognized `oneof` branches:** When a response echoes server-compiled
+  protocol structures (such as continuation queries), unrecognized `oneof`
+  message branches are retained opaquely so follow-up requests do not strip
+  server state.
 
 ### Separate namespace for fields vs. options
 
@@ -164,6 +179,23 @@ that neither can introduce a name clash with the other.
 The rule applies to hand-written crates too, including request types used by
 stubs and any builders or runners that configure requests. Client builders only
 configure the behavior of the client, so their functions use `with_*()`.
+
+### Environment variables override client options
+
+When both an environment variable and a programmatic `ClientBuilder` option
+configure the same client setting—such as `GOOGLE_CLOUD_UNIVERSE_DOMAIN` vs.
+`with_universe_domain()`, `GOOGLE_CLOUD_RUST_LOGGING` vs. `with_tracing()`, or
+service `*_EMULATOR_HOST` variables vs. `with_endpoint()` and
+`with_credentials()`—the environment variable takes higher precedence.
+
+Giving environment variables higher precedence lets operators and test runners
+redirect or instrument application code that already configures explicit
+endpoints, universe domains, or credentials without modifying or recompiling the
+application. When a `*_EMULATOR_HOST` variable is set and non-empty, the client
+also overrides explicit credentials with anonymous credentials so production
+tokens are never sent over plaintext HTTP to an emulator. Tests that exercise
+explicit endpoints or credentials must isolate ambient environment variables
+(for example, with `scoped_env::ScopedEnv`).
 
 ### Auth library
 
@@ -261,10 +293,11 @@ hand-crafted code. The main directories are:
   libraries. Types in this crate are **not** intended for application developers
   to use.
 - `src/lro`: support code for long-running operations.
-- `src/bigquery`, `src/pubsub`, `src/spanner`, `src/storage`: hand-crafted
-  client libraries for services that benefit from custom, high-level APIs. Any
-  generated code used internally by these libraries lives in
-  `src/*/src/generated`.
+- `src/bigquery`, `src/bigquery-derive`, `src/datastore`, `src/firestore`,
+  `src/pubsub`, `src/spanner`, `src/storage`: hand-crafted client libraries (and
+  associated proc-macro helpers) for services that benefit from custom,
+  high-level APIs. Any generated code used internally by these libraries lives
+  in `src/*/src/generated`.
 - `tests/integration`: the integration tests. These run against production and
   validate (using a small number of services) that the generator produces
   working code.
