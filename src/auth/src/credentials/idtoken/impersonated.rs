@@ -317,7 +317,7 @@ impl Builder {
     /// [use service account impersonation]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#adc
     pub fn build(self) -> BuildResult<IDTokenCredentials> {
         let components = match self.source {
-            BuilderSource::FromJson(json) => build_components_from_json(json)?,
+            BuilderSource::FromJson(json) => build_components_from_json(json, None)?,
             BuilderSource::FromCredentials(source_credentials) => {
                 build_components_from_credentials(
                     source_credentials,
@@ -1021,6 +1021,55 @@ mod tests {
 
         let token = creds.id_token().await?;
         assert_eq!(token, token_string);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_impersonated_id_token_json_universe_domain() -> TestResult {
+        use crate::credentials::tests::PKCS8_PK;
+
+        let source_without_ud = json!({
+            "type": "service_account",
+            "client_email": "test-client-email",
+            "private_key_id": "test-private-key-id",
+            "private_key": serde_json::Value::from(PKCS8_PK.clone()),
+            "project_id": "test-project-id",
+        });
+        let valid_json = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": "http://127.0.0.1:1/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+            "universe_domain": "outer-universe.com",
+            "source_credentials": source_without_ud,
+        });
+        let components = build_components_from_json(valid_json.clone(), None)?;
+        assert_eq!(
+            components
+                .source_credentials
+                .universe_domain()
+                .await
+                .as_deref(),
+            Some("outer-universe.com")
+        );
+        let _creds = Builder::new("test-audience", valid_json).build()?;
+
+        let conflicting_json = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": "http://127.0.0.1:1/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+            "universe_domain": "outer-universe.com",
+            "source_credentials": {
+                "type": "service_account",
+                "client_email": "test-client-email",
+                "private_key_id": "test-private-key-id",
+                "private_key": serde_json::Value::from(PKCS8_PK.clone()),
+                "project_id": "test-project-id",
+                "universe_domain": "source-universe.com",
+            },
+        });
+        let err = Builder::new("test-audience", conflicting_json)
+            .build()
+            .unwrap_err();
+        assert!(err.is_parsing(), "{err:?}");
 
         Ok(())
     }

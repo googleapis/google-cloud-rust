@@ -403,6 +403,33 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn test_sign_blob_url_impersonated_outer_json_universe() -> TestResult {
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": "http://127.0.0.1:1/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+            "universe_domain": "outer-universe.com",
+            "source_credentials": {
+                "type": "external_account",
+                "audience": "audience",
+                "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+                "token_url": "http://127.0.0.1:1/token",
+                "credential_source": {
+                    "file": "/nonexistent-test-token-file"
+                }
+            }
+        });
+        let creds =
+            crate::credentials::impersonated::Builder::new(impersonated_credential).build()?;
+        let signer = IamSigner::new("test-principal".to_string(), creds, None);
+        let url = signer.sign_blob_url().await;
+        assert_eq!(
+            url,
+            "https://iamcredentials.outer-universe.com/v1/projects/-/serviceAccounts/test-principal:signBlob"
+        );
+        Ok(())
+    }
+
     fn test_backoff_policy() -> ExponentialBackoff {
         use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
         ExponentialBackoffBuilder::new()
