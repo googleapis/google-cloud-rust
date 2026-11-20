@@ -17,6 +17,8 @@ pub(crate) mod exporter;
 pub(crate) mod metrics;
 #[cfg(all(test, feature = "builtin-metrics"))]
 mod mock_tests;
+#[cfg(all(test, any(feature = "builtin-metrics", feature = "unstable-metrics")))]
+pub(crate) mod test_utils;
 pub(crate) use metrics::Observability;
 #[cfg(feature = "_internal-metrics")]
 pub(crate) use metrics::SharedMeterProvider;
