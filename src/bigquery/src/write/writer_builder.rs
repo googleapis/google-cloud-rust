@@ -290,8 +290,26 @@ impl<S: Stream> WriterBuilder<S> {
     }
 
     /// Consumes the builder and creates a writer using Protobuf as the data format.
-    #[allow(dead_code)]
-    pub(crate) async fn build_proto<W>(
+    ///
+    /// Returns the writer `W` corresponding to the stream type `S`:
+    /// - [`DefaultStream`] -> [`DefaultWriter<Proto>`][crate::write::DefaultWriter]
+    /// - [`PendingStream`][crate::write::stream_type::PendingStream] -> [`PendingWriter<Proto>`][crate::write::PendingWriter]
+    /// - [`CommittedStream`][crate::write::stream_type::CommittedStream] -> [`CommittedWriter<Proto>`][crate::write::CommittedWriter]
+    /// - [`BufferedStream`][crate::write::stream_type::BufferedStream] -> [`BufferedWriter<Proto>`][crate::write::BufferedWriter]
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery::client::Write;
+    /// # use google_cloud_bigquery::model::ProtoSchema;
+    /// # async fn sample(client: Write) -> anyhow::Result<()> {
+    /// let writer = client
+    ///     .open_default_stream("projects/my-project/datasets/my_dataset/tables/my_table")
+    ///     .build_proto(ProtoSchema::new())
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub async fn build_proto<W>(
         self,
         schema: ProtoSchema,
     ) -> std::result::Result<W, WriterBuilderError>
