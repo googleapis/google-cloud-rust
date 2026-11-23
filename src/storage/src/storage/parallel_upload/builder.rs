@@ -428,4 +428,130 @@ mod tests {
 
         Ok(())
     }
+
+    #[tokio::test]
+    async fn create_session_forwards_request_and_options() -> anyhow::Result<()> {
+        mockall::mock! {
+            #[derive(Debug)]
+            StorageStub {}
+            impl crate::stub::Storage for StorageStub {
+                async fn create_object_write_session(
+                    &self,
+                    request: CreateObjectWriteSessionRequest,
+                    options: RequestOptions,
+                ) -> Result<ParallelUploadSession>;
+            }
+        }
+
+        #[derive(Debug)]
+        struct DummySession;
+        impl crate::stub::ParallelUploadSession for DummySession {
+            fn name(&self) -> &str {
+                "projects/_/buckets/test-bucket/objectWriteSessions/s-1"
+            }
+        }
+
+        let key = KeyAes256::new(&[0x42; 32])?;
+        let custom_time = wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?;
+        let retain_until = wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?;
+
+        let want_request = CreateObjectWriteSessionRequest::new()
+            .set_predefined_acl("private")
+            .set_params(CommonObjectRequestParams::from(key.clone()))
+            .set_preferred_segment_size_bytes(64 * 1024 * 1024)
+            .set_resource(
+                Object::new()
+                    .set_bucket(BUCKET_NAME)
+                    .set_name(OBJECT_NAME)
+                    .set_acl([ObjectAccessControl::new()
+                        .set_entity("allAuthenticatedUsers")
+                        .set_role("READER")])
+                    .set_cache_control("public; max-age=7200")
+                    .set_content_disposition("inline")
+                    .set_content_encoding("gzip")
+                    .set_content_language("en")
+                    .set_content_type("text/plain")
+                    .set_contexts(ObjectContexts::new().set_custom([(
+                        "context-key",
+                        ObjectCustomContextPayload::new().set_value("context-value"),
+                    )]))
+                    .set_custom_time(custom_time)
+                    .set_event_based_hold(true)
+                    .set_kms_key(
+                        "projects/test-project/locations/us-central1/keyRings/test-ring/cryptoKeys/test-key",
+                    )
+                    .set_metadata([("k0", "v0"), ("k1", "v1")])
+                    .set_retention(
+                        Retention::new()
+                            .set_mode(retention::Mode::Locked)
+                            .set_retain_until_time(retain_until),
+                    )
+                    .set_storage_class("ARCHIVE")
+                    .set_temporary_hold(true),
+            );
+
+        let mut mock = MockStorageStub::new();
+        mock.expect_create_object_write_session()
+            .times(1)
+            .returning(move |got_request, got_options| {
+                assert_eq!(got_request, want_request);
+                assert_eq!(got_options.user_agent.as_deref(), Some("test-agent"));
+                assert_eq!(
+                    got_options.quota_project.as_deref(),
+                    Some("override-project")
+                );
+                let gax_debug = format!("{:?}", got_options.gax());
+                assert!(gax_debug.contains("MockRetryPolicy"), "{gax_debug}");
+                assert!(gax_debug.contains("MockBackoffPolicy"), "{gax_debug}");
+                assert!(gax_debug.contains("MockRetryThrottler"), "{gax_debug}");
+                Ok(ParallelUploadSession::new(DummySession))
+            });
+
+        let client = Storage::from_stub(mock);
+        let session = client
+            .parallel_upload(BUCKET_NAME, OBJECT_NAME)
+            .set_acl([ObjectAccessControl::new()
+                .set_entity("allAuthenticatedUsers")
+                .set_role("READER")])
+            .set_cache_control("public; max-age=7200")
+            .set_content_disposition("inline")
+            .set_content_encoding("gzip")
+            .set_content_language("en")
+            .set_content_type("text/plain")
+            .set_contexts(ObjectContexts::new().set_custom([(
+                "context-key",
+                ObjectCustomContextPayload::new().set_value("context-value"),
+            )]))
+            .set_custom_time(custom_time)
+            .set_event_based_hold(true)
+            .set_key(key)
+            .set_kms_key(
+                "projects/test-project/locations/us-central1/keyRings/test-ring/cryptoKeys/test-key",
+            )
+            .set_metadata([("k0", "v0"), ("k1", "v1")])
+            .set_predefined_acl("private")
+            .set_preferred_segment_size_bytes(64 * 1024 * 1024)
+            .set_retention(
+                Retention::new()
+                    .set_mode(retention::Mode::Locked)
+                    .set_retain_until_time(retain_until),
+            )
+            .set_storage_class("ARCHIVE")
+            .set_temporary_hold(true)
+            .with_max_concurrency(8)
+            .with_enable_hedging(true)
+            .with_user_agent("test-agent")
+            .with_quota_project("override-project")
+            .with_retry_policy(MockRetryPolicy::new())
+            .with_backoff_policy(MockBackoffPolicy::new())
+            .with_retry_throttler(MockRetryThrottler::new())
+            .create_session()
+            .await?;
+
+        assert_eq!(
+            session.name(),
+            "projects/_/buckets/test-bucket/objectWriteSessions/s-1"
+        );
+        Ok(())
+    }
 }
