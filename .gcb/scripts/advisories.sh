@@ -67,15 +67,15 @@ fix() {
       case "${strategy}" in
         targeted)
           echo "Trying: cargo update ${specs[*]}" >&2
-          cargo update "${specs[@]}"
+          cargo update "${specs[@]}" || continue
           ;;
         recursive)
           echo "Trying: cargo update --recursive ${specs[*]}" >&2
-          cargo update --recursive "${specs[@]}"
+          cargo update --recursive "${specs[@]}" || continue
           ;;
         full)
           echo "Trying: cargo update" >&2
-          cargo update
+          cargo update || continue
           ;;
       esac
       if git diff --quiet -- Cargo.lock; then
