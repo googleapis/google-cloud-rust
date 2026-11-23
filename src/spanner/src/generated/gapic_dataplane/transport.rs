@@ -84,13 +84,11 @@ impl super::stub::Spanner for Spanner {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/CreateSession");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.database)
             .map(|s| s.as_str())
-            .map(|v| format!("database={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("database", v))]);
 
         type TR = crate::google::spanner::v1::Session;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -113,7 +111,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::CreateSessionRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -142,13 +141,11 @@ impl super::stub::Spanner for Spanner {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/BatchCreateSessions");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.database)
             .map(|s| s.as_str())
-            .map(|v| format!("database={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("database", v))]);
 
         type TR = crate::google::spanner::v1::BatchCreateSessionsResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -171,7 +168,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::BatchCreateSessionsRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -196,13 +194,11 @@ impl super::stub::Spanner for Spanner {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/GetSession");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = crate::google::spanner::v1::Session;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -225,7 +221,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::GetSessionRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -250,13 +247,11 @@ impl super::stub::Spanner for Spanner {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/ListSessions");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.database)
             .map(|s| s.as_str())
-            .map(|v| format!("database={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("database", v))]);
 
         type TR = crate::google::spanner::v1::ListSessionsResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -279,7 +274,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::ListSessionsRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -307,13 +303,11 @@ impl super::stub::Spanner for Spanner {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/DeleteSession");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = ();
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -336,7 +330,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::DeleteSessionRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -361,13 +356,11 @@ impl super::stub::Spanner for Spanner {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/ExecuteSql");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.session)
             .map(|s| s.as_str())
-            .map(|v| format!("session={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("session", v))]);
 
         type TR = crate::google::spanner::v1::ResultSet;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -390,7 +383,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::ExecuteSqlRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -414,13 +408,11 @@ impl super::stub::Spanner for Spanner {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/ExecuteStreamingSql");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.session)
             .map(|s| s.as_str())
-            .map(|v| format!("session={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("session", v))]);
 
         self.inner
             .execute_server_streaming::<
@@ -459,13 +451,11 @@ impl super::stub::Spanner for Spanner {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/ExecuteBatchDml");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.session)
             .map(|s| s.as_str())
-            .map(|v| format!("session={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("session", v))]);
 
         type TR = crate::google::spanner::v1::ExecuteBatchDmlResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -488,7 +478,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::ExecuteBatchDmlRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -513,13 +504,11 @@ impl super::stub::Spanner for Spanner {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/Read");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.session)
             .map(|s| s.as_str())
-            .map(|v| format!("session={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("session", v))]);
 
         type TR = crate::google::spanner::v1::ResultSet;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -542,7 +531,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::ReadRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -565,13 +555,11 @@ impl super::stub::Spanner for Spanner {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/StreamingRead");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.session)
             .map(|s| s.as_str())
-            .map(|v| format!("session={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("session", v))]);
 
         self.inner
             .execute_server_streaming::<
@@ -610,13 +598,11 @@ impl super::stub::Spanner for Spanner {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/BeginTransaction");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.session)
             .map(|s| s.as_str())
-            .map(|v| format!("session={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("session", v))]);
 
         type TR = crate::google::spanner::v1::Transaction;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -639,7 +625,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::BeginTransactionRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -664,13 +651,11 @@ impl super::stub::Spanner for Spanner {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/Commit");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.session)
             .map(|s| s.as_str())
-            .map(|v| format!("session={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("session", v))]);
 
         type TR = crate::google::spanner::v1::CommitResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -693,7 +678,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::CommitRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -718,13 +704,11 @@ impl super::stub::Spanner for Spanner {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/Rollback");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.session)
             .map(|s| s.as_str())
-            .map(|v| format!("session={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("session", v))]);
 
         type TR = ();
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -747,7 +731,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::RollbackRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -776,13 +761,11 @@ impl super::stub::Spanner for Spanner {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/PartitionQuery");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.session)
             .map(|s| s.as_str())
-            .map(|v| format!("session={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("session", v))]);
 
         type TR = crate::google::spanner::v1::PartitionResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -805,7 +788,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::PartitionQueryRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -833,13 +817,11 @@ impl super::stub::Spanner for Spanner {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/PartitionRead");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.session)
             .map(|s| s.as_str())
-            .map(|v| format!("session={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("session", v))]);
 
         type TR = crate::google::spanner::v1::PartitionResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -862,7 +844,8 @@ impl super::stub::Spanner for Spanner {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::spanner::v1::PartitionReadRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -885,13 +868,11 @@ impl super::stub::Spanner for Spanner {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/BatchWrite");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.session)
             .map(|s| s.as_str())
-            .map(|v| format!("session={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("session", v))]);
 
         self.inner
             .execute_server_streaming::<
@@ -925,13 +906,11 @@ impl super::stub::Spanner for Spanner {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.spanner.v1.Spanner/FetchCacheUpdate");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.database)
             .map(|s| s.as_str())
-            .map(|v| format!("database={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("database", v))]);
 
         self.inner
             .execute_server_streaming::<

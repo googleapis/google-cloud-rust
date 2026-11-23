@@ -327,7 +327,7 @@ where
     ///
     /// Updates acknowledged offsets in the replay buffer and completes any matching in-flight flush
     /// or finalize requests. Returns an error if the server reports a `persisted_size` lower than
-    /// previously acknowledged bytes.
+    /// previously acknowledged bytes or higher than the highest sent write offset.
     fn handle_response_success(
         &mut self,
         response: BidiWriteObjectResponse,
@@ -360,8 +360,20 @@ where
                 self.persisted_size
             )));
         }
-        // TODO(#5716): Reject persisted_size exceeding the highest sent write offset to guard
-        // against concurrent writers on the same object generation.
+        let max_sent_offset = self
+            .persisted_size
+            .max(self.replay_buffer.end_offset().unwrap_or(0))
+            .max(
+                self.pending_requests
+                    .back()
+                    .map_or(0, |r| r.request.write_offset),
+            );
+        if persisted_size > max_sent_offset {
+            return Err(Error::io(format!(
+                "server persisted_size ({persisted_size}) exceeded \
+                 highest sent write offset ({max_sent_offset})"
+            )));
+        }
 
         self.persisted_size = persisted_size;
         self.replay_buffer.ack(persisted_size);
@@ -1015,7 +1027,10 @@ mod tests {
     #[tokio::test]
     async fn run_handles_trailing_response_after_intents_close() -> anyhow::Result<()> {
         // Arrange.
-        let (handle, tx, _request_rx, response_tx) = spawn_test_worker();
+        let (handle, tx, mut request_rx, response_tx) = spawn_test_worker();
+
+        tx.send(append_intent(0, 10)).await?;
+        let _ = request_rx.recv().await.unwrap();
 
         // Act.
         // Close the intent channel first so the worker drains the stream in
@@ -1887,6 +1902,38 @@ mod tests {
         assert!(
             err.to_string()
                 .contains("regressed below acknowledged offset"),
+            "{err:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_reconnect_fails_on_persisted_size_exceeding_sent_offset() -> anyhow::Result<()> {
+        // Arrange.
+        let (
+            handle,
+            intent_tx,
+            mut stream1_rx,
+            stream1_resp_tx,
+            _captured_stream2_req_rx,
+            stream2_resp_tx,
+        ) = spawn_reconnecting_worker();
+
+        intent_tx.send(append_intent(0, 20)).await?;
+        let _ = stream1_rx.recv().await.unwrap();
+
+        // Act.
+        // Stream 1 breaks; Stream 2 reports 25 bytes persisted (> 20 sent by this worker).
+        drop(stream1_resp_tx);
+        stream2_resp_tx
+            .send(Ok(persisted_size_response(25)))
+            .await?;
+
+        // Assert.
+        let err = handle.await?.unwrap_err();
+        assert!(
+            err.to_string()
+                .contains("exceeded highest sent write offset"),
             "{err:?}"
         );
         Ok(())

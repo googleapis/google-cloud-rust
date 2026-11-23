@@ -25,7 +25,6 @@ use crc32c::crc32c;
 use rand::random_range;
 use std::collections::hash_map::Entry;
 use std::collections::{BTreeMap, HashMap, HashSet};
-use std::mem::take;
 use std::ops::Bound;
 #[cfg(test)]
 use std::sync::atomic::AtomicBool;
@@ -44,6 +43,12 @@ pub(crate) enum RangeMode {
 
 /// Maximum distance for a replica to be considered local (within the same region or metro).
 pub(crate) const MAX_LOCAL_REPLICA_DISTANCE: u32 = 5;
+
+/// Default capacity for the key range cache (1,000 split ranges).
+pub(crate) const DEFAULT_KEY_RANGE_CACHE_CAPACITY: usize = 1_000;
+
+/// Maximum initial collection allocation capacity to prevent startup memory bloat.
+const PREALLOCATION_THRESHOLD: usize = 256;
 
 /// An immutable, in-memory cache representation of a Spanner Paxos group.
 ///
@@ -87,6 +92,15 @@ impl CachedGroup {
             local_leader_index,
             eligible_replica_indices,
         }
+    }
+
+    /// Returns `true` if `proto` carries a newer generation or modified group state at the same generation.
+    fn should_update_from(&self, proto: &Group) -> bool {
+        proto.generation > self.generation
+            || (proto.generation == self.generation
+                && (Self::parse_leader_index(proto.leader_index, proto.tablets.len())
+                    != self.leader_index
+                    || proto.tablets != self.tablets))
     }
 
     /// Parses the raw protobuf leader index, returning `None` if negative or out of bounds.
@@ -212,11 +226,55 @@ impl CachedRange {
 }
 
 #[derive(Default)]
+struct GroupEntry {
+    group: Option<Arc<CachedGroup>>,
+    references: usize,
+}
+
 struct CacheState {
     /// Maps `start_key` (start of range, inclusive) to the cached split range.
     ranges: BTreeMap<Bytes, Arc<CachedRange>>,
-    /// Maps `group_uid` to the cached replica group.
-    groups: HashMap<u64, Arc<CachedGroup>>,
+    /// Maps `group_uid` to the reference-counted cached replica group.
+    groups: HashMap<u64, GroupEntry>,
+}
+
+impl Default for CacheState {
+    fn default() -> Self {
+        Self::with_initial_capacity(0)
+    }
+}
+
+impl CacheState {
+    fn with_initial_capacity(initial_capacity: usize) -> Self {
+        Self {
+            ranges: BTreeMap::new(),
+            groups: HashMap::with_capacity(initial_capacity),
+        }
+    }
+
+    fn increment_group_references(&mut self, group_uid: u64) {
+        self.groups.entry(group_uid).or_default().references += 1;
+    }
+
+    fn decrement_group_references(&mut self, group_uid: u64) -> bool {
+        let Some(group_entry) = self.groups.get_mut(&group_uid) else {
+            return false;
+        };
+        if group_entry.references == 0 {
+            return false;
+        }
+        group_entry.references -= 1;
+        group_entry.references == 0
+    }
+
+    fn remove_if_unreferenced(&mut self, group_uid: u64) -> bool {
+        if let Entry::Occupied(entry) = self.groups.entry(group_uid)
+            && entry.get().references == 0
+        {
+            return entry.remove().group.is_some();
+        }
+        false
+    }
 }
 
 /// Thread-safe in-memory key range cache mapping split boundaries to replica groups.
@@ -224,17 +282,43 @@ pub(crate) struct KeyRangeCache {
     state: RwLock<CacheState>,
     access_counter: AtomicU64,
     min_cache_entries_for_random_pick: AtomicUsize,
+    max_capacity: usize,
     #[cfg(test)]
     deterministic_random: AtomicBool,
 }
 
+impl Default for KeyRangeCache {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl KeyRangeCache {
-    /// Creates a new empty key range cache.
+    /// Creates a new empty key range cache with default capacity (`1,000`).
     pub(crate) fn new() -> Self {
+        Self::with_capacity(DEFAULT_KEY_RANGE_CACHE_CAPACITY)
+    }
+
+    /// Creates a new empty key range cache with the specified maximum capacity.
+    ///
+    /// The initial allocation capacity is bounded to `PREALLOCATION_THRESHOLD` (`256`) or
+    /// `capacity`, whichever is smaller, to minimize memory overhead during startup while
+    /// allowing the cache to grow up to `capacity`.
+    pub(crate) fn with_capacity(capacity: usize) -> Self {
+        let initial_capacity = capacity.min(PREALLOCATION_THRESHOLD);
+        Self::with_initial_capacity(initial_capacity, capacity)
+    }
+
+    /// Creates a new empty key range cache with the specified initial capacity and maximum capacity limit.
+    ///
+    /// `initial_capacity` is defensively clamped to `max_capacity` (`min(initial_capacity, max_capacity)`).
+    pub(crate) fn with_initial_capacity(initial_capacity: usize, max_capacity: usize) -> Self {
+        let initial_capacity = initial_capacity.min(max_capacity);
         Self {
-            state: RwLock::new(CacheState::default()),
+            state: RwLock::new(CacheState::with_initial_capacity(initial_capacity)),
             access_counter: AtomicU64::new(0),
             min_cache_entries_for_random_pick: AtomicUsize::new(1000),
+            max_capacity,
             #[cfg(test)]
             deterministic_random: AtomicBool::new(false),
         }
@@ -291,31 +375,34 @@ impl KeyRangeCache {
     /// Returns the current logical access time counter value and increments it.
     ///
     /// Note: `fetch_add` returns the previous value, so adding `1` yields the new value
-    /// after the increment (matching Java's `AtomicLong.incrementAndGet()`).
+    /// after the increment.
     pub(crate) fn access_time_now(&self) -> u64 {
         self.access_counter.fetch_add(1, Ordering::Relaxed) + 1
     }
 
-    /// Clears all cached ranges and groups.
+    /// Clears all cached ranges and groups, and resets the logical access counter.
     pub(crate) fn clear(&self) {
-        let old_state = {
-            let mut state = self.write_state();
-            take(&mut *state)
-        };
-        drop(old_state);
+        let mut state = self.write_state();
+        state.ranges.clear();
+        state.groups.clear();
+        self.access_counter.store(0, Ordering::Relaxed);
     }
 
     /// Returns the cached group for the given group UID, if present.
     pub(crate) fn get_group(&self, group_uid: u64) -> Option<Arc<CachedGroup>> {
-        self.read_state().groups.get(&group_uid).map(Arc::clone)
+        self.read_state()
+            .groups
+            .get(&group_uid)
+            .and_then(|entry| entry.group.as_ref())
+            .map(Arc::clone)
     }
 
-    /// Returns the set of all active tablet server addresses currently tracked across all groups.
+    /// Returns the set of all active tablet server addresses currently tracked across referenced groups.
     pub(crate) fn active_addresses(&self) -> HashSet<String> {
-        let state = self.read_state();
-        state
+        self.read_state()
             .groups
             .values()
+            .filter_map(|entry| entry.group.as_ref())
             .flat_map(|group| &group.tablets)
             .map(|tablet| &tablet.server_address)
             .filter(|address| !address.is_empty())
@@ -323,31 +410,132 @@ impl KeyRangeCache {
             .collect()
     }
 
-    /// Applies updates from a Spanner `CacheUpdate` message.
-    pub(crate) fn add_ranges(&self, cache_update: &CacheUpdate) {
-        if cache_update.group.is_empty() && cache_update.range.is_empty() {
-            return;
-        }
-        let mut state = self.write_state();
+    fn select_eviction_keys(
+        ranges: &BTreeMap<Bytes, Arc<CachedRange>>,
+        shrink_count: usize,
+    ) -> Vec<Bytes> {
+        const MIN_LRU_SAMPLE_SIZE: usize = 16;
+        let sample_count = shrink_count
+            .saturating_mul(2)
+            .max(MIN_LRU_SAMPLE_SIZE)
+            .min(ranges.len());
 
-        for group_in in &cache_update.group {
-            match state.groups.entry(group_in.group_uid) {
-                Entry::Occupied(mut entry) if group_in.generation >= entry.get().generation => {
-                    entry.insert(Arc::new(CachedGroup::from_proto(group_in.clone())));
+        let mut sampled: Vec<(&Bytes, u64)> = if sample_count >= ranges.len() {
+            ranges
+                .values()
+                .map(|range| (&range.start_key, range.last_access.load(Ordering::Relaxed)))
+                .collect()
+        } else {
+            let mut sample_indices = sample_without_replacement(ranges.len(), sample_count);
+            sample_indices.sort_unstable();
+            let mut sample_iter = sample_indices.into_iter().peekable();
+            let mut candidates = Vec::with_capacity(sample_count);
+
+            for (index, range) in ranges.values().enumerate() {
+                if sample_iter.peek() == Some(&index) {
+                    sample_iter.next();
+                    candidates.push((&range.start_key, range.last_access.load(Ordering::Relaxed)));
+                    if sample_iter.peek().is_none() {
+                        break;
+                    }
                 }
-                Entry::Vacant(entry) => {
-                    entry.insert(Arc::new(CachedGroup::from_proto(group_in.clone())));
+            }
+            candidates
+        };
+
+        sampled.sort_unstable_by_key(|(_, last_access)| *last_access);
+
+        sampled
+            .into_iter()
+            .take(shrink_count)
+            .map(|(key, _)| key.clone())
+            .collect()
+    }
+
+    fn shrink_to_locked(
+        &self,
+        state: &mut CacheState,
+        new_size: usize,
+        maybe_unreferenced: &mut Vec<u64>,
+    ) -> usize {
+        if new_size >= state.ranges.len() {
+            return 0;
+        }
+
+        if new_size == 0 {
+            let evicted_count = state.ranges.len();
+            state.ranges.clear();
+            for (&group_uid, group_entry) in &mut state.groups {
+                if group_entry.references > 0 {
+                    group_entry.references = 0;
+                    maybe_unreferenced.push(group_uid);
                 }
-                _ => {}
+            }
+            return evicted_count;
+        }
+
+        let shrink_count = state.ranges.len() - new_size;
+        let keys_to_evict = Self::select_eviction_keys(&state.ranges, shrink_count);
+
+        for start_key in keys_to_evict {
+            if let Some(removed_range) = state.ranges.remove(&start_key)
+                && state.decrement_group_references(removed_range.group_uid)
+            {
+                maybe_unreferenced.push(removed_range.group_uid);
             }
         }
 
-        for range_in in &cache_update.range {
-            self.replace_range_if_newer_locked(&mut state, range_in);
-        }
+        shrink_count
     }
 
-    fn replace_range_if_newer_locked(&self, state: &mut CacheState, range_in: &Range) {
+    /// Applies updates from a Spanner `CacheUpdate` message.
+    ///
+    /// Returns `true` if any active [`CachedGroup`] was added, updated, or removed as a result
+    /// of this update, indicating that the set of active tablet addresses may have changed.
+    pub(crate) fn add_ranges(&self, cache_update: &CacheUpdate) -> bool {
+        if self.max_capacity == 0
+            || (cache_update.group.is_empty() && cache_update.range.is_empty())
+        {
+            return false;
+        }
+        let mut state = self.write_state();
+        let mut groups_changed = false;
+
+        let mut maybe_unreferenced = Vec::new();
+        for range_in in &cache_update.range {
+            self.replace_range_if_newer_locked(&mut state, range_in, &mut maybe_unreferenced);
+        }
+        if state.ranges.len() > self.max_capacity {
+            self.shrink_to_locked(&mut state, self.max_capacity, &mut maybe_unreferenced);
+        }
+        for group_uid in maybe_unreferenced {
+            if state.remove_if_unreferenced(group_uid) {
+                groups_changed = true;
+            }
+        }
+
+        for group_in in &cache_update.group {
+            if let Some(group_entry) = state.groups.get_mut(&group_in.group_uid) {
+                let should_update = group_entry
+                    .group
+                    .as_ref()
+                    .is_none_or(|existing| existing.should_update_from(group_in));
+                if should_update {
+                    group_entry.group = Some(Arc::new(CachedGroup::from_proto(group_in.clone())));
+                    groups_changed = true;
+                }
+            }
+        }
+
+        groups_changed
+    }
+
+    fn replace_range_if_newer_locked(
+        &self,
+        state: &mut CacheState,
+        range_in: &Range,
+        maybe_unreferenced: &mut Vec<u64>,
+    ) {
         // Ignore inverted or empty key ranges from malformed or corrupted server updates
         // to prevent BTreeMap::range panics and RwLock poisoning.
         if !range_in.limit_key.is_empty()
@@ -412,6 +600,7 @@ impl KeyRangeCache {
                 range_in.generation.clone(),
                 self.access_time_now(),
             ));
+            state.increment_group_references(range_in.group_uid);
             state.ranges.insert(start_key, new_range);
             return;
         }
@@ -444,6 +633,7 @@ impl KeyRangeCache {
                 first.generation.clone(),
                 first.last_access.load(Ordering::Relaxed),
             ));
+            state.increment_group_references(first.group_uid);
             state.ranges.insert(start_key, head);
         }
 
@@ -460,6 +650,7 @@ impl KeyRangeCache {
                 last.generation.clone(),
                 last.last_access.load(Ordering::Relaxed),
             ));
+            state.increment_group_references(last.group_uid);
             state.ranges.insert(start_key, tail);
         }
 
@@ -472,7 +663,14 @@ impl KeyRangeCache {
             range_in.generation.clone(),
             self.access_time_now(),
         ));
+        state.increment_group_references(range_in.group_uid);
         state.ranges.insert(start_key, new_range);
+
+        for existing in &overlapping {
+            if state.decrement_group_references(existing.group_uid) {
+                maybe_unreferenced.push(existing.group_uid);
+            }
+        }
     }
 
     /// Finds a cached range covering the specified key or range.
@@ -590,6 +788,50 @@ impl KeyRangeCache {
     }
 }
 
+/// Samples `sample_size` distinct indices from `0..population_size` without replacement.
+///
+/// When `sample_size` is small relative to `population_size`, rejection sampling is used
+/// to avoid allocating an $O(N)$ population array. When `sample_size` approaches `population_size`,
+/// a partial Fisher-Yates shuffle is used.
+fn sample_without_replacement(population_size: usize, sample_size: usize) -> Vec<usize> {
+    if sample_size >= population_size {
+        return (0..population_size).collect();
+    }
+    if sample_size == 0 {
+        return Vec::new();
+    }
+
+    // Rejection sampling for small sample sizes relative to population.
+    // When sample_size <= 16 and collision probability is bounded (<= 50%),
+    // a linear vector search avoids HashSet hashing overhead.
+    if sample_size <= 16 && sample_size.saturating_mul(2) <= population_size {
+        let mut chosen = Vec::with_capacity(sample_size);
+        while chosen.len() < sample_size {
+            let candidate = random_range(0..population_size);
+            if !chosen.contains(&candidate) {
+                chosen.push(candidate);
+            }
+        }
+        return chosen;
+    }
+
+    if sample_size.saturating_mul(4) < population_size {
+        let mut chosen = HashSet::with_capacity(sample_size);
+        while chosen.len() < sample_size {
+            chosen.insert(random_range(0..population_size));
+        }
+        return chosen.into_iter().collect();
+    }
+
+    let mut indices: Vec<usize> = (0..population_size).collect();
+    for index in 0..sample_size {
+        let swap_index = random_range(index..population_size);
+        indices.swap(index, swap_index);
+    }
+    indices.truncate(sample_size);
+    indices
+}
+
 #[cfg(test)]
 impl CachedGroup {
     /// Returns `true` if this group has a designated leader index within valid bounds.
@@ -633,6 +875,29 @@ impl CachedGroup {
 
 #[cfg(test)]
 impl KeyRangeCache {
+    /// Returns the maximum configured capacity of the cache.
+    pub(crate) fn capacity(&self) -> usize {
+        self.max_capacity
+    }
+
+    /// Shrinks the cached ranges to at most `new_size` entries using approximate LRU eviction.
+    ///
+    /// If `new_size` is 0, the cache is completely cleared and the logical access counter is reset to 0.
+    /// If `new_size` is greater than or equal to the current number of cached ranges, no entries
+    /// are evicted.
+    /// Returns the number of ranges evicted from the cache.
+    pub(crate) fn shrink_to(&self, new_size: usize) -> usize {
+        let mut state = self.write_state();
+        let mut maybe_unreferenced = Vec::new();
+        let evicted_count = self.shrink_to_locked(&mut state, new_size, &mut maybe_unreferenced);
+        for group_uid in maybe_unreferenced {
+            state.remove_if_unreferenced(group_uid);
+        }
+        if new_size == 0 {
+            self.access_counter.store(0, Ordering::Relaxed);
+        }
+        evicted_count
+    }
     /// Enables deterministic pseudorandom selection for golden conformance testing.
     pub(crate) fn use_deterministic_random(&self) {
         self.deterministic_random.store(true, Ordering::Relaxed);
@@ -713,13 +978,27 @@ mod tests {
     use static_assertions::assert_impl_all;
     use std::collections::HashSet;
     use std::fmt::Debug;
+    use std::thread;
 
     #[test]
     fn key_range_cache_types_implement_expected_traits() {
-        assert_impl_all!(KeyRangeCache: Send, Sync);
+        assert_impl_all!(KeyRangeCache: Send, Sync, Default);
         assert_impl_all!(RangeMode: Send, Sync, Debug, Clone, Copy, PartialEq, Eq);
         assert_impl_all!(CachedRange: Send, Sync, Debug);
         assert_impl_all!(CachedGroup: Send, Sync, Debug, Clone);
+
+        let default_cache = KeyRangeCache::default();
+        assert_eq!(
+            default_cache.capacity(),
+            DEFAULT_KEY_RANGE_CACHE_CAPACITY,
+            "default cache capacity must equal DEFAULT_KEY_RANGE_CACHE_CAPACITY"
+        );
+    }
+
+    impl KeyRangeCache {
+        fn access_counter(&self) -> u64 {
+            self.access_counter.load(Ordering::Relaxed)
+        }
     }
 
     fn make_range(
@@ -2220,6 +2499,10 @@ mod tests {
 
         let update = CacheUpdate::new()
             .set_database_id(1u64)
+            .set_range(vec![
+                make_range("a", "m", 100, "1"),
+                make_range("m", "z", 200, "1"),
+            ])
             .set_group(vec![group1, group2]);
         cache.add_ranges(&update);
 
@@ -2399,6 +2682,1328 @@ mod tests {
         assert!(
             cache.is_empty(),
             "clear must succeed and empty cache after lock poisoning"
+        );
+    }
+
+    fn make_group_with_server(
+        group_uid: u64,
+        generation: &'static str,
+        server_address: &str,
+    ) -> Group {
+        Group {
+            group_uid,
+            generation: Bytes::from_static(generation.as_bytes()),
+            tablets: vec![Tablet {
+                tablet_uid: 1,
+                server_address: server_address.to_string(),
+                location: "us-central1".to_string(),
+                role: Role::ReadWrite,
+                incarnation: Bytes::from_static(b"1"),
+                distance: 0,
+                skip: false,
+                _unknown_fields: Default::default(),
+            }],
+            leader_index: 0,
+            _unknown_fields: Default::default(),
+        }
+    }
+
+    #[test]
+    fn active_addresses_excludes_unreferenced_groups_when_ranges_exist() {
+        let cache = KeyRangeCache::new();
+        let update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 100, "1")],
+            group: vec![
+                make_group_with_server(100, "1", "server-100:8001"),
+                make_group_with_server(200, "1", "server-200:8001"),
+            ],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update);
+
+        assert!(
+            cache.get_group(100).is_some(),
+            "referenced group 100 must be retained"
+        );
+        assert!(
+            cache.get_group(200).is_none(),
+            "unreferenced group 200 must be removed when references drop to zero"
+        );
+
+        let active_addresses = cache.active_addresses();
+        assert_eq!(
+            active_addresses.len(),
+            1,
+            "must contain only the server address for the active referenced group"
+        );
+        assert!(
+            active_addresses.contains("server-100:8001"),
+            "must contain server-100:8001"
+        );
+        assert!(
+            !active_addresses.contains("server-200:8001"),
+            "must exclude unreferenced server-200:8001"
+        );
+    }
+
+    #[test]
+    fn active_addresses_excludes_obsolete_groups_when_range_is_replaced() {
+        let cache = KeyRangeCache::new();
+
+        let initial_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 100, "1")],
+            group: vec![make_group_with_server(100, "1", "server-100:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&initial_update);
+
+        let initial_addresses = cache.active_addresses();
+        assert_eq!(
+            initial_addresses.len(),
+            1,
+            "initial cache must contain 1 active address"
+        );
+        assert!(
+            initial_addresses.contains("server-100:8001"),
+            "initial cache must contain server-100:8001"
+        );
+
+        let replacement_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 200, "2")],
+            group: vec![make_group_with_server(200, "2", "server-200:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&replacement_update);
+
+        assert!(
+            cache.get_group(100).is_none(),
+            "obsolete group 100 must be removed from cache when its range is replaced"
+        );
+        assert!(
+            cache.get_group(200).is_some(),
+            "newly referenced group 200 must be retained in cache"
+        );
+
+        let updated_addresses = cache.active_addresses();
+        assert_eq!(
+            updated_addresses.len(),
+            1,
+            "updated cache must contain only the newly active address"
+        );
+        assert!(
+            updated_addresses.contains("server-200:8001"),
+            "must contain newly referenced server-200:8001"
+        );
+        assert!(
+            !updated_addresses.contains("server-100:8001"),
+            "must exclude obsolete unreferenced server-100:8001"
+        );
+    }
+
+    #[test]
+    fn group_reference_counting_across_range_splits_and_replacements() {
+        let cache = KeyRangeCache::new();
+
+        // Step 1: Range [a, z) references group 100 (refs = 1).
+        let update1 = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 100, "1")],
+            group: vec![make_group_with_server(100, "1", "server-100:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update1);
+        assert!(
+            cache.get_group(100).is_some(),
+            "group 100 must be present initially"
+        );
+
+        // Step 2: Subrange [g, m) with group 200 splits [a, z) into head [a, g) and tail [m, z).
+        // Group 100 is now referenced by 2 ranges (head and tail), and group 200 by 1 range.
+        let update2 = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("g", "m", 200, "2")],
+            group: vec![make_group_with_server(200, "2", "server-200:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update2);
+        assert!(
+            cache.get_group(100).is_some(),
+            "group 100 must remain referenced by head and tail splits"
+        );
+        assert!(
+            cache.get_group(200).is_some(),
+            "group 200 must be referenced by middle split"
+        );
+
+        // Step 3: Replace head [a, g) with group 300. Group 100 still has 1 reference (tail [m, z)).
+        let update3 = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "g", 300, "3")],
+            group: vec![make_group_with_server(300, "3", "server-300:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update3);
+        assert!(
+            cache.get_group(100).is_some(),
+            "group 100 must remain in cache while tail split still references it"
+        );
+
+        // Step 4: Replace tail [m, z) with group 300. Group 100 now has 0 references and is removed.
+        let update4 = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("m", "z", 300, "3")],
+            group: vec![make_group_with_server(300, "3", "server-300:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update4);
+        assert!(
+            cache.get_group(100).is_none(),
+            "group 100 must be removed once both head and tail splits are replaced"
+        );
+        assert_eq!(
+            cache.active_addresses(),
+            HashSet::from(["server-200:8001".to_string(), "server-300:8001".to_string(),]),
+            "active addresses must contain only groups 200 and 300"
+        );
+    }
+
+    #[test]
+    fn active_addresses_deduplicates_addresses_across_multiple_ranges() {
+        let cache = KeyRangeCache::new();
+        let update = CacheUpdate {
+            database_id: 1,
+            range: vec![
+                make_range("a", "m", 100, "1"),
+                make_range("m", "z", 100, "1"),
+            ],
+            group: vec![make_group_with_server(100, "1", "server-shared:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update);
+
+        let active_addresses = cache.active_addresses();
+        assert_eq!(
+            active_addresses.len(),
+            1,
+            "must deduplicate server address shared across multiple ranges"
+        );
+        assert!(
+            active_addresses.contains("server-shared:8001"),
+            "must contain server-shared:8001"
+        );
+    }
+
+    #[test]
+    fn multi_range_update_preserves_existing_group_reassigned_without_group_payload() {
+        let cache = KeyRangeCache::new();
+
+        // Step 1: Range [a, m) references group 100.
+        let initial_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "m", 100, "1")],
+            group: vec![make_group_with_server(100, "1", "server-100:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&initial_update);
+        assert!(
+            cache.get_group(100).is_some(),
+            "group 100 must be cached initially"
+        );
+
+        // Step 2: Single CacheUpdate replaces [a, m) with group 200 and assigns [m, z) to group 100,
+        // without repeating group 100 in `cache_update.group`.
+        let reassignment_update = CacheUpdate {
+            database_id: 1,
+            range: vec![
+                make_range("a", "m", 200, "2"),
+                make_range("m", "z", 100, "2"),
+            ],
+            group: vec![make_group_with_server(200, "2", "server-200:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&reassignment_update);
+
+        assert!(
+            cache.get_group(100).is_some(),
+            "group 100 must remain cached when reassigned to another range in the same update"
+        );
+        assert!(
+            cache.get_group(200).is_some(),
+            "group 200 must be cached for the first range"
+        );
+        assert_eq!(
+            cache.active_addresses(),
+            HashSet::from(["server-100:8001".to_string(), "server-200:8001".to_string()]),
+            "active addresses must include both group 100 and group 200"
+        );
+    }
+
+    #[test]
+    fn range_without_group_is_populated_by_subsequent_group_only_update() {
+        let cache = KeyRangeCache::new();
+
+        // Step 1: Range [a, z) arrives referencing group 100 without group 100's definition.
+        let range_only_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 100, "1")],
+            group: vec![],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&range_only_update);
+
+        assert!(
+            cache
+                .find_range(b"b", b"", RangeMode::CoveringSplit)
+                .is_some(),
+            "range [a, z) must be present in the cache"
+        );
+        assert!(
+            cache.get_group(100).is_none(),
+            "group 100 has no CachedGroup payload yet"
+        );
+        assert!(
+            cache.active_addresses().is_empty(),
+            "active addresses must be empty before group payload arrives"
+        );
+
+        // Step 2: Subsequent group-only update supplies group 100's definition.
+        let group_only_update = CacheUpdate {
+            database_id: 1,
+            range: vec![],
+            group: vec![make_group_with_server(100, "1", "server-100:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&group_only_update);
+
+        assert!(
+            cache.get_group(100).is_some(),
+            "group 100 must be populated once its group definition arrives"
+        );
+        assert_eq!(
+            cache.active_addresses(),
+            HashSet::from(["server-100:8001".to_string()]),
+            "active addresses must now contain server-100:8001"
+        );
+    }
+
+    #[test]
+    fn stale_range_update_preserves_existing_group_and_ignores_stale_range_group() {
+        let cache = KeyRangeCache::new();
+
+        let newer_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 100, "2")],
+            group: vec![make_group_with_server(100, "2", "server-100:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&newer_update);
+
+        // Stale range update (generation "1" < "2") referencing group 200 must be rejected.
+        let stale_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "z", 200, "1")],
+            group: vec![make_group_with_server(200, "1", "server-200:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&stale_update);
+
+        assert!(
+            cache.get_group(100).is_some(),
+            "existing group 100 must remain referenced"
+        );
+        assert!(
+            cache.get_group(200).is_none(),
+            "group 200 from rejected stale range must not be cached"
+        );
+        assert_eq!(
+            cache.active_addresses(),
+            HashSet::from(["server-100:8001".to_string()]),
+            "active addresses must only contain server-100:8001"
+        );
+    }
+
+    #[test]
+    fn multi_range_update_repeated_zero_transitions_and_groups_changed_return_value() {
+        let cache = KeyRangeCache::new();
+
+        // Step 1: Initial range [a, m) with group 100 returns true (group 100 populated).
+        let initial_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "m", 100, "1")],
+            group: vec![make_group_with_server(100, "1", "server-100:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        assert!(
+            cache.add_ranges(&initial_update),
+            "adding a new populated group must return true"
+        );
+
+        // Step 2: Adding a range [m, z) referencing already-cached group 100 without group payload
+        // does not change active groups and must return false.
+        let split_same_group_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("m", "z", 100, "1")],
+            group: vec![],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        assert!(
+            !cache.add_ranges(&split_same_group_update),
+            "adding a range for an already-cached group must return false"
+        );
+
+        // Step 3: Within a single CacheUpdate:
+        // - range 1 replaces [a, m) with group 200 (group 100 refs: 2 -> 1)
+        // - range 2 replaces [m, z) with group 200 (group 100 refs: 1 -> 0, pushed to maybe_unreferenced)
+        // - range 3 replaces [m, z) back to group 100 (group 100 refs: 0 -> 1)
+        // - range 4 replaces [m, z) again with group 200 (group 100 refs: 1 -> 0, pushed a second time)
+        // This exercises both Occupied and Vacant branches in remove_if_unreferenced for group 100.
+        let multi_transition_update = CacheUpdate {
+            database_id: 1,
+            range: vec![
+                make_range("a", "m", 200, "2"),
+                make_range("m", "z", 200, "2"),
+                make_range("m", "z", 100, "3"),
+                make_range("m", "z", 200, "4"),
+            ],
+            group: vec![make_group_with_server(200, "2", "server-200:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        assert!(
+            cache.add_ranges(&multi_transition_update),
+            "evicting group 100 and populating group 200 must return true"
+        );
+        assert!(
+            cache.get_group(100).is_none(),
+            "group 100 must be removed after its final reference count reaches zero"
+        );
+        assert!(
+            cache.get_group(200).is_some(),
+            "group 200 must be present in cache"
+        );
+
+        // Step 4: Re-sending an identical Group at the same generation is a no-op and must return false.
+        let duplicate_group_update = CacheUpdate {
+            database_id: 1,
+            range: vec![],
+            group: vec![make_group_with_server(200, "2", "server-200:8001")],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        assert!(
+            !cache.add_ranges(&duplicate_group_update),
+            "re-sending an identical group at the same generation must return false"
+        );
+
+        // Step 5: Adding a range [a, m) for group 300 without a Group payload creates a GroupEntry
+        // with group: None and returns false. Replacing [a, m) back to already-cached group 200
+        // evicts the unpopulated GroupEntry for group 300 (entry.remove().group.is_some() == false)
+        // and must also return false.
+        let unpopulated_group_range_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "m", 300, "3")],
+            group: vec![],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        assert!(
+            !cache.add_ranges(&unpopulated_group_range_update),
+            "adding a range without a Group payload must return false"
+        );
+        assert!(
+            cache.read_state().groups.contains_key(&300),
+            "group 300 entry with group: None must be tracked while referenced"
+        );
+
+        let evict_unpopulated_group_update = CacheUpdate {
+            database_id: 1,
+            range: vec![make_range("a", "m", 200, "4")],
+            group: vec![],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        assert!(
+            !cache.add_ranges(&evict_unpopulated_group_update),
+            "evicting an unpopulated group entry in favor of an already-cached group must return false"
+        );
+        assert!(
+            !cache.read_state().groups.contains_key(&300),
+            "unpopulated group 300 entry must be removed once unreferenced"
+        );
+    }
+
+    #[test]
+    fn shrink_to_evicts_ranges() {
+        let cache = KeyRangeCache::new();
+        let total_ranges: usize = 100;
+        for index in 0..total_ranges {
+            let start_string = format!("{index:04}");
+            let limit_string = format!("{:04}", index + 1);
+            let update = CacheUpdate {
+                database_id: 1,
+                range: vec![Range {
+                    start_key: Bytes::from(start_string.into_bytes()),
+                    limit_key: Bytes::from(limit_string.into_bytes()),
+                    group_uid: index as u64,
+                    split_id: index as u64,
+                    generation: Bytes::from_static(b"1"),
+                    _unknown_fields: Default::default(),
+                }],
+                group: vec![Group {
+                    group_uid: index as u64,
+                    generation: Bytes::from_static(b"1"),
+                    tablets: vec![Tablet {
+                        tablet_uid: index as u64,
+                        server_address: format!("server{index}"),
+                        location: "us-central1".to_string(),
+                        role: Role::ReadWrite,
+                        incarnation: Bytes::from_static(b"1"),
+                        distance: 0,
+                        skip: false,
+                        _unknown_fields: Default::default(),
+                    }],
+                    leader_index: 0,
+                    _unknown_fields: Default::default(),
+                }],
+                key_recipes: None,
+                _unknown_fields: Default::default(),
+            };
+            cache.add_ranges(&update);
+        }
+
+        assert_eq!(
+            cache.len(),
+            total_ranges,
+            "initial cache size should match total added ranges"
+        );
+
+        // Shrink by 25% (to 75).
+        let shrink_to_75 = total_ranges - total_ranges / 4;
+        let evicted_75 = cache.shrink_to(shrink_to_75);
+        assert_eq!(evicted_75, 25, "shrink_to should report 25 ranges evicted");
+        assert_eq!(
+            cache.len(),
+            shrink_to_75,
+            "cache size should be reduced to 75"
+        );
+        // Ranges with highest index (most recently inserted) should be preserved.
+        for index in (3 * total_ranges / 4 + 1)..total_ranges {
+            let key = format!("{index:04}");
+            assert!(
+                cache.find_key(key.as_bytes()).is_some(),
+                "recently inserted range {index} should remain in cache after shrinking to 75"
+            );
+        }
+
+        // Shrink to 12.
+        let shrink_to_12 = total_ranges / 8;
+        let evicted_12 = cache.shrink_to(shrink_to_12);
+        assert_eq!(
+            evicted_12,
+            shrink_to_75 - shrink_to_12,
+            "shrink_to should report exact count of evicted ranges"
+        );
+        assert_eq!(
+            cache.len(),
+            shrink_to_12,
+            "cache size should be reduced to 12"
+        );
+        // Ranges with highest index (most recently inserted) should be preserved.
+        for index in (7 * total_ranges / 8 + 1)..total_ranges {
+            let key = format!("{index:04}");
+            assert!(
+                cache.find_key(key.as_bytes()).is_some(),
+                "most recently inserted range {index} should remain in cache after shrinking to 12"
+            );
+        }
+
+        // Shrink to 0.
+        let evicted_0 = cache.shrink_to(0);
+        assert_eq!(
+            evicted_0, shrink_to_12,
+            "shrink_to(0) should report all remaining ranges evicted"
+        );
+        assert_eq!(cache.len(), 0, "cache size should be 0 after shrink_to(0)");
+        assert!(cache.is_empty(), "cache should be empty after shrink_to(0)");
+        assert_eq!(
+            cache.access_counter(),
+            0,
+            "access counter should be reset to 0 after shrink_to(0)"
+        );
+    }
+
+    #[test]
+    fn shrink_to_noop_when_new_size_larger_or_equal() {
+        let cache = KeyRangeCache::new();
+        for index in 0..10 {
+            let start_string = format!("{index:02}");
+            let limit_string = format!("{:02}", index + 1);
+            let update = CacheUpdate {
+                database_id: 1,
+                range: vec![Range {
+                    start_key: Bytes::from(start_string.into_bytes()),
+                    limit_key: Bytes::from(limit_string.into_bytes()),
+                    group_uid: index as u64,
+                    split_id: index as u64,
+                    generation: Bytes::from_static(b"1"),
+                    _unknown_fields: Default::default(),
+                }],
+                group: vec![],
+                key_recipes: None,
+                _unknown_fields: Default::default(),
+            };
+            cache.add_ranges(&update);
+        }
+        assert_eq!(cache.len(), 10, "initial size mismatch");
+        let evicted_larger = cache.shrink_to(15);
+        assert_eq!(
+            evicted_larger, 0,
+            "shrink to larger size should report 0 evicted ranges"
+        );
+        assert_eq!(cache.len(), 10, "shrink to larger size should be a no-op");
+        let evicted_equal = cache.shrink_to(10);
+        assert_eq!(
+            evicted_equal, 0,
+            "shrink to equal size should report 0 evicted ranges"
+        );
+        assert_eq!(cache.len(), 10, "shrink to equal size should be a no-op");
+    }
+
+    #[test]
+    fn shrink_to_evicts_unreferenced_groups() {
+        let cache = KeyRangeCache::new();
+        let update = CacheUpdate {
+            database_id: 1,
+            range: vec![
+                Range {
+                    start_key: Bytes::from_static(b"00"),
+                    limit_key: Bytes::from_static(b"05"),
+                    group_uid: 10,
+                    split_id: 10,
+                    generation: Bytes::from_static(b"1"),
+                    _unknown_fields: Default::default(),
+                },
+                Range {
+                    start_key: Bytes::from_static(b"05"),
+                    limit_key: Bytes::from_static(b"10"),
+                    group_uid: 20,
+                    split_id: 20,
+                    generation: Bytes::from_static(b"1"),
+                    _unknown_fields: Default::default(),
+                },
+            ],
+            group: vec![make_group(10, "1", 0), make_group(20, "1", 0)],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update);
+        assert!(cache.get_group(10).is_some(), "group 10 should be present");
+        assert!(cache.get_group(20).is_some(), "group 20 should be present");
+
+        cache.shrink_to(1);
+        assert_eq!(cache.len(), 1, "cache should have 1 range remaining");
+
+        let group_10_present = cache.get_group(10).is_some();
+        let group_20_present = cache.get_group(20).is_some();
+        assert_ne!(
+            group_10_present, group_20_present,
+            "exactly one group should be retained after shrinking to 1"
+        );
+    }
+
+    #[test]
+    fn capacity_bounded_eviction_on_add_ranges() {
+        let max_capacity: usize = 5;
+        let cache = KeyRangeCache::with_capacity(max_capacity);
+        assert_eq!(
+            cache.capacity(),
+            max_capacity,
+            "configured capacity mismatch"
+        );
+
+        for index in 0..10 {
+            let start_string = format!("{index:02}");
+            let limit_string = format!("{:02}", index + 1);
+            let update = CacheUpdate {
+                database_id: 1,
+                range: vec![Range {
+                    start_key: Bytes::from(start_string.into_bytes()),
+                    limit_key: Bytes::from(limit_string.into_bytes()),
+                    group_uid: index as u64,
+                    split_id: index as u64,
+                    generation: Bytes::from_static(b"1"),
+                    _unknown_fields: Default::default(),
+                }],
+                group: vec![make_group(index as u64, "1", 0)],
+                key_recipes: None,
+                _unknown_fields: Default::default(),
+            };
+            cache.add_ranges(&update);
+        }
+
+        assert_eq!(
+            cache.len(),
+            max_capacity,
+            "cache should be bounded by configured capacity"
+        );
+    }
+
+    #[test]
+    fn zero_capacity_cache_drops_all_ranges() {
+        let cache = KeyRangeCache::with_capacity(0);
+        assert_eq!(cache.capacity(), 0, "capacity should be 0");
+
+        let update = CacheUpdate {
+            database_id: 1,
+            range: vec![Range {
+                start_key: Bytes::from_static(b"00"),
+                limit_key: Bytes::from_static(b"10"),
+                group_uid: 1,
+                split_id: 1,
+                generation: Bytes::from_static(b"1"),
+                _unknown_fields: Default::default(),
+            }],
+            group: vec![make_group(1, "1", 0)],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        let groups_changed = cache.add_ranges(&update);
+        assert!(
+            !groups_changed,
+            "groups_changed should be false when all ranges are dropped"
+        );
+        assert_eq!(cache.len(), 0, "cache len should be 0 when capacity is 0");
+        assert!(cache.is_empty(), "cache should be empty when capacity is 0");
+        assert!(
+            cache.get_group(1).is_none(),
+            "group should not be stored when capacity is 0"
+        );
+    }
+
+    #[test]
+    fn constructor_capacity_boundary_matrix() {
+        // 1. Initial capacity larger than max capacity clamps to max.
+        let cache_initial_larger = KeyRangeCache::with_initial_capacity(500, 100);
+        assert_eq!(
+            cache_initial_larger.capacity(),
+            100,
+            "max capacity mismatch when initial > max"
+        );
+        assert!(
+            cache_initial_larger.read_state().groups.capacity() >= 100,
+            "initial capacity clamped to max should be reflected in groups allocation"
+        );
+
+        // 2. Zero max capacity with positive initial capacity clamps to 0.
+        let cache_zero_max = KeyRangeCache::with_initial_capacity(100, 0);
+        assert_eq!(
+            cache_zero_max.capacity(),
+            0,
+            "max capacity should clamp to 0 when max == 0"
+        );
+
+        // 3. Zero initial capacity with positive max capacity.
+        let cache_zero_initial = KeyRangeCache::with_initial_capacity(0, 100);
+        assert_eq!(
+            cache_zero_initial.capacity(),
+            100,
+            "max capacity mismatch when initial == 0"
+        );
+
+        // 4. Extreme initial capacity (usize::MAX) defensively clamps to max without panic or OOM.
+        let cache_extreme_initial = KeyRangeCache::with_initial_capacity(usize::MAX, 100);
+        assert_eq!(
+            cache_extreme_initial.capacity(),
+            100,
+            "extreme initial capacity should clamp to max"
+        );
+        assert!(
+            cache_extreme_initial.read_state().groups.capacity() >= 100,
+            "extreme initial capacity clamped to max should allocate within bounds"
+        );
+
+        // 5. Pre-allocation threshold boundaries in with_capacity (bounded by PREALLOCATION_THRESHOLD = 256).
+        let cache_below_threshold = KeyRangeCache::with_capacity(100);
+        assert_eq!(
+            cache_below_threshold.capacity(),
+            100,
+            "capacity below threshold mismatch"
+        );
+        assert!(
+            cache_below_threshold.read_state().groups.capacity() >= 100,
+            "capacity below threshold should preallocate requested size"
+        );
+
+        let cache_above_threshold = KeyRangeCache::with_capacity(1000);
+        assert_eq!(
+            cache_above_threshold.capacity(),
+            1000,
+            "capacity above threshold mismatch"
+        );
+        assert!(
+            cache_above_threshold.read_state().groups.capacity() >= PREALLOCATION_THRESHOLD,
+            "capacity above threshold should be bounded to PREALLOCATION_THRESHOLD"
+        );
+
+        // 6. Explicit pre-allocation exceeding PREALLOCATION_THRESHOLD is honored in with_initial_capacity.
+        let cache_explicit_prealloc = KeyRangeCache::with_initial_capacity(2000, 10000);
+        assert_eq!(
+            cache_explicit_prealloc.capacity(),
+            10000,
+            "max capacity mismatch"
+        );
+        assert!(
+            cache_explicit_prealloc.read_state().groups.capacity() >= 2000,
+            "explicit initial capacity in with_initial_capacity must be honored"
+        );
+    }
+
+    #[test]
+    fn clear_and_shrink_zero_resets_access_counter() {
+        let cache = KeyRangeCache::new();
+        let _ = cache.access_time_now();
+        let _ = cache.access_time_now();
+        assert!(
+            cache.access_counter() >= 2,
+            "access counter should advance upon access"
+        );
+
+        cache.clear();
+        assert_eq!(
+            cache.access_counter(),
+            0,
+            "clear should reset access counter to 0"
+        );
+
+        let _ = cache.access_time_now();
+        assert_eq!(
+            cache.access_counter(),
+            1,
+            "access counter should advance from 0 after clear"
+        );
+
+        cache.shrink_to(0);
+        assert_eq!(
+            cache.access_counter(),
+            0,
+            "shrink_to(0) should reset access counter to 0"
+        );
+    }
+
+    #[test]
+    fn sample_without_replacement_boundaries() {
+        // Sample size 0.
+        let sample_zero = sample_without_replacement(10, 0);
+        assert!(sample_zero.is_empty(), "sample size 0 should be empty");
+
+        // Sample size equal to population.
+        let sample_all = sample_without_replacement(5, 5);
+        assert_eq!(sample_all.len(), 5, "sample all length mismatch");
+        let unique_all: HashSet<usize> = sample_all.into_iter().collect();
+        assert_eq!(unique_all.len(), 5, "all elements should be unique");
+
+        // Sample size greater than population clamps to population.
+        let sample_oversized = sample_without_replacement(5, 10);
+        assert_eq!(
+            sample_oversized.len(),
+            5,
+            "oversized sample should clamp to population size"
+        );
+
+        // Sample subset has no duplicates.
+        let sample_subset = sample_without_replacement(50, 20);
+        assert_eq!(sample_subset.len(), 20, "subset sample length mismatch");
+        let unique_subset: HashSet<usize> = sample_subset.into_iter().collect();
+        assert_eq!(unique_subset.len(), 20, "sampled elements must be distinct");
+        for index in unique_subset {
+            assert!(index < 50, "index {index} must be within population bounds");
+        }
+
+        // Dense sample where population is close to sample size (e.g. 16 of 17) uses Fisher-Yates fallback.
+        let sample_dense = sample_without_replacement(17, 16);
+        assert_eq!(sample_dense.len(), 16, "dense sample length mismatch");
+        let unique_dense: HashSet<usize> = sample_dense.into_iter().collect();
+        assert_eq!(
+            unique_dense.len(),
+            16,
+            "dense sample elements must be distinct"
+        );
+
+        // Branch 1: Linear vector rejection sampling (sample_size <= 16 && sample_size * 2 <= population_size).
+        let sample_linear_rejection = sample_without_replacement(100, 10);
+        assert_eq!(
+            sample_linear_rejection.len(),
+            10,
+            "linear rejection sample length mismatch"
+        );
+        let unique_linear: HashSet<usize> = sample_linear_rejection.into_iter().collect();
+        assert_eq!(
+            unique_linear.len(),
+            10,
+            "linear rejection sample elements must be distinct"
+        );
+        for index in unique_linear {
+            assert!(
+                index < 100,
+                "linear rejection index {index} must be within bounds"
+            );
+        }
+
+        // Branch 2: HashSet rejection sampling (sample_size * 4 < population_size).
+        let sample_hash_rejection = sample_without_replacement(200, 20);
+        assert_eq!(
+            sample_hash_rejection.len(),
+            20,
+            "hashset rejection sample length mismatch"
+        );
+        let unique_hash: HashSet<usize> = sample_hash_rejection.into_iter().collect();
+        assert_eq!(
+            unique_hash.len(),
+            20,
+            "hashset rejection sample elements must be distinct"
+        );
+        for index in unique_hash {
+            assert!(
+                index < 200,
+                "hashset rejection index {index} must be within bounds"
+            );
+        }
+    }
+
+    #[test]
+    fn access_refreshes_lru_and_prevents_eviction() {
+        let max_capacity: usize = 3;
+        let cache = KeyRangeCache::with_capacity(max_capacity);
+
+        for index in 0..3 {
+            let start_string = format!("{index:02}");
+            let limit_string = format!("{:02}", index + 1);
+            let update = CacheUpdate {
+                database_id: 1,
+                range: vec![Range {
+                    start_key: Bytes::from(start_string.into_bytes()),
+                    limit_key: Bytes::from(limit_string.into_bytes()),
+                    group_uid: index as u64,
+                    split_id: index as u64,
+                    generation: Bytes::from_static(b"1"),
+                    _unknown_fields: Default::default(),
+                }],
+                group: vec![make_group(index as u64, "1", 0)],
+                key_recipes: None,
+                _unknown_fields: Default::default(),
+            };
+            cache.add_ranges(&update);
+        }
+
+        // Access the oldest range ("00".."01") to refresh its last_access timestamp.
+        let found_oldest = cache.find_key(b"00");
+        assert!(
+            found_oldest.is_some(),
+            "range '00'..'01' must be found before eviction"
+        );
+
+        // Now add a 4th range, which must evict one of the ranges.
+        // Because "00".."01" was accessed most recently, it should NOT be evicted.
+        let update = CacheUpdate {
+            database_id: 1,
+            range: vec![Range {
+                start_key: Bytes::from_static(b"03"),
+                limit_key: Bytes::from_static(b"04"),
+                group_uid: 3,
+                split_id: 3,
+                generation: Bytes::from_static(b"1"),
+                _unknown_fields: Default::default(),
+            }],
+            group: vec![make_group(3, "1", 0)],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update);
+
+        assert_eq!(
+            cache.len(),
+            max_capacity,
+            "cache length must remain bounded by max_capacity"
+        );
+        assert!(
+            cache.find_key(b"00").is_some(),
+            "recently accessed range '00'..'01' must be retained by LRU eviction"
+        );
+    }
+
+    #[test]
+    fn multiple_ranges_sharing_group_retains_group_until_all_evicted() {
+        let cache = KeyRangeCache::new();
+        let shared_group_uid: u64 = 42;
+        let update = CacheUpdate {
+            database_id: 1,
+            range: vec![
+                Range {
+                    start_key: Bytes::from_static(b"10"),
+                    limit_key: Bytes::from_static(b"20"),
+                    group_uid: shared_group_uid,
+                    split_id: 1,
+                    generation: Bytes::from_static(b"1"),
+                    _unknown_fields: Default::default(),
+                },
+                Range {
+                    start_key: Bytes::from_static(b"20"),
+                    limit_key: Bytes::from_static(b"30"),
+                    group_uid: shared_group_uid,
+                    split_id: 2,
+                    generation: Bytes::from_static(b"1"),
+                    _unknown_fields: Default::default(),
+                },
+                Range {
+                    start_key: Bytes::from_static(b"30"),
+                    limit_key: Bytes::from_static(b"40"),
+                    group_uid: 99,
+                    split_id: 3,
+                    generation: Bytes::from_static(b"1"),
+                    _unknown_fields: Default::default(),
+                },
+            ],
+            group: vec![make_group(shared_group_uid, "1", 0), make_group(99, "1", 0)],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update);
+        assert_eq!(cache.len(), 3, "initial cache range count mismatch");
+
+        // Shrink from 3 to 2 ranges.
+        cache.shrink_to(2);
+        assert_eq!(cache.len(), 2, "cache length should shrink to 2");
+
+        // If at least one range with shared_group_uid remains, shared_group_uid must still be retained.
+        let ranges_with_shared_group = [b"10" as &[u8], b"20"]
+            .into_iter()
+            .filter(|key| cache.find_key(key).is_some())
+            .count();
+
+        assert!(
+            ranges_with_shared_group > 0,
+            "at least one range referencing shared group 42 must be retained after shrinking from 3 to 2"
+        );
+        assert!(
+            cache.get_group(shared_group_uid).is_some(),
+            "shared group must remain present while at least one range references it"
+        );
+
+        // Shrink to 0 ranges.
+        cache.shrink_to(0);
+        assert_eq!(cache.len(), 0, "cache must be empty after shrink_to(0)");
+        assert!(
+            cache.get_group(shared_group_uid).is_none(),
+            "shared group must be removed when all referencing ranges are evicted"
+        );
+        assert!(
+            cache.get_group(99).is_none(),
+            "group 99 must be removed when all referencing ranges are evicted"
+        );
+    }
+
+    #[test]
+    fn decrement_group_references_underflow_guard() {
+        let mut state = CacheState::default();
+        let group_uid: u64 = 77;
+        state.increment_group_references(group_uid);
+
+        // First decrement: 1 -> 0, returns true
+        assert!(
+            state.decrement_group_references(group_uid),
+            "decrementing from 1 to 0 must return true"
+        );
+
+        // Second decrement on 0: should NOT underflow or return true
+        assert!(
+            !state.decrement_group_references(group_uid),
+            "decrementing from 0 must return false and not underflow"
+        );
+
+        // Decrementing nonexistent group should return false
+        assert!(
+            !state.decrement_group_references(9999),
+            "decrementing nonexistent group must return false"
+        );
+    }
+
+    #[test]
+    fn shrink_to_zero_clears_all_ranges_and_groups() {
+        let cache = KeyRangeCache::new();
+        let update = CacheUpdate {
+            database_id: 1,
+            range: vec![Range {
+                start_key: Bytes::from_static(b"00"),
+                limit_key: Bytes::from_static(b"10"),
+                group_uid: 100,
+                split_id: 100,
+                generation: Bytes::from_static(b"1"),
+                _unknown_fields: Default::default(),
+            }],
+            group: vec![make_group(100, "1", 0)],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update);
+        assert!(
+            cache.get_group(100).is_some(),
+            "group 100 should be present"
+        );
+        assert_eq!(cache.len(), 1, "range should be present");
+
+        cache.shrink_to(0);
+        assert_eq!(cache.len(), 0, "cache len should be 0 after shrink_to(0)");
+        assert!(
+            cache.get_group(100).is_none(),
+            "shrink_to(0) must completely clear all groups"
+        );
+    }
+
+    #[test]
+    fn concurrent_reads_during_shrink_and_eviction() {
+        let cache = Arc::new(KeyRangeCache::with_capacity(20));
+
+        // Pre-populate with 10 ranges.
+        for index in 0..10 {
+            let start_string = format!("{index:02}");
+            let limit_string = format!("{:02}", index + 1);
+            let update = CacheUpdate {
+                database_id: 1,
+                range: vec![Range {
+                    start_key: Bytes::from(start_string.into_bytes()),
+                    limit_key: Bytes::from(limit_string.into_bytes()),
+                    group_uid: index as u64,
+                    split_id: index as u64,
+                    generation: Bytes::from_static(b"1"),
+                    _unknown_fields: Default::default(),
+                }],
+                group: vec![make_group(index as u64, "1", 0)],
+                key_recipes: None,
+                _unknown_fields: Default::default(),
+            };
+            cache.add_ranges(&update);
+        }
+
+        let stop_flag = Arc::new(AtomicBool::new(false));
+        let mut reader_handles = Vec::new();
+
+        for _ in 0..4 {
+            let cache_clone = Arc::clone(&cache);
+            let stop_clone = Arc::clone(&stop_flag);
+            reader_handles.push(thread::spawn(move || {
+                let mut iteration_count = 0;
+                while !stop_clone.load(Ordering::Relaxed) && iteration_count < 1_000 {
+                    let key = format!("{:02}", iteration_count % 15);
+                    let _ = cache_clone.find_key(key.as_bytes());
+                    iteration_count += 1;
+                }
+            }));
+        }
+
+        // Main thread: continuously adds ranges and shrinks
+        for iteration in 10..50 {
+            let start_string = format!("{iteration:02}");
+            let limit_string = format!("{:02}", iteration + 1);
+            let update = CacheUpdate {
+                database_id: 1,
+                range: vec![Range {
+                    start_key: Bytes::from(start_string.into_bytes()),
+                    limit_key: Bytes::from(limit_string.into_bytes()),
+                    group_uid: iteration as u64,
+                    split_id: iteration as u64,
+                    generation: Bytes::from_static(b"1"),
+                    _unknown_fields: Default::default(),
+                }],
+                group: vec![make_group(iteration as u64, "1", 0)],
+                key_recipes: None,
+                _unknown_fields: Default::default(),
+            };
+            cache.add_ranges(&update);
+            if iteration % 10 == 0 {
+                cache.shrink_to(10);
+            }
+        }
+
+        stop_flag.store(true, Ordering::Relaxed);
+        for handle in reader_handles {
+            handle
+                .join()
+                .expect("reader thread should terminate cleanly without panic");
+        }
+
+        assert!(
+            cache.len() <= 20,
+            "cache size must remain bounded after concurrent access"
+        );
+    }
+
+    #[test]
+    fn split_range_expansion_under_capacity_evicts_excess() {
+        let max_capacity: usize = 2;
+        let cache = KeyRangeCache::with_capacity(max_capacity);
+
+        // Insert initial range covering 00..30 with generation "1".
+        let initial_update = CacheUpdate {
+            database_id: 1,
+            range: vec![Range {
+                start_key: Bytes::from_static(b"00"),
+                limit_key: Bytes::from_static(b"30"),
+                group_uid: 1,
+                split_id: 1,
+                generation: Bytes::from_static(b"1"),
+                _unknown_fields: Default::default(),
+            }],
+            group: vec![make_group(1, "1", 0)],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&initial_update);
+        assert_eq!(cache.len(), 1, "initial range count should be 1");
+
+        // Insert middle sub-range 10..20 with generation "2", which splits the initial range
+        // into 3 sub-ranges: head 00..10, middle 10..20, and tail 20..30.
+        let split_update = CacheUpdate {
+            database_id: 1,
+            range: vec![Range {
+                start_key: Bytes::from_static(b"10"),
+                limit_key: Bytes::from_static(b"20"),
+                group_uid: 2,
+                split_id: 2,
+                generation: Bytes::from_static(b"2"),
+                _unknown_fields: Default::default(),
+            }],
+            group: vec![make_group(2, "2", 0)],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&split_update);
+
+        // After middle-split expansion (1 -> 3), automatic shrinkage must bound cache to max_capacity (2).
+        assert_eq!(
+            cache.len(),
+            max_capacity,
+            "cache length must remain bounded by max_capacity after middle-split expansion"
+        );
+    }
+
+    #[test]
+    fn multi_range_batch_ingestion_overflow() {
+        let max_capacity: usize = 10;
+        let cache = KeyRangeCache::with_capacity(max_capacity);
+
+        let mut ranges = Vec::new();
+        let mut groups = Vec::new();
+        for index in 0..50 {
+            let start_string = format!("{index:04}");
+            let limit_string = format!("{:04}", index + 1);
+            ranges.push(Range {
+                start_key: Bytes::from(start_string.into_bytes()),
+                limit_key: Bytes::from(limit_string.into_bytes()),
+                group_uid: index as u64,
+                split_id: index as u64,
+                generation: Bytes::from_static(b"1"),
+                _unknown_fields: Default::default(),
+            });
+            groups.push(make_group(index as u64, "1", 0));
+        }
+
+        let batch_update = CacheUpdate {
+            database_id: 1,
+            range: ranges,
+            group: groups,
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+
+        cache.add_ranges(&batch_update);
+
+        assert_eq!(
+            cache.len(),
+            max_capacity,
+            "cache length must be bounded to max_capacity after large batch ingestion"
+        );
+
+        // Ensure unreferenced groups from the batch were pruned.
+        let active_groups_count = (0..50)
+            .filter(|&index| cache.get_group(index as u64).is_some())
+            .count();
+        assert!(
+            active_groups_count <= max_capacity,
+            "retained group count ({active_groups_count}) must not exceed max_capacity ({max_capacity})"
+        );
+    }
+
+    #[test]
+    fn eviction_during_add_ranges_prunes_accompanying_unreferenced_group() {
+        let max_capacity: usize = 1;
+        let cache = KeyRangeCache::with_capacity(max_capacity);
+
+        // Range A with Group 10
+        let update_a = CacheUpdate {
+            database_id: 1,
+            range: vec![Range {
+                start_key: Bytes::from_static(b"00"),
+                limit_key: Bytes::from_static(b"10"),
+                group_uid: 10,
+                split_id: 10,
+                generation: Bytes::from_static(b"1"),
+                _unknown_fields: Default::default(),
+            }],
+            group: vec![make_group(10, "1", 0)],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        cache.add_ranges(&update_a);
+        assert!(cache.get_group(10).is_some(), "group 10 should be present");
+
+        // Range B with Group 20 evicts Range A
+        let update_b = CacheUpdate {
+            database_id: 1,
+            range: vec![Range {
+                start_key: Bytes::from_static(b"10"),
+                limit_key: Bytes::from_static(b"20"),
+                group_uid: 20,
+                split_id: 20,
+                generation: Bytes::from_static(b"1"),
+                _unknown_fields: Default::default(),
+            }],
+            group: vec![make_group(20, "1", 0)],
+            key_recipes: None,
+            _unknown_fields: Default::default(),
+        };
+        let groups_changed = cache.add_ranges(&update_b);
+
+        assert!(
+            groups_changed,
+            "add_ranges must report groups_changed = true when groups are updated and pruned"
+        );
+        assert_eq!(cache.len(), 1, "cache length should be bounded to 1");
+        assert!(
+            cache.get_group(20).is_some(),
+            "newer group 20 should be present"
+        );
+        assert!(
+            cache.get_group(10).is_none(),
+            "orphaned group 10 must be pruned upon eviction of Range A"
         );
     }
 }

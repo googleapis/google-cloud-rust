@@ -58,7 +58,7 @@ mod tests {
         BTreeMap::from_iter(span.attributes.clone())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn basic_span() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
@@ -133,7 +133,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn custom_endpoint() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
@@ -209,7 +209,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn regional_endpoint() -> anyhow::Result<()> {
         let guard = TestLayer::initialize();
 
@@ -269,7 +269,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn error_status() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
@@ -348,169 +348,7 @@ mod tests {
         Ok(())
     }
 
-    #[ignore]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn test_grpc_streaming_span() -> anyhow::Result<()> {
-        let (endpoint, _server) = start_echo_server().await?;
-        let guard = TestLayer::initialize();
-
-        // Configure client with tracing enabled
-        let mut config = google_cloud_gax_internal::options::ClientConfig::default();
-        config.tracing = true;
-        config.cred = Some(test_credentials());
-
-        let client = grpc::Client::new(config, &endpoint).await?;
-
-        // Send a streaming request
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.test.v1.EchoServices",
-                "Chat",
-            ));
-            e
-        };
-
-        let (tx, rx) = tokio::sync::mpsc::channel(4);
-        let request_stream = tokio_stream::wrappers::ReceiverStream::new(rx);
-
-        let mut response_stream = client
-            .bidi_stream::<_, google::test::v1::EchoResponse>(
-                extensions,
-                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
-                request_stream,
-                RequestOptions::default(),
-                "test-only-api-client/1.0",
-                "name=test-only",
-            )
-            .await?
-            .into_inner();
-
-        // Send a message
-        let request = google::test::v1::EchoRequest {
-            message: "test message".into(),
-            ..Default::default()
-        };
-        tx.send(request).await?;
-
-        // Receive a response
-        let response = response_stream.next().await.expect("stream closed")?;
-        assert_eq!(response.message, "test message");
-
-        // Close the stream
-        drop(tx);
-        let next = response_stream.next().await;
-        assert!(next.is_none(), "{next:?}");
-
-        let attrs = grpc_request_attributes(&guard);
-
-        // Parse the endpoint to get expected values
-        let uri: http::Uri = endpoint.parse().unwrap();
-        let expected_host = uri.host().unwrap().to_string();
-        let expected_port = uri.port_u16().unwrap();
-
-        let expected_attributes: BTreeMap<String, AttributeValue> = [
-            ("otel.name", "google.test.v1.EchoService/Chat".into()),
-            ("rpc.system.name", "grpc".into()),
-            ("otel.kind", "Client".into()),
-            ("rpc.method", "google.test.v1.EchoService/Chat".into()),
-            ("server.address", expected_host.clone().into()),
-            ("server.port", (expected_port as i64).into()),
-            ("url.domain", expected_host.into()),
-            ("otel.status_code", "UNSET".into()),
-            ("rpc.response.status_code", "OK".into()), // OK = 0
-        ]
-        .into_iter()
-        .map(|(k, v)| (k.to_string(), v))
-        .collect();
-
-        assert_eq!(attrs, expected_attributes);
-
-        Ok(())
-    }
-
-    #[ignore]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn streaming_error() -> anyhow::Result<()> {
-        let (endpoint, _server) = start_echo_server().await?;
-        let guard = TestLayer::initialize();
-
-        let mut config = google_cloud_gax_internal::options::ClientConfig::default();
-        config.tracing = true;
-        config.cred = Some(test_credentials());
-
-        let client = grpc::Client::new(config, &endpoint).await?;
-
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.test.v1.EchoServices",
-                "Chat",
-            ));
-            e
-        };
-
-        let (tx, rx) = tokio::sync::mpsc::channel(4);
-        let request_stream = tokio_stream::wrappers::ReceiverStream::new(rx);
-
-        let mut response_stream = client
-            .bidi_stream::<_, google::test::v1::EchoResponse>(
-                extensions,
-                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
-                request_stream,
-                RequestOptions::default(),
-                "test-only-api-client/1.0",
-                "name=test-only",
-            )
-            .await?
-            .into_inner();
-
-        // Send an empty message to trigger an error in the stream
-        let request = google::test::v1::EchoRequest {
-            message: "".into(), // Empty message triggers error in echo-server
-            ..Default::default()
-        };
-        tx.send(request).await?;
-
-        // Receive the error
-        let response = response_stream.next().await;
-        assert!(response.is_some(), "{response_stream:?}");
-        let result = response.unwrap();
-        assert!(result.is_err(), "{result:?}");
-        let status = result.unwrap_err();
-        assert_eq!(status.code(), tonic::Code::InvalidArgument);
-
-        // Close the stream
-        drop(tx);
-
-        let attrs = grpc_request_attributes(&guard);
-
-        let uri: http::Uri = endpoint.parse().unwrap();
-        let expected_host = uri.host().unwrap().to_string();
-        let expected_port = uri.port_u16().unwrap();
-
-        let expected_attributes: BTreeMap<String, AttributeValue> = [
-            ("otel.name", "google.test.v1.EchoService/Chat".into()),
-            ("rpc.system.name", "grpc".into()),
-            ("otel.kind", "Client".into()),
-            ("rpc.method", "google.test.v1.EchoService/Chat".into()),
-            ("server.address", expected_host.clone().into()),
-            ("server.port", (expected_port as i64).into()),
-            ("url.domain", expected_host.into()),
-            ("otel.status_code", "ERROR".into()),
-            ("rpc.response.status_code", "INVALID_ARGUMENT".into()), // INVALID_ARGUMENT = 3
-            ("error.type", "INVALID_ARGUMENT".into()),
-        ]
-        .into_iter()
-        .map(|(k, v)| (k.to_string(), v))
-        .collect();
-
-        assert_eq!(attrs, expected_attributes);
-
-        Ok(())
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn cancellation() -> anyhow::Result<()> {
         use std::time::Duration;
 
@@ -552,9 +390,9 @@ mod tests {
         );
         let scoped_future = recorder.scope(future);
 
-        // Poll the future once to ensure the span is created and entered, then drop it
-        // We use `tokio::time::timeout` with a very short duration to force a drop
-        let _ = tokio::time::timeout(Duration::from_micros(1), scoped_future).await;
+        // Poll the future once to ensure the span is created and entered, then drop it.
+        use futures::FutureExt;
+        assert!(scoped_future.now_or_never().is_none());
 
         // Wait a bit for the span to be processed (though drop should happen immediately)
         tokio::time::sleep(Duration::from_millis(10)).await;
@@ -581,7 +419,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn resource_name_in_span() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
@@ -639,7 +477,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn propagate_trace_context() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
 
@@ -648,6 +486,7 @@ mod tests {
         config.cred = Some(test_credentials());
         let client = grpc::Client::new(config, &endpoint).await?;
 
+        TestLayer::ensure_max_level_trace();
         let tracer_provider = opentelemetry_sdk::trace::SdkTracerProvider::builder().build();
         let tracer = opentelemetry::trace::TracerProvider::tracer(&tracer_provider, "test");
         let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
@@ -692,7 +531,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn propagate_trace_context_bidi_streaming() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
 
@@ -701,6 +540,7 @@ mod tests {
         config.cred = Some(test_credentials());
         let client = grpc::Client::new(config, &endpoint).await?;
 
+        TestLayer::ensure_max_level_trace();
         let tracer_provider = opentelemetry_sdk::trace::SdkTracerProvider::builder().build();
         let tracer = opentelemetry::trace::TracerProvider::tracer(&tracer_provider, "test");
         let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
@@ -752,7 +592,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn propagate_trace_context_server_streaming() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
 
@@ -761,6 +601,7 @@ mod tests {
         config.cred = Some(test_credentials());
         let client = grpc::Client::new(config, &endpoint).await?;
 
+        TestLayer::ensure_max_level_trace();
         let tracer_provider = opentelemetry_sdk::trace::SdkTracerProvider::builder().build();
         let tracer = opentelemetry::trace::TracerProvider::tracer(&tracer_provider, "test");
         let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);

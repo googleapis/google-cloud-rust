@@ -112,7 +112,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn retry_loop_retry_success_with_tracing_on() -> Result<()> {
         let guard = TestLayer::initialize();
         // We create a server that will return two transient errors and then succeed.
@@ -259,6 +259,43 @@ mod tests {
             attributes2
         );
 
+        Ok(())
+    }
+
+    // Regression test for #7495.
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn retry_loop_html_bad_gateway_success() -> Result<()> {
+        let html_502 = "<!DOCTYPE html>\n<title>Error 502 (Server Error)!!1</title>\n<p><b>502.</b> <ins>That's an error.</ins>";
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("GET", "/retry"))
+                .times(2)
+                .respond_with(cycle![
+                    status_code(StatusCode::BAD_GATEWAY.as_u16())
+                        .insert_header("content-type", "text/html; charset=UTF-8")
+                        .body(html_502),
+                    status_code(StatusCode::OK.as_u16())
+                        .insert_header("content-type", "application/json")
+                        .body(json!({"status": "done"}).to_string()),
+                ]),
+        );
+        let endpoint = format!("http://{}", server.addr());
+
+        let client = ReqwestClient::new(test_config(), &endpoint).await?;
+        let builder = client.builder(reqwest::Method::GET, "/retry".into());
+        let body = json!({});
+
+        let options = {
+            let mut options = RequestOptions::default();
+            options.set_backoff_policy(test_backoff());
+            options.set_idempotency(true);
+            options
+        };
+        let response = client
+            .execute::<serde_json::Value, serde_json::Value>(builder, Some(body), options)
+            .await;
+        let response = response?.into_body();
+        assert_eq!(response, json!({"status": "done"}));
         Ok(())
     }
 

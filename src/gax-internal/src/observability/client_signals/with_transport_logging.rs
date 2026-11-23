@@ -106,8 +106,7 @@ where
 mod tests {
     use super::*;
 
-    #[tokio::test(start_paused = true)]
-    #[ignore = "TODO(#6077) - disabled because it is flaky"]
+    #[tokio::test]
     async fn poll_without_recorder() -> anyhow::Result<()> {
         let pending = async move {
             let res: Result<reqwest::Response, Error> =

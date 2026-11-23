@@ -36,10 +36,6 @@ impl Schema {
         }
     }
 
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
     pub(crate) fn from_arrow_schema(schema_bytes: &[u8]) -> Result<Self, crate::error::RowError> {
         let reader =
             arrow::ipc::reader::StreamReader::try_new(schema_bytes, None).map_err(|e| {
@@ -67,10 +63,6 @@ impl Schema {
     }
 }
 
-#[cfg(any(
-    google_cloud_unstable_bigquery_arrow,
-    google_cloud_unstable_bigquery_storage_read
-))]
 fn table_schema_from_arrow_schema(arrow_schema: &arrow::datatypes::Schema) -> TableSchema {
     let fields: Vec<TableFieldSchema> = arrow_schema
         .fields()
@@ -80,10 +72,6 @@ fn table_schema_from_arrow_schema(arrow_schema: &arrow::datatypes::Schema) -> Ta
     TableSchema::new().set_fields(fields)
 }
 
-#[cfg(any(
-    google_cloud_unstable_bigquery_arrow,
-    google_cloud_unstable_bigquery_storage_read
-))]
 fn arrow_field_to_table_field(field: &arrow::datatypes::Field) -> TableFieldSchema {
     use arrow::datatypes::DataType;
 
@@ -143,13 +131,7 @@ fn arrow_field_to_table_field(field: &arrow::datatypes::Field) -> TableFieldSche
     }
 }
 
-#[cfg(all(
-    test,
-    any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    )
-))]
+#[cfg(test)]
 mod tests {
     use super::*;
     use arrow::datatypes::{

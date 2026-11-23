@@ -179,20 +179,61 @@ impl ConnectionCache {
                 let mut guard = self.write_servers();
                 Arc::clone(
                     guard
-                        .entry(key)
+                        .entry(key.clone())
                         .or_insert_with(|| Arc::new(OnceCell::new())),
                 )
             }
         };
 
-        cell.get_or_try_init(|| async {
-            let endpoint_config =
-                prepare_routed_endpoint_config(config, self.default_connection.address(), address);
-            let channel = Channel::create(endpoint_config, 0).await?;
-            Ok(ServerConnection::new(address.to_string(), channel))
-        })
-        .await
-        .cloned()
+        // Guard against leaving an uninitialized entry in the cache if connection
+        // creation fails, panics, or is cancelled at an await point.
+        let cleanup_guard = UninitializedCellGuard {
+            cache: self,
+            key: &key,
+            cell: Some(cell),
+        };
+
+        let connection = cleanup_guard
+            .cell()
+            .get_or_try_init(|| async {
+                let endpoint_config = prepare_routed_endpoint_config(
+                    config,
+                    self.default_connection.address(),
+                    address,
+                );
+                let channel = Channel::create(endpoint_config, 0).await?;
+                Ok(ServerConnection::new(address.to_string(), channel))
+            })
+            .await?
+            .clone();
+
+        Ok(connection)
+    }
+
+    /// Removes an uninitialized `OnceCell` entry from `self.servers` if it matches `cell` and no
+    /// other callers are currently awaiting its initialization.
+    ///
+    /// This prevents failed connection establishment attempts and cancelled futures from leaving
+    /// dead uninitialized entries in the cache while preserving entries that have already been
+    /// initialized, replaced by a concurrent operation, or are currently being initialized by
+    /// another concurrent caller.
+    fn remove_uninitialized(&self, key: &str, cell: Arc<OnceCell<ServerConnection>>) {
+        if cell.get().is_some() {
+            return;
+        }
+        let mut guard = self.write_servers();
+        let Some(existing) = guard.get(key) else {
+            return;
+        };
+        if !Arc::ptr_eq(existing, &cell) || existing.get().is_some() {
+            return;
+        }
+        // Explicitly drop our owned reference while holding the write lock.
+        // If no other concurrent caller holds a reference, only `existing` in `self.servers` remains.
+        drop(cell);
+        if Arc::strong_count(existing) == 1 && existing.get().is_none() {
+            guard.remove(key);
+        }
     }
 
     /// Evicts a server connection from the cache.
@@ -206,6 +247,33 @@ impl ConnectionCache {
         let key = self.cache_key(address);
         let mut guard = self.write_servers();
         guard.remove(&key).is_some()
+    }
+}
+
+/// RAII guard that removes an uninitialized `OnceCell` from `ConnectionCache::servers` if dropped
+/// before initialization succeeds (e.g. on channel creation error or future cancellation).
+struct UninitializedCellGuard<'a> {
+    cache: &'a ConnectionCache,
+    key: &'a str,
+    cell: Option<Arc<OnceCell<ServerConnection>>>,
+}
+
+impl UninitializedCellGuard<'_> {
+    fn cell(&self) -> &OnceCell<ServerConnection> {
+        self.cell
+            .as_deref()
+            .expect("uninitialized cell guard must contain cell")
+    }
+}
+
+impl Drop for UninitializedCellGuard<'_> {
+    fn drop(&mut self) {
+        let Some(cell) = self.cell.take() else {
+            return;
+        };
+        if cell.get().is_none() {
+            self.cache.remove_uninitialized(self.key, cell);
+        }
     }
 }
 
@@ -287,8 +355,12 @@ fn is_loopback_address(address: &str) -> bool {
 ///
 /// Ensures that:
 /// 1. The routed endpoint URI has an appropriate scheme (`https://` or `http://`), which Tonic requires.
-/// 2. TLS certificate verification and SNI match the default service host when TLS is enabled.
-/// 3. Any parent TLS configuration is stripped when dialing a plaintext endpoint.
+/// 2. Transport security is strictly inherited from the parent client: a routed endpoint cannot downgrade
+///    a TLS-configured connection to plaintext HTTP (preventing token exfiltration over cleartext).
+/// 3. TLS certificate verification and SNI match the default service host when TLS is enabled, including
+///    pinning the domain name on any existing [`ClientTlsConfig`] or [`TlsConfig`] to ensure routed
+///    endpoints verify certificates against the default service authority.
+/// 4. Any parent TLS configuration is stripped only when dialing an explicitly plaintext parent client (e.g. emulator).
 pub(crate) fn prepare_routed_endpoint_config(
     config: &ClientConfig,
     default_address: &str,
@@ -297,24 +369,27 @@ pub(crate) fn prepare_routed_endpoint_config(
     let mut endpoint_config = config.clone();
 
     // Determine whether this connection is plaintext or TLS.
-    // Plaintext is used if the routed address explicitly requests `http://`,
-    // or if the default connection or client config specifies plaintext and no TLS is configured.
-    let is_plaintext = match endpoint_scheme(routed_address) {
+    // Transport security is inherited from the parent client configuration:
+    // a dynamic routed address cannot downgrade a TLS-secured client to plaintext HTTP.
+    // Plaintext is only permitted if the parent client itself was explicitly configured for plaintext
+    // (e.g. local emulator on loopback or explicit HTTP endpoint).
+    let explicit_parent_scheme = endpoint_scheme(default_address)
+        .or_else(|| config.endpoint.as_deref().and_then(endpoint_scheme));
+
+    let parent_is_plaintext = match explicit_parent_scheme {
         Some(scheme) => scheme == Scheme::HTTP,
         None => {
-            let is_http = |endpoint: &str| {
-                endpoint_scheme(endpoint).is_some_and(|scheme| scheme == Scheme::HTTP)
-            };
             let no_tls_configured = config.extensions.get::<TlsConfig>().is_none()
                 && config.extensions.get::<ClientTlsConfig>().is_none();
 
-            is_http(default_address)
-                || config.endpoint.as_deref().is_some_and(is_http)
-                || (no_tls_configured
-                    && (is_loopback_address(default_address)
-                        || config.endpoint.as_deref().is_some_and(is_loopback_address)))
+            no_tls_configured
+                && (is_loopback_address(default_address)
+                    || config.endpoint.as_deref().is_some_and(is_loopback_address))
         }
     };
+
+    let is_plaintext =
+        parent_is_plaintext && endpoint_scheme(routed_address) != Some(Scheme::HTTPS);
 
     endpoint_config.endpoint = Some(dial_endpoint(routed_address, is_plaintext));
 
@@ -340,7 +415,12 @@ pub(crate) fn prepare_routed_endpoint_config(
         endpoint_config.extensions.insert(omni_tls);
         tonic_tls
     } else if let Some(existing_tonic_tls) = config.extensions.get::<ClientTlsConfig>() {
-        Some(existing_tonic_tls.clone())
+        let mut tls = existing_tonic_tls.clone();
+        if let Some(domain) = default_domain.as_deref() {
+            // Verify certificates against the default service authority for routed endpoints.
+            tls = tls.domain_name(domain);
+        }
+        Some(tls)
     } else if let Some(domain) = default_domain {
         let omni_tls = TlsConfig::new().with_domain_name_override(domain);
         let tonic_tls = omni_tls.to_tonic_client_tls_config();
@@ -385,9 +465,11 @@ mod tests {
     use http::HeaderMap;
     use http::header::{AUTHORIZATION, HeaderValue};
     use std::fmt::Debug;
+    use std::future::pending;
     use std::panic::{AssertUnwindSafe, catch_unwind};
     use std::sync::Barrier;
     use std::thread;
+    use tokio::sync::oneshot;
 
     #[derive(Debug)]
     struct DummyStub;
@@ -1113,6 +1195,38 @@ mod tests {
         );
     }
 
+    #[tokio::test]
+    async fn connection_cache_get_creates_and_caches_routed_endpoint_with_client_tls_config() {
+        let default_connection =
+            create_default_test_connection("https://spanner.googleapis.com:443");
+        let cache = ConnectionCache::new(default_connection);
+        let mut config = test_client_config();
+        config
+            .extensions
+            .insert(ClientTlsConfig::new().with_enabled_roots());
+
+        let routed_address = "10.0.0.2:15000";
+        let connection = cache
+            .get(routed_address, &config)
+            .await
+            .expect("cache.get should succeed constructing routed connection with ClientTlsConfig");
+
+        assert_eq!(
+            connection.address(),
+            routed_address,
+            "created connection address must match requested routed address"
+        );
+        assert_eq!(
+            cache.len(),
+            2,
+            "cache should contain default connection and newly created routed connection"
+        );
+        assert!(
+            cache.get_if_present(routed_address).is_some(),
+            "get_if_present should return the newly created connection"
+        );
+    }
+
     #[test]
     fn prepare_routed_endpoint_config_omni_mtls_client_identity_without_ca() {
         let mut config = test_client_config();
@@ -1189,17 +1303,114 @@ mod tests {
             "routed endpoint dial URI must use https scheme"
         );
 
+        let tls = endpoint_config
+            .extensions
+            .get::<ClientTlsConfig>()
+            .expect("ClientTlsConfig must be preserved in extensions");
+        let debug_output = format!("{tls:?}");
         assert!(
-            endpoint_config
-                .extensions
-                .get::<ClientTlsConfig>()
-                .is_some(),
-            "ClientTlsConfig must be preserved in extensions"
+            debug_output.contains("omni.spanner.internal"),
+            "ClientTlsConfig must have domain_name pinned to default domain: {debug_output}"
         );
     }
 
     #[test]
-    fn prepare_routed_endpoint_config_plaintext_strips_parent_tls() {
+    fn prepare_routed_endpoint_config_existing_client_tls_config_domain_pinning() {
+        struct TestCase {
+            default_address: &'static str,
+            routed_address: &'static str,
+            expected_endpoint: &'static str,
+            expected_domain_fragment: &'static str,
+            description: &'static str,
+        }
+
+        let test_cases = [
+            TestCase {
+                default_address: "spanner.googleapis.com:443",
+                routed_address: "10.0.0.1:15000",
+                expected_endpoint: "https://10.0.0.1:15000",
+                expected_domain_fragment: "spanner.googleapis.com",
+                description: "production Spanner domain is pinned to default host",
+            },
+            TestCase {
+                default_address: "https://spanner.googleapis.com:443",
+                routed_address: "10.0.0.1:15000",
+                expected_endpoint: "https://10.0.0.1:15000",
+                expected_domain_fragment: "spanner.googleapis.com",
+                description: "production Spanner domain with https scheme is pinned",
+            },
+            TestCase {
+                default_address: "127.0.0.1:8443",
+                routed_address: "10.0.0.1:8443",
+                expected_endpoint: "https://10.0.0.1:8443",
+                expected_domain_fragment: "domain: None",
+                description: "IPv4 literal default address leaves domain unpinned",
+            },
+            TestCase {
+                default_address: "https://127.0.0.1:8443",
+                routed_address: "10.0.0.1:8443",
+                expected_endpoint: "https://10.0.0.1:8443",
+                expected_domain_fragment: "domain: None",
+                description: "IPv4 literal with https scheme leaves domain unpinned",
+            },
+            TestCase {
+                default_address: "[::1]:8443",
+                routed_address: "[2001:db8::1]:8443",
+                expected_endpoint: "https://[2001:db8::1]:8443",
+                expected_domain_fragment: "domain: None",
+                description: "IPv6 literal default address leaves domain unpinned",
+            },
+            TestCase {
+                default_address: "https://[::1]:8443",
+                routed_address: "[2001:db8::1]:8443",
+                expected_endpoint: "https://[2001:db8::1]:8443",
+                expected_domain_fragment: "domain: None",
+                description: "IPv6 literal with https scheme leaves domain unpinned",
+            },
+            TestCase {
+                default_address: "",
+                routed_address: "10.0.0.1:8443",
+                expected_endpoint: "https://10.0.0.1:8443",
+                expected_domain_fragment: "domain: None",
+                description: "unextractable default host leaves domain unpinned",
+            },
+        ];
+
+        for test_case in test_cases {
+            let mut config = test_client_config();
+            config
+                .extensions
+                .insert(ClientTlsConfig::new().with_enabled_roots());
+
+            let endpoint_config = prepare_routed_endpoint_config(
+                &config,
+                test_case.default_address,
+                test_case.routed_address,
+            );
+
+            assert_eq!(
+                endpoint_config.endpoint.as_deref(),
+                Some(test_case.expected_endpoint),
+                "routed endpoint dial URI mismatch for test case: {}",
+                test_case.description
+            );
+
+            let tls = endpoint_config
+                .extensions
+                .get::<ClientTlsConfig>()
+                .expect("ClientTlsConfig must be preserved in extensions");
+            let debug_output = format!("{tls:?}");
+            assert!(
+                debug_output.contains(test_case.expected_domain_fragment),
+                "expected domain fragment '{}' in debug output for test case: {}, got: {debug_output}",
+                test_case.expected_domain_fragment,
+                test_case.description
+            );
+        }
+    }
+
+    #[test]
+    fn prepare_routed_endpoint_config_prevents_plaintext_downgrade_when_parent_has_tls() {
         let mut config = test_client_config();
         let omni_tls = TlsConfig::new().with_root_certificate_pem(b"test ca pem");
         config.extensions.insert(omni_tls);
@@ -1215,8 +1426,99 @@ mod tests {
 
         assert_eq!(
             endpoint_config.endpoint.as_deref(),
-            Some("http://10.0.0.1:8443"),
-            "routed endpoint dial URI must use http scheme"
+            Some("https://10.0.0.1:8443"),
+            "routed endpoint dial URI must use https scheme when parent has TLS"
+        );
+
+        assert!(
+            endpoint_config
+                .extensions
+                .get::<ClientTlsConfig>()
+                .is_some(),
+            "ClientTlsConfig must NOT be stripped when parent has TLS"
+        );
+        assert!(
+            endpoint_config.extensions.get::<TlsConfig>().is_some(),
+            "TlsConfig must NOT be stripped when parent has TLS"
+        );
+    }
+
+    #[test]
+    fn prepare_routed_endpoint_config_default_production_schemeless_prevents_downgrade() {
+        let config = test_client_config();
+        let default_address = "spanner.googleapis.com:443";
+        let routed_address = "http://10.0.0.1:8443";
+
+        let endpoint_config =
+            prepare_routed_endpoint_config(&config, default_address, routed_address);
+
+        assert_eq!(
+            endpoint_config.endpoint.as_deref(),
+            Some("https://10.0.0.1:8443"),
+            "routed endpoint dial URI must use https scheme when parent is production Spanner"
+        );
+
+        assert!(
+            endpoint_config
+                .extensions
+                .get::<ClientTlsConfig>()
+                .is_some(),
+            "ClientTlsConfig must be configured when parent is production Spanner"
+        );
+        assert!(
+            endpoint_config.extensions.get::<TlsConfig>().is_some(),
+            "TlsConfig must be configured when parent is production Spanner"
+        );
+    }
+
+    #[test]
+    fn prepare_routed_endpoint_config_explicit_https_default_prevents_downgrade() {
+        let config = test_client_config();
+        let default_address = "https://spanner.googleapis.com:443";
+        let routed_address = "http://10.0.0.1:8443";
+
+        let endpoint_config =
+            prepare_routed_endpoint_config(&config, default_address, routed_address);
+
+        assert_eq!(
+            endpoint_config.endpoint.as_deref(),
+            Some("https://10.0.0.1:8443"),
+            "routed endpoint dial URI must use https scheme when parent explicitly specifies https"
+        );
+
+        assert!(
+            endpoint_config
+                .extensions
+                .get::<ClientTlsConfig>()
+                .is_some(),
+            "ClientTlsConfig must be configured when parent explicitly specifies https"
+        );
+        assert!(
+            endpoint_config.extensions.get::<TlsConfig>().is_some(),
+            "TlsConfig must be configured when parent explicitly specifies https"
+        );
+    }
+
+    #[test]
+    fn prepare_routed_endpoint_config_plaintext_parent_strips_tls() {
+        let mut config = test_client_config();
+        config.endpoint = Some("http://127.0.0.1:9010".to_string());
+        let omni_tls = TlsConfig::new().with_root_certificate_pem(b"test ca pem");
+        config.extensions.insert(omni_tls);
+        config
+            .extensions
+            .insert(ClientTlsConfig::new().with_enabled_roots());
+
+        let default_address = "http://127.0.0.1:9010";
+        let routed_address = "http://127.0.0.1:9020";
+
+        let endpoint_config =
+            prepare_routed_endpoint_config(&config, default_address, routed_address);
+
+        assert_eq!(
+            endpoint_config.endpoint.as_deref(),
+            Some("http://127.0.0.1:9020"),
+            "routed endpoint dial URI must use http scheme when parent is plaintext"
         );
 
         assert!(
@@ -1224,11 +1526,45 @@ mod tests {
                 .extensions
                 .get::<ClientTlsConfig>()
                 .is_none(),
-            "ClientTlsConfig must be stripped from extensions for plaintext endpoint"
+            "ClientTlsConfig must be stripped from extensions for plaintext parent"
         );
         assert!(
             endpoint_config.extensions.get::<TlsConfig>().is_none(),
-            "TlsConfig must be stripped from extensions for plaintext endpoint"
+            "TlsConfig must be stripped from extensions for plaintext parent"
+        );
+    }
+
+    #[test]
+    fn prepare_routed_endpoint_config_fallback_to_config_endpoint_http_scheme() {
+        let mut config = test_client_config();
+        config.endpoint = Some("http://custom-proxy:9010".to_string());
+        let default_address = "custom-proxy:9010";
+        let routed_address = "10.0.0.1:9020";
+
+        let endpoint_config =
+            prepare_routed_endpoint_config(&config, default_address, routed_address);
+
+        assert_eq!(
+            endpoint_config.endpoint.as_deref(),
+            Some("http://10.0.0.1:9020"),
+            "routed endpoint dial URI must use http when config.endpoint specifies http scheme"
+        );
+    }
+
+    #[test]
+    fn prepare_routed_endpoint_config_fallback_to_config_endpoint_loopback() {
+        let mut config = test_client_config();
+        config.endpoint = Some("127.0.0.1:9010".to_string());
+        let default_address = "custom-emulator-host:9010";
+        let routed_address = "127.0.0.1:9020";
+
+        let endpoint_config =
+            prepare_routed_endpoint_config(&config, default_address, routed_address);
+
+        assert_eq!(
+            endpoint_config.endpoint.as_deref(),
+            Some("http://127.0.0.1:9020"),
+            "routed endpoint dial URI must use http when config.endpoint is loopback"
         );
     }
 
@@ -1238,6 +1574,7 @@ mod tests {
         struct CustomExtension(u64);
 
         let mut config = test_client_config();
+        config.endpoint = Some("http://127.0.0.1:9010".to_string());
         config.extensions.insert(InstanceType::Omni);
         config.extensions.insert(CustomExtension(42));
         let mut headers = HeaderMap::new();
@@ -1250,15 +1587,15 @@ mod tests {
             .extensions
             .insert(ClientTlsConfig::new().with_enabled_roots());
 
-        let default_address = "omni.spanner.internal:8443";
-        let routed_address = "http://10.0.0.1:8443";
+        let default_address = "http://127.0.0.1:9010";
+        let routed_address = "http://127.0.0.1:9020";
 
         let endpoint_config =
             prepare_routed_endpoint_config(&config, default_address, routed_address);
 
         assert_eq!(
             endpoint_config.endpoint.as_deref(),
-            Some("http://10.0.0.1:8443"),
+            Some("http://127.0.0.1:9020"),
             "routed endpoint dial URI must use http scheme"
         );
         assert_eq!(
@@ -1559,27 +1896,28 @@ mod tests {
 
     #[tokio::test]
     async fn connection_cache_get_tablet_different_scheme_creates_separate_connections() {
-        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let default_connection = create_default_test_connection("http://localhost:9010");
         let cache = ConnectionCache::new(default_connection);
-        let config = test_client_config();
+        let mut config = test_client_config();
+        config.endpoint = Some("http://localhost:9010".to_string());
 
         let tls_connection = cache
-            .get("https://10.0.0.1:15000", &config)
+            .get("https://127.0.0.1:15000", &config)
             .await
             .expect("should obtain TLS tablet connection");
         let plaintext_connection = cache
-            .get("http://10.0.0.1:15000", &config)
+            .get("http://127.0.0.1:15000", &config)
             .await
             .expect("should obtain plaintext tablet connection");
 
         assert_eq!(
             tls_connection.address(),
-            "https://10.0.0.1:15000",
+            "https://127.0.0.1:15000",
             "TLS connection address matches request"
         );
         assert_eq!(
             plaintext_connection.address(),
-            "http://10.0.0.1:15000",
+            "http://127.0.0.1:15000",
             "plaintext connection address matches request"
         );
         assert_eq!(
@@ -1630,6 +1968,13 @@ mod tests {
             cache.get_if_present(invalid_address).is_none(),
             "uninitialized cell must not be returned by get_if_present"
         );
+        assert!(
+            cache
+                .read_servers()
+                .get(&cache.cache_key(invalid_address))
+                .is_none(),
+            "uninitialized cell must be removed from servers map on channel creation error"
+        );
 
         // Retrying the lookup runs initialization again rather than returning a cached error.
         let result2 = cache.get(invalid_address, &config).await;
@@ -1641,6 +1986,419 @@ mod tests {
             cache.len(),
             1,
             "cache length must still be 1 after retry failure"
+        );
+        assert!(
+            cache
+                .read_servers()
+                .get(&cache.cache_key(invalid_address))
+                .is_none(),
+            "uninitialized cell must not remain in servers map after retry failure"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_remove_uninitialized_preserves_initialized_cell() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = ConnectionCache::new(default_connection);
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let cell = Arc::new(OnceCell::new());
+        let connection = create_test_connection(address);
+        cell.set(connection).expect("initialize cell");
+
+        cache.write_servers().insert(key.clone(), Arc::clone(&cell));
+
+        // Attempting to remove the initialized cell must be a no-op.
+        cache.remove_uninitialized(&key, cell);
+
+        assert!(
+            cache.read_servers().get(&key).is_some(),
+            "remove_uninitialized must not remove an initialized cell"
+        );
+        assert_eq!(
+            cache.len(),
+            2,
+            "cache length must still count initialized cell"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_remove_uninitialized_preserves_replaced_cell() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = ConnectionCache::new(default_connection);
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let old_cell = Arc::new(OnceCell::new());
+        let new_cell = Arc::new(OnceCell::new());
+
+        // Cache currently holds new_cell under key.
+        cache
+            .write_servers()
+            .insert(key.clone(), Arc::clone(&new_cell));
+
+        // Calling remove_uninitialized with old_cell must NOT remove new_cell (Arc::ptr_eq mismatch).
+        cache.remove_uninitialized(&key, old_cell);
+
+        assert!(
+            cache.read_servers().get(&key).is_some(),
+            "remove_uninitialized must not remove a cell with a different Arc pointer"
+        );
+        assert!(
+            Arc::ptr_eq(
+                cache.read_servers().get(&key).expect("entry must exist"),
+                &new_cell
+            ),
+            "servers map must still contain new_cell"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_cleanup_guard_preserves_cell_for_concurrent_waiters() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = ConnectionCache::new(default_connection);
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let cell = Arc::new(OnceCell::new());
+        cache.write_servers().insert(key.clone(), Arc::clone(&cell));
+
+        // Simulate two concurrent tasks in flight by creating two guards for the same cell.
+        let first_guard = UninitializedCellGuard {
+            cache: &cache,
+            key: &key,
+            cell: Some(Arc::clone(&cell)),
+        };
+        let second_guard = UninitializedCellGuard {
+            cache: &cache,
+            key: &key,
+            cell: Some(cell),
+        };
+
+        // Dropping first_guard while second_guard is in flight must NOT remove cell from servers map.
+        drop(first_guard);
+        assert!(
+            cache.read_servers().get(&key).is_some(),
+            "dropping one guard must preserve cell while another waiter is in flight"
+        );
+
+        // Once cell is initialized by the remaining waiter, dropping second_guard must preserve it.
+        let connection = create_test_connection(address);
+        second_guard
+            .cell()
+            .set(connection)
+            .expect("initialize cell from remaining waiter");
+        drop(second_guard);
+
+        assert!(
+            cache.read_servers().get(&key).is_some(),
+            "initialized cell must remain in servers map after last guard drops"
+        );
+        assert!(
+            cache.get_if_present(address).is_some(),
+            "initialized connection must be accessible via get_if_present"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_cleanup_guard_removes_cell_when_all_waiters_fail() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = ConnectionCache::new(default_connection);
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let cell = Arc::new(OnceCell::new());
+        cache.write_servers().insert(key.clone(), Arc::clone(&cell));
+
+        let first_guard = UninitializedCellGuard {
+            cache: &cache,
+            key: &key,
+            cell: Some(Arc::clone(&cell)),
+        };
+        let second_guard = UninitializedCellGuard {
+            cache: &cache,
+            key: &key,
+            cell: Some(cell),
+        };
+
+        // First guard drops on failure or cancellation while second guard is still awaiting.
+        drop(first_guard);
+        assert!(
+            cache.read_servers().get(&key).is_some(),
+            "cell must remain in servers map while second_guard is still in flight"
+        );
+
+        // Second guard also drops on failure or cancellation without initializing.
+        drop(second_guard);
+        assert!(
+            cache.read_servers().get(&key).is_none(),
+            "uninitialized cell must be removed from servers map when all guards drop"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_uninitialized_cell_guard_drop_on_future_cancellation() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let cell = Arc::new(OnceCell::new());
+        cache.write_servers().insert(key.clone(), Arc::clone(&cell));
+
+        let cache_clone = Arc::clone(&cache);
+        let key_clone = key.clone();
+
+        let (started_sender, started_receiver) = oneshot::channel();
+
+        let cancellation_task = tokio::spawn(async move {
+            let _guard = UninitializedCellGuard {
+                cache: &cache_clone,
+                key: &key_clone,
+                cell: Some(cell),
+            };
+            let _ = started_sender.send(());
+            // Suspend indefinitely to simulate a stalled connection attempt.
+            pending::<()>().await;
+        });
+
+        // Await confirmation that the guard was constructed and task suspended.
+        started_receiver
+            .await
+            .expect("task must start and enter pending");
+
+        // Abort the task to trigger future cancellation at the .await point.
+        cancellation_task.abort();
+        let _ = cancellation_task.await;
+
+        assert!(
+            cache.read_servers().get(&key).is_none(),
+            "uninitialized cell must be removed when future is cancelled at an await point"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_concurrent_callers_clean_up_on_failure() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let config = Arc::new(test_client_config());
+        let invalid_address = "invalid host:not a port";
+        let key = cache.cache_key(invalid_address);
+
+        let mut tasks = Vec::new();
+        for _ in 0..5 {
+            let cache_clone = Arc::clone(&cache);
+            let config_clone = Arc::clone(&config);
+            tasks.push(tokio::spawn(async move {
+                cache_clone.get(invalid_address, &config_clone).await
+            }));
+        }
+
+        for task in tasks {
+            let result = task.await.expect("task must join");
+            assert!(result.is_err(), "connection creation must fail");
+        }
+
+        assert!(
+            cache.read_servers().get(&key).is_none(),
+            "uninitialized cell must be removed from servers map after all concurrent attempts fail"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_concurrent_cancellation_cleans_up_uninitialized_cell() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let cell = Arc::new(OnceCell::new());
+        cache.write_servers().insert(key.clone(), Arc::clone(&cell));
+
+        let mut tasks = Vec::new();
+        let mut receivers = Vec::new();
+
+        for _ in 0..5 {
+            let cache_clone = Arc::clone(&cache);
+            let key_clone = key.clone();
+            let cell_clone = Arc::clone(&cell);
+            let (started_sender, started_receiver) = oneshot::channel();
+            receivers.push(started_receiver);
+
+            tasks.push(tokio::spawn(async move {
+                let _guard = UninitializedCellGuard {
+                    cache: &cache_clone,
+                    key: &key_clone,
+                    cell: Some(cell_clone),
+                };
+                let _ = started_sender.send(());
+                pending::<()>().await;
+            }));
+        }
+
+        for receiver in receivers {
+            receiver.await.expect("task must start and enter pending");
+        }
+
+        drop(cell);
+
+        for task in &tasks {
+            task.abort();
+        }
+        for task in tasks {
+            let _ = task.await;
+        }
+
+        assert!(
+            cache.read_servers().get(&key).is_none(),
+            "uninitialized cell must be removed after all concurrent tasks are cancelled"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_cancelled_leader_preserves_cell_for_successful_waiter() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let cell = Arc::new(OnceCell::new());
+        cache.write_servers().insert(key.clone(), Arc::clone(&cell));
+
+        let cache_clone = Arc::clone(&cache);
+        let key_clone = key.clone();
+        let leader_cell = Arc::clone(&cell);
+        let waiter_cell = Arc::clone(&cell);
+        drop(cell);
+
+        let (started_sender, started_receiver) = oneshot::channel();
+        let leader_task = tokio::spawn(async move {
+            let _guard = UninitializedCellGuard {
+                cache: &cache_clone,
+                key: &key_clone,
+                cell: Some(leader_cell),
+            };
+            let _ = started_sender.send(());
+            pending::<()>().await;
+        });
+
+        started_receiver
+            .await
+            .expect("leader must start and enter pending");
+
+        let waiter_guard = UninitializedCellGuard {
+            cache: &cache,
+            key: &key,
+            cell: Some(waiter_cell),
+        };
+
+        leader_task.abort();
+        let _ = leader_task.await;
+
+        assert!(
+            cache.read_servers().get(&key).is_some(),
+            "cell must remain in cache while waiter is still in flight"
+        );
+
+        let connection = create_test_connection(address);
+        waiter_guard
+            .cell()
+            .set(connection)
+            .expect("initialize cell from waiter");
+        drop(waiter_guard);
+
+        assert!(
+            cache.read_servers().get(&key).is_some(),
+            "initialized cell must remain in cache after waiter completes"
+        );
+        assert!(
+            cache.get_if_present(address).is_some(),
+            "connection must be accessible via get_if_present"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_remove_uninitialized_preserves_concurrently_initialized_cell() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = ConnectionCache::new(default_connection);
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let cell = Arc::new(OnceCell::new());
+        cache.write_servers().insert(key.clone(), Arc::clone(&cell));
+
+        // Simulate cell initialized while cell reference count is 2 (guard + cache).
+        let connection = create_test_connection(address);
+        cell.set(connection).expect("initialize cell");
+
+        // remove_uninitialized must not evict the cell even though drop(cell) leaves strong_count == 1.
+        cache.remove_uninitialized(&key, cell);
+
+        assert!(
+            cache.read_servers().get(&key).is_some(),
+            "initialized cell must remain in servers map"
+        );
+        assert!(
+            cache.get_if_present(address).is_some(),
+            "connection must remain accessible via get_if_present"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_uninitialized_guard_drop_after_explicit_eviction() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = ConnectionCache::new(default_connection);
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let cell = Arc::new(OnceCell::new());
+        cache.write_servers().insert(key.clone(), Arc::clone(&cell));
+
+        let guard = UninitializedCellGuard {
+            cache: &cache,
+            key: &key,
+            cell: Some(cell),
+        };
+
+        // Explicit eviction removes the key before guard drops.
+        assert!(cache.evict(address), "address must be evicted");
+
+        // Dropping guard when key is already absent must be a safe no-op.
+        drop(guard);
+
+        assert!(
+            cache.read_servers().get(&key).is_none(),
+            "key must remain absent after guard drops"
+        );
+    }
+
+    #[tokio::test]
+    async fn connection_cache_uninitialized_cell_removed_on_panic() {
+        let default_connection = create_default_test_connection("spanner.googleapis.com:443");
+        let cache = Arc::new(ConnectionCache::new(default_connection));
+        let address = "10.0.0.1:15000";
+        let key = cache.cache_key(address);
+
+        let cell = Arc::new(OnceCell::new());
+        cache.write_servers().insert(key.clone(), Arc::clone(&cell));
+
+        let cache_clone = Arc::clone(&cache);
+        let key_clone = key.clone();
+
+        let panic_result = catch_unwind(AssertUnwindSafe(|| {
+            let _guard = UninitializedCellGuard {
+                cache: &cache_clone,
+                key: &key_clone,
+                cell: Some(cell),
+            };
+            panic!("simulated panic during channel creation");
+        }));
+
+        assert!(panic_result.is_err(), "task must have panicked");
+        assert!(
+            cache.read_servers().get(&key).is_none(),
+            "uninitialized cell must be removed from servers map following panic unwinding"
         );
     }
 

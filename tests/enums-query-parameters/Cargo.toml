@@ -35,3 +35,6 @@ google-cloud-test-utils              = { workspace = true }
 google-cloud-lro.workspace           = true
 tokio.workspace                      = true
 tracing.workspace                    = true
+
+[lints]
+workspace = true

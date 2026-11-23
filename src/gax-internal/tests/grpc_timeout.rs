@@ -23,7 +23,7 @@ mod tests {
     use google_cloud_gax::retry_state::RetryState;
     use google_cloud_gax::retry_throttler::{CircuitBreaker, RetryThrottlerArg};
     use google_cloud_gax_internal::grpc;
-    use grpc_server::{builder, google, start_echo_server};
+    use grpc_server::{builder, google, start_echo_server_with_paused_time};
     use std::sync::{Arc, Mutex};
     use std::time::Duration;
 
@@ -33,91 +33,55 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn test_no_timeout() -> anyhow::Result<()> {
-        let (endpoint, server) = start_echo_server().await?;
+        let (endpoint, _server) = start_echo_server_with_paused_time().await?;
         let client = test_client(endpoint).await?;
 
         let delay = Duration::from_millis(200);
-        let mut interval = tokio::time::interval(Duration::from_millis(10));
         let request_options = RequestOptions::default();
-        let response = send_request(client, request_options, "great success!", Some(delay));
-
-        tokio::pin!(server);
-        tokio::pin!(response);
-        loop {
-            tokio::select! {
-                _ = &mut server => { },
-                r = &mut response => {
-                    let response = r?;
-                    assert_eq!(response.message, "great success!");
-                    break;
-                },
-                _ = interval.tick() => { },
-            }
-        }
+        let start = tokio::time::Instant::now();
+        let response = send_request(client, request_options, "great success!", Some(delay)).await?;
+        assert_eq!(response.message, "great success!");
+        assert_eq!(start.elapsed(), delay);
 
         Ok(())
     }
 
     #[tokio::test(start_paused = true)]
     async fn test_timeout_does_not_expire() -> anyhow::Result<()> {
-        let (endpoint, server) = start_echo_server().await?;
+        let (endpoint, _server) = start_echo_server_with_paused_time().await?;
         let client = test_client(endpoint).await?;
 
         let delay = Duration::from_millis(200);
         let timeout = Duration::from_millis(2000);
-        let mut interval = tokio::time::interval(Duration::from_millis(10));
         let mut request_options = RequestOptions::default();
         request_options.set_attempt_timeout(timeout);
-        let response = send_request(client, request_options, "great success!", Some(delay));
-
-        tokio::pin!(server);
-        tokio::pin!(response);
-        loop {
-            tokio::select! {
-                _ = &mut server => {  },
-                r = &mut response => {
-                    let response = r?;
-                    assert_eq!(response.message, "great success!");
-                    break;
-                },
-                _ = interval.tick() => { },
-            }
-        }
+        let start = tokio::time::Instant::now();
+        let response = send_request(client, request_options, "great success!", Some(delay)).await?;
+        assert_eq!(response.message, "great success!");
+        assert_eq!(start.elapsed(), delay);
 
         Ok(())
     }
 
     #[tokio::test(start_paused = true)]
     async fn test_timeout_expires() -> anyhow::Result<()> {
-        let (endpoint, server) = start_echo_server().await?;
+        let (endpoint, _server) = start_echo_server_with_paused_time().await?;
         let client = test_client(endpoint).await?;
-        let mut server = connect_client(client.clone(), server).await?;
 
         let delay = Duration::from_millis(200);
-        let mut interval = tokio::time::interval(Duration::from_millis(10));
         let timeout = Duration::from_millis(150);
         let mut request_options = RequestOptions::default();
         request_options.set_attempt_timeout(timeout);
-        let response = send_request(client, request_options, "should timeout", Some(delay));
 
         let start = tokio::time::Instant::now();
-        tokio::pin!(response);
-        loop {
-            tokio::select! {
-                _ = &mut server => {  },
-                r = &mut response => {
-                    assert!(
-                        r.is_err(),
-                        "expected an error when timeout={}, got={r:?}",
-                        timeout.as_millis()
-                    );
-                    let err = r.unwrap_err();
-                    assert!(err.is_timeout(), "{err:?}");
-                    break;
-                },
-                _ = interval.tick() => { },
-            }
-        }
+        let r = send_request(client, request_options, "should timeout", Some(delay)).await;
+        assert!(
+            r.is_err(),
+            "expected an error when timeout={}, got={r:?}",
+            timeout.as_millis()
+        );
+        let err = r.unwrap_err();
+        assert!(err.is_timeout(), "{err:?}");
 
         let elapsed = start.elapsed();
         assert_eq!(elapsed, timeout);
@@ -127,9 +91,8 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn test_effective_timeout() -> anyhow::Result<()> {
-        let (endpoint, server) = start_echo_server().await?;
+        let (endpoint, _server) = start_echo_server_with_paused_time().await?;
         let client = test_client(endpoint).await?;
-        let mut server = connect_client(client.clone(), server).await?;
 
         // The first attempt should timeout, because of the attempt timeout of
         // 100ms. The next attempt should timeout, because of the overall
@@ -137,7 +100,6 @@ mod tests {
         let attempt_timeout = Duration::from_millis(100);
         let overall_timeout = Duration::from_millis(150);
         let delay = Duration::from_millis(200);
-        let mut interval = tokio::time::interval(Duration::from_millis(10));
 
         #[derive(Default, Debug)]
         struct TestBackoffPolicy {
@@ -163,25 +125,12 @@ mod tests {
             elapsed_on_failure: elapsed_on_failure.clone(),
         });
         disable_throttling(&mut request_options);
-        let response = send_request(client, request_options, "should timeout", Some(delay));
 
         let start = tokio::time::Instant::now();
-        tokio::pin!(response);
-        loop {
-            tokio::select! {
-                _ = &mut server => {  },
-                r = &mut response => {
-                    assert!(
-                        r.is_err(),
-                        "expected a timeout error, got={r:?}"
-                    );
-                    let err = r.unwrap_err();
-                    assert!(err.is_timeout(), "{err:?}");
-                    break;
-                },
-                _ = interval.tick() => { },
-            }
-        }
+        let r = send_request(client, request_options, "should timeout", Some(delay)).await;
+        assert!(r.is_err(), "expected a timeout error, got={r:?}");
+        let err = r.unwrap_err();
+        assert!(err.is_timeout(), "{err:?}");
 
         // Verify the time at which we expect the initial attempt to complete
         let elapsed = elapsed_on_failure
@@ -202,31 +151,6 @@ mod tests {
             .with_credentials(test_credentials())
             .build()
             .await
-    }
-
-    async fn connect_client(
-        client: grpc::Client,
-        server: tokio::task::JoinHandle<()>,
-    ) -> anyhow::Result<std::pin::Pin<Box<tokio::task::JoinHandle<()>>>> {
-        // Make sure the client is connected, the first request has higher
-        // latency. It is hard to write a timeout test that includes the request.
-        let mut interval = tokio::time::interval(Duration::from_millis(10));
-        let mut server = Box::pin(server);
-
-        let request_options = RequestOptions::default();
-        let response = send_request(client, request_options, "great success!", None);
-        tokio::pin!(response);
-        for _ in 0..100 {
-            tokio::select! {
-                _ = &mut server => {  },
-                r = &mut response => {
-                    assert!(r.is_ok(), "{r:?}");
-                    return Ok(server);
-                },
-                _ = interval.tick() => { },
-            }
-        }
-        Err(anyhow::Error::msg("cannot connect client"))
     }
 
     fn disable_throttling(o: &mut RequestOptions) {

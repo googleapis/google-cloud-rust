@@ -90,7 +90,9 @@ impl Dataform {
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
-    /// client's behavior.
+    /// client's behavior. See the [mocking guide] for more information.
+    ///
+    /// [mocking guide]: https://docs.cloud.google.com/rust/docs/mocking
     pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::Dataform + 'static,
@@ -1394,6 +1396,40 @@ impl Dataform {
     /// ```
     pub fn create_compilation_result(&self) -> super::builder::dataform::CreateCompilationResult {
         super::builder::dataform::CreateCompilationResult::new(self.inner.clone())
+    }
+
+    /// Creates a new CompilationResult in a given project and location
+    /// asynchronously.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataform_v1::client::Dataform;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dataform_v1::Result;
+    /// async fn sample(
+    ///    client: &Dataform
+    /// ) -> Result<()> {
+    ///     let response = client.create_compilation_result_long_running()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_compilation_result_long_running(
+        &self,
+    ) -> super::builder::dataform::CreateCompilationResultLongRunning {
+        super::builder::dataform::CreateCompilationResultLongRunning::new(self.inner.clone())
     }
 
     /// Returns CompilationResultActions in a given CompilationResult.

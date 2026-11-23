@@ -56,7 +56,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -89,7 +89,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     .set_rpc_method(
                         "google.cloud.websecurityscanner.v1.WebSecurityScanner/CreateScanConfig",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -114,7 +114,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -157,7 +157,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     .set_rpc_method(
                         "google.cloud.websecurityscanner.v1.WebSecurityScanner/DeleteScanConfig",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -188,7 +188,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -231,7 +231,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     .set_rpc_method(
                         "google.cloud.websecurityscanner.v1.WebSecurityScanner/GetScanConfig",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -256,7 +256,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -291,7 +291,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     .set_rpc_method(
                         "google.cloud.websecurityscanner.v1.WebSecurityScanner/ListScanConfigs",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -316,7 +316,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_scan_config_name = try_match(
                     Some(&req)
@@ -377,7 +377,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     .set_rpc_method(
                         "google.cloud.websecurityscanner.v1.WebSecurityScanner/UpdateScanConfig",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -403,7 +403,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -447,7 +447,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     .set_rpc_method(
                         "google.cloud.websecurityscanner.v1.WebSecurityScanner/StartScanRun",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -472,7 +472,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -519,7 +519,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     .set_rpc_method(
                         "google.cloud.websecurityscanner.v1.WebSecurityScanner/GetScanRun",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -544,7 +544,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -589,7 +589,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     .set_rpc_method(
                         "google.cloud.websecurityscanner.v1.WebSecurityScanner/ListScanRuns",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -615,7 +615,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -663,7 +663,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     .set_rpc_method(
                         "google.cloud.websecurityscanner.v1.WebSecurityScanner/StopScanRun",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -688,7 +688,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -737,7 +737,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     .set_rpc_method(
                         "google.cloud.websecurityscanner.v1.WebSecurityScanner/ListCrawledUrls",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -762,7 +762,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -813,7 +813,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     .set_rpc_method(
                         "google.cloud.websecurityscanner.v1.WebSecurityScanner/GetFinding",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -838,7 +838,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -888,7 +888,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
                     .set_rpc_method(
                         "google.cloud.websecurityscanner.v1.WebSecurityScanner/ListFindings",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -913,7 +913,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -958,7 +958,7 @@ impl super::stub::WebSecurityScanner for WebSecurityScanner {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.websecurityscanner.v1.WebSecurityScanner/ListFindingTypeStats")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(

@@ -1,4 +1,4 @@
-<!-- 
+<!--
 Copyright 2025 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,38 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Introduction
+# Google Cloud Client Libraries for Rust
 
-The Google Cloud Client Libraries for Rust is a collection of Rust crates to
-interact with Google Cloud Services.
+The User Guide has moved to the official Google Cloud documentation site:
 
-This guide is organized as a series of small tutorials showing how to perform
-specific actions with the client libraries. Most Google Cloud services follow a
-series of guidelines, collectively known as the [AIPs](https://google.aip.dev).
-This makes the client libraries more consistent from one service to the next.
-The functions to delete or list resources almost always have the same interface.
+- [Google Cloud Client Libraries for Rust documentation](https://docs.cloud.google.com/rust/docs/overview)
+- [Get started with Rust](https://docs.cloud.google.com/rust/docs/quickstart)
 
-## Audience
-
-This guide is intended for Rust developers who are familiar with the language
-and the Rust ecosystem. This guide assumes you know how to use Rust and its
-supporting toolchain.
-
-At the risk of being repetitive, most of the guides do not assume you have used
-any Google Service or client library before (in Rust or other language).
-However, the guides will refer you to service specific tutorials to initialize
-their projects and services.
-
-## Service specific documentation
-
-These guides are not intended as tutorials for each service or as extended
-guides on how to design Rust applications to work on Google Cloud. They are
-starting points to get you productive with the client libraries for Rust.
-
-We recommend you read the service documentation at <https://cloud.google.com> to
-learn more about each service. If you need guidance on how to design your
-application for Google Cloud, the [Cloud Architecture Center] may have what you
-are looking for.
+Existing links to chapters in this guide automatically redirect to their new
+locations.
 
 ## Reporting bugs
 
@@ -54,7 +31,5 @@ Bug reports about the client libraries or their documentation are welcome. Use
 
 ## License
 
-The client libraries source and their documentation are release under the
+The client libraries source and their documentation are released under the
 [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
-
-[cloud architecture center]: https://cloud.google.com/architecture

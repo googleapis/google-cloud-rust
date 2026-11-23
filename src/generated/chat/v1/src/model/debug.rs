@@ -337,6 +337,55 @@ impl std::fmt::Debug for super::MarkAsDoNotDisturbRequest {
     }
 }
 
+impl std::fmt::Debug for super::Citation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Citation");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("cited_sources", &self.cited_sources);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CitedSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CitedSource");
+        debug_struct.field("title", &self.title);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("snippet", &self.snippet);
+        debug_struct.field("footer", &self.footer);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::cited_source::Snippet {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Snippet");
+        debug_struct.field("text", &self.text);
+        debug_struct.field("image_preview", &self.image_preview);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::cited_source::Footer {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Footer");
+        debug_struct.field("text", &self.text);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::ContextualAddOnMarkup {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ContextualAddOnMarkup");
@@ -403,6 +452,29 @@ impl std::fmt::Debug for super::DeletionMetadata {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("DeletionMetadata");
         debug_struct.field("deletion_type", &self.deletion_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Elements {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Elements");
+        debug_struct.field("cited_sources", &self.cited_sources);
+        debug_struct.field("citations", &self.citations);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ElementsImage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ElementsImage");
+        debug_struct.field("image", &self.image);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -759,6 +831,7 @@ impl std::fmt::Debug for super::Message {
         debug_struct.field("quoted_message_metadata", &self.quoted_message_metadata);
         debug_struct.field("attached_gifs", &self.attached_gifs);
         debug_struct.field("accessory_widgets", &self.accessory_widgets);
+        debug_struct.field("elements", &self.elements);
         debug_struct.field("markup_syntax", &self.markup_syntax);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

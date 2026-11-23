@@ -1417,6 +1417,201 @@ pub mod partner_link_service {
     }
 }
 
+/// Request and client builders for [ReportingService][crate::client::ReportingService].
+pub mod reporting_service {
+    use crate::Result;
+
+    /// A builder for [ReportingService][crate::client::ReportingService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_ads_datamanager_v1::*;
+    /// # use builder::reporting_service::ClientBuilder;
+    /// # use client::ReportingService;
+    /// let builder : ClientBuilder = ReportingService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://datamanager.googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::ReportingService;
+        pub struct Factory;
+        impl crate::ClientFactory for Factory {
+            type Client = ReportingService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> crate::ClientBuilderResult<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::ReportingService] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ReportingService>,
+        request: R,
+        options: crate::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReportingService>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [ReportingService::retrieve_partner_match_report][crate::client::ReportingService::retrieve_partner_match_report] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_ads_datamanager_v1::builder::reporting_service::RetrievePartnerMatchReport;
+    /// # async fn sample() -> google_ads_datamanager_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> RetrievePartnerMatchReport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct RetrievePartnerMatchReport(
+        RequestBuilder<crate::model::RetrievePartnerMatchReportRequest>,
+    );
+
+    impl RetrievePartnerMatchReport {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReportingService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::RetrievePartnerMatchReportRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::RetrievePartnerMatchReportResponse> {
+            (*self.0.stub)
+                .retrieve_partner_match_report(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::RetrievePartnerMatchReportResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::RetrievePartnerMatchReportResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::RetrievePartnerMatchReportRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [currency_code][crate::model::RetrievePartnerMatchReportRequest::currency_code].
+        pub fn set_currency_code<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.currency_code = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::RetrievePartnerMatchReportRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [start_date][crate::model::RetrievePartnerMatchReportRequest::start_date].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_start_date<T: Into<i64>>(mut self, v: T) -> Self {
+            self.0.request.start_date = v.into();
+            self
+        }
+
+        /// Sets the value of [end_date][crate::model::RetrievePartnerMatchReportRequest::end_date].
+        pub fn set_end_date<T: Into<i64>>(mut self, v: T) -> Self {
+            self.0.request.end_date = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::RetrievePartnerMatchReportRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::RetrievePartnerMatchReportRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for RetrievePartnerMatchReport {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
 /// Request and client builders for [UserListDirectLicenseService][crate::client::UserListDirectLicenseService].
 pub mod user_list_direct_license_service {
     use crate::Result;

@@ -562,6 +562,413 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_auto_protection_policy(
+        &self,
+        req: crate::model::CreateAutoProtectionPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::create_auto_protection_policy",
+            self.inner.create_auto_protection_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_auto_protection_policies(
+        &self,
+        req: crate::model::ListAutoProtectionPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAutoProtectionPoliciesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::list_auto_protection_policies",
+            self.inner.list_auto_protection_policies(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_auto_protection_policy(
+        &self,
+        req: crate::model::GetAutoProtectionPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AutoProtectionPolicy>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::get_auto_protection_policy",
+            self.inner.get_auto_protection_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_auto_protection_policy(
+        &self,
+        req: crate::model::UpdateAutoProtectionPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::update_auto_protection_policy",
+            self.inner.update_auto_protection_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_auto_protection_policy(
+        &self,
+        req: crate::model::DeleteAutoProtectionPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::delete_auto_protection_policy",
+            self.inner.delete_auto_protection_policy(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_auto_protection_policy_binding(
+        &self,
+        req: crate::model::CreateAutoProtectionPolicyBindingRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::create_auto_protection_policy_binding",
+            self.inner.create_auto_protection_policy_binding(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_auto_protection_policy_binding(
+        &self,
+        req: crate::model::GetAutoProtectionPolicyBindingRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AutoProtectionPolicyBinding>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::get_auto_protection_policy_binding",
+            self.inner.get_auto_protection_policy_binding(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_auto_protection_policy_bindings(
+        &self,
+        req: crate::model::ListAutoProtectionPolicyBindingsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAutoProtectionPolicyBindingsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::list_auto_protection_policy_bindings",
+            self.inner.list_auto_protection_policy_bindings(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_applied_auto_protection_policies(
+        &self,
+        req: crate::model::ListAppliedAutoProtectionPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAppliedAutoProtectionPoliciesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::list_applied_auto_protection_policies",
+            self.inner.list_applied_auto_protection_policies(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn initiate_delete_auto_protection_policy_binding(
+        &self,
+        req: crate::model::InitiateDeleteAutoProtectionPolicyBindingRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::initiate_delete_auto_protection_policy_binding",
+            self.inner.initiate_delete_auto_protection_policy_binding(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_binding_matching_resources(
+        &self,
+        req: crate::model::ListBindingMatchingResourcesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListBindingMatchingResourcesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::list_binding_matching_resources",
+            self.inner.list_binding_matching_resources(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_restore_template(
+        &self,
+        req: crate::model::CreateRestoreTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::create_restore_template",
+            self.inner.create_restore_template(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_restore_template(
+        &self,
+        req: crate::model::GetRestoreTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RestoreTemplate>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::get_restore_template",
+            self.inner.get_restore_template(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_restore_templates(
+        &self,
+        req: crate::model::ListRestoreTemplatesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListRestoreTemplatesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::list_restore_templates",
+            self.inner.list_restore_templates(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_restore_template(
+        &self,
+        req: crate::model::UpdateRestoreTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::update_restore_template",
+            self.inner.update_restore_template(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_restore_template(
+        &self,
+        req: crate::model::DeleteRestoreTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::delete_restore_template",
+            self.inner.delete_restore_template(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn run_restore_template(
+        &self,
+        req: crate::model::RunRestoreTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::run_restore_template",
+            self.inner.run_restore_template(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_restore_template_execution(
+        &self,
+        req: crate::model::GetRestoreTemplateExecutionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RestoreTemplateExecution>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::get_restore_template_execution",
+            self.inner.get_restore_template_execution(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_restore_template_executions(
+        &self,
+        req: crate::model::ListRestoreTemplateExecutionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListRestoreTemplateExecutionsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::list_restore_template_executions",
+            self.inner.list_restore_template_executions(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn trigger_restore_cleanup(
+        &self,
+        req: crate::model::TriggerRestoreCleanupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::trigger_restore_cleanup",
+            self.inner.trigger_restore_cleanup(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_restore_verification_plan(
+        &self,
+        req: crate::model::CreateRestoreVerificationPlanRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::create_restore_verification_plan",
+            self.inner.create_restore_verification_plan(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_restore_verification_plan_association(
+        &self,
+        req: crate::model::CreateRestoreVerificationPlanAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::create_restore_verification_plan_association",
+            self.inner.create_restore_verification_plan_association(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_restore_verification_plan_association(
+        &self,
+        req: crate::model::GetRestoreVerificationPlanAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RestoreVerificationPlanAssociation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::get_restore_verification_plan_association",
+            self.inner.get_restore_verification_plan_association(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_restore_verification_plan_associations(
+        &self,
+        req: crate::model::ListRestoreVerificationPlanAssociationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListRestoreVerificationPlanAssociationsResponse>>
+    {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::list_restore_verification_plan_associations",
+            self.inner.list_restore_verification_plan_associations(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_restore_verification_plan_association(
+        &self,
+        req: crate::model::DeleteRestoreVerificationPlanAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::delete_restore_verification_plan_association",
+            self.inner.delete_restore_verification_plan_association(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn trigger_restore_verification(
+        &self,
+        req: crate::model::TriggerRestoreVerificationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::trigger_restore_verification",
+            self.inner.trigger_restore_verification(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_restore_verification_plan(
+        &self,
+        req: crate::model::GetRestoreVerificationPlanRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RestoreVerificationPlan>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::get_restore_verification_plan",
+            self.inner.get_restore_verification_plan(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_restore_verification_plans(
+        &self,
+        req: crate::model::ListRestoreVerificationPlansRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListRestoreVerificationPlansResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::list_restore_verification_plans",
+            self.inner.list_restore_verification_plans(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_restore_verification_plan(
+        &self,
+        req: crate::model::DeleteRestoreVerificationPlanRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BackupDR::delete_restore_verification_plan",
+            self.inner.delete_restore_verification_plan(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,

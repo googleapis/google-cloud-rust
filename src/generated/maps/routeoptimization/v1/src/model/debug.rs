@@ -679,6 +679,7 @@ impl std::fmt::Debug for super::shipment_route::Visit {
             "injected_solution_location_token",
             &self.injected_solution_location_token,
         );
+        debug_struct.field("visit_type", &self.visit_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -295,7 +295,6 @@ mod tests {
             query,
         )
         .until_done()
-        .instrument(test_span())
         .await;
         assert!(
             matches!(
@@ -343,7 +342,6 @@ mod tests {
             query,
         )
         .until_done()
-        .instrument(test_span())
         .await;
         assert!(
             matches!(

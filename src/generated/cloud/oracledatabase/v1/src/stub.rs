@@ -73,6 +73,17 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::OracleDatabase::update_cloud_exadata_infrastructure].
+    fn update_cloud_exadata_infrastructure(
+        &self,
+        _req: crate::model::UpdateCloudExadataInfrastructureRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::OracleDatabase::delete_cloud_exadata_infrastructure].
     fn delete_cloud_exadata_infrastructure(
         &self,
@@ -128,10 +139,65 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::OracleDatabase::update_cloud_vm_cluster].
+    fn update_cloud_vm_cluster(
+        &self,
+        _req: crate::model::UpdateCloudVmClusterRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::OracleDatabase::delete_cloud_vm_cluster].
     fn delete_cloud_vm_cluster(
         &self,
         _req: crate::model::DeleteCloudVmClusterRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::enable_cloud_vm_cluster_identity_connector].
+    fn enable_cloud_vm_cluster_identity_connector(
+        &self,
+        _req: crate::model::EnableCloudVmClusterIdentityConnectorRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::disable_cloud_vm_cluster_identity_connector].
+    fn disable_cloud_vm_cluster_identity_connector(
+        &self,
+        _req: crate::model::DisableCloudVmClusterIdentityConnectorRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::enable_exadb_vm_cluster_identity_connector].
+    fn enable_exadb_vm_cluster_identity_connector(
+        &self,
+        _req: crate::model::EnableExadbVmClusterIdentityConnectorRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::disable_exadb_vm_cluster_identity_connector].
+    fn disable_exadb_vm_cluster_identity_connector(
+        &self,
+        _req: crate::model::DisableExadbVmClusterIdentityConnectorRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
@@ -146,6 +212,17 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::ListEntitlementsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_flex_components].
+    fn list_flex_components(
+        &self,
+        _req: crate::model::ListFlexComponentsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListFlexComponentsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -430,6 +507,17 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::OracleDatabase::update_odb_network].
+    fn update_odb_network(
+        &self,
+        _req: crate::model::UpdateOdbNetworkRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::OracleDatabase::delete_odb_network].
     fn delete_odb_network(
         &self,
@@ -466,6 +554,17 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
     fn create_odb_subnet(
         &self,
         _req: crate::model::CreateOdbSubnetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::update_odb_subnet].
+    fn update_odb_subnet(
+        &self,
+        _req: crate::model::UpdateOdbSubnetRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
@@ -626,6 +725,17 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::OracleDatabase::update_exascale_db_storage_vault].
+    fn update_exascale_db_storage_vault(
+        &self,
+        _req: crate::model::UpdateExascaleDbStorageVaultRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::OracleDatabase::delete_exascale_db_storage_vault].
     fn delete_exascale_db_storage_vault(
         &self,
@@ -645,6 +755,19 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<
             crate::Response<crate::model::ListDbSystemInitialStorageSizesResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_db_system_compute_performances].
+    fn list_db_system_compute_performances(
+        &self,
+        _req: crate::model::ListDbSystemComputePerformancesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<crate::model::ListDbSystemComputePerformancesResponse>,
         >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
@@ -725,6 +848,17 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::OracleDatabase::update_db_system].
+    fn update_db_system(
+        &self,
+        _req: crate::model::UpdateDbSystemRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::OracleDatabase::delete_db_system].
     fn delete_db_system(
         &self,
@@ -762,6 +896,17 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
     fn create_goldengate_deployment(
         &self,
         _req: crate::model::CreateGoldengateDeploymentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::update_goldengate_deployment].
+    fn update_goldengate_deployment(
+        &self,
+        _req: crate::model::UpdateGoldengateDeploymentRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
@@ -828,6 +973,17 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
     fn create_goldengate_connection(
         &self,
         _req: crate::model::CreateGoldengateConnectionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::update_goldengate_connection].
+    fn update_goldengate_connection(
+        &self,
+        _req: crate::model::UpdateGoldengateConnectionRequest,
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
@@ -955,6 +1111,17 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::OracleDatabase::update_goldengate_connection_assignment].
+    fn update_goldengate_connection_assignment(
+        &self,
+        _req: crate::model::UpdateGoldengateConnectionAssignmentRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::OracleDatabase::delete_goldengate_connection_assignment].
     fn delete_goldengate_connection_assignment(
         &self,
@@ -975,6 +1142,83 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         Output = crate::Result<
             crate::Response<crate::model::TestGoldengateConnectionAssignmentResponse>,
         >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::list_database_connections].
+    fn list_database_connections(
+        &self,
+        _req: crate::model::ListDatabaseConnectionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListDatabaseConnectionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::get_database_connection].
+    fn get_database_connection(
+        &self,
+        _req: crate::model::GetDatabaseConnectionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::DatabaseConnection>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::create_database_connection].
+    fn create_database_connection(
+        &self,
+        _req: crate::model::CreateDatabaseConnectionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::update_database_connection].
+    fn update_database_connection(
+        &self,
+        _req: crate::model::UpdateDatabaseConnectionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::delete_database_connection].
+    fn delete_database_connection(
+        &self,
+        _req: crate::model::DeleteDatabaseConnectionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::test_database_connection].
+    fn test_database_connection(
+        &self,
+        _req: crate::model::TestDatabaseConnectionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::TestDatabaseConnectionResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::OracleDatabase::execute_sql].
+    fn execute_sql(
+        &self,
+        _req: crate::model::ExecuteSqlRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ExecuteSqlResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

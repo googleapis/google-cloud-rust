@@ -1346,6 +1346,7 @@ pub mod compression {
     pub enum CompressionAlgorithm {
         Unspecified = 0,
         Zlib = 1,
+        Zstd = 3,
     }
     impl CompressionAlgorithm {
         /// String value of the enum field names used in the ProtoBuf definition.
@@ -1356,6 +1357,7 @@ pub mod compression {
             match self {
                 Self::Unspecified => "COMPRESSION_ALGORITHM_UNSPECIFIED",
                 Self::Zlib => "ZLIB",
+                Self::Zstd => "ZSTD",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1363,6 +1365,7 @@ pub mod compression {
             match value {
                 "COMPRESSION_ALGORITHM_UNSPECIFIED" => Some(Self::Unspecified),
                 "ZLIB" => Some(Self::Zlib),
+                "ZSTD" => Some(Self::Zstd),
                 _ => None,
             }
         }
@@ -2632,7 +2635,7 @@ pub struct StreamingPullRequest {
     pub subscription: ::prost::alloc::string::String,
     #[prost(string, repeated, tag = "2")]
     pub ack_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    #[prost(int32, repeated, packed = "false", tag = "3")]
+    #[prost(int32, repeated, tag = "3")]
     pub modify_deadline_seconds: ::prost::alloc::vec::Vec<i32>,
     #[prost(string, repeated, tag = "4")]
     pub modify_deadline_ack_ids: ::prost::alloc::vec::Vec<

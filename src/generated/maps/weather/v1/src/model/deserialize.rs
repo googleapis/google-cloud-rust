@@ -327,6 +327,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ForecastDay {
             __sun_events,
             __moon_events,
             __max_heat_index,
+            __full_day_forecast,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -376,6 +377,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ForecastDay {
                             "moon_events" => Ok(__FieldTag::__moon_events),
                             "maxHeatIndex" => Ok(__FieldTag::__max_heat_index),
                             "max_heat_index" => Ok(__FieldTag::__max_heat_index),
+                            "fullDayForecast" => Ok(__FieldTag::__full_day_forecast),
+                            "full_day_forecast" => Ok(__FieldTag::__full_day_forecast),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -502,6 +505,16 @@ impl<'de> serde::de::Deserialize<'de> for super::ForecastDay {
                             }
                             result.max_heat_index =
                                 map.next_value::<std::option::Option<crate::model::Temperature>>()?;
+                        }
+                        __FieldTag::__full_day_forecast => {
+                            if !fields.insert(__FieldTag::__full_day_forecast) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for full_day_forecast",
+                                ));
+                            }
+                            result.full_day_forecast = map
+                                .next_value::<std::option::Option<crate::model::ForecastDayPart>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -4819,6 +4832,7 @@ impl<'de> serde::de::Deserialize<'de> for super::LookupMapTileRequest {
             __zoom,
             __x,
             __y,
+            __forecast_time,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4844,6 +4858,8 @@ impl<'de> serde::de::Deserialize<'de> for super::LookupMapTileRequest {
                             "zoom" => Ok(__FieldTag::__zoom),
                             "x" => Ok(__FieldTag::__x),
                             "y" => Ok(__FieldTag::__y),
+                            "forecastTime" => Ok(__FieldTag::__forecast_time),
+                            "forecast_time" => Ok(__FieldTag::__forecast_time),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4935,6 +4951,15 @@ impl<'de> serde::de::Deserialize<'de> for super::LookupMapTileRequest {
                                 }
                             }
                             result.y = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__forecast_time => {
+                            if !fields.insert(__FieldTag::__forecast_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for forecast_time",
+                                ));
+                            }
+                            result.forecast_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

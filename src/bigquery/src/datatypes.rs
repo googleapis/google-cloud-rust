@@ -215,10 +215,6 @@ impl FromSql for Interval {
                 })
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) => {
                 let v = cell.as_interval()?;
                 let ym_sign = if v.months < 0 { -1 } else { 1 };
@@ -399,10 +395,6 @@ impl<T: RangeElement> FromSql for Range<T> {
                 Ok(Range { start, end })
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) => {
                 if cell.is_null() {
                     return Err(ConvertError::NotNull);
@@ -566,10 +558,6 @@ mod tests {
         );
     }
 
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
     mod arrow_tests {
         use super::*;
         use crate::query::SqlValue;

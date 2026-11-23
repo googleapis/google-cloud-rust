@@ -106,17 +106,21 @@
 //! [Seek]: crate::streaming_source::Seek
 
 use super::RESUMABLE_UPLOAD_QUANTUM;
+use crate::error::WriteError;
 use crate::model_ext::{KeyAes256, tests::create_key_helper};
 use crate::storage::client::tests::{
     MockBackoffPolicy, MockRetryPolicy, MockRetryThrottler, test_builder,
 };
 use crate::streaming_source::{BytesSource, SizeHint, tests::UnknownSize};
+use base64::{Engine as _, prelude::BASE64_STANDARD};
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use google_cloud_gax::retry_policy::RetryPolicyExt;
 use google_cloud_gax::retry_result::RetryResult;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use serde_json::{Value, json};
+use std::error::Error as _;
 use std::time::Duration;
+use test_case::test_case;
 
 type Result = anyhow::Result<()>;
 
@@ -792,5 +796,112 @@ async fn start_resumable_upload_client_retry_options() -> Result {
         .expect_err("request should fail after 3 retry attempts");
     assert_eq!(err.http_status_code(), Some(503), "{err:?}");
 
+    Ok(())
+}
+
+#[test_case(false)]
+#[test_case(true)]
+#[tokio::test]
+async fn put_error_and_finalized_validates_checksum(bad_checksum: bool) -> Result {
+    // Arrange
+    // Resume after chunk 1 so the finalizing PUT omits `x-goog-hash` and
+    // relies on client-side validation.
+    let mut data = vec![b'a'; RESUMABLE_UPLOAD_QUANTUM];
+    data.extend_from_slice(b"how vexingly quick daft zebras jump");
+    let full_len = data.len();
+    let crc = if bad_checksum {
+        0
+    } else {
+        crc32c::crc32c(&data)
+    };
+    let final_body = json!({
+        "bucket": "projects/_/buckets/test-bucket",
+        "name": "test-object",
+        "crc32c": BASE64_STANDARD.encode(crc.to_be_bytes()),
+        "md5Hash": BASE64_STANDARD.encode(md5::compute(&data).0),
+        "size": full_len,
+    })
+    .to_string();
+
+    let server = Server::run();
+    let session = server.url("/upload/session/test-only-001");
+    let path = session.path().to_string();
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+            request::query(url_decoded(contains(("uploadType", "resumable")))),
+        ])
+        .respond_with(status_code(200).append_header("location", session.to_string())),
+    );
+    // 1. Fail chunk 1, then fail the resumed finalizing PUT.
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("PUT", path.clone()),
+            request::headers(contains((
+                "content-range",
+                format!("bytes 0-{}/*", RESUMABLE_UPLOAD_QUANTUM - 1)
+            ))),
+        ])
+        .respond_with(status_code(429).body("try-again")),
+    );
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("PUT", path.clone()),
+            request::headers(contains((
+                "content-range",
+                format!(
+                    "bytes {RESUMABLE_UPLOAD_QUANTUM}-{}/{full_len}",
+                    full_len - 1
+                )
+            ))),
+            not(request::headers(contains(key("x-goog-hash")))),
+        ])
+        .respond_with(status_code(429).body("try-again")),
+    );
+    // 2. Report chunk 1 persisted, then return the finalized object.
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("PUT", path),
+            request::headers(contains(("content-range", "bytes */*"))),
+            request::headers(contains(("content-length", "0"))),
+        ])
+        .times(2)
+        .respond_with(cycle![
+            status_code(308)
+                .append_header("range", format!("bytes=0-{}", RESUMABLE_UPLOAD_QUANTUM - 1)),
+            status_code(200)
+                .append_header("content-type", "application/json")
+                .body(final_body),
+        ]),
+    );
+
+    let client = test_builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_resumable_upload_threshold(0_usize)
+        .with_resumable_upload_buffer_size(RESUMABLE_UPLOAD_QUANTUM)
+        .build()
+        .await?;
+    let payload = UnknownSize::new(BytesSource::new(bytes::Bytes::from(data)));
+
+    // Act
+    let result = client
+        .write_object("projects/_/buckets/test-bucket", "test-object", payload)
+        .compute_md5()
+        .send_buffered()
+        .await;
+
+    // Assert
+    if bad_checksum {
+        let err = result.expect_err("mismatched checksum should fail");
+        assert!(err.is_serialization(), "{err:?}");
+        let source = err.source().and_then(|e| e.downcast_ref::<WriteError>());
+        assert!(
+            matches!(source, Some(WriteError::ChecksumMismatch { .. })),
+            "{err:?}"
+        );
+    } else {
+        let object = result?;
+        assert_eq!(object.name, "test-object");
+    }
     Ok(())
 }

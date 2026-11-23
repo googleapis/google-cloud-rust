@@ -39,7 +39,8 @@ pub(crate) fn format_pubsub_client_telemetry_header(
     let p = PubsubClientTelemetry {
         operation: Some(Operation::PublishOperation(PublishOperation {
             hedged_attempt_count: attempt_count,
-            publish_start_time: start_time.and_then(|t| t.to_proto().ok()),
+            publish_start_time: start_time
+                .and_then(|t| ToProto::<prost_types::Timestamp>::to_proto(t).ok()),
         })),
     };
 

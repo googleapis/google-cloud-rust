@@ -56,8 +56,8 @@ pub struct SubmitBuildRequest {
     /// Cloud Build service account for the project will be used.
     pub service_account: std::string::String,
 
-    /// Optional. Name of the Cloud Build Custom Worker Pool that should be used to
-    /// build the function. The format of this field is
+    /// Optional. Name of the Cloud Build private pool that should be used to build
+    /// the function. The format of this field is
     /// `projects/{project}/locations/{region}/workerPools/{workerPool}` where
     /// `{project}` and `{region}` are the project id and region respectively where
     /// the worker pool is defined and `{workerPool}` is the short name of the
@@ -919,12 +919,15 @@ impl Condition {
     /// assert!(x0.reason().is_some());
     /// assert!(x0.revision_reason().is_none());
     /// assert!(x0.execution_reason().is_none());
+    /// assert!(x0.instance_reason().is_none());
     /// assert!(x1.reason().is_some());
     /// assert!(x1.revision_reason().is_none());
     /// assert!(x1.execution_reason().is_none());
+    /// assert!(x1.instance_reason().is_none());
     /// assert!(x2.reason().is_some());
     /// assert!(x2.revision_reason().is_none());
     /// assert!(x2.execution_reason().is_none());
+    /// assert!(x2.instance_reason().is_none());
     /// ```
     pub fn set_reason<T: std::convert::Into<crate::model::condition::CommonReason>>(
         mut self,
@@ -962,12 +965,15 @@ impl Condition {
     /// assert!(x0.revision_reason().is_some());
     /// assert!(x0.reason().is_none());
     /// assert!(x0.execution_reason().is_none());
+    /// assert!(x0.instance_reason().is_none());
     /// assert!(x1.revision_reason().is_some());
     /// assert!(x1.reason().is_none());
     /// assert!(x1.execution_reason().is_none());
+    /// assert!(x1.instance_reason().is_none());
     /// assert!(x2.revision_reason().is_some());
     /// assert!(x2.reason().is_none());
     /// assert!(x2.execution_reason().is_none());
+    /// assert!(x2.instance_reason().is_none());
     /// ```
     pub fn set_revision_reason<T: std::convert::Into<crate::model::condition::RevisionReason>>(
         mut self,
@@ -1007,12 +1013,15 @@ impl Condition {
     /// assert!(x0.execution_reason().is_some());
     /// assert!(x0.reason().is_none());
     /// assert!(x0.revision_reason().is_none());
+    /// assert!(x0.instance_reason().is_none());
     /// assert!(x1.execution_reason().is_some());
     /// assert!(x1.reason().is_none());
     /// assert!(x1.revision_reason().is_none());
+    /// assert!(x1.instance_reason().is_none());
     /// assert!(x2.execution_reason().is_some());
     /// assert!(x2.reason().is_none());
     /// assert!(x2.revision_reason().is_none());
+    /// assert!(x2.instance_reason().is_none());
     /// ```
     pub fn set_execution_reason<T: std::convert::Into<crate::model::condition::ExecutionReason>>(
         mut self,
@@ -1020,6 +1029,52 @@ impl Condition {
     ) -> Self {
         self.reasons =
             std::option::Option::Some(crate::model::condition::Reasons::ExecutionReason(v.into()));
+        self
+    }
+
+    /// The value of [reasons][crate::model::Condition::reasons]
+    /// if it holds a `InstanceReason`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn instance_reason(&self) -> std::option::Option<&crate::model::condition::InstanceReason> {
+        #[allow(unreachable_patterns)]
+        self.reasons.as_ref().and_then(|v| match v {
+            crate::model::condition::Reasons::InstanceReason(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [reasons][crate::model::Condition::reasons]
+    /// to hold a `InstanceReason`.
+    ///
+    /// Note that all the setters affecting `reasons` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Condition;
+    /// use google_cloud_run_v2::model::condition::InstanceReason;
+    /// let x0 = Condition::new().set_instance_reason(InstanceReason::InstanceDeleted);
+    /// let x1 = Condition::new().set_instance_reason(InstanceReason::InstanceStopped);
+    /// let x2 = Condition::new().set_instance_reason(InstanceReason::InstanceStopping);
+    /// assert!(x0.instance_reason().is_some());
+    /// assert!(x0.reason().is_none());
+    /// assert!(x0.revision_reason().is_none());
+    /// assert!(x0.execution_reason().is_none());
+    /// assert!(x1.instance_reason().is_some());
+    /// assert!(x1.reason().is_none());
+    /// assert!(x1.revision_reason().is_none());
+    /// assert!(x1.execution_reason().is_none());
+    /// assert!(x2.instance_reason().is_some());
+    /// assert!(x2.reason().is_none());
+    /// assert!(x2.revision_reason().is_none());
+    /// assert!(x2.execution_reason().is_none());
+    /// ```
+    pub fn set_instance_reason<T: std::convert::Into<crate::model::condition::InstanceReason>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.reasons =
+            std::option::Option::Some(crate::model::condition::Reasons::InstanceReason(v.into()));
         self
     }
 }
@@ -1809,6 +1864,8 @@ pub mod condition {
         Deleted,
         /// A delayed execution is waiting for a start time.
         DelayedStartPending,
+        /// A delayed execution exceeded the maximum runtime duration.
+        DelayedExecutionExceedingDurationLimit,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [ExecutionReason::value] or
@@ -1838,6 +1895,7 @@ pub mod condition {
                 Self::Cancelling => std::option::Option::Some(4),
                 Self::Deleted => std::option::Option::Some(5),
                 Self::DelayedStartPending => std::option::Option::Some(6),
+                Self::DelayedExecutionExceedingDurationLimit => std::option::Option::Some(7),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -1857,6 +1915,9 @@ pub mod condition {
                 Self::Cancelling => std::option::Option::Some("CANCELLING"),
                 Self::Deleted => std::option::Option::Some("DELETED"),
                 Self::DelayedStartPending => std::option::Option::Some("DELAYED_START_PENDING"),
+                Self::DelayedExecutionExceedingDurationLimit => {
+                    std::option::Option::Some("DELAYED_EXECUTION_EXCEEDING_DURATION_LIMIT")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -1885,6 +1946,7 @@ pub mod condition {
                 4 => Self::Cancelling,
                 5 => Self::Deleted,
                 6 => Self::DelayedStartPending,
+                7 => Self::DelayedExecutionExceedingDurationLimit,
                 _ => Self::UnknownValue(execution_reason::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -1903,6 +1965,9 @@ pub mod condition {
                 "CANCELLING" => Self::Cancelling,
                 "DELETED" => Self::Deleted,
                 "DELAYED_START_PENDING" => Self::DelayedStartPending,
+                "DELAYED_EXECUTION_EXCEEDING_DURATION_LIMIT" => {
+                    Self::DelayedExecutionExceedingDurationLimit
+                }
                 _ => Self::UnknownValue(execution_reason::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -1923,6 +1988,7 @@ pub mod condition {
                 Self::Cancelling => serializer.serialize_i32(4),
                 Self::Deleted => serializer.serialize_i32(5),
                 Self::DelayedStartPending => serializer.serialize_i32(6),
+                Self::DelayedExecutionExceedingDurationLimit => serializer.serialize_i32(7),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -1939,6 +2005,154 @@ pub mod condition {
         }
     }
 
+    /// Reasons specific to Instance resource.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum InstanceReason {
+        /// Default value.
+        Unspecified,
+        /// Instance deleted.
+        InstanceDeleted,
+        /// Instance stopped.
+        InstanceStopped,
+        /// Instance stopping.
+        InstanceStopping,
+        /// Instance exited with a non-zero exit code.
+        InstanceNonZeroExitCode,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [InstanceReason::value] or
+        /// [InstanceReason::name].
+        UnknownValue(instance_reason::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod instance_reason {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl InstanceReason {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::InstanceDeleted => std::option::Option::Some(1),
+                Self::InstanceStopped => std::option::Option::Some(2),
+                Self::InstanceStopping => std::option::Option::Some(3),
+                Self::InstanceNonZeroExitCode => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("INSTANCE_REASON_UNSPECIFIED"),
+                Self::InstanceDeleted => std::option::Option::Some("INSTANCE_DELETED"),
+                Self::InstanceStopped => std::option::Option::Some("INSTANCE_STOPPED"),
+                Self::InstanceStopping => std::option::Option::Some("INSTANCE_STOPPING"),
+                Self::InstanceNonZeroExitCode => {
+                    std::option::Option::Some("INSTANCE_NON_ZERO_EXIT_CODE")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for InstanceReason {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for InstanceReason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for InstanceReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::InstanceDeleted,
+                2 => Self::InstanceStopped,
+                3 => Self::InstanceStopping,
+                4 => Self::InstanceNonZeroExitCode,
+                _ => Self::UnknownValue(instance_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for InstanceReason {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "INSTANCE_REASON_UNSPECIFIED" => Self::Unspecified,
+                "INSTANCE_DELETED" => Self::InstanceDeleted,
+                "INSTANCE_STOPPED" => Self::InstanceStopped,
+                "INSTANCE_STOPPING" => Self::InstanceStopping,
+                "INSTANCE_NON_ZERO_EXIT_CODE" => Self::InstanceNonZeroExitCode,
+                _ => Self::UnknownValue(instance_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for InstanceReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::InstanceDeleted => serializer.serialize_i32(1),
+                Self::InstanceStopped => serializer.serialize_i32(2),
+                Self::InstanceStopping => serializer.serialize_i32(3),
+                Self::InstanceNonZeroExitCode => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for InstanceReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<InstanceReason>::new(
+                ".google.cloud.run.v2.Condition.InstanceReason",
+            ))
+        }
+    }
+
     /// The reason for this condition. Depending on the condition type,
     /// it will populate one of these fields.
     /// Successful conditions cannot have a reason.
@@ -1951,6 +2165,8 @@ pub mod condition {
         RevisionReason(crate::model::condition::RevisionReason),
         /// Output only. A reason for the execution condition.
         ExecutionReason(crate::model::condition::ExecutionReason),
+        /// Output only. A reason for the instance condition.
+        InstanceReason(crate::model::condition::InstanceReason),
     }
 }
 
@@ -2428,7 +2644,7 @@ pub struct Execution {
     ///
     /// Note that this value might not be what was used
     /// as input. For example, if ALPHA was provided as input in the parent
-    /// resource, but only BETA and GA-level features are were, this field will be
+    /// resource, but only BETA and GA-level features are used, this field will be
     /// BETA.
     pub launch_stage: google_cloud_api::model::LaunchStage,
 
@@ -2486,6 +2702,12 @@ pub struct Execution {
 
     /// Output only. Reserved for future use.
     pub satisfies_pzs: bool,
+
+    /// Output only. Arbitrary identifier for the API client.
+    pub client: std::string::String,
+
+    /// Output only. Arbitrary version identifier for the API client.
+    pub client_version: std::string::String,
 
     /// Output only. A system-generated fingerprint for this version of the
     /// resource. May be used to detect modification conflict during updates.
@@ -3012,6 +3234,30 @@ impl Execution {
         self
     }
 
+    /// Sets the value of [client][crate::model::Execution::client].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_client("example");
+    /// ```
+    pub fn set_client<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client = v.into();
+        self
+    }
+
+    /// Sets the value of [client_version][crate::model::Execution::client_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_client_version("example");
+    /// ```
+    pub fn set_client_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client_version = v.into();
+        self
+    }
+
     /// Sets the value of [etag][crate::model::Execution::etag].
     ///
     /// # Example
@@ -3066,6 +3312,16 @@ pub struct ExecutionTemplate {
     /// Required. Describes the task(s) that will be created when executing an
     /// execution.
     pub template: std::option::Option<crate::model::TaskTemplate>,
+
+    /// Optional. If true, the system will start the execution within the next 12
+    /// hours depending on available capacity.
+    pub delay_execution: std::option::Option<bool>,
+
+    /// Optional. Arbitrary identifier for the API client.
+    pub client: std::string::String,
+
+    /// Optional. Arbitrary version identifier for the API client.
+    pub client_version: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3174,6 +3430,61 @@ impl ExecutionTemplate {
         self.template = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [delay_execution][crate::model::ExecutionTemplate::delay_execution].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ExecutionTemplate;
+    /// let x = ExecutionTemplate::new().set_delay_execution(true);
+    /// ```
+    pub fn set_delay_execution<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.delay_execution = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delay_execution][crate::model::ExecutionTemplate::delay_execution].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ExecutionTemplate;
+    /// let x = ExecutionTemplate::new().set_or_clear_delay_execution(Some(false));
+    /// let x = ExecutionTemplate::new().set_or_clear_delay_execution(None::<bool>);
+    /// ```
+    pub fn set_or_clear_delay_execution<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.delay_execution = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [client][crate::model::ExecutionTemplate::client].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ExecutionTemplate;
+    /// let x = ExecutionTemplate::new().set_client("example");
+    /// ```
+    pub fn set_client<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client = v.into();
+        self
+    }
+
+    /// Sets the value of [client_version][crate::model::ExecutionTemplate::client_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ExecutionTemplate;
+    /// let x = ExecutionTemplate::new().set_client_version("example");
+    /// ```
+    pub fn set_client_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client_version = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ExecutionTemplate {
@@ -3186,15 +3497,17 @@ impl wkt::message::Message for ExecutionTemplate {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceRequest {
-    #[allow(missing_docs)]
+    /// Required. The location and project in which this Instance should be
+    /// created.
     pub parent: std::string::String,
 
     #[allow(missing_docs)]
     pub instance: std::option::Option<crate::model::Instance>,
 
-    /// Required. The unique identifier for the Instance. It must begin with
+    /// Optional. The unique identifier for the Instance. It must begin with
     /// letter, and cannot end with hyphen; must contain fewer than 50 characters.
     /// The name of the instance becomes {parent}/instances/{instance_id}.
+    /// If not provided, the server will generate a unique `instance_id`.
     pub instance_id: std::string::String,
 
     /// Optional. Indicates that the request should be validated and default values
@@ -3288,11 +3601,136 @@ impl wkt::message::Message for CreateInstanceRequest {
     }
 }
 
+/// Request message for updating an Instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateInstanceRequest {
+    /// Optional. The list of fields to be updated.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The Instance to be updated.
+    pub instance: std::option::Option<crate::model::Instance>,
+
+    /// Optional. Indicates that the request should be validated and default values
+    /// populated, without persisting the request or updating any resources.
+    pub validate_only: bool,
+
+    /// Optional. If set to `true`, and if the Instance does not exist, it will
+    /// create a new one. The caller must have `run.instances.create` permissions
+    /// if this is set to `true` and the Instance does not exist.
+    pub allow_missing: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateInstanceRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateInstanceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInstanceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateInstanceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateInstanceRequest;
+    /// use google_cloud_run_v2::model::Instance;
+    /// let x = UpdateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
+    /// ```
+    pub fn set_instance<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Instance>,
+    {
+        self.instance = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateInstanceRequest;
+    /// use google_cloud_run_v2::model::Instance;
+    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
+    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
+    /// ```
+    pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Instance>,
+    {
+        self.instance = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::UpdateInstanceRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateInstanceRequest;
+    /// let x = UpdateInstanceRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+
+    /// Sets the value of [allow_missing][crate::model::UpdateInstanceRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateInstanceRequest;
+    /// let x = UpdateInstanceRequest::new().set_allow_missing(true);
+    /// ```
+    pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.allow_missing = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateInstanceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.UpdateInstanceRequest"
+    }
+}
+
 #[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
-    #[allow(missing_docs)]
+    /// Required. The name of the Instance to retrieve.
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3330,7 +3768,7 @@ impl wkt::message::Message for GetInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstanceRequest {
-    #[allow(missing_docs)]
+    /// Required. The name of the Instance to delete.
     pub name: std::string::String,
 
     /// Optional. Indicates that the request should be validated without actually
@@ -3401,8 +3839,6 @@ impl wkt::message::Message for DeleteInstanceRequest {
 #[non_exhaustive]
 pub struct ListInstancesRequest {
     /// Required. The location and project to list resources on.
-    /// Format: projects/{project}/locations/{location}, where {project} can be
-    /// project id or number.
     pub parent: std::string::String,
 
     /// Optional. Maximum number of Instances to return in this call.
@@ -3562,9 +3998,6 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListInstancesRe
 #[non_exhaustive]
 pub struct StopInstanceRequest {
     /// Required. The name of the Instance to stop.
-    /// Format:
-    /// `projects/{project}/locations/{location}/instances/{instance}`,
-    /// where `{project}` can be project id or number.
     pub name: std::string::String,
 
     /// Optional. Indicates that the request should be validated without actually
@@ -3634,10 +4067,7 @@ impl wkt::message::Message for StopInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StartInstanceRequest {
-    /// Required. The name of the Instance to stop.
-    /// Format:
-    /// `projects/{project}/locations/{location}/instances/{instance}`,
-    /// where `{project}` can be project id or number.
+    /// Required. The name of the Instance to start.
     pub name: std::string::String,
 
     /// Optional. Indicates that the request should be validated without actually
@@ -3708,12 +4138,9 @@ impl wkt::message::Message for StartInstanceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Instance {
-    /// The fully qualified name of this Instance. In CreateInstanceRequest, this
-    /// field is ignored, and instead composed from CreateInstanceRequest.parent
-    /// and CreateInstanceRequest.instance_id.
-    ///
-    /// Format:
-    /// projects/{project}/locations/{location}/instances/{instance_id}
+    /// The fully qualified name of this Instance. In `CreateInstanceRequest`, this
+    /// field is ignored, and instead composed from `CreateInstanceRequest.parent`
+    /// and `CreateInstanceRequest.instance_id`.
     pub name: std::string::String,
 
     /// User-provided description of the Instance. This field currently has a
@@ -3727,7 +4154,7 @@ pub struct Instance {
 
     /// Output only. A number that monotonically increases every time the user
     /// modifies the desired state.
-    /// Please note that unlike v1, this is an int64 value. As with most Google
+    /// Please note that unlike v1, this is an `int64` value. As with most Google
     /// APIs, its JSON representation will be a `string` instead of an `integer`.
     pub generation: i64,
 
@@ -3764,11 +4191,13 @@ pub struct Instance {
 
     /// The launch stage as defined by [Google Cloud Platform
     /// Launch Stages](https://cloud.google.com/terms/launch-stages).
-    /// Cloud Run supports `ALPHA`, `BETA`, and `GA`. If no value is specified, GA
-    /// is assumed.
-    /// Set the launch stage to a preview stage on input to allow use of preview
-    /// features in that stage. On read (or output), describes whether the
-    /// resource uses preview features.
+    /// Cloud Run supports `ALPHA`, `BETA`, and `GA`. If no value is specified,
+    /// `GA` is assumed. Set the launch stage to a preview stage on input to allow
+    /// use of preview features in that stage. On read (or output), describes
+    /// whether the resource uses preview features.
+    ///
+    /// For example, if `ALPHA` is provided as input, but only `BETA` and
+    /// `GA`-level features are used, this field will be `BETA` on output.
     pub launch_stage: google_cloud_api::model::LaunchStage,
 
     /// Settings for the Binary Authorization feature.
@@ -3786,6 +4215,9 @@ pub struct Instance {
     /// this Instance.
     pub containers: std::vec::Vec<crate::model::Container>,
 
+    /// Optional. Configuration for sandboxes.
+    pub sandboxes: std::option::Option<crate::model::SandboxConfiguration>,
+
     /// A list of Volumes to make available to containers.
     pub volumes: std::vec::Vec<crate::model::Volume>,
 
@@ -3797,7 +4229,7 @@ pub struct Instance {
     /// The action to take if the encryption key is revoked.
     pub encryption_key_revocation_action: crate::model::EncryptionKeyRevocationAction,
 
-    /// If encryption_key_revocation_action is SHUTDOWN, the duration before
+    /// If `encryption_key_revocation_action` is `SHUTDOWN`, the duration before
     /// shutting down all instances. The minimum increment is 1 hour.
     pub encryption_key_shutdown_duration: std::option::Option<wkt::Duration>,
 
@@ -3809,20 +4241,29 @@ pub struct Instance {
 
     /// Optional. Provides the ingress settings for this Instance. On output,
     /// returns the currently observed ingress settings, or
-    /// INGRESS_TRAFFIC_UNSPECIFIED if no revision is active.
+    /// `INGRESS_TRAFFIC_UNSPECIFIED` if no revision is active.
     pub ingress: crate::model::IngressTraffic,
 
-    /// Optional. Disables IAM permission check for run.routes.invoke for callers
+    /// Optional. Disables IAM permission check for `run.routes.invoke` for callers
     /// of this Instance. For more information, visit
     /// <https://cloud.google.com/run/docs/securing/managing-access#invoker_check>.
     pub invoker_iam_disabled: bool,
 
+    /// Optional. Disables public resolution of the default URI of this Instance.
+    pub default_uri_disabled: bool,
+
     /// Optional. IAP settings on the Instance.
     pub iap_enabled: bool,
 
+    /// Optional. Enables SSH access to the Instance.
+    pub ssh_enabled: std::option::Option<bool>,
+
+    /// Optional. Restart policy for the Instance.
+    pub restart_policy: crate::model::instance::RestartPolicy,
+
     /// Output only. The generation of this Instance currently serving traffic. See
     /// comments in `reconciling` for additional information on reconciliation
-    /// process in Cloud Run. Please note that unlike v1, this is an int64 value.
+    /// process in Cloud Run. Please note that unlike v1, this is an `int64` value.
     /// As with most Google APIs, its JSON representation will be a `string`
     /// instead of an `integer`.
     pub observed_generation: i64,
@@ -3852,15 +4293,15 @@ pub struct Instance {
     /// Output only. All URLs serving traffic for this Instance.
     pub urls: std::vec::Vec<std::string::String>,
 
-    /// Output only. Returns true if the Instance is currently being acted upon by
-    /// the system to bring it into the desired state.
+    /// Output only. Returns `true` if the Instance is currently being acted upon
+    /// by the system to bring it into the desired state.
     ///
     /// When a new Instance is created, or an existing one is updated, Cloud Run
     /// will asynchronously perform all necessary steps to bring the Instance to
     /// the desired serving state. This process is called reconciliation. While
     /// reconciliation is in process, `observed_generation` will have a transient
     /// value that might mismatch the intended state.
-    /// Once reconciliation is over (and this field is false), there are two
+    /// Once reconciliation is over (and this field is `false`), there are two
     /// possible outcomes: reconciliation succeeded and the serving state matches
     /// the Instance, or there was an error, and reconciliation failed. This state
     /// can be found in `terminal_condition.state`.
@@ -4270,6 +4711,39 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [sandboxes][crate::model::Instance::sandboxes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::model::SandboxConfiguration;
+    /// let x = Instance::new().set_sandboxes(SandboxConfiguration::default()/* use setters */);
+    /// ```
+    pub fn set_sandboxes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SandboxConfiguration>,
+    {
+        self.sandboxes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sandboxes][crate::model::Instance::sandboxes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::model::SandboxConfiguration;
+    /// let x = Instance::new().set_or_clear_sandboxes(Some(SandboxConfiguration::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_sandboxes(None::<SandboxConfiguration>);
+    /// ```
+    pub fn set_or_clear_sandboxes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SandboxConfiguration>,
+    {
+        self.sandboxes = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [volumes][crate::model::Instance::volumes].
     ///
     /// # Example
@@ -4456,6 +4930,18 @@ impl Instance {
         self
     }
 
+    /// Sets the value of [default_uri_disabled][crate::model::Instance::default_uri_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_default_uri_disabled(true);
+    /// ```
+    pub fn set_default_uri_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.default_uri_disabled = v.into();
+        self
+    }
+
     /// Sets the value of [iap_enabled][crate::model::Instance::iap_enabled].
     ///
     /// # Example
@@ -4465,6 +4951,55 @@ impl Instance {
     /// ```
     pub fn set_iap_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.iap_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [ssh_enabled][crate::model::Instance::ssh_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_ssh_enabled(true);
+    /// ```
+    pub fn set_ssh_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.ssh_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ssh_enabled][crate::model::Instance::ssh_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_or_clear_ssh_enabled(Some(false));
+    /// let x = Instance::new().set_or_clear_ssh_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_ssh_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.ssh_enabled = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [restart_policy][crate::model::Instance::restart_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::model::instance::RestartPolicy;
+    /// let x0 = Instance::new().set_restart_policy(RestartPolicy::Always);
+    /// let x1 = Instance::new().set_restart_policy(RestartPolicy::OnFailure);
+    /// let x2 = Instance::new().set_restart_policy(RestartPolicy::Never);
+    /// ```
+    pub fn set_restart_policy<T: std::convert::Into<crate::model::instance::RestartPolicy>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.restart_policy = v.into();
         self
     }
 
@@ -4626,6 +5161,152 @@ impl Instance {
 impl wkt::message::Message for Instance {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.run.v2.Instance"
+    }
+}
+
+/// Defines additional types related to [Instance].
+pub mod instance {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Restart policy options for the instance. If not provided, the default is
+    /// `ON_FAILURE`.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RestartPolicy {
+        /// Unspecified restart policy.
+        Unspecified,
+        /// Always restart the instance.
+        Always,
+        /// Restart if the instance terminates with non-zero exit code.
+        OnFailure,
+        /// Never restart the instance.
+        Never,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RestartPolicy::value] or
+        /// [RestartPolicy::name].
+        UnknownValue(restart_policy::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod restart_policy {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl RestartPolicy {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Always => std::option::Option::Some(1),
+                Self::OnFailure => std::option::Option::Some(2),
+                Self::Never => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("RESTART_POLICY_UNSPECIFIED"),
+                Self::Always => std::option::Option::Some("ALWAYS"),
+                Self::OnFailure => std::option::Option::Some("ON_FAILURE"),
+                Self::Never => std::option::Option::Some("NEVER"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for RestartPolicy {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RestartPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RestartPolicy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Always,
+                2 => Self::OnFailure,
+                3 => Self::Never,
+                _ => Self::UnknownValue(restart_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RestartPolicy {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RESTART_POLICY_UNSPECIFIED" => Self::Unspecified,
+                "ALWAYS" => Self::Always,
+                "ON_FAILURE" => Self::OnFailure,
+                "NEVER" => Self::Never,
+                _ => Self::UnknownValue(restart_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RestartPolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Always => serializer.serialize_i32(1),
+                Self::OnFailure => serializer.serialize_i32(2),
+                Self::Never => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RestartPolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RestartPolicy>::new(
+                ".google.cloud.run.v2.Instance.RestartPolicy",
+            ))
+        }
     }
 }
 
@@ -4792,8 +5473,9 @@ pub struct CreateJobRequest {
     /// Required. The Job instance to create.
     pub job: std::option::Option<crate::model::Job>,
 
-    /// Required. The unique identifier for the Job. The name of the job becomes
+    /// Optional. The unique identifier for the Job. The name of the job becomes
     /// {parent}/jobs/{job_id}.
+    /// If not provided, the server will generate a unique `job_id`.
     pub job_id: std::string::String,
 
     /// Indicates that the request should be validated and default values
@@ -5379,6 +6061,10 @@ pub mod run_job_request {
         /// replace existing timeout_seconds value.
         pub timeout: std::option::Option<wkt::Duration>,
 
+        /// Optional. If true, the system will start the execution within the next 12
+        /// hours depending on available capacity.
+        pub delay_execution: std::option::Option<bool>,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -5452,6 +6138,37 @@ pub mod run_job_request {
             T: std::convert::Into<wkt::Duration>,
         {
             self.timeout = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [delay_execution][crate::model::run_job_request::Overrides::delay_execution].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::run_job_request::Overrides;
+        /// let x = Overrides::new().set_delay_execution(true);
+        /// ```
+        pub fn set_delay_execution<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.delay_execution = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [delay_execution][crate::model::run_job_request::Overrides::delay_execution].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::run_job_request::Overrides;
+        /// let x = Overrides::new().set_or_clear_delay_execution(Some(false));
+        /// let x = Overrides::new().set_or_clear_delay_execution(None::<bool>);
+        /// ```
+        pub fn set_or_clear_delay_execution<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.delay_execution = v.map(|x| x.into());
             self
         }
     }
@@ -5690,6 +6407,9 @@ pub struct Job {
 
     /// Output only. Reserved for future use.
     pub satisfies_pzs: bool,
+
+    /// Optional. The functional type of the Job.
+    pub functional_type: crate::model::FunctionalType,
 
     /// Optional. A system-generated fingerprint for this version of the
     /// resource. May be used to detect modification conflict during updates.
@@ -6188,6 +6908,23 @@ impl Job {
         self
     }
 
+    /// Sets the value of [functional_type][crate::model::Job::functional_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use google_cloud_run_v2::model::FunctionalType;
+    /// let x0 = Job::new().set_functional_type(FunctionalType::Agent);
+    /// let x1 = Job::new().set_functional_type(FunctionalType::McpServer);
+    /// ```
+    pub fn set_functional_type<T: std::convert::Into<crate::model::FunctionalType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.functional_type = v.into();
+        self
+    }
+
     /// Sets the value of [etag][crate::model::Job::etag].
     ///
     /// # Example
@@ -6667,7 +7404,8 @@ pub struct Container {
     /// Dockerhub is assumed.
     pub image: std::string::String,
 
-    /// Optional. Location of the source.
+    /// Optional. Location of the source. This field is only supported in Cloud Run
+    /// Service.
     pub source_code: std::option::Option<crate::model::SourceCode>,
 
     /// Entrypoint array. Not executed within a shell.
@@ -6722,6 +7460,10 @@ pub struct Container {
 
     /// Output only. The build info of the container image.
     pub build_info: std::option::Option<crate::model::BuildInfo>,
+
+    /// Optional. Indicates that this container can act as a sandbox supervisor and
+    /// launch sandboxes.
+    pub sandbox_launcher: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7092,6 +7834,37 @@ impl Container {
         T: std::convert::Into<crate::model::BuildInfo>,
     {
         self.build_info = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [sandbox_launcher][crate::model::Container::sandbox_launcher].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// let x = Container::new().set_sandbox_launcher(true);
+    /// ```
+    pub fn set_sandbox_launcher<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.sandbox_launcher = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sandbox_launcher][crate::model::Container::sandbox_launcher].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// let x = Container::new().set_or_clear_sandbox_launcher(Some(false));
+    /// let x = Container::new().set_or_clear_sandbox_launcher(None::<bool>);
+    /// ```
+    pub fn set_or_clear_sandbox_launcher<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.sandbox_launcher = v.map(|x| x.into());
         self
     }
 }
@@ -7500,6 +8273,8 @@ pub struct VolumeMount {
 
     /// Optional. Path within the volume from which the container's volume should
     /// be mounted. Defaults to "" (volume's root).
+    ///
+    /// This field is currently rejected in Secret volume mounts.
     pub sub_path: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8021,11 +8796,23 @@ impl wkt::message::Message for VersionToPath {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CloudSqlInstance {
-    /// The Cloud SQL instance connection names, as can be found in
-    /// <https://console.cloud.google.com/sql/instances>. Visit
-    /// <https://cloud.google.com/sql/docs/mysql/connect-run> for more information on
-    /// how to connect Cloud SQL and Cloud Run. Format:
-    /// {project}:{location}:{instance}
+    /// A list of Cloud SQL instance connection names. Cloud Run uses these
+    /// to establish connections to the specified Cloud SQL instances.
+    /// While the SQL instance name itself is unique within a project,
+    /// the full connection name requires the location for proper routing.
+    /// Format: `{project}:{location}:{instance}`
+    /// Example: `my-project:us-central1:my-instance`
+    ///
+    /// You can find this value on the instance's **Overview** page in the
+    /// Google Cloud console or by using the following `gcloud` command:
+    ///
+    /// ```norust
+    /// gcloud sql instances describe INSTANCE_NAME \
+    ///   --format='value(connectionName)'
+    /// ```
+    ///
+    /// Visit <https://cloud.google.com/sql/docs/mysql/connect-run> for more
+    /// information on how to connect Cloud SQL and Cloud Run.
     pub instances: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8061,15 +8848,15 @@ impl wkt::message::Message for CloudSqlInstance {
     }
 }
 
-/// In memory (tmpfs) ephemeral storage.
+/// Represents in-memory (tmpfs) or disk-backed ephemeral storage.
 /// It is ephemeral in the sense that when the sandbox is taken down, the data is
 /// destroyed with it (it does not persist across sandbox runs).
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EmptyDirVolumeSource {
-    /// The medium on which the data is stored. Acceptable values today is only
-    /// MEMORY or none. When none, the default will currently be backed by memory
-    /// but could change over time. +optional
+    /// The medium on which the data is stored. Acceptable values are `MEMORY`,
+    /// `DISK`, or unset (`MEDIUM_UNSPECIFIED`). When unset, the default is
+    /// currently memory-backed but could change over time.
     pub medium: crate::model::empty_dir_volume_source::Medium,
 
     /// Limit on the storage usable by this EmptyDir volume.
@@ -8077,10 +8864,11 @@ pub struct EmptyDirVolumeSource {
     /// The maximum usage on memory medium EmptyDir would be the minimum value
     /// between the SizeLimit specified here and the sum of memory limits of all
     /// containers. The default is nil which means that the limit is undefined.
-    /// More info:
-    /// <https://cloud.google.com/run/docs/configuring/in-memory-volumes#configure-volume>.
-    /// Info in Kubernetes:
-    /// <https://kubernetes.io/docs/concepts/storage/volumes/#emptydir>
+    /// For more information, see
+    /// [Configure in-memory volume
+    /// mounts](https://cloud.google.com/run/docs/configuring/in-memory-volumes#configure-volume)
+    /// and the [Kubernetes `emptyDir` volume
+    /// documentation](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir).
     pub size_limit: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8099,6 +8887,7 @@ impl EmptyDirVolumeSource {
     /// # use google_cloud_run_v2::model::EmptyDirVolumeSource;
     /// use google_cloud_run_v2::model::empty_dir_volume_source::Medium;
     /// let x0 = EmptyDirVolumeSource::new().set_medium(Medium::Memory);
+    /// let x1 = EmptyDirVolumeSource::new().set_medium(Medium::Disk);
     /// ```
     pub fn set_medium<T: std::convert::Into<crate::model::empty_dir_volume_source::Medium>>(
         mut self,
@@ -8155,6 +8944,8 @@ pub mod empty_dir_volume_source {
         Unspecified,
         /// Explicitly set the EmptyDir to be in memory. Uses tmpfs.
         Memory,
+        /// Explicitly sets the EmptyDir to be a disk.
+        Disk,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Medium::value] or
@@ -8179,6 +8970,7 @@ pub mod empty_dir_volume_source {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Memory => std::option::Option::Some(1),
+                Self::Disk => std::option::Option::Some(2),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -8191,6 +8983,7 @@ pub mod empty_dir_volume_source {
             match self {
                 Self::Unspecified => std::option::Option::Some("MEDIUM_UNSPECIFIED"),
                 Self::Memory => std::option::Option::Some("MEMORY"),
+                Self::Disk => std::option::Option::Some("DISK"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -8214,6 +9007,7 @@ pub mod empty_dir_volume_source {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Memory,
+                2 => Self::Disk,
                 _ => Self::UnknownValue(medium::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -8227,6 +9021,7 @@ pub mod empty_dir_volume_source {
             match value {
                 "MEDIUM_UNSPECIFIED" => Self::Unspecified,
                 "MEMORY" => Self::Memory,
+                "DISK" => Self::Disk,
                 _ => Self::UnknownValue(medium::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -8242,6 +9037,7 @@ pub mod empty_dir_volume_source {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Memory => serializer.serialize_i32(1),
+                Self::Disk => serializer.serialize_i32(2),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -8324,8 +9120,8 @@ impl wkt::message::Message for NFSVolumeSource {
     }
 }
 
-/// Represents a volume backed by a Cloud Storage bucket using Cloud Storage
-/// FUSE.
+/// Represents a volume backed by a Cloud Storage bucket (mounted via Cloud
+/// Storage FUSE or as a block device disk).
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GCSVolumeSource {
@@ -8973,6 +9769,7 @@ impl SourceCode {
     /// use google_cloud_run_v2::model::source_code::CloudStorageSource;
     /// let x = SourceCode::new().set_cloud_storage_source(CloudStorageSource::default()/* use setters */);
     /// assert!(x.cloud_storage_source().is_some());
+    /// assert!(x.inlined_source().is_none());
     /// ```
     pub fn set_cloud_storage_source<
         T: std::convert::Into<std::boxed::Box<crate::model::source_code::CloudStorageSource>>,
@@ -8982,6 +9779,45 @@ impl SourceCode {
     ) -> Self {
         self.source_type = std::option::Option::Some(
             crate::model::source_code::SourceType::CloudStorageSource(v.into()),
+        );
+        self
+    }
+
+    /// The value of [source_type][crate::model::SourceCode::source_type]
+    /// if it holds a `InlinedSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn inlined_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::source_code::InlinedSource>> {
+        #[allow(unreachable_patterns)]
+        self.source_type.as_ref().and_then(|v| match v {
+            crate::model::source_code::SourceType::InlinedSource(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_type][crate::model::SourceCode::source_type]
+    /// to hold a `InlinedSource`.
+    ///
+    /// Note that all the setters affecting `source_type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SourceCode;
+    /// use google_cloud_run_v2::model::source_code::InlinedSource;
+    /// let x = SourceCode::new().set_inlined_source(InlinedSource::default()/* use setters */);
+    /// assert!(x.inlined_source().is_some());
+    /// assert!(x.cloud_storage_source().is_none());
+    /// ```
+    pub fn set_inlined_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::source_code::InlinedSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_type = std::option::Option::Some(
+            crate::model::source_code::SourceType::InlinedSource(v.into()),
         );
         self
     }
@@ -9063,12 +9899,120 @@ pub mod source_code {
         }
     }
 
+    /// Source file.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SourceFile {
+        /// Required. Input only. The file name for the source code. e.g.,
+        /// `"index.js"` or
+        /// `"node_modules/dependency.js"`. The filename must be less than 255
+        /// characters and cannot contain `..`, `./`, `//`, or end with a `/`.
+        /// Cloud Run will place the files in the container subdirectories, please
+        /// use relative path to access the file.
+        pub filename: std::string::String,
+
+        /// Required. Input only. Represents the exact, literal, and complete source
+        /// code of the file. Placeholders like `...` or comments such as `# [rest of
+        /// code]` should NEVER be used as omission. Every character in this field
+        /// will be built into the final container. Any omission will result in a
+        /// broken application.
+        pub content: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SourceFile {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [filename][crate::model::source_code::SourceFile::filename].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::source_code::SourceFile;
+        /// let x = SourceFile::new().set_filename("example");
+        /// ```
+        pub fn set_filename<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.filename = v.into();
+            self
+        }
+
+        /// Sets the value of [content][crate::model::source_code::SourceFile::content].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::source_code::SourceFile;
+        /// let x = SourceFile::new().set_content("example");
+        /// ```
+        pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.content = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SourceFile {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.run.v2.SourceCode.SourceFile"
+        }
+    }
+
+    /// Inlined source.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct InlinedSource {
+        /// Required. Input only. The source code.
+        pub sources: std::vec::Vec<crate::model::source_code::SourceFile>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl InlinedSource {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [sources][crate::model::source_code::InlinedSource::sources].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::source_code::InlinedSource;
+        /// use google_cloud_run_v2::model::source_code::SourceFile;
+        /// let x = InlinedSource::new()
+        ///     .set_sources([
+        ///         SourceFile::default()/* use setters */,
+        ///         SourceFile::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_sources<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::source_code::SourceFile>,
+        {
+            use std::iter::Iterator;
+            self.sources = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for InlinedSource {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.run.v2.SourceCode.InlinedSource"
+        }
+    }
+
     /// The source type.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum SourceType {
         /// The source is a Cloud Storage bucket.
         CloudStorageSource(std::boxed::Box<crate::model::source_code::CloudStorageSource>),
+        /// Optional. Input only. Source code inlined in the request. Cloud Run will
+        /// store the inlined_source to Cloud Storage and replace the field with
+        /// cloud_storage_source. This field is only supported in Cloud Run Service.
+        InlinedSource(std::boxed::Box<crate::model::source_code::InlinedSource>),
     }
 }
 
@@ -9404,7 +10348,7 @@ pub struct Revision {
     ///
     /// Note that this value might not be what was used
     /// as input. For example, if ALPHA was provided as input in the parent
-    /// resource, but only BETA and GA-level features are were, this field will be
+    /// resource, but only BETA and GA-level features are used, this field will be
     /// BETA.
     pub launch_stage: google_cloud_api::model::LaunchStage,
 
@@ -9429,9 +10373,12 @@ pub struct Revision {
     /// revision, and determines what permissions the revision has.
     pub service_account: std::string::String,
 
-    /// Holds the single container that defines the unit of execution for this
+    /// Holds the list which define the units of execution for this
     /// Revision.
     pub containers: std::vec::Vec<crate::model::Container>,
+
+    /// Output only. Configuration for sandboxes.
+    pub sandboxes: std::option::Option<crate::model::SandboxConfiguration>,
 
     /// A list of Volumes to make available to containers.
     pub volumes: std::vec::Vec<crate::model::Volume>,
@@ -9484,12 +10431,24 @@ pub struct Revision {
     /// The node selector for the revision.
     pub node_selector: std::option::Option<crate::model::NodeSelector>,
 
+    /// Optional. The Revision's workload identity settings.
+    pub workload_identity_config: std::option::Option<crate::model::WorkloadIdentityConfig>,
+
     /// Optional. Output only. True if GPU zonal redundancy is disabled on this
     /// revision.
     pub gpu_zonal_redundancy_disabled: std::option::Option<bool>,
 
     /// Output only. Email address of the authenticated creator.
     pub creator: std::string::String,
+
+    /// Output only. Arbitrary identifier for the API client.
+    pub client: std::string::String,
+
+    /// Output only. Arbitrary version identifier for the API client.
+    pub client_version: std::string::String,
+
+    /// Output only. The ambient networking configuration for this revision.
+    pub ambient_networking: std::option::Option<crate::model::AmbientNetworking>,
 
     /// Output only. A system-generated fingerprint for this version of the
     /// resource. May be used to detect modification conflict during updates.
@@ -9899,6 +10858,39 @@ impl Revision {
         self
     }
 
+    /// Sets the value of [sandboxes][crate::model::Revision::sandboxes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::SandboxConfiguration;
+    /// let x = Revision::new().set_sandboxes(SandboxConfiguration::default()/* use setters */);
+    /// ```
+    pub fn set_sandboxes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SandboxConfiguration>,
+    {
+        self.sandboxes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sandboxes][crate::model::Revision::sandboxes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::SandboxConfiguration;
+    /// let x = Revision::new().set_or_clear_sandboxes(Some(SandboxConfiguration::default()/* use setters */));
+    /// let x = Revision::new().set_or_clear_sandboxes(None::<SandboxConfiguration>);
+    /// ```
+    pub fn set_or_clear_sandboxes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SandboxConfiguration>,
+    {
+        self.sandboxes = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [volumes][crate::model::Revision::volumes].
     ///
     /// # Example
@@ -10186,6 +11178,39 @@ impl Revision {
         self
     }
 
+    /// Sets the value of [workload_identity_config][crate::model::Revision::workload_identity_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::WorkloadIdentityConfig;
+    /// let x = Revision::new().set_workload_identity_config(WorkloadIdentityConfig::default()/* use setters */);
+    /// ```
+    pub fn set_workload_identity_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
+    {
+        self.workload_identity_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [workload_identity_config][crate::model::Revision::workload_identity_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::WorkloadIdentityConfig;
+    /// let x = Revision::new().set_or_clear_workload_identity_config(Some(WorkloadIdentityConfig::default()/* use setters */));
+    /// let x = Revision::new().set_or_clear_workload_identity_config(None::<WorkloadIdentityConfig>);
+    /// ```
+    pub fn set_or_clear_workload_identity_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
+    {
+        self.workload_identity_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [gpu_zonal_redundancy_disabled][crate::model::Revision::gpu_zonal_redundancy_disabled].
     ///
     /// # Example
@@ -10229,6 +11254,63 @@ impl Revision {
     /// ```
     pub fn set_creator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.creator = v.into();
+        self
+    }
+
+    /// Sets the value of [client][crate::model::Revision::client].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_client("example");
+    /// ```
+    pub fn set_client<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client = v.into();
+        self
+    }
+
+    /// Sets the value of [client_version][crate::model::Revision::client_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_client_version("example");
+    /// ```
+    pub fn set_client_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client_version = v.into();
+        self
+    }
+
+    /// Sets the value of [ambient_networking][crate::model::Revision::ambient_networking].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::AmbientNetworking;
+    /// let x = Revision::new().set_ambient_networking(AmbientNetworking::default()/* use setters */);
+    /// ```
+    pub fn set_ambient_networking<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AmbientNetworking>,
+    {
+        self.ambient_networking = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ambient_networking][crate::model::Revision::ambient_networking].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::AmbientNetworking;
+    /// let x = Revision::new().set_or_clear_ambient_networking(Some(AmbientNetworking::default()/* use setters */));
+    /// let x = Revision::new().set_or_clear_ambient_networking(None::<AmbientNetworking>);
+    /// ```
+    pub fn set_or_clear_ambient_networking<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AmbientNetworking>,
+    {
+        self.ambient_networking = v.map(|x| x.into());
         self
     }
 
@@ -10290,9 +11372,12 @@ pub struct RevisionTemplate {
     /// provided, the revision will use the project's default service account.
     pub service_account: std::string::String,
 
-    /// Holds the single container that defines the unit of execution for this
+    /// Holds the list which define the units of execution for this
     /// Revision.
     pub containers: std::vec::Vec<crate::model::Container>,
+
+    /// Optional. Configuration for sandboxes.
+    pub sandboxes: std::option::Option<crate::model::SandboxConfiguration>,
 
     /// Optional. A list of Volumes to make available to containers.
     pub volumes: std::vec::Vec<crate::model::Volume>,
@@ -10329,8 +11414,20 @@ pub struct RevisionTemplate {
     /// Optional. The node selector for the revision template.
     pub node_selector: std::option::Option<crate::model::NodeSelector>,
 
+    /// Optional. The Revision's workload identity settings.
+    pub workload_identity_config: std::option::Option<crate::model::WorkloadIdentityConfig>,
+
     /// Optional. True if GPU zonal redundancy is disabled on this revision.
     pub gpu_zonal_redundancy_disabled: std::option::Option<bool>,
+
+    /// Optional. Arbitrary identifier for the API client.
+    pub client: std::string::String,
+
+    /// Optional. Arbitrary version identifier for the API client.
+    pub client_version: std::string::String,
+
+    /// Optional. The ambient networking configuration for this revision.
+    pub ambient_networking: std::option::Option<crate::model::AmbientNetworking>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -10529,6 +11626,39 @@ impl RevisionTemplate {
     {
         use std::iter::Iterator;
         self.containers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [sandboxes][crate::model::RevisionTemplate::sandboxes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use google_cloud_run_v2::model::SandboxConfiguration;
+    /// let x = RevisionTemplate::new().set_sandboxes(SandboxConfiguration::default()/* use setters */);
+    /// ```
+    pub fn set_sandboxes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SandboxConfiguration>,
+    {
+        self.sandboxes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sandboxes][crate::model::RevisionTemplate::sandboxes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use google_cloud_run_v2::model::SandboxConfiguration;
+    /// let x = RevisionTemplate::new().set_or_clear_sandboxes(Some(SandboxConfiguration::default()/* use setters */));
+    /// let x = RevisionTemplate::new().set_or_clear_sandboxes(None::<SandboxConfiguration>);
+    /// ```
+    pub fn set_or_clear_sandboxes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SandboxConfiguration>,
+    {
+        self.sandboxes = v.map(|x| x.into());
         self
     }
 
@@ -10743,6 +11873,39 @@ impl RevisionTemplate {
         self
     }
 
+    /// Sets the value of [workload_identity_config][crate::model::RevisionTemplate::workload_identity_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use google_cloud_run_v2::model::WorkloadIdentityConfig;
+    /// let x = RevisionTemplate::new().set_workload_identity_config(WorkloadIdentityConfig::default()/* use setters */);
+    /// ```
+    pub fn set_workload_identity_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
+    {
+        self.workload_identity_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [workload_identity_config][crate::model::RevisionTemplate::workload_identity_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use google_cloud_run_v2::model::WorkloadIdentityConfig;
+    /// let x = RevisionTemplate::new().set_or_clear_workload_identity_config(Some(WorkloadIdentityConfig::default()/* use setters */));
+    /// let x = RevisionTemplate::new().set_or_clear_workload_identity_config(None::<WorkloadIdentityConfig>);
+    /// ```
+    pub fn set_or_clear_workload_identity_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
+    {
+        self.workload_identity_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [gpu_zonal_redundancy_disabled][crate::model::RevisionTemplate::gpu_zonal_redundancy_disabled].
     ///
     /// # Example
@@ -10776,11 +11939,273 @@ impl RevisionTemplate {
         self.gpu_zonal_redundancy_disabled = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [client][crate::model::RevisionTemplate::client].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// let x = RevisionTemplate::new().set_client("example");
+    /// ```
+    pub fn set_client<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client = v.into();
+        self
+    }
+
+    /// Sets the value of [client_version][crate::model::RevisionTemplate::client_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// let x = RevisionTemplate::new().set_client_version("example");
+    /// ```
+    pub fn set_client_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client_version = v.into();
+        self
+    }
+
+    /// Sets the value of [ambient_networking][crate::model::RevisionTemplate::ambient_networking].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use google_cloud_run_v2::model::AmbientNetworking;
+    /// let x = RevisionTemplate::new().set_ambient_networking(AmbientNetworking::default()/* use setters */);
+    /// ```
+    pub fn set_ambient_networking<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AmbientNetworking>,
+    {
+        self.ambient_networking = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ambient_networking][crate::model::RevisionTemplate::ambient_networking].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use google_cloud_run_v2::model::AmbientNetworking;
+    /// let x = RevisionTemplate::new().set_or_clear_ambient_networking(Some(AmbientNetworking::default()/* use setters */));
+    /// let x = RevisionTemplate::new().set_or_clear_ambient_networking(None::<AmbientNetworking>);
+    /// ```
+    pub fn set_or_clear_ambient_networking<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AmbientNetworking>,
+    {
+        self.ambient_networking = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for RevisionTemplate {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.run.v2.RevisionTemplate"
+    }
+}
+
+/// Configuration for sandboxes.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SandboxConfiguration {
+    /// Required. Sandbox templates that can be launched through the `sandbox` CLI.
+    pub templates: std::vec::Vec<crate::model::SandboxTemplate>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SandboxConfiguration {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [templates][crate::model::SandboxConfiguration::templates].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SandboxConfiguration;
+    /// use google_cloud_run_v2::model::SandboxTemplate;
+    /// let x = SandboxConfiguration::new()
+    ///     .set_templates([
+    ///         SandboxTemplate::default()/* use setters */,
+    ///         SandboxTemplate::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_templates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SandboxTemplate>,
+    {
+        use std::iter::Iterator;
+        self.templates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SandboxConfiguration {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.SandboxConfiguration"
+    }
+}
+
+/// Template for a single sandbox.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SandboxTemplate {
+    /// Required. Name of the sandbox specified as a DNS_LABEL (RFC 1123).
+    pub name: std::string::String,
+
+    /// Required. Name of the container image in Dockerhub or Artifact Registry. If
+    /// the host is not provided, Dockerhub is assumed.
+    pub image: std::string::String,
+
+    /// Optional. Entrypoint array. Not executed within a shell.
+    /// The docker image's ENTRYPOINT is used if this is not provided.
+    pub command: std::vec::Vec<std::string::String>,
+
+    /// Optional. Arguments to the entrypoint.
+    /// The docker image's CMD is used if this is not provided.
+    pub args: std::vec::Vec<std::string::String>,
+
+    /// Optional. List of environment variables to set in the sandbox.
+    pub env: std::vec::Vec<crate::model::EnvVar>,
+
+    /// Optional. Volume to mount into the container's filesystem.
+    pub volume_mounts: std::vec::Vec<crate::model::VolumeMount>,
+
+    /// Optional. Container's working directory.
+    /// If not specified, the container runtime's default will be used, which
+    /// might be configured in the container image.
+    pub working_dir: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SandboxTemplate {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SandboxTemplate::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SandboxTemplate;
+    /// let x = SandboxTemplate::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [image][crate::model::SandboxTemplate::image].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SandboxTemplate;
+    /// let x = SandboxTemplate::new().set_image("example");
+    /// ```
+    pub fn set_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.image = v.into();
+        self
+    }
+
+    /// Sets the value of [command][crate::model::SandboxTemplate::command].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SandboxTemplate;
+    /// let x = SandboxTemplate::new().set_command(["a", "b", "c"]);
+    /// ```
+    pub fn set_command<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.command = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [args][crate::model::SandboxTemplate::args].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SandboxTemplate;
+    /// let x = SandboxTemplate::new().set_args(["a", "b", "c"]);
+    /// ```
+    pub fn set_args<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.args = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [env][crate::model::SandboxTemplate::env].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SandboxTemplate;
+    /// use google_cloud_run_v2::model::EnvVar;
+    /// let x = SandboxTemplate::new()
+    ///     .set_env([
+    ///         EnvVar::default()/* use setters */,
+    ///         EnvVar::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_env<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::EnvVar>,
+    {
+        use std::iter::Iterator;
+        self.env = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [volume_mounts][crate::model::SandboxTemplate::volume_mounts].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SandboxTemplate;
+    /// use google_cloud_run_v2::model::VolumeMount;
+    /// let x = SandboxTemplate::new()
+    ///     .set_volume_mounts([
+    ///         VolumeMount::default()/* use setters */,
+    ///         VolumeMount::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_volume_mounts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::VolumeMount>,
+    {
+        use std::iter::Iterator;
+        self.volume_mounts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [working_dir][crate::model::SandboxTemplate::working_dir].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SandboxTemplate;
+    /// let x = SandboxTemplate::new().set_working_dir("example");
+    /// ```
+    pub fn set_working_dir<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.working_dir = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SandboxTemplate {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.SandboxTemplate"
     }
 }
 
@@ -10796,9 +12221,10 @@ pub struct CreateServiceRequest {
     /// Required. The Service instance to create.
     pub service: std::option::Option<crate::model::Service>,
 
-    /// Required. The unique identifier for the Service. It must begin with letter,
+    /// Optional. The unique identifier for the Service. It must begin with letter,
     /// and cannot end with hyphen; must contain fewer than 50 characters.
     /// The name of the service becomes {parent}/services/{service_id}.
+    /// If not provided, the server will generate a unique `service_id`.
     pub service_id: std::string::String,
 
     /// Indicates that the request should be validated and default values
@@ -10911,6 +12337,16 @@ pub struct UpdateServiceRequest {
     /// is set to true and the Service does not exist.
     pub allow_missing: bool,
 
+    /// Optional. If set to true, a new revision will be created from the template
+    /// even if the system doesn't detect any changes from the previously deployed
+    /// revision.
+    ///
+    /// This may be useful for cases where the underlying resources need to be
+    /// recreated or reinitialized. For example if the image is specified by label,
+    /// but the underlying image digest has changed) or if the container performs
+    /// deployment initialization work that needs to be performed again.
+    pub force_new_revision: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -11007,6 +12443,18 @@ impl UpdateServiceRequest {
     /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
+        self
+    }
+
+    /// Sets the value of [force_new_revision][crate::model::UpdateServiceRequest::force_new_revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateServiceRequest;
+    /// let x = UpdateServiceRequest::new().set_force_new_revision(true);
+    /// ```
+    pub fn set_force_new_revision<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force_new_revision = v.into();
         self
     }
 }
@@ -11426,6 +12874,9 @@ pub struct Service {
     /// Optional. IAP settings on the Service.
     pub iap_enabled: bool,
 
+    /// Optional. Enables SSH access to the Service.
+    pub ssh_enabled: std::option::Option<bool>,
+
     /// Optional. Settings for multi-region deployment.
     pub multi_region_settings: std::option::Option<crate::model::service::MultiRegionSettings>,
 
@@ -11482,6 +12933,9 @@ pub struct Service {
 
     /// Optional. Configuration for building a Cloud Run function.
     pub build_config: std::option::Option<crate::model::BuildConfig>,
+
+    /// Optional. The functional type of the Service.
+    pub functional_type: crate::model::FunctionalType,
 
     /// Output only. Returns true if the Service is currently being acted upon by
     /// the system to bring it into the desired state.
@@ -12003,6 +13457,37 @@ impl Service {
         self
     }
 
+    /// Sets the value of [ssh_enabled][crate::model::Service::ssh_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_ssh_enabled(true);
+    /// ```
+    pub fn set_ssh_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.ssh_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [ssh_enabled][crate::model::Service::ssh_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_or_clear_ssh_enabled(Some(false));
+    /// let x = Service::new().set_or_clear_ssh_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_ssh_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.ssh_enabled = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [multi_region_settings][crate::model::Service::multi_region_settings].
     ///
     /// # Example
@@ -12249,6 +13734,23 @@ impl Service {
         self
     }
 
+    /// Sets the value of [functional_type][crate::model::Service::functional_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::FunctionalType;
+    /// let x0 = Service::new().set_functional_type(FunctionalType::Agent);
+    /// let x1 = Service::new().set_functional_type(FunctionalType::McpServer);
+    /// ```
+    pub fn set_functional_type<T: std::convert::Into<crate::model::FunctionalType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.functional_type = v.into();
+        self
+    }
+
     /// Sets the value of [reconciling][crate::model::Service::reconciling].
     ///
     /// # Example
@@ -12341,6 +13843,169 @@ pub mod service {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.run.v2.Service.MultiRegionSettings"
         }
+    }
+}
+
+/// The request message for the UploadSource method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UploadSourceRequest {
+    /// Required. The project and location in which the source archive should be
+    /// uploaded to, specified in the format `projects/*/locations/*`.
+    pub parent: std::string::String,
+
+    /// The Cloud Run resource the upload source archive will be used for.
+    pub target: std::option::Option<crate::model::upload_source_request::Target>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UploadSourceRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::UploadSourceRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UploadSourceRequest;
+    /// let x = UploadSourceRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [target][crate::model::UploadSourceRequest::target].
+    ///
+    /// Note that all the setters affecting `target` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UploadSourceRequest;
+    /// use google_cloud_run_v2::model::upload_source_request::Target;
+    /// let x = UploadSourceRequest::new().set_target(Some(Target::Service("example".to_string())));
+    /// ```
+    pub fn set_target<
+        T: std::convert::Into<std::option::Option<crate::model::upload_source_request::Target>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target = v.into();
+        self
+    }
+
+    /// The value of [target][crate::model::UploadSourceRequest::target]
+    /// if it holds a `Service`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn service(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.target.as_ref().and_then(|v| match v {
+            crate::model::upload_source_request::Target::Service(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [target][crate::model::UploadSourceRequest::target]
+    /// to hold a `Service`.
+    ///
+    /// Note that all the setters affecting `target` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UploadSourceRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let service_id = "service_id";
+    /// let x = UploadSourceRequest::new().set_service(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"));
+    /// assert!(x.service().is_some());
+    /// ```
+    pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target = std::option::Option::Some(
+            crate::model::upload_source_request::Target::Service(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for UploadSourceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.UploadSourceRequest"
+    }
+}
+
+/// Defines additional types related to [UploadSourceRequest].
+pub mod upload_source_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The Cloud Run resource the upload source archive will be used for.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Target {
+        /// The name of Cloud Run Service upload source archive will be used for.
+        Service(std::string::String),
+    }
+}
+
+/// The response message for the UploadSource method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UploadSourceResponse {
+    /// The Cloud Storage object path the source archive is uploaded to.
+    pub cloud_storage_source: std::option::Option<crate::model::source_code::CloudStorageSource>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UploadSourceResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cloud_storage_source][crate::model::UploadSourceResponse::cloud_storage_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UploadSourceResponse;
+    /// use google_cloud_run_v2::model::source_code::CloudStorageSource;
+    /// let x = UploadSourceResponse::new().set_cloud_storage_source(CloudStorageSource::default()/* use setters */);
+    /// ```
+    pub fn set_cloud_storage_source<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::source_code::CloudStorageSource>,
+    {
+        self.cloud_storage_source = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cloud_storage_source][crate::model::UploadSourceResponse::cloud_storage_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UploadSourceResponse;
+    /// use google_cloud_run_v2::model::source_code::CloudStorageSource;
+    /// let x = UploadSourceResponse::new().set_or_clear_cloud_storage_source(Some(CloudStorageSource::default()/* use setters */));
+    /// let x = UploadSourceResponse::new().set_or_clear_cloud_storage_source(None::<CloudStorageSource>);
+    /// ```
+    pub fn set_or_clear_cloud_storage_source<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::source_code::CloudStorageSource>,
+    {
+        self.cloud_storage_source = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UploadSourceResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.UploadSourceResponse"
     }
 }
 
@@ -12655,6 +14320,9 @@ pub struct Task {
     /// task.
     pub containers: std::vec::Vec<crate::model::Container>,
 
+    /// Configuration for sandboxes.
+    pub sandboxes: std::option::Option<crate::model::SandboxConfiguration>,
+
     /// A list of Volumes to make available to containers.
     pub volumes: std::vec::Vec<crate::model::Volume>,
 
@@ -12721,6 +14389,9 @@ pub struct Task {
     /// Optional. Output only. True if GPU zonal redundancy is disabled on this
     /// task.
     pub gpu_zonal_redundancy_disabled: std::option::Option<bool>,
+
+    /// Optional. The Task's workload identity settings.
+    pub workload_identity_config: std::option::Option<crate::model::WorkloadIdentityConfig>,
 
     /// Output only. A system-generated fingerprint for this version of the
     /// resource. May be used to detect modification conflict during updates.
@@ -13102,6 +14773,39 @@ impl Task {
         self
     }
 
+    /// Sets the value of [sandboxes][crate::model::Task::sandboxes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use google_cloud_run_v2::model::SandboxConfiguration;
+    /// let x = Task::new().set_sandboxes(SandboxConfiguration::default()/* use setters */);
+    /// ```
+    pub fn set_sandboxes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SandboxConfiguration>,
+    {
+        self.sandboxes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sandboxes][crate::model::Task::sandboxes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use google_cloud_run_v2::model::SandboxConfiguration;
+    /// let x = Task::new().set_or_clear_sandboxes(Some(SandboxConfiguration::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_sandboxes(None::<SandboxConfiguration>);
+    /// ```
+    pub fn set_or_clear_sandboxes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SandboxConfiguration>,
+    {
+        self.sandboxes = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [volumes][crate::model::Task::volumes].
     ///
     /// # Example
@@ -13437,6 +15141,39 @@ impl Task {
         self
     }
 
+    /// Sets the value of [workload_identity_config][crate::model::Task::workload_identity_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use google_cloud_run_v2::model::WorkloadIdentityConfig;
+    /// let x = Task::new().set_workload_identity_config(WorkloadIdentityConfig::default()/* use setters */);
+    /// ```
+    pub fn set_workload_identity_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
+    {
+        self.workload_identity_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [workload_identity_config][crate::model::Task::workload_identity_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use google_cloud_run_v2::model::WorkloadIdentityConfig;
+    /// let x = Task::new().set_or_clear_workload_identity_config(Some(WorkloadIdentityConfig::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_workload_identity_config(None::<WorkloadIdentityConfig>);
+    /// ```
+    pub fn set_or_clear_workload_identity_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
+    {
+        self.workload_identity_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [etag][crate::model::Task::etag].
     ///
     /// # Example
@@ -13560,6 +15297,9 @@ pub struct TaskTemplate {
     /// task.
     pub containers: std::vec::Vec<crate::model::Container>,
 
+    /// Optional. Configuration for sandboxes.
+    pub sandboxes: std::option::Option<crate::model::SandboxConfiguration>,
+
     /// Optional. A list of Volumes to make available to containers.
     pub volumes: std::vec::Vec<crate::model::Volume>,
 
@@ -13594,6 +15334,9 @@ pub struct TaskTemplate {
     /// Optional. True if GPU zonal redundancy is disabled on this task template.
     pub gpu_zonal_redundancy_disabled: std::option::Option<bool>,
 
+    /// Optional. The Task's workload identity settings.
+    pub workload_identity_config: std::option::Option<crate::model::WorkloadIdentityConfig>,
+
     #[allow(missing_docs)]
     pub retries: std::option::Option<crate::model::task_template::Retries>,
 
@@ -13625,6 +15368,39 @@ impl TaskTemplate {
     {
         use std::iter::Iterator;
         self.containers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [sandboxes][crate::model::TaskTemplate::sandboxes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// use google_cloud_run_v2::model::SandboxConfiguration;
+    /// let x = TaskTemplate::new().set_sandboxes(SandboxConfiguration::default()/* use setters */);
+    /// ```
+    pub fn set_sandboxes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SandboxConfiguration>,
+    {
+        self.sandboxes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sandboxes][crate::model::TaskTemplate::sandboxes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// use google_cloud_run_v2::model::SandboxConfiguration;
+    /// let x = TaskTemplate::new().set_or_clear_sandboxes(Some(SandboxConfiguration::default()/* use setters */));
+    /// let x = TaskTemplate::new().set_or_clear_sandboxes(None::<SandboxConfiguration>);
+    /// ```
+    pub fn set_or_clear_sandboxes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SandboxConfiguration>,
+    {
+        self.sandboxes = v.map(|x| x.into());
         self
     }
 
@@ -13821,6 +15597,39 @@ impl TaskTemplate {
         T: std::convert::Into<bool>,
     {
         self.gpu_zonal_redundancy_disabled = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [workload_identity_config][crate::model::TaskTemplate::workload_identity_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// use google_cloud_run_v2::model::WorkloadIdentityConfig;
+    /// let x = TaskTemplate::new().set_workload_identity_config(WorkloadIdentityConfig::default()/* use setters */);
+    /// ```
+    pub fn set_workload_identity_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
+    {
+        self.workload_identity_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [workload_identity_config][crate::model::TaskTemplate::workload_identity_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// use google_cloud_run_v2::model::WorkloadIdentityConfig;
+    /// let x = TaskTemplate::new().set_or_clear_workload_identity_config(Some(WorkloadIdentityConfig::default()/* use setters */));
+    /// let x = TaskTemplate::new().set_or_clear_workload_identity_config(None::<WorkloadIdentityConfig>);
+    /// ```
+    pub fn set_or_clear_workload_identity_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WorkloadIdentityConfig>,
+    {
+        self.workload_identity_config = v.map(|x| x.into());
         self
     }
 
@@ -14559,6 +16368,18 @@ pub struct RevisionScaling {
     /// <https://cloud.google.com/run/docs/configuring/max-instances>
     pub max_instance_count: i32,
 
+    /// Optional. Determines a threshold for CPU utilization before scaling begins.
+    /// Accepted values are between `0.1` and `0.90` (inclusive) or `0.0` to
+    /// disable CPU utilization as threshold for scaling. CPU and concurrency
+    /// scaling cannot both be disabled.
+    pub cpu_utilization: std::option::Option<f32>,
+
+    /// Optional. Determines a threshold for concurrency utilization before scaling
+    /// begins. Accepted values are between `0.1` and `0.95` (inclusive) or `0.0`
+    /// to disable concurrency utilization as threshold for scaling. CPU and
+    /// concurrency scaling cannot both be disabled.
+    pub concurrency_utilization: std::option::Option<f32>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -14589,6 +16410,68 @@ impl RevisionScaling {
     /// ```
     pub fn set_max_instance_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_instance_count = v.into();
+        self
+    }
+
+    /// Sets the value of [cpu_utilization][crate::model::RevisionScaling::cpu_utilization].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionScaling;
+    /// let x = RevisionScaling::new().set_cpu_utilization(42.0);
+    /// ```
+    pub fn set_cpu_utilization<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<f32>,
+    {
+        self.cpu_utilization = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cpu_utilization][crate::model::RevisionScaling::cpu_utilization].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionScaling;
+    /// let x = RevisionScaling::new().set_or_clear_cpu_utilization(Some(42.0));
+    /// let x = RevisionScaling::new().set_or_clear_cpu_utilization(None::<f32>);
+    /// ```
+    pub fn set_or_clear_cpu_utilization<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<f32>,
+    {
+        self.cpu_utilization = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [concurrency_utilization][crate::model::RevisionScaling::concurrency_utilization].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionScaling;
+    /// let x = RevisionScaling::new().set_concurrency_utilization(42.0);
+    /// ```
+    pub fn set_concurrency_utilization<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<f32>,
+    {
+        self.concurrency_utilization = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [concurrency_utilization][crate::model::RevisionScaling::concurrency_utilization].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionScaling;
+    /// let x = RevisionScaling::new().set_or_clear_concurrency_utilization(Some(42.0));
+    /// let x = RevisionScaling::new().set_or_clear_concurrency_utilization(None::<f32>);
+    /// ```
+    pub fn set_or_clear_concurrency_utilization<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<f32>,
+    {
+        self.concurrency_utilization = v.map(|x| x.into());
         self
     }
 }
@@ -14634,6 +16517,80 @@ impl ServiceMesh {
 impl wkt::message::Message for ServiceMesh {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.run.v2.ServiceMesh"
+    }
+}
+
+/// Configuration for Ambient Networking.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AmbientNetworking {
+    /// Optional. Whether ambient networking is enabled.
+    pub enabled: std::option::Option<bool>,
+
+    /// The ambient networking scope of the instance.
+    pub ambient_scope: crate::model::AmbientScope,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AmbientNetworking {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::AmbientNetworking::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::AmbientNetworking;
+    /// let x = AmbientNetworking::new().set_enabled(true);
+    /// ```
+    pub fn set_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enabled][crate::model::AmbientNetworking::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::AmbientNetworking;
+    /// let x = AmbientNetworking::new().set_or_clear_enabled(Some(false));
+    /// let x = AmbientNetworking::new().set_or_clear_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enabled = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ambient_scope][crate::model::AmbientNetworking::ambient_scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::AmbientNetworking;
+    /// use google_cloud_run_v2::model::AmbientScope;
+    /// let x0 = AmbientNetworking::new().set_ambient_scope(AmbientScope::Regional);
+    /// let x1 = AmbientNetworking::new().set_ambient_scope(AmbientScope::Global);
+    /// ```
+    pub fn set_ambient_scope<T: std::convert::Into<crate::model::AmbientScope>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ambient_scope = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AmbientNetworking {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.AmbientNetworking"
     }
 }
 
@@ -15004,8 +16961,8 @@ pub struct BuildConfig {
     /// updates.
     pub enable_automatic_updates: bool,
 
-    /// Optional. Name of the Cloud Build Custom Worker Pool that should be used to
-    /// build the Cloud Run function. The format of this field is
+    /// Optional. Name of the Cloud Build private pool that should be used to build
+    /// the Cloud Run function. The format of this field is
     /// `projects/{project}/locations/{region}/workerPools/{workerPool}` where
     /// `{project}` and `{region}` are the project id and region respectively where
     /// the worker pool is defined and `{workerPool}` is the short name of the
@@ -15153,6 +17110,98 @@ impl wkt::message::Message for BuildConfig {
     }
 }
 
+/// Workload identity settings.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WorkloadIdentityConfig {
+    /// Optional. The Revision's SPIFFE workload identity. Enables provisioning of
+    /// SPIFFE workload certificates.
+    pub identity: std::string::String,
+
+    /// Optional. The type of identity to use.
+    pub identity_type: crate::model::IdentityType,
+
+    /// Optional. Controls whether an instance receives a MWLID certificate.
+    /// Corresponds to the intention of the original --[no-]identity-certificate
+    /// flag.
+    pub identity_certificate_enabled: std::option::Option<bool>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WorkloadIdentityConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [identity][crate::model::WorkloadIdentityConfig::identity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkloadIdentityConfig;
+    /// let x = WorkloadIdentityConfig::new().set_identity("example");
+    /// ```
+    pub fn set_identity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.identity = v.into();
+        self
+    }
+
+    /// Sets the value of [identity_type][crate::model::WorkloadIdentityConfig::identity_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkloadIdentityConfig;
+    /// use google_cloud_run_v2::model::IdentityType;
+    /// let x0 = WorkloadIdentityConfig::new().set_identity_type(IdentityType::ServiceAccount);
+    /// let x1 = WorkloadIdentityConfig::new().set_identity_type(IdentityType::AgentIdentity);
+    /// ```
+    pub fn set_identity_type<T: std::convert::Into<crate::model::IdentityType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identity_type = v.into();
+        self
+    }
+
+    /// Sets the value of [identity_certificate_enabled][crate::model::WorkloadIdentityConfig::identity_certificate_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkloadIdentityConfig;
+    /// let x = WorkloadIdentityConfig::new().set_identity_certificate_enabled(true);
+    /// ```
+    pub fn set_identity_certificate_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.identity_certificate_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [identity_certificate_enabled][crate::model::WorkloadIdentityConfig::identity_certificate_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkloadIdentityConfig;
+    /// let x = WorkloadIdentityConfig::new().set_or_clear_identity_certificate_enabled(Some(false));
+    /// let x = WorkloadIdentityConfig::new().set_or_clear_identity_certificate_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_identity_certificate_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.identity_certificate_enabled = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for WorkloadIdentityConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.WorkloadIdentityConfig"
+    }
+}
+
 /// Request message for creating a WorkerPool.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -15166,10 +17215,11 @@ pub struct CreateWorkerPoolRequest {
     /// Required. The WorkerPool instance to create.
     pub worker_pool: std::option::Option<crate::model::WorkerPool>,
 
-    /// Required. The unique identifier for the WorkerPool. It must begin with
+    /// Optional. The unique identifier for the WorkerPool. It must begin with
     /// letter, and cannot end with hyphen; must contain fewer than 50 characters.
     /// The name of the worker pool becomes
     /// `{parent}/workerPools/{worker_pool_id}`.
+    /// If not provided, the server will generate a unique `worker_pool_id`.
     pub worker_pool_id: std::string::String,
 
     /// Optional. Indicates that the request should be validated and default values
@@ -16536,6 +18586,9 @@ pub struct WorkerPoolRevisionTemplate {
     /// Revision.
     pub containers: std::vec::Vec<crate::model::Container>,
 
+    /// Optional. Configuration for sandboxes.
+    pub sandboxes: std::option::Option<crate::model::SandboxConfiguration>,
+
     /// Optional. A list of Volumes to make available to containers.
     pub volumes: std::vec::Vec<crate::model::Volume>,
 
@@ -16559,6 +18612,12 @@ pub struct WorkerPoolRevisionTemplate {
 
     /// Optional. True if GPU zonal redundancy is disabled on this worker pool.
     pub gpu_zonal_redundancy_disabled: std::option::Option<bool>,
+
+    /// Optional. Arbitrary identifier for the API client.
+    pub client: std::string::String,
+
+    /// Optional. Arbitrary version identifier for the API client.
+    pub client_version: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -16691,6 +18750,39 @@ impl WorkerPoolRevisionTemplate {
     {
         use std::iter::Iterator;
         self.containers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [sandboxes][crate::model::WorkerPoolRevisionTemplate::sandboxes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// use google_cloud_run_v2::model::SandboxConfiguration;
+    /// let x = WorkerPoolRevisionTemplate::new().set_sandboxes(SandboxConfiguration::default()/* use setters */);
+    /// ```
+    pub fn set_sandboxes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SandboxConfiguration>,
+    {
+        self.sandboxes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [sandboxes][crate::model::WorkerPoolRevisionTemplate::sandboxes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// use google_cloud_run_v2::model::SandboxConfiguration;
+    /// let x = WorkerPoolRevisionTemplate::new().set_or_clear_sandboxes(Some(SandboxConfiguration::default()/* use setters */));
+    /// let x = WorkerPoolRevisionTemplate::new().set_or_clear_sandboxes(None::<SandboxConfiguration>);
+    /// ```
+    pub fn set_or_clear_sandboxes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SandboxConfiguration>,
+    {
+        self.sandboxes = v.map(|x| x.into());
         self
     }
 
@@ -16880,6 +18972,30 @@ impl WorkerPoolRevisionTemplate {
         T: std::convert::Into<bool>,
     {
         self.gpu_zonal_redundancy_disabled = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [client][crate::model::WorkerPoolRevisionTemplate::client].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// let x = WorkerPoolRevisionTemplate::new().set_client("example");
+    /// ```
+    pub fn set_client<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client = v.into();
+        self
+    }
+
+    /// Sets the value of [client_version][crate::model::WorkerPoolRevisionTemplate::client_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// let x = WorkerPoolRevisionTemplate::new().set_client_version("example");
+    /// ```
+    pub fn set_client_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client_version = v.into();
         self
     }
 }
@@ -17159,6 +19275,138 @@ impl<'de> serde::de::Deserialize<'de> for TrafficTargetAllocationType {
                 ".google.cloud.run.v2.TrafficTargetAllocationType",
             ),
         )
+    }
+}
+
+/// The ambient networking scopes of the instance.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum AmbientScope {
+    /// Unspecified.
+    Unspecified,
+    /// Regional ambient networking.
+    Regional,
+    /// Global ambient networking.
+    Global,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [AmbientScope::value] or
+    /// [AmbientScope::name].
+    UnknownValue(ambient_scope::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod ambient_scope {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl AmbientScope {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Regional => std::option::Option::Some(1),
+            Self::Global => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("AMBIENT_SCOPE_UNSPECIFIED"),
+            Self::Regional => std::option::Option::Some("AMBIENT_SCOPE_REGIONAL"),
+            Self::Global => std::option::Option::Some("AMBIENT_SCOPE_GLOBAL"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for AmbientScope {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for AmbientScope {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for AmbientScope {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Regional,
+            2 => Self::Global,
+            _ => Self::UnknownValue(ambient_scope::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for AmbientScope {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "AMBIENT_SCOPE_UNSPECIFIED" => Self::Unspecified,
+            "AMBIENT_SCOPE_REGIONAL" => Self::Regional,
+            "AMBIENT_SCOPE_GLOBAL" => Self::Global,
+            _ => Self::UnknownValue(ambient_scope::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for AmbientScope {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Regional => serializer.serialize_i32(1),
+            Self::Global => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for AmbientScope {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<AmbientScope>::new(
+            ".google.cloud.run.v2.AmbientScope",
+        ))
     }
 }
 
@@ -17575,5 +19823,269 @@ impl<'de> serde::de::Deserialize<'de> for EncryptionKeyRevocationAction {
                 ".google.cloud.run.v2.EncryptionKeyRevocationAction",
             ),
         )
+    }
+}
+
+/// Identity type.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum IdentityType {
+    /// Unspecified
+    Unspecified,
+    /// Service account identity.
+    ServiceAccount,
+    /// Agent identity.
+    AgentIdentity,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [IdentityType::value] or
+    /// [IdentityType::name].
+    UnknownValue(identity_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod identity_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl IdentityType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::ServiceAccount => std::option::Option::Some(1),
+            Self::AgentIdentity => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("IDENTITY_TYPE_UNSPECIFIED"),
+            Self::ServiceAccount => std::option::Option::Some("IDENTITY_TYPE_SERVICE_ACCOUNT"),
+            Self::AgentIdentity => std::option::Option::Some("IDENTITY_TYPE_AGENT_IDENTITY"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for IdentityType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for IdentityType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for IdentityType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::ServiceAccount,
+            3 => Self::AgentIdentity,
+            _ => Self::UnknownValue(identity_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for IdentityType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "IDENTITY_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "IDENTITY_TYPE_SERVICE_ACCOUNT" => Self::ServiceAccount,
+            "IDENTITY_TYPE_AGENT_IDENTITY" => Self::AgentIdentity,
+            _ => Self::UnknownValue(identity_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for IdentityType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::ServiceAccount => serializer.serialize_i32(1),
+            Self::AgentIdentity => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for IdentityType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<IdentityType>::new(
+            ".google.cloud.run.v2.IdentityType",
+        ))
+    }
+}
+
+/// Represents the functional type.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum FunctionalType {
+    /// Specifies that the functional type is unspecified.
+    Unspecified,
+    /// Represents an AGENT functional type.
+    Agent,
+    /// Represents an MCP_SERVER functional type.
+    McpServer,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [FunctionalType::value] or
+    /// [FunctionalType::name].
+    UnknownValue(functional_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod functional_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl FunctionalType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Agent => std::option::Option::Some(1),
+            Self::McpServer => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("FUNCTIONAL_TYPE_UNSPECIFIED"),
+            Self::Agent => std::option::Option::Some("FUNCTIONAL_TYPE_AGENT"),
+            Self::McpServer => std::option::Option::Some("FUNCTIONAL_TYPE_MCP_SERVER"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for FunctionalType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for FunctionalType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for FunctionalType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Agent,
+            2 => Self::McpServer,
+            _ => Self::UnknownValue(functional_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for FunctionalType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "FUNCTIONAL_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "FUNCTIONAL_TYPE_AGENT" => Self::Agent,
+            "FUNCTIONAL_TYPE_MCP_SERVER" => Self::McpServer,
+            _ => Self::UnknownValue(functional_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for FunctionalType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Agent => serializer.serialize_i32(1),
+            Self::McpServer => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for FunctionalType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<FunctionalType>::new(
+            ".google.cloud.run.v2.FunctionalType",
+        ))
     }
 }

@@ -387,12 +387,7 @@ pub mod context {
         pub left_schema_paths: ::core::option::Option<schema_relationship::SchemaPaths>,
         #[prost(message, optional, tag = "2")]
         pub right_schema_paths: ::core::option::Option<schema_relationship::SchemaPaths>,
-        #[prost(
-            enumeration = "schema_relationship::Source",
-            repeated,
-            packed = "false",
-            tag = "3"
-        )]
+        #[prost(enumeration = "schema_relationship::Source", repeated, tag = "3")]
         pub sources: ::prost::alloc::vec::Vec<i32>,
         #[prost(float, tag = "4")]
         pub confidence_score: f32,

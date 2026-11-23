@@ -31,3 +31,6 @@ anyhow              = { workspace = true, features = ["std"] }
 tokio               = { workspace = true, features = ["test-util"] }
 test-metadata       = { path = "../test-metadata" }
 test-secret-manager = { path = "../test-secret-manager", features = ["with-default"] }
+
+[lints]
+workspace = true

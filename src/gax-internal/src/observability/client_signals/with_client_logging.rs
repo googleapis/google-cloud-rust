@@ -145,6 +145,7 @@ mod tests {
         TEST_INFO, TEST_METHOD, TEST_URL_TEMPLATE, recorded_request_transport_stub,
     };
     use super::*;
+    use google_cloud_test_utils::test_layer::TestLayer;
     use google_cloud_test_utils::tracing::Buffer;
     use httptest::Expectation;
     use httptest::Server;
@@ -158,7 +159,6 @@ mod tests {
     use tracing_subscriber::fmt::format::FmtSpan;
 
     #[tokio::test]
-    #[ignore = "TODO(#6023) - disable flaky test"]
     async fn no_recorder() -> anyhow::Result<()> {
         let (_guard, buffer) = capture_logs();
 
@@ -171,7 +171,6 @@ mod tests {
     }
 
     #[tokio::test]
-    #[ignore = "TODO(#6023) - disable flaky test"]
     async fn ok() -> anyhow::Result<()> {
         let (_guard, buffer) = capture_logs();
 
@@ -190,7 +189,6 @@ mod tests {
     }
 
     #[tokio::test]
-    #[ignore = "TODO(#6023) - disable flaky test"]
     async fn error_with_partial_recorder() -> anyhow::Result<()> {
         const BAD_URL: &str = "https://127.0.0.1:1";
 
@@ -241,7 +239,6 @@ mod tests {
     }
 
     #[tokio::test]
-    #[ignore = "TODO(#6023) - disable flaky test"]
     async fn error_with_full_recorder() -> anyhow::Result<()> {
         let (_guard, buffer) = capture_logs();
 
@@ -306,6 +303,7 @@ mod tests {
     }
 
     fn capture_logs() -> (DefaultGuard, Buffer) {
+        TestLayer::ensure_max_level_trace();
         let buffer = Buffer::default();
         let make_writer = {
             let shared = buffer.clone();
@@ -316,7 +314,7 @@ mod tests {
             .with_level(true)
             .with_writer(make_writer)
             .json()
-            .with_max_level(Level::WARN)
+            .with_max_level(Level::TRACE)
             .finish();
         let guard = tracing::subscriber::set_default(subscriber);
         (guard, buffer)
@@ -325,10 +323,17 @@ mod tests {
     #[track_caller]
     fn extract_captured_log(buffer: Buffer) -> anyhow::Result<Value> {
         let contents = String::from_utf8(buffer.captured())?;
-        let mut s = contents.split('\n');
-        let parsed = match (s.next(), s.next(), s.next()) {
-            (Some(line), Some(""), None) => serde_json::from_str::<Value>(line)?,
-            _ => panic!("unexpected number of lines: {contents}"),
+        let matching: Vec<Value> = contents
+            .lines()
+            .filter(|line| !line.is_empty())
+            .map(serde_json::from_str::<Value>)
+            .collect::<Result<Vec<_>, _>>()?
+            .into_iter()
+            .filter(|v| v.get("target").and_then(Value::as_str) == Some(TARGET))
+            .collect();
+        let parsed = match &matching[..] {
+            [single] => single.clone(),
+            _ => panic!("unexpected number of matching lines: {contents}"),
         };
         Ok(parsed)
     }

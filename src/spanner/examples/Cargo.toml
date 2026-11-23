@@ -42,3 +42,6 @@ integration-tests-spanner = { workspace = true }
 [features]
 run-integration-tests     = []
 skipped-integration-tests = []
+
+[lints]
+workspace = true

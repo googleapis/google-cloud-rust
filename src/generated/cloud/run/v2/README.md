@@ -23,6 +23,7 @@ The main types to work with this crate are the clients:
 - [Jobs]
 - [Revisions]
 - [Services]
+- [SourceUpload]
 - [Tasks]
 - [WorkerPools]
 
@@ -36,15 +37,16 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-run-v2/1.15.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-run-v2/1.16.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[Builds]: https://docs.rs/google-cloud-run-v2/1.15.0/google_cloud_run_v2/client/struct.Builds.html
-[Executions]: https://docs.rs/google-cloud-run-v2/1.15.0/google_cloud_run_v2/client/struct.Executions.html
-[Instances]: https://docs.rs/google-cloud-run-v2/1.15.0/google_cloud_run_v2/client/struct.Instances.html
-[Jobs]: https://docs.rs/google-cloud-run-v2/1.15.0/google_cloud_run_v2/client/struct.Jobs.html
-[Revisions]: https://docs.rs/google-cloud-run-v2/1.15.0/google_cloud_run_v2/client/struct.Revisions.html
-[Services]: https://docs.rs/google-cloud-run-v2/1.15.0/google_cloud_run_v2/client/struct.Services.html
-[Tasks]: https://docs.rs/google-cloud-run-v2/1.15.0/google_cloud_run_v2/client/struct.Tasks.html
-[WorkerPools]: https://docs.rs/google-cloud-run-v2/1.15.0/google_cloud_run_v2/client/struct.WorkerPools.html
+[Builds]: https://docs.rs/google-cloud-run-v2/1.16.0/google_cloud_run_v2/client/struct.Builds.html
+[Executions]: https://docs.rs/google-cloud-run-v2/1.16.0/google_cloud_run_v2/client/struct.Executions.html
+[Instances]: https://docs.rs/google-cloud-run-v2/1.16.0/google_cloud_run_v2/client/struct.Instances.html
+[Jobs]: https://docs.rs/google-cloud-run-v2/1.16.0/google_cloud_run_v2/client/struct.Jobs.html
+[Revisions]: https://docs.rs/google-cloud-run-v2/1.16.0/google_cloud_run_v2/client/struct.Revisions.html
+[Services]: https://docs.rs/google-cloud-run-v2/1.16.0/google_cloud_run_v2/client/struct.Services.html
+[SourceUpload]: https://docs.rs/google-cloud-run-v2/1.16.0/google_cloud_run_v2/client/struct.SourceUpload.html
+[Tasks]: https://docs.rs/google-cloud-run-v2/1.16.0/google_cloud_run_v2/client/struct.Tasks.html
+[WorkerPools]: https://docs.rs/google-cloud-run-v2/1.16.0/google_cloud_run_v2/client/struct.WorkerPools.html

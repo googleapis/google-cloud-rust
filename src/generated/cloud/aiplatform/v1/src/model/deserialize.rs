@@ -106719,6 +106719,7 @@ impl<'de> serde::de::Deserialize<'de> for super::reasoning_engine_spec::SourceCo
         enum __FieldTag {
             __inline_source,
             __developer_connect_source,
+            __git_source,
             __python_spec,
             __image_spec,
             Unknown(std::string::String),
@@ -106747,6 +106748,8 @@ impl<'de> serde::de::Deserialize<'de> for super::reasoning_engine_spec::SourceCo
                             "developer_connect_source" => {
                                 Ok(__FieldTag::__developer_connect_source)
                             }
+                            "gitSource" => Ok(__FieldTag::__git_source),
+                            "git_source" => Ok(__FieldTag::__git_source),
                             "pythonSpec" => Ok(__FieldTag::__python_spec),
                             "python_spec" => Ok(__FieldTag::__python_spec),
                             "imageSpec" => Ok(__FieldTag::__image_spec),
@@ -106807,6 +106810,23 @@ impl<'de> serde::de::Deserialize<'de> for super::reasoning_engine_spec::SourceCo
                             result.source = std::option::Option::Some(
                                 crate::model::reasoning_engine_spec::source_code_spec::Source::DeveloperConnectSource(
                                     map.next_value::<std::option::Option<std::boxed::Box<crate::model::reasoning_engine_spec::source_code_spec::DeveloperConnectSource>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__git_source => {
+                            if !fields.insert(__FieldTag::__git_source) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for git_source",
+                                ));
+                            }
+                            if result.source.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `source`, a oneof with full ID .google.cloud.aiplatform.v1.ReasoningEngineSpec.SourceCodeSpec.git_source, latest field was gitSource",
+                                ));
+                            }
+                            result.source = std::option::Option::Some(
+                                crate::model::reasoning_engine_spec::source_code_spec::Source::GitSource(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::reasoning_engine_spec::source_code_spec::GitSource>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -107216,6 +107236,113 @@ impl<'de> serde::de::Deserialize<'de>
                             }
                             result.config = map.next_value::<std::option::Option<crate::model::reasoning_engine_spec::source_code_spec::DeveloperConnectConfig>>()?
                                 ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[cfg(feature = "reasoning-engine-service")]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::reasoning_engine_spec::source_code_spec::GitSource
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __url,
+            __dir,
+            __revision,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GitSource")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "url" => Ok(__FieldTag::__url),
+                            "dir" => Ok(__FieldTag::__dir),
+                            "revision" => Ok(__FieldTag::__revision),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::reasoning_engine_spec::source_code_spec::GitSource;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GitSource")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__url => {
+                            if !fields.insert(__FieldTag::__url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for url",
+                                ));
+                            }
+                            result.url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__dir => {
+                            if !fields.insert(__FieldTag::__dir) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for dir",
+                                ));
+                            }
+                            result.dir = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__revision => {
+                            if !fields.insert(__FieldTag::__revision) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for revision",
+                                ));
+                            }
+                            result.revision = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

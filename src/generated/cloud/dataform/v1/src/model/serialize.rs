@@ -2791,6 +2791,40 @@ impl serde::ser::Serialize for super::CreateCompilationResultRequest {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::CreateCompilationResultMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.id.is_empty() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if !self.target.is_empty() {
+            state.serialize_entry("target", &self.target)?;
+        }
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if self.create_compilation_result_request.is_some() {
+            state.serialize_entry(
+                "createCompilationResultRequest",
+                &self.create_compilation_result_request,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::Target {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -2901,6 +2935,9 @@ impl serde::ser::Serialize for super::CompilationResultAction {
         }
         if let Some(value) = self.data_preparation() {
             state.serialize_entry("dataPreparation", value)?;
+        }
+        if let Some(value) = self.bigquery_unit_test() {
+            state.serialize_entry("bigqueryUnitTest", value)?;
         }
         if self.target.is_some() {
             state.serialize_entry("target", &self.target)?;
@@ -3272,6 +3309,43 @@ impl serde::ser::Serialize for super::compilation_result_action::data_preparatio
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::compilation_result_action::BigQueryUnitTest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.dependency_targets.is_empty() {
+            state.serialize_entry("dependencyTargets", &self.dependency_targets)?;
+        }
+        if !wkt::internal::is_default(&self.disabled) {
+            state.serialize_entry("disabled", &self.disabled)?;
+        }
+        if !self.tags.is_empty() {
+            state.serialize_entry("tags", &self.tags)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.test_query.is_empty() {
+            state.serialize_entry("testQuery", &self.test_query)?;
+        }
+        if !self.expected_output_query.is_empty() {
+            state.serialize_entry("expectedOutputQuery", &self.expected_output_query)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::compilation_result_action::LoadConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -3530,6 +3604,26 @@ impl serde::ser::Serialize for super::InvocationConfig {
         }
         if self.query_priority.is_some() {
             state.serialize_entry("queryPriority", &self.query_priority)?;
+        }
+        if self.concurrent_actions_limit.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "concurrentActionsLimit",
+                &__With(&self.concurrent_actions_limit),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.execution_mode) {
+            state.serialize_entry("executionMode", &self.execution_mode)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -3982,6 +4076,9 @@ impl serde::ser::Serialize for super::WorkflowInvocationAction {
         if let Some(value) = self.data_preparation_action() {
             state.serialize_entry("dataPreparationAction", value)?;
         }
+        if let Some(value) = self.bigquery_unit_test_action() {
+            state.serialize_entry("bigqueryUnitTestAction", value)?;
+        }
         if self.target.is_some() {
             state.serialize_entry("target", &self.target)?;
         }
@@ -4227,6 +4324,64 @@ impl serde::ser::Serialize
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.column.is_empty() {
             state.serialize_entry("column", &self.column)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::workflow_invocation_action::BigQueryUnitTestAction {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.actual_results_job_id.is_empty() {
+            state.serialize_entry("actualResultsJobId", &self.actual_results_job_id)?;
+        }
+        if !self.actual_results_sql_script.is_empty() {
+            state.serialize_entry("actualResultsSqlScript", &self.actual_results_sql_script)?;
+        }
+        if !self.expected_results_job_id.is_empty() {
+            state.serialize_entry("expectedResultsJobId", &self.expected_results_job_id)?;
+        }
+        if !self.expected_results_sql_script.is_empty() {
+            state.serialize_entry(
+                "expectedResultsSqlScript",
+                &self.expected_results_sql_script,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.total_processed_bytes) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("totalProcessedBytes", &__With(&self.total_processed_bytes))?;
+        }
+        if !wkt::internal::is_default(&self.total_billed_bytes) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("totalBilledBytes", &__With(&self.total_billed_bytes))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

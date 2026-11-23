@@ -5334,7 +5334,7 @@ pub mod search_result {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileSearchResult {
-    /// File system path relative to the workspace root.
+    /// File system path relative to the file tree root.
     pub path: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -8674,6 +8674,279 @@ impl wkt::message::Message for CreateCompilationResultRequest {
     }
 }
 
+/// Represents the metadata of the `CreateCompilationResultLongRunning`
+/// operation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateCompilationResultMetadata {
+    /// Output only. The ID of the LRO.
+    pub id: std::string::String,
+
+    /// Output only. Server-defined resource path for the target of the operation.
+    pub target: std::string::String,
+
+    /// Output only. The state of the LRO.
+    pub state: crate::model::create_compilation_result_metadata::State,
+
+    /// Output only. The CreateCompilationResult requested.
+    pub create_compilation_result_request:
+        std::option::Option<crate::model::CreateCompilationResultRequest>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateCompilationResultMetadata {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [id][crate::model::CreateCompilationResultMetadata::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CreateCompilationResultMetadata;
+    /// let x = CreateCompilationResultMetadata::new().set_id("example");
+    /// ```
+    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [target][crate::model::CreateCompilationResultMetadata::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CreateCompilationResultMetadata;
+    /// let x = CreateCompilationResultMetadata::new().set_target("example");
+    /// ```
+    pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::CreateCompilationResultMetadata::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CreateCompilationResultMetadata;
+    /// use google_cloud_dataform_v1::model::create_compilation_result_metadata::State;
+    /// let x0 = CreateCompilationResultMetadata::new().set_state(State::Created);
+    /// let x1 = CreateCompilationResultMetadata::new().set_state(State::Running);
+    /// let x2 = CreateCompilationResultMetadata::new().set_state(State::Finished);
+    /// ```
+    pub fn set_state<
+        T: std::convert::Into<crate::model::create_compilation_result_metadata::State>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [create_compilation_result_request][crate::model::CreateCompilationResultMetadata::create_compilation_result_request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CreateCompilationResultMetadata;
+    /// use google_cloud_dataform_v1::model::CreateCompilationResultRequest;
+    /// let x = CreateCompilationResultMetadata::new().set_create_compilation_result_request(CreateCompilationResultRequest::default()/* use setters */);
+    /// ```
+    pub fn set_create_compilation_result_request<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CreateCompilationResultRequest>,
+    {
+        self.create_compilation_result_request = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_compilation_result_request][crate::model::CreateCompilationResultMetadata::create_compilation_result_request].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CreateCompilationResultMetadata;
+    /// use google_cloud_dataform_v1::model::CreateCompilationResultRequest;
+    /// let x = CreateCompilationResultMetadata::new().set_or_clear_create_compilation_result_request(Some(CreateCompilationResultRequest::default()/* use setters */));
+    /// let x = CreateCompilationResultMetadata::new().set_or_clear_create_compilation_result_request(None::<CreateCompilationResultRequest>);
+    /// ```
+    pub fn set_or_clear_create_compilation_result_request<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::CreateCompilationResultRequest>,
+    {
+        self.create_compilation_result_request = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateCompilationResultMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dataform.v1.CreateCompilationResultMetadata"
+    }
+}
+
+/// Defines additional types related to [CreateCompilationResultMetadata].
+pub mod create_compilation_result_metadata {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// State of the LRO.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The state is unspecified.
+        Unspecified,
+        /// The LRO has been created.
+        Created,
+        /// The LRO is in progress.
+        Running,
+        /// The RPC call has finished.
+        Finished,
+        /// The LRO has succeeded.
+        Succeeded,
+        /// The LRO has failed.
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Created => std::option::Option::Some(1),
+                Self::Running => std::option::Option::Some(2),
+                Self::Finished => std::option::Option::Some(3),
+                Self::Succeeded => std::option::Option::Some(4),
+                Self::Failed => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Created => std::option::Option::Some("CREATED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Finished => std::option::Option::Some("FINISHED"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Created,
+                2 => Self::Running,
+                3 => Self::Finished,
+                4 => Self::Succeeded,
+                5 => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATED" => Self::Created,
+                "RUNNING" => Self::Running,
+                "FINISHED" => Self::Finished,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Created => serializer.serialize_i32(1),
+                Self::Running => serializer.serialize_i32(2),
+                Self::Finished => serializer.serialize_i32(3),
+                Self::Succeeded => serializer.serialize_i32(4),
+                Self::Failed => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.dataform.v1.CreateCompilationResultMetadata.State",
+            ))
+        }
+    }
+}
+
 /// Represents an action identifier. If the action writes output, the output
 /// will be written to the referenced database object.
 #[derive(Clone, Default, PartialEq)]
@@ -9105,6 +9378,7 @@ impl CompilationResultAction {
     /// assert!(x.declaration().is_none());
     /// assert!(x.notebook().is_none());
     /// assert!(x.data_preparation().is_none());
+    /// assert!(x.bigquery_unit_test().is_none());
     /// ```
     pub fn set_relation<
         T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Relation>>,
@@ -9151,6 +9425,7 @@ impl CompilationResultAction {
     /// assert!(x.declaration().is_none());
     /// assert!(x.notebook().is_none());
     /// assert!(x.data_preparation().is_none());
+    /// assert!(x.bigquery_unit_test().is_none());
     /// ```
     pub fn set_operations<
         T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Operations>>,
@@ -9197,6 +9472,7 @@ impl CompilationResultAction {
     /// assert!(x.declaration().is_none());
     /// assert!(x.notebook().is_none());
     /// assert!(x.data_preparation().is_none());
+    /// assert!(x.bigquery_unit_test().is_none());
     /// ```
     pub fn set_assertion<
         T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Assertion>>,
@@ -9243,6 +9519,7 @@ impl CompilationResultAction {
     /// assert!(x.assertion().is_none());
     /// assert!(x.notebook().is_none());
     /// assert!(x.data_preparation().is_none());
+    /// assert!(x.bigquery_unit_test().is_none());
     /// ```
     pub fn set_declaration<
         T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Declaration>>,
@@ -9289,6 +9566,7 @@ impl CompilationResultAction {
     /// assert!(x.assertion().is_none());
     /// assert!(x.declaration().is_none());
     /// assert!(x.data_preparation().is_none());
+    /// assert!(x.bigquery_unit_test().is_none());
     /// ```
     pub fn set_notebook<
         T: std::convert::Into<std::boxed::Box<crate::model::compilation_result_action::Notebook>>,
@@ -9336,6 +9614,7 @@ impl CompilationResultAction {
     /// assert!(x.assertion().is_none());
     /// assert!(x.declaration().is_none());
     /// assert!(x.notebook().is_none());
+    /// assert!(x.bigquery_unit_test().is_none());
     /// ```
     pub fn set_data_preparation<
         T: std::convert::Into<
@@ -9347,6 +9626,56 @@ impl CompilationResultAction {
     ) -> Self {
         self.compiled_object = std::option::Option::Some(
             crate::model::compilation_result_action::CompiledObject::DataPreparation(v.into()),
+        );
+        self
+    }
+
+    /// The value of [compiled_object][crate::model::CompilationResultAction::compiled_object]
+    /// if it holds a `BigqueryUnitTest`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bigquery_unit_test(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::compilation_result_action::BigQueryUnitTest>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.compiled_object.as_ref().and_then(|v| match v {
+            crate::model::compilation_result_action::CompiledObject::BigqueryUnitTest(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [compiled_object][crate::model::CompilationResultAction::compiled_object]
+    /// to hold a `BigqueryUnitTest`.
+    ///
+    /// Note that all the setters affecting `compiled_object` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::CompilationResultAction;
+    /// use google_cloud_dataform_v1::model::compilation_result_action::BigQueryUnitTest;
+    /// let x = CompilationResultAction::new().set_bigquery_unit_test(BigQueryUnitTest::default()/* use setters */);
+    /// assert!(x.bigquery_unit_test().is_some());
+    /// assert!(x.relation().is_none());
+    /// assert!(x.operations().is_none());
+    /// assert!(x.assertion().is_none());
+    /// assert!(x.declaration().is_none());
+    /// assert!(x.notebook().is_none());
+    /// assert!(x.data_preparation().is_none());
+    /// ```
+    pub fn set_bigquery_unit_test<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::compilation_result_action::BigQueryUnitTest>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.compiled_object = std::option::Option::Some(
+            crate::model::compilation_result_action::CompiledObject::BigqueryUnitTest(v.into()),
         );
         self
     }
@@ -11210,6 +11539,137 @@ pub mod compilation_result_action {
         }
     }
 
+    /// Represents a BigQuery unit test.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct BigQueryUnitTest {
+        /// A list of actions that this action depends on.
+        pub dependency_targets: std::vec::Vec<crate::model::Target>,
+
+        /// Whether this action is disabled (i.e. should not be run).
+        pub disabled: bool,
+
+        /// Arbitrary, user-defined tags on this action.
+        pub tags: std::vec::Vec<std::string::String>,
+
+        /// The name of the unit test.
+        pub display_name: std::string::String,
+
+        /// Test query to execute.
+        pub test_query: std::string::String,
+
+        /// Expected output query to compare against the test query.
+        pub expected_output_query: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl BigQueryUnitTest {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [dependency_targets][crate::model::compilation_result_action::BigQueryUnitTest::dependency_targets].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::BigQueryUnitTest;
+        /// use google_cloud_dataform_v1::model::Target;
+        /// let x = BigQueryUnitTest::new()
+        ///     .set_dependency_targets([
+        ///         Target::default()/* use setters */,
+        ///         Target::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_dependency_targets<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Target>,
+        {
+            use std::iter::Iterator;
+            self.dependency_targets = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [disabled][crate::model::compilation_result_action::BigQueryUnitTest::disabled].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::BigQueryUnitTest;
+        /// let x = BigQueryUnitTest::new().set_disabled(true);
+        /// ```
+        pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.disabled = v.into();
+            self
+        }
+
+        /// Sets the value of [tags][crate::model::compilation_result_action::BigQueryUnitTest::tags].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::BigQueryUnitTest;
+        /// let x = BigQueryUnitTest::new().set_tags(["a", "b", "c"]);
+        /// ```
+        pub fn set_tags<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.tags = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [display_name][crate::model::compilation_result_action::BigQueryUnitTest::display_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::BigQueryUnitTest;
+        /// let x = BigQueryUnitTest::new().set_display_name("example");
+        /// ```
+        pub fn set_display_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.display_name = v.into();
+            self
+        }
+
+        /// Sets the value of [test_query][crate::model::compilation_result_action::BigQueryUnitTest::test_query].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::BigQueryUnitTest;
+        /// let x = BigQueryUnitTest::new().set_test_query("example");
+        /// ```
+        pub fn set_test_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.test_query = v.into();
+            self
+        }
+
+        /// Sets the value of [expected_output_query][crate::model::compilation_result_action::BigQueryUnitTest::expected_output_query].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::compilation_result_action::BigQueryUnitTest;
+        /// let x = BigQueryUnitTest::new().set_expected_output_query("example");
+        /// ```
+        pub fn set_expected_output_query<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.expected_output_query = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for BigQueryUnitTest {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataform.v1.CompilationResultAction.BigQueryUnitTest"
+        }
+    }
+
     /// Simplified load configuration for actions
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
@@ -11538,6 +11998,10 @@ pub mod compilation_result_action {
         Notebook(std::boxed::Box<crate::model::compilation_result_action::Notebook>),
         /// The data preparation executed by this action.
         DataPreparation(std::boxed::Box<crate::model::compilation_result_action::DataPreparation>),
+        /// The unit test executed by this action.
+        BigqueryUnitTest(
+            std::boxed::Box<crate::model::compilation_result_action::BigQueryUnitTest>,
+        ),
     }
 }
 
@@ -12213,7 +12677,7 @@ pub struct InvocationConfig {
     pub service_account: std::string::String,
 
     /// Optional. Configuration for end user authentication.
-    /// Note that this should not be set when `service_account` is used.
+    /// Do not set if `service_account` is used.
     pub end_user_auth_config:
         std::option::Option<crate::model::invocation_config::EndUserAuthenticationConfig>,
 
@@ -12221,6 +12685,12 @@ pub struct InvocationConfig {
     /// More information can be found at
     /// <https://cloud.google.com/bigquery/docs/running-queries#queries>.
     pub query_priority: std::option::Option<crate::model::invocation_config::QueryPriority>,
+
+    /// Optional. Maximum number of actions that can be executed concurrently.
+    pub concurrent_actions_limit: std::option::Option<i32>,
+
+    /// Optional. Specifies the execution mode for the workflow invocation.
+    pub execution_mode: crate::model::invocation_config::ExecutionMode,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -12389,6 +12859,57 @@ impl InvocationConfig {
         T: std::convert::Into<crate::model::invocation_config::QueryPriority>,
     {
         self.query_priority = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [concurrent_actions_limit][crate::model::InvocationConfig::concurrent_actions_limit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::InvocationConfig;
+    /// let x = InvocationConfig::new().set_concurrent_actions_limit(42);
+    /// ```
+    pub fn set_concurrent_actions_limit<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.concurrent_actions_limit = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [concurrent_actions_limit][crate::model::InvocationConfig::concurrent_actions_limit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::InvocationConfig;
+    /// let x = InvocationConfig::new().set_or_clear_concurrent_actions_limit(Some(42));
+    /// let x = InvocationConfig::new().set_or_clear_concurrent_actions_limit(None::<i32>);
+    /// ```
+    pub fn set_or_clear_concurrent_actions_limit<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.concurrent_actions_limit = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [execution_mode][crate::model::InvocationConfig::execution_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::InvocationConfig;
+    /// use google_cloud_dataform_v1::model::invocation_config::ExecutionMode;
+    /// let x0 = InvocationConfig::new().set_execution_mode(ExecutionMode::Default);
+    /// let x1 = InvocationConfig::new().set_execution_mode(ExecutionMode::AllExceptUnitTests);
+    /// let x2 = InvocationConfig::new().set_execution_mode(ExecutionMode::UnitTestsOnly);
+    /// ```
+    pub fn set_execution_mode<
+        T: std::convert::Into<crate::model::invocation_config::ExecutionMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.execution_mode = v.into();
         self
     }
 }
@@ -12607,6 +13128,147 @@ pub mod invocation_config {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<QueryPriority>::new(
                 ".google.cloud.dataform.v1.InvocationConfig.QueryPriority",
+            ))
+        }
+    }
+
+    /// Execution mode for the workflow invocation.
+    /// Determines whether to run actions or unit tests.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ExecutionMode {
+        /// Default value.
+        Unspecified,
+        /// Default execution mode, which runs all actions except unit tests.
+        /// Same as ALL_EXCEPT_UNIT_TESTS.
+        Default,
+        /// Run all actions except unit tests.
+        AllExceptUnitTests,
+        /// Run unit tests only.
+        UnitTestsOnly,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ExecutionMode::value] or
+        /// [ExecutionMode::name].
+        UnknownValue(execution_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod execution_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ExecutionMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Default => std::option::Option::Some(1),
+                Self::AllExceptUnitTests => std::option::Option::Some(2),
+                Self::UnitTestsOnly => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EXECUTION_MODE_UNSPECIFIED"),
+                Self::Default => std::option::Option::Some("DEFAULT"),
+                Self::AllExceptUnitTests => std::option::Option::Some("ALL_EXCEPT_UNIT_TESTS"),
+                Self::UnitTestsOnly => std::option::Option::Some("UNIT_TESTS_ONLY"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ExecutionMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ExecutionMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ExecutionMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Default,
+                2 => Self::AllExceptUnitTests,
+                3 => Self::UnitTestsOnly,
+                _ => Self::UnknownValue(execution_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ExecutionMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EXECUTION_MODE_UNSPECIFIED" => Self::Unspecified,
+                "DEFAULT" => Self::Default,
+                "ALL_EXCEPT_UNIT_TESTS" => Self::AllExceptUnitTests,
+                "UNIT_TESTS_ONLY" => Self::UnitTestsOnly,
+                _ => Self::UnknownValue(execution_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ExecutionMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Default => serializer.serialize_i32(1),
+                Self::AllExceptUnitTests => serializer.serialize_i32(2),
+                Self::UnitTestsOnly => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ExecutionMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExecutionMode>::new(
+                ".google.cloud.dataform.v1.InvocationConfig.ExecutionMode",
             ))
         }
     }
@@ -14299,6 +14961,7 @@ impl WorkflowInvocationAction {
     /// assert!(x.bigquery_action().is_some());
     /// assert!(x.notebook_action().is_none());
     /// assert!(x.data_preparation_action().is_none());
+    /// assert!(x.bigquery_unit_test_action().is_none());
     /// ```
     pub fn set_bigquery_action<
         T: std::convert::Into<
@@ -14345,6 +15008,7 @@ impl WorkflowInvocationAction {
     /// assert!(x.notebook_action().is_some());
     /// assert!(x.bigquery_action().is_none());
     /// assert!(x.data_preparation_action().is_none());
+    /// assert!(x.bigquery_unit_test_action().is_none());
     /// ```
     pub fn set_notebook_action<
         T: std::convert::Into<
@@ -14391,6 +15055,7 @@ impl WorkflowInvocationAction {
     /// assert!(x.data_preparation_action().is_some());
     /// assert!(x.bigquery_action().is_none());
     /// assert!(x.notebook_action().is_none());
+    /// assert!(x.bigquery_unit_test_action().is_none());
     /// ```
     pub fn set_data_preparation_action<
         T: std::convert::Into<
@@ -14402,6 +15067,53 @@ impl WorkflowInvocationAction {
     ) -> Self {
         self.action = std::option::Option::Some(
             crate::model::workflow_invocation_action::Action::DataPreparationAction(v.into()),
+        );
+        self
+    }
+
+    /// The value of [action][crate::model::WorkflowInvocationAction::action]
+    /// if it holds a `BigqueryUnitTestAction`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bigquery_unit_test_action(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::workflow_invocation_action::BigQueryUnitTestAction>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::workflow_invocation_action::Action::BigqueryUnitTestAction(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [action][crate::model::WorkflowInvocationAction::action]
+    /// to hold a `BigqueryUnitTestAction`.
+    ///
+    /// Note that all the setters affecting `action` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataform_v1::model::WorkflowInvocationAction;
+    /// use google_cloud_dataform_v1::model::workflow_invocation_action::BigQueryUnitTestAction;
+    /// let x = WorkflowInvocationAction::new().set_bigquery_unit_test_action(BigQueryUnitTestAction::default()/* use setters */);
+    /// assert!(x.bigquery_unit_test_action().is_some());
+    /// assert!(x.bigquery_action().is_none());
+    /// assert!(x.notebook_action().is_none());
+    /// assert!(x.data_preparation_action().is_none());
+    /// ```
+    pub fn set_bigquery_unit_test_action<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::workflow_invocation_action::BigQueryUnitTestAction>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.action = std::option::Option::Some(
+            crate::model::workflow_invocation_action::Action::BigqueryUnitTestAction(v.into()),
         );
         self
     }
@@ -15146,6 +15858,130 @@ pub mod workflow_invocation_action {
         }
     }
 
+    /// Represents a workflow action that will run a BigQuery unit test.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct BigQueryUnitTestAction {
+        /// Output only. Job ID for the actual results.
+        pub actual_results_job_id: std::string::String,
+
+        /// Output only. SQL script for the actual results.
+        pub actual_results_sql_script: std::string::String,
+
+        /// Output only. Job ID for the expected results.
+        pub expected_results_job_id: std::string::String,
+
+        /// Output only. SQL script for the expected results.
+        pub expected_results_sql_script: std::string::String,
+
+        /// Output only. Total bytes processed for this action. Combined total for
+        /// actual and expected jobs.
+        pub total_processed_bytes: i64,
+
+        /// Output only. Total bytes billed for this action. Combined total for
+        /// actual and expected jobs.
+        pub total_billed_bytes: i64,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl BigQueryUnitTestAction {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [actual_results_job_id][crate::model::workflow_invocation_action::BigQueryUnitTestAction::actual_results_job_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::workflow_invocation_action::BigQueryUnitTestAction;
+        /// let x = BigQueryUnitTestAction::new().set_actual_results_job_id("example");
+        /// ```
+        pub fn set_actual_results_job_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.actual_results_job_id = v.into();
+            self
+        }
+
+        /// Sets the value of [actual_results_sql_script][crate::model::workflow_invocation_action::BigQueryUnitTestAction::actual_results_sql_script].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::workflow_invocation_action::BigQueryUnitTestAction;
+        /// let x = BigQueryUnitTestAction::new().set_actual_results_sql_script("example");
+        /// ```
+        pub fn set_actual_results_sql_script<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.actual_results_sql_script = v.into();
+            self
+        }
+
+        /// Sets the value of [expected_results_job_id][crate::model::workflow_invocation_action::BigQueryUnitTestAction::expected_results_job_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::workflow_invocation_action::BigQueryUnitTestAction;
+        /// let x = BigQueryUnitTestAction::new().set_expected_results_job_id("example");
+        /// ```
+        pub fn set_expected_results_job_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.expected_results_job_id = v.into();
+            self
+        }
+
+        /// Sets the value of [expected_results_sql_script][crate::model::workflow_invocation_action::BigQueryUnitTestAction::expected_results_sql_script].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::workflow_invocation_action::BigQueryUnitTestAction;
+        /// let x = BigQueryUnitTestAction::new().set_expected_results_sql_script("example");
+        /// ```
+        pub fn set_expected_results_sql_script<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.expected_results_sql_script = v.into();
+            self
+        }
+
+        /// Sets the value of [total_processed_bytes][crate::model::workflow_invocation_action::BigQueryUnitTestAction::total_processed_bytes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::workflow_invocation_action::BigQueryUnitTestAction;
+        /// let x = BigQueryUnitTestAction::new().set_total_processed_bytes(42);
+        /// ```
+        pub fn set_total_processed_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.total_processed_bytes = v.into();
+            self
+        }
+
+        /// Sets the value of [total_billed_bytes][crate::model::workflow_invocation_action::BigQueryUnitTestAction::total_billed_bytes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataform_v1::model::workflow_invocation_action::BigQueryUnitTestAction;
+        /// let x = BigQueryUnitTestAction::new().set_total_billed_bytes(42);
+        /// ```
+        pub fn set_total_billed_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.total_billed_bytes = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for BigQueryUnitTestAction {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataform.v1.WorkflowInvocationAction.BigQueryUnitTestAction"
+        }
+    }
+
     /// Represents the current state of a workflow invocation action.
     ///
     /// # Working with unknown values
@@ -15180,6 +16016,9 @@ pub mod workflow_invocation_action {
         Cancelled,
         /// The action failed. A terminal state.
         Failed,
+        /// Execution of the action was queued waiting for an available concurrency
+        /// slot.
+        Queued,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -15209,6 +16048,7 @@ pub mod workflow_invocation_action {
                 Self::Succeeded => std::option::Option::Some(4),
                 Self::Cancelled => std::option::Option::Some(5),
                 Self::Failed => std::option::Option::Some(6),
+                Self::Queued => std::option::Option::Some(7),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -15226,6 +16066,7 @@ pub mod workflow_invocation_action {
                 Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
                 Self::Cancelled => std::option::Option::Some("CANCELLED"),
                 Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Queued => std::option::Option::Some("QUEUED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -15254,6 +16095,7 @@ pub mod workflow_invocation_action {
                 4 => Self::Succeeded,
                 5 => Self::Cancelled,
                 6 => Self::Failed,
+                7 => Self::Queued,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -15272,6 +16114,7 @@ pub mod workflow_invocation_action {
                 "SUCCEEDED" => Self::Succeeded,
                 "CANCELLED" => Self::Cancelled,
                 "FAILED" => Self::Failed,
+                "QUEUED" => Self::Queued,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -15292,6 +16135,7 @@ pub mod workflow_invocation_action {
                 Self::Succeeded => serializer.serialize_i32(4),
                 Self::Cancelled => serializer.serialize_i32(5),
                 Self::Failed => serializer.serialize_i32(6),
+                Self::Queued => serializer.serialize_i32(7),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -15319,6 +16163,10 @@ pub mod workflow_invocation_action {
         /// Output only. The workflow action's data preparation action details.
         DataPreparationAction(
             std::boxed::Box<crate::model::workflow_invocation_action::DataPreparationAction>,
+        ),
+        /// Output only. The workflow action's unit test details.
+        BigqueryUnitTestAction(
+            std::boxed::Box<crate::model::workflow_invocation_action::BigQueryUnitTestAction>,
         ),
     }
 }

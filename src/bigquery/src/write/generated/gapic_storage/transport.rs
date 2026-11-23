@@ -84,14 +84,12 @@ impl super::stub::Read for Read {
         let path = http::uri::PathAndQuery::from_static(
             "/google.cloud.bigquery.storage.v1.BigQueryRead/CreateReadSession",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .and_then(|m| m.read_session.as_ref())
             .map(|m| &m.table)
             .map(|s| s.as_str())
-            .map(|v| format!("read_session.table={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("read_session.table", v))]);
 
         type TR = crate::google::cloud::bigquery::storage::v1::ReadSession;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -117,18 +115,13 @@ impl super::stub::Read for Read {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::cloud::bigquery::storage::v1::CreateReadSessionRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .and_then(
-                gaxi::grpc::to_gax_response::<
-                    TR,
-                    crate::write::generated::gapic_storage::model::ReadSession,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::write::generated::gapic_storage::model::ReadSession>)
     }
 
     async fn read_rows(
@@ -151,13 +144,11 @@ impl super::stub::Read for Read {
         let path = http::uri::PathAndQuery::from_static(
             "/google.cloud.bigquery.storage.v1.BigQueryRead/ReadRows",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.read_stream)
             .map(|s| s.as_str())
-            .map(|v| format!("read_stream={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("read_stream", v))]);
 
         self.inner
             .execute_server_streaming::<
@@ -199,13 +190,11 @@ impl super::stub::Read for Read {
         let path = http::uri::PathAndQuery::from_static(
             "/google.cloud.bigquery.storage.v1.BigQueryRead/SplitReadStream",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = crate::google::cloud::bigquery::storage::v1::SplitReadStreamResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -228,18 +217,13 @@ impl super::stub::Read for Read {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::cloud::bigquery::storage::v1::SplitReadStreamRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .and_then(
-                gaxi::grpc::to_gax_response::<
-                    TR,
-                    crate::write::generated::gapic_storage::model::SplitReadStreamResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::write::generated::gapic_storage::model::SplitReadStreamResponse>)
     }
 }
 
@@ -295,13 +279,11 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
         let path = http::uri::PathAndQuery::from_static(
             "/google.cloud.bigquery.storage.v1.BigQueryWrite/CreateWriteStream",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.parent)
             .map(|s| s.as_str())
-            .map(|v| format!("parent={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("parent", v))]);
 
         type TR = crate::google::cloud::bigquery::storage::v1::WriteStream;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -324,18 +306,13 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::cloud::bigquery::storage::v1::CreateWriteStreamRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .and_then(
-                gaxi::grpc::to_gax_response::<
-                    TR,
-                    crate::write::generated::gapic_storage::model::WriteStream,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::write::generated::gapic_storage::model::WriteStream>)
     }
 
     fn append_rows(
@@ -399,13 +376,11 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
         let path = http::uri::PathAndQuery::from_static(
             "/google.cloud.bigquery.storage.v1.BigQueryWrite/GetWriteStream",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = crate::google::cloud::bigquery::storage::v1::WriteStream;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -428,18 +403,13 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::cloud::bigquery::storage::v1::GetWriteStreamRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .and_then(
-                gaxi::grpc::to_gax_response::<
-                    TR,
-                    crate::write::generated::gapic_storage::model::WriteStream,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::write::generated::gapic_storage::model::WriteStream>)
     }
 
     async fn finalize_write_stream(
@@ -465,13 +435,11 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
         let path = http::uri::PathAndQuery::from_static(
             "/google.cloud.bigquery.storage.v1.BigQueryWrite/FinalizeWriteStream",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = crate::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -496,18 +464,13 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::cloud::bigquery::storage::v1::FinalizeWriteStreamRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .and_then(
-                gaxi::grpc::to_gax_response::<
-                    TR,
-                    crate::write::generated::gapic_storage::model::FinalizeWriteStreamResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::write::generated::gapic_storage::model::FinalizeWriteStreamResponse>)
     }
 
     async fn batch_commit_write_streams(
@@ -535,13 +498,11 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
         let path = http::uri::PathAndQuery::from_static(
             "/google.cloud.bigquery.storage.v1.BigQueryWrite/BatchCommitWriteStreams",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.parent)
             .map(|s| s.as_str())
-            .map(|v| format!("parent={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("parent", v))]);
 
         type TR = crate::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -566,7 +527,10 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<
+                    crate::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -602,13 +566,11 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
         let path = http::uri::PathAndQuery::from_static(
             "/google.cloud.bigquery.storage.v1.BigQueryWrite/FlushRows",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.write_stream)
             .map(|s| s.as_str())
-            .map(|v| format!("write_stream={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("write_stream", v))]);
 
         type TR = crate::google::cloud::bigquery::storage::v1::FlushRowsResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -631,7 +593,10 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::cloud::bigquery::storage::v1::FlushRowsRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,

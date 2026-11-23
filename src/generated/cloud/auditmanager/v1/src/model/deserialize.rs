@@ -229,6 +229,7 @@ impl<'de> serde::de::Deserialize<'de> for super::GenerateAuditScopeReportRequest
             __report_format,
             __compliance_framework,
             __validate_only,
+            __parameter_overrides,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -258,6 +259,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GenerateAuditScopeReportRequest
                             "compliance_framework" => Ok(__FieldTag::__compliance_framework),
                             "validateOnly" => Ok(__FieldTag::__validate_only),
                             "validate_only" => Ok(__FieldTag::__validate_only),
+                            "parameterOverrides" => Ok(__FieldTag::__parameter_overrides),
+                            "parameter_overrides" => Ok(__FieldTag::__parameter_overrides),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -331,6 +334,21 @@ impl<'de> serde::de::Deserialize<'de> for super::GenerateAuditScopeReportRequest
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__parameter_overrides => {
+                            if !fields.insert(__FieldTag::__parameter_overrides) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parameter_overrides",
+                                ));
+                            }
+                            result.parameter_overrides = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        crate::model::ParameterOverrides,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -359,6 +377,7 @@ impl<'de> serde::de::Deserialize<'de> for super::GenerateAuditReportRequest {
             __compliance_standard,
             __report_format,
             __compliance_framework,
+            __parameter_overrides,
             __validate_only,
             Unknown(std::string::String),
         }
@@ -389,6 +408,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GenerateAuditReportRequest {
                             "report_format" => Ok(__FieldTag::__report_format),
                             "complianceFramework" => Ok(__FieldTag::__compliance_framework),
                             "compliance_framework" => Ok(__FieldTag::__compliance_framework),
+                            "parameterOverrides" => Ok(__FieldTag::__parameter_overrides),
+                            "parameter_overrides" => Ok(__FieldTag::__parameter_overrides),
                             "validateOnly" => Ok(__FieldTag::__validate_only),
                             "validate_only" => Ok(__FieldTag::__validate_only),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -474,6 +495,21 @@ impl<'de> serde::de::Deserialize<'de> for super::GenerateAuditReportRequest {
                             }
                             result.compliance_framework = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__parameter_overrides => {
+                            if !fields.insert(__FieldTag::__parameter_overrides) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parameter_overrides",
+                                ));
+                            }
+                            result.parameter_overrides = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        crate::model::ParameterOverrides,
+                                    >,
+                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::__validate_only => {
@@ -1998,6 +2034,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AuditReport {
             __report_generation_state,
             __compliance_framework,
             __scope_id,
+            __cloud_control_parameter_states,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2038,6 +2075,12 @@ impl<'de> serde::de::Deserialize<'de> for super::AuditReport {
                             "compliance_framework" => Ok(__FieldTag::__compliance_framework),
                             "scopeId" => Ok(__FieldTag::__scope_id),
                             "scope_id" => Ok(__FieldTag::__scope_id),
+                            "cloudControlParameterStates" => {
+                                Ok(__FieldTag::__cloud_control_parameter_states)
+                            }
+                            "cloud_control_parameter_states" => {
+                                Ok(__FieldTag::__cloud_control_parameter_states)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2172,6 +2215,21 @@ impl<'de> serde::de::Deserialize<'de> for super::AuditReport {
                             }
                             result.scope_id = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__cloud_control_parameter_states => {
+                            if !fields.insert(__FieldTag::__cloud_control_parameter_states) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cloud_control_parameter_states",
+                                ));
+                            }
+                            result.cloud_control_parameter_states = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        crate::model::CloudControlParameterStates,
+                                    >,
+                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -3412,6 +3470,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AuditSchedule {
             __next_run_time,
             __last_trigger_time,
             __error_message,
+            __parameter_overrides,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3454,6 +3513,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AuditSchedule {
                             "last_trigger_time" => Ok(__FieldTag::__last_trigger_time),
                             "errorMessage" => Ok(__FieldTag::__error_message),
                             "error_message" => Ok(__FieldTag::__error_message),
+                            "parameterOverrides" => Ok(__FieldTag::__parameter_overrides),
+                            "parameter_overrides" => Ok(__FieldTag::__parameter_overrides),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3597,6 +3658,21 @@ impl<'de> serde::de::Deserialize<'de> for super::AuditSchedule {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__parameter_overrides => {
+                            if !fields.insert(__FieldTag::__parameter_overrides) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parameter_overrides",
+                                ));
+                            }
+                            result.parameter_overrides = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        crate::model::ParameterOverrides,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -3710,6 +3786,616 @@ impl<'de> serde::de::Deserialize<'de> for super::ScheduleConfig {
                             }
                             result.time_zone = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::Parameter {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __parameter_value,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Parameter")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "parameterValue" => Ok(__FieldTag::__parameter_value),
+                            "parameter_value" => Ok(__FieldTag::__parameter_value),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::Parameter;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Parameter")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__parameter_value => {
+                            if !fields.insert(__FieldTag::__parameter_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parameter_value",
+                                ));
+                            }
+                            result.parameter_value = map.next_value::<std::option::Option<std::boxed::Box<crate::model::ParamValue>>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::StringList {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __values,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for StringList")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "values" => Ok(__FieldTag::__values),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::StringList;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct StringList")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__values => {
+                            if !fields.insert(__FieldTag::__values) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for values",
+                                ));
+                            }
+                            result.values = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ParamValue {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __string_value,
+            __bool_value,
+            __string_list_value,
+            __number_value,
+            __oneof_value,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ParamValue")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "stringValue" => Ok(__FieldTag::__string_value),
+                            "string_value" => Ok(__FieldTag::__string_value),
+                            "boolValue" => Ok(__FieldTag::__bool_value),
+                            "bool_value" => Ok(__FieldTag::__bool_value),
+                            "stringListValue" => Ok(__FieldTag::__string_list_value),
+                            "string_list_value" => Ok(__FieldTag::__string_list_value),
+                            "numberValue" => Ok(__FieldTag::__number_value),
+                            "number_value" => Ok(__FieldTag::__number_value),
+                            "oneofValue" => Ok(__FieldTag::__oneof_value),
+                            "oneof_value" => Ok(__FieldTag::__oneof_value),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ParamValue;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ParamValue")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__string_value => {
+                            if !fields.insert(__FieldTag::__string_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for string_value",
+                                ));
+                            }
+                            if result.kind.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `kind`, a oneof with full ID .google.cloud.auditmanager.v1.ParamValue.string_value, latest field was stringValue",
+                                ));
+                            }
+                            result.kind = std::option::Option::Some(
+                                crate::model::param_value::Kind::StringValue(
+                                    map.next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__bool_value => {
+                            if !fields.insert(__FieldTag::__bool_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for bool_value",
+                                ));
+                            }
+                            if result.kind.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `kind`, a oneof with full ID .google.cloud.auditmanager.v1.ParamValue.bool_value, latest field was boolValue",
+                                ));
+                            }
+                            result.kind = std::option::Option::Some(
+                                crate::model::param_value::Kind::BoolValue(
+                                    map.next_value::<std::option::Option<bool>>()?
+                                        .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__string_list_value => {
+                            if !fields.insert(__FieldTag::__string_list_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for string_list_value",
+                                ));
+                            }
+                            if result.kind.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `kind`, a oneof with full ID .google.cloud.auditmanager.v1.ParamValue.string_list_value, latest field was stringListValue",
+                                ));
+                            }
+                            result.kind = std::option::Option::Some(
+                                crate::model::param_value::Kind::StringListValue(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::StringList>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__number_value => {
+                            if !fields.insert(__FieldTag::__number_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for number_value",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            if result.kind.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `kind`, a oneof with full ID .google.cloud.auditmanager.v1.ParamValue.number_value, latest field was numberValue",
+                                ));
+                            }
+                            result.kind = std::option::Option::Some(
+                                crate::model::param_value::Kind::NumberValue(
+                                    map.next_value::<__With>()?.0.unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__oneof_value => {
+                            if !fields.insert(__FieldTag::__oneof_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oneof_value",
+                                ));
+                            }
+                            if result.kind.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `kind`, a oneof with full ID .google.cloud.auditmanager.v1.ParamValue.oneof_value, latest field was oneofValue",
+                                ));
+                            }
+                            result.kind = std::option::Option::Some(
+                                crate::model::param_value::Kind::OneofValue(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::Parameter>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ParameterOverrides {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parameters,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ParameterOverrides")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parameters" => Ok(__FieldTag::__parameters),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ParameterOverrides;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ParameterOverrides")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parameters => {
+                            if !fields.insert(__FieldTag::__parameters) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parameters",
+                                ));
+                            }
+                            result.parameters = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Parameter>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ParameterState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parameter,
+            __is_overridden,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ParameterState")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parameter" => Ok(__FieldTag::__parameter),
+                            "isOverridden" => Ok(__FieldTag::__is_overridden),
+                            "is_overridden" => Ok(__FieldTag::__is_overridden),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ParameterState;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ParameterState")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parameter => {
+                            if !fields.insert(__FieldTag::__parameter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parameter",
+                                ));
+                            }
+                            result.parameter =
+                                map.next_value::<std::option::Option<crate::model::Parameter>>()?;
+                        }
+                        __FieldTag::__is_overridden => {
+                            if !fields.insert(__FieldTag::__is_overridden) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for is_overridden",
+                                ));
+                            }
+                            result.is_overridden = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::CloudControlParameterStates {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parameter_states,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CloudControlParameterStates")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parameterStates" => Ok(__FieldTag::__parameter_states),
+                            "parameter_states" => Ok(__FieldTag::__parameter_states),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::CloudControlParameterStates;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CloudControlParameterStates")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parameter_states => {
+                            if !fields.insert(__FieldTag::__parameter_states) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parameter_states",
+                                ));
+                            }
+                            result.parameter_states =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::ParameterState>,
+                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

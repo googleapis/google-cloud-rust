@@ -256,9 +256,9 @@ pub(crate) mod tests {
     }
 
     #[test]
-    #[ignore = "TODO(#6077) - disabled because it is flaky"]
     fn test_emit_error_log() {
         {
+            use google_cloud_test_utils::test_layer::TestLayer;
             use std::sync::{Arc, Mutex};
             use tracing_subscriber::fmt::MakeWriter;
 
@@ -282,11 +282,12 @@ pub(crate) mod tests {
                 }
             }
 
+            TestLayer::ensure_max_level_trace();
             let output = Arc::new(Mutex::new(Vec::new()));
             let subscriber = tracing_subscriber::fmt()
                 .json()
                 .with_writer(MockWriter(output.clone()))
-                .with_max_level(tracing::Level::DEBUG)
+                .with_max_level(tracing::Level::TRACE)
                 .finish();
 
             tracing::subscriber::with_default(subscriber, || {

@@ -2709,6 +2709,73 @@ impl wkt::message::Message for SecretPayload {
     }
 }
 
+/// These are the credentials required for Cloud SQL DB for Single user
+/// Managed Rotation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CloudSqlSingleUserCredentials {
+    /// Required. Instance ID of the Cloud SQL instance.
+    pub instance_id: std::string::String,
+
+    /// Required. Username of the Cloud SQL instance.
+    pub username: std::string::String,
+
+    /// Optional. Password of the Cloud SQL instance. If this is not provided,
+    /// a random password will be generated.
+    pub password: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CloudSqlSingleUserCredentials {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance_id][crate::model::CloudSqlSingleUserCredentials::instance_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_secretmanager_v1::model::CloudSqlSingleUserCredentials;
+    /// let x = CloudSqlSingleUserCredentials::new().set_instance_id("example");
+    /// ```
+    pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance_id = v.into();
+        self
+    }
+
+    /// Sets the value of [username][crate::model::CloudSqlSingleUserCredentials::username].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_secretmanager_v1::model::CloudSqlSingleUserCredentials;
+    /// let x = CloudSqlSingleUserCredentials::new().set_username("example");
+    /// ```
+    pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.username = v.into();
+        self
+    }
+
+    /// Sets the value of [password][crate::model::CloudSqlSingleUserCredentials::password].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_secretmanager_v1::model::CloudSqlSingleUserCredentials;
+    /// let x = CloudSqlSingleUserCredentials::new().set_password("example");
+    /// ```
+    pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.password = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CloudSqlSingleUserCredentials {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.secretmanager.v1.CloudSqlSingleUserCredentials"
+    }
+}
+
 /// Request message for
 /// [SecretManagerService.ListSecrets][google.cloud.secretmanager.v1.SecretManagerService.ListSecrets].
 ///
@@ -3113,10 +3180,9 @@ pub struct EnableManagedRotationRequest {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     pub parent: std::string::String,
 
-    /// The credentials required for Managed Rotation.
+    /// The credential required for Managed Rotation.
     /// Right now, only Cloud SQL Single User credentials are supported.
-    pub credentials:
-        std::option::Option<crate::model::enable_managed_rotation_request::Credentials>,
+    pub credential: std::option::Option<crate::model::enable_managed_rotation_request::Credential>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3141,72 +3207,64 @@ impl EnableManagedRotationRequest {
         self
     }
 
-    /// Sets the value of [credentials][crate::model::EnableManagedRotationRequest::credentials].
+    /// Sets the value of [credential][crate::model::EnableManagedRotationRequest::credential].
     ///
-    /// Note that all the setters affecting `credentials` are mutually
+    /// Note that all the setters affecting `credential` are mutually
     /// exclusive.
     ///
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::EnableManagedRotationRequest;
-    /// use google_cloud_secretmanager_v1::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials;
-    /// let x = EnableManagedRotationRequest::new().set_credentials(Some(
-    ///     google_cloud_secretmanager_v1::model::enable_managed_rotation_request::Credentials::CloudSqlSingleUserCredentials(CloudSQLSingleUserCredentials::default().into())));
+    /// use google_cloud_secretmanager_v1::model::CloudSqlSingleUserCredentials;
+    /// let x = EnableManagedRotationRequest::new().set_credential(Some(
+    ///     google_cloud_secretmanager_v1::model::enable_managed_rotation_request::Credential::CloudSqlSingleUserCredentials(CloudSqlSingleUserCredentials::default().into())));
     /// ```
-    pub fn set_credentials<
+    pub fn set_credential<
         T: std::convert::Into<
-                std::option::Option<crate::model::enable_managed_rotation_request::Credentials>,
+                std::option::Option<crate::model::enable_managed_rotation_request::Credential>,
             >,
     >(
         mut self,
         v: T,
     ) -> Self {
-        self.credentials = v.into();
+        self.credential = v.into();
         self
     }
 
-    /// The value of [credentials][crate::model::EnableManagedRotationRequest::credentials]
+    /// The value of [credential][crate::model::EnableManagedRotationRequest::credential]
     /// if it holds a `CloudSqlSingleUserCredentials`, `None` if the field is not set or
     /// holds a different branch.
     pub fn cloud_sql_single_user_credentials(
         &self,
-    ) -> std::option::Option<
-        &std::boxed::Box<
-            crate::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials,
-        >,
-    > {
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CloudSqlSingleUserCredentials>> {
         #[allow(unreachable_patterns)]
-        self.credentials.as_ref().and_then(|v| match v {
-            crate::model::enable_managed_rotation_request::Credentials::CloudSqlSingleUserCredentials(v) => std::option::Option::Some(v),
+        self.credential.as_ref().and_then(|v| match v {
+            crate::model::enable_managed_rotation_request::Credential::CloudSqlSingleUserCredentials(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
     }
 
-    /// Sets the value of [credentials][crate::model::EnableManagedRotationRequest::credentials]
+    /// Sets the value of [credential][crate::model::EnableManagedRotationRequest::credential]
     /// to hold a `CloudSqlSingleUserCredentials`.
     ///
-    /// Note that all the setters affecting `credentials` are
+    /// Note that all the setters affecting `credential` are
     /// mutually exclusive.
     ///
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::EnableManagedRotationRequest;
-    /// use google_cloud_secretmanager_v1::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials;
-    /// let x = EnableManagedRotationRequest::new().set_cloud_sql_single_user_credentials(CloudSQLSingleUserCredentials::default()/* use setters */);
+    /// use google_cloud_secretmanager_v1::model::CloudSqlSingleUserCredentials;
+    /// let x = EnableManagedRotationRequest::new().set_cloud_sql_single_user_credentials(CloudSqlSingleUserCredentials::default()/* use setters */);
     /// assert!(x.cloud_sql_single_user_credentials().is_some());
     /// ```
     pub fn set_cloud_sql_single_user_credentials<
-        T: std::convert::Into<
-                std::boxed::Box<
-                    crate::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials,
-                >,
-            >,
+        T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlSingleUserCredentials>>,
     >(
         mut self,
         v: T,
     ) -> Self {
-        self.credentials = std::option::Option::Some(
-            crate::model::enable_managed_rotation_request::Credentials::CloudSqlSingleUserCredentials(
+        self.credential = std::option::Option::Some(
+            crate::model::enable_managed_rotation_request::Credential::CloudSqlSingleUserCredentials(
                 v.into()
             )
         );
@@ -3225,84 +3283,13 @@ pub mod enable_managed_rotation_request {
     #[allow(unused_imports)]
     use super::*;
 
-    /// These are the credentials required for Cloud SQL DB for Single user
-    /// Managed Rotation.
-    #[derive(Clone, Default, PartialEq)]
-    #[non_exhaustive]
-    pub struct CloudSQLSingleUserCredentials {
-        /// Required. Instance ID of the Cloud SQL instance.
-        pub instance_id: std::string::String,
-
-        /// Required. Username of the Cloud SQL instance.
-        pub username: std::string::String,
-
-        /// Optional. Password of the Cloud SQL instance. If this is not provided,
-        /// a random password will be generated.
-        pub password: std::string::String,
-
-        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
-    }
-
-    impl CloudSQLSingleUserCredentials {
-        /// Creates a new default instance.
-        pub fn new() -> Self {
-            std::default::Default::default()
-        }
-
-        /// Sets the value of [instance_id][crate::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials::instance_id].
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_secretmanager_v1::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials;
-        /// let x = CloudSQLSingleUserCredentials::new().set_instance_id("example");
-        /// ```
-        pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.instance_id = v.into();
-            self
-        }
-
-        /// Sets the value of [username][crate::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials::username].
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_secretmanager_v1::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials;
-        /// let x = CloudSQLSingleUserCredentials::new().set_username("example");
-        /// ```
-        pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.username = v.into();
-            self
-        }
-
-        /// Sets the value of [password][crate::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials::password].
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_secretmanager_v1::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials;
-        /// let x = CloudSQLSingleUserCredentials::new().set_password("example");
-        /// ```
-        pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.password = v.into();
-            self
-        }
-    }
-
-    impl wkt::message::Message for CloudSQLSingleUserCredentials {
-        fn typename() -> &'static str {
-            "type.googleapis.com/google.cloud.secretmanager.v1.EnableManagedRotationRequest.CloudSQLSingleUserCredentials"
-        }
-    }
-
-    /// The credentials required for Managed Rotation.
+    /// The credential required for Managed Rotation.
     /// Right now, only Cloud SQL Single User credentials are supported.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
-    pub enum Credentials {
+    pub enum Credential {
         /// Credentials required for Cloud SQL DB for Single user Managed Rotation.
-        CloudSqlSingleUserCredentials(
-            std::boxed::Box<
-                crate::model::enable_managed_rotation_request::CloudSQLSingleUserCredentials,
-            >,
-        ),
+        CloudSqlSingleUserCredentials(std::boxed::Box<crate::model::CloudSqlSingleUserCredentials>),
     }
 }
 

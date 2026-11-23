@@ -40,6 +40,2862 @@ mod debug;
 mod deserialize;
 mod serialize;
 
+/// AppliedAutoProtectionPolicy is a read-only view of AutoProtectionPolicy
+/// and AutoProtectionPolicyBinding resources that apply to a given workload
+/// project.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AppliedAutoProtectionPolicy {
+    /// Identifier. Canonical resource name.
+    /// Format:
+    /// projects/{workload-project-number}/locations/{location}/appliedAutoProtectionPolicies/{id}.
+    pub name: std::string::String,
+
+    /// Output only. The full resource name of the AutoProtectionPolicyBinding that
+    /// applies the source policy to a scope including this workload project. e.g.,
+    /// projects/{admin-project}/locations/{location}/autoProtectionPolicies/{policy_id}/autoProtectionPolicyBindings/{binding_id}.
+    pub source_binding: std::string::String,
+
+    /// Output only. The criteria resources must meet for this rule to apply. From
+    /// AutoProtectionPolicy.criteria.
+    pub criteria: std::option::Option<crate::model::Criteria>,
+
+    /// Output only. The set of backup plan configurations, mirroring the
+    /// backup_plan_details from the source AutoProtectionPolicy. Each element
+    /// specifies a backup plan for a given resource type.
+    pub backup_plan_details: std::vec::Vec<crate::model::BackupPlanDetail>,
+
+    /// Output only. Timestamp indicating when the binding was last modified.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Timestamp indicating when the binding was last created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The summary of the last policy application when the job has
+    /// run.
+    pub binding_evaluation_summary: std::option::Option<crate::model::BindingEvaluationSummary>,
+
+    /// Output only. The status of the applied auto protection policy.
+    pub status: crate::model::applied_auto_protection_policy::State,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AppliedAutoProtectionPolicy {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AppliedAutoProtectionPolicy::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AppliedAutoProtectionPolicy;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let applied_auto_protection_policy_id = "applied_auto_protection_policy_id";
+    /// let x = AppliedAutoProtectionPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/appliedAutoProtectionPolicies/{applied_auto_protection_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [source_binding][crate::model::AppliedAutoProtectionPolicy::source_binding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AppliedAutoProtectionPolicy;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let auto_protection_policy_id = "auto_protection_policy_id";
+    /// # let binding_id = "binding_id";
+    /// let x = AppliedAutoProtectionPolicy::new().set_source_binding(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}/bindings/{binding_id}"));
+    /// ```
+    pub fn set_source_binding<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source_binding = v.into();
+        self
+    }
+
+    /// Sets the value of [criteria][crate::model::AppliedAutoProtectionPolicy::criteria].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AppliedAutoProtectionPolicy;
+    /// use google_cloud_backupdr_v1::model::Criteria;
+    /// let x = AppliedAutoProtectionPolicy::new().set_criteria(Criteria::default()/* use setters */);
+    /// ```
+    pub fn set_criteria<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Criteria>,
+    {
+        self.criteria = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [criteria][crate::model::AppliedAutoProtectionPolicy::criteria].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AppliedAutoProtectionPolicy;
+    /// use google_cloud_backupdr_v1::model::Criteria;
+    /// let x = AppliedAutoProtectionPolicy::new().set_or_clear_criteria(Some(Criteria::default()/* use setters */));
+    /// let x = AppliedAutoProtectionPolicy::new().set_or_clear_criteria(None::<Criteria>);
+    /// ```
+    pub fn set_or_clear_criteria<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Criteria>,
+    {
+        self.criteria = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [backup_plan_details][crate::model::AppliedAutoProtectionPolicy::backup_plan_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AppliedAutoProtectionPolicy;
+    /// use google_cloud_backupdr_v1::model::BackupPlanDetail;
+    /// let x = AppliedAutoProtectionPolicy::new()
+    ///     .set_backup_plan_details([
+    ///         BackupPlanDetail::default()/* use setters */,
+    ///         BackupPlanDetail::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_backup_plan_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BackupPlanDetail>,
+    {
+        use std::iter::Iterator;
+        self.backup_plan_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::AppliedAutoProtectionPolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AppliedAutoProtectionPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AppliedAutoProtectionPolicy::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::AppliedAutoProtectionPolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AppliedAutoProtectionPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AppliedAutoProtectionPolicy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AppliedAutoProtectionPolicy::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::AppliedAutoProtectionPolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AppliedAutoProtectionPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AppliedAutoProtectionPolicy::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::AppliedAutoProtectionPolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AppliedAutoProtectionPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AppliedAutoProtectionPolicy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AppliedAutoProtectionPolicy::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [binding_evaluation_summary][crate::model::AppliedAutoProtectionPolicy::binding_evaluation_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AppliedAutoProtectionPolicy;
+    /// use google_cloud_backupdr_v1::model::BindingEvaluationSummary;
+    /// let x = AppliedAutoProtectionPolicy::new().set_binding_evaluation_summary(BindingEvaluationSummary::default()/* use setters */);
+    /// ```
+    pub fn set_binding_evaluation_summary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BindingEvaluationSummary>,
+    {
+        self.binding_evaluation_summary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [binding_evaluation_summary][crate::model::AppliedAutoProtectionPolicy::binding_evaluation_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AppliedAutoProtectionPolicy;
+    /// use google_cloud_backupdr_v1::model::BindingEvaluationSummary;
+    /// let x = AppliedAutoProtectionPolicy::new().set_or_clear_binding_evaluation_summary(Some(BindingEvaluationSummary::default()/* use setters */));
+    /// let x = AppliedAutoProtectionPolicy::new().set_or_clear_binding_evaluation_summary(None::<BindingEvaluationSummary>);
+    /// ```
+    pub fn set_or_clear_binding_evaluation_summary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BindingEvaluationSummary>,
+    {
+        self.binding_evaluation_summary = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [status][crate::model::AppliedAutoProtectionPolicy::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AppliedAutoProtectionPolicy;
+    /// use google_cloud_backupdr_v1::model::applied_auto_protection_policy::State;
+    /// let x0 = AppliedAutoProtectionPolicy::new().set_status(State::Creating);
+    /// let x1 = AppliedAutoProtectionPolicy::new().set_status(State::Active);
+    /// let x2 = AppliedAutoProtectionPolicy::new().set_status(State::DeletionInitiated);
+    /// ```
+    pub fn set_status<
+        T: std::convert::Into<crate::model::applied_auto_protection_policy::State>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.status = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AppliedAutoProtectionPolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.AppliedAutoProtectionPolicy"
+    }
+}
+
+/// Defines additional types related to [AppliedAutoProtectionPolicy].
+pub mod applied_auto_protection_policy {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Represents the various states an applied auto protection policy can be in.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State is not specified.
+        Unspecified,
+        /// The policy is in the process of being applied.
+        Creating,
+        /// The policy has been applied and is active.
+        Active,
+        /// The policy is in the process of being removed.
+        DeletionInitiated,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::DeletionInitiated => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::DeletionInitiated => std::option::Option::Some("DELETION_INITIATED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Active,
+                3 => Self::DeletionInitiated,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "ACTIVE" => Self::Active,
+                "DELETION_INITIATED" => Self::DeletionInitiated,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::DeletionInitiated => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.backupdr.v1.AppliedAutoProtectionPolicy.State",
+            ))
+        }
+    }
+}
+
+/// Request message for listing AppliedAutoProtectionPolicies.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAppliedAutoProtectionPoliciesRequest {
+    /// Required. The project and location for which to retrieve the list of
+    /// applied policies. Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of applied policies to return in a single
+    /// page. The maximum value is 1000; values above 1000 will be coerced to
+    /// 1000. If unspecified or set to 0, a default page size of 500 will be used.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous
+    /// `ListAppliedAutoProtectionPolicies` call.
+    pub page_token: std::string::String,
+
+    /// Optional. A filter expression that filters resources listed in the
+    /// response.
+    pub filter: std::string::String,
+
+    /// Optional. An expression that sorts the results in the response.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAppliedAutoProtectionPoliciesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListAppliedAutoProtectionPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAppliedAutoProtectionPoliciesRequest;
+    /// let x = ListAppliedAutoProtectionPoliciesRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListAppliedAutoProtectionPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAppliedAutoProtectionPoliciesRequest;
+    /// let x = ListAppliedAutoProtectionPoliciesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListAppliedAutoProtectionPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAppliedAutoProtectionPoliciesRequest;
+    /// let x = ListAppliedAutoProtectionPoliciesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListAppliedAutoProtectionPoliciesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAppliedAutoProtectionPoliciesRequest;
+    /// let x = ListAppliedAutoProtectionPoliciesRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListAppliedAutoProtectionPoliciesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAppliedAutoProtectionPoliciesRequest;
+    /// let x = ListAppliedAutoProtectionPoliciesRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAppliedAutoProtectionPoliciesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListAppliedAutoProtectionPoliciesRequest"
+    }
+}
+
+/// Response message for ListAppliedAutoProtectionPolicies.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAppliedAutoProtectionPoliciesResponse {
+    /// A list of the AppliedAutoProtectionPolicy resources found.
+    pub applied_auto_protection_policies: std::vec::Vec<crate::model::AppliedAutoProtectionPolicy>,
+
+    /// A token that can be sent as `page_token` to retrieve the next page.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Locations that could not be reached. For example,
+    /// "projects/my-project/locations/us-east1"].
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAppliedAutoProtectionPoliciesResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [applied_auto_protection_policies][crate::model::ListAppliedAutoProtectionPoliciesResponse::applied_auto_protection_policies].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAppliedAutoProtectionPoliciesResponse;
+    /// use google_cloud_backupdr_v1::model::AppliedAutoProtectionPolicy;
+    /// let x = ListAppliedAutoProtectionPoliciesResponse::new()
+    ///     .set_applied_auto_protection_policies([
+    ///         AppliedAutoProtectionPolicy::default()/* use setters */,
+    ///         AppliedAutoProtectionPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_applied_auto_protection_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AppliedAutoProtectionPolicy>,
+    {
+        use std::iter::Iterator;
+        self.applied_auto_protection_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAppliedAutoProtectionPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAppliedAutoProtectionPoliciesResponse;
+    /// let x = ListAppliedAutoProtectionPoliciesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListAppliedAutoProtectionPoliciesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAppliedAutoProtectionPoliciesResponse;
+    /// let x = ListAppliedAutoProtectionPoliciesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAppliedAutoProtectionPoliciesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListAppliedAutoProtectionPoliciesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListAppliedAutoProtectionPoliciesResponse
+{
+    type PageItem = crate::model::AppliedAutoProtectionPolicy;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.applied_auto_protection_policies
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// An AutoprotectionPolicy is a policy resource designed to automate backup
+/// management, moving from manual per-resource protection to a bulk approach.
+/// The policy dynamically discovers and applies a specified backup plan to all
+/// eligible resources that match its defined scope and criteria.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AutoProtectionPolicy {
+    /// Output only. Identifier. The resource name of the AutoProtectionPolicy.
+    /// Format:
+    /// `projects/{project}/locations/{location}/autoProtectionPolicies/{auto_protection_policy}`
+    pub name: std::string::String,
+
+    /// Optional. A description of the policy. The description must be at most 2048
+    /// characters.
+    pub description: std::string::String,
+
+    /// Required. The backup plan details for matching resources.
+    pub backup_plan_details: std::vec::Vec<crate::model::BackupPlanDetail>,
+
+    /// Required. The criteria for matching resources.
+    pub criteria: std::option::Option<crate::model::Criteria>,
+
+    /// Output only. The current state of the AutoProtectionPolicy.
+    pub state: crate::model::auto_protection_policy::State,
+
+    /// Output only. The etag for the policy.
+    /// If this is provided on update, it must match the server's etag.
+    pub etag: std::string::String,
+
+    /// Output only. Summary of total count of different containers covered through
+    /// this policy.
+    pub binding_summary: std::option::Option<crate::model::BindingSummary>,
+
+    /// Output only. Summary of last policy evaluation when job was run per
+    /// workload type.
+    pub policy_evaluation_summary: std::option::Option<crate::model::PolicyEvaluationSummary>,
+
+    /// Output only. The timestamp when the policy was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the policy was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AutoProtectionPolicy {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AutoProtectionPolicy::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let auto_protection_policy_id = "auto_protection_policy_id";
+    /// let x = AutoProtectionPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::AutoProtectionPolicy::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// let x = AutoProtectionPolicy::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_plan_details][crate::model::AutoProtectionPolicy::backup_plan_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// use google_cloud_backupdr_v1::model::BackupPlanDetail;
+    /// let x = AutoProtectionPolicy::new()
+    ///     .set_backup_plan_details([
+    ///         BackupPlanDetail::default()/* use setters */,
+    ///         BackupPlanDetail::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_backup_plan_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BackupPlanDetail>,
+    {
+        use std::iter::Iterator;
+        self.backup_plan_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [criteria][crate::model::AutoProtectionPolicy::criteria].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// use google_cloud_backupdr_v1::model::Criteria;
+    /// let x = AutoProtectionPolicy::new().set_criteria(Criteria::default()/* use setters */);
+    /// ```
+    pub fn set_criteria<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Criteria>,
+    {
+        self.criteria = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [criteria][crate::model::AutoProtectionPolicy::criteria].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// use google_cloud_backupdr_v1::model::Criteria;
+    /// let x = AutoProtectionPolicy::new().set_or_clear_criteria(Some(Criteria::default()/* use setters */));
+    /// let x = AutoProtectionPolicy::new().set_or_clear_criteria(None::<Criteria>);
+    /// ```
+    pub fn set_or_clear_criteria<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Criteria>,
+    {
+        self.criteria = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::AutoProtectionPolicy::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// use google_cloud_backupdr_v1::model::auto_protection_policy::State;
+    /// let x0 = AutoProtectionPolicy::new().set_state(State::Creating);
+    /// let x1 = AutoProtectionPolicy::new().set_state(State::Active);
+    /// let x2 = AutoProtectionPolicy::new().set_state(State::Updating);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::auto_protection_policy::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::AutoProtectionPolicy::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// let x = AutoProtectionPolicy::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [binding_summary][crate::model::AutoProtectionPolicy::binding_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// use google_cloud_backupdr_v1::model::BindingSummary;
+    /// let x = AutoProtectionPolicy::new().set_binding_summary(BindingSummary::default()/* use setters */);
+    /// ```
+    pub fn set_binding_summary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BindingSummary>,
+    {
+        self.binding_summary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [binding_summary][crate::model::AutoProtectionPolicy::binding_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// use google_cloud_backupdr_v1::model::BindingSummary;
+    /// let x = AutoProtectionPolicy::new().set_or_clear_binding_summary(Some(BindingSummary::default()/* use setters */));
+    /// let x = AutoProtectionPolicy::new().set_or_clear_binding_summary(None::<BindingSummary>);
+    /// ```
+    pub fn set_or_clear_binding_summary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BindingSummary>,
+    {
+        self.binding_summary = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [policy_evaluation_summary][crate::model::AutoProtectionPolicy::policy_evaluation_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// use google_cloud_backupdr_v1::model::PolicyEvaluationSummary;
+    /// let x = AutoProtectionPolicy::new().set_policy_evaluation_summary(PolicyEvaluationSummary::default()/* use setters */);
+    /// ```
+    pub fn set_policy_evaluation_summary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PolicyEvaluationSummary>,
+    {
+        self.policy_evaluation_summary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [policy_evaluation_summary][crate::model::AutoProtectionPolicy::policy_evaluation_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// use google_cloud_backupdr_v1::model::PolicyEvaluationSummary;
+    /// let x = AutoProtectionPolicy::new().set_or_clear_policy_evaluation_summary(Some(PolicyEvaluationSummary::default()/* use setters */));
+    /// let x = AutoProtectionPolicy::new().set_or_clear_policy_evaluation_summary(None::<PolicyEvaluationSummary>);
+    /// ```
+    pub fn set_or_clear_policy_evaluation_summary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PolicyEvaluationSummary>,
+    {
+        self.policy_evaluation_summary = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::AutoProtectionPolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AutoProtectionPolicy::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::AutoProtectionPolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AutoProtectionPolicy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AutoProtectionPolicy::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::AutoProtectionPolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AutoProtectionPolicy::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::AutoProtectionPolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// use wkt::Timestamp;
+    /// let x = AutoProtectionPolicy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AutoProtectionPolicy::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for AutoProtectionPolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.AutoProtectionPolicy"
+    }
+}
+
+/// Defines additional types related to [AutoProtectionPolicy].
+pub mod auto_protection_policy {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The state of an AutoProtectionPolicy.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The state of the policy is unspecified.
+        Unspecified,
+        /// The policy is being created.
+        Creating,
+        /// The policy is active and protecting matching resources.
+        Active,
+        /// The policy is being updated.
+        Updating,
+        /// The policy is being deleted.
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::Updating => std::option::Option::Some(3),
+                Self::Deleting => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Active,
+                3 => Self::Updating,
+                4 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "ACTIVE" => Self::Active,
+                "UPDATING" => Self::Updating,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Updating => serializer.serialize_i32(3),
+                Self::Deleting => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.backupdr.v1.AutoProtectionPolicy.State",
+            ))
+        }
+    }
+}
+
+/// BackupPlanDetail defines configuration of protection.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BackupPlanDetail {
+    /// Required. The type of resource that this policy will automatically protect.
+    /// Allowed values are, `compute.googleapis.com/Instance` and
+    /// `compute.googleapis.com/Disk` are supported.
+    pub resource_type: std::string::String,
+
+    /// Required. The resource name of the BackupPlan to apply to resources that
+    /// match the policy's criteria. This backup plan must be in the same location
+    /// as AutoProtectionPolicy. Format:
+    /// projects/{project}/locations/{location}/backupPlans/{backupPlanId}
+    pub backup_plan: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BackupPlanDetail {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [resource_type][crate::model::BackupPlanDetail::resource_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupPlanDetail;
+    /// let x = BackupPlanDetail::new().set_resource_type("example");
+    /// ```
+    pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.resource_type = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_plan][crate::model::BackupPlanDetail::backup_plan].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupPlanDetail;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_id = "backup_plan_id";
+    /// let x = BackupPlanDetail::new().set_backup_plan(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"));
+    /// ```
+    pub fn set_backup_plan<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.backup_plan = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BackupPlanDetail {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.BackupPlanDetail"
+    }
+}
+
+/// Criteria specifies a set of criteria for matching resources.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Criteria {
+    /// Required. A list of matching conditions that a resource must meet to be
+    /// protected by the policy.
+    pub matching_conditions: std::vec::Vec<crate::model::MatchingCondition>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Criteria {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [matching_conditions][crate::model::Criteria::matching_conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::Criteria;
+    /// use google_cloud_backupdr_v1::model::MatchingCondition;
+    /// let x = Criteria::new()
+    ///     .set_matching_conditions([
+    ///         MatchingCondition::default()/* use setters */,
+    ///         MatchingCondition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_matching_conditions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MatchingCondition>,
+    {
+        use std::iter::Iterator;
+        self.matching_conditions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Criteria {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.Criteria"
+    }
+}
+
+/// MatchingCondition specifies a set of conditions for matching resources.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct MatchingCondition {
+    /// A condition that a resource must meet to be protected by the
+    /// policy.
+    pub condition: std::option::Option<crate::model::matching_condition::Condition>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MatchingCondition {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [condition][crate::model::MatchingCondition::condition].
+    ///
+    /// Note that all the setters affecting `condition` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::MatchingCondition;
+    /// use google_cloud_backupdr_v1::model::KeyValuePair;
+    /// let x = MatchingCondition::new().set_condition(Some(
+    ///     google_cloud_backupdr_v1::model::matching_condition::Condition::LabelCondition(KeyValuePair::default().into())));
+    /// ```
+    pub fn set_condition<
+        T: std::convert::Into<std::option::Option<crate::model::matching_condition::Condition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.condition = v.into();
+        self
+    }
+
+    /// The value of [condition][crate::model::MatchingCondition::condition]
+    /// if it holds a `LabelCondition`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn label_condition(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::KeyValuePair>> {
+        #[allow(unreachable_patterns)]
+        self.condition.as_ref().and_then(|v| match v {
+            crate::model::matching_condition::Condition::LabelCondition(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [condition][crate::model::MatchingCondition::condition]
+    /// to hold a `LabelCondition`.
+    ///
+    /// Note that all the setters affecting `condition` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::MatchingCondition;
+    /// use google_cloud_backupdr_v1::model::KeyValuePair;
+    /// let x = MatchingCondition::new().set_label_condition(KeyValuePair::default()/* use setters */);
+    /// assert!(x.label_condition().is_some());
+    /// ```
+    pub fn set_label_condition<
+        T: std::convert::Into<std::boxed::Box<crate::model::KeyValuePair>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.condition = std::option::Option::Some(
+            crate::model::matching_condition::Condition::LabelCondition(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for MatchingCondition {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.MatchingCondition"
+    }
+}
+
+/// Defines additional types related to [MatchingCondition].
+pub mod matching_condition {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A condition that a resource must meet to be protected by the
+    /// policy.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Condition {
+        /// Optional. A condition that matches resources based on their labels.
+        /// For MVP, this is limited to a single label match.
+        LabelCondition(std::boxed::Box<crate::model::KeyValuePair>),
+    }
+}
+
+/// PolicyEvaluationSummary contains the summary of the last run of job that
+/// applies policy to matching resources.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PolicyEvaluationSummary {
+    /// Output only. The number of resources that currently match the policy's
+    /// criteria.
+    pub matching_resource_count: i64,
+
+    /// Output only. The number of matching resources that are successfully
+    /// protected.
+    pub protected_resource_count: i64,
+
+    /// Output only. The number of matching resources whose protection failed
+    /// during job run.
+    pub failed_resource_count: i64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PolicyEvaluationSummary {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [matching_resource_count][crate::model::PolicyEvaluationSummary::matching_resource_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PolicyEvaluationSummary;
+    /// let x = PolicyEvaluationSummary::new().set_matching_resource_count(42);
+    /// ```
+    pub fn set_matching_resource_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.matching_resource_count = v.into();
+        self
+    }
+
+    /// Sets the value of [protected_resource_count][crate::model::PolicyEvaluationSummary::protected_resource_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PolicyEvaluationSummary;
+    /// let x = PolicyEvaluationSummary::new().set_protected_resource_count(42);
+    /// ```
+    pub fn set_protected_resource_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.protected_resource_count = v.into();
+        self
+    }
+
+    /// Sets the value of [failed_resource_count][crate::model::PolicyEvaluationSummary::failed_resource_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PolicyEvaluationSummary;
+    /// let x = PolicyEvaluationSummary::new().set_failed_resource_count(42);
+    /// ```
+    pub fn set_failed_resource_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.failed_resource_count = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PolicyEvaluationSummary {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.PolicyEvaluationSummary"
+    }
+}
+
+/// BindingSummary contains count of different containers covered through this
+/// policy.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BindingSummary {
+    /// Output only. Total count of Projects protected with this policy.
+    pub project_count: i64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BindingSummary {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project_count][crate::model::BindingSummary::project_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BindingSummary;
+    /// let x = BindingSummary::new().set_project_count(42);
+    /// ```
+    pub fn set_project_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.project_count = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BindingSummary {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.BindingSummary"
+    }
+}
+
+/// KeyValuePair defines a key-value pair for matching resource labels.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct KeyValuePair {
+    /// Required. The key of the label to match.
+    /// This must be in the format `{label_key}`.
+    /// The key must match the regex
+    /// Format:`[\p{Ll}\p{Lo}][\p{Ll}\p{Lo}\p{N}_-]{0,62}`.
+    pub key: std::string::String,
+
+    /// Required. The values of the label to match.
+    /// There will be explicit "OR" between values of array.
+    /// Each value must be in the format `{label_value}`.
+    /// The value must match the regex
+    /// Format: `[\\p{Ll}\\p{Lo}\\p{N}_-]{1,63}`.
+    pub values: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl KeyValuePair {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [key][crate::model::KeyValuePair::key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::KeyValuePair;
+    /// let x = KeyValuePair::new().set_key("example");
+    /// ```
+    pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.key = v.into();
+        self
+    }
+
+    /// Sets the value of [values][crate::model::KeyValuePair::values].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::KeyValuePair;
+    /// let x = KeyValuePair::new().set_values(["a", "b", "c"]);
+    /// ```
+    pub fn set_values<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for KeyValuePair {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.KeyValuePair"
+    }
+}
+
+/// Request message for creating an AutoProtectionPolicy.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateAutoProtectionPolicyRequest {
+    /// Required. The parent resource where this policy will be created.
+    /// Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Required. The ID to use for the policy.
+    /// This will become the final component of the policy's resource name.
+    ///
+    /// This value must start with a lowercase letter followed by up to 62
+    /// lowercase letters, numbers, or hyphens, and cannot end with a hyphen.
+    pub auto_protection_policy_id: std::string::String,
+
+    /// Required. The AutoProtectionPolicy resource to create.
+    pub auto_protection_policy: std::option::Option<crate::model::AutoProtectionPolicy>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateAutoProtectionPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateAutoProtectionPolicyRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateAutoProtectionPolicyRequest;
+    /// let x = CreateAutoProtectionPolicyRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [auto_protection_policy_id][crate::model::CreateAutoProtectionPolicyRequest::auto_protection_policy_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateAutoProtectionPolicyRequest;
+    /// let x = CreateAutoProtectionPolicyRequest::new().set_auto_protection_policy_id("example");
+    /// ```
+    pub fn set_auto_protection_policy_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.auto_protection_policy_id = v.into();
+        self
+    }
+
+    /// Sets the value of [auto_protection_policy][crate::model::CreateAutoProtectionPolicyRequest::auto_protection_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateAutoProtectionPolicyRequest;
+    /// use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// let x = CreateAutoProtectionPolicyRequest::new().set_auto_protection_policy(AutoProtectionPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_auto_protection_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoProtectionPolicy>,
+    {
+        self.auto_protection_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [auto_protection_policy][crate::model::CreateAutoProtectionPolicyRequest::auto_protection_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateAutoProtectionPolicyRequest;
+    /// use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// let x = CreateAutoProtectionPolicyRequest::new().set_or_clear_auto_protection_policy(Some(AutoProtectionPolicy::default()/* use setters */));
+    /// let x = CreateAutoProtectionPolicyRequest::new().set_or_clear_auto_protection_policy(None::<AutoProtectionPolicy>);
+    /// ```
+    pub fn set_or_clear_auto_protection_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoProtectionPolicy>,
+    {
+        self.auto_protection_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateAutoProtectionPolicyRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateAutoProtectionPolicyRequest;
+    /// let x = CreateAutoProtectionPolicyRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateAutoProtectionPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.CreateAutoProtectionPolicyRequest"
+    }
+}
+
+/// Request message for getting an AutoProtectionPolicy.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetAutoProtectionPolicyRequest {
+    /// Required. The name of the policy to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/autoProtectionPolicies/{auto_protection_policy}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetAutoProtectionPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetAutoProtectionPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::GetAutoProtectionPolicyRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let auto_protection_policy_id = "auto_protection_policy_id";
+    /// let x = GetAutoProtectionPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetAutoProtectionPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.GetAutoProtectionPolicyRequest"
+    }
+}
+
+/// Request message for updating an AutoProtectionPolicy.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateAutoProtectionPolicyRequest {
+    /// Required. The policy to update.
+    pub auto_protection_policy: std::option::Option<crate::model::AutoProtectionPolicy>,
+
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// AutoProtectionPolicy resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateAutoProtectionPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [auto_protection_policy][crate::model::UpdateAutoProtectionPolicyRequest::auto_protection_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::UpdateAutoProtectionPolicyRequest;
+    /// use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// let x = UpdateAutoProtectionPolicyRequest::new().set_auto_protection_policy(AutoProtectionPolicy::default()/* use setters */);
+    /// ```
+    pub fn set_auto_protection_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoProtectionPolicy>,
+    {
+        self.auto_protection_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [auto_protection_policy][crate::model::UpdateAutoProtectionPolicyRequest::auto_protection_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::UpdateAutoProtectionPolicyRequest;
+    /// use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// let x = UpdateAutoProtectionPolicyRequest::new().set_or_clear_auto_protection_policy(Some(AutoProtectionPolicy::default()/* use setters */));
+    /// let x = UpdateAutoProtectionPolicyRequest::new().set_or_clear_auto_protection_policy(None::<AutoProtectionPolicy>);
+    /// ```
+    pub fn set_or_clear_auto_protection_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoProtectionPolicy>,
+    {
+        self.auto_protection_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateAutoProtectionPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::UpdateAutoProtectionPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAutoProtectionPolicyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateAutoProtectionPolicyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::UpdateAutoProtectionPolicyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAutoProtectionPolicyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAutoProtectionPolicyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateAutoProtectionPolicyRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::UpdateAutoProtectionPolicyRequest;
+    /// let x = UpdateAutoProtectionPolicyRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateAutoProtectionPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.UpdateAutoProtectionPolicyRequest"
+    }
+}
+
+/// Request message for deleting an AutoProtectionPolicy.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteAutoProtectionPolicyRequest {
+    /// Required. The name of the policy to delete.
+    /// Format:
+    /// projects/{project}/locations/{location}/autoProtectionPolicies/{auto_protection_policy}
+    pub name: std::string::String,
+
+    /// Optional. The current etag of the autoprotectionpolicy.
+    /// If an etag is provided and does not match the current etag of the
+    /// connection, deletion will be blocked.
+    pub etag: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteAutoProtectionPolicyRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteAutoProtectionPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::DeleteAutoProtectionPolicyRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let auto_protection_policy_id = "auto_protection_policy_id";
+    /// let x = DeleteAutoProtectionPolicyRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteAutoProtectionPolicyRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::DeleteAutoProtectionPolicyRequest;
+    /// let x = DeleteAutoProtectionPolicyRequest::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteAutoProtectionPolicyRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::DeleteAutoProtectionPolicyRequest;
+    /// let x = DeleteAutoProtectionPolicyRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteAutoProtectionPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.DeleteAutoProtectionPolicyRequest"
+    }
+}
+
+/// Request message for ListAutoProtectionPolicies.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAutoProtectionPoliciesRequest {
+    /// Required. The project and location for which to retrieve the list of
+    /// policies. Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of policies to return in a single page.
+    /// If unspecified, a server-default value will be used.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous
+    /// `ListAutoProtectionPolicies` call. Provide this to retrieve the subsequent
+    /// page.
+    pub page_token: std::string::String,
+
+    /// Optional. A filter expression that filters resources listed in the
+    /// response. The following fields are filterable:
+    pub filter: std::string::String,
+
+    /// Optional. An expression that sorts the results in the response. The
+    /// following fields are sortable:
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAutoProtectionPoliciesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListAutoProtectionPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAutoProtectionPoliciesRequest;
+    /// let x = ListAutoProtectionPoliciesRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListAutoProtectionPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAutoProtectionPoliciesRequest;
+    /// let x = ListAutoProtectionPoliciesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListAutoProtectionPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAutoProtectionPoliciesRequest;
+    /// let x = ListAutoProtectionPoliciesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListAutoProtectionPoliciesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAutoProtectionPoliciesRequest;
+    /// let x = ListAutoProtectionPoliciesRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListAutoProtectionPoliciesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAutoProtectionPoliciesRequest;
+    /// let x = ListAutoProtectionPoliciesRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAutoProtectionPoliciesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListAutoProtectionPoliciesRequest"
+    }
+}
+
+/// Response message for ListAutoProtectionPolicies.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAutoProtectionPoliciesResponse {
+    /// A list of the AutoProtectionPolicy resources found.
+    pub auto_protection_policies: std::vec::Vec<crate::model::AutoProtectionPolicy>,
+
+    /// A token that can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAutoProtectionPoliciesResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [auto_protection_policies][crate::model::ListAutoProtectionPoliciesResponse::auto_protection_policies].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAutoProtectionPoliciesResponse;
+    /// use google_cloud_backupdr_v1::model::AutoProtectionPolicy;
+    /// let x = ListAutoProtectionPoliciesResponse::new()
+    ///     .set_auto_protection_policies([
+    ///         AutoProtectionPolicy::default()/* use setters */,
+    ///         AutoProtectionPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_auto_protection_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AutoProtectionPolicy>,
+    {
+        use std::iter::Iterator;
+        self.auto_protection_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAutoProtectionPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAutoProtectionPoliciesResponse;
+    /// let x = ListAutoProtectionPoliciesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListAutoProtectionPoliciesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAutoProtectionPoliciesResponse;
+    /// let x = ListAutoProtectionPoliciesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAutoProtectionPoliciesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListAutoProtectionPoliciesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListAutoProtectionPoliciesResponse
+{
+    type PageItem = crate::model::AutoProtectionPolicy;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.auto_protection_policies
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// An AutoProtectionPolicyBinding (APPA) acts as the bridge between an
+/// AutoProtectionPolicy and the scope (Project) where
+/// the policy should be applied.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AutoProtectionPolicyBinding {
+    /// Output only. Identifier. The resource name of the
+    /// AutoProtectionPolicyBinding. Format:
+    /// `projects/{project}/locations/{location}/autoProtectionPolicies/{auto_protection_policy}/bindings/{binding}`
+    pub name: std::string::String,
+
+    /// Optional. A description of the binding. The description must be at most
+    /// 2048 characters.
+    pub description: std::string::String,
+
+    /// Output only. The current state of the AutoProtectionPolicyBinding.
+    pub state: crate::model::auto_protection_policy_binding::State,
+
+    /// Required. Immutable. Resource Id of target container on which policy will
+    /// be applied. Format: projects/{project_id}
+    pub scope: std::string::String,
+
+    /// Output only. Summaries of the last policy application when the job has run,
+    /// with one entry per resource type specified in the AutoProtectionPolicy.
+    pub binding_evaluation_summary: std::option::Option<crate::model::BindingEvaluationSummary>,
+
+    /// Output only. The timestamp when the binding was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the binding was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The etag for the binding.
+    /// If this is provided on update, it must match the server's etag.
+    pub etag: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AutoProtectionPolicyBinding {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AutoProtectionPolicyBinding::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicyBinding;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let auto_protection_policy_id = "auto_protection_policy_id";
+    /// # let binding_id = "binding_id";
+    /// let x = AutoProtectionPolicyBinding::new().set_name(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}/bindings/{binding_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::AutoProtectionPolicyBinding::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicyBinding;
+    /// let x = AutoProtectionPolicyBinding::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::AutoProtectionPolicyBinding::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicyBinding;
+    /// use google_cloud_backupdr_v1::model::auto_protection_policy_binding::State;
+    /// let x0 = AutoProtectionPolicyBinding::new().set_state(State::Creating);
+    /// let x1 = AutoProtectionPolicyBinding::new().set_state(State::Active);
+    /// let x2 = AutoProtectionPolicyBinding::new().set_state(State::DeletionInitiated);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::auto_protection_policy_binding::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [scope][crate::model::AutoProtectionPolicyBinding::scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicyBinding;
+    /// let x = AutoProtectionPolicyBinding::new().set_scope("example");
+    /// ```
+    pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.scope = v.into();
+        self
+    }
+
+    /// Sets the value of [binding_evaluation_summary][crate::model::AutoProtectionPolicyBinding::binding_evaluation_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicyBinding;
+    /// use google_cloud_backupdr_v1::model::BindingEvaluationSummary;
+    /// let x = AutoProtectionPolicyBinding::new().set_binding_evaluation_summary(BindingEvaluationSummary::default()/* use setters */);
+    /// ```
+    pub fn set_binding_evaluation_summary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BindingEvaluationSummary>,
+    {
+        self.binding_evaluation_summary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [binding_evaluation_summary][crate::model::AutoProtectionPolicyBinding::binding_evaluation_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicyBinding;
+    /// use google_cloud_backupdr_v1::model::BindingEvaluationSummary;
+    /// let x = AutoProtectionPolicyBinding::new().set_or_clear_binding_evaluation_summary(Some(BindingEvaluationSummary::default()/* use setters */));
+    /// let x = AutoProtectionPolicyBinding::new().set_or_clear_binding_evaluation_summary(None::<BindingEvaluationSummary>);
+    /// ```
+    pub fn set_or_clear_binding_evaluation_summary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BindingEvaluationSummary>,
+    {
+        self.binding_evaluation_summary = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::AutoProtectionPolicyBinding::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicyBinding;
+    /// use wkt::Timestamp;
+    /// let x = AutoProtectionPolicyBinding::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::AutoProtectionPolicyBinding::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicyBinding;
+    /// use wkt::Timestamp;
+    /// let x = AutoProtectionPolicyBinding::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AutoProtectionPolicyBinding::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::AutoProtectionPolicyBinding::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicyBinding;
+    /// use wkt::Timestamp;
+    /// let x = AutoProtectionPolicyBinding::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::AutoProtectionPolicyBinding::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicyBinding;
+    /// use wkt::Timestamp;
+    /// let x = AutoProtectionPolicyBinding::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AutoProtectionPolicyBinding::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::AutoProtectionPolicyBinding::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionPolicyBinding;
+    /// let x = AutoProtectionPolicyBinding::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AutoProtectionPolicyBinding {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.AutoProtectionPolicyBinding"
+    }
+}
+
+/// Defines additional types related to [AutoProtectionPolicyBinding].
+pub mod auto_protection_policy_binding {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The state of an AutoProtectionPolicyBinding.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The state of the binding is unspecified.
+        Unspecified,
+        /// The binding is being created.
+        Creating,
+        /// The binding is active.
+        Active,
+        /// The binding deletion is initiated.
+        DeletionInitiated,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::DeletionInitiated => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::DeletionInitiated => std::option::Option::Some("DELETION_INITIATED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Active,
+                3 => Self::DeletionInitiated,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "ACTIVE" => Self::Active,
+                "DELETION_INITIATED" => Self::DeletionInitiated,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::DeletionInitiated => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.backupdr.v1.AutoProtectionPolicyBinding.State",
+            ))
+        }
+    }
+}
+
+/// BindingEvaluationSummary contains the summary of the last run of job
+/// that applies policy to matching resources for a given binding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BindingEvaluationSummary {
+    /// Output only. The number of resources that currently match the policy's
+    /// criteria.
+    pub matching_resource_count: i64,
+
+    /// Output only. The number of matching resources that are successfully
+    /// protected.
+    pub protected_resource_count: i64,
+
+    /// Output only. The number of matching resources whose protection failed
+    /// during job run.
+    pub failed_resource_count: i64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BindingEvaluationSummary {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [matching_resource_count][crate::model::BindingEvaluationSummary::matching_resource_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BindingEvaluationSummary;
+    /// let x = BindingEvaluationSummary::new().set_matching_resource_count(42);
+    /// ```
+    pub fn set_matching_resource_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.matching_resource_count = v.into();
+        self
+    }
+
+    /// Sets the value of [protected_resource_count][crate::model::BindingEvaluationSummary::protected_resource_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BindingEvaluationSummary;
+    /// let x = BindingEvaluationSummary::new().set_protected_resource_count(42);
+    /// ```
+    pub fn set_protected_resource_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.protected_resource_count = v.into();
+        self
+    }
+
+    /// Sets the value of [failed_resource_count][crate::model::BindingEvaluationSummary::failed_resource_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BindingEvaluationSummary;
+    /// let x = BindingEvaluationSummary::new().set_failed_resource_count(42);
+    /// ```
+    pub fn set_failed_resource_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.failed_resource_count = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BindingEvaluationSummary {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.BindingEvaluationSummary"
+    }
+}
+
+/// Request message for creating an AutoProtectionPolicyBinding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateAutoProtectionPolicyBindingRequest {
+    /// Required. The parent resource where this binding will be created.
+    /// Format:
+    /// projects/{project}/locations/{location}/autoProtectionPolicies/{auto_protection_policy}
+    pub parent: std::string::String,
+
+    /// Required. The ID to use for the binding.
+    /// This will become the final component of the binding's resource name.
+    ///
+    /// This value must start with a lowercase letter followed by up to 62
+    /// lowercase letters, numbers, or hyphens, and cannot end with a hyphen.
+    pub auto_protection_policy_binding_id: std::string::String,
+
+    /// Required. The AutoProtectionPolicyBinding resource to create.
+    pub auto_protection_policy_binding:
+        std::option::Option<crate::model::AutoProtectionPolicyBinding>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateAutoProtectionPolicyBindingRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateAutoProtectionPolicyBindingRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateAutoProtectionPolicyBindingRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let auto_protection_policy_id = "auto_protection_policy_id";
+    /// let x = CreateAutoProtectionPolicyBindingRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [auto_protection_policy_binding_id][crate::model::CreateAutoProtectionPolicyBindingRequest::auto_protection_policy_binding_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateAutoProtectionPolicyBindingRequest;
+    /// let x = CreateAutoProtectionPolicyBindingRequest::new().set_auto_protection_policy_binding_id("example");
+    /// ```
+    pub fn set_auto_protection_policy_binding_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.auto_protection_policy_binding_id = v.into();
+        self
+    }
+
+    /// Sets the value of [auto_protection_policy_binding][crate::model::CreateAutoProtectionPolicyBindingRequest::auto_protection_policy_binding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateAutoProtectionPolicyBindingRequest;
+    /// use google_cloud_backupdr_v1::model::AutoProtectionPolicyBinding;
+    /// let x = CreateAutoProtectionPolicyBindingRequest::new().set_auto_protection_policy_binding(AutoProtectionPolicyBinding::default()/* use setters */);
+    /// ```
+    pub fn set_auto_protection_policy_binding<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoProtectionPolicyBinding>,
+    {
+        self.auto_protection_policy_binding = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [auto_protection_policy_binding][crate::model::CreateAutoProtectionPolicyBindingRequest::auto_protection_policy_binding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateAutoProtectionPolicyBindingRequest;
+    /// use google_cloud_backupdr_v1::model::AutoProtectionPolicyBinding;
+    /// let x = CreateAutoProtectionPolicyBindingRequest::new().set_or_clear_auto_protection_policy_binding(Some(AutoProtectionPolicyBinding::default()/* use setters */));
+    /// let x = CreateAutoProtectionPolicyBindingRequest::new().set_or_clear_auto_protection_policy_binding(None::<AutoProtectionPolicyBinding>);
+    /// ```
+    pub fn set_or_clear_auto_protection_policy_binding<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoProtectionPolicyBinding>,
+    {
+        self.auto_protection_policy_binding = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateAutoProtectionPolicyBindingRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateAutoProtectionPolicyBindingRequest;
+    /// let x = CreateAutoProtectionPolicyBindingRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateAutoProtectionPolicyBindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.CreateAutoProtectionPolicyBindingRequest"
+    }
+}
+
+/// Request message for getting an AutoProtectionPolicyBinding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetAutoProtectionPolicyBindingRequest {
+    /// Required. The name of the binding to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/autoProtectionPolicies/{auto_protection_policy}/bindings/{binding}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetAutoProtectionPolicyBindingRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetAutoProtectionPolicyBindingRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::GetAutoProtectionPolicyBindingRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let auto_protection_policy_id = "auto_protection_policy_id";
+    /// # let binding_id = "binding_id";
+    /// let x = GetAutoProtectionPolicyBindingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}/bindings/{binding_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetAutoProtectionPolicyBindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.GetAutoProtectionPolicyBindingRequest"
+    }
+}
+
+/// Request message for ListAutoProtectionPolicyBindings.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAutoProtectionPolicyBindingsRequest {
+    /// Required. The project and location for which to retrieve the list of
+    /// policies. Format: projects/{project}/locations/{location}
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of policies to return in a single page is 500.
+    /// If unspecified, a server-default value will be used.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous
+    /// `ListAutoProtectionPolicies` call. Provide this to retrieve the subsequent
+    /// page.
+    pub page_token: std::string::String,
+
+    /// Optional. A filter expression that filters resources listed in the
+    /// response. The following fields are filterable:
+    pub filter: std::string::String,
+
+    /// Optional. An expression that sorts the results in the response. The
+    /// following fields are sortable:
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAutoProtectionPolicyBindingsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListAutoProtectionPolicyBindingsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAutoProtectionPolicyBindingsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let auto_protection_policy_id = "auto_protection_policy_id";
+    /// let x = ListAutoProtectionPolicyBindingsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListAutoProtectionPolicyBindingsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAutoProtectionPolicyBindingsRequest;
+    /// let x = ListAutoProtectionPolicyBindingsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListAutoProtectionPolicyBindingsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAutoProtectionPolicyBindingsRequest;
+    /// let x = ListAutoProtectionPolicyBindingsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListAutoProtectionPolicyBindingsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAutoProtectionPolicyBindingsRequest;
+    /// let x = ListAutoProtectionPolicyBindingsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListAutoProtectionPolicyBindingsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAutoProtectionPolicyBindingsRequest;
+    /// let x = ListAutoProtectionPolicyBindingsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAutoProtectionPolicyBindingsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListAutoProtectionPolicyBindingsRequest"
+    }
+}
+
+/// Response message for ListAutoProtectionPolicyBindings.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAutoProtectionPolicyBindingsResponse {
+    /// A list of the AutoProtectionPolicyBindings resources found.
+    pub auto_protection_policy_bindings: std::vec::Vec<crate::model::AutoProtectionPolicyBinding>,
+
+    /// A token that can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAutoProtectionPolicyBindingsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [auto_protection_policy_bindings][crate::model::ListAutoProtectionPolicyBindingsResponse::auto_protection_policy_bindings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAutoProtectionPolicyBindingsResponse;
+    /// use google_cloud_backupdr_v1::model::AutoProtectionPolicyBinding;
+    /// let x = ListAutoProtectionPolicyBindingsResponse::new()
+    ///     .set_auto_protection_policy_bindings([
+    ///         AutoProtectionPolicyBinding::default()/* use setters */,
+    ///         AutoProtectionPolicyBinding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_auto_protection_policy_bindings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AutoProtectionPolicyBinding>,
+    {
+        use std::iter::Iterator;
+        self.auto_protection_policy_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAutoProtectionPolicyBindingsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAutoProtectionPolicyBindingsResponse;
+    /// let x = ListAutoProtectionPolicyBindingsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListAutoProtectionPolicyBindingsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListAutoProtectionPolicyBindingsResponse;
+    /// let x = ListAutoProtectionPolicyBindingsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAutoProtectionPolicyBindingsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListAutoProtectionPolicyBindingsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListAutoProtectionPolicyBindingsResponse
+{
+    type PageItem = crate::model::AutoProtectionPolicyBinding;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.auto_protection_policy_bindings
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for initiating delete of an AutoProtectionPolicyBinding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InitiateDeleteAutoProtectionPolicyBindingRequest {
+    /// Required. The name of the binding to delete.
+    /// Format:
+    /// projects/{project}/locations/{location}/autoProtectionPolicies/{auto_protection_policy}/bindings/{binding}
+    pub name: std::string::String,
+
+    /// Optional. The current etag of the AutoProtectionPolicyBinding.
+    /// If an etag is provided and does not match the current etag of the
+    /// binding, deletion will be blocked and an ABORTED error will be returned.
+    pub etag: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl InitiateDeleteAutoProtectionPolicyBindingRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::InitiateDeleteAutoProtectionPolicyBindingRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::InitiateDeleteAutoProtectionPolicyBindingRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let auto_protection_policy_id = "auto_protection_policy_id";
+    /// # let binding_id = "binding_id";
+    /// let x = InitiateDeleteAutoProtectionPolicyBindingRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}/bindings/{binding_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::InitiateDeleteAutoProtectionPolicyBindingRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::InitiateDeleteAutoProtectionPolicyBindingRequest;
+    /// let x = InitiateDeleteAutoProtectionPolicyBindingRequest::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::InitiateDeleteAutoProtectionPolicyBindingRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::InitiateDeleteAutoProtectionPolicyBindingRequest;
+    /// let x = InitiateDeleteAutoProtectionPolicyBindingRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for InitiateDeleteAutoProtectionPolicyBindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.InitiateDeleteAutoProtectionPolicyBindingRequest"
+    }
+}
+
 /// Network configuration for ManagementServer instance.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -4512,7 +7368,7 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListBackupPlanR
 #[non_exhaustive]
 pub struct BackupPlanAssociation {
     /// Output only. Identifier. The resource name of BackupPlanAssociation in
-    /// below format Format :
+    /// below format Format:
     /// projects/{project}/locations/{location}/backupPlanAssociations/{backupPlanAssociationId}
     pub name: std::string::String,
 
@@ -4561,6 +7417,11 @@ pub struct BackupPlanAssociation {
     /// Format:
     /// `projects/{project}/locations/{location}/backupPlans/{backup_plan}/revisions/{revision_id}`
     pub backup_plan_revision_name: std::string::String,
+
+    /// Output only. The resource name of the `AutoProtectionPolicyBinding` that
+    /// manages this association, if any. Format:
+    /// `projects/{project}/locations/{location}/autoProtectionPolicies/{policy}/bindings/{binding}`.
+    pub auto_protection_policy_binding: std::string::String,
 
     /// Properties of the protected GCP resource.
     pub resource_properties:
@@ -4774,6 +7635,25 @@ impl BackupPlanAssociation {
         v: T,
     ) -> Self {
         self.backup_plan_revision_name = v.into();
+        self
+    }
+
+    /// Sets the value of [auto_protection_policy_binding][crate::model::BackupPlanAssociation::auto_protection_policy_binding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let auto_protection_policy_id = "auto_protection_policy_id";
+    /// # let binding_id = "binding_id";
+    /// let x = BackupPlanAssociation::new().set_auto_protection_policy_binding(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}/bindings/{binding_id}"));
+    /// ```
+    pub fn set_auto_protection_policy_binding<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.auto_protection_policy_binding = v.into();
         self
     }
 
@@ -5946,6 +8826,13 @@ pub struct DeleteBackupPlanAssociationRequest {
     /// not supported (00000000-0000-0000-0000-000000000000).
     pub request_id: std::string::String,
 
+    /// Optional. This field is exclusively used by Backup and DR's auto-protection
+    /// feature. The resource name of the `AutoProtectionPolicyBinding` that
+    /// triggered the deletion of this association.
+    /// Format:
+    /// `projects/{project}/locations/{location}/autoProtectionPolicies/{policy}/bindings/{binding}`.
+    pub auto_protection_policy_binding: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5979,6 +8866,25 @@ impl DeleteBackupPlanAssociationRequest {
     /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [auto_protection_policy_binding][crate::model::DeleteBackupPlanAssociationRequest::auto_protection_policy_binding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::DeleteBackupPlanAssociationRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let auto_protection_policy_id = "auto_protection_policy_id";
+    /// # let binding_id = "binding_id";
+    /// let x = DeleteBackupPlanAssociationRequest::new().set_auto_protection_policy_binding(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}/bindings/{binding_id}"));
+    /// ```
+    pub fn set_auto_protection_policy_binding<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.auto_protection_policy_binding = v.into();
         self
     }
 }
@@ -8276,6 +11182,12 @@ pub struct GcpBackupConfig {
     /// E.g. v0, v1 etc.
     pub backup_plan_revision_id: std::string::String,
 
+    /// Output only. The resource name of the `AutoProtectionPolicyBinding` that
+    /// manages this datasource, if any.
+    /// Format:
+    /// `projects/{project}/locations/{location}/autoProtectionPolicies/{policy}/bindings/{binding}`.
+    pub auto_protection_policy_binding: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -8377,6 +11289,25 @@ impl GcpBackupConfig {
         v: T,
     ) -> Self {
         self.backup_plan_revision_id = v.into();
+        self
+    }
+
+    /// Sets the value of [auto_protection_policy_binding][crate::model::GcpBackupConfig::auto_protection_policy_binding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::GcpBackupConfig;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let auto_protection_policy_id = "auto_protection_policy_id";
+    /// # let binding_id = "binding_id";
+    /// let x = GcpBackupConfig::new().set_auto_protection_policy_binding(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}/bindings/{binding_id}"));
+    /// ```
+    pub fn set_auto_protection_policy_binding<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.auto_protection_policy_binding = v.into();
         self
     }
 }
@@ -9462,6 +12393,9 @@ pub struct Backup {
     /// backup.
     pub kms_key_versions: std::vec::Vec<std::string::String>,
 
+    /// Output only. The restore verification status of the backup.
+    pub verification_summary: std::option::Option<crate::model::VerificationSummary>,
+
     /// Workload specific backup properties.
     pub backup_properties: std::option::Option<crate::model::backup::BackupProperties>,
 
@@ -9945,6 +12879,39 @@ impl Backup {
     {
         use std::iter::Iterator;
         self.kms_key_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [verification_summary][crate::model::Backup::verification_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use google_cloud_backupdr_v1::model::VerificationSummary;
+    /// let x = Backup::new().set_verification_summary(VerificationSummary::default()/* use setters */);
+    /// ```
+    pub fn set_verification_summary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VerificationSummary>,
+    {
+        self.verification_summary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [verification_summary][crate::model::Backup::verification_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::Backup;
+    /// use google_cloud_backupdr_v1::model::VerificationSummary;
+    /// let x = Backup::new().set_or_clear_verification_summary(Some(VerificationSummary::default()/* use setters */));
+    /// let x = Backup::new().set_or_clear_verification_summary(None::<VerificationSummary>);
+    /// ```
+    pub fn set_or_clear_verification_summary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VerificationSummary>,
+    {
+        self.verification_summary = v.map(|x| x.into());
         self
     }
 
@@ -10750,6 +13717,245 @@ pub mod backup {
         /// Output only. Unique identifier of the GCP resource that is being backed
         /// up.
         GcpResource(std::boxed::Box<crate::model::BackupGcpResource>),
+    }
+}
+
+/// VerificationSummary contains the status and timestamp of the
+/// latest Automated Verification test.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct VerificationSummary {
+    /// Output only. The time when the backup was last verified.
+    pub last_verification_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The state of the last verification.
+    pub last_verification_state: crate::model::verification_summary::LastVerificationState,
+
+    /// Output only. The last verification execution.
+    pub last_verification_execution: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl VerificationSummary {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [last_verification_time][crate::model::VerificationSummary::last_verification_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationSummary;
+    /// use wkt::Timestamp;
+    /// let x = VerificationSummary::new().set_last_verification_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_last_verification_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_verification_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_verification_time][crate::model::VerificationSummary::last_verification_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationSummary;
+    /// use wkt::Timestamp;
+    /// let x = VerificationSummary::new().set_or_clear_last_verification_time(Some(Timestamp::default()/* use setters */));
+    /// let x = VerificationSummary::new().set_or_clear_last_verification_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_last_verification_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_verification_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [last_verification_state][crate::model::VerificationSummary::last_verification_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationSummary;
+    /// use google_cloud_backupdr_v1::model::verification_summary::LastVerificationState;
+    /// let x0 = VerificationSummary::new().set_last_verification_state(LastVerificationState::Succeeded);
+    /// let x1 = VerificationSummary::new().set_last_verification_state(LastVerificationState::Failed);
+    /// ```
+    pub fn set_last_verification_state<
+        T: std::convert::Into<crate::model::verification_summary::LastVerificationState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.last_verification_state = v.into();
+        self
+    }
+
+    /// Sets the value of [last_verification_execution][crate::model::VerificationSummary::last_verification_execution].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationSummary;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_template_id = "restore_template_id";
+    /// # let execution_id = "execution_id";
+    /// let x = VerificationSummary::new().set_last_verification_execution(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}/executions/{execution_id}"));
+    /// ```
+    pub fn set_last_verification_execution<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.last_verification_execution = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for VerificationSummary {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.VerificationSummary"
+    }
+}
+
+/// Defines additional types related to [VerificationSummary].
+pub mod verification_summary {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// LastVerificationState represents the state of the verification.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum LastVerificationState {
+        /// Verification state is unspecified.
+        StateUnspecified,
+        /// Verification succeeded.
+        Succeeded,
+        /// Verification failed.
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [LastVerificationState::value] or
+        /// [LastVerificationState::name].
+        UnknownValue(last_verification_state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod last_verification_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl LastVerificationState {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::StateUnspecified => std::option::Option::Some(0),
+                Self::Succeeded => std::option::Option::Some(1),
+                Self::Failed => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::StateUnspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for LastVerificationState {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for LastVerificationState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for LastVerificationState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::StateUnspecified,
+                1 => Self::Succeeded,
+                2 => Self::Failed,
+                _ => Self::UnknownValue(last_verification_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for LastVerificationState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::StateUnspecified,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(last_verification_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for LastVerificationState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::StateUnspecified => serializer.serialize_i32(0),
+                Self::Succeeded => serializer.serialize_i32(1),
+                Self::Failed => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for LastVerificationState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<LastVerificationState>::new(
+                ".google.cloud.backupdr.v1.VerificationSummary.LastVerificationState",
+            ))
+        }
     }
 }
 
@@ -23088,6 +26294,619 @@ pub mod guest_os_feature {
     }
 }
 
+/// Request message for List BindingMatchingResources.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListBindingMatchingResourcesRequest {
+    /// Required. The project, location, auto protection policy and binding for
+    /// which to retrieve `BindingMatchingResources` information. Format:
+    /// `projects/{project}/locations/{location}/autoProtectionPolicies/{auto_protection_policy}/bindings/{binding}`.
+    /// In Google Cloud Backup and DR, locations map to Google Cloud regions, for
+    /// example **us-central1**.
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of `BindingMatchingResources` to return in a
+    /// single response. The default page size is 100 and maximum page size is 200.
+    /// Note that the response may include a partial list and a caller should
+    /// only rely on the response's
+    /// [next_page_token][google.cloud.backupdr.v1.ListBindingMatchingResourcesResponse.next_page_token]
+    /// to determine if there are more instances left to be queried.
+    ///
+    /// [google.cloud.backupdr.v1.ListBindingMatchingResourcesResponse.next_page_token]: crate::model::ListBindingMatchingResourcesResponse::next_page_token
+    pub page_size: i32,
+
+    /// Optional. The value of
+    /// [next_page_token][google.cloud.backupdr.v1.ListBindingMatchingResourcesResponse.next_page_token]
+    /// received from a previous `ListBindingMatchingResources` call. Provide this
+    /// to retrieve the subsequent page in a multi-page list of results. When
+    /// paginating, all other parameters provided to `ListBindingMatchingResources`
+    /// must match the call that provided the page token.
+    ///
+    /// [google.cloud.backupdr.v1.ListBindingMatchingResourcesResponse.next_page_token]: crate::model::ListBindingMatchingResourcesResponse::next_page_token
+    pub page_token: std::string::String,
+
+    /// Optional. Field match expression used to filter the results.
+    pub filter: std::string::String,
+
+    /// Optional. Field by which to sort the results.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBindingMatchingResourcesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListBindingMatchingResourcesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListBindingMatchingResourcesRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let auto_protection_policy_id = "auto_protection_policy_id";
+    /// # let binding_id = "binding_id";
+    /// let x = ListBindingMatchingResourcesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}/bindings/{binding_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListBindingMatchingResourcesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListBindingMatchingResourcesRequest;
+    /// let x = ListBindingMatchingResourcesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListBindingMatchingResourcesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListBindingMatchingResourcesRequest;
+    /// let x = ListBindingMatchingResourcesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListBindingMatchingResourcesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListBindingMatchingResourcesRequest;
+    /// let x = ListBindingMatchingResourcesRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListBindingMatchingResourcesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListBindingMatchingResourcesRequest;
+    /// let x = ListBindingMatchingResourcesRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBindingMatchingResourcesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListBindingMatchingResourcesRequest"
+    }
+}
+
+/// The response message for getting a list of `BindingMatchingResources`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListBindingMatchingResourcesResponse {
+    /// The list of `BindingMatchingResources` in the project,location for the
+    /// specified binding.
+    pub matching_resources: std::vec::Vec<crate::model::BindingMatchingResource>,
+
+    /// A token which may be sent as
+    /// [page_token][google.cloud.backupdr.v1.ListBindingMatchingResourcesRequest.page_token]
+    /// in a subsequent `ListBindingMatchingResources` call to retrieve the next
+    /// page of results. If this field is omitted or empty, then there are no more
+    /// results to return.
+    ///
+    /// [google.cloud.backupdr.v1.ListBindingMatchingResourcesRequest.page_token]: crate::model::ListBindingMatchingResourcesRequest::page_token
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBindingMatchingResourcesResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [matching_resources][crate::model::ListBindingMatchingResourcesResponse::matching_resources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListBindingMatchingResourcesResponse;
+    /// use google_cloud_backupdr_v1::model::BindingMatchingResource;
+    /// let x = ListBindingMatchingResourcesResponse::new()
+    ///     .set_matching_resources([
+    ///         BindingMatchingResource::default()/* use setters */,
+    ///         BindingMatchingResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_matching_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BindingMatchingResource>,
+    {
+        use std::iter::Iterator;
+        self.matching_resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBindingMatchingResourcesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListBindingMatchingResourcesResponse;
+    /// let x = ListBindingMatchingResourcesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBindingMatchingResourcesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListBindingMatchingResourcesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListBindingMatchingResourcesResponse
+{
+    type PageItem = crate::model::BindingMatchingResource;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.matching_resources
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// BindingMatchingResource contains the details of a resource that matches the
+/// criteria of a binding.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BindingMatchingResource {
+    /// Output only. Identifier. The resource name of the
+    /// `BindingMatchingResource`. Format:
+    /// `projects/{project}/locations/{location}/autoProtectionPolicies/{auto_protection_policy}/bindings/{binding}/matchingResources/{matching_resource}`
+    pub name: std::string::String,
+
+    /// Output only. Resource name of the workload that matches the criteria of the
+    /// binding.
+    ///
+    /// The format can be either a relative resource name (e.g.,
+    /// `projects/my-project/zones/us-central1-a/instances/my-instance`) or a
+    /// schemeless full resource name (e.g.,
+    /// `//compute.googleapis.com/projects/my-project/zones/us-central1-a/instances/my-instance`).
+    pub resource: std::string::String,
+
+    /// Output only. The timestamp when the resource was last evaluated for
+    /// protection.
+    pub last_evaluation_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The auto protection details of the resource from the current
+    /// binding's perspective.
+    pub auto_protection_details: std::option::Option<crate::model::AutoProtectionDetails>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BindingMatchingResource {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::BindingMatchingResource::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BindingMatchingResource;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let auto_protection_policy_id = "auto_protection_policy_id";
+    /// # let binding_id = "binding_id";
+    /// # let matching_resource_id = "matching_resource_id";
+    /// let x = BindingMatchingResource::new().set_name(format!("projects/{project_id}/locations/{location_id}/autoProtectionPolicies/{auto_protection_policy_id}/bindings/{binding_id}/matchingResources/{matching_resource_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [resource][crate::model::BindingMatchingResource::resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BindingMatchingResource;
+    /// let x = BindingMatchingResource::new().set_resource("example");
+    /// ```
+    pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.resource = v.into();
+        self
+    }
+
+    /// Sets the value of [last_evaluation_time][crate::model::BindingMatchingResource::last_evaluation_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BindingMatchingResource;
+    /// use wkt::Timestamp;
+    /// let x = BindingMatchingResource::new().set_last_evaluation_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_last_evaluation_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_evaluation_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_evaluation_time][crate::model::BindingMatchingResource::last_evaluation_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BindingMatchingResource;
+    /// use wkt::Timestamp;
+    /// let x = BindingMatchingResource::new().set_or_clear_last_evaluation_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BindingMatchingResource::new().set_or_clear_last_evaluation_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_last_evaluation_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_evaluation_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [auto_protection_details][crate::model::BindingMatchingResource::auto_protection_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BindingMatchingResource;
+    /// use google_cloud_backupdr_v1::model::AutoProtectionDetails;
+    /// let x = BindingMatchingResource::new().set_auto_protection_details(AutoProtectionDetails::default()/* use setters */);
+    /// ```
+    pub fn set_auto_protection_details<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoProtectionDetails>,
+    {
+        self.auto_protection_details = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [auto_protection_details][crate::model::BindingMatchingResource::auto_protection_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BindingMatchingResource;
+    /// use google_cloud_backupdr_v1::model::AutoProtectionDetails;
+    /// let x = BindingMatchingResource::new().set_or_clear_auto_protection_details(Some(AutoProtectionDetails::default()/* use setters */));
+    /// let x = BindingMatchingResource::new().set_or_clear_auto_protection_details(None::<AutoProtectionDetails>);
+    /// ```
+    pub fn set_or_clear_auto_protection_details<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoProtectionDetails>,
+    {
+        self.auto_protection_details = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for BindingMatchingResource {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.BindingMatchingResource"
+    }
+}
+
+/// AutoProtectionDetails contains the protection details of a resource from the
+/// current binding's perspective.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AutoProtectionDetails {
+    /// Output only. Protection state of the resource from the current binding's
+    /// perspective. Output only.
+    pub state: crate::model::auto_protection_details::State,
+
+    /// Output only. Resource name of backup plan association linked to the
+    /// resource, if any. Format:
+    /// projects/{project}/locations/{location}/backupPlanAssociations/{backupPlanAssociationId}
+    pub backup_plan_association: std::string::String,
+
+    /// Output only. Resource name of the datasource linked to the resource, if
+    /// any. Format:
+    /// projects/{project}/locations/{location}/backupVaults/{backupVaultId}/dataSources/{dataSourceId}
+    pub data_source: std::string::String,
+
+    /// Output only. Error during last sync for protection/unprotection, if any.
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AutoProtectionDetails {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [state][crate::model::AutoProtectionDetails::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionDetails;
+    /// use google_cloud_backupdr_v1::model::auto_protection_details::State;
+    /// let x0 = AutoProtectionDetails::new().set_state(State::Protected);
+    /// let x1 = AutoProtectionDetails::new().set_state(State::ProtectionFailed);
+    /// let x2 = AutoProtectionDetails::new().set_state(State::Unprotecting);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::auto_protection_details::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_plan_association][crate::model::AutoProtectionDetails::backup_plan_association].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionDetails;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backup_plan_association_id = "backup_plan_association_id";
+    /// let x = AutoProtectionDetails::new().set_backup_plan_association(format!("projects/{project_id}/locations/{location_id}/backupPlanAssociations/{backup_plan_association_id}"));
+    /// ```
+    pub fn set_backup_plan_association<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_plan_association = v.into();
+        self
+    }
+
+    /// Sets the value of [data_source][crate::model::AutoProtectionDetails::data_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionDetails;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backupvault_id = "backupvault_id";
+    /// # let datasource_id = "datasource_id";
+    /// let x = AutoProtectionDetails::new().set_data_source(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}"));
+    /// ```
+    pub fn set_data_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.data_source = v.into();
+        self
+    }
+
+    /// Sets the value of [error][crate::model::AutoProtectionDetails::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionDetails;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = AutoProtectionDetails::new().set_error(Status::default()/* use setters */);
+    /// ```
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::AutoProtectionDetails::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::AutoProtectionDetails;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = AutoProtectionDetails::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = AutoProtectionDetails::new().set_or_clear_error(None::<Status>);
+    /// ```
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for AutoProtectionDetails {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.AutoProtectionDetails"
+    }
+}
+
+/// Defines additional types related to [AutoProtectionDetails].
+pub mod auto_protection_details {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Enum for protection state of the resource.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State unspecified.
+        Unspecified,
+        /// Resource is protected.
+        Protected,
+        /// Resource protection failed.
+        ProtectionFailed,
+        /// Resource is being unprotected.
+        Unprotecting,
+        /// Resource unprotection failed.
+        UnprotectionFailed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Protected => std::option::Option::Some(1),
+                Self::ProtectionFailed => std::option::Option::Some(2),
+                Self::Unprotecting => std::option::Option::Some(3),
+                Self::UnprotectionFailed => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Protected => std::option::Option::Some("PROTECTED"),
+                Self::ProtectionFailed => std::option::Option::Some("PROTECTION_FAILED"),
+                Self::Unprotecting => std::option::Option::Some("UNPROTECTING"),
+                Self::UnprotectionFailed => std::option::Option::Some("UNPROTECTION_FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Protected,
+                2 => Self::ProtectionFailed,
+                3 => Self::Unprotecting,
+                4 => Self::UnprotectionFailed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "PROTECTED" => Self::Protected,
+                "PROTECTION_FAILED" => Self::ProtectionFailed,
+                "UNPROTECTING" => Self::Unprotecting,
+                "UNPROTECTION_FAILED" => Self::UnprotectionFailed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Protected => serializer.serialize_i32(1),
+                Self::ProtectionFailed => serializer.serialize_i32(2),
+                Self::Unprotecting => serializer.serialize_i32(3),
+                Self::UnprotectionFailed => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.backupdr.v1.AutoProtectionDetails.State",
+            ))
+        }
+    }
+}
+
 /// DataSourceReference is a reference to a DataSource resource.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -25684,6 +29503,6748 @@ pub mod backup_location {
     }
 }
 
+/// A `RestoreTemplate` encapsulates DR readiness configurations for validating
+/// backups.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RestoreTemplate {
+    /// Identifier. The resource name of the RestoreTemplate.
+    pub name: std::string::String,
+
+    /// Optional. User-provided description of the restore template.
+    pub description: std::string::String,
+
+    /// Output only. The time when the restore template was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time when the restore template was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Required. Immutable. The specific type of the workload being restored.
+    /// The format is "{service_name}/{resource_kind}", for example,
+    /// "compute.googleapis.com/Instance".
+    pub resource_type: std::string::String,
+
+    /// Optional. User-defined labels.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Required. Backup selection configuration.
+    pub backup_selection_config: std::option::Option<crate::model::BackupSelectionConfig>,
+
+    /// Optional. Pre-restore configuration.
+    pub pre_restore_config: std::option::Option<crate::model::PreRestoreConfig>,
+
+    /// Optional. Post-restore configuration.
+    pub post_restore_config: std::option::Option<crate::model::PostRestoreConfig>,
+
+    /// Optional. Verification configuration.
+    pub verification_config: std::option::Option<crate::model::VerificationConfig>,
+
+    /// Required. Defines target environments where the resource will be restored.
+    ///
+    /// The target resource name in `restore_properties` supports the
+    /// `{EXECUTION_ID}` token to dynamically generate unique resource names for
+    /// each execution. During restore execution, every occurrence of
+    /// `{EXECUTION_ID}` in the target resource name is replaced with the
+    /// 8-character `RestoreTemplateExecution` ID (for example,
+    /// `"restored-resource-{EXECUTION_ID}"` or
+    /// `"restored-{EXECUTION_ID}-resource"` resolves to
+    /// `"restored-resource-5d437b06"` or `"restored-5d437b06-resource"`).
+    pub restore_properties: std::option::Option<wkt::Struct>,
+
+    /// Output only. The state of the restore template.
+    pub state: crate::model::restore_template::State,
+
+    /// Output only. Summary of the last execution.
+    pub execution_summary: std::option::Option<crate::model::ExecutionSummary>,
+
+    /// Optional. Etag for concurrency control.
+    pub etag: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RestoreTemplate {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RestoreTemplate::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_template_id = "restore_template_id";
+    /// let x = RestoreTemplate::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::RestoreTemplate::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// let x = RestoreTemplate::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::RestoreTemplate::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use wkt::Timestamp;
+    /// let x = RestoreTemplate::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::RestoreTemplate::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use wkt::Timestamp;
+    /// let x = RestoreTemplate::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RestoreTemplate::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::RestoreTemplate::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use wkt::Timestamp;
+    /// let x = RestoreTemplate::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::RestoreTemplate::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use wkt::Timestamp;
+    /// let x = RestoreTemplate::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RestoreTemplate::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [resource_type][crate::model::RestoreTemplate::resource_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// let x = RestoreTemplate::new().set_resource_type("example");
+    /// ```
+    pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.resource_type = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::RestoreTemplate::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// let x = RestoreTemplate::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [backup_selection_config][crate::model::RestoreTemplate::backup_selection_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use google_cloud_backupdr_v1::model::BackupSelectionConfig;
+    /// let x = RestoreTemplate::new().set_backup_selection_config(BackupSelectionConfig::default()/* use setters */);
+    /// ```
+    pub fn set_backup_selection_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupSelectionConfig>,
+    {
+        self.backup_selection_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backup_selection_config][crate::model::RestoreTemplate::backup_selection_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use google_cloud_backupdr_v1::model::BackupSelectionConfig;
+    /// let x = RestoreTemplate::new().set_or_clear_backup_selection_config(Some(BackupSelectionConfig::default()/* use setters */));
+    /// let x = RestoreTemplate::new().set_or_clear_backup_selection_config(None::<BackupSelectionConfig>);
+    /// ```
+    pub fn set_or_clear_backup_selection_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupSelectionConfig>,
+    {
+        self.backup_selection_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [pre_restore_config][crate::model::RestoreTemplate::pre_restore_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use google_cloud_backupdr_v1::model::PreRestoreConfig;
+    /// let x = RestoreTemplate::new().set_pre_restore_config(PreRestoreConfig::default()/* use setters */);
+    /// ```
+    pub fn set_pre_restore_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PreRestoreConfig>,
+    {
+        self.pre_restore_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pre_restore_config][crate::model::RestoreTemplate::pre_restore_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use google_cloud_backupdr_v1::model::PreRestoreConfig;
+    /// let x = RestoreTemplate::new().set_or_clear_pre_restore_config(Some(PreRestoreConfig::default()/* use setters */));
+    /// let x = RestoreTemplate::new().set_or_clear_pre_restore_config(None::<PreRestoreConfig>);
+    /// ```
+    pub fn set_or_clear_pre_restore_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PreRestoreConfig>,
+    {
+        self.pre_restore_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [post_restore_config][crate::model::RestoreTemplate::post_restore_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use google_cloud_backupdr_v1::model::PostRestoreConfig;
+    /// let x = RestoreTemplate::new().set_post_restore_config(PostRestoreConfig::default()/* use setters */);
+    /// ```
+    pub fn set_post_restore_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PostRestoreConfig>,
+    {
+        self.post_restore_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [post_restore_config][crate::model::RestoreTemplate::post_restore_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use google_cloud_backupdr_v1::model::PostRestoreConfig;
+    /// let x = RestoreTemplate::new().set_or_clear_post_restore_config(Some(PostRestoreConfig::default()/* use setters */));
+    /// let x = RestoreTemplate::new().set_or_clear_post_restore_config(None::<PostRestoreConfig>);
+    /// ```
+    pub fn set_or_clear_post_restore_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PostRestoreConfig>,
+    {
+        self.post_restore_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [verification_config][crate::model::RestoreTemplate::verification_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use google_cloud_backupdr_v1::model::VerificationConfig;
+    /// let x = RestoreTemplate::new().set_verification_config(VerificationConfig::default()/* use setters */);
+    /// ```
+    pub fn set_verification_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VerificationConfig>,
+    {
+        self.verification_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [verification_config][crate::model::RestoreTemplate::verification_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use google_cloud_backupdr_v1::model::VerificationConfig;
+    /// let x = RestoreTemplate::new().set_or_clear_verification_config(Some(VerificationConfig::default()/* use setters */));
+    /// let x = RestoreTemplate::new().set_or_clear_verification_config(None::<VerificationConfig>);
+    /// ```
+    pub fn set_or_clear_verification_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VerificationConfig>,
+    {
+        self.verification_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [restore_properties][crate::model::RestoreTemplate::restore_properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use wkt::Struct;
+    /// let x = RestoreTemplate::new().set_restore_properties(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_restore_properties<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.restore_properties = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [restore_properties][crate::model::RestoreTemplate::restore_properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use wkt::Struct;
+    /// let x = RestoreTemplate::new().set_or_clear_restore_properties(Some(Struct::default()/* use setters */));
+    /// let x = RestoreTemplate::new().set_or_clear_restore_properties(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_restore_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.restore_properties = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::RestoreTemplate::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use google_cloud_backupdr_v1::model::restore_template::State;
+    /// let x0 = RestoreTemplate::new().set_state(State::Creating);
+    /// let x1 = RestoreTemplate::new().set_state(State::Active);
+    /// let x2 = RestoreTemplate::new().set_state(State::Updating);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::restore_template::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [execution_summary][crate::model::RestoreTemplate::execution_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use google_cloud_backupdr_v1::model::ExecutionSummary;
+    /// let x = RestoreTemplate::new().set_execution_summary(ExecutionSummary::default()/* use setters */);
+    /// ```
+    pub fn set_execution_summary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ExecutionSummary>,
+    {
+        self.execution_summary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [execution_summary][crate::model::RestoreTemplate::execution_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// use google_cloud_backupdr_v1::model::ExecutionSummary;
+    /// let x = RestoreTemplate::new().set_or_clear_execution_summary(Some(ExecutionSummary::default()/* use setters */));
+    /// let x = RestoreTemplate::new().set_or_clear_execution_summary(None::<ExecutionSummary>);
+    /// ```
+    pub fn set_or_clear_execution_summary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ExecutionSummary>,
+    {
+        self.execution_summary = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::RestoreTemplate::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// let x = RestoreTemplate::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RestoreTemplate {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.RestoreTemplate"
+    }
+}
+
+/// Defines additional types related to [RestoreTemplate].
+pub mod restore_template {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The state of the RestoreTemplate.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State not specified.
+        Unspecified,
+        /// The template is being created.
+        Creating,
+        /// The template is active and ready to use.
+        Active,
+        /// The template is being updated.
+        Updating,
+        /// The template is being deleted.
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::Updating => std::option::Option::Some(3),
+                Self::Deleting => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Active,
+                3 => Self::Updating,
+                4 => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "ACTIVE" => Self::Active,
+                "UPDATING" => Self::Updating,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Updating => serializer.serialize_i32(3),
+                Self::Deleting => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.backupdr.v1.RestoreTemplate.State",
+            ))
+        }
+    }
+}
+
+/// Summary of the last execution.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecutionSummary {
+    /// Output only. The resource name of the last execution.
+    /// Format:
+    /// `projects/{project}/locations/{location}/restoreTemplates/{restore_template}/executions/{execution}`
+    pub last_execution: std::string::String,
+
+    /// Output only. The state of the last execution.
+    pub last_execution_state: crate::model::restore_template_execution::ExecutionState,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecutionSummary {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [last_execution][crate::model::ExecutionSummary::last_execution].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ExecutionSummary;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_template_id = "restore_template_id";
+    /// # let execution_id = "execution_id";
+    /// let x = ExecutionSummary::new().set_last_execution(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}/executions/{execution_id}"));
+    /// ```
+    pub fn set_last_execution<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.last_execution = v.into();
+        self
+    }
+
+    /// Sets the value of [last_execution_state][crate::model::ExecutionSummary::last_execution_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ExecutionSummary;
+    /// use google_cloud_backupdr_v1::model::restore_template_execution::ExecutionState;
+    /// let x0 = ExecutionSummary::new().set_last_execution_state(ExecutionState::Running);
+    /// let x1 = ExecutionSummary::new().set_last_execution_state(ExecutionState::Succeeded);
+    /// let x2 = ExecutionSummary::new().set_last_execution_state(ExecutionState::Failed);
+    /// ```
+    pub fn set_last_execution_state<
+        T: std::convert::Into<crate::model::restore_template_execution::ExecutionState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.last_execution_state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExecutionSummary {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ExecutionSummary"
+    }
+}
+
+/// Request message for creating a RestoreTemplate instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateRestoreTemplateRequest {
+    /// Required. The restore template project and location in the format
+    /// 'projects/{project_id}/locations/{location}'.
+    pub parent: std::string::String,
+
+    /// Required. The ID of the restore template to create. The ID must be
+    /// unique for the specified project and location.
+    pub restore_template_id: std::string::String,
+
+    /// Required. A RestoreTemplate resource.
+    pub restore_template: std::option::Option<crate::model::RestoreTemplate>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateRestoreTemplateRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateRestoreTemplateRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateRestoreTemplateRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateRestoreTemplateRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [restore_template_id][crate::model::CreateRestoreTemplateRequest::restore_template_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateRestoreTemplateRequest;
+    /// let x = CreateRestoreTemplateRequest::new().set_restore_template_id("example");
+    /// ```
+    pub fn set_restore_template_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.restore_template_id = v.into();
+        self
+    }
+
+    /// Sets the value of [restore_template][crate::model::CreateRestoreTemplateRequest::restore_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateRestoreTemplateRequest;
+    /// use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// let x = CreateRestoreTemplateRequest::new().set_restore_template(RestoreTemplate::default()/* use setters */);
+    /// ```
+    pub fn set_restore_template<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreTemplate>,
+    {
+        self.restore_template = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [restore_template][crate::model::CreateRestoreTemplateRequest::restore_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateRestoreTemplateRequest;
+    /// use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// let x = CreateRestoreTemplateRequest::new().set_or_clear_restore_template(Some(RestoreTemplate::default()/* use setters */));
+    /// let x = CreateRestoreTemplateRequest::new().set_or_clear_restore_template(None::<RestoreTemplate>);
+    /// ```
+    pub fn set_or_clear_restore_template<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreTemplate>,
+    {
+        self.restore_template = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateRestoreTemplateRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateRestoreTemplateRequest;
+    /// let x = CreateRestoreTemplateRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateRestoreTemplateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.CreateRestoreTemplateRequest"
+    }
+}
+
+/// Request message for getting a RestoreTemplate instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetRestoreTemplateRequest {
+    /// Required. The name of the restore template to retrieve.
+    /// Format:
+    /// 'projects/{project_id}/locations/{location}/restoreTemplates/{restore_template_id}'
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetRestoreTemplateRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetRestoreTemplateRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::GetRestoreTemplateRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_template_id = "restore_template_id";
+    /// let x = GetRestoreTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetRestoreTemplateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.GetRestoreTemplateRequest"
+    }
+}
+
+/// Request message for updating a RestoreTemplate instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateRestoreTemplateRequest {
+    /// Optional. The list of fields to update.
+    /// Field mask is used to specify the fields to be overwritten in the
+    /// RestoreTemplate resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The restore template to update.
+    pub restore_template: std::option::Option<crate::model::RestoreTemplate>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    /// Optional. Only validate the request, but do not perform mutations.
+    /// The default is 'false'.
+    pub validate_only: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateRestoreTemplateRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateRestoreTemplateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::UpdateRestoreTemplateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRestoreTemplateRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateRestoreTemplateRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::UpdateRestoreTemplateRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRestoreTemplateRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateRestoreTemplateRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [restore_template][crate::model::UpdateRestoreTemplateRequest::restore_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::UpdateRestoreTemplateRequest;
+    /// use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// let x = UpdateRestoreTemplateRequest::new().set_restore_template(RestoreTemplate::default()/* use setters */);
+    /// ```
+    pub fn set_restore_template<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreTemplate>,
+    {
+        self.restore_template = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [restore_template][crate::model::UpdateRestoreTemplateRequest::restore_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::UpdateRestoreTemplateRequest;
+    /// use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// let x = UpdateRestoreTemplateRequest::new().set_or_clear_restore_template(Some(RestoreTemplate::default()/* use setters */));
+    /// let x = UpdateRestoreTemplateRequest::new().set_or_clear_restore_template(None::<RestoreTemplate>);
+    /// ```
+    pub fn set_or_clear_restore_template<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreTemplate>,
+    {
+        self.restore_template = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateRestoreTemplateRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::UpdateRestoreTemplateRequest;
+    /// let x = UpdateRestoreTemplateRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::UpdateRestoreTemplateRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::UpdateRestoreTemplateRequest;
+    /// let x = UpdateRestoreTemplateRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateRestoreTemplateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.UpdateRestoreTemplateRequest"
+    }
+}
+
+/// Request message for deleting a RestoreTemplate instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteRestoreTemplateRequest {
+    /// Required. The name of the restore template to delete.
+    /// Format:
+    /// 'projects/{project_id}/locations/{location}/restoreTemplates/{restore_template_id}'
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    /// Optional. If set to true, any child RestoreTemplateExecutions will also be
+    /// deleted. If false and the RestoreTemplate has any child executions, the
+    /// request will fail.
+    pub force: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteRestoreTemplateRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteRestoreTemplateRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::DeleteRestoreTemplateRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_template_id = "restore_template_id";
+    /// let x = DeleteRestoreTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteRestoreTemplateRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::DeleteRestoreTemplateRequest;
+    /// let x = DeleteRestoreTemplateRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeleteRestoreTemplateRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::DeleteRestoreTemplateRequest;
+    /// let x = DeleteRestoreTemplateRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteRestoreTemplateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.DeleteRestoreTemplateRequest"
+    }
+}
+
+/// Request message for running a RestoreTemplate.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RunRestoreTemplateRequest {
+    /// Required. The name of the restore template to run.
+    /// Format:
+    /// 'projects/{project_id}/locations/{location}/restoreTemplates/{restore_template_id}'
+    pub name: std::string::String,
+
+    /// Optional. The resource name of the Backup to restore from.
+    /// If not specified, the latest backup matching the backup selection
+    /// configuration in the RestoreTemplate will be used.
+    /// Format:
+    /// 'projects/{project}/locations/{location}/backupVaults/{backup_vault}/dataSources/{data_source}/backups/{backup}'
+    pub backup: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RunRestoreTemplateRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RunRestoreTemplateRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RunRestoreTemplateRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_template_id = "restore_template_id";
+    /// let x = RunRestoreTemplateRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [backup][crate::model::RunRestoreTemplateRequest::backup].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RunRestoreTemplateRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backupvault_id = "backupvault_id";
+    /// # let datasource_id = "datasource_id";
+    /// # let backup_id = "backup_id";
+    /// let x = RunRestoreTemplateRequest::new().set_backup(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}/backups/{backup_id}"));
+    /// ```
+    pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.backup = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::RunRestoreTemplateRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RunRestoreTemplateRequest;
+    /// let x = RunRestoreTemplateRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RunRestoreTemplateRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.RunRestoreTemplateRequest"
+    }
+}
+
+/// Response message for RunRestoreTemplate.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RunRestoreTemplateResponse {
+    /// Output only. The resource name of the initiated RestoreTemplateExecution.
+    /// Format:
+    /// `projects/{project}/locations/{location}/restoreTemplates/{restore_template}/executions/{execution}`
+    pub restore_template_execution: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RunRestoreTemplateResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [restore_template_execution][crate::model::RunRestoreTemplateResponse::restore_template_execution].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RunRestoreTemplateResponse;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_template_id = "restore_template_id";
+    /// # let execution_id = "execution_id";
+    /// let x = RunRestoreTemplateResponse::new().set_restore_template_execution(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}/executions/{execution_id}"));
+    /// ```
+    pub fn set_restore_template_execution<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.restore_template_execution = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RunRestoreTemplateResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.RunRestoreTemplateResponse"
+    }
+}
+
+/// Request message for listing RestoreTemplates.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListRestoreTemplatesRequest {
+    /// Required. The project and location from which to list the restore
+    /// templates.
+    /// Format: `projects/{project}/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListRestoreTemplates`
+    /// call.
+    pub page_token: std::string::String,
+
+    /// Optional. Field match expression used to filter the results.
+    pub filter: std::string::String,
+
+    /// Optional. Field by which to sort the results.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRestoreTemplatesRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListRestoreTemplatesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreTemplatesRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListRestoreTemplatesRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListRestoreTemplatesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreTemplatesRequest;
+    /// let x = ListRestoreTemplatesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListRestoreTemplatesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreTemplatesRequest;
+    /// let x = ListRestoreTemplatesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListRestoreTemplatesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreTemplatesRequest;
+    /// let x = ListRestoreTemplatesRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListRestoreTemplatesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreTemplatesRequest;
+    /// let x = ListRestoreTemplatesRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRestoreTemplatesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListRestoreTemplatesRequest"
+    }
+}
+
+/// Response message for listing RestoreTemplates.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListRestoreTemplatesResponse {
+    /// The list of RestoreTemplates.
+    pub restore_templates: std::vec::Vec<crate::model::RestoreTemplate>,
+
+    /// A token which may be sent as `page_token` in a subsequent
+    /// `ListRestoreTemplates` call.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRestoreTemplatesResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [restore_templates][crate::model::ListRestoreTemplatesResponse::restore_templates].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreTemplatesResponse;
+    /// use google_cloud_backupdr_v1::model::RestoreTemplate;
+    /// let x = ListRestoreTemplatesResponse::new()
+    ///     .set_restore_templates([
+    ///         RestoreTemplate::default()/* use setters */,
+    ///         RestoreTemplate::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_restore_templates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RestoreTemplate>,
+    {
+        use std::iter::Iterator;
+        self.restore_templates = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRestoreTemplatesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreTemplatesResponse;
+    /// let x = ListRestoreTemplatesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListRestoreTemplatesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreTemplatesResponse;
+    /// let x = ListRestoreTemplatesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRestoreTemplatesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListRestoreTemplatesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRestoreTemplatesResponse {
+    type PageItem = crate::model::RestoreTemplate;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.restore_templates
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Configuration for selecting a backup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BackupSelectionConfig {
+    /// The fully qualified URI of the source.
+    pub source: std::option::Option<crate::model::backup_selection_config::Source>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BackupSelectionConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [source][crate::model::BackupSelectionConfig::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupSelectionConfig;
+    /// use google_cloud_backupdr_v1::model::backup_selection_config::Source;
+    /// let x = BackupSelectionConfig::new().set_source(Some(Source::DataSource("example".to_string())));
+    /// ```
+    pub fn set_source<
+        T: std::convert::Into<std::option::Option<crate::model::backup_selection_config::Source>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = v.into();
+        self
+    }
+
+    /// The value of [source][crate::model::BackupSelectionConfig::source]
+    /// if it holds a `DataSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn data_source(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::backup_selection_config::Source::DataSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::BackupSelectionConfig::source]
+    /// to hold a `DataSource`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupSelectionConfig;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backupvault_id = "backupvault_id";
+    /// # let datasource_id = "datasource_id";
+    /// let x = BackupSelectionConfig::new().set_data_source(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}"));
+    /// assert!(x.data_source().is_some());
+    /// ```
+    pub fn set_data_source<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::backup_selection_config::Source::DataSource(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for BackupSelectionConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.BackupSelectionConfig"
+    }
+}
+
+/// Defines additional types related to [BackupSelectionConfig].
+pub mod backup_selection_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The fully qualified URI of the source.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Source {
+        /// Required. Immutable. The fully qualified URI of the backupdr data source.
+        DataSource(std::string::String),
+    }
+}
+
+/// Configuration for Pre-Restore.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PreRestoreConfig {
+    /// Optional. The `timeout` for this phase.
+    /// If set, the `timeout` must be positive and less than or equal to 24 hours
+    /// (86400s).
+    pub timeout: std::option::Option<wkt::Duration>,
+
+    /// Required. The action to execute.
+    pub pre_restore_action: std::option::Option<crate::model::pre_restore_config::PreRestoreAction>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PreRestoreConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [timeout][crate::model::PreRestoreConfig::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreRestoreConfig;
+    /// use wkt::Duration;
+    /// let x = PreRestoreConfig::new().set_timeout(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_timeout<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.timeout = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [timeout][crate::model::PreRestoreConfig::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreRestoreConfig;
+    /// use wkt::Duration;
+    /// let x = PreRestoreConfig::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
+    /// let x = PreRestoreConfig::new().set_or_clear_timeout(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.timeout = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [pre_restore_action][crate::model::PreRestoreConfig::pre_restore_action].
+    ///
+    /// Note that all the setters affecting `pre_restore_action` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreRestoreConfig;
+    /// use google_cloud_backupdr_v1::model::pre_restore_config::PreRestoreAction;
+    /// let x = PreRestoreConfig::new().set_pre_restore_action(Some(PreRestoreAction::CloudRunJob("example".to_string())));
+    /// ```
+    pub fn set_pre_restore_action<
+        T: std::convert::Into<std::option::Option<crate::model::pre_restore_config::PreRestoreAction>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.pre_restore_action = v.into();
+        self
+    }
+
+    /// The value of [pre_restore_action][crate::model::PreRestoreConfig::pre_restore_action]
+    /// if it holds a `CloudRunJob`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_run_job(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.pre_restore_action.as_ref().and_then(|v| match v {
+            crate::model::pre_restore_config::PreRestoreAction::CloudRunJob(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [pre_restore_action][crate::model::PreRestoreConfig::pre_restore_action]
+    /// to hold a `CloudRunJob`.
+    ///
+    /// Note that all the setters affecting `pre_restore_action` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreRestoreConfig;
+    /// let x = PreRestoreConfig::new().set_cloud_run_job("example");
+    /// assert!(x.cloud_run_job().is_some());
+    /// ```
+    pub fn set_cloud_run_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.pre_restore_action = std::option::Option::Some(
+            crate::model::pre_restore_config::PreRestoreAction::CloudRunJob(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for PreRestoreConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.PreRestoreConfig"
+    }
+}
+
+/// Defines additional types related to [PreRestoreConfig].
+pub mod pre_restore_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Required. The action to execute.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PreRestoreAction {
+        /// Cloud Run job action to execute.
+        /// Format: `projects/{project}/locations/{location}/jobs/{job}`
+        CloudRunJob(std::string::String),
+    }
+}
+
+/// Configuration for Post-Restore.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PostRestoreConfig {
+    /// Optional. The `timeout` for this phase.
+    /// If set, the `timeout` must be positive and less than or equal to 24 hours
+    /// (86400s).
+    pub timeout: std::option::Option<wkt::Duration>,
+
+    /// Required. The action to execute.
+    pub post_restore_action:
+        std::option::Option<crate::model::post_restore_config::PostRestoreAction>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PostRestoreConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [timeout][crate::model::PostRestoreConfig::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PostRestoreConfig;
+    /// use wkt::Duration;
+    /// let x = PostRestoreConfig::new().set_timeout(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_timeout<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.timeout = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [timeout][crate::model::PostRestoreConfig::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PostRestoreConfig;
+    /// use wkt::Duration;
+    /// let x = PostRestoreConfig::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
+    /// let x = PostRestoreConfig::new().set_or_clear_timeout(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.timeout = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [post_restore_action][crate::model::PostRestoreConfig::post_restore_action].
+    ///
+    /// Note that all the setters affecting `post_restore_action` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PostRestoreConfig;
+    /// use google_cloud_backupdr_v1::model::post_restore_config::PostRestoreAction;
+    /// let x = PostRestoreConfig::new().set_post_restore_action(Some(PostRestoreAction::CloudRunJob("example".to_string())));
+    /// ```
+    pub fn set_post_restore_action<
+        T: std::convert::Into<
+                std::option::Option<crate::model::post_restore_config::PostRestoreAction>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.post_restore_action = v.into();
+        self
+    }
+
+    /// The value of [post_restore_action][crate::model::PostRestoreConfig::post_restore_action]
+    /// if it holds a `CloudRunJob`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_run_job(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.post_restore_action.as_ref().and_then(|v| match v {
+            crate::model::post_restore_config::PostRestoreAction::CloudRunJob(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [post_restore_action][crate::model::PostRestoreConfig::post_restore_action]
+    /// to hold a `CloudRunJob`.
+    ///
+    /// Note that all the setters affecting `post_restore_action` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PostRestoreConfig;
+    /// let x = PostRestoreConfig::new().set_cloud_run_job("example");
+    /// assert!(x.cloud_run_job().is_some());
+    /// ```
+    pub fn set_cloud_run_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.post_restore_action = std::option::Option::Some(
+            crate::model::post_restore_config::PostRestoreAction::CloudRunJob(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for PostRestoreConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.PostRestoreConfig"
+    }
+}
+
+/// Defines additional types related to [PostRestoreConfig].
+pub mod post_restore_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Required. The action to execute.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PostRestoreAction {
+        /// Cloud Run job action to execute.
+        /// Format: `projects/{project}/locations/{location}/jobs/{job}`
+        CloudRunJob(std::string::String),
+    }
+}
+
+/// Configuration for Verification.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct VerificationConfig {
+    /// Optional. The `timeout` for this phase.
+    /// If set, the `timeout` must be positive and less than or equal to 24 hours
+    /// (86400s).
+    pub timeout: std::option::Option<wkt::Duration>,
+
+    /// Required. The action to execute.
+    pub verification_action:
+        std::option::Option<crate::model::verification_config::VerificationAction>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl VerificationConfig {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [timeout][crate::model::VerificationConfig::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationConfig;
+    /// use wkt::Duration;
+    /// let x = VerificationConfig::new().set_timeout(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_timeout<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.timeout = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [timeout][crate::model::VerificationConfig::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationConfig;
+    /// use wkt::Duration;
+    /// let x = VerificationConfig::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
+    /// let x = VerificationConfig::new().set_or_clear_timeout(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.timeout = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [verification_action][crate::model::VerificationConfig::verification_action].
+    ///
+    /// Note that all the setters affecting `verification_action` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationConfig;
+    /// use google_cloud_backupdr_v1::model::verification_config::VerificationAction;
+    /// let x = VerificationConfig::new().set_verification_action(Some(VerificationAction::CloudRunJob("example".to_string())));
+    /// ```
+    pub fn set_verification_action<
+        T: std::convert::Into<
+                std::option::Option<crate::model::verification_config::VerificationAction>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.verification_action = v.into();
+        self
+    }
+
+    /// The value of [verification_action][crate::model::VerificationConfig::verification_action]
+    /// if it holds a `CloudRunJob`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_run_job(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.verification_action.as_ref().and_then(|v| match v {
+            crate::model::verification_config::VerificationAction::CloudRunJob(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [verification_action][crate::model::VerificationConfig::verification_action]
+    /// to hold a `CloudRunJob`.
+    ///
+    /// Note that all the setters affecting `verification_action` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationConfig;
+    /// let x = VerificationConfig::new().set_cloud_run_job("example");
+    /// assert!(x.cloud_run_job().is_some());
+    /// ```
+    pub fn set_cloud_run_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.verification_action = std::option::Option::Some(
+            crate::model::verification_config::VerificationAction::CloudRunJob(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for VerificationConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.VerificationConfig"
+    }
+}
+
+/// Defines additional types related to [VerificationConfig].
+pub mod verification_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Required. The action to execute.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum VerificationAction {
+        /// Cloud Run job action to execute.
+        /// Format: `projects/{project}/locations/{location}/jobs/{job}`
+        CloudRunJob(std::string::String),
+    }
+}
+
+/// A `RestoreTemplateExecution` represents a single historical or active
+/// execution run.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RestoreTemplateExecution {
+    /// Identifier. Resource name of the execution.
+    pub name: std::string::String,
+
+    /// Output only. The workload resource type being restored.
+    /// The format is "{service_name}/{resource_kind}", for example,
+    /// "compute.googleapis.com/Instance".
+    pub resource_type: std::string::String,
+
+    /// Output only. Create time of the execution.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Update time of the execution.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The type of the execution.
+    pub r#type: crate::model::restore_template_execution::ExecutionType,
+
+    /// Output only. The current active phase.
+    pub phase: crate::model::restore_template_execution::ExecutionPhase,
+
+    /// Output only. State of the execution.
+    pub state: crate::model::restore_template_execution::ExecutionState,
+
+    /// Output only. Info for the prepare phase.
+    pub prepare_phase_info: std::option::Option<crate::model::PreparePhaseInfo>,
+
+    /// Output only. Info for the pre-restore phase.
+    pub pre_restore_phase_info: std::option::Option<crate::model::PreRestorePhaseInfo>,
+
+    /// Output only. Info for the restore phase.
+    pub restore_phase_info: std::option::Option<crate::model::RestorePhaseInfo>,
+
+    /// Output only. Info for the post-restore phase.
+    pub post_restore_phase_info: std::option::Option<crate::model::PostRestorePhaseInfo>,
+
+    /// Output only. Info for the verification phase.
+    pub verification_phase_info: std::option::Option<crate::model::VerificationPhaseInfo>,
+
+    /// Output only. Info for the cleanup phase.
+    pub cleanup_phase_info: std::option::Option<crate::model::CleanupPhaseInfo>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RestoreTemplateExecution {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RestoreTemplateExecution::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_template_id = "restore_template_id";
+    /// # let execution_id = "execution_id";
+    /// let x = RestoreTemplateExecution::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}/executions/{execution_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [resource_type][crate::model::RestoreTemplateExecution::resource_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// let x = RestoreTemplateExecution::new().set_resource_type("example");
+    /// ```
+    pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.resource_type = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::RestoreTemplateExecution::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use wkt::Timestamp;
+    /// let x = RestoreTemplateExecution::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::RestoreTemplateExecution::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use wkt::Timestamp;
+    /// let x = RestoreTemplateExecution::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RestoreTemplateExecution::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::RestoreTemplateExecution::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use wkt::Timestamp;
+    /// let x = RestoreTemplateExecution::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::RestoreTemplateExecution::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use wkt::Timestamp;
+    /// let x = RestoreTemplateExecution::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RestoreTemplateExecution::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::RestoreTemplateExecution::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use google_cloud_backupdr_v1::model::restore_template_execution::ExecutionType;
+    /// let x0 = RestoreTemplateExecution::new().set_type(ExecutionType::Scheduled);
+    /// let x1 = RestoreTemplateExecution::new().set_type(ExecutionType::OnDemand);
+    /// ```
+    pub fn set_type<
+        T: std::convert::Into<crate::model::restore_template_execution::ExecutionType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [phase][crate::model::RestoreTemplateExecution::phase].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use google_cloud_backupdr_v1::model::restore_template_execution::ExecutionPhase;
+    /// let x0 = RestoreTemplateExecution::new().set_phase(ExecutionPhase::Preparing);
+    /// let x1 = RestoreTemplateExecution::new().set_phase(ExecutionPhase::ExecutingPreRestoreAction);
+    /// let x2 = RestoreTemplateExecution::new().set_phase(ExecutionPhase::Restoring);
+    /// ```
+    pub fn set_phase<
+        T: std::convert::Into<crate::model::restore_template_execution::ExecutionPhase>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.phase = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::RestoreTemplateExecution::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use google_cloud_backupdr_v1::model::restore_template_execution::ExecutionState;
+    /// let x0 = RestoreTemplateExecution::new().set_state(ExecutionState::Running);
+    /// let x1 = RestoreTemplateExecution::new().set_state(ExecutionState::Succeeded);
+    /// let x2 = RestoreTemplateExecution::new().set_state(ExecutionState::Failed);
+    /// ```
+    pub fn set_state<
+        T: std::convert::Into<crate::model::restore_template_execution::ExecutionState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [prepare_phase_info][crate::model::RestoreTemplateExecution::prepare_phase_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use google_cloud_backupdr_v1::model::PreparePhaseInfo;
+    /// let x = RestoreTemplateExecution::new().set_prepare_phase_info(PreparePhaseInfo::default()/* use setters */);
+    /// ```
+    pub fn set_prepare_phase_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PreparePhaseInfo>,
+    {
+        self.prepare_phase_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [prepare_phase_info][crate::model::RestoreTemplateExecution::prepare_phase_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use google_cloud_backupdr_v1::model::PreparePhaseInfo;
+    /// let x = RestoreTemplateExecution::new().set_or_clear_prepare_phase_info(Some(PreparePhaseInfo::default()/* use setters */));
+    /// let x = RestoreTemplateExecution::new().set_or_clear_prepare_phase_info(None::<PreparePhaseInfo>);
+    /// ```
+    pub fn set_or_clear_prepare_phase_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PreparePhaseInfo>,
+    {
+        self.prepare_phase_info = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [pre_restore_phase_info][crate::model::RestoreTemplateExecution::pre_restore_phase_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use google_cloud_backupdr_v1::model::PreRestorePhaseInfo;
+    /// let x = RestoreTemplateExecution::new().set_pre_restore_phase_info(PreRestorePhaseInfo::default()/* use setters */);
+    /// ```
+    pub fn set_pre_restore_phase_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PreRestorePhaseInfo>,
+    {
+        self.pre_restore_phase_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pre_restore_phase_info][crate::model::RestoreTemplateExecution::pre_restore_phase_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use google_cloud_backupdr_v1::model::PreRestorePhaseInfo;
+    /// let x = RestoreTemplateExecution::new().set_or_clear_pre_restore_phase_info(Some(PreRestorePhaseInfo::default()/* use setters */));
+    /// let x = RestoreTemplateExecution::new().set_or_clear_pre_restore_phase_info(None::<PreRestorePhaseInfo>);
+    /// ```
+    pub fn set_or_clear_pre_restore_phase_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PreRestorePhaseInfo>,
+    {
+        self.pre_restore_phase_info = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [restore_phase_info][crate::model::RestoreTemplateExecution::restore_phase_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use google_cloud_backupdr_v1::model::RestorePhaseInfo;
+    /// let x = RestoreTemplateExecution::new().set_restore_phase_info(RestorePhaseInfo::default()/* use setters */);
+    /// ```
+    pub fn set_restore_phase_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RestorePhaseInfo>,
+    {
+        self.restore_phase_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [restore_phase_info][crate::model::RestoreTemplateExecution::restore_phase_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use google_cloud_backupdr_v1::model::RestorePhaseInfo;
+    /// let x = RestoreTemplateExecution::new().set_or_clear_restore_phase_info(Some(RestorePhaseInfo::default()/* use setters */));
+    /// let x = RestoreTemplateExecution::new().set_or_clear_restore_phase_info(None::<RestorePhaseInfo>);
+    /// ```
+    pub fn set_or_clear_restore_phase_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RestorePhaseInfo>,
+    {
+        self.restore_phase_info = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [post_restore_phase_info][crate::model::RestoreTemplateExecution::post_restore_phase_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use google_cloud_backupdr_v1::model::PostRestorePhaseInfo;
+    /// let x = RestoreTemplateExecution::new().set_post_restore_phase_info(PostRestorePhaseInfo::default()/* use setters */);
+    /// ```
+    pub fn set_post_restore_phase_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PostRestorePhaseInfo>,
+    {
+        self.post_restore_phase_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [post_restore_phase_info][crate::model::RestoreTemplateExecution::post_restore_phase_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use google_cloud_backupdr_v1::model::PostRestorePhaseInfo;
+    /// let x = RestoreTemplateExecution::new().set_or_clear_post_restore_phase_info(Some(PostRestorePhaseInfo::default()/* use setters */));
+    /// let x = RestoreTemplateExecution::new().set_or_clear_post_restore_phase_info(None::<PostRestorePhaseInfo>);
+    /// ```
+    pub fn set_or_clear_post_restore_phase_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PostRestorePhaseInfo>,
+    {
+        self.post_restore_phase_info = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [verification_phase_info][crate::model::RestoreTemplateExecution::verification_phase_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use google_cloud_backupdr_v1::model::VerificationPhaseInfo;
+    /// let x = RestoreTemplateExecution::new().set_verification_phase_info(VerificationPhaseInfo::default()/* use setters */);
+    /// ```
+    pub fn set_verification_phase_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VerificationPhaseInfo>,
+    {
+        self.verification_phase_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [verification_phase_info][crate::model::RestoreTemplateExecution::verification_phase_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use google_cloud_backupdr_v1::model::VerificationPhaseInfo;
+    /// let x = RestoreTemplateExecution::new().set_or_clear_verification_phase_info(Some(VerificationPhaseInfo::default()/* use setters */));
+    /// let x = RestoreTemplateExecution::new().set_or_clear_verification_phase_info(None::<VerificationPhaseInfo>);
+    /// ```
+    pub fn set_or_clear_verification_phase_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VerificationPhaseInfo>,
+    {
+        self.verification_phase_info = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cleanup_phase_info][crate::model::RestoreTemplateExecution::cleanup_phase_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use google_cloud_backupdr_v1::model::CleanupPhaseInfo;
+    /// let x = RestoreTemplateExecution::new().set_cleanup_phase_info(CleanupPhaseInfo::default()/* use setters */);
+    /// ```
+    pub fn set_cleanup_phase_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CleanupPhaseInfo>,
+    {
+        self.cleanup_phase_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cleanup_phase_info][crate::model::RestoreTemplateExecution::cleanup_phase_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// use google_cloud_backupdr_v1::model::CleanupPhaseInfo;
+    /// let x = RestoreTemplateExecution::new().set_or_clear_cleanup_phase_info(Some(CleanupPhaseInfo::default()/* use setters */));
+    /// let x = RestoreTemplateExecution::new().set_or_clear_cleanup_phase_info(None::<CleanupPhaseInfo>);
+    /// ```
+    pub fn set_or_clear_cleanup_phase_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CleanupPhaseInfo>,
+    {
+        self.cleanup_phase_info = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for RestoreTemplateExecution {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.RestoreTemplateExecution"
+    }
+}
+
+/// Defines additional types related to [RestoreTemplateExecution].
+pub mod restore_template_execution {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The type of execution.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ExecutionType {
+        /// Execution type not specified.
+        Unspecified,
+        /// Scheduled execution.
+        Scheduled,
+        /// On-demand execution.
+        OnDemand,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ExecutionType::value] or
+        /// [ExecutionType::name].
+        UnknownValue(execution_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod execution_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ExecutionType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Scheduled => std::option::Option::Some(1),
+                Self::OnDemand => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EXECUTION_TYPE_UNSPECIFIED"),
+                Self::Scheduled => std::option::Option::Some("SCHEDULED"),
+                Self::OnDemand => std::option::Option::Some("ON_DEMAND"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ExecutionType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ExecutionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ExecutionType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Scheduled,
+                2 => Self::OnDemand,
+                _ => Self::UnknownValue(execution_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ExecutionType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EXECUTION_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "SCHEDULED" => Self::Scheduled,
+                "ON_DEMAND" => Self::OnDemand,
+                _ => Self::UnknownValue(execution_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ExecutionType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Scheduled => serializer.serialize_i32(1),
+                Self::OnDemand => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ExecutionType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExecutionType>::new(
+                ".google.cloud.backupdr.v1.RestoreTemplateExecution.ExecutionType",
+            ))
+        }
+    }
+
+    /// The phase of execution.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ExecutionPhase {
+        /// Execution phase not specified.
+        Unspecified,
+        /// Preparing for execution.
+        Preparing,
+        /// Executing pre-restore action.
+        ExecutingPreRestoreAction,
+        /// Restoring the resource.
+        Restoring,
+        /// Executing post-restore action.
+        ExecutingPostRestoreAction,
+        /// Verifying the restored resource.
+        Verifying,
+        /// Cleaning up resources.
+        CleaningUp,
+        /// Execution completed.
+        Completed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ExecutionPhase::value] or
+        /// [ExecutionPhase::name].
+        UnknownValue(execution_phase::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod execution_phase {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ExecutionPhase {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Preparing => std::option::Option::Some(1),
+                Self::ExecutingPreRestoreAction => std::option::Option::Some(2),
+                Self::Restoring => std::option::Option::Some(3),
+                Self::ExecutingPostRestoreAction => std::option::Option::Some(4),
+                Self::Verifying => std::option::Option::Some(5),
+                Self::CleaningUp => std::option::Option::Some(6),
+                Self::Completed => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EXECUTION_PHASE_UNSPECIFIED"),
+                Self::Preparing => std::option::Option::Some("PREPARING"),
+                Self::ExecutingPreRestoreAction => {
+                    std::option::Option::Some("EXECUTING_PRE_RESTORE_ACTION")
+                }
+                Self::Restoring => std::option::Option::Some("RESTORING"),
+                Self::ExecutingPostRestoreAction => {
+                    std::option::Option::Some("EXECUTING_POST_RESTORE_ACTION")
+                }
+                Self::Verifying => std::option::Option::Some("VERIFYING"),
+                Self::CleaningUp => std::option::Option::Some("CLEANING_UP"),
+                Self::Completed => std::option::Option::Some("COMPLETED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ExecutionPhase {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ExecutionPhase {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ExecutionPhase {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Preparing,
+                2 => Self::ExecutingPreRestoreAction,
+                3 => Self::Restoring,
+                4 => Self::ExecutingPostRestoreAction,
+                5 => Self::Verifying,
+                6 => Self::CleaningUp,
+                7 => Self::Completed,
+                _ => Self::UnknownValue(execution_phase::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ExecutionPhase {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EXECUTION_PHASE_UNSPECIFIED" => Self::Unspecified,
+                "PREPARING" => Self::Preparing,
+                "EXECUTING_PRE_RESTORE_ACTION" => Self::ExecutingPreRestoreAction,
+                "RESTORING" => Self::Restoring,
+                "EXECUTING_POST_RESTORE_ACTION" => Self::ExecutingPostRestoreAction,
+                "VERIFYING" => Self::Verifying,
+                "CLEANING_UP" => Self::CleaningUp,
+                "COMPLETED" => Self::Completed,
+                _ => Self::UnknownValue(execution_phase::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ExecutionPhase {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Preparing => serializer.serialize_i32(1),
+                Self::ExecutingPreRestoreAction => serializer.serialize_i32(2),
+                Self::Restoring => serializer.serialize_i32(3),
+                Self::ExecutingPostRestoreAction => serializer.serialize_i32(4),
+                Self::Verifying => serializer.serialize_i32(5),
+                Self::CleaningUp => serializer.serialize_i32(6),
+                Self::Completed => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ExecutionPhase {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExecutionPhase>::new(
+                ".google.cloud.backupdr.v1.RestoreTemplateExecution.ExecutionPhase",
+            ))
+        }
+    }
+
+    /// State of the execution.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ExecutionState {
+        /// State not set.
+        Unspecified,
+        /// Execution is running.
+        Running,
+        /// Execution succeeded.
+        Succeeded,
+        /// Execution failed.
+        Failed,
+        /// Resources are being deleted (cleanup).
+        Deleting,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ExecutionState::value] or
+        /// [ExecutionState::name].
+        UnknownValue(execution_state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod execution_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ExecutionState {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Running => std::option::Option::Some(1),
+                Self::Succeeded => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::Deleting => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EXECUTION_STATE_UNSPECIFIED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ExecutionState {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ExecutionState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ExecutionState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Running,
+                2 => Self::Succeeded,
+                3 => Self::Failed,
+                4 => Self::Deleting,
+                _ => Self::UnknownValue(execution_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ExecutionState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EXECUTION_STATE_UNSPECIFIED" => Self::Unspecified,
+                "RUNNING" => Self::Running,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                "DELETING" => Self::Deleting,
+                _ => Self::UnknownValue(execution_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ExecutionState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Running => serializer.serialize_i32(1),
+                Self::Succeeded => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::Deleting => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ExecutionState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExecutionState>::new(
+                ".google.cloud.backupdr.v1.RestoreTemplateExecution.ExecutionState",
+            ))
+        }
+    }
+}
+
+/// Info for Prepare phase execution.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PreparePhaseInfo {
+    /// Output only. The state of this phase.
+    pub phase_state: crate::model::PhaseState,
+
+    /// Output only. Error details if the phase failed.
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
+
+    /// Output only. Start time of the phase.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. End time of the phase.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Snapshot of config used in this execution.
+    pub backup_selection_config: std::option::Option<crate::model::BackupSelectionConfig>,
+
+    /// Output only. The source backup used for the restore.
+    /// The fully qualified URI of the backupdr backup.
+    pub backup: std::string::String,
+
+    /// Output only. Indicates whether the backup was explicitly passed in the
+    /// request.
+    pub is_backup_explicitly_passed: bool,
+
+    /// Output only. The restore verification plan association associated with the
+    /// execution.
+    pub restore_verification_plan_association: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PreparePhaseInfo {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [phase_state][crate::model::PreparePhaseInfo::phase_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreparePhaseInfo;
+    /// use google_cloud_backupdr_v1::model::PhaseState;
+    /// let x0 = PreparePhaseInfo::new().set_phase_state(PhaseState::Pending);
+    /// let x1 = PreparePhaseInfo::new().set_phase_state(PhaseState::Running);
+    /// let x2 = PreparePhaseInfo::new().set_phase_state(PhaseState::Succeeded);
+    /// ```
+    pub fn set_phase_state<T: std::convert::Into<crate::model::PhaseState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.phase_state = v.into();
+        self
+    }
+
+    /// Sets the value of [error][crate::model::PreparePhaseInfo::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreparePhaseInfo;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = PreparePhaseInfo::new().set_error(Status::default()/* use setters */);
+    /// ```
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::PreparePhaseInfo::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreparePhaseInfo;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = PreparePhaseInfo::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = PreparePhaseInfo::new().set_or_clear_error(None::<Status>);
+    /// ```
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::PreparePhaseInfo::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreparePhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = PreparePhaseInfo::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::PreparePhaseInfo::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreparePhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = PreparePhaseInfo::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PreparePhaseInfo::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::PreparePhaseInfo::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreparePhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = PreparePhaseInfo::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::PreparePhaseInfo::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreparePhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = PreparePhaseInfo::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PreparePhaseInfo::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [backup_selection_config][crate::model::PreparePhaseInfo::backup_selection_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreparePhaseInfo;
+    /// use google_cloud_backupdr_v1::model::BackupSelectionConfig;
+    /// let x = PreparePhaseInfo::new().set_backup_selection_config(BackupSelectionConfig::default()/* use setters */);
+    /// ```
+    pub fn set_backup_selection_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupSelectionConfig>,
+    {
+        self.backup_selection_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [backup_selection_config][crate::model::PreparePhaseInfo::backup_selection_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreparePhaseInfo;
+    /// use google_cloud_backupdr_v1::model::BackupSelectionConfig;
+    /// let x = PreparePhaseInfo::new().set_or_clear_backup_selection_config(Some(BackupSelectionConfig::default()/* use setters */));
+    /// let x = PreparePhaseInfo::new().set_or_clear_backup_selection_config(None::<BackupSelectionConfig>);
+    /// ```
+    pub fn set_or_clear_backup_selection_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BackupSelectionConfig>,
+    {
+        self.backup_selection_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [backup][crate::model::PreparePhaseInfo::backup].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreparePhaseInfo;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let backupvault_id = "backupvault_id";
+    /// # let datasource_id = "datasource_id";
+    /// # let backup_id = "backup_id";
+    /// let x = PreparePhaseInfo::new().set_backup(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}/backups/{backup_id}"));
+    /// ```
+    pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.backup = v.into();
+        self
+    }
+
+    /// Sets the value of [is_backup_explicitly_passed][crate::model::PreparePhaseInfo::is_backup_explicitly_passed].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreparePhaseInfo;
+    /// let x = PreparePhaseInfo::new().set_is_backup_explicitly_passed(true);
+    /// ```
+    pub fn set_is_backup_explicitly_passed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.is_backup_explicitly_passed = v.into();
+        self
+    }
+
+    /// Sets the value of [restore_verification_plan_association][crate::model::PreparePhaseInfo::restore_verification_plan_association].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreparePhaseInfo;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_verification_plan_id = "restore_verification_plan_id";
+    /// # let association_id = "association_id";
+    /// let x = PreparePhaseInfo::new().set_restore_verification_plan_association(format!("projects/{project_id}/locations/{location_id}/restoreVerificationPlans/{restore_verification_plan_id}/associations/{association_id}"));
+    /// ```
+    pub fn set_restore_verification_plan_association<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.restore_verification_plan_association = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PreparePhaseInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.PreparePhaseInfo"
+    }
+}
+
+/// Info for Pre-Restore phase execution.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PreRestorePhaseInfo {
+    /// Output only. The state of this phase.
+    pub phase_state: crate::model::PhaseState,
+
+    /// Output only. Error details if the phase failed.
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
+
+    /// Output only. Start time of the phase.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. End time of the phase.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Snapshot of config that will be executed before restore
+    /// operation.
+    pub pre_restore_config: std::option::Option<crate::model::PreRestoreConfig>,
+
+    /// The result of the pre-restore action.
+    pub result: std::option::Option<crate::model::pre_restore_phase_info::Result>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PreRestorePhaseInfo {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [phase_state][crate::model::PreRestorePhaseInfo::phase_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreRestorePhaseInfo;
+    /// use google_cloud_backupdr_v1::model::PhaseState;
+    /// let x0 = PreRestorePhaseInfo::new().set_phase_state(PhaseState::Pending);
+    /// let x1 = PreRestorePhaseInfo::new().set_phase_state(PhaseState::Running);
+    /// let x2 = PreRestorePhaseInfo::new().set_phase_state(PhaseState::Succeeded);
+    /// ```
+    pub fn set_phase_state<T: std::convert::Into<crate::model::PhaseState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.phase_state = v.into();
+        self
+    }
+
+    /// Sets the value of [error][crate::model::PreRestorePhaseInfo::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreRestorePhaseInfo;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = PreRestorePhaseInfo::new().set_error(Status::default()/* use setters */);
+    /// ```
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::PreRestorePhaseInfo::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreRestorePhaseInfo;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = PreRestorePhaseInfo::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = PreRestorePhaseInfo::new().set_or_clear_error(None::<Status>);
+    /// ```
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::PreRestorePhaseInfo::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreRestorePhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = PreRestorePhaseInfo::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::PreRestorePhaseInfo::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreRestorePhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = PreRestorePhaseInfo::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PreRestorePhaseInfo::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::PreRestorePhaseInfo::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreRestorePhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = PreRestorePhaseInfo::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::PreRestorePhaseInfo::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreRestorePhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = PreRestorePhaseInfo::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PreRestorePhaseInfo::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [pre_restore_config][crate::model::PreRestorePhaseInfo::pre_restore_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreRestorePhaseInfo;
+    /// use google_cloud_backupdr_v1::model::PreRestoreConfig;
+    /// let x = PreRestorePhaseInfo::new().set_pre_restore_config(PreRestoreConfig::default()/* use setters */);
+    /// ```
+    pub fn set_pre_restore_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PreRestoreConfig>,
+    {
+        self.pre_restore_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pre_restore_config][crate::model::PreRestorePhaseInfo::pre_restore_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreRestorePhaseInfo;
+    /// use google_cloud_backupdr_v1::model::PreRestoreConfig;
+    /// let x = PreRestorePhaseInfo::new().set_or_clear_pre_restore_config(Some(PreRestoreConfig::default()/* use setters */));
+    /// let x = PreRestorePhaseInfo::new().set_or_clear_pre_restore_config(None::<PreRestoreConfig>);
+    /// ```
+    pub fn set_or_clear_pre_restore_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PreRestoreConfig>,
+    {
+        self.pre_restore_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [result][crate::model::PreRestorePhaseInfo::result].
+    ///
+    /// Note that all the setters affecting `result` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreRestorePhaseInfo;
+    /// use google_cloud_backupdr_v1::model::pre_restore_phase_info::Result;
+    /// let x = PreRestorePhaseInfo::new().set_result(Some(Result::CloudRunExecution("example".to_string())));
+    /// ```
+    pub fn set_result<
+        T: std::convert::Into<std::option::Option<crate::model::pre_restore_phase_info::Result>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = v.into();
+        self
+    }
+
+    /// The value of [result][crate::model::PreRestorePhaseInfo::result]
+    /// if it holds a `CloudRunExecution`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_run_execution(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::pre_restore_phase_info::Result::CloudRunExecution(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::PreRestorePhaseInfo::result]
+    /// to hold a `CloudRunExecution`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PreRestorePhaseInfo;
+    /// let x = PreRestorePhaseInfo::new().set_cloud_run_execution("example");
+    /// assert!(x.cloud_run_execution().is_some());
+    /// ```
+    pub fn set_cloud_run_execution<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = std::option::Option::Some(
+            crate::model::pre_restore_phase_info::Result::CloudRunExecution(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for PreRestorePhaseInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.PreRestorePhaseInfo"
+    }
+}
+
+/// Defines additional types related to [PreRestorePhaseInfo].
+pub mod pre_restore_phase_info {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The result of the pre-restore action.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Result {
+        /// Output only. The fully qualified URI of the Cloud Run Execution triggered
+        /// for pre-restore actions.
+        CloudRunExecution(std::string::String),
+    }
+}
+
+/// Info for Restore phase execution.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RestorePhaseInfo {
+    /// Output only. The state of this phase.
+    pub phase_state: crate::model::PhaseState,
+
+    /// Output only. Error details if the phase failed.
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
+
+    /// Output only. Start time of the phase.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. End time of the phase.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Snapshot of environment config used during restore of this
+    /// RestoreTemplateExecution.
+    pub restore_properties: std::option::Option<wkt::Struct>,
+
+    /// Output only. The resource created or restored by this execution.
+    pub restore_resource: std::string::String,
+
+    /// Output only. Time taken to restore the resource.
+    pub restore_duration: std::option::Option<wkt::Duration>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RestorePhaseInfo {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [phase_state][crate::model::RestorePhaseInfo::phase_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestorePhaseInfo;
+    /// use google_cloud_backupdr_v1::model::PhaseState;
+    /// let x0 = RestorePhaseInfo::new().set_phase_state(PhaseState::Pending);
+    /// let x1 = RestorePhaseInfo::new().set_phase_state(PhaseState::Running);
+    /// let x2 = RestorePhaseInfo::new().set_phase_state(PhaseState::Succeeded);
+    /// ```
+    pub fn set_phase_state<T: std::convert::Into<crate::model::PhaseState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.phase_state = v.into();
+        self
+    }
+
+    /// Sets the value of [error][crate::model::RestorePhaseInfo::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestorePhaseInfo;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = RestorePhaseInfo::new().set_error(Status::default()/* use setters */);
+    /// ```
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::RestorePhaseInfo::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestorePhaseInfo;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = RestorePhaseInfo::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = RestorePhaseInfo::new().set_or_clear_error(None::<Status>);
+    /// ```
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::RestorePhaseInfo::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestorePhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = RestorePhaseInfo::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::RestorePhaseInfo::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestorePhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = RestorePhaseInfo::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RestorePhaseInfo::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::RestorePhaseInfo::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestorePhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = RestorePhaseInfo::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::RestorePhaseInfo::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestorePhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = RestorePhaseInfo::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RestorePhaseInfo::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [restore_properties][crate::model::RestorePhaseInfo::restore_properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestorePhaseInfo;
+    /// use wkt::Struct;
+    /// let x = RestorePhaseInfo::new().set_restore_properties(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_restore_properties<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.restore_properties = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [restore_properties][crate::model::RestorePhaseInfo::restore_properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestorePhaseInfo;
+    /// use wkt::Struct;
+    /// let x = RestorePhaseInfo::new().set_or_clear_restore_properties(Some(Struct::default()/* use setters */));
+    /// let x = RestorePhaseInfo::new().set_or_clear_restore_properties(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_restore_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.restore_properties = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [restore_resource][crate::model::RestorePhaseInfo::restore_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestorePhaseInfo;
+    /// let x = RestorePhaseInfo::new().set_restore_resource("example");
+    /// ```
+    pub fn set_restore_resource<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.restore_resource = v.into();
+        self
+    }
+
+    /// Sets the value of [restore_duration][crate::model::RestorePhaseInfo::restore_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestorePhaseInfo;
+    /// use wkt::Duration;
+    /// let x = RestorePhaseInfo::new().set_restore_duration(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_restore_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.restore_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [restore_duration][crate::model::RestorePhaseInfo::restore_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestorePhaseInfo;
+    /// use wkt::Duration;
+    /// let x = RestorePhaseInfo::new().set_or_clear_restore_duration(Some(Duration::default()/* use setters */));
+    /// let x = RestorePhaseInfo::new().set_or_clear_restore_duration(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_restore_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.restore_duration = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for RestorePhaseInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.RestorePhaseInfo"
+    }
+}
+
+/// Info for Post-Restore phase execution.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PostRestorePhaseInfo {
+    /// Output only. The state of this phase.
+    pub phase_state: crate::model::PhaseState,
+
+    /// Output only. Error details if the phase failed.
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
+
+    /// Output only. Start time of the phase.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. End time of the phase.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Snapshot of config that will be executed after successful
+    /// restore operation.
+    pub post_restore_config: std::option::Option<crate::model::PostRestoreConfig>,
+
+    /// The result of the post-restore action.
+    pub result: std::option::Option<crate::model::post_restore_phase_info::Result>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PostRestorePhaseInfo {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [phase_state][crate::model::PostRestorePhaseInfo::phase_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PostRestorePhaseInfo;
+    /// use google_cloud_backupdr_v1::model::PhaseState;
+    /// let x0 = PostRestorePhaseInfo::new().set_phase_state(PhaseState::Pending);
+    /// let x1 = PostRestorePhaseInfo::new().set_phase_state(PhaseState::Running);
+    /// let x2 = PostRestorePhaseInfo::new().set_phase_state(PhaseState::Succeeded);
+    /// ```
+    pub fn set_phase_state<T: std::convert::Into<crate::model::PhaseState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.phase_state = v.into();
+        self
+    }
+
+    /// Sets the value of [error][crate::model::PostRestorePhaseInfo::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PostRestorePhaseInfo;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = PostRestorePhaseInfo::new().set_error(Status::default()/* use setters */);
+    /// ```
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::PostRestorePhaseInfo::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PostRestorePhaseInfo;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = PostRestorePhaseInfo::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = PostRestorePhaseInfo::new().set_or_clear_error(None::<Status>);
+    /// ```
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::PostRestorePhaseInfo::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PostRestorePhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = PostRestorePhaseInfo::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::PostRestorePhaseInfo::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PostRestorePhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = PostRestorePhaseInfo::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PostRestorePhaseInfo::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::PostRestorePhaseInfo::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PostRestorePhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = PostRestorePhaseInfo::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::PostRestorePhaseInfo::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PostRestorePhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = PostRestorePhaseInfo::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PostRestorePhaseInfo::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [post_restore_config][crate::model::PostRestorePhaseInfo::post_restore_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PostRestorePhaseInfo;
+    /// use google_cloud_backupdr_v1::model::PostRestoreConfig;
+    /// let x = PostRestorePhaseInfo::new().set_post_restore_config(PostRestoreConfig::default()/* use setters */);
+    /// ```
+    pub fn set_post_restore_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PostRestoreConfig>,
+    {
+        self.post_restore_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [post_restore_config][crate::model::PostRestorePhaseInfo::post_restore_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PostRestorePhaseInfo;
+    /// use google_cloud_backupdr_v1::model::PostRestoreConfig;
+    /// let x = PostRestorePhaseInfo::new().set_or_clear_post_restore_config(Some(PostRestoreConfig::default()/* use setters */));
+    /// let x = PostRestorePhaseInfo::new().set_or_clear_post_restore_config(None::<PostRestoreConfig>);
+    /// ```
+    pub fn set_or_clear_post_restore_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PostRestoreConfig>,
+    {
+        self.post_restore_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [result][crate::model::PostRestorePhaseInfo::result].
+    ///
+    /// Note that all the setters affecting `result` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PostRestorePhaseInfo;
+    /// use google_cloud_backupdr_v1::model::post_restore_phase_info::Result;
+    /// let x = PostRestorePhaseInfo::new().set_result(Some(Result::CloudRunExecution("example".to_string())));
+    /// ```
+    pub fn set_result<
+        T: std::convert::Into<std::option::Option<crate::model::post_restore_phase_info::Result>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = v.into();
+        self
+    }
+
+    /// The value of [result][crate::model::PostRestorePhaseInfo::result]
+    /// if it holds a `CloudRunExecution`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_run_execution(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::post_restore_phase_info::Result::CloudRunExecution(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::PostRestorePhaseInfo::result]
+    /// to hold a `CloudRunExecution`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PostRestorePhaseInfo;
+    /// let x = PostRestorePhaseInfo::new().set_cloud_run_execution("example");
+    /// assert!(x.cloud_run_execution().is_some());
+    /// ```
+    pub fn set_cloud_run_execution<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = std::option::Option::Some(
+            crate::model::post_restore_phase_info::Result::CloudRunExecution(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for PostRestorePhaseInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.PostRestorePhaseInfo"
+    }
+}
+
+/// Defines additional types related to [PostRestorePhaseInfo].
+pub mod post_restore_phase_info {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The result of the post-restore action.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Result {
+        /// Output only. The fully qualified URI of the Cloud Run Execution triggered
+        /// for post-restore actions.
+        CloudRunExecution(std::string::String),
+    }
+}
+
+/// Info for Verification phase execution.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct VerificationPhaseInfo {
+    /// Output only. The state of this phase.
+    pub phase_state: crate::model::PhaseState,
+
+    /// Output only. Error details if the phase failed.
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
+
+    /// Output only. Start time of the phase.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. End time of the phase.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Snapshot of config that will be executed after successful post
+    /// restore validation.
+    pub verification_config: std::option::Option<crate::model::VerificationConfig>,
+
+    /// The result of the verification action.
+    pub result: std::option::Option<crate::model::verification_phase_info::Result>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl VerificationPhaseInfo {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [phase_state][crate::model::VerificationPhaseInfo::phase_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationPhaseInfo;
+    /// use google_cloud_backupdr_v1::model::PhaseState;
+    /// let x0 = VerificationPhaseInfo::new().set_phase_state(PhaseState::Pending);
+    /// let x1 = VerificationPhaseInfo::new().set_phase_state(PhaseState::Running);
+    /// let x2 = VerificationPhaseInfo::new().set_phase_state(PhaseState::Succeeded);
+    /// ```
+    pub fn set_phase_state<T: std::convert::Into<crate::model::PhaseState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.phase_state = v.into();
+        self
+    }
+
+    /// Sets the value of [error][crate::model::VerificationPhaseInfo::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationPhaseInfo;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = VerificationPhaseInfo::new().set_error(Status::default()/* use setters */);
+    /// ```
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::VerificationPhaseInfo::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationPhaseInfo;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = VerificationPhaseInfo::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = VerificationPhaseInfo::new().set_or_clear_error(None::<Status>);
+    /// ```
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::VerificationPhaseInfo::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationPhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = VerificationPhaseInfo::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::VerificationPhaseInfo::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationPhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = VerificationPhaseInfo::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = VerificationPhaseInfo::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::VerificationPhaseInfo::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationPhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = VerificationPhaseInfo::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::VerificationPhaseInfo::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationPhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = VerificationPhaseInfo::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = VerificationPhaseInfo::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [verification_config][crate::model::VerificationPhaseInfo::verification_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationPhaseInfo;
+    /// use google_cloud_backupdr_v1::model::VerificationConfig;
+    /// let x = VerificationPhaseInfo::new().set_verification_config(VerificationConfig::default()/* use setters */);
+    /// ```
+    pub fn set_verification_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VerificationConfig>,
+    {
+        self.verification_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [verification_config][crate::model::VerificationPhaseInfo::verification_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationPhaseInfo;
+    /// use google_cloud_backupdr_v1::model::VerificationConfig;
+    /// let x = VerificationPhaseInfo::new().set_or_clear_verification_config(Some(VerificationConfig::default()/* use setters */));
+    /// let x = VerificationPhaseInfo::new().set_or_clear_verification_config(None::<VerificationConfig>);
+    /// ```
+    pub fn set_or_clear_verification_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VerificationConfig>,
+    {
+        self.verification_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [result][crate::model::VerificationPhaseInfo::result].
+    ///
+    /// Note that all the setters affecting `result` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationPhaseInfo;
+    /// use google_cloud_backupdr_v1::model::verification_phase_info::Result;
+    /// let x = VerificationPhaseInfo::new().set_result(Some(Result::CloudRunExecution("example".to_string())));
+    /// ```
+    pub fn set_result<
+        T: std::convert::Into<std::option::Option<crate::model::verification_phase_info::Result>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = v.into();
+        self
+    }
+
+    /// The value of [result][crate::model::VerificationPhaseInfo::result]
+    /// if it holds a `CloudRunExecution`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_run_execution(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::verification_phase_info::Result::CloudRunExecution(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::VerificationPhaseInfo::result]
+    /// to hold a `CloudRunExecution`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::VerificationPhaseInfo;
+    /// let x = VerificationPhaseInfo::new().set_cloud_run_execution("example");
+    /// assert!(x.cloud_run_execution().is_some());
+    /// ```
+    pub fn set_cloud_run_execution<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = std::option::Option::Some(
+            crate::model::verification_phase_info::Result::CloudRunExecution(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for VerificationPhaseInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.VerificationPhaseInfo"
+    }
+}
+
+/// Defines additional types related to [VerificationPhaseInfo].
+pub mod verification_phase_info {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The result of the verification action.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Result {
+        /// Output only. The fully qualified URI of the Cloud Run Execution triggered
+        /// for verification.
+        CloudRunExecution(std::string::String),
+    }
+}
+
+/// Info for Cleanup phase execution.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CleanupPhaseInfo {
+    /// Output only. The state of this phase.
+    pub phase_state: crate::model::PhaseState,
+
+    /// Output only. Error details if the phase failed.
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
+
+    /// Output only. Start time of the phase.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. End time of the phase.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Time taken to perform the cleanup of restored resource.
+    pub cleanup_duration: std::option::Option<wkt::Duration>,
+
+    /// Output only. Snapshot of cleanup rule provided for this execution when
+    /// execution is successful.
+    pub success_cleanup_rule: std::option::Option<crate::model::RestoreVerificationCleanupRule>,
+
+    /// Output only. Snapshot of cleanup rule provided for this execution when
+    /// execution is failed.
+    pub failure_cleanup_rule: std::option::Option<crate::model::RestoreVerificationCleanupRule>,
+
+    /// Output only. The time when the resources will be cleaned up.
+    pub cleanup_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CleanupPhaseInfo {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [phase_state][crate::model::CleanupPhaseInfo::phase_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CleanupPhaseInfo;
+    /// use google_cloud_backupdr_v1::model::PhaseState;
+    /// let x0 = CleanupPhaseInfo::new().set_phase_state(PhaseState::Pending);
+    /// let x1 = CleanupPhaseInfo::new().set_phase_state(PhaseState::Running);
+    /// let x2 = CleanupPhaseInfo::new().set_phase_state(PhaseState::Succeeded);
+    /// ```
+    pub fn set_phase_state<T: std::convert::Into<crate::model::PhaseState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.phase_state = v.into();
+        self
+    }
+
+    /// Sets the value of [error][crate::model::CleanupPhaseInfo::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CleanupPhaseInfo;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = CleanupPhaseInfo::new().set_error(Status::default()/* use setters */);
+    /// ```
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::CleanupPhaseInfo::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CleanupPhaseInfo;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = CleanupPhaseInfo::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = CleanupPhaseInfo::new().set_or_clear_error(None::<Status>);
+    /// ```
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::CleanupPhaseInfo::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CleanupPhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = CleanupPhaseInfo::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::CleanupPhaseInfo::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CleanupPhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = CleanupPhaseInfo::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CleanupPhaseInfo::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::CleanupPhaseInfo::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CleanupPhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = CleanupPhaseInfo::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::CleanupPhaseInfo::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CleanupPhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = CleanupPhaseInfo::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CleanupPhaseInfo::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cleanup_duration][crate::model::CleanupPhaseInfo::cleanup_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CleanupPhaseInfo;
+    /// use wkt::Duration;
+    /// let x = CleanupPhaseInfo::new().set_cleanup_duration(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_cleanup_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.cleanup_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cleanup_duration][crate::model::CleanupPhaseInfo::cleanup_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CleanupPhaseInfo;
+    /// use wkt::Duration;
+    /// let x = CleanupPhaseInfo::new().set_or_clear_cleanup_duration(Some(Duration::default()/* use setters */));
+    /// let x = CleanupPhaseInfo::new().set_or_clear_cleanup_duration(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_cleanup_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.cleanup_duration = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [success_cleanup_rule][crate::model::CleanupPhaseInfo::success_cleanup_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CleanupPhaseInfo;
+    /// use google_cloud_backupdr_v1::model::RestoreVerificationCleanupRule;
+    /// let x = CleanupPhaseInfo::new().set_success_cleanup_rule(RestoreVerificationCleanupRule::default()/* use setters */);
+    /// ```
+    pub fn set_success_cleanup_rule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreVerificationCleanupRule>,
+    {
+        self.success_cleanup_rule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [success_cleanup_rule][crate::model::CleanupPhaseInfo::success_cleanup_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CleanupPhaseInfo;
+    /// use google_cloud_backupdr_v1::model::RestoreVerificationCleanupRule;
+    /// let x = CleanupPhaseInfo::new().set_or_clear_success_cleanup_rule(Some(RestoreVerificationCleanupRule::default()/* use setters */));
+    /// let x = CleanupPhaseInfo::new().set_or_clear_success_cleanup_rule(None::<RestoreVerificationCleanupRule>);
+    /// ```
+    pub fn set_or_clear_success_cleanup_rule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreVerificationCleanupRule>,
+    {
+        self.success_cleanup_rule = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [failure_cleanup_rule][crate::model::CleanupPhaseInfo::failure_cleanup_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CleanupPhaseInfo;
+    /// use google_cloud_backupdr_v1::model::RestoreVerificationCleanupRule;
+    /// let x = CleanupPhaseInfo::new().set_failure_cleanup_rule(RestoreVerificationCleanupRule::default()/* use setters */);
+    /// ```
+    pub fn set_failure_cleanup_rule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreVerificationCleanupRule>,
+    {
+        self.failure_cleanup_rule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [failure_cleanup_rule][crate::model::CleanupPhaseInfo::failure_cleanup_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CleanupPhaseInfo;
+    /// use google_cloud_backupdr_v1::model::RestoreVerificationCleanupRule;
+    /// let x = CleanupPhaseInfo::new().set_or_clear_failure_cleanup_rule(Some(RestoreVerificationCleanupRule::default()/* use setters */));
+    /// let x = CleanupPhaseInfo::new().set_or_clear_failure_cleanup_rule(None::<RestoreVerificationCleanupRule>);
+    /// ```
+    pub fn set_or_clear_failure_cleanup_rule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreVerificationCleanupRule>,
+    {
+        self.failure_cleanup_rule = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cleanup_time][crate::model::CleanupPhaseInfo::cleanup_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CleanupPhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = CleanupPhaseInfo::new().set_cleanup_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_cleanup_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.cleanup_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cleanup_time][crate::model::CleanupPhaseInfo::cleanup_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CleanupPhaseInfo;
+    /// use wkt::Timestamp;
+    /// let x = CleanupPhaseInfo::new().set_or_clear_cleanup_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CleanupPhaseInfo::new().set_or_clear_cleanup_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_cleanup_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.cleanup_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CleanupPhaseInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.CleanupPhaseInfo"
+    }
+}
+
+/// Request message for getting a RestoreTemplateExecution instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetRestoreTemplateExecutionRequest {
+    /// Required. The name of the restore template execution to retrieve.
+    /// Format:
+    /// 'projects/{project_id}/locations/{location}/restoreTemplates/{restore_template_id}/executions/{execution_id}'
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetRestoreTemplateExecutionRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetRestoreTemplateExecutionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::GetRestoreTemplateExecutionRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_template_id = "restore_template_id";
+    /// # let execution_id = "execution_id";
+    /// let x = GetRestoreTemplateExecutionRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}/executions/{execution_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetRestoreTemplateExecutionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.GetRestoreTemplateExecutionRequest"
+    }
+}
+
+/// Request message for triggering a restore cleanup.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TriggerRestoreCleanupRequest {
+    /// Required. Name of the restore template execution.
+    /// Format:
+    /// 'projects/{project_id}/locations/{location}/restoreTemplates/{restore_template_id}/executions/{execution_id}'
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes after the first request.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TriggerRestoreCleanupRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::TriggerRestoreCleanupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::TriggerRestoreCleanupRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_template_id = "restore_template_id";
+    /// # let execution_id = "execution_id";
+    /// let x = TriggerRestoreCleanupRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}/executions/{execution_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::TriggerRestoreCleanupRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::TriggerRestoreCleanupRequest;
+    /// let x = TriggerRestoreCleanupRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for TriggerRestoreCleanupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.TriggerRestoreCleanupRequest"
+    }
+}
+
+/// Request message for listing RestoreTemplateExecutions.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListRestoreTemplateExecutionsRequest {
+    /// Required. The project, location, and restore template for which to retrieve
+    /// executions information.
+    /// Format:
+    /// `projects/{project}/locations/{location}/restoreTemplates/{restore_template}`.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size.
+    pub page_size: i32,
+
+    /// Optional. A token identifying a page of results.
+    pub page_token: std::string::String,
+
+    /// Optional. Filtering results.
+    pub filter: std::string::String,
+
+    /// Optional. Hint for how to order the results.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRestoreTemplateExecutionsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListRestoreTemplateExecutionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreTemplateExecutionsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_template_id = "restore_template_id";
+    /// let x = ListRestoreTemplateExecutionsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListRestoreTemplateExecutionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreTemplateExecutionsRequest;
+    /// let x = ListRestoreTemplateExecutionsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListRestoreTemplateExecutionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreTemplateExecutionsRequest;
+    /// let x = ListRestoreTemplateExecutionsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListRestoreTemplateExecutionsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreTemplateExecutionsRequest;
+    /// let x = ListRestoreTemplateExecutionsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListRestoreTemplateExecutionsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreTemplateExecutionsRequest;
+    /// let x = ListRestoreTemplateExecutionsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRestoreTemplateExecutionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListRestoreTemplateExecutionsRequest"
+    }
+}
+
+/// Response message for listing RestoreTemplateExecutions.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListRestoreTemplateExecutionsResponse {
+    /// The list of RestoreTemplateExecution instances.
+    pub restore_template_executions: std::vec::Vec<crate::model::RestoreTemplateExecution>,
+
+    /// A token identifying a page of results.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRestoreTemplateExecutionsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [restore_template_executions][crate::model::ListRestoreTemplateExecutionsResponse::restore_template_executions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreTemplateExecutionsResponse;
+    /// use google_cloud_backupdr_v1::model::RestoreTemplateExecution;
+    /// let x = ListRestoreTemplateExecutionsResponse::new()
+    ///     .set_restore_template_executions([
+    ///         RestoreTemplateExecution::default()/* use setters */,
+    ///         RestoreTemplateExecution::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_restore_template_executions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RestoreTemplateExecution>,
+    {
+        use std::iter::Iterator;
+        self.restore_template_executions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRestoreTemplateExecutionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreTemplateExecutionsResponse;
+    /// let x = ListRestoreTemplateExecutionsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListRestoreTemplateExecutionsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreTemplateExecutionsResponse;
+    /// let x = ListRestoreTemplateExecutionsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRestoreTemplateExecutionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListRestoreTemplateExecutionsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListRestoreTemplateExecutionsResponse
+{
+    type PageItem = crate::model::RestoreTemplateExecution;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.restore_template_executions
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// A `RestoreVerificationPlan` specifies the scheduling and clean-up template
+/// for automated restore verification. It contains a `schedule` to dictate when
+/// the verifications should run, and a `RestoreVerificationCleanupRule` for
+/// post-verification resource deletion.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RestoreVerificationPlan {
+    /// Output only. Identifier. The resource name of the
+    /// `RestoreVerificationPlan`.
+    ///
+    /// Format:
+    /// `projects/{project}/locations/{location}/restoreVerificationPlans/{restoreVerificationPlan}`
+    pub name: std::string::String,
+
+    /// Optional. The description of the `RestoreVerificationPlan` resource.
+    ///
+    /// The description allows for additional details about
+    /// `RestoreVerificationPlan` and its use cases to be provided. An example
+    /// description is the following: "This is a restore verification plan that
+    /// performs a daily verification and cleans up the resources immediately
+    /// after." The description must be at most 2048 characters.
+    pub description: std::string::String,
+
+    /// Output only. When the `RestoreVerificationPlan` was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. When the `RestoreVerificationPlan` was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. User-defined labels.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. The `State` for the `RestoreVerificationPlan`.
+    pub state: crate::model::restore_verification_plan::State,
+
+    /// Required. Describes the schedule on which the restore verification will be
+    /// executed.
+    ///
+    /// The schedule is specified as a
+    /// [Crontab](https://en.wikipedia.org/wiki/Cron#Overview) string.
+    pub schedule: std::string::String,
+
+    /// Optional. Specifies the time zone to be used in interpreting
+    /// [schedule][google.cloud.backupdr.v1.RestoreVerificationPlan.schedule].
+    /// The value of this field must be a time zone name from the [tz
+    /// database](https://en.wikipedia.org/wiki/Tz_database), like
+    /// "America/New_York" or "UTC". Defaults to `UTC` if not specified.
+    ///
+    /// [google.cloud.backupdr.v1.RestoreVerificationPlan.schedule]: crate::model::RestoreVerificationPlan::schedule
+    pub time_zone: std::string::String,
+
+    /// Optional. The cleanup rule to apply if the restore verification succeeds.
+    pub success_cleanup_rule: std::option::Option<crate::model::RestoreVerificationCleanupRule>,
+
+    /// Optional. The cleanup rule to apply if the restore verification fails.
+    pub failure_cleanup_rule: std::option::Option<crate::model::RestoreVerificationCleanupRule>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RestoreVerificationPlan {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RestoreVerificationPlan::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlan;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_verification_plan_id = "restore_verification_plan_id";
+    /// let x = RestoreVerificationPlan::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreVerificationPlans/{restore_verification_plan_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::RestoreVerificationPlan::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlan;
+    /// let x = RestoreVerificationPlan::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::RestoreVerificationPlan::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlan;
+    /// use wkt::Timestamp;
+    /// let x = RestoreVerificationPlan::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::RestoreVerificationPlan::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlan;
+    /// use wkt::Timestamp;
+    /// let x = RestoreVerificationPlan::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RestoreVerificationPlan::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::RestoreVerificationPlan::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlan;
+    /// use wkt::Timestamp;
+    /// let x = RestoreVerificationPlan::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::RestoreVerificationPlan::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlan;
+    /// use wkt::Timestamp;
+    /// let x = RestoreVerificationPlan::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RestoreVerificationPlan::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::RestoreVerificationPlan::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlan;
+    /// let x = RestoreVerificationPlan::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::RestoreVerificationPlan::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlan;
+    /// use google_cloud_backupdr_v1::model::restore_verification_plan::State;
+    /// let x0 = RestoreVerificationPlan::new().set_state(State::Creating);
+    /// let x1 = RestoreVerificationPlan::new().set_state(State::Active);
+    /// let x2 = RestoreVerificationPlan::new().set_state(State::Deleting);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::restore_verification_plan::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [schedule][crate::model::RestoreVerificationPlan::schedule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlan;
+    /// let x = RestoreVerificationPlan::new().set_schedule("example");
+    /// ```
+    pub fn set_schedule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.schedule = v.into();
+        self
+    }
+
+    /// Sets the value of [time_zone][crate::model::RestoreVerificationPlan::time_zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlan;
+    /// let x = RestoreVerificationPlan::new().set_time_zone("example");
+    /// ```
+    pub fn set_time_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.time_zone = v.into();
+        self
+    }
+
+    /// Sets the value of [success_cleanup_rule][crate::model::RestoreVerificationPlan::success_cleanup_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlan;
+    /// use google_cloud_backupdr_v1::model::RestoreVerificationCleanupRule;
+    /// let x = RestoreVerificationPlan::new().set_success_cleanup_rule(RestoreVerificationCleanupRule::default()/* use setters */);
+    /// ```
+    pub fn set_success_cleanup_rule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreVerificationCleanupRule>,
+    {
+        self.success_cleanup_rule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [success_cleanup_rule][crate::model::RestoreVerificationPlan::success_cleanup_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlan;
+    /// use google_cloud_backupdr_v1::model::RestoreVerificationCleanupRule;
+    /// let x = RestoreVerificationPlan::new().set_or_clear_success_cleanup_rule(Some(RestoreVerificationCleanupRule::default()/* use setters */));
+    /// let x = RestoreVerificationPlan::new().set_or_clear_success_cleanup_rule(None::<RestoreVerificationCleanupRule>);
+    /// ```
+    pub fn set_or_clear_success_cleanup_rule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreVerificationCleanupRule>,
+    {
+        self.success_cleanup_rule = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [failure_cleanup_rule][crate::model::RestoreVerificationPlan::failure_cleanup_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlan;
+    /// use google_cloud_backupdr_v1::model::RestoreVerificationCleanupRule;
+    /// let x = RestoreVerificationPlan::new().set_failure_cleanup_rule(RestoreVerificationCleanupRule::default()/* use setters */);
+    /// ```
+    pub fn set_failure_cleanup_rule<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreVerificationCleanupRule>,
+    {
+        self.failure_cleanup_rule = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [failure_cleanup_rule][crate::model::RestoreVerificationPlan::failure_cleanup_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlan;
+    /// use google_cloud_backupdr_v1::model::RestoreVerificationCleanupRule;
+    /// let x = RestoreVerificationPlan::new().set_or_clear_failure_cleanup_rule(Some(RestoreVerificationCleanupRule::default()/* use setters */));
+    /// let x = RestoreVerificationPlan::new().set_or_clear_failure_cleanup_rule(None::<RestoreVerificationCleanupRule>);
+    /// ```
+    pub fn set_or_clear_failure_cleanup_rule<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreVerificationCleanupRule>,
+    {
+        self.failure_cleanup_rule = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for RestoreVerificationPlan {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.RestoreVerificationPlan"
+    }
+}
+
+/// Defines additional types related to [RestoreVerificationPlan].
+pub mod restore_verification_plan {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// `State` enumerates the possible states for a `RestoreVerificationPlan`.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State not set.
+        Unspecified,
+        /// The resource is being created.
+        Creating,
+        /// The resource has been created and is fully usable.
+        Active,
+        /// The resource is being deleted.
+        Deleting,
+        /// The resource has been created but is not usable.
+        Inactive,
+        /// The resource is being updated.
+        Updating,
+        /// The resource is in an error state due to a configuration issue.
+        Error,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Inactive => std::option::Option::Some(4),
+                Self::Updating => std::option::Option::Some(5),
+                Self::Error => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Inactive => std::option::Option::Some("INACTIVE"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::Error => std::option::Option::Some("ERROR"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Active,
+                3 => Self::Deleting,
+                4 => Self::Inactive,
+                5 => Self::Updating,
+                6 => Self::Error,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "ACTIVE" => Self::Active,
+                "DELETING" => Self::Deleting,
+                "INACTIVE" => Self::Inactive,
+                "UPDATING" => Self::Updating,
+                "ERROR" => Self::Error,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Inactive => serializer.serialize_i32(4),
+                Self::Updating => serializer.serialize_i32(5),
+                Self::Error => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.backupdr.v1.RestoreVerificationPlan.State",
+            ))
+        }
+    }
+}
+
+/// Defines the specific cleanup action.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RestoreVerificationCleanupRule {
+    /// Optional. Duration after restore finishes when cleanup triggers.
+    /// Delay must be non-negative and at most 30 days (2592000 seconds).
+    pub cleanup_delay: std::option::Option<wkt::Duration>,
+
+    /// Optional. If set to true, the restored resource will not be cleaned up.
+    pub skip_cleanup: std::option::Option<bool>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RestoreVerificationCleanupRule {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cleanup_delay][crate::model::RestoreVerificationCleanupRule::cleanup_delay].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationCleanupRule;
+    /// use wkt::Duration;
+    /// let x = RestoreVerificationCleanupRule::new().set_cleanup_delay(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_cleanup_delay<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.cleanup_delay = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cleanup_delay][crate::model::RestoreVerificationCleanupRule::cleanup_delay].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationCleanupRule;
+    /// use wkt::Duration;
+    /// let x = RestoreVerificationCleanupRule::new().set_or_clear_cleanup_delay(Some(Duration::default()/* use setters */));
+    /// let x = RestoreVerificationCleanupRule::new().set_or_clear_cleanup_delay(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_cleanup_delay<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.cleanup_delay = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [skip_cleanup][crate::model::RestoreVerificationCleanupRule::skip_cleanup].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationCleanupRule;
+    /// let x = RestoreVerificationCleanupRule::new().set_skip_cleanup(true);
+    /// ```
+    pub fn set_skip_cleanup<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.skip_cleanup = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [skip_cleanup][crate::model::RestoreVerificationCleanupRule::skip_cleanup].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationCleanupRule;
+    /// let x = RestoreVerificationCleanupRule::new().set_or_clear_skip_cleanup(Some(false));
+    /// let x = RestoreVerificationCleanupRule::new().set_or_clear_skip_cleanup(None::<bool>);
+    /// ```
+    pub fn set_or_clear_skip_cleanup<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.skip_cleanup = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for RestoreVerificationCleanupRule {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.RestoreVerificationCleanupRule"
+    }
+}
+
+/// The request message for creating a `RestoreVerificationPlan`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateRestoreVerificationPlanRequest {
+    /// Required. The `RestoreVerificationPlan` project and location in the format
+    /// `projects/{project}/locations/{location}`. In Google Cloud Backup and DR
+    /// locations map to Google Cloud regions, for example **us-central1**.
+    pub parent: std::string::String,
+
+    /// Required. The name of the `RestoreVerificationPlan` to create. The name
+    /// must be unique for the specified project and location. The name must start
+    /// with a lowercase letter followed by up to 62 lowercase letters, numbers, or
+    /// hyphens. Pattern, `^[a-z]([-a-z0-9]*[a-z0-9])?$`.
+    pub restore_verification_plan_id: std::string::String,
+
+    /// Required. The `RestoreVerificationPlan` resource object to create.
+    pub restore_verification_plan: std::option::Option<crate::model::RestoreVerificationPlan>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateRestoreVerificationPlanRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateRestoreVerificationPlanRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateRestoreVerificationPlanRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = CreateRestoreVerificationPlanRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [restore_verification_plan_id][crate::model::CreateRestoreVerificationPlanRequest::restore_verification_plan_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateRestoreVerificationPlanRequest;
+    /// let x = CreateRestoreVerificationPlanRequest::new().set_restore_verification_plan_id("example");
+    /// ```
+    pub fn set_restore_verification_plan_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.restore_verification_plan_id = v.into();
+        self
+    }
+
+    /// Sets the value of [restore_verification_plan][crate::model::CreateRestoreVerificationPlanRequest::restore_verification_plan].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateRestoreVerificationPlanRequest;
+    /// use google_cloud_backupdr_v1::model::RestoreVerificationPlan;
+    /// let x = CreateRestoreVerificationPlanRequest::new().set_restore_verification_plan(RestoreVerificationPlan::default()/* use setters */);
+    /// ```
+    pub fn set_restore_verification_plan<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreVerificationPlan>,
+    {
+        self.restore_verification_plan = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [restore_verification_plan][crate::model::CreateRestoreVerificationPlanRequest::restore_verification_plan].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateRestoreVerificationPlanRequest;
+    /// use google_cloud_backupdr_v1::model::RestoreVerificationPlan;
+    /// let x = CreateRestoreVerificationPlanRequest::new().set_or_clear_restore_verification_plan(Some(RestoreVerificationPlan::default()/* use setters */));
+    /// let x = CreateRestoreVerificationPlanRequest::new().set_or_clear_restore_verification_plan(None::<RestoreVerificationPlan>);
+    /// ```
+    pub fn set_or_clear_restore_verification_plan<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreVerificationPlan>,
+    {
+        self.restore_verification_plan = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateRestoreVerificationPlanRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateRestoreVerificationPlanRequest;
+    /// let x = CreateRestoreVerificationPlanRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateRestoreVerificationPlanRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.CreateRestoreVerificationPlanRequest"
+    }
+}
+
+/// The request message for getting a `RestoreVerificationPlan`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetRestoreVerificationPlanRequest {
+    /// Required. The resource name of the `RestoreVerificationPlan` to retrieve.
+    ///
+    /// Format:
+    /// `projects/{project}/locations/{location}/restoreVerificationPlans/{restoreVerificationPlan}`
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetRestoreVerificationPlanRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetRestoreVerificationPlanRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::GetRestoreVerificationPlanRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_verification_plan_id = "restore_verification_plan_id";
+    /// let x = GetRestoreVerificationPlanRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreVerificationPlans/{restore_verification_plan_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetRestoreVerificationPlanRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.GetRestoreVerificationPlanRequest"
+    }
+}
+
+/// The request message for getting a list of `RestoreVerificationPlans`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListRestoreVerificationPlansRequest {
+    /// Required. The project and location for which to retrieve
+    /// `RestoreVerificationPlans` information. Format:
+    /// `projects/{project}/locations/{location}`. In Google Cloud Backup and DR,
+    /// locations map to Google Cloud regions, for example **us-central1**. To
+    /// retrieve restore verification plans for all locations, use
+    /// "-" for the `{location}` value.
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of `RestoreVerificationPlans` to return in a
+    /// single response. If not specified, a default value will be chosen by the
+    /// service. Note that the response may include a partial list and a caller
+    /// should only rely on the response's
+    /// [next_page_token][google.cloud.backupdr.v1.ListRestoreVerificationPlansResponse.next_page_token]
+    /// to determine if there are more instances left to be queried.
+    ///
+    /// [google.cloud.backupdr.v1.ListRestoreVerificationPlansResponse.next_page_token]: crate::model::ListRestoreVerificationPlansResponse::next_page_token
+    pub page_size: i32,
+
+    /// Optional. The value of
+    /// [next_page_token][google.cloud.backupdr.v1.ListRestoreVerificationPlansResponse.next_page_token]
+    /// received from a previous `ListRestoreVerificationPlans` call.
+    /// Provide this to retrieve the subsequent page in a multi-page list of
+    /// results. When paginating, all other parameters provided to
+    /// `ListRestoreVerificationPlans` must match the call that provided the page
+    /// token.
+    ///
+    /// [google.cloud.backupdr.v1.ListRestoreVerificationPlansResponse.next_page_token]: crate::model::ListRestoreVerificationPlansResponse::next_page_token
+    pub page_token: std::string::String,
+
+    /// Optional. Field match expression used to filter the results.
+    pub filter: std::string::String,
+
+    /// Optional. Field by which to sort the results.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRestoreVerificationPlansRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListRestoreVerificationPlansRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreVerificationPlansRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// let x = ListRestoreVerificationPlansRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListRestoreVerificationPlansRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreVerificationPlansRequest;
+    /// let x = ListRestoreVerificationPlansRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListRestoreVerificationPlansRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreVerificationPlansRequest;
+    /// let x = ListRestoreVerificationPlansRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListRestoreVerificationPlansRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreVerificationPlansRequest;
+    /// let x = ListRestoreVerificationPlansRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListRestoreVerificationPlansRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreVerificationPlansRequest;
+    /// let x = ListRestoreVerificationPlansRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRestoreVerificationPlansRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListRestoreVerificationPlansRequest"
+    }
+}
+
+/// The response message for getting a list of `RestoreVerificationPlans`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListRestoreVerificationPlansResponse {
+    /// The list of `RestoreVerificationPlans` in the project for the specified
+    /// location.
+    ///
+    /// If the `{location}` value in the request is "-", the response contains a
+    /// list of resources from all locations. In case any location is unreachable,
+    /// the response will only return restore verification plans in reachable
+    /// locations and the 'unreachable' field will be populated with a list of
+    /// unreachable locations.
+    pub restore_verification_plans: std::vec::Vec<crate::model::RestoreVerificationPlan>,
+
+    /// A token which may be sent as
+    /// [page_token][google.cloud.backupdr.v1.ListRestoreVerificationPlansRequest.page_token]
+    /// in a subsequent `ListRestoreVerificationPlans` call to retrieve the next
+    /// page of results. If this field is omitted or empty, then there are no more
+    /// results to return.
+    ///
+    /// [google.cloud.backupdr.v1.ListRestoreVerificationPlansRequest.page_token]: crate::model::ListRestoreVerificationPlansRequest::page_token
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRestoreVerificationPlansResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [restore_verification_plans][crate::model::ListRestoreVerificationPlansResponse::restore_verification_plans].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreVerificationPlansResponse;
+    /// use google_cloud_backupdr_v1::model::RestoreVerificationPlan;
+    /// let x = ListRestoreVerificationPlansResponse::new()
+    ///     .set_restore_verification_plans([
+    ///         RestoreVerificationPlan::default()/* use setters */,
+    ///         RestoreVerificationPlan::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_restore_verification_plans<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RestoreVerificationPlan>,
+    {
+        use std::iter::Iterator;
+        self.restore_verification_plans = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRestoreVerificationPlansResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreVerificationPlansResponse;
+    /// let x = ListRestoreVerificationPlansResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListRestoreVerificationPlansResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreVerificationPlansResponse;
+    /// let x = ListRestoreVerificationPlansResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRestoreVerificationPlansResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListRestoreVerificationPlansResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListRestoreVerificationPlansResponse
+{
+    type PageItem = crate::model::RestoreVerificationPlan;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.restore_verification_plans
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The request message for deleting a `RestoreVerificationPlan`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteRestoreVerificationPlanRequest {
+    /// Required. The resource name of the `RestoreVerificationPlan` to delete.
+    ///
+    /// Format:
+    /// `projects/{project}/locations/{location}/restoreVerificationPlans/{restoreVerificationPlan}`
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes after the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and
+    /// the request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    /// Optional. If set to true, any RestoreVerificationPlanAssociations linked to
+    /// this RestoreVerificationPlan will also be deleted.
+    pub force: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteRestoreVerificationPlanRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteRestoreVerificationPlanRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::DeleteRestoreVerificationPlanRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_verification_plan_id = "restore_verification_plan_id";
+    /// let x = DeleteRestoreVerificationPlanRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreVerificationPlans/{restore_verification_plan_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteRestoreVerificationPlanRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::DeleteRestoreVerificationPlanRequest;
+    /// let x = DeleteRestoreVerificationPlanRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeleteRestoreVerificationPlanRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::DeleteRestoreVerificationPlanRequest;
+    /// let x = DeleteRestoreVerificationPlanRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteRestoreVerificationPlanRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.DeleteRestoreVerificationPlanRequest"
+    }
+}
+
+/// A `RestoreVerificationPlanAssociation` binds a specific workload to a
+/// `RestoreVerificationPlan`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RestoreVerificationPlanAssociation {
+    /// Output only. Identifier. The resource name of the
+    /// `RestoreVerificationPlanAssociation`.
+    ///
+    /// Format:
+    /// `projects/{project}/locations/{location}/restoreVerificationPlans/{restore_verification_plan}/associations/{association}`
+    pub name: std::string::String,
+
+    /// Optional. The description of the `RestoreVerificationPlanAssociation`
+    /// resource.
+    pub description: std::string::String,
+
+    /// Output only. The time when the association was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time when the association was updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The `State` for the `RestoreVerificationPlanAssociation`.
+    pub state: crate::model::restore_verification_plan_association::State,
+
+    /// Output only. Results of the most recent automated restore initiation
+    /// and the next scheduled execution time.
+    pub trigger_summary: std::option::Option<crate::model::TriggerSummary>,
+
+    /// Required. Immutable. The type of the Google Cloud resource (e.g.,
+    /// `compute.googleapis.com/Instance`, `sqladmin.googleapis.com/Instance`).
+    pub resource_type: std::string::String,
+
+    /// Optional. User-defined labels.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// The specific association link.
+    pub association:
+        std::option::Option<crate::model::restore_verification_plan_association::Association>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RestoreVerificationPlanAssociation {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RestoreVerificationPlanAssociation::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlanAssociation;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_verification_plan_id = "restore_verification_plan_id";
+    /// # let association_id = "association_id";
+    /// let x = RestoreVerificationPlanAssociation::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreVerificationPlans/{restore_verification_plan_id}/associations/{association_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::RestoreVerificationPlanAssociation::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlanAssociation;
+    /// let x = RestoreVerificationPlanAssociation::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::RestoreVerificationPlanAssociation::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlanAssociation;
+    /// use wkt::Timestamp;
+    /// let x = RestoreVerificationPlanAssociation::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::RestoreVerificationPlanAssociation::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlanAssociation;
+    /// use wkt::Timestamp;
+    /// let x = RestoreVerificationPlanAssociation::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RestoreVerificationPlanAssociation::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::RestoreVerificationPlanAssociation::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlanAssociation;
+    /// use wkt::Timestamp;
+    /// let x = RestoreVerificationPlanAssociation::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::RestoreVerificationPlanAssociation::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlanAssociation;
+    /// use wkt::Timestamp;
+    /// let x = RestoreVerificationPlanAssociation::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RestoreVerificationPlanAssociation::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::RestoreVerificationPlanAssociation::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlanAssociation;
+    /// use google_cloud_backupdr_v1::model::restore_verification_plan_association::State;
+    /// let x0 = RestoreVerificationPlanAssociation::new().set_state(State::Creating);
+    /// let x1 = RestoreVerificationPlanAssociation::new().set_state(State::Active);
+    /// let x2 = RestoreVerificationPlanAssociation::new().set_state(State::Deleting);
+    /// ```
+    pub fn set_state<
+        T: std::convert::Into<crate::model::restore_verification_plan_association::State>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [trigger_summary][crate::model::RestoreVerificationPlanAssociation::trigger_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlanAssociation;
+    /// use google_cloud_backupdr_v1::model::TriggerSummary;
+    /// let x = RestoreVerificationPlanAssociation::new().set_trigger_summary(TriggerSummary::default()/* use setters */);
+    /// ```
+    pub fn set_trigger_summary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TriggerSummary>,
+    {
+        self.trigger_summary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [trigger_summary][crate::model::RestoreVerificationPlanAssociation::trigger_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlanAssociation;
+    /// use google_cloud_backupdr_v1::model::TriggerSummary;
+    /// let x = RestoreVerificationPlanAssociation::new().set_or_clear_trigger_summary(Some(TriggerSummary::default()/* use setters */));
+    /// let x = RestoreVerificationPlanAssociation::new().set_or_clear_trigger_summary(None::<TriggerSummary>);
+    /// ```
+    pub fn set_or_clear_trigger_summary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TriggerSummary>,
+    {
+        self.trigger_summary = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [resource_type][crate::model::RestoreVerificationPlanAssociation::resource_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlanAssociation;
+    /// let x = RestoreVerificationPlanAssociation::new().set_resource_type("example");
+    /// ```
+    pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.resource_type = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::RestoreVerificationPlanAssociation::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlanAssociation;
+    /// let x = RestoreVerificationPlanAssociation::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [association][crate::model::RestoreVerificationPlanAssociation::association].
+    ///
+    /// Note that all the setters affecting `association` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlanAssociation;
+    /// use google_cloud_backupdr_v1::model::restore_verification_plan_association::Association;
+    /// let x = RestoreVerificationPlanAssociation::new().set_association(Some(Association::RestoreTemplate("example".to_string())));
+    /// ```
+    pub fn set_association<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::restore_verification_plan_association::Association,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.association = v.into();
+        self
+    }
+
+    /// The value of [association][crate::model::RestoreVerificationPlanAssociation::association]
+    /// if it holds a `RestoreTemplate`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn restore_template(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.association.as_ref().and_then(|v| match v {
+            crate::model::restore_verification_plan_association::Association::RestoreTemplate(
+                v,
+            ) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [association][crate::model::RestoreVerificationPlanAssociation::association]
+    /// to hold a `RestoreTemplate`.
+    ///
+    /// Note that all the setters affecting `association` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::RestoreVerificationPlanAssociation;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_template_id = "restore_template_id";
+    /// let x = RestoreVerificationPlanAssociation::new().set_restore_template(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}"));
+    /// assert!(x.restore_template().is_some());
+    /// ```
+    pub fn set_restore_template<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.association = std::option::Option::Some(
+            crate::model::restore_verification_plan_association::Association::RestoreTemplate(
+                v.into(),
+            ),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for RestoreVerificationPlanAssociation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.RestoreVerificationPlanAssociation"
+    }
+}
+
+/// Defines additional types related to [RestoreVerificationPlanAssociation].
+pub mod restore_verification_plan_association {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// `State` enumerates the possible states for a
+    /// `RestoreVerificationPlanAssociation`.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// State not set.
+        Unspecified,
+        /// The resource is being created.
+        Creating,
+        /// The resource has been created and is fully usable.
+        Active,
+        /// The resource is being deleted.
+        Deleting,
+        /// The resource has been created but is not usable.
+        Inactive,
+        /// The resource is being updated.
+        Updating,
+        /// The resource is in an error state due to a configuration issue.
+        Error,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::Deleting => std::option::Option::Some(3),
+                Self::Inactive => std::option::Option::Some(4),
+                Self::Updating => std::option::Option::Some(5),
+                Self::Error => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Inactive => std::option::Option::Some("INACTIVE"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::Error => std::option::Option::Some("ERROR"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Active,
+                3 => Self::Deleting,
+                4 => Self::Inactive,
+                5 => Self::Updating,
+                6 => Self::Error,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "ACTIVE" => Self::Active,
+                "DELETING" => Self::Deleting,
+                "INACTIVE" => Self::Inactive,
+                "UPDATING" => Self::Updating,
+                "ERROR" => Self::Error,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Deleting => serializer.serialize_i32(3),
+                Self::Inactive => serializer.serialize_i32(4),
+                Self::Updating => serializer.serialize_i32(5),
+                Self::Error => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.backupdr.v1.RestoreVerificationPlanAssociation.State",
+            ))
+        }
+    }
+
+    /// The specific association link.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Association {
+        /// Required. Immutable. The canonical name of the RestoreTemplate to
+        /// trigger.
+        RestoreTemplate(std::string::String),
+    }
+}
+
+/// `TriggerSummary` contains the results of the most recent automated restore
+/// initiation and the next scheduled execution time.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TriggerSummary {
+    /// Output only. The time of the most recent trigger initiation.
+    pub last_trigger_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The scheduled time of the next trigger initiation.
+    pub next_trigger_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The error status of the most recent failed trigger.
+    pub last_trigger_error: std::option::Option<google_cloud_rpc::model::Status>,
+
+    /// Output only. The resource name of the most recent initiated
+    /// RestoreTemplateExecution.
+    /// Format:
+    /// `projects/{project}/locations/{location}/restoreTemplates/{restore_template}/executions/{execution}`
+    pub last_verification_execution: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TriggerSummary {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [last_trigger_time][crate::model::TriggerSummary::last_trigger_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::TriggerSummary;
+    /// use wkt::Timestamp;
+    /// let x = TriggerSummary::new().set_last_trigger_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_last_trigger_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_trigger_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_trigger_time][crate::model::TriggerSummary::last_trigger_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::TriggerSummary;
+    /// use wkt::Timestamp;
+    /// let x = TriggerSummary::new().set_or_clear_last_trigger_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TriggerSummary::new().set_or_clear_last_trigger_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_last_trigger_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_trigger_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [next_trigger_time][crate::model::TriggerSummary::next_trigger_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::TriggerSummary;
+    /// use wkt::Timestamp;
+    /// let x = TriggerSummary::new().set_next_trigger_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_next_trigger_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.next_trigger_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [next_trigger_time][crate::model::TriggerSummary::next_trigger_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::TriggerSummary;
+    /// use wkt::Timestamp;
+    /// let x = TriggerSummary::new().set_or_clear_next_trigger_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TriggerSummary::new().set_or_clear_next_trigger_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_next_trigger_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.next_trigger_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [last_trigger_error][crate::model::TriggerSummary::last_trigger_error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::TriggerSummary;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = TriggerSummary::new().set_last_trigger_error(Status::default()/* use setters */);
+    /// ```
+    pub fn set_last_trigger_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.last_trigger_error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_trigger_error][crate::model::TriggerSummary::last_trigger_error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::TriggerSummary;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = TriggerSummary::new().set_or_clear_last_trigger_error(Some(Status::default()/* use setters */));
+    /// let x = TriggerSummary::new().set_or_clear_last_trigger_error(None::<Status>);
+    /// ```
+    pub fn set_or_clear_last_trigger_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.last_trigger_error = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [last_verification_execution][crate::model::TriggerSummary::last_verification_execution].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::TriggerSummary;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_template_id = "restore_template_id";
+    /// # let execution_id = "execution_id";
+    /// let x = TriggerSummary::new().set_last_verification_execution(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}/executions/{execution_id}"));
+    /// ```
+    pub fn set_last_verification_execution<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.last_verification_execution = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for TriggerSummary {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.TriggerSummary"
+    }
+}
+
+/// Request message for CreateRestoreVerificationPlanAssociation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateRestoreVerificationPlanAssociationRequest {
+    /// Required. The parent resource where this association will be created.
+    /// Format:
+    /// `projects/{project}/locations/{location}/restoreVerificationPlans/{restore_verification_plan}`
+    pub parent: std::string::String,
+
+    /// Required. The ID to use for the association, which will become the final
+    /// component of the association's resource name.
+    ///
+    /// This value should be 1-63 characters, and valid characters are
+    /// /[a-z0-9_-]/.
+    pub restore_verification_plan_association_id: std::string::String,
+
+    /// Required. The RestoreVerificationPlanAssociation resource to create.
+    pub restore_verification_plan_association:
+        std::option::Option<crate::model::RestoreVerificationPlanAssociation>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know
+    /// that the server has already received the duplicate request and can avoid
+    /// responding with an error. The request ID must be a valid UUID with the
+    /// exception that zero UUID is not supported
+    /// (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateRestoreVerificationPlanAssociationRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateRestoreVerificationPlanAssociationRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateRestoreVerificationPlanAssociationRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_verification_plan_id = "restore_verification_plan_id";
+    /// let x = CreateRestoreVerificationPlanAssociationRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/restoreVerificationPlans/{restore_verification_plan_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [restore_verification_plan_association_id][crate::model::CreateRestoreVerificationPlanAssociationRequest::restore_verification_plan_association_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateRestoreVerificationPlanAssociationRequest;
+    /// let x = CreateRestoreVerificationPlanAssociationRequest::new().set_restore_verification_plan_association_id("example");
+    /// ```
+    pub fn set_restore_verification_plan_association_id<
+        T: std::convert::Into<std::string::String>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.restore_verification_plan_association_id = v.into();
+        self
+    }
+
+    /// Sets the value of [restore_verification_plan_association][crate::model::CreateRestoreVerificationPlanAssociationRequest::restore_verification_plan_association].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateRestoreVerificationPlanAssociationRequest;
+    /// use google_cloud_backupdr_v1::model::RestoreVerificationPlanAssociation;
+    /// let x = CreateRestoreVerificationPlanAssociationRequest::new().set_restore_verification_plan_association(RestoreVerificationPlanAssociation::default()/* use setters */);
+    /// ```
+    pub fn set_restore_verification_plan_association<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreVerificationPlanAssociation>,
+    {
+        self.restore_verification_plan_association = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [restore_verification_plan_association][crate::model::CreateRestoreVerificationPlanAssociationRequest::restore_verification_plan_association].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateRestoreVerificationPlanAssociationRequest;
+    /// use google_cloud_backupdr_v1::model::RestoreVerificationPlanAssociation;
+    /// let x = CreateRestoreVerificationPlanAssociationRequest::new().set_or_clear_restore_verification_plan_association(Some(RestoreVerificationPlanAssociation::default()/* use setters */));
+    /// let x = CreateRestoreVerificationPlanAssociationRequest::new().set_or_clear_restore_verification_plan_association(None::<RestoreVerificationPlanAssociation>);
+    /// ```
+    pub fn set_or_clear_restore_verification_plan_association<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::RestoreVerificationPlanAssociation>,
+    {
+        self.restore_verification_plan_association = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateRestoreVerificationPlanAssociationRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::CreateRestoreVerificationPlanAssociationRequest;
+    /// let x = CreateRestoreVerificationPlanAssociationRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateRestoreVerificationPlanAssociationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.CreateRestoreVerificationPlanAssociationRequest"
+    }
+}
+
+/// Request message for GetRestoreVerificationPlanAssociation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetRestoreVerificationPlanAssociationRequest {
+    /// Required. The resource name of the RestoreVerificationPlanAssociation to
+    /// retrieve.
+    /// Format:
+    /// `projects/{project}/locations/{location}/restoreVerificationPlans/{restore_verification_plan}/associations/{association}`
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetRestoreVerificationPlanAssociationRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetRestoreVerificationPlanAssociationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::GetRestoreVerificationPlanAssociationRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_verification_plan_id = "restore_verification_plan_id";
+    /// # let association_id = "association_id";
+    /// let x = GetRestoreVerificationPlanAssociationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreVerificationPlans/{restore_verification_plan_id}/associations/{association_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetRestoreVerificationPlanAssociationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.GetRestoreVerificationPlanAssociationRequest"
+    }
+}
+
+/// Request message for ListRestoreVerificationPlanAssociations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListRestoreVerificationPlanAssociationsRequest {
+    /// Required. The parent RestoreVerificationPlan name.
+    /// Format:
+    /// `projects/{project}/locations/{location}/restoreVerificationPlans/{restore_verification_plan}`
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of associations to return. The service may
+    /// return fewer than this value.
+    /// If unspecified, at most 500 associations will be returned.
+    /// The maximum value is 1000; values above 1000 will be coerced to 1000.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous
+    /// `ListRestoreVerificationPlanAssociations` call.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `ListRestoreVerificationPlanAssociations` must match the call that provided
+    /// the page token.
+    pub page_token: std::string::String,
+
+    /// Optional. Filtering results.
+    pub filter: std::string::String,
+
+    /// Optional. Hint for how to order the results.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRestoreVerificationPlanAssociationsRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListRestoreVerificationPlanAssociationsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreVerificationPlanAssociationsRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_verification_plan_id = "restore_verification_plan_id";
+    /// let x = ListRestoreVerificationPlanAssociationsRequest::new().set_parent(format!("projects/{project_id}/locations/{location_id}/restoreVerificationPlans/{restore_verification_plan_id}"));
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListRestoreVerificationPlanAssociationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreVerificationPlanAssociationsRequest;
+    /// let x = ListRestoreVerificationPlanAssociationsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListRestoreVerificationPlanAssociationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreVerificationPlanAssociationsRequest;
+    /// let x = ListRestoreVerificationPlanAssociationsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListRestoreVerificationPlanAssociationsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreVerificationPlanAssociationsRequest;
+    /// let x = ListRestoreVerificationPlanAssociationsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListRestoreVerificationPlanAssociationsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreVerificationPlanAssociationsRequest;
+    /// let x = ListRestoreVerificationPlanAssociationsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRestoreVerificationPlanAssociationsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListRestoreVerificationPlanAssociationsRequest"
+    }
+}
+
+/// Response message for ListRestoreVerificationPlanAssociations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListRestoreVerificationPlanAssociationsResponse {
+    /// The list of RestoreVerificationPlanAssociations.
+    pub restore_verification_plan_associations:
+        std::vec::Vec<crate::model::RestoreVerificationPlanAssociation>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRestoreVerificationPlanAssociationsResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [restore_verification_plan_associations][crate::model::ListRestoreVerificationPlanAssociationsResponse::restore_verification_plan_associations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreVerificationPlanAssociationsResponse;
+    /// use google_cloud_backupdr_v1::model::RestoreVerificationPlanAssociation;
+    /// let x = ListRestoreVerificationPlanAssociationsResponse::new()
+    ///     .set_restore_verification_plan_associations([
+    ///         RestoreVerificationPlanAssociation::default()/* use setters */,
+    ///         RestoreVerificationPlanAssociation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_restore_verification_plan_associations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RestoreVerificationPlanAssociation>,
+    {
+        use std::iter::Iterator;
+        self.restore_verification_plan_associations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRestoreVerificationPlanAssociationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreVerificationPlanAssociationsResponse;
+    /// let x = ListRestoreVerificationPlanAssociationsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListRestoreVerificationPlanAssociationsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListRestoreVerificationPlanAssociationsResponse;
+    /// let x = ListRestoreVerificationPlanAssociationsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRestoreVerificationPlanAssociationsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListRestoreVerificationPlanAssociationsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListRestoreVerificationPlanAssociationsResponse
+{
+    type PageItem = crate::model::RestoreVerificationPlanAssociation;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.restore_verification_plan_associations
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for DeleteRestoreVerificationPlanAssociation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteRestoreVerificationPlanAssociationRequest {
+    /// Required. The resource name of the RestoreVerificationPlanAssociation to
+    /// delete.
+    /// Format:
+    /// `projects/{project}/locations/{location}/restoreVerificationPlans/{restore_verification_plan}/associations/{association}`
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know
+    /// that the server has already received the duplicate request and can avoid
+    /// responding with an error. The request ID must be a valid UUID with the
+    /// exception that zero UUID is not supported
+    /// (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteRestoreVerificationPlanAssociationRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteRestoreVerificationPlanAssociationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::DeleteRestoreVerificationPlanAssociationRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_verification_plan_id = "restore_verification_plan_id";
+    /// # let association_id = "association_id";
+    /// let x = DeleteRestoreVerificationPlanAssociationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreVerificationPlans/{restore_verification_plan_id}/associations/{association_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteRestoreVerificationPlanAssociationRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::DeleteRestoreVerificationPlanAssociationRequest;
+    /// let x = DeleteRestoreVerificationPlanAssociationRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteRestoreVerificationPlanAssociationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.DeleteRestoreVerificationPlanAssociationRequest"
+    }
+}
+
+/// Request message for TriggerRestoreVerification.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TriggerRestoreVerificationRequest {
+    /// Required. The resource name of the RestoreVerificationPlanAssociation to
+    /// trigger.
+    /// Format:
+    /// `projects/{project}/locations/{location}/restoreVerificationPlans/{restore_verification_plan}/associations/{association}`
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know
+    /// that the server has already received the duplicate request and can avoid
+    /// responding with an error. The request ID must be a valid UUID with the
+    /// exception that zero UUID is not supported
+    /// (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TriggerRestoreVerificationRequest {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::TriggerRestoreVerificationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::TriggerRestoreVerificationRequest;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_verification_plan_id = "restore_verification_plan_id";
+    /// # let association_id = "association_id";
+    /// let x = TriggerRestoreVerificationRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/restoreVerificationPlans/{restore_verification_plan_id}/associations/{association_id}"));
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::TriggerRestoreVerificationRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::TriggerRestoreVerificationRequest;
+    /// let x = TriggerRestoreVerificationRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for TriggerRestoreVerificationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.TriggerRestoreVerificationRequest"
+    }
+}
+
+/// Response message for TriggerRestoreVerification.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TriggerRestoreVerificationResponse {
+    /// Output only. The resource name of the initiated RestoreTemplateExecution.
+    /// Format:
+    /// `projects/{project}/locations/{location}/restoreTemplates/{restore_template}/executions/{execution}`
+    pub restore_template_execution: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TriggerRestoreVerificationResponse {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [restore_template_execution][crate::model::TriggerRestoreVerificationResponse::restore_template_execution].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::TriggerRestoreVerificationResponse;
+    /// # let project_id = "project_id";
+    /// # let location_id = "location_id";
+    /// # let restore_template_id = "restore_template_id";
+    /// # let execution_id = "execution_id";
+    /// let x = TriggerRestoreVerificationResponse::new().set_restore_template_execution(format!("projects/{project_id}/locations/{location_id}/restoreTemplates/{restore_template_id}/executions/{execution_id}"));
+    /// ```
+    pub fn set_restore_template_execution<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.restore_template_execution = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for TriggerRestoreVerificationResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.TriggerRestoreVerificationResponse"
+    }
+}
+
 /// Backup configuration state. Is the resource configured for backup?
 ///
 /// # Working with unknown values
@@ -26216,6 +36777,173 @@ impl<'de> serde::de::Deserialize<'de> for KeyRevocationActionType {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<KeyRevocationActionType>::new(
             ".google.cloud.backupdr.v1.KeyRevocationActionType",
+        ))
+    }
+}
+
+/// Represents the state of a specific phase (RUNNING, SUCCEEDED, FAILED, etc.).
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum PhaseState {
+    /// Phase state is not set.
+    Unspecified,
+    /// This phase is pending execution.
+    Pending,
+    /// The phase is actively executing.
+    Running,
+    /// The phase completed successfully.
+    Succeeded,
+    /// The phase encountered an error and failed.
+    Failed,
+    /// The phase timed out.
+    TimedOut,
+    /// The phase was skipped.
+    Skipped,
+    /// The phase is waiting to be executed.
+    Waiting,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [PhaseState::value] or
+    /// [PhaseState::name].
+    UnknownValue(phase_state::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod phase_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl PhaseState {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Pending => std::option::Option::Some(1),
+            Self::Running => std::option::Option::Some(2),
+            Self::Succeeded => std::option::Option::Some(3),
+            Self::Failed => std::option::Option::Some(4),
+            Self::TimedOut => std::option::Option::Some(5),
+            Self::Skipped => std::option::Option::Some(6),
+            Self::Waiting => std::option::Option::Some(7),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("PHASE_STATE_UNSPECIFIED"),
+            Self::Pending => std::option::Option::Some("PENDING"),
+            Self::Running => std::option::Option::Some("RUNNING"),
+            Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+            Self::Failed => std::option::Option::Some("FAILED"),
+            Self::TimedOut => std::option::Option::Some("TIMED_OUT"),
+            Self::Skipped => std::option::Option::Some("SKIPPED"),
+            Self::Waiting => std::option::Option::Some("WAITING"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for PhaseState {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for PhaseState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for PhaseState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Pending,
+            2 => Self::Running,
+            3 => Self::Succeeded,
+            4 => Self::Failed,
+            5 => Self::TimedOut,
+            6 => Self::Skipped,
+            7 => Self::Waiting,
+            _ => Self::UnknownValue(phase_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for PhaseState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "PHASE_STATE_UNSPECIFIED" => Self::Unspecified,
+            "PENDING" => Self::Pending,
+            "RUNNING" => Self::Running,
+            "SUCCEEDED" => Self::Succeeded,
+            "FAILED" => Self::Failed,
+            "TIMED_OUT" => Self::TimedOut,
+            "SKIPPED" => Self::Skipped,
+            "WAITING" => Self::Waiting,
+            _ => Self::UnknownValue(phase_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for PhaseState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Pending => serializer.serialize_i32(1),
+            Self::Running => serializer.serialize_i32(2),
+            Self::Succeeded => serializer.serialize_i32(3),
+            Self::Failed => serializer.serialize_i32(4),
+            Self::TimedOut => serializer.serialize_i32(5),
+            Self::Skipped => serializer.serialize_i32(6),
+            Self::Waiting => serializer.serialize_i32(7),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for PhaseState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<PhaseState>::new(
+            ".google.cloud.backupdr.v1.PhaseState",
         ))
     }
 }

@@ -275,6 +275,12 @@ mod tests {
     use tracing::span;
 
     impl Subscriber for CaptureEvents {
+        fn register_callsite(
+            &self,
+            _metadata: &'static tracing::Metadata<'static>,
+        ) -> tracing::subscriber::Interest {
+            tracing::subscriber::Interest::sometimes()
+        }
         fn enabled(&self, metadata: &tracing::Metadata<'_>) -> bool {
             metadata.is_event()
         }

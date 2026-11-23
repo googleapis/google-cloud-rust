@@ -54,7 +54,7 @@ impl super::stub::LanguageService for LanguageService {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v2/documents:analyzeSentiment".to_string();
                 let path_template = "/v2/documents:analyzeSentiment";
@@ -75,7 +75,7 @@ impl super::stub::LanguageService for LanguageService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.language.v2.LanguageService/AnalyzeSentiment")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -98,7 +98,7 @@ impl super::stub::LanguageService for LanguageService {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v2/documents:analyzeEntities".to_string();
                 let path_template = "/v2/documents:analyzeEntities";
@@ -119,7 +119,7 @@ impl super::stub::LanguageService for LanguageService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.language.v2.LanguageService/AnalyzeEntities")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -142,7 +142,7 @@ impl super::stub::LanguageService for LanguageService {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v2/documents:classifyText".to_string();
                 let path_template = "/v2/documents:classifyText";
@@ -163,7 +163,7 @@ impl super::stub::LanguageService for LanguageService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.language.v2.LanguageService/ClassifyText")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -186,7 +186,7 @@ impl super::stub::LanguageService for LanguageService {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v2/documents:moderateText".to_string();
                 let path_template = "/v2/documents:moderateText";
@@ -207,7 +207,7 @@ impl super::stub::LanguageService for LanguageService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.language.v2.LanguageService/ModerateText")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -230,7 +230,7 @@ impl super::stub::LanguageService for LanguageService {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v2/documents:annotateText".to_string();
                 let path_template = "/v2/documents:annotateText";
@@ -251,7 +251,7 @@ impl super::stub::LanguageService for LanguageService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.language.v2.LanguageService/AnnotateText")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(

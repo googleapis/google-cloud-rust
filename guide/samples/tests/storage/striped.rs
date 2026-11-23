@@ -12,22 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ANCHOR: all
+// [START rust_storage_striped_all] ANCHOR: all
 use std::sync::Arc;
 
 use google_cloud_gax::options::RequestOptionsBuilder;
-// ANCHOR: seed-function
+// [START rust_storage_striped_seed_function] ANCHOR: seed-function
 use google_cloud_storage::client::Storage;
 use google_cloud_storage::client::StorageControl;
 use google_cloud_storage::model::Object;
 
 async fn seed(client: Storage, control: StorageControl, bucket_name: &str) -> anyhow::Result<()> {
-    // ANCHOR_END: seed-function
-    // ANCHOR: seed-use
+    // [END rust_storage_striped_seed_function] ANCHOR_END: seed-function
+    // [START rust_storage_striped_seed_use] ANCHOR: seed-use
     use google_cloud_storage::model::compose_object_request::SourceObject;
-    // ANCHOR_END: seed-use
+    // [END rust_storage_striped_seed_use] ANCHOR_END: seed-use
 
-    // ANCHOR: create-1MiB
+    // [START rust_storage_striped_create_1mib] ANCHOR: create-1MiB
     let buffer = String::from_iter(('a'..='z').cycle().take(1024 * 1024));
     let seed = client
         .write_object(bucket_name, "1MiB.txt", bytes::Bytes::from_owner(buffer))
@@ -39,9 +39,9 @@ async fn seed(client: Storage, control: StorageControl, bucket_name: &str) -> an
         seed.name,
         seed.size / 1024
     );
-    // ANCHOR_END: create-1MiB
+    // [END rust_storage_striped_create_1mib] ANCHOR_END: create-1MiB
 
-    // ANCHOR: compose-32
+    // [START rust_storage_striped_compose_32] ANCHOR: compose-32
     let seed_32 = control
         .compose_object()
         .set_destination(Object::new().set_bucket(bucket_name).set_name("32MiB.txt"))
@@ -59,9 +59,9 @@ async fn seed(client: Storage, control: StorageControl, bucket_name: &str) -> an
         seed.name,
         seed.size / (1024 * 1024)
     );
-    // ANCHOR_END: compose-32
+    // [END rust_storage_striped_compose_32] ANCHOR_END: compose-32
 
-    // ANCHOR: compose-1024
+    // [START rust_storage_striped_compose_1024] ANCHOR: compose-1024
     let seed_1024 = control
         .compose_object()
         .set_destination(Object::new().set_bucket(bucket_name).set_name("1GiB.txt"))
@@ -79,9 +79,9 @@ async fn seed(client: Storage, control: StorageControl, bucket_name: &str) -> an
         seed.name,
         seed.size / (1024 * 1024)
     );
-    // ANCHOR_END: compose-1024
+    // [END rust_storage_striped_compose_1024] ANCHOR_END: compose-1024
 
-    // ANCHOR: compose-GiB
+    // [START rust_storage_striped_compose_gib] ANCHOR: compose-GiB
     for s in [2, 4, 8, 16, 32] {
         let name = format!("{s}GiB.txt");
         let target = control
@@ -102,14 +102,14 @@ async fn seed(client: Storage, control: StorageControl, bucket_name: &str) -> an
             target.size / (1024 * 1024)
         );
     }
-    // ANCHOR_END: compose-GiB
+    // [END rust_storage_striped_compose_gib] ANCHOR_END: compose-GiB
 
-    // ANCHOR: seed-function-end
+    // [START rust_storage_striped_seed_function_end] ANCHOR: seed-function-end
     Ok(())
 }
-// ANCHOR_END: seed-function-end
+// [END rust_storage_striped_seed_function_end] ANCHOR_END: seed-function-end
 
-// ANCHOR: download-function
+// [START rust_storage_striped_download_function] ANCHOR: download-function
 async fn download(
     client: Storage,
     control: StorageControl,
@@ -118,23 +118,23 @@ async fn download(
     stripe_size: usize,
     destination: &str,
 ) -> anyhow::Result<()> {
-    // ANCHOR_END: download-function
-    // ANCHOR: get-metadata
+    // [END rust_storage_striped_download_function] ANCHOR_END: download-function
+    // [START rust_storage_striped_get_metadata] ANCHOR: get-metadata
     let metadata = control
         .get_object()
         .set_bucket(bucket_name)
         .set_object(object_name)
         .send()
         .await?;
-    // ANCHOR_END: get-metadata
+    // [END rust_storage_striped_get_metadata] ANCHOR_END: get-metadata
 
-    // ANCHOR: create-destination
+    // [START rust_storage_striped_create_destination] ANCHOR: create-destination
     let file = Arc::new(std::fs::File::create(destination)?);
     file.set_len(metadata.size as u64)?;
-    // ANCHOR_END: create-destination
+    // [END rust_storage_striped_create_destination] ANCHOR_END: create-destination
     let start = std::time::Instant::now();
 
-    // ANCHOR: compute-stripes
+    // [START rust_storage_striped_compute_stripes] ANCHOR: compute-stripes
     let size = metadata.size as u64;
     let limit = stripe_size as u64;
     let count = size / limit;
@@ -150,14 +150,14 @@ async fn download(
             &metadata,
         ))
     }
-    // ANCHOR_END: compute-stripes
+    // [END rust_storage_striped_compute_stripes] ANCHOR_END: compute-stripes
 
-    // ANCHOR: run-stripes
+    // [START rust_storage_striped_run_stripes] ANCHOR: run-stripes
     futures::future::join_all(stripes)
         .await
         .into_iter()
         .collect::<anyhow::Result<Vec<_>>>()?;
-    // ANCHOR_END: run-stripes
+    // [END rust_storage_striped_run_stripes] ANCHOR_END: run-stripes
 
     let elapsed = start.elapsed();
     let mib = metadata.size as f64 / (1024.0 * 1024.0);
@@ -166,12 +166,12 @@ async fn download(
         "Completed {mib:.2} MiB download in {elapsed:?}, using {count} stripes, effective bandwidth = {bw:.2} MiB/s"
     );
 
-    // ANCHOR: download-function-end
+    // [START rust_storage_striped_download_function_end] ANCHOR: download-function-end
     Ok(())
 }
-// ANCHOR_END: download-function-end
+// [END rust_storage_striped_download_function_end] ANCHOR_END: download-function-end
 
-// ANCHOR: write-stripe-function
+// [START rust_storage_striped_write_stripe_function] ANCHOR: write-stripe-function
 async fn write_stripe(
     client: Storage,
     file: &Arc<std::fs::File>,
@@ -180,22 +180,22 @@ async fn write_stripe(
     metadata: &Object,
 ) -> anyhow::Result<()> {
     use google_cloud_storage::model_ext::ReadRange;
-    // ANCHOR_END: write-stripe-function
-    // ANCHOR: write-stripe-reader
+    // [END rust_storage_striped_write_stripe_function] ANCHOR_END: write-stripe-function
+    // [START rust_storage_striped_write_stripe_reader] ANCHOR: write-stripe-reader
     let mut reader = client
         .read_object(&metadata.bucket, &metadata.name)
-        // ANCHOR_END: write-stripe-reader
-        // ANCHOR: write-stripe-reader-generation
+        // [END rust_storage_striped_write_stripe_reader] ANCHOR_END: write-stripe-reader
+        // [START rust_storage_striped_write_stripe_reader_generation] ANCHOR: write-stripe-reader-generation
         .set_generation(metadata.generation)
-        // ANCHOR_END: write-stripe-reader-generation
-        // ANCHOR: write-stripe-reader-range
+        // [END rust_storage_striped_write_stripe_reader_generation] ANCHOR_END: write-stripe-reader-generation
+        // [START rust_storage_striped_write_stripe_reader_range] ANCHOR: write-stripe-reader-range
         .set_read_range(ReadRange::segment(offset, limit))
-        // ANCHOR_END: write-stripe-reader-range
-        // ANCHOR: write-stripe-reader
+        // [END rust_storage_striped_write_stripe_reader_range] ANCHOR_END: write-stripe-reader-range
+        // [START rust_storage_striped_write_stripe_reader] ANCHOR: write-stripe-reader
         .send()
         .await?;
-    // ANCHOR_END: write-stripe-reader
-    // ANCHOR: write-stripe-loop
+    // [END rust_storage_striped_write_stripe_reader] ANCHOR_END: write-stripe-reader
+    // [START rust_storage_striped_write_stripe_loop] ANCHOR: write-stripe-loop
     let mut current_pos = offset;
     while let Some(b) = reader.next().await.transpose()? {
         let chunk_len = b.len() as u64;
@@ -214,12 +214,12 @@ async fn write_stripe(
         .await??;
         current_pos += chunk_len;
     }
-    // ANCHOR_END: write-stripe-loop
-    // ANCHOR: write-stripe-function-end
+    // [END rust_storage_striped_write_stripe_loop] ANCHOR_END: write-stripe-loop
+    // [START rust_storage_striped_write_stripe_function_end] ANCHOR: write-stripe-function-end
     Ok(())
 }
-// ANCHOR_END: write-stripe-function-end
-// ANCHOR_END: all
+// [END rust_storage_striped_write_stripe_function_end] ANCHOR_END: write-stripe-function-end
+// [END rust_storage_striped_all] ANCHOR_END: all
 
 pub async fn test(bucket_name: &str, destination: &str) -> anyhow::Result<()> {
     const MB: usize = 1024 * 1024;

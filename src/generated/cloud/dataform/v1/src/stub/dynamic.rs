@@ -353,6 +353,12 @@ pub trait Dataform: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::CompilationResult>>;
 
+    async fn create_compilation_result_long_running(
+        &self,
+        req: crate::model::CreateCompilationResultRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn query_compilation_result_actions(
         &self,
         req: crate::model::QueryCompilationResultActionsRequest,
@@ -1014,6 +1020,15 @@ impl<T: super::Dataform> Dataform for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::CompilationResult>> {
         T::create_compilation_result(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_compilation_result_long_running(
+        &self,
+        req: crate::model::CreateCompilationResultRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_compilation_result_long_running(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

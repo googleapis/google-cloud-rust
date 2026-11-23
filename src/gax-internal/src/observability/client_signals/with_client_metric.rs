@@ -93,7 +93,6 @@ mod tests {
     use std::sync::Arc;
 
     #[tokio::test]
-    #[ignore = "TODO(#6077) - disabled because it is flaky"]
     async fn ok_no_recorder() -> anyhow::Result<()> {
         let signals = SignalProviders::new();
         let metric = DurationMetric::new_with_provider(
@@ -111,7 +110,6 @@ mod tests {
     }
 
     #[tokio::test]
-    #[ignore = "TODO(#6023) - disable flaky test"]
     async fn err_no_recorder() -> anyhow::Result<()> {
         let signals = SignalProviders::new();
         let metric = DurationMetric::new_with_provider(
@@ -131,7 +129,6 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    #[ignore = "TODO(#6077) - disabled because it is flaky"]
     async fn ok_no_annotations() -> anyhow::Result<()> {
         let signals = SignalProviders::new();
         let metric = DurationMetric::new_with_provider(
@@ -175,8 +172,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
-    #[ignore = "TODO(#6023) - disable flaky test"]
+    #[tokio::test]
     async fn err_with_annotations() -> anyhow::Result<()> {
         let signals = SignalProviders::new();
         let metric = DurationMetric::new_with_provider(

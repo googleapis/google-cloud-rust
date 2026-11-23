@@ -2158,6 +2158,62 @@ impl serde::ser::Serialize for super::SqlInstancesRestartRequest {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::SqlInstancesStartRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.instance.is_empty() {
+            state.serialize_entry("instance", &self.instance)?;
+        }
+        if !self.project.is_empty() {
+            state.serialize_entry("project", &self.project)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SqlInstancesStopRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.instance.is_empty() {
+            state.serialize_entry("instance", &self.instance)?;
+        }
+        if !self.project.is_empty() {
+            state.serialize_entry("project", &self.project)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::SqlInstancesRestoreBackupRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -3762,6 +3818,12 @@ impl serde::ser::Serialize for super::DatabaseInstance {
                 &self.database_center_integration,
             )?;
         }
+        if self.workload_replay_config.is_some() {
+            state.serialize_entry("workloadReplayConfig", &self.workload_replay_config)?;
+        }
+        if self.workload_capture_config.is_some() {
+            state.serialize_entry("workloadCaptureConfig", &self.workload_capture_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3977,6 +4039,100 @@ impl serde::ser::Serialize for super::blue_green_deployment_info::TargetRole {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.source_id.is_some() {
             state.serialize_entry("sourceId", &self.source_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::WorkloadReplayConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.workload_id.is_some() {
+            state.serialize_entry("workloadId", &self.workload_id)?;
+        }
+        if self.source_instance.is_some() {
+            state.serialize_entry("sourceInstance", &self.source_instance)?;
+        }
+        if self.replay_mode.is_some() {
+            state.serialize_entry("replayMode", &self.replay_mode)?;
+        }
+        if self.state.is_some() {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if self.start_time.is_some() {
+            state.serialize_entry("startTime", &self.start_time)?;
+        }
+        if self.end_time.is_some() {
+            state.serialize_entry("endTime", &self.end_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::WorkloadCaptureConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.workload_id.is_some() {
+            state.serialize_entry("workloadId", &self.workload_id)?;
+        }
+        if self.capture_mode.is_some() {
+            state.serialize_entry("captureMode", &self.capture_mode)?;
+        }
+        if self.state.is_some() {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if self.start_time.is_some() {
+            state.serialize_entry("startTime", &self.start_time)?;
+        }
+        if self.end_time.is_some() {
+            state.serialize_entry("endTime", &self.end_time)?;
+        }
+        if self.replay_instance.is_some() {
+            state.serialize_entry("replayInstance", &self.replay_instance)?;
+        }
+        if self.retention_days.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("retentionDays", &__With(&self.retention_days))?;
+        }
+        if self.backup_id.is_some() {
+            state.serialize_entry("backupId", &self.backup_id)?;
+        }
+        if self.max_capture_duration.is_some() {
+            state.serialize_entry("maxCaptureDuration", &self.max_capture_duration)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4505,6 +4661,37 @@ impl serde::ser::Serialize for super::ReplicaConfiguration {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::SqlInstancesExecuteSqlReadOnlyRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.instance.is_empty() {
+            state.serialize_entry("instance", &self.instance)?;
+        }
+        if !self.project.is_empty() {
+            state.serialize_entry("project", &self.project)?;
+        }
+        if self.body.is_some() {
+            state.serialize_entry("body", &self.body)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::SqlInstancesExecuteSqlRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -4525,6 +4712,52 @@ impl serde::ser::Serialize for super::SqlInstancesExecuteSqlRequest {
         }
         if !self.location.is_empty() {
             state.serialize_entry("location", &self.location)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ExecuteSqlReadOnlyPayload {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.user.is_empty() {
+            state.serialize_entry("user", &self.user)?;
+        }
+        if !self.sql_statement.is_empty() {
+            state.serialize_entry("sqlStatement", &self.sql_statement)?;
+        }
+        if !self.database.is_empty() {
+            state.serialize_entry("database", &self.database)?;
+        }
+        if let Some(value) = self.password_secret_version() {
+            state.serialize_entry("passwordSecretVersion", value)?;
+        }
+        if let Some(value) = self.auto_iam_authn() {
+            state.serialize_entry("autoIamAuthn", value)?;
+        }
+        if !wkt::internal::is_default(&self.row_limit) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("rowLimit", &__With(&self.row_limit))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4577,6 +4810,37 @@ impl serde::ser::Serialize for super::ExecuteSqlPayload {
         }
         if !self.application.is_empty() {
             state.serialize_entry("application", &self.application)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SqlInstancesExecuteSqlReadOnlyResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.messages.is_empty() {
+            state.serialize_entry("messages", &self.messages)?;
+        }
+        if self.metadata.is_some() {
+            state.serialize_entry("metadata", &self.metadata)?;
+        }
+        if !self.results.is_empty() {
+            state.serialize_entry("results", &self.results)?;
+        }
+        if self.status.is_some() {
+            state.serialize_entry("status", &self.status)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4892,6 +5156,62 @@ impl serde::ser::Serialize for super::SqlInstancesPointInTimeRestoreRequest {
         }
         if self.context.is_some() {
             state.serialize_entry("context", &self.context)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SqlInstancesReconcileNetworkingRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.instance.is_empty() {
+            state.serialize_entry("instance", &self.instance)?;
+        }
+        if !self.project.is_empty() {
+            state.serialize_entry("project", &self.project)?;
+        }
+        if let Some(value) = self.psc_dns() {
+            state.serialize_entry("pscDns", value)?;
+        }
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::PscDnsReconcileNetworkingRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.networks.is_empty() {
+            state.serialize_entry("networks", &self.networks)?;
+        }
+        if !wkt::internal::is_default(&self.force) {
+            state.serialize_entry("force", &self.force)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -7025,6 +7345,12 @@ impl serde::ser::Serialize for super::Settings {
         if self.insights_config.is_some() {
             state.serialize_entry("insightsConfig", &self.insights_config)?;
         }
+        if self.msdtc_enabled.is_some() {
+            state.serialize_entry("msdtcEnabled", &self.msdtc_enabled)?;
+        }
+        if self.msdtc_rpc_auth_mode.is_some() {
+            state.serialize_entry("msdtcRpcAuthMode", &self.msdtc_rpc_auth_mode)?;
+        }
         if self.password_validation_policy.is_some() {
             state.serialize_entry("passwordValidationPolicy", &self.password_validation_policy)?;
         }
@@ -7141,6 +7467,9 @@ impl serde::ser::Serialize for super::Settings {
         }
         if self.performance_capture_config.is_some() {
             state.serialize_entry("performanceCaptureConfig", &self.performance_capture_config)?;
+        }
+        if self.initial_users_config.is_some() {
+            state.serialize_entry("initialUsersConfig", &self.initial_users_config)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -7659,6 +7988,102 @@ impl serde::ser::Serialize for super::SslCertDetail {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::DNSEntry {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.dns.is_empty() {
+            state.serialize_entry("dns", &self.dns)?;
+        }
+        if !self.ipv4_address.is_empty() {
+            state.serialize_entry("ipv4Address", &self.ipv4_address)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CustomerManagedCertificate {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.certificate_type) {
+            state.serialize_entry("certificateType", &self.certificate_type)?;
+        }
+        if !self.content.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("content", &__With(&self.content))?;
+        }
+        if !self.file_path.is_empty() {
+            state.serialize_entry("filePath", &self.file_path)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CustomerManagedCertificateConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.bundle.is_empty() {
+            state.serialize_entry("bundle", &self.bundle)?;
+        }
+        if !wkt::internal::is_default(&self.intent) {
+            state.serialize_entry("intent", &self.intent)?;
+        }
+        if self.primary_dns_record.is_some() {
+            state.serialize_entry("primaryDnsRecord", &self.primary_dns_record)?;
+        }
+        if !self.customer_managed_certificates.is_empty() {
+            state.serialize_entry(
+                "customerManagedCertificates",
+                &self.customer_managed_certificates,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::SqlActiveDirectoryConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -7747,6 +8172,56 @@ impl serde::ser::Serialize for super::SqlServerEntraIdConfig {
         }
         if !self.application_id.is_empty() {
             state.serialize_entry("applicationId", &self.application_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InitialUsersConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.initial_users.is_empty() {
+            state.serialize_entry("initialUsers", &self.initial_users)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::initial_users_config::InitialUser {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.r#type) {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if !self.roles.is_empty() {
+            state.serialize_entry("roles", &self.roles)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -7881,6 +8356,9 @@ impl serde::ser::Serialize for super::StartWorkloadReplayContext {
         }
         if !self.workload_id.is_empty() {
             state.serialize_entry("workloadId", &self.workload_id)?;
+        }
+        if !self.source_instance.is_empty() {
+            state.serialize_entry("sourceInstance", &self.source_instance)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -8087,6 +8565,124 @@ impl serde::ser::Serialize for super::SslCertsListResponse {
         }
         if !self.items.is_empty() {
             state.serialize_entry("items", &self.items)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpdateCustomerManagedCertificateRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.instance.is_empty() {
+            state.serialize_entry("instance", &self.instance)?;
+        }
+        if !self.project.is_empty() {
+            state.serialize_entry("project", &self.project)?;
+        }
+        if self.customer_managed_certificate_config.is_some() {
+            state.serialize_entry(
+                "customerManagedCertificateConfig",
+                &self.customer_managed_certificate_config,
+            )?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !wkt::internal::is_default(&self.allow_missing) {
+            state.serialize_entry("allowMissing", &self.allow_missing)?;
+        }
+        if !self.certificate_bundle.is_empty() {
+            state.serialize_entry("certificateBundle", &self.certificate_bundle)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteCustomerManagedCertificateRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.instance.is_empty() {
+            state.serialize_entry("instance", &self.instance)?;
+        }
+        if !self.project.is_empty() {
+            state.serialize_entry("project", &self.project)?;
+        }
+        if !self.certificate_bundle.is_empty() {
+            state.serialize_entry("certificateBundle", &self.certificate_bundle)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListCustomerManagedCertificatesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.instance.is_empty() {
+            state.serialize_entry("instance", &self.instance)?;
+        }
+        if !self.project.is_empty() {
+            state.serialize_entry("project", &self.project)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListCustomerManagedCertificatesResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.customer_managed_certificates.is_empty() {
+            state.serialize_entry(
+                "customerManagedCertificates",
+                &self.customer_managed_certificates,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -8793,6 +9389,9 @@ impl serde::ser::Serialize for super::WorkloadCapture {
         }
         if self.backup_id.is_some() {
             state.serialize_entry("backupId", &self.backup_id)?;
+        }
+        if !wkt::internal::is_default(&self.capture_mode) {
+            state.serialize_entry("captureMode", &self.capture_mode)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

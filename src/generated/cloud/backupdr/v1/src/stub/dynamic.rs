@@ -243,6 +243,180 @@ pub trait BackupDR: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn create_auto_protection_policy(
+        &self,
+        req: crate::model::CreateAutoProtectionPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn list_auto_protection_policies(
+        &self,
+        req: crate::model::ListAutoProtectionPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAutoProtectionPoliciesResponse>>;
+
+    async fn get_auto_protection_policy(
+        &self,
+        req: crate::model::GetAutoProtectionPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AutoProtectionPolicy>>;
+
+    async fn update_auto_protection_policy(
+        &self,
+        req: crate::model::UpdateAutoProtectionPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_auto_protection_policy(
+        &self,
+        req: crate::model::DeleteAutoProtectionPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn create_auto_protection_policy_binding(
+        &self,
+        req: crate::model::CreateAutoProtectionPolicyBindingRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_auto_protection_policy_binding(
+        &self,
+        req: crate::model::GetAutoProtectionPolicyBindingRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AutoProtectionPolicyBinding>>;
+
+    async fn list_auto_protection_policy_bindings(
+        &self,
+        req: crate::model::ListAutoProtectionPolicyBindingsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAutoProtectionPolicyBindingsResponse>>;
+
+    async fn list_applied_auto_protection_policies(
+        &self,
+        req: crate::model::ListAppliedAutoProtectionPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAppliedAutoProtectionPoliciesResponse>>;
+
+    async fn initiate_delete_auto_protection_policy_binding(
+        &self,
+        req: crate::model::InitiateDeleteAutoProtectionPolicyBindingRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn list_binding_matching_resources(
+        &self,
+        req: crate::model::ListBindingMatchingResourcesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBindingMatchingResourcesResponse>>;
+
+    async fn create_restore_template(
+        &self,
+        req: crate::model::CreateRestoreTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_restore_template(
+        &self,
+        req: crate::model::GetRestoreTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RestoreTemplate>>;
+
+    async fn list_restore_templates(
+        &self,
+        req: crate::model::ListRestoreTemplatesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRestoreTemplatesResponse>>;
+
+    async fn update_restore_template(
+        &self,
+        req: crate::model::UpdateRestoreTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_restore_template(
+        &self,
+        req: crate::model::DeleteRestoreTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn run_restore_template(
+        &self,
+        req: crate::model::RunRestoreTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_restore_template_execution(
+        &self,
+        req: crate::model::GetRestoreTemplateExecutionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RestoreTemplateExecution>>;
+
+    async fn list_restore_template_executions(
+        &self,
+        req: crate::model::ListRestoreTemplateExecutionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRestoreTemplateExecutionsResponse>>;
+
+    async fn trigger_restore_cleanup(
+        &self,
+        req: crate::model::TriggerRestoreCleanupRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn create_restore_verification_plan(
+        &self,
+        req: crate::model::CreateRestoreVerificationPlanRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn create_restore_verification_plan_association(
+        &self,
+        req: crate::model::CreateRestoreVerificationPlanAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_restore_verification_plan_association(
+        &self,
+        req: crate::model::GetRestoreVerificationPlanAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RestoreVerificationPlanAssociation>>;
+
+    async fn list_restore_verification_plan_associations(
+        &self,
+        req: crate::model::ListRestoreVerificationPlanAssociationsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRestoreVerificationPlanAssociationsResponse>>;
+
+    async fn delete_restore_verification_plan_association(
+        &self,
+        req: crate::model::DeleteRestoreVerificationPlanAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn trigger_restore_verification(
+        &self,
+        req: crate::model::TriggerRestoreVerificationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_restore_verification_plan(
+        &self,
+        req: crate::model::GetRestoreVerificationPlanRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RestoreVerificationPlan>>;
+
+    async fn list_restore_verification_plans(
+        &self,
+        req: crate::model::ListRestoreVerificationPlansRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRestoreVerificationPlansResponse>>;
+
+    async fn delete_restore_verification_plan(
+        &self,
+        req: crate::model::DeleteRestoreVerificationPlanRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -651,6 +825,270 @@ impl<T: super::BackupDR> BackupDR for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::initialize_service(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_auto_protection_policy(
+        &self,
+        req: crate::model::CreateAutoProtectionPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_auto_protection_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_auto_protection_policies(
+        &self,
+        req: crate::model::ListAutoProtectionPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAutoProtectionPoliciesResponse>> {
+        T::list_auto_protection_policies(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_auto_protection_policy(
+        &self,
+        req: crate::model::GetAutoProtectionPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AutoProtectionPolicy>> {
+        T::get_auto_protection_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_auto_protection_policy(
+        &self,
+        req: crate::model::UpdateAutoProtectionPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_auto_protection_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_auto_protection_policy(
+        &self,
+        req: crate::model::DeleteAutoProtectionPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_auto_protection_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_auto_protection_policy_binding(
+        &self,
+        req: crate::model::CreateAutoProtectionPolicyBindingRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_auto_protection_policy_binding(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_auto_protection_policy_binding(
+        &self,
+        req: crate::model::GetAutoProtectionPolicyBindingRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::AutoProtectionPolicyBinding>> {
+        T::get_auto_protection_policy_binding(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_auto_protection_policy_bindings(
+        &self,
+        req: crate::model::ListAutoProtectionPolicyBindingsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAutoProtectionPolicyBindingsResponse>>
+    {
+        T::list_auto_protection_policy_bindings(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_applied_auto_protection_policies(
+        &self,
+        req: crate::model::ListAppliedAutoProtectionPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListAppliedAutoProtectionPoliciesResponse>>
+    {
+        T::list_applied_auto_protection_policies(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn initiate_delete_auto_protection_policy_binding(
+        &self,
+        req: crate::model::InitiateDeleteAutoProtectionPolicyBindingRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::initiate_delete_auto_protection_policy_binding(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_binding_matching_resources(
+        &self,
+        req: crate::model::ListBindingMatchingResourcesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBindingMatchingResourcesResponse>> {
+        T::list_binding_matching_resources(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_restore_template(
+        &self,
+        req: crate::model::CreateRestoreTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_restore_template(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_restore_template(
+        &self,
+        req: crate::model::GetRestoreTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RestoreTemplate>> {
+        T::get_restore_template(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_restore_templates(
+        &self,
+        req: crate::model::ListRestoreTemplatesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRestoreTemplatesResponse>> {
+        T::list_restore_templates(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_restore_template(
+        &self,
+        req: crate::model::UpdateRestoreTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_restore_template(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_restore_template(
+        &self,
+        req: crate::model::DeleteRestoreTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_restore_template(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn run_restore_template(
+        &self,
+        req: crate::model::RunRestoreTemplateRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::run_restore_template(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_restore_template_execution(
+        &self,
+        req: crate::model::GetRestoreTemplateExecutionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RestoreTemplateExecution>> {
+        T::get_restore_template_execution(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_restore_template_executions(
+        &self,
+        req: crate::model::ListRestoreTemplateExecutionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRestoreTemplateExecutionsResponse>> {
+        T::list_restore_template_executions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn trigger_restore_cleanup(
+        &self,
+        req: crate::model::TriggerRestoreCleanupRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::trigger_restore_cleanup(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_restore_verification_plan(
+        &self,
+        req: crate::model::CreateRestoreVerificationPlanRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_restore_verification_plan(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_restore_verification_plan_association(
+        &self,
+        req: crate::model::CreateRestoreVerificationPlanAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_restore_verification_plan_association(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_restore_verification_plan_association(
+        &self,
+        req: crate::model::GetRestoreVerificationPlanAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RestoreVerificationPlanAssociation>> {
+        T::get_restore_verification_plan_association(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_restore_verification_plan_associations(
+        &self,
+        req: crate::model::ListRestoreVerificationPlanAssociationsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRestoreVerificationPlanAssociationsResponse>>
+    {
+        T::list_restore_verification_plan_associations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_restore_verification_plan_association(
+        &self,
+        req: crate::model::DeleteRestoreVerificationPlanAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_restore_verification_plan_association(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn trigger_restore_verification(
+        &self,
+        req: crate::model::TriggerRestoreVerificationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::trigger_restore_verification(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_restore_verification_plan(
+        &self,
+        req: crate::model::GetRestoreVerificationPlanRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::RestoreVerificationPlan>> {
+        T::get_restore_verification_plan(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_restore_verification_plans(
+        &self,
+        req: crate::model::ListRestoreVerificationPlansRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListRestoreVerificationPlansResponse>> {
+        T::list_restore_verification_plans(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_restore_verification_plan(
+        &self,
+        req: crate::model::DeleteRestoreVerificationPlanRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_restore_verification_plan(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

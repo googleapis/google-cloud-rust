@@ -194,6 +194,30 @@ pub trait PartnerLinkService: std::fmt::Debug + Send + Sync {
     }
 }
 
+/// Defines the trait used to implement [super::client::ReportingService].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::ReportingService`.  In other use-cases, application developers only
+/// use `client::ReportingService` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait ReportingService: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::ReportingService::retrieve_partner_match_report].
+    fn retrieve_partner_match_report(
+        &self,
+        _req: crate::model::RetrievePartnerMatchReportRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::RetrievePartnerMatchReportResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
 /// Defines the trait used to implement [super::client::UserListDirectLicenseService].
 ///
 /// Application developers may need to implement this trait to mock

@@ -56,7 +56,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -103,8 +103,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/ListInstances",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -129,7 +129,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -177,8 +177,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/GetInstance",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -203,7 +203,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_instance_name = try_match(
                     Some(&req)
@@ -268,7 +268,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/UpdateInstance",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -294,7 +294,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -343,8 +343,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/RenameInstance",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -370,7 +370,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -419,8 +419,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/ResetInstance",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -446,7 +446,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -495,8 +495,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/StartInstance",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -522,7 +522,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -571,8 +571,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/StopInstance",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -598,7 +598,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -645,8 +645,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/EnableInteractiveSerialConsole")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -672,7 +672,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -719,8 +719,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/DisableInteractiveSerialConsole")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -746,7 +746,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_instance = try_match(
                     Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
@@ -793,8 +793,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/DetachLun")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -819,7 +819,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -865,8 +865,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/ListSSHKeys",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -891,7 +891,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -936,8 +936,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/CreateSSHKey",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -962,7 +962,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1010,8 +1010,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/DeleteSSHKey",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1042,7 +1042,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1089,8 +1089,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/ListVolumes",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1115,7 +1115,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1161,8 +1161,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/GetVolume")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1187,7 +1187,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_volume_name = try_match(
                     Some(&req)
@@ -1252,7 +1252,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/UpdateVolume",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1278,7 +1278,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1327,8 +1327,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/RenameVolume",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1354,7 +1354,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1403,8 +1403,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/EvictVolume",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1430,7 +1430,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_volume = try_match(
                     Some(&req).map(|m| &m.volume).map(|s| s.as_str()),
@@ -1479,8 +1479,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/ResizeVolume",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1505,7 +1505,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1552,8 +1552,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/ListNetworks",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1578,7 +1578,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_location = try_match(
                     Some(&req).map(|m| &m.location).map(|s| s.as_str()),
@@ -1622,8 +1622,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/ListNetworkUsage",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1648,7 +1648,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1696,8 +1696,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/GetNetwork",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1722,7 +1722,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_network_name = try_match(
                     Some(&req)
@@ -1787,7 +1787,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/UpdateNetwork",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1812,7 +1812,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1860,8 +1860,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/CreateVolumeSnapshot",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1887,7 +1887,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_volume_snapshot = try_match(
                     Some(&req).map(|m| &m.volume_snapshot).map(|s| s.as_str()),
@@ -1941,8 +1941,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/RestoreVolumeSnapshot",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1967,7 +1967,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2019,8 +2019,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/DeleteVolumeSnapshot",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2051,7 +2051,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2103,8 +2103,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/GetVolumeSnapshot",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2129,7 +2129,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2179,8 +2179,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/ListVolumeSnapshots",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2205,7 +2205,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2255,8 +2255,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/GetLun")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2281,7 +2281,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2329,8 +2329,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/ListLuns")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2356,7 +2356,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2407,8 +2407,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/EvictLun")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2433,7 +2433,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2481,8 +2481,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/GetNfsShare",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2507,7 +2507,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2554,8 +2554,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/ListNfsShares",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2580,7 +2580,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_nfs_share_name = try_match(
                     Some(&req)
@@ -2645,7 +2645,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/UpdateNfsShare",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2670,7 +2670,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2714,8 +2714,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/CreateNfsShare",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2741,7 +2741,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2790,8 +2790,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/RenameNfsShare",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2816,7 +2816,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2864,8 +2864,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/DeleteNfsShare",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2890,7 +2890,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2934,8 +2934,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/ListProvisioningQuotas")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2961,7 +2961,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3004,8 +3004,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/SubmitProvisioningConfig")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3030,7 +3030,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3078,8 +3078,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/GetProvisioningConfig",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3104,7 +3104,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3147,8 +3147,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/CreateProvisioningConfig")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3173,7 +3173,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_provisioning_config_name = try_match(
                     Some(&req)
@@ -3237,7 +3237,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/UpdateProvisioningConfig")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3263,7 +3263,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3312,8 +3312,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/RenameNetwork",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3338,7 +3338,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3384,8 +3384,8 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     .set_rpc_method(
                         "google.cloud.baremetalsolution.v2.BareMetalSolution/ListOSImages",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3410,7 +3410,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3444,7 +3444,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/ListLocations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3469,7 +3469,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3510,7 +3510,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/GetLocation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3535,7 +3535,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3572,7 +3572,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(

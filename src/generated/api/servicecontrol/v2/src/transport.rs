@@ -57,7 +57,7 @@ impl super::stub::ServiceController for ServiceController {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_service_name = try_match(
                     Some(&req).map(|m| &m.service_name).map(|s| s.as_str()),
@@ -89,7 +89,7 @@ impl super::stub::ServiceController for ServiceController {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.api.servicecontrol.v2.ServiceController/Check")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -115,7 +115,7 @@ impl super::stub::ServiceController for ServiceController {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_service_name = try_match(
                     Some(&req).map(|m| &m.service_name).map(|s| s.as_str()),
@@ -147,7 +147,7 @@ impl super::stub::ServiceController for ServiceController {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.api.servicecontrol.v2.ServiceController/Report")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(

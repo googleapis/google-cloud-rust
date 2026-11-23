@@ -1109,6 +1109,10 @@ impl<'de> serde::de::Deserialize<'de> for super::RemoteAgentTool {
             __name,
             __description,
             __agent_card,
+            __api_authentication,
+            __stateful_agent,
+            __input_variable_mapping,
+            __output_variable_mapping,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1133,6 +1137,14 @@ impl<'de> serde::de::Deserialize<'de> for super::RemoteAgentTool {
                             "description" => Ok(__FieldTag::__description),
                             "agentCard" => Ok(__FieldTag::__agent_card),
                             "agent_card" => Ok(__FieldTag::__agent_card),
+                            "apiAuthentication" => Ok(__FieldTag::__api_authentication),
+                            "api_authentication" => Ok(__FieldTag::__api_authentication),
+                            "statefulAgent" => Ok(__FieldTag::__stateful_agent),
+                            "stateful_agent" => Ok(__FieldTag::__stateful_agent),
+                            "inputVariableMapping" => Ok(__FieldTag::__input_variable_mapping),
+                            "input_variable_mapping" => Ok(__FieldTag::__input_variable_mapping),
+                            "outputVariableMapping" => Ok(__FieldTag::__output_variable_mapping),
+                            "output_variable_mapping" => Ok(__FieldTag::__output_variable_mapping),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1186,6 +1198,56 @@ impl<'de> serde::de::Deserialize<'de> for super::RemoteAgentTool {
                             }
                             result.agent_card =
                                 map.next_value::<std::option::Option<crate::model::AgentCard>>()?;
+                        }
+                        __FieldTag::__api_authentication => {
+                            if !fields.insert(__FieldTag::__api_authentication) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for api_authentication",
+                                ));
+                            }
+                            result.api_authentication = map
+                                .next_value::<std::option::Option<crate::model::ApiAuthentication>>(
+                                )?;
+                        }
+                        __FieldTag::__stateful_agent => {
+                            if !fields.insert(__FieldTag::__stateful_agent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for stateful_agent",
+                                ));
+                            }
+                            result.stateful_agent = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__input_variable_mapping => {
+                            if !fields.insert(__FieldTag::__input_variable_mapping) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for input_variable_mapping",
+                                ));
+                            }
+                            result.input_variable_mapping = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__output_variable_mapping => {
+                            if !fields.insert(__FieldTag::__output_variable_mapping) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for output_variable_mapping",
+                                ));
+                            }
+                            result.output_variable_mapping = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

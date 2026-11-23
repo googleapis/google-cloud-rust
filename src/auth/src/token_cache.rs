@@ -29,9 +29,19 @@ use tokio::time::{Duration, Instant, sleep};
 const NORMAL_REFRESH_SLACK: Duration = Duration::from_secs(240);
 const SHORT_REFRESH_SLACK: Duration = Duration::from_secs(10);
 
+#[derive(Debug)]
+struct AbortOnDrop(tokio::task::AbortHandle);
+
+impl Drop for AbortOnDrop {
+    fn drop(&mut self) {
+        self.0.abort();
+    }
+}
+
 #[derive(Debug, Clone)]
 pub(crate) struct TokenCache {
     rx_token: watch::Receiver<Option<Result<(Token, EntityTag)>>>,
+    _abort_guard: Arc<AbortOnDrop>,
 }
 
 impl TokenCache {
@@ -42,9 +52,12 @@ impl TokenCache {
         let (tx_token, rx_token) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
         let token_provider = Arc::new(inner);
 
-        tokio::spawn(refresh_task(token_provider, tx_token));
+        let handle = tokio::spawn(refresh_task(token_provider, tx_token)).abort_handle();
 
-        Self { rx_token }
+        Self {
+            rx_token,
+            _abort_guard: Arc::new(AbortOnDrop(handle)),
+        }
     }
 
     async fn latest_token_and_entity_tag(&self) -> Result<(Token, EntityTag)> {
@@ -934,5 +947,48 @@ mod tests {
 
         assert!(debug_output.contains("TokenCache"));
         assert!(debug_output.contains("rx_token"));
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn dropping_token_cache_stops_refresh_task() -> TestResult {
+        let now = Instant::now();
+        let sentinel = Arc::new(());
+        let weak_sentinel = Arc::downgrade(&sentinel);
+
+        let mut mock = MockTokenProvider::new();
+        mock.expect_token().times(1).returning(move || {
+            let _keep_alive = &sentinel;
+            Ok(Token {
+                token: "initial-token".to_string(),
+                token_type: "Bearer".to_string(),
+                expires_at: Some(now + TOKEN_VALID_DURATION),
+                metadata: None,
+            })
+        });
+
+        let cache = TokenCache::new(mock);
+        let cache_clone = cache.clone();
+        let _ = cache.token(Extensions::new()).await?;
+
+        // Dropping one clone keeps the refresh task alive while another clone exists.
+        drop(cache);
+        tokio::task::yield_now().await;
+        assert!(
+            weak_sentinel.upgrade().is_some(),
+            "refresh task should stay alive while a TokenCache clone exists"
+        );
+
+        // Dropping the last clone aborts the refresh task immediately without waiting for expiry.
+        drop(cache_clone);
+        tokio::task::yield_now().await;
+        assert!(
+            weak_sentinel.upgrade().is_none(),
+            "refresh task should be aborted and drop its TokenProvider immediately"
+        );
+
+        // Advancing past expiry must not trigger another token() call (enforced by .times(1)).
+        tokio::time::advance(2 * TOKEN_VALID_DURATION).await;
+        tokio::task::yield_now().await;
+        Ok(())
     }
 }

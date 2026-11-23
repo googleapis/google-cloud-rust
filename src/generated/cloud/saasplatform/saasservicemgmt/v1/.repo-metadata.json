@@ -1,0 +1,15 @@
+{
+    "api_description": "Model, deploy, and operate your SaaS at scale.",
+    "api_id": "saasservicemgmt.googleapis.com",
+    "api_shortname": "saasservicemgmt",
+    "client_documentation": "https://docs.rs/google-cloud-saasplatform-saasservicemgmt-v1/latest",
+    "distribution_name": "google-cloud-saasplatform-saasservicemgmt-v1",
+    "issue_tracker": "https://issuetracker.google.com/issues/new?component=1863319",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name": "saasservicemgmt",
+    "name_pretty": "App Lifecycle Manager",
+    "product_documentation": "https://docs.cloud.google.com/app-lifecycle-manager",
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
+}

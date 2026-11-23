@@ -2048,6 +2048,7 @@ impl<'de> serde::de::Deserialize<'de> for super::FilterConfig {
             __pi_and_jailbreak_filter_settings,
             __malicious_uri_filter_settings,
             __filter_rule_settings,
+            __csam_filter_settings,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2086,6 +2087,8 @@ impl<'de> serde::de::Deserialize<'de> for super::FilterConfig {
                             }
                             "filterRuleSettings" => Ok(__FieldTag::__filter_rule_settings),
                             "filter_rule_settings" => Ok(__FieldTag::__filter_rule_settings),
+                            "csamFilterSettings" => Ok(__FieldTag::__csam_filter_settings),
+                            "csam_filter_settings" => Ok(__FieldTag::__csam_filter_settings),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2157,6 +2160,109 @@ impl<'de> serde::de::Deserialize<'de> for super::FilterConfig {
                             }
                             result.filter_rule_settings = map.next_value::<std::option::Option<crate::model::FilterRuleSettings>>()?
                                 ;
+                        }
+                        __FieldTag::__csam_filter_settings => {
+                            if !fields.insert(__FieldTag::__csam_filter_settings) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for csam_filter_settings",
+                                ));
+                            }
+                            result.csam_filter_settings = map.next_value::<std::option::Option<crate::model::CsamFilterSettings>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::CsamFilterSettings {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __filter_enforcement,
+            __confidence_level,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CsamFilterSettings")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "filterEnforcement" => Ok(__FieldTag::__filter_enforcement),
+                            "filter_enforcement" => Ok(__FieldTag::__filter_enforcement),
+                            "confidenceLevel" => Ok(__FieldTag::__confidence_level),
+                            "confidence_level" => Ok(__FieldTag::__confidence_level),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::CsamFilterSettings;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CsamFilterSettings")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__filter_enforcement => {
+                            if !fields.insert(__FieldTag::__filter_enforcement) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter_enforcement",
+                                ));
+                            }
+                            result.filter_enforcement = map
+                                .next_value::<std::option::Option<
+                                    crate::model::csam_filter_settings::CsamFilterEnforcement,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__confidence_level => {
+                            if !fields.insert(__FieldTag::__confidence_level) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for confidence_level",
+                                ));
+                            }
+                            result.confidence_level = map.next_value::<std::option::Option<crate::model::DetectionConfidenceLevel>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

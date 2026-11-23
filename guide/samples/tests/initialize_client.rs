@@ -12,21 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START test_only_snippet] ANCHOR: all
+// [START rust_initialize_client_all] ANCHOR: all
 pub async fn initialize_client(project_id: &str) -> anyhow::Result<()> {
-    // [START test_only] ANCHOR: use
+    // [START rust_initialize_client_use] ANCHOR: use
     use google_cloud_secretmanager_v1::client::SecretManagerService;
-    // [END test_only] ANCHOR_END: use
+    // [END rust_initialize_client_use] ANCHOR_END: use
 
     // Initialize a client with the default configuration. This is an
     // asynchronous operation that may fail, as it requires acquiring an an
     // access token.
-    // ANCHOR: new-client
+    // [START rust_initialize_client_new_client] ANCHOR: new-client
     let client = SecretManagerService::builder().build().await?;
-    // ANCHOR_END: new-client
+    // [END rust_initialize_client_new_client] ANCHOR_END: new-client
 
     // Once initialized, use the client to make requests.
-    // ANCHOR: make-rpc
+    // [START rust_initialize_client_make_rpc] ANCHOR: make-rpc
     use google_cloud_gax::paginator::Paginator as _;
     let mut items = client
         .list_locations()
@@ -38,7 +38,7 @@ pub async fn initialize_client(project_id: &str) -> anyhow::Result<()> {
             println!("{}", location.name);
         }
     }
-    // ANCHOR_END: make-rpc
+    // [END rust_initialize_client_make_rpc] ANCHOR_END: make-rpc
 
     Ok(())
 }
@@ -49,7 +49,7 @@ async fn main() -> anyhow::Result<()> {
 
     initialize_client(&project_id).await
 }
-// [END test_only_snippet] ANCHOR_END: all
+// [END rust_initialize_client_all] ANCHOR_END: all
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod tests {

@@ -18,6 +18,7 @@ use crate::RequestOptions;
 use crate::Result;
 use crate::client::Channel;
 use crate::generated::gapic_dataplane::client::Spanner as GapicSpanner;
+use crate::google::spanner::v1;
 use crate::model::BatchWriteRequest;
 use crate::model::ExecuteSqlRequest;
 use crate::model::FetchCacheUpdateRequest;
@@ -100,7 +101,8 @@ impl ExecuteStreamingSql {
         match self.target {
             StreamingTarget::Grpc(grpc_client) => {
                 let request_params = format!("session={}", self.request.session);
-                let request = self.request.to_proto().map_err(Error::deser)?;
+                let request = ToProto::<v1::ExecuteSqlRequest>::to_proto(self.request)
+                    .map_err(Error::deser)?;
                 let stream = make_server_streaming_request(
                     &grpc_client,
                     request,
@@ -193,7 +195,8 @@ impl StreamingRead {
         match self.target {
             StreamingTarget::Grpc(grpc_client) => {
                 let request_params = format!("session={}", self.request.session);
-                let request = self.request.to_proto().map_err(Error::deser)?;
+                let request =
+                    ToProto::<v1::ReadRequest>::to_proto(self.request).map_err(Error::deser)?;
                 let stream = make_server_streaming_request(
                     &grpc_client,
                     request,
@@ -271,7 +274,8 @@ impl BatchWrite {
         match self.target {
             StreamingTarget::Grpc(grpc_client) => {
                 let request_params = format!("session={}", self.request.session);
-                let request = self.request.to_proto().map_err(Error::deser)?;
+                let request = ToProto::<v1::BatchWriteRequest>::to_proto(self.request)
+                    .map_err(Error::deser)?;
                 make_server_streaming_request(
                     &grpc_client,
                     request,
@@ -346,7 +350,8 @@ impl FetchCacheUpdate {
         match self.target {
             StreamingTarget::Grpc(grpc_client) => {
                 let request_params = format!("database={}", self.request.database);
-                let request = self.request.to_proto().map_err(Error::deser)?;
+                let request = ToProto::<v1::FetchCacheUpdateRequest>::to_proto(self.request)
+                    .map_err(Error::deser)?;
                 make_server_streaming_request(
                     &grpc_client,
                     request,

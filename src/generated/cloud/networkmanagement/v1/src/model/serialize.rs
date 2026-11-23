@@ -145,6 +145,12 @@ impl serde::ser::Serialize for super::Endpoint {
         if !self.dms_private_connection.is_empty() {
             state.serialize_entry("dmsPrivateConnection", &self.dms_private_connection)?;
         }
+        if !self.datastream_private_connection.is_empty() {
+            state.serialize_entry(
+                "datastreamPrivateConnection",
+                &self.datastream_private_connection,
+            )?;
+        }
         if self.cloud_function.is_some() {
             state.serialize_entry("cloudFunction", &self.cloud_function)?;
         }
@@ -901,6 +907,9 @@ impl serde::ser::Serialize for super::Step {
         }
         if let Some(value) = self.dms_private_connection() {
             state.serialize_entry("dmsPrivateConnection", value)?;
+        }
+        if let Some(value) = self.datastream_private_connection() {
+            state.serialize_entry("datastreamPrivateConnection", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -21,6 +21,8 @@ pub(crate) mod common_options;
 #[cfg(google_cloud_unstable_storage_bidi)]
 pub(crate) mod open_appendable_object;
 pub(crate) mod open_object;
+#[cfg(google_cloud_unstable_storage_parallel_upload)]
+pub(crate) mod parallel_upload;
 pub(crate) mod perform_upload;
 pub(crate) mod post_policy;
 pub(crate) mod read_object;

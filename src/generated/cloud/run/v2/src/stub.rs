@@ -251,6 +251,17 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Instances::update_instance].
+    fn update_instance(
+        &self,
+        _req: crate::model::UpdateInstanceRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Instances::delete_instance].
     fn delete_instance(
         &self,
@@ -301,6 +312,41 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_iam_v1::model::Policy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Instances::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>,
+        >,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -875,6 +921,74 @@ pub trait Services: std::fmt::Debug + Send + Sync {
         _options: &crate::RequestOptions,
     ) -> google_cloud_lro::PollerOptions {
         google_cloud_lro::PollerOptions::default()
+    }
+}
+
+/// Defines the trait used to implement [super::client::SourceUpload].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::SourceUpload`.  In other use-cases, application developers only
+/// use `client::SourceUpload` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait SourceUpload: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::SourceUpload::upload_source].
+    fn upload_source(
+        &self,
+        _req: crate::model::UploadSourceRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::UploadSourceResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SourceUpload::list_operations].
+    fn list_operations(
+        &self,
+        _req: google_cloud_longrunning::model::ListOperationsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SourceUpload::get_operation].
+    fn get_operation(
+        &self,
+        _req: google_cloud_longrunning::model::GetOperationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SourceUpload::delete_operation].
+    fn delete_operation(
+        &self,
+        _req: google_cloud_longrunning::model::DeleteOperationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SourceUpload::wait_operation].
+    fn wait_operation(
+        &self,
+        _req: google_cloud_longrunning::model::WaitOperationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
     }
 }
 

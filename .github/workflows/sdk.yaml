@@ -24,16 +24,22 @@ on:
 env:
   GHA_GO_VERSIONS: '{ "go:current": "1.27.3" }'
   # Define the unstable flags once
-  UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_trust_boundaries --cfg google_cloud_unstable_storage_bidi --cfg google_cloud_unstable_grpc_server_streaming --cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_bigquery_arrow --cfg google_cloud_unstable_bigquery_storage_read'
+  UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_trust_boundaries --cfg google_cloud_unstable_storage_bidi --cfg google_cloud_unstable_grpc_server_streaming --cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_bigquery_arrow --cfg google_cloud_unstable_bigquery_storage_read --cfg google_cloud_unstable_storage_parallel_upload'
 
 jobs:
   build:
     if: github.repository == 'googleapis/google-cloud-rust'
+    name: build (${{ matrix.os }}, ${{ matrix.rust-version }})
     strategy:
       matrix:
-        os: ['macos-14', 'windows-2025']
+        os: ['macos', 'windows']
         rust-version: ['rust:current']
-    runs-on: ${{ matrix.os }}
+        include:
+          - os: macos
+            runner: macos-15
+          - os: windows
+            runner: windows-2025
+    runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7.0.1
         with:
@@ -43,7 +49,7 @@ jobs:
           path: |
             ~/.cargo
           key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', '.github/workflows/sdk.yaml') }}
-        if: matrix.os != 'macos-14' && github.event_name != 'release'
+        if: matrix.os != 'macos' && github.event_name != 'release'
       - name: Setup Rust ${{ matrix.rust-version }}
         # Installs the toolchain pinned in `rust-toolchain.toml`.
         run: rustup toolchain install

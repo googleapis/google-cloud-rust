@@ -62,6 +62,10 @@ impl std::fmt::Debug for super::Endpoint {
         debug_struct.field("redis_cluster", &self.redis_cluster);
         debug_struct.field("gke_pod", &self.gke_pod);
         debug_struct.field("dms_private_connection", &self.dms_private_connection);
+        debug_struct.field(
+            "datastream_private_connection",
+            &self.datastream_private_connection,
+        );
         debug_struct.field("cloud_function", &self.cloud_function);
         debug_struct.field("app_engine_version", &self.app_engine_version);
         debug_struct.field("cloud_run_revision", &self.cloud_run_revision);

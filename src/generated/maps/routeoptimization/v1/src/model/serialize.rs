@@ -1914,6 +1914,9 @@ impl serde::ser::Serialize for super::shipment_route::Visit {
                 &__With(&self.injected_solution_location_token),
             )?;
         }
+        if !wkt::internal::is_default(&self.visit_type) {
+            state.serialize_entry("visitType", &self.visit_type)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

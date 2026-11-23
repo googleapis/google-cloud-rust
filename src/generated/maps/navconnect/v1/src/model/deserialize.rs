@@ -206,6 +206,8 @@ impl<'de> serde::de::Deserialize<'de> for super::TripConfig {
             __enable_high_frequency_updates,
             __enable_pubsub,
             __pubsub_field_mask,
+            __enable_remaining_route_reporting,
+            __enable_route_deviation_reporting,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -236,6 +238,18 @@ impl<'de> serde::de::Deserialize<'de> for super::TripConfig {
                             "enable_pubsub" => Ok(__FieldTag::__enable_pubsub),
                             "pubsubFieldMask" => Ok(__FieldTag::__pubsub_field_mask),
                             "pubsub_field_mask" => Ok(__FieldTag::__pubsub_field_mask),
+                            "enableRemainingRouteReporting" => {
+                                Ok(__FieldTag::__enable_remaining_route_reporting)
+                            }
+                            "enable_remaining_route_reporting" => {
+                                Ok(__FieldTag::__enable_remaining_route_reporting)
+                            }
+                            "enableRouteDeviationReporting" => {
+                                Ok(__FieldTag::__enable_route_deviation_reporting)
+                            }
+                            "enable_route_deviation_reporting" => {
+                                Ok(__FieldTag::__enable_route_deviation_reporting)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -289,6 +303,26 @@ impl<'de> serde::de::Deserialize<'de> for super::TripConfig {
                             }
                             result.pubsub_field_mask =
                                 map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
+                        __FieldTag::__enable_remaining_route_reporting => {
+                            if !fields.insert(__FieldTag::__enable_remaining_route_reporting) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enable_remaining_route_reporting",
+                                ));
+                            }
+                            result.enable_remaining_route_reporting = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__enable_route_deviation_reporting => {
+                            if !fields.insert(__FieldTag::__enable_route_deviation_reporting) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enable_route_deviation_reporting",
+                                ));
+                            }
+                            result.enable_route_deviation_reporting = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -408,6 +442,8 @@ impl<'de> serde::de::Deserialize<'de> for super::TripExecution {
             __origin,
             __destination,
             __location,
+            __remaining_route,
+            __last_route_deviation,
             __traveled_duration,
             __remaining_duration,
             __traveled_distance_meters,
@@ -436,6 +472,10 @@ impl<'de> serde::de::Deserialize<'de> for super::TripExecution {
                             "origin" => Ok(__FieldTag::__origin),
                             "destination" => Ok(__FieldTag::__destination),
                             "location" => Ok(__FieldTag::__location),
+                            "remainingRoute" => Ok(__FieldTag::__remaining_route),
+                            "remaining_route" => Ok(__FieldTag::__remaining_route),
+                            "lastRouteDeviation" => Ok(__FieldTag::__last_route_deviation),
+                            "last_route_deviation" => Ok(__FieldTag::__last_route_deviation),
                             "traveledDuration" => Ok(__FieldTag::__traveled_duration),
                             "traveled_duration" => Ok(__FieldTag::__traveled_duration),
                             "remainingDuration" => Ok(__FieldTag::__remaining_duration),
@@ -504,6 +544,25 @@ impl<'de> serde::de::Deserialize<'de> for super::TripExecution {
                             result.location =
                                 map.next_value::<std::option::Option<crate::model::Location>>()?;
                         }
+                        __FieldTag::__remaining_route => {
+                            if !fields.insert(__FieldTag::__remaining_route) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for remaining_route",
+                                ));
+                            }
+                            result.remaining_route =
+                                map.next_value::<std::option::Option<crate::model::Route>>()?;
+                        }
+                        __FieldTag::__last_route_deviation => {
+                            if !fields.insert(__FieldTag::__last_route_deviation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for last_route_deviation",
+                                ));
+                            }
+                            result.last_route_deviation = map
+                                .next_value::<std::option::Option<crate::model::RouteDeviation>>(
+                                )?;
+                        }
                         __FieldTag::__traveled_duration => {
                             if !fields.insert(__FieldTag::__traveled_duration) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -568,6 +627,99 @@ impl<'de> serde::de::Deserialize<'de> for super::TripExecution {
                             }
                             result.stop_added_in_route =
                                 map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::RouteDeviation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __location,
+            __source,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RouteDeviation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "location" => Ok(__FieldTag::__location),
+                            "source" => Ok(__FieldTag::__source),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::RouteDeviation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RouteDeviation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location =
+                                map.next_value::<std::option::Option<crate::model::Location>>()?;
+                        }
+                        __FieldTag::__source => {
+                            if !fields.insert(__FieldTag::__source) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for source",
+                                ));
+                            }
+                            result.source =
+                                map.next_value::<std::option::Option<
+                                    crate::model::route_deviation::TriggerSource,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -765,6 +917,397 @@ impl<'de> serde::de::Deserialize<'de> for super::Location {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::SimplePolyline {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __points,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SimplePolyline")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "points" => Ok(__FieldTag::__points),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::SimplePolyline;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SimplePolyline")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__points => {
+                            if !fields.insert(__FieldTag::__points) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for points",
+                                ));
+                            }
+                            result.points = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<google_cloud_type::model::LatLng>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::SpeedReadingInterval {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __start_polyline_point_index,
+            __end_polyline_point_index,
+            __speed,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SpeedReadingInterval")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "startPolylinePointIndex" => {
+                                Ok(__FieldTag::__start_polyline_point_index)
+                            }
+                            "start_polyline_point_index" => {
+                                Ok(__FieldTag::__start_polyline_point_index)
+                            }
+                            "endPolylinePointIndex" => Ok(__FieldTag::__end_polyline_point_index),
+                            "end_polyline_point_index" => {
+                                Ok(__FieldTag::__end_polyline_point_index)
+                            }
+                            "speed" => Ok(__FieldTag::__speed),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::SpeedReadingInterval;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SpeedReadingInterval")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__start_polyline_point_index => {
+                            if !fields.insert(__FieldTag::__start_polyline_point_index) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_polyline_point_index",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.start_polyline_point_index = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__end_polyline_point_index => {
+                            if !fields.insert(__FieldTag::__end_polyline_point_index) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for end_polyline_point_index",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.end_polyline_point_index = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__speed => {
+                            if !fields.insert(__FieldTag::__speed) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for speed",
+                                ));
+                            }
+                            result.speed =
+                                map.next_value::<std::option::Option<
+                                    crate::model::speed_reading_interval::Speed,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::Route {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __simple_polyline,
+            __encoded_polyline,
+            __s2_polyline,
+            __geo_json,
+            __traffic_information,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Route")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "simplePolyline" => Ok(__FieldTag::__simple_polyline),
+                            "simple_polyline" => Ok(__FieldTag::__simple_polyline),
+                            "encodedPolyline" => Ok(__FieldTag::__encoded_polyline),
+                            "encoded_polyline" => Ok(__FieldTag::__encoded_polyline),
+                            "s2Polyline" => Ok(__FieldTag::__s2_polyline),
+                            "s2_polyline" => Ok(__FieldTag::__s2_polyline),
+                            "geoJson" => Ok(__FieldTag::__geo_json),
+                            "geo_json" => Ok(__FieldTag::__geo_json),
+                            "trafficInformation" => Ok(__FieldTag::__traffic_information),
+                            "traffic_information" => Ok(__FieldTag::__traffic_information),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::Route;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Route")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__simple_polyline => {
+                            if !fields.insert(__FieldTag::__simple_polyline) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for simple_polyline",
+                                ));
+                            }
+                            if result.format.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `format`, a oneof with full ID .google.maps.navconnect.v1.Route.simple_polyline, latest field was simplePolyline",
+                                ));
+                            }
+                            result.format = std::option::Option::Some(
+                                crate::model::route::Format::SimplePolyline(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::SimplePolyline>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__encoded_polyline => {
+                            if !fields.insert(__FieldTag::__encoded_polyline) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for encoded_polyline",
+                                ));
+                            }
+                            if result.format.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `format`, a oneof with full ID .google.maps.navconnect.v1.Route.encoded_polyline, latest field was encodedPolyline",
+                                ));
+                            }
+                            result.format = std::option::Option::Some(
+                                crate::model::route::Format::EncodedPolyline(
+                                    map.next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__s2_polyline => {
+                            if !fields.insert(__FieldTag::__s2_polyline) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for s2_polyline",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            if result.format.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `format`, a oneof with full ID .google.maps.navconnect.v1.Route.s2_polyline, latest field was s2Polyline",
+                                ));
+                            }
+                            result.format =
+                                std::option::Option::Some(crate::model::route::Format::S2Polyline(
+                                    map.next_value::<__With>()?.0.unwrap_or_default(),
+                                ));
+                        }
+                        __FieldTag::__geo_json => {
+                            if !fields.insert(__FieldTag::__geo_json) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for geo_json",
+                                ));
+                            }
+                            if result.format.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `format`, a oneof with full ID .google.maps.navconnect.v1.Route.geo_json, latest field was geoJson",
+                                ));
+                            }
+                            result.format = std::option::Option::Some(
+                                crate::model::route::Format::GeoJson(
+                                    map.next_value::<std::option::Option<std::boxed::Box<wkt::Struct>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__traffic_information => {
+                            if !fields.insert(__FieldTag::__traffic_information) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for traffic_information",
+                                ));
+                            }
+                            result.traffic_information = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::SpeedReadingInterval>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::CreateTripRequest {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -879,6 +1422,7 @@ impl<'de> serde::de::Deserialize<'de> for super::GetTripRequest {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __name,
+            __route_polyline_format,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -900,6 +1444,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GetTripRequest {
                         use std::string::ToString;
                         match value {
                             "name" => Ok(__FieldTag::__name),
+                            "routePolylineFormat" => Ok(__FieldTag::__route_polyline_format),
+                            "route_polyline_format" => Ok(__FieldTag::__route_polyline_format),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -933,6 +1479,18 @@ impl<'de> serde::de::Deserialize<'de> for super::GetTripRequest {
                             }
                             result.name = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__route_polyline_format => {
+                            if !fields.insert(__FieldTag::__route_polyline_format) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for route_polyline_format",
+                                ));
+                            }
+                            result.route_polyline_format = map
+                                .next_value::<std::option::Option<
+                                    crate::model::get_trip_request::RoutePolylineFormat,
+                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

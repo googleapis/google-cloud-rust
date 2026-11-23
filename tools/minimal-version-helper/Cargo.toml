@@ -29,3 +29,6 @@ clap                     = { workspace = true, features = ["derive", "std"] }
 crates_io_api            = { workspace = true, features = ["default"] }
 semver.workspace         = true
 toml_edit                = { workspace = true, features = ["display", "parse"] }
+
+[lints]
+workspace = true

@@ -167,7 +167,6 @@ When reading rows without SQL expressions, use `execute_read` with `ReadRequest:
 use google_cloud_spanner::Error;
 use google_cloud_spanner::client::DatabaseClient;
 use google_cloud_spanner::key;
-use google_cloud_spanner::key::KeySet;
 use google_cloud_spanner::read::ReadRequest;
 
 pub async fn read_singers_by_index(
@@ -185,9 +184,9 @@ pub async fn read_singers_by_index(
     let mut singers = Vec::new();
 
     while let Some(row) = result_set.next().await.transpose()? {
-        let singer_id: i64 = row.get("SingerId");
-        let first_name: String = row.get("FirstName");
-        let last_name: String = row.get("LastName");
+        let singer_id: i64 = row.get("SingerId")?;
+        let first_name: String = row.get("FirstName")?;
+        let last_name: String = row.get("LastName")?;
         singers.push((singer_id, first_name, last_name));
     }
 
@@ -221,7 +220,7 @@ pub async fn query_artist_catalog_snapshot(
         .build();
     let mut singer_results = transaction.execute_query(singer_statement).await?;
     if let Some(row) = singer_results.next().await.transpose()? {
-        let name: String = row.get("Name");
+        let name: String = row.get("Name")?;
         println!("Singer: {name}");
     }
 
@@ -230,7 +229,7 @@ pub async fn query_artist_catalog_snapshot(
         .build();
     let mut album_results = transaction.execute_query(albums_statement).await?;
     while let Some(row) = album_results.next().await.transpose()? {
-        let title: String = row.get("AlbumTitle");
+        let title: String = row.get("AlbumTitle")?;
         println!("Album: {title}");
     }
 
@@ -251,7 +250,7 @@ pub async fn update_singer_rating(
     database_client: &DatabaseClient,
     singer_id: i64,
     new_rating: i64,
-) -> Result<i64, Error> {
+) -> Result<Option<i64>, Error> {
     let runner = database_client
         .read_write_transaction()
         .set_transaction_tag("update-singer-rating")
@@ -269,10 +268,8 @@ pub async fn update_singer_rating(
 
             let mut result_set = transaction.execute_query(select_statement).await?;
             let current_rating: i64 = match result_set.next().await.transpose()? {
-                Some(row) => row.get("Rating"),
-                None => {
-                    return Err(Error::other("singer not found"));
-                }
+                Some(row) => row.get("Rating")?,
+                None => return Ok(None),
             };
 
             let update_statement = Statement::builder(
@@ -283,7 +280,7 @@ pub async fn update_singer_rating(
             .build();
             transaction.execute_update(update_statement).await?;
 
-            Ok(current_rating)
+            Ok(Some(current_rating))
         })
         .await?;
 
@@ -379,8 +376,8 @@ pub async fn partition_and_execute_query(
     for partition in partitions {
         let mut result_set = partition.execute(database_client).await?;
         while let Some(row) = result_set.next().await.transpose()? {
-            let singer_id: i64 = row.get("SingerId");
-            let name: String = row.get("Name");
+            let singer_id: i64 = row.get("SingerId")?;
+            let name: String = row.get("Name")?;
             println!("Partition row: {singer_id} - {name}");
         }
     }
@@ -480,7 +477,7 @@ impl FromValue for AccountStatus {
         match text.as_str() {
             "Active" => Ok(AccountStatus::Active),
             "Suspended" => Ok(AccountStatus::Suspended),
-            other => Err(ConvertError::Convert(format!("unknown status: {other}").into())),
+            other => Err(ConvertError::message(format!("unknown status: {other}"))),
         }
     }
 }
@@ -494,8 +491,8 @@ pub async fn query_account_statuses(
 
     let mut accounts = Vec::new();
     while let Some(row) = result_set.next().await.transpose()? {
-        let account_id: i64 = row.get("AccountId");
-        let status: AccountStatus = row.get("Status");
+        let account_id: i64 = row.get("AccountId")?;
+        let status: AccountStatus = row.get("Status")?;
         accounts.push((account_id, status));
     }
 

@@ -32,3 +32,6 @@ rustls        = { workspace = true, features = ["aws_lc_rs"] }
 tokio         = { workspace = true, features = ["test-util"] }
 test-metadata = { path = "../test-metadata" }
 test-storage  = { path = "../test-storage" }
+
+[lints]
+workspace = true

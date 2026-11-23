@@ -15,6 +15,8 @@
 use super::request_options::RequestOptions;
 #[cfg(google_cloud_unstable_storage_bidi)]
 use crate::builder::storage::OpenAppendableObject;
+#[cfg(google_cloud_unstable_storage_parallel_upload)]
+use crate::builder::storage::ParallelUpload;
 use crate::builder::storage::ReadObject;
 #[cfg(google_cloud_unstable_storage_bidi)]
 use crate::builder::storage::ReopenAppendableObject;
@@ -357,6 +359,22 @@ where
             self.options.clone(),
         )
     }
+
+    #[cfg(google_cloud_unstable_storage_parallel_upload)]
+    #[cfg_attr(docsrs, doc(cfg(google_cloud_unstable_storage_parallel_upload)))]
+    /// Starts a parallel upload for an object.
+    ///
+    /// # Parameters
+    /// * `bucket` - the bucket name containing the object. In
+    ///   `projects/_/buckets/{bucket_id}` format.
+    /// * `object` - the object name.
+    pub fn parallel_upload<B, O>(&self, bucket: B, object: O) -> ParallelUpload<S>
+    where
+        B: Into<String>,
+        O: Into<String>,
+    {
+        ParallelUpload::new(self.stub.clone(), bucket, object, self.options.clone())
+    }
 }
 
 impl Storage {
@@ -602,6 +620,63 @@ impl ClientBuilder {
         v: V,
     ) -> Self {
         self.config.retry_throttler = v.into().into();
+        self
+    }
+
+    /// Configure the timeout for establishing HTTP connections.
+    ///
+    /// By default there is no connect timeout. This only applies to requests
+    /// made over HTTP, such as [read_object][Storage::read_object] and
+    /// [write_object][Storage::write_object].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use std::time::Duration;
+    /// let client = Storage::builder()
+    ///     .with_connect_timeout(Duration::from_secs(5))
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_connect_timeout(mut self, v: std::time::Duration) -> Self {
+        self.config.connect_timeout = Some(v);
+        self
+    }
+
+    /// Configure the timeout for each read from an HTTP connection.
+    ///
+    /// For downloads via [read_object][Storage::read_object], the timeout
+    /// resets after every successful read, so it bounds how long a stalled
+    /// transfer waits for data, without limiting the total duration of large
+    /// downloads.
+    ///
+    /// For uploads via [write_object][Storage::write_object], the timer starts
+    /// when a request is sent and does not reset until response headers arrive.
+    /// Because the service only sends response headers after receiving the
+    /// request body, this bounds the entire upload duration of a
+    /// [send_unbuffered()][crate::builder::storage::WriteObject::send_unbuffered]
+    /// request (or each buffered chunk in
+    /// [send_buffered()][crate::builder::storage::WriteObject::send_buffered]).
+    ///
+    /// By default there is no read timeout. This only applies to requests
+    /// made over HTTP, such as [read_object][Storage::read_object] and
+    /// [write_object][Storage::write_object].
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use std::time::Duration;
+    /// let client = Storage::builder()
+    ///     .with_read_timeout(Duration::from_secs(30))
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_read_timeout(mut self, v: std::time::Duration) -> Self {
+        self.config.read_timeout = Some(v);
         self
     }
 
@@ -982,6 +1057,17 @@ pub(crate) mod tests {
             Some("my-universe.com"),
             "{config:?}"
         );
+    }
+
+    #[test]
+    fn timeouts() {
+        let builder = ClientBuilder::new()
+            .with_credentials(Anonymous::new().build())
+            .with_connect_timeout(Duration::from_secs(5))
+            .with_read_timeout(Duration::from_secs(30));
+        let config = builder.config;
+        assert_eq!(config.connect_timeout, Some(Duration::from_secs(5)));
+        assert_eq!(config.read_timeout, Some(Duration::from_secs(30)));
     }
 
     #[derive(Debug)]

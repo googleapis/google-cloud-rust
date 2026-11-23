@@ -63,24 +63,22 @@ where
     ) -> LoopResult<()> {
         let mut ranges = Vec::new();
         let (mut rx, mut tx) = (connection.rx, connection.tx);
-        // Note how this loop only exits when the `requests` queue is
-        // closed. A successfully closed stream and unrecoverable errors
-        // return immediately.
+        // Keep `requests` open until the `ObjectDescriptor` and all readers are
+        // dropped, even after an unrecoverable stream error. Exiting early would
+        // close the channel and cause later `read_range()` calls to panic.
         let error = loop {
             tokio::select! {
                 m = rx.next_message() => {
                     match self.handle_response(m).await {
-                        // Successful end of stream, return without error.
-                        None => break None,
                         // An unrecoverable in the stream or its data, return
                         // the error.
-                        Some(Err(e)) => break Some(e),
+                        Err(e) => break Some(e),
                         // New message on the stream handled successfully,
                         // continue.
-                        Some(Ok(None)) => {},
+                        Ok(None) => {},
                         // The stream reconnected successfully, update the local
                         // variables and continue.
-                        Some(Ok(Some(connection))) => {
+                        Ok(Some(connection)) => {
                             (rx, tx) = (connection.rx, connection.tx);
                         }
                     };
@@ -96,7 +94,7 @@ where
         drop(rx);
         drop(tx);
         let Some(e) = error else {
-            // A successfully closed stream *and* there are no more readers.
+            // The `requests` queue is closed, so there are no more readers.
             return Ok(());
         };
         // Return errors for any future readers.
@@ -110,15 +108,23 @@ where
     pub async fn handle_response(
         &mut self,
         message: TonicResult<Option<BidiReadObjectResponse>>,
-    ) -> Option<LoopResult<Option<Connection<C::Stream>>>> {
-        let response = match message.transpose()? {
-            Ok(r) => r,
+    ) -> LoopResult<Option<Connection<C::Stream>>> {
+        let response = match message {
+            Ok(Some(r)) => r,
+            // The server should keep the stream open until `run()` closes the
+            // send side. Fail all reads instead of reconnecting, as the default
+            // resume policy would retry `OK` closes without a limit or backoff.
+            Ok(None) => {
+                let error = Arc::new(crate::Error::io(
+                    "bidi_read_object stream closed unexpectedly",
+                ));
+                self.close_readers(error.clone()).await;
+                return Err(error);
+            }
             Err(status) => return self.reconnect(status).await,
         };
-        match self.handle_response_success(response).await {
-            Err(e) => Some(Err(e)),
-            Ok(_) => Some(Ok(None)),
-        }
+        self.handle_response_success(response).await?;
+        Ok(None)
     }
 
     pub async fn handle_response_success(
@@ -150,10 +156,7 @@ where
         result.map_err(crate::Error::io)
     }
 
-    async fn reconnect(
-        &mut self,
-        status: Status,
-    ) -> Option<LoopResult<Option<Connection<C::Stream>>>> {
+    async fn reconnect(&mut self, status: Status) -> LoopResult<Option<Connection<C::Stream>>> {
         let ranges: Vec<_> = self
             .ranges
             .lock()
@@ -166,7 +169,7 @@ where
             Err(e) => {
                 let error = Arc::new(e);
                 self.close_readers(error.clone()).await;
-                return Some(Err(error));
+                return Err(error);
             }
             Ok(t) => t,
         };
@@ -175,9 +178,9 @@ where
             // TODO: refactor to handle_ranges().
             let error = Arc::new(e);
             self.close_readers(error.clone()).await;
-            return Some(Err(error));
+            return Err(error);
         }
-        Some(Ok(Some(connection)))
+        Ok(Some(connection))
     }
 
     async fn close_readers(&mut self, error: Arc<crate::Error>) {
@@ -259,7 +262,7 @@ mod tests {
 
     #[tokio::test]
     async fn run_immediately_closed() -> anyhow::Result<()> {
-        let (request_tx, _request_rx) = tokio::sync::mpsc::channel(1);
+        let (request_tx, mut request_rx) = tokio::sync::mpsc::channel(1);
         let (response_tx, response_rx) = mock_stream();
         let (tx, rx) = tokio::sync::mpsc::channel(1);
         let connection = Connection::new(request_tx, response_rx);
@@ -272,8 +275,25 @@ mod tests {
         let handle = tokio::spawn(worker.run(connection, rx));
         // Closing the stream without an error should not attempt a reconnect.
         drop(response_tx);
+        // Wait until the worker gives up on the stream and drops its sender.
+        let got = request_rx.recv().await;
+        assert!(got.is_none(), "{got:?}");
+
+        // Reads sent after the close should fail instead of ending cleanly.
+        let mut reader = mock_reader(&tx, ReadRange::segment(100, 100)).await;
+        let got = reader.recv().await;
+        assert!(
+            matches!(got, Some(Err(ReadError::UnrecoverableBidiReadInterrupt(ref e))) if e.is_io()),
+            "{got:?}"
+        );
+        let got = reader.recv().await;
+        assert!(got.is_none(), "{got:?}");
+
+        // The worker returns the error once the `requests` queue closes.
         drop(tx);
-        handle.await??;
+        let err = handle.await?.unwrap_err();
+        assert!(err.is_io(), "{err:?}");
+        assert!(err.to_string().contains("closed unexpectedly"), "{err}");
         Ok(())
     }
 
@@ -401,6 +421,60 @@ mod tests {
         // After the background thread ends, the stream should be closed.
         let got = reader.recv().await;
         assert!(got.is_none(), "{got:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_closed_with_partial_read() -> anyhow::Result<()> {
+        let SuccessfulReadSetup {
+            join,
+            response_tx,
+            request,
+            mut reader,
+            tx,
+        } = set_up_successful_read().await;
+
+        // 1. Send part of the range, then close the stream with `OK`.
+        let content = bytes::Bytes::from_owner(String::from_iter((0..50).map(|_| 'x')));
+        let response = BidiReadObjectResponse {
+            object_data_ranges: vec![ObjectRangeData {
+                read_range: Some(proto_range_id(100, content.len() as i64, request.read_id)),
+                checksummed_data: Some(ChecksummedData {
+                    content: content.clone(),
+                    ..ChecksummedData::default()
+                }),
+                ..ObjectRangeData::default()
+            }],
+            ..BidiReadObjectResponse::default()
+        };
+        response_tx.send(Ok(response)).await?;
+        drop(response_tx);
+
+        // 2. The read in progress should fail instead of ending early.
+        let got = reader.recv().await;
+        assert!(matches!(got, Some(Ok(ref b)) if *b == content), "{got:?}");
+        let got = reader.recv().await;
+        assert!(
+            matches!(got, Some(Err(ReadError::UnrecoverableBidiReadInterrupt(ref e))) if e.is_io()),
+            "{got:?}"
+        );
+        let got = reader.recv().await;
+        assert!(got.is_none(), "{got:?}");
+
+        // 3. Reads sent after the close should fail too.
+        let mut reader = mock_reader(&tx, ReadRange::segment(200, 100)).await;
+        let got = reader.recv().await;
+        assert!(
+            matches!(got, Some(Err(ReadError::UnrecoverableBidiReadInterrupt(ref e))) if e.is_io()),
+            "{got:?}"
+        );
+        let got = reader.recv().await;
+        assert!(got.is_none(), "{got:?}");
+
+        // 4. The worker returns the error once the `requests` queue closes.
+        drop(tx);
+        let err = join.await?.unwrap_err();
+        assert!(err.is_io(), "{err:?}");
         Ok(())
     }
 

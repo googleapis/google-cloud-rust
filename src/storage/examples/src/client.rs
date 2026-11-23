@@ -14,5 +14,6 @@
 
 pub mod configure_retries;
 pub mod custom_headers;
+pub mod enable_otel_tracing;
 pub mod quota_project;
 pub mod set_client_endpoint;

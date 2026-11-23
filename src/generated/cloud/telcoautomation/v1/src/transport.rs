@@ -56,7 +56,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -104,8 +104,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/ListOrchestrationClusters",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -130,7 +130,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -178,8 +178,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/GetOrchestrationCluster",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -204,7 +204,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -249,8 +249,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.telcoautomation.v1.TelcoAutomation/CreateOrchestrationCluster")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -275,7 +275,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -322,8 +322,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.telcoautomation.v1.TelcoAutomation/DeleteOrchestrationCluster")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -348,7 +348,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -394,8 +394,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.telcoautomation.v1.TelcoAutomation/ListEdgeSlms")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -420,7 +420,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -466,8 +466,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.telcoautomation.v1.TelcoAutomation/GetEdgeSlm")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -492,7 +492,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -536,8 +536,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.telcoautomation.v1.TelcoAutomation/CreateEdgeSlm")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -562,7 +562,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -609,8 +609,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.telcoautomation.v1.TelcoAutomation/DeleteEdgeSlm")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -635,7 +635,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -684,8 +684,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/CreateBlueprint",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -710,7 +710,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_blueprint_name = try_match(
                     Some(&req)
@@ -779,7 +779,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/UpdateBlueprint",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -804,7 +804,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -855,8 +855,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.telcoautomation.v1.TelcoAutomation/GetBlueprint")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -881,7 +881,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -933,8 +933,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/DeleteBlueprint",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -965,7 +965,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1016,8 +1016,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/ListBlueprints",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1043,7 +1043,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1096,8 +1096,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/ApproveBlueprint",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1123,7 +1123,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1176,8 +1176,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/ProposeBlueprint",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1203,7 +1203,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1256,8 +1256,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/RejectBlueprint",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1282,7 +1282,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1336,8 +1336,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/ListBlueprintRevisions",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1362,7 +1362,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1413,8 +1413,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/SearchBlueprintRevisions",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1439,7 +1439,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1490,8 +1490,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/SearchDeploymentRevisions",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1517,7 +1517,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1570,8 +1570,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/DiscardBlueprintChanges",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1596,7 +1596,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1642,8 +1642,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/ListPublicBlueprints",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1668,7 +1668,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1716,8 +1716,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/GetPublicBlueprint",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1742,7 +1742,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1791,8 +1791,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/CreateDeployment",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1817,7 +1817,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_deployment_name = try_match(
                     Some(&req)
@@ -1886,7 +1886,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/UpdateDeployment",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1911,7 +1911,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1962,8 +1962,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.telcoautomation.v1.TelcoAutomation/GetDeployment")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1989,7 +1989,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2042,8 +2042,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/RemoveDeployment",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2074,7 +2074,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2125,8 +2125,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/ListDeployments",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2151,7 +2151,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2205,8 +2205,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/ListDeploymentRevisions",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2232,7 +2232,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2285,8 +2285,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/DiscardDeploymentChanges",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2312,7 +2312,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2365,8 +2365,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/ApplyDeployment",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2391,7 +2391,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2443,8 +2443,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/ComputeDeploymentStatus",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2470,7 +2470,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2523,8 +2523,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/RollbackDeployment",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2549,7 +2549,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/orchestrationClusters/"), Segment::SingleWildcard, Segment::Literal("/deployments/"), Segment::SingleWildcard, Segment::Literal("/hydratedDeployments/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -2585,8 +2585,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/GetHydratedDeployment",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2611,7 +2611,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2665,8 +2665,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/ListHydratedDeployments",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2691,7 +2691,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_hydrated_deployment_name = try_match(Some(&req).and_then(|m| m.hydrated_deployment.as_ref()).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/orchestrationClusters/"), Segment::SingleWildcard, Segment::Literal("/deployments/"), Segment::SingleWildcard, Segment::Literal("/hydratedDeployments/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -2726,7 +2726,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/UpdateHydratedDeployment",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2752,7 +2752,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/orchestrationClusters/"), Segment::SingleWildcard, Segment::Literal("/deployments/"), Segment::SingleWildcard, Segment::Literal("/hydratedDeployments/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -2789,8 +2789,8 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
                     .set_rpc_method(
                         "google.cloud.telcoautomation.v1.TelcoAutomation/ApplyHydratedDeployment",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2815,7 +2815,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2857,7 +2857,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/ListLocations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2882,7 +2882,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2923,7 +2923,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/GetLocation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2948,7 +2948,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2996,7 +2996,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3021,7 +3021,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3066,7 +3066,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3091,7 +3091,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3136,7 +3136,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3168,7 +3168,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3214,7 +3214,7 @@ impl super::stub::TelcoAutomation for TelcoAutomation {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(

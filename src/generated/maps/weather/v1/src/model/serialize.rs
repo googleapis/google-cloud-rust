@@ -149,6 +149,9 @@ impl serde::ser::Serialize for super::ForecastDay {
         if self.max_heat_index.is_some() {
             state.serialize_entry("maxHeatIndex", &self.max_heat_index)?;
         }
+        if self.full_day_forecast.is_some() {
+            state.serialize_entry("fullDayForecast", &self.full_day_forecast)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1600,6 +1603,9 @@ impl serde::ser::Serialize for super::LookupMapTileRequest {
                 }
             }
             state.serialize_entry("y", &__With(&self.y))?;
+        }
+        if self.forecast_time.is_some() {
+            state.serialize_entry("forecastTime", &self.forecast_time)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

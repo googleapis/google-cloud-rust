@@ -92,6 +92,9 @@ impl serde::ser::Serialize for super::GenerateAuditScopeReportRequest {
         if !wkt::internal::is_default(&self.validate_only) {
             state.serialize_entry("validateOnly", &self.validate_only)?;
         }
+        if !self.parameter_overrides.is_empty() {
+            state.serialize_entry("parameterOverrides", &self.parameter_overrides)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -125,6 +128,9 @@ impl serde::ser::Serialize for super::GenerateAuditReportRequest {
         }
         if !self.compliance_framework.is_empty() {
             state.serialize_entry("complianceFramework", &self.compliance_framework)?;
+        }
+        if !self.parameter_overrides.is_empty() {
+            state.serialize_entry("parameterOverrides", &self.parameter_overrides)?;
         }
         if !wkt::internal::is_default(&self.validate_only) {
             state.serialize_entry("validateOnly", &self.validate_only)?;
@@ -623,6 +629,12 @@ impl serde::ser::Serialize for super::AuditReport {
         if !self.scope_id.is_empty() {
             state.serialize_entry("scopeId", &self.scope_id)?;
         }
+        if !self.cloud_control_parameter_states.is_empty() {
+            state.serialize_entry(
+                "cloudControlParameterStates",
+                &self.cloud_control_parameter_states,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1042,6 +1054,9 @@ impl serde::ser::Serialize for super::AuditSchedule {
         if !self.error_message.is_empty() {
             state.serialize_entry("errorMessage", &self.error_message)?;
         }
+        if !self.parameter_overrides.is_empty() {
+            state.serialize_entry("parameterOverrides", &self.parameter_overrides)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1072,6 +1087,165 @@ impl serde::ser::Serialize for super::ScheduleConfig {
         }
         if !self.time_zone.is_empty() {
             state.serialize_entry("timeZone", &self.time_zone)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Parameter {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.parameter_value.is_some() {
+            state.serialize_entry("parameterValue", &self.parameter_value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::StringList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.values.is_empty() {
+            state.serialize_entry("values", &self.values)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ParamValue {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.string_value() {
+            state.serialize_entry("stringValue", value)?;
+        }
+        if let Some(value) = self.bool_value() {
+            state.serialize_entry("boolValue", value)?;
+        }
+        if let Some(value) = self.string_list_value() {
+            state.serialize_entry("stringListValue", value)?;
+        }
+        if let Some(value) = self.number_value() {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("numberValue", &__With(value))?;
+        }
+        if let Some(value) = self.oneof_value() {
+            state.serialize_entry("oneofValue", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ParameterOverrides {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parameters.is_empty() {
+            state.serialize_entry("parameters", &self.parameters)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ParameterState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.parameter.is_some() {
+            state.serialize_entry("parameter", &self.parameter)?;
+        }
+        if !wkt::internal::is_default(&self.is_overridden) {
+            state.serialize_entry("isOverridden", &self.is_overridden)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CloudControlParameterStates {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parameter_states.is_empty() {
+            state.serialize_entry("parameterStates", &self.parameter_states)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

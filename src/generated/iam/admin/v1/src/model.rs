@@ -4554,6 +4554,85 @@ impl wkt::message::Message for LintPolicyResponse {
     }
 }
 
+/// Log payload for Workforce Pool Provider background user attribute sync
+/// events.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WorkforcePoolAttributeSyncEventLog {
+    /// The raw subject identifier of the user whose attributes are being synced.
+    /// This identifies the specific user within the workforce pool.
+    pub subject: std::string::String,
+
+    /// A machine-readable code indicating the reason for failure. Only populated
+    /// when `severity` is `ERROR`.
+    ///
+    /// Possible values include, but are not limited to:
+    ///
+    /// - `PROVIDER_NOT_FOUND`: The user was not found in the identity provider.
+    /// - `IDP_UNREACHABLE`: The identity provider could not be reached.
+    /// - `ATTRIBUTE_MAPPING_ERROR`: The attribute mapping configuration is
+    ///   invalid.
+    /// - `INTERNAL_ERROR`: An internal error occurred during attribute
+    ///   synchronization.
+    pub failure_reason: std::string::String,
+
+    /// Human-readable details describing the attribute sync result. For successful
+    /// syncs, this contains the updated user attributes if detailed audit
+    /// logging is enabled. For failures, this describes the cause of the failure.
+    pub message: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WorkforcePoolAttributeSyncEventLog {
+    /// Creates a new default instance.
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [subject][crate::model::WorkforcePoolAttributeSyncEventLog::subject].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_admin_v1::model::WorkforcePoolAttributeSyncEventLog;
+    /// let x = WorkforcePoolAttributeSyncEventLog::new().set_subject("example");
+    /// ```
+    pub fn set_subject<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.subject = v.into();
+        self
+    }
+
+    /// Sets the value of [failure_reason][crate::model::WorkforcePoolAttributeSyncEventLog::failure_reason].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_admin_v1::model::WorkforcePoolAttributeSyncEventLog;
+    /// let x = WorkforcePoolAttributeSyncEventLog::new().set_failure_reason("example");
+    /// ```
+    pub fn set_failure_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.failure_reason = v.into();
+        self
+    }
+
+    /// Sets the value of [message][crate::model::WorkforcePoolAttributeSyncEventLog::message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_admin_v1::model::WorkforcePoolAttributeSyncEventLog;
+    /// let x = WorkforcePoolAttributeSyncEventLog::new().set_message("example");
+    /// ```
+    pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.message = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for WorkforcePoolAttributeSyncEventLog {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.iam.admin.v1.WorkforcePoolAttributeSyncEventLog"
+    }
+}
+
 /// Supported key algorithms.
 ///
 /// # Working with unknown values

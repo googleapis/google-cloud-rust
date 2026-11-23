@@ -12,10 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(any(
-    google_cloud_unstable_bigquery_arrow,
-    google_cloud_unstable_bigquery_storage_read
-))]
 pub(crate) use super::arrow::ArrowCell;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
@@ -46,10 +42,6 @@ pub(crate) enum SqlValueInner {
     String(String),
     Array(Vec<SqlValueInner>),
     Struct(Vec<(String, SqlValueInner)>),
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
     Arrow(ArrowCell),
 }
 
@@ -62,10 +54,6 @@ impl SqlValueInner {
             Self::String(_) => "string".to_string(),
             Self::Array(_) => "array".to_string(),
             Self::Struct(_) => "object".to_string(),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             Self::Arrow(cell) => cell.data_type_str(),
         }
     }
@@ -192,10 +180,6 @@ impl FromSql for wkt::Value {
                     .map(|(k, v)| Ok((k, wkt::Value::from_value(SqlValue::from_inner(v))?)))
                     .collect::<Result<wkt::Struct, ConvertError>>()?,
             ),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) => {
                 if cell.is_null() {
                     return Ok(wkt::Value::Null);
@@ -272,10 +256,6 @@ impl FromSql for String {
         match value.inner {
             SqlValueInner::String(s) => Ok(s),
             SqlValueInner::Null => Err(ConvertError::NotNull),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) => cell.to_sql_string(),
             other => Err(ConvertError::type_mismatch("string", &other)),
         }
@@ -293,10 +273,6 @@ impl FromSql for i32 {
                 .parse::<i32>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
             SqlValueInner::Null => Err(ConvertError::NotNull),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) => cell.as_i32(),
             other => Err(ConvertError::type_mismatch("number or string", &other)),
         }
@@ -313,10 +289,6 @@ impl FromSql for i64 {
                 .parse::<i64>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
             SqlValueInner::Null => Err(ConvertError::NotNull),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) => cell.as_i64(),
             other => Err(ConvertError::type_mismatch("number or string", &other)),
         }
@@ -334,10 +306,6 @@ impl FromSql for f32 {
                 .parse::<f32>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
             SqlValueInner::Null => Err(ConvertError::NotNull),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) => cell.as_f32(),
             other => Err(ConvertError::type_mismatch("number or string", &other)),
         }
@@ -354,10 +322,6 @@ impl FromSql for f64 {
                 .parse::<f64>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
             SqlValueInner::Null => Err(ConvertError::NotNull),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) => cell.as_f64(),
             other => Err(ConvertError::type_mismatch("number or string", &other)),
         }
@@ -372,10 +336,6 @@ impl FromSql for bool {
                 .parse::<bool>()
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
             SqlValueInner::Null => Err(ConvertError::NotNull),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) => cell.as_bool(),
             other => Err(ConvertError::type_mismatch("bool or string", &other)),
         }
@@ -386,10 +346,6 @@ impl<T: FromSql> FromSql for Option<T> {
     fn from_value(value: SqlValue) -> Result<Self, ConvertError> {
         match value.inner {
             SqlValueInner::Null => Ok(None),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) if cell.is_null() => Ok(None),
             other => T::from_value(SqlValue::from_inner(other)).map(Some),
         }
@@ -404,10 +360,6 @@ impl<T: FromSql> FromSql for Vec<T> {
                 .map(|v| T::from_value(SqlValue::from_inner(v)))
                 .collect(),
             SqlValueInner::Null => Err(ConvertError::NotNull),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) => {
                 let value_arr = cell.list_array_ref()?;
                 (0..value_arr.len())
@@ -433,10 +385,6 @@ impl FromSql for wkt::Struct {
                 serde_json::from_str(&s).map_err(|e| ConvertError::Convert(Box::new(e)))
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) => {
                 let s = cell.as_str()?;
                 serde_json::from_str(s).map_err(|e| ConvertError::Convert(Box::new(e)))
@@ -462,10 +410,6 @@ impl FromSql for wkt::Timestamp {
                 timestamp_from_micros(micros)
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) => {
                 let micros = cell.as_timestamp_micros()?;
                 timestamp_from_micros(micros)
@@ -495,10 +439,6 @@ impl FromSql for google_cloud_type::model::Date {
                     .set_day(date.day() as i32))
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) => {
                 let days = cell.as_date32()?;
                 let date = time::OffsetDateTime::from_unix_timestamp(i64::from(days) * 86_400)
@@ -535,10 +475,6 @@ impl FromSql for google_cloud_type::model::TimeOfDay {
                     .set_nanos(time.nanosecond() as i32))
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) => {
                 let micros = cell.as_time64_micros()?;
                 if !(0..86_400_000_000).contains(&micros) {
@@ -584,10 +520,6 @@ impl FromSql for google_cloud_type::model::DateTime {
                     .set_nanos(dt.nanosecond() as i32))
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) => {
                 let micros = cell.as_timestamp_micros()?;
                 let odt =
@@ -615,10 +547,6 @@ impl FromSql for google_cloud_type::model::Decimal {
                 Ok(google_cloud_type::model::Decimal::new().set_value(n.to_string()))
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) => cell
                 .as_decimal_str()
                 .map(|s| google_cloud_type::model::Decimal::new().set_value(s)),
@@ -646,10 +574,6 @@ impl FromSql for rust_decimal::Decimal {
                 }
             }
             SqlValueInner::Null => Err(ConvertError::NotNull),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) => {
                 if let Some((val, scale)) = cell.as_decimal128_with_scale()
                     && let Ok(d) = rust_decimal::Decimal::try_from_i128_with_scale(val, scale)
@@ -673,10 +597,6 @@ impl FromSql for Vec<u8> {
                 .decode(s)
                 .map_err(|e| ConvertError::Convert(Box::new(e))),
             SqlValueInner::Null => Err(ConvertError::NotNull),
-            #[cfg(any(
-                google_cloud_unstable_bigquery_arrow,
-                google_cloud_unstable_bigquery_storage_read
-            ))]
             SqlValueInner::Arrow(cell) => cell.as_bytes().map(<[u8]>::to_vec),
             other => Err(ConvertError::type_mismatch(
                 "string (base64 encoded)",
@@ -1163,10 +1083,6 @@ mod tests {
         assert_eq!(parsed_json, GenericTupleSql(100, None, "world".to_string()));
     }
 
-    #[cfg(any(
-        google_cloud_unstable_bigquery_arrow,
-        google_cloud_unstable_bigquery_storage_read
-    ))]
     mod arrow_tests {
         use super::*;
         use arrow::array::{

@@ -59031,6 +59031,7 @@ pub enum DetectIntentResponseView {
     ///
     /// [google.cloud.dialogflow.cx.v3.QueryResult.data_store_connection_signals]: crate::model::QueryResult::data_store_connection_signals
     /// [google.cloud.dialogflow.cx.v3.QueryResult.diagnostic_info]: crate::model::QueryResult::diagnostic_info
+    /// [google.cloud.dialogflow.cx.v3.QueryResult.trace_blocks]: crate::model::QueryResult::trace_blocks
     Basic,
     /// ## Default response view omits the following fields:
     ///

@@ -101,7 +101,9 @@ impl RouteOptimization {
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
-    /// client's behavior.
+    /// client's behavior. See the [mocking guide] for more information.
+    ///
+    /// [mocking guide]: https://docs.cloud.google.com/rust/docs/mocking
     pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::RouteOptimization + 'static,
@@ -242,10 +244,6 @@ impl RouteOptimization {
     /// [OptimizeToursResponse][google.maps.routeoptimization.v1.OptimizeToursResponse],
     /// if successful.
     ///
-    /// Experimental: See
-    /// <https://developers.google.com/maps/tt/route-optimization/experimental/otlr/make-request>
-    /// for more details.
-    ///
     /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata
     /// [google.longrunning.Operation.response]: google_cloud_longrunning::model::Operation::result
@@ -303,14 +301,10 @@ impl RouteOptimization {
     /// `<parent>/operations/<operation_id>` and can be used to track
     /// progress of the computation. The
     /// [metadata][google.longrunning.Operation.metadata] field type is
-    /// [OptimizeToursLongRunningMetadata][google.maps.routeoptimization.v1.OptimizeToursUriMetadata].
+    /// [OptimizeToursUriMetadata][google.maps.routeoptimization.v1.OptimizeToursUriMetadata].
     /// The [response][google.longrunning.Operation.response] field type is
     /// [OptimizeToursUriResponse][google.maps.routeoptimization.v1.OptimizeToursUriResponse],
     /// if successful.
-    ///
-    /// Experimental: See
-    /// <https://developers.google.com/maps/tt/route-optimization/experimental/otlr/make-request>
-    /// for more details.
     ///
     /// [google.longrunning.Operation]: google_cloud_longrunning::model::Operation
     /// [google.longrunning.Operation.metadata]: google_cloud_longrunning::model::Operation::metadata

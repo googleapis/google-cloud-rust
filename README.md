@@ -13,7 +13,7 @@ client libraries for Rust.
 
 ## Minimum Supported Rust Version (MSRV)
 
-We require Rust >= 1.91. We plan to update the MSRV periodically. However, the
+We require Rust >= 1.92. We plan to update the MSRV periodically. However, the
 development branch will always compile with the `rustc` versions released within
 the previous year.
 
@@ -84,4 +84,4 @@ Apache 2.0 - See [LICENSE] for more information.
 [futures::stream::stream]: https://docs.rs/futures/latest/futures/stream/trait.Stream.html
 [license]: LICENSE
 [set up development environment]: doc/contributor/howto-guide-set-up-development-environment.md
-[user guide]: https://googleapis.github.io/google-cloud-rust
+[user guide]: https://docs.cloud.google.com/rust/docs/overview

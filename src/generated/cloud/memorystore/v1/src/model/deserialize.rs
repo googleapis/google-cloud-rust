@@ -4241,6 +4241,7 @@ impl<'de> serde::de::Deserialize<'de> for super::PscAutoConnection {
             __service_attachment,
             __psc_connection_status,
             __connection_type,
+            __ip_version,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4277,6 +4278,8 @@ impl<'de> serde::de::Deserialize<'de> for super::PscAutoConnection {
                             "psc_connection_status" => Ok(__FieldTag::__psc_connection_status),
                             "connectionType" => Ok(__FieldTag::__connection_type),
                             "connection_type" => Ok(__FieldTag::__connection_type),
+                            "ipVersion" => Ok(__FieldTag::__ip_version),
+                            "ip_version" => Ok(__FieldTag::__ip_version),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4406,6 +4409,16 @@ impl<'de> serde::de::Deserialize<'de> for super::PscAutoConnection {
                             }
                             result.connection_type = map
                                 .next_value::<std::option::Option<crate::model::ConnectionType>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ip_version => {
+                            if !fields.insert(__FieldTag::__ip_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ip_version",
+                                ));
+                            }
+                            result.ip_version = map
+                                .next_value::<std::option::Option<crate::model::IpVersion>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

@@ -42,6 +42,7 @@ locals {
     "--cfg google_cloud_unstable_grpc_rust",
     "--cfg google_cloud_unstable_bigquery_arrow",
     "--cfg google_cloud_unstable_bigquery_storage_read",
+    "--cfg google_cloud_unstable_storage_parallel_upload",
   ])
 
   tokio_unstable_flags = "--cfg tokio_unstable"
@@ -89,6 +90,11 @@ locals {
     features-gax-internal = {
       config = "complex.yaml"
       script = "features-gax-internal"
+      pool   = "rust-sdk-pool-large"
+    }
+    features-spanner = {
+      config = "complex.yaml"
+      script = "features-spanner"
       pool   = "rust-sdk-pool-large"
     }
     per-client-features = {
