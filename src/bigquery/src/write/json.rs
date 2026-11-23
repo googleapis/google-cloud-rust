@@ -12,8 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Column lookup and value encoding for JSON rows.
+//! Encodes JSON row objects into `proto2` [`prost_reflect::DynamicMessage`]s.
+//!
+//! [`ColumnMap`] resolves JSON keys ignoring ASCII case, [`row::RowEncoder`]
+//! populates a row's [`prost_reflect::DynamicMessage`] from `{ "key": value }`,
+//! and [`value::ValueEncoder`] converts each column value according to its
+//! BigQuery [`Type`].
 
+mod row;
 mod value;
 
 use crate::model::TableFieldSchema;
