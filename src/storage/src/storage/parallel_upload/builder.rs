@@ -234,6 +234,8 @@ where
     ///
     /// Panics with the default transport until session creation is implemented.
     pub async fn create_session(self) -> Result<ParallelUploadSession> {
+        // `max_concurrency` only applies to whole-object uploads;
+        // TODO: plumb `enable_hedging` via `RequestOptions` once hedging is implemented.
         let _ = (self.max_concurrency, self.enable_hedging);
         self.stub
             .create_object_write_session(self.request, self.options)
