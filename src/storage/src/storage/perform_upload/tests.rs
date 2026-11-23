@@ -249,6 +249,85 @@ async fn start_resumable_upload_credentials() -> Result {
 }
 
 #[tokio::test]
+async fn resumable_upload_attempts_preserve_auth_error() -> Result {
+    // Arrange
+    let inner = test_inner_client(test_builder().with_credentials(error_credentials(false))).await;
+    let options = inner.options.clone();
+    let stub = crate::storage::transport::Storage::new_test(inner.clone());
+    let builder = WriteObject::new(
+        stub,
+        "projects/_/buckets/bucket",
+        "object",
+        "hello",
+        options,
+    );
+    let upload = perform_upload(inner, builder);
+
+    // Act & Assert
+    let err = upload
+        .start_resumable_upload_attempt(0, &RequestOptions::default())
+        .await
+        .expect_err("invalid credentials should fail start_resumable_upload_attempt");
+    assert!(err.is_authentication(), "{err:?}");
+
+    let err = upload
+        .query_resumable_upload_attempt("http://private.googleapis.com/upload/session", 0)
+        .await
+        .expect_err("invalid credentials should fail query_resumable_upload_attempt");
+    assert!(err.is_authentication(), "{err:?}");
+    Ok(())
+}
+
+#[tokio::test]
+async fn resumable_upload_attempts_preserve_timeout_error() -> Result {
+    // Arrange
+    // Accept both connections and hold them open before sending headers.
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
+    let endpoint = format!("http://{}", listener.local_addr()?);
+    let _server = tokio::spawn(async move {
+        let mut sockets = Vec::new();
+        for _ in 0..2 {
+            let (mut socket, _) = listener.accept().await.expect("accept succeeds");
+            let mut req = [0_u8; 1024];
+            let _ = socket.read(&mut req).await.expect("read succeeds");
+            sockets.push(socket);
+        }
+        tokio::time::sleep(Duration::from_secs(5)).await;
+    });
+
+    let inner = test_inner_client(
+        test_builder()
+            .with_endpoint(&endpoint)
+            .with_read_timeout(Duration::from_millis(100)),
+    )
+    .await;
+    let options = inner.options.clone();
+    let stub = crate::storage::transport::Storage::new_test(inner.clone());
+    let builder = WriteObject::new(
+        stub,
+        "projects/_/buckets/bucket",
+        "object",
+        "hello",
+        options,
+    );
+    let upload = perform_upload(inner, builder);
+
+    // Act & Assert
+    let err = upload
+        .start_resumable_upload_attempt(0, &RequestOptions::default())
+        .await
+        .expect_err("stalled session start should time out");
+    assert!(err.is_timeout(), "{err:?}");
+
+    let err = upload
+        .query_resumable_upload_attempt(&format!("{endpoint}/upload/session"), 0)
+        .await
+        .expect_err("stalled session query should time out");
+    assert!(err.is_timeout(), "{err:?}");
+    Ok(())
+}
+
+#[tokio::test]
 async fn handle_start_resumable_upload_response() -> Result {
     let response = http::Response::builder()
         .header(

@@ -109,11 +109,15 @@ use super::RESUMABLE_UPLOAD_QUANTUM;
 use crate::error::WriteError;
 use crate::model_ext::{KeyAes256, tests::create_key_helper};
 use crate::storage::client::tests::{
-    MockBackoffPolicy, MockRetryPolicy, MockRetryThrottler, test_builder,
+    MockBackoffPolicy, MockCredentials, MockRetryPolicy, MockRetryThrottler, test_builder,
 };
 use crate::streaming_source::{BytesSource, SizeHint, tests::UnknownSize};
 use base64::{Engine as _, prelude::BASE64_STANDARD};
-use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+use google_cloud_auth::credentials::{
+    CacheableResource, Credentials, EntityTag, anonymous::Builder as Anonymous,
+    testing::error_credentials,
+};
+use google_cloud_gax::error::CredentialsError;
 use google_cloud_gax::retry_policy::RetryPolicyExt;
 use google_cloud_gax::retry_result::RetryResult;
 use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -903,5 +907,166 @@ async fn put_error_and_finalized_validates_checksum(bad_checksum: bool) -> Resul
         let object = result?;
         assert_eq!(object.name, "test-object");
     }
+    Ok(())
+}
+
+#[test_case(false, 1)]
+#[test_case(true, 3)]
+#[tokio::test]
+async fn start_credentials_error(retryable: bool, expected_attempts: usize) -> Result {
+    // Arrange
+    // Credential errors fail before HTTP I/O, so pin the attempt count via the
+    // retry policies.
+    let server = Server::run();
+    let mut backoff = MockBackoffPolicy::new();
+    backoff
+        .expect_on_failure()
+        .times(expected_attempts)
+        .return_const(Duration::from_micros(1));
+
+    let mut throttler_seq = mockall::Sequence::new();
+    let mut throttler = MockRetryThrottler::new();
+    throttler
+        .expect_throttle_retry_attempt()
+        .times(expected_attempts - 1)
+        .return_const(false);
+    if retryable {
+        throttler
+            .expect_on_retry_failure()
+            .times(expected_attempts - 1)
+            .in_sequence(&mut throttler_seq)
+            .withf(RetryResult::is_continue)
+            .return_const(());
+    }
+    throttler
+        .expect_on_retry_failure()
+        .once()
+        .in_sequence(&mut throttler_seq)
+        .withf(move |flow| {
+            if retryable {
+                flow.is_exhausted()
+            } else {
+                flow.is_permanent()
+            }
+        })
+        .return_const(());
+    throttler.expect_on_success().never();
+
+    let client = test_builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_credentials(error_credentials(retryable))
+        .with_resumable_upload_threshold(0_usize)
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
+        .build()
+        .await?;
+
+    // Act
+    let err = client
+        .write_object("projects/_/buckets/test-bucket", "test-object", "hello")
+        .with_backoff_policy(backoff)
+        .with_retry_throttler(throttler)
+        .send_buffered()
+        .await
+        .expect_err("credentials error should fail upload");
+
+    // Assert
+    assert!(err.is_authentication(), "{err:?}");
+    Ok(())
+}
+
+#[test_case(false, 1)]
+#[test_case(true, 3)]
+#[tokio::test]
+async fn query_credentials_error(retryable: bool, expected_query_attempts: usize) -> Result {
+    // Arrange
+    // Fail the initial PUT with 429 so the next attempt queries session status.
+    let server = Server::run();
+    let session = server.url("/upload/session/test-only-001");
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+            request::query(url_decoded(contains(("uploadType", "resumable")))),
+        ])
+        .respond_with(status_code(200).append_header("location", session.to_string())),
+    );
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("PUT", session.path().to_string()),
+            request::headers(contains(("content-range", "bytes 0-4/5"))),
+        ])
+        .respond_with(status_code(429).body("try-again")),
+    );
+
+    // Succeed on session start and the initial PUT, then fail on status
+    // queries.
+    let mut seq = mockall::Sequence::new();
+    let mut mock = MockCredentials::new();
+    mock.expect_universe_domain().returning(|| None);
+    mock.expect_headers()
+        .times(2)
+        .in_sequence(&mut seq)
+        .returning(|_| {
+            Ok(CacheableResource::New {
+                data: http::HeaderMap::new(),
+                entity_tag: EntityTag::default(),
+            })
+        });
+    mock.expect_headers()
+        .times(expected_query_attempts)
+        .in_sequence(&mut seq)
+        .returning(move |_| Err(CredentialsError::from_msg(retryable, "test-only")));
+
+    // Attempt 1 is spent on the 429 PUT, leaving up to 3 status-query attempts.
+    let mut backoff = MockBackoffPolicy::new();
+    backoff
+        .expect_on_failure()
+        .times(1 + expected_query_attempts)
+        .return_const(Duration::from_micros(1));
+
+    let mut throttler_seq = mockall::Sequence::new();
+    let mut throttler = MockRetryThrottler::new();
+    throttler
+        .expect_throttle_retry_attempt()
+        .times(expected_query_attempts)
+        .return_const(false);
+    throttler
+        .expect_on_retry_failure()
+        .times(expected_query_attempts)
+        .in_sequence(&mut throttler_seq)
+        .withf(RetryResult::is_continue)
+        .return_const(());
+    throttler
+        .expect_on_retry_failure()
+        .once()
+        .in_sequence(&mut throttler_seq)
+        .withf(move |flow| {
+            if retryable {
+                flow.is_exhausted()
+            } else {
+                flow.is_permanent()
+            }
+        })
+        .return_const(());
+    throttler.expect_on_success().never();
+
+    let client = test_builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_credentials(Credentials::from(mock))
+        .with_resumable_upload_threshold(0_usize)
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(4))
+        .build()
+        .await?;
+
+    // Act
+    let err = client
+        .write_object("projects/_/buckets/test-bucket", "test-object", "hello")
+        .with_backoff_policy(backoff)
+        .with_retry_throttler(throttler)
+        .send_buffered()
+        .await
+        .expect_err("credentials error on status query should fail upload");
+
+    // Assert
+    assert!(err.is_authentication(), "{err:?}");
     Ok(())
 }
