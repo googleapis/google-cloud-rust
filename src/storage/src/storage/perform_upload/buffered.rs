@@ -109,7 +109,9 @@ where
         let mut is_partial_resume = false;
         if progress.needs_query() {
             match self.query_resumable_upload_attempt(upload_url, 0).await? {
-                ResumableUploadStatus::Finalized(object) => return Ok(*object),
+                ResumableUploadStatus::Finalized(object) => {
+                    return self.validate_response_object(*object).await;
+                }
                 ResumableUploadStatus::Partial(persisted_size) => {
                     if persisted_size > 0 {
                         is_partial_resume = true;

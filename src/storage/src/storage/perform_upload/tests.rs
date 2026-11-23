@@ -18,10 +18,13 @@ use crate::model_ext::{KeyAes256, tests::create_key_helper};
 use crate::storage::client::tests::{test_builder, test_inner_client};
 use crate::streaming_source::Payload;
 use google_cloud_auth::credentials::testing::error_credentials;
+use google_cloud_gax::options::RequestOptions;
 use serde_json::{Value, json};
 use std::collections::BTreeMap;
 use std::sync::Arc;
+use std::time::Duration;
 use test_case::test_case;
+use tokio::io::{AsyncReadExt, AsyncWriteExt};
 
 type Result = anyhow::Result<()>;
 
@@ -333,9 +336,6 @@ async fn query_resumable_upload_finalized_deser() -> Result {
 
 #[tokio::test]
 async fn handle_object_response_read_timeout() -> Result {
-    use std::time::Duration;
-    use tokio::io::{AsyncReadExt, AsyncWriteExt};
-
     // Arrange
     // Send 200 OK headers and an incomplete JSON body, then hold the socket open.
     let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
@@ -364,10 +364,7 @@ async fn handle_object_response_read_timeout() -> Result {
     let response = inner
         .client
         .http_builder(Method::GET, "/")
-        .send(
-            google_cloud_gax::options::RequestOptions::default(),
-            AttemptInfo::new(0),
-        )
+        .send(RequestOptions::default(), AttemptInfo::new(0))
         .await?;
     let err = super::handle_object_response(response)
         .await
@@ -380,8 +377,6 @@ async fn handle_object_response_read_timeout() -> Result {
 
 #[tokio::test]
 async fn handle_object_response_incomplete_body() -> Result {
-    use tokio::io::{AsyncReadExt, AsyncWriteExt};
-
     // Arrange
     // Close the socket after 1 byte of a 100-byte body.
     let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
@@ -414,10 +409,7 @@ async fn handle_object_response_incomplete_body() -> Result {
     let response = inner
         .client
         .http_builder(Method::GET, "/")
-        .send(
-            google_cloud_gax::options::RequestOptions::default(),
-            AttemptInfo::new(0),
-        )
+        .send(RequestOptions::default(), AttemptInfo::new(0))
         .await?;
     let err = super::handle_object_response(response)
         .await
