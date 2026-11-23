@@ -17,31 +17,42 @@ mod tests {
     use google_cloud_auth::credentials::{
         Credentials, anonymous::Builder as Anonymous, testing::error_credentials,
     };
+    use google_cloud_gax::error::rpc::Code;
     use google_cloud_gax::options::*;
     use google_cloud_gax::retry_policy::NeverRetry;
     use google_cloud_gax_internal::attempt_interceptor::AttemptInterceptor;
     use google_cloud_gax_internal::grpc;
     use grpc_server::google::test::v1::{EchoRequest, EchoResponse};
-    use grpc_server::{builder, start_echo_server};
+    use grpc_server::transport::{EchoStream, EchoTransport, transport_builder};
+    use grpc_server::{both_transports, builder, start_echo_server};
     use http::HeaderMap;
+    use pretty_assertions::assert_eq;
     use std::sync::Arc;
 
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
     }
 
-    #[tokio::test]
-    async fn basic_stream() -> anyhow::Result<()> {
+    both_transports!(basic_stream);
+    async fn basic_stream<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(test_credentials())
             .build()
             .await?;
-
         let (tx, rx) = tokio::sync::mpsc::channel(100);
         tx.send(simple_request("msg0")).await?;
+
+        // Act
         let response = send_streaming_request(client.clone(), rx, "resource=test").await?;
-        let (_metadata, mut stream, _) = response.into_parts();
+        let (metadata, mut stream, _) = response.into_parts();
+
+        // Assert
+        assert!(
+            !metadata.is_empty(),
+            "expected initial metadata in the response"
+        );
         let r = stream.message().await;
         assert!(matches!(r, Ok(Some(ref m)) if m.message == "msg0"), "{r:?}");
         tx.send(simple_request("msg1")).await?;
@@ -58,64 +69,160 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
-    async fn ends_with_error() -> anyhow::Result<()> {
+    both_transports!(ends_with_error);
+    async fn ends_with_error<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(test_credentials())
             .build()
             .await?;
-
         let (tx, rx) = tokio::sync::mpsc::channel(100);
         tx.send(simple_request("msg0")).await?;
+
+        // Act
         let response = send_streaming_request(client.clone(), rx, "resource=test").await?;
         let (_metadata, mut stream, _) = response.into_parts();
+
+        // Assert
         let r = stream.message().await;
         assert!(matches!(r, Ok(Some(ref m)) if m.message == "msg0"), "{r:?}");
+        // An empty message makes the echo server return InvalidArgument and close the stream.
         tx.send(simple_request("")).await?;
-        let r = stream.message().await;
-        assert!(
-            matches!(r, Err(ref e) if e.code() == tonic::Code::InvalidArgument),
-            "{r:?}"
-        );
+        let err = stream
+            .message()
+            .await
+            .expect_err("mid-stream empty message should fail");
+        assert_eq!(err.code(), tonic::Code::InvalidArgument, "{err:?}");
+        assert!(err.message().contains("empty message"), "{err:?}");
 
+        // Keep `tx` open to verify that the server error alone ends the stream.
+        let r = stream.message().await;
+        assert!(matches!(r, Ok(None)), "{r:?}");
+        drop(tx);
+
+        Ok(())
+    }
+
+    both_transports!(request_error);
+    async fn request_error<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
+        let (endpoint, _server) = start_echo_server().await?;
+        let client = transport_builder::<C>(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
+        let (_tx, rx) = tokio::sync::mpsc::channel(100);
+
+        // Act
+        let response = send_streaming_request(client.clone(), rx, "resource=error").await;
+
+        // Assert
+        let err = response.err().expect("the stream should fail to start");
+        let status = err.status().expect("the error should have a status");
+        assert_eq!(status.code, Code::Aborted, "{err:?}");
+        assert_eq!(status.message, "test with initial error");
+        Ok(())
+    }
+
+    both_transports!(request_error_status);
+    async fn request_error_status<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
+        let (endpoint, _server) = start_echo_server().await?;
+        let client = transport_builder::<C>(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
+        let (_tx, rx) = tokio::sync::mpsc::channel(100);
+
+        // Act
+        let response =
+            send_streaming_request_with_status(client.clone(), rx, "resource=error").await?;
+
+        // Assert
+        let status = response.err().expect("the stream should fail to start");
+        assert_eq!(status.code(), tonic::Code::Aborted, "{status:?}");
+        assert_eq!(status.message(), "test with initial error", "{status:?}");
+        Ok(())
+    }
+
+    both_transports!(with_status_basic);
+    async fn with_status_basic<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
+        let (endpoint, _server) = start_echo_server().await?;
+        let client = transport_builder::<C>(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
+        let (tx, rx) = tokio::sync::mpsc::channel(100);
+        tx.send(simple_request("msg0")).await?;
+
+        // Act
+        // The first `?` handles transport errors, the second one the RPC status.
+        let response =
+            send_streaming_request_with_status(client.clone(), rx, "resource=test").await??;
+        let (metadata, mut stream, _) = response.into_parts();
+
+        // Assert
+        assert!(
+            !metadata.is_empty(),
+            "expected initial metadata in the response"
+        );
+        let r = stream.message().await;
+        assert!(matches!(r, Ok(Some(ref m)) if m.message == "msg0"), "{r:?}");
         drop(tx);
         let r = stream.message().await;
         assert!(matches!(r, Ok(None)), "{r:?}");
-
         Ok(())
     }
 
     #[tokio::test]
-    async fn request_error() -> anyhow::Result<()> {
-        let (endpoint, _server) = start_echo_server().await?;
-        let client = builder(endpoint)
-            .with_credentials(test_credentials())
-            .build()
-            .await?;
-
-        let (_tx, rx) = tokio::sync::mpsc::channel(100);
-        let response = send_streaming_request(client.clone(), rx, "resource=error").await;
-        let err = response.unwrap_err();
-        assert!(err.status().is_some(), "{err:?}");
-
-        Ok(())
+    async fn with_status_api_client_header() -> anyhow::Result<()> {
+        check_with_status_api_client_header::<grpc::Client>("tonic").await
     }
 
+    #[cfg(google_cloud_unstable_grpc_rust)]
     #[tokio::test]
-    async fn request_error_status() -> anyhow::Result<()> {
+    async fn with_status_api_client_header_grpc_rust() -> anyhow::Result<()> {
+        check_with_status_api_client_header::<grpc_server::transport::GrpcRustClient>("grpc-rust")
+            .await
+    }
+
+    async fn check_with_status_api_client_header<C: EchoTransport>(
+        expected_transport: &str,
+    ) -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(test_credentials())
+            .with_extension(google_cloud_gax_internal::api_header::XGoogApiClient {
+                name: "storage",
+                library_type: google_cloud_gax_internal::api_header::GCCL,
+                version: "1.0.0",
+            })
             .build()
             .await?;
+        let (tx, rx) = tokio::sync::mpsc::channel(100);
+        tx.send(simple_request("msg0")).await?;
 
-        let (_tx, rx) = tokio::sync::mpsc::channel(100);
+        // Act
         let response =
-            send_streaming_request_with_status(client.clone(), rx, "resource=error").await?;
-        let status = response.unwrap_err();
-        assert_eq!(status.code(), tonic::Code::Aborted, "{status:?}");
+            send_streaming_request_with_status(client.clone(), rx, "resource=test").await??;
+        let (_metadata, mut stream, _) = response.into_parts();
+        let res = stream
+            .message()
+            .await?
+            .expect("stream should yield a message");
 
+        // Assert
+        let header = res
+            .metadata
+            .get("x-goog-api-client")
+            .expect("header present");
+        let want_grpc = format!("grpc/{}-{expected_transport}", env!("CARGO_PKG_VERSION"));
+        assert!(header.contains("gccl/1.0.0"), "{header}");
+        assert!(header.contains(&want_grpc), "{header}");
+        assert!(!header.contains("gapic/"), "{header}");
         Ok(())
     }
 
@@ -197,66 +304,31 @@ mod tests {
         }
     }
 
-    async fn send_streaming_request(
-        client: grpc::Client,
+    async fn send_streaming_request<C: EchoTransport>(
+        client: C,
         rx: tokio::sync::mpsc::Receiver<EchoRequest>,
         request_params: &str,
-    ) -> google_cloud_gax::Result<tonic::Response<tonic::codec::Streaming<EchoResponse>>> {
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.test.v1.EchoServices",
-                "Chat",
-            ));
-            e
-        };
-        let request_options = {
-            let mut o = RequestOptions::default();
-            o.set_retry_policy(NeverRetry);
-            o
-        };
+    ) -> google_cloud_gax::Result<tonic::Response<C::Stream>> {
+        let requests = tokio_stream::wrappers::ReceiverStream::new(rx);
+        client.chat(requests, never_retry(), request_params).await
+    }
+
+    async fn send_streaming_request_with_status<C: EchoTransport>(
+        client: C,
+        rx: tokio::sync::mpsc::Receiver<EchoRequest>,
+        request_params: &str,
+    ) -> google_cloud_gax::Result<tonic::Result<tonic::Response<C::Stream>>> {
+        let requests = tokio_stream::wrappers::ReceiverStream::new(rx);
         client
-            .bidi_stream::<EchoRequest, EchoResponse>(
-                extensions,
-                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
-                tokio_stream::wrappers::ReceiverStream::new(rx),
-                request_options,
-                "test-only-api-client/1.0",
-                request_params,
-            )
+            .chat_with_status(requests, never_retry(), request_params)
             .await
     }
 
-    async fn send_streaming_request_with_status(
-        client: grpc::Client,
-        rx: tokio::sync::mpsc::Receiver<EchoRequest>,
-        request_params: &str,
-    ) -> google_cloud_gax::Result<
-        tonic::Result<tonic::Response<tonic::codec::Streaming<EchoResponse>>>,
-    > {
-        let extensions = {
-            let mut e = tonic::Extensions::new();
-            e.insert(tonic::GrpcMethod::new(
-                "google.test.v1.EchoServices",
-                "Chat",
-            ));
-            e
-        };
-        let request_options = {
-            let mut o = RequestOptions::default();
-            o.set_retry_policy(NeverRetry);
-            o
-        };
-        client
-            .bidi_stream_with_status::<EchoRequest, EchoResponse>(
-                extensions,
-                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
-                tokio_stream::wrappers::ReceiverStream::new(rx),
-                request_options,
-                "test-only-api-client/1.0",
-                request_params,
-            )
-            .await
+    /// Returns request options that disable retries.
+    fn never_retry() -> RequestOptions {
+        let mut options = RequestOptions::default();
+        options.set_retry_policy(NeverRetry);
+        options
     }
 
     #[derive(Clone, Debug, PartialEq)]
