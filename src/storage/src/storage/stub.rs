@@ -129,9 +129,8 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         &self,
         _request: crate::model_ext::CreateObjectWriteSessionRequest,
         _options: RequestOptions,
-    ) -> impl std::future::Future<
-        Output = Result<crate::parallel_upload_session::ParallelUploadSession>,
-    > + Send {
+    ) -> impl Future<Output = Result<crate::parallel_upload_session::ParallelUploadSession>> + Send
+    {
         unimplemented_stub::<crate::parallel_upload_session::ParallelUploadSession>()
     }
 }
@@ -210,22 +209,19 @@ pub trait ParallelUploadSession: std::fmt::Debug + Send + Sync {
         &self,
         _segment_number: u32,
         _segment_payload: crate::parallel_upload_session::SegmentPayload,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model_ext::Segment>> + Send {
+    ) -> impl Future<Output = crate::Result<crate::model_ext::Segment>> + Send {
         unimplemented_stub::<crate::model_ext::Segment>()
     }
 
     /// The implementation for [ParallelUploadSession::finalize][crate::parallel_upload_session::ParallelUploadSession::finalize].
-    fn finalize(
-        &self,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model::Object>> + Send {
+    fn finalize(&self) -> impl Future<Output = crate::Result<crate::model::Object>> + Send {
         unimplemented_stub::<crate::model::Object>()
     }
 
     /// The implementation for [ParallelUploadSession::abort][crate::parallel_upload_session::ParallelUploadSession::abort].
     fn abort(
         &self,
-    ) -> impl std::future::Future<Output = crate::Result<crate::model_ext::AbortSessionResponse>> + Send
-    {
+    ) -> impl Future<Output = crate::Result<crate::model_ext::AbortSessionResponse>> + Send {
         unimplemented_stub::<crate::model_ext::AbortSessionResponse>()
     }
 }
