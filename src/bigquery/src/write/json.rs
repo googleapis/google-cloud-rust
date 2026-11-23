@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Case-insensitive column lookup for JSON row encoding.
+//! Column lookup and value encoding for JSON rows.
+
+mod value;
 
 use crate::model::TableFieldSchema;
 use crate::model::table_field_schema::Type;

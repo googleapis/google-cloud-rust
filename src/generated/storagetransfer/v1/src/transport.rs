@@ -56,7 +56,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -89,7 +89,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     .set_rpc_method(
                         "google.storagetransfer.v1.StorageTransferService/GetGoogleServiceAccount",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -112,7 +112,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/transferJobs".to_string();
                 let path_template = "/v1/transferJobs";
@@ -135,7 +135,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     .set_rpc_method(
                         "google.storagetransfer.v1.StorageTransferService/CreateTransferJob",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -161,7 +161,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_job_name = try_match(
                     Some(&req).map(|m| &m.job_name).map(|s| s.as_str()),
@@ -201,7 +201,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     .set_rpc_method(
                         "google.storagetransfer.v1.StorageTransferService/UpdateTransferJob",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -226,7 +226,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_job_name = try_match(
                     Some(&req).map(|m| &m.job_name).map(|s| s.as_str()),
@@ -266,7 +266,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     .set_rpc_method(
                         "google.storagetransfer.v1.StorageTransferService/GetTransferJob",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -289,7 +289,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/transferJobs".to_string();
                 let path_template = "/v1/transferJobs";
@@ -315,7 +315,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     .set_rpc_method(
                         "google.storagetransfer.v1.StorageTransferService/ListTransferJobs",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -341,7 +341,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -381,7 +381,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     .set_rpc_method(
                         "google.storagetransfer.v1.StorageTransferService/PauseTransferOperation",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -413,7 +413,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -453,7 +453,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     .set_rpc_method(
                         "google.storagetransfer.v1.StorageTransferService/ResumeTransferOperation",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -485,7 +485,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_job_name = try_match(
                     Some(&req).map(|m| &m.job_name).map(|s| s.as_str()),
@@ -525,7 +525,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     .set_rpc_method(
                         "google.storagetransfer.v1.StorageTransferService/RunTransferJob",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -550,7 +550,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_job_name = try_match(
                     Some(&req).map(|m| &m.job_name).map(|s| s.as_str()),
@@ -590,7 +590,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     .set_rpc_method(
                         "google.storagetransfer.v1.StorageTransferService/DeleteTransferJob",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -621,7 +621,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -655,7 +655,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     .set_rpc_method(
                         "google.storagetransfer.v1.StorageTransferService/CreateAgentPool",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -680,7 +680,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_agent_pool_name = try_match(
                     Some(&req)
@@ -741,7 +741,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     .set_rpc_method(
                         "google.storagetransfer.v1.StorageTransferService/UpdateAgentPool",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -766,7 +766,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -807,7 +807,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.storagetransfer.v1.StorageTransferService/GetAgentPool")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -832,7 +832,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -868,7 +868,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     .set_rpc_method(
                         "google.storagetransfer.v1.StorageTransferService/ListAgentPools",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -893,7 +893,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -936,7 +936,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
                     .set_rpc_method(
                         "google.storagetransfer.v1.StorageTransferService/DeleteAgentPool",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -967,7 +967,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1003,7 +1003,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1028,7 +1028,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1065,7 +1065,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1091,7 +1091,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1129,7 +1129,7 @@ impl super::stub::StorageTransferService for StorageTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(

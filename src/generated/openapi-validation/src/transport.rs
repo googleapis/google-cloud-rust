@@ -56,7 +56,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -101,7 +101,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .set_rpc_method(
                         "google.cloud.secretmanager.v1.SecretManagerService/ListLocations",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -126,7 +126,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -169,7 +169,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .set_rpc_method(
                         "google.cloud.secretmanager.v1.SecretManagerService/GetLocation",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -194,7 +194,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -239,7 +239,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .set_rpc_method(
                         "google.cloud.secretmanager.v1.SecretManagerService/ListSecrets",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -264,7 +264,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -298,7 +298,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .set_rpc_method(
                         "google.cloud.secretmanager.v1.SecretManagerService/CreateSecret",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -323,7 +323,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -379,7 +379,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.secretmanager.v1.SecretManagerService/ListSecretsByProjectAndLocation")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -404,7 +404,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -449,7 +449,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.secretmanager.v1.SecretManagerService/CreateSecretByProjectAndLocation")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -474,7 +474,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -520,7 +520,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .set_rpc_method(
                         "google.cloud.secretmanager.v1.SecretManagerService/AddSecretVersion",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -545,7 +545,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -600,7 +600,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.secretmanager.v1.SecretManagerService/AddSecretVersionByProjectAndLocationAndSecret")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -625,7 +625,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -666,7 +666,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.secretmanager.v1.SecretManagerService/GetSecret")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -691,7 +691,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -738,7 +738,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .set_rpc_method(
                         "google.cloud.secretmanager.v1.SecretManagerService/DeleteSecret",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -763,7 +763,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -814,7 +814,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .set_rpc_method(
                         "google.cloud.secretmanager.v1.SecretManagerService/UpdateSecret",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -839,7 +839,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -893,7 +893,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.secretmanager.v1.SecretManagerService/GetSecretByProjectAndLocationAndSecret")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -918,7 +918,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -976,7 +976,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.secretmanager.v1.SecretManagerService/DeleteSecretByProjectAndLocationAndSecret")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1001,7 +1001,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1063,7 +1063,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.secretmanager.v1.SecretManagerService/UpdateSecretByProjectAndLocationAndSecret")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1088,7 +1088,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1146,7 +1146,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .set_rpc_method(
                         "google.cloud.secretmanager.v1.SecretManagerService/ListSecretVersions",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1171,7 +1171,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1238,7 +1238,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.secretmanager.v1.SecretManagerService/ListSecretVersionsByProjectAndLocationAndSecret")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1263,7 +1263,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1319,7 +1319,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .set_rpc_method(
                         "google.cloud.secretmanager.v1.SecretManagerService/GetSecretVersion",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1344,7 +1344,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
             let var_location = try_match(Some(&req).map(|m| &m.location).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
@@ -1395,7 +1395,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.secretmanager.v1.SecretManagerService/GetSecretVersionByProjectAndLocationAndSecretAndVersion")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1420,7 +1420,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1477,7 +1477,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .set_rpc_method(
                         "google.cloud.secretmanager.v1.SecretManagerService/AccessSecretVersion",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1502,7 +1502,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
             let var_location = try_match(Some(&req).map(|m| &m.location).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
@@ -1553,7 +1553,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.secretmanager.v1.SecretManagerService/AccessSecretVersionByProjectAndLocationAndSecretAndVersion")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1578,7 +1578,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1635,7 +1635,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .set_rpc_method(
                         "google.cloud.secretmanager.v1.SecretManagerService/DisableSecretVersion",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1660,7 +1660,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
             let var_location = try_match(Some(&req).map(|m| &m.location).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
@@ -1711,7 +1711,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.secretmanager.v1.SecretManagerService/DisableSecretVersionByProjectAndLocationAndSecretAndVersion")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1736,7 +1736,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1793,7 +1793,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .set_rpc_method(
                         "google.cloud.secretmanager.v1.SecretManagerService/EnableSecretVersion",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1818,7 +1818,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
             let var_location = try_match(Some(&req).map(|m| &m.location).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
@@ -1869,7 +1869,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.secretmanager.v1.SecretManagerService/EnableSecretVersionByProjectAndLocationAndSecretAndVersion")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1894,7 +1894,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1951,7 +1951,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .set_rpc_method(
                         "google.cloud.secretmanager.v1.SecretManagerService/DestroySecretVersion",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1976,7 +1976,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
             let var_location = try_match(Some(&req).map(|m| &m.location).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
@@ -2027,7 +2027,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.secretmanager.v1.SecretManagerService/DestroySecretVersionByProjectAndLocationAndSecretAndVersion")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2052,7 +2052,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2098,7 +2098,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .set_rpc_method(
                         "google.cloud.secretmanager.v1.SecretManagerService/SetIamPolicy",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2123,7 +2123,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2178,7 +2178,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.secretmanager.v1.SecretManagerService/SetIamPolicyByProjectAndLocationAndSecret")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2203,7 +2203,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2255,7 +2255,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .set_rpc_method(
                         "google.cloud.secretmanager.v1.SecretManagerService/GetIamPolicy",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2280,7 +2280,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2341,7 +2341,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.secretmanager.v1.SecretManagerService/GetIamPolicyByProjectAndLocationAndSecret")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2366,7 +2366,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2412,7 +2412,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
                     .set_rpc_method(
                         "google.cloud.secretmanager.v1.SecretManagerService/TestIamPermissions",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2437,7 +2437,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
             let var_location = try_match(Some(&req).map(|m| &m.location).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
@@ -2481,7 +2481,7 @@ impl super::stub::SecretManagerService for SecretManagerService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.secretmanager.v1.SecretManagerService/TestIamPermissionsByProjectAndLocationAndSecret")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
