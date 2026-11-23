@@ -142,6 +142,7 @@ mod tests {
         // Assert
         let status = response.err().expect("the stream should fail to start");
         assert_eq!(status.code(), tonic::Code::Aborted, "{status:?}");
+        assert_eq!(status.message(), "test with initial error", "{status:?}");
         Ok(())
     }
 
