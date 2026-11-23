@@ -322,7 +322,7 @@ mod tests {
     #[tokio::test]
     #[cfg(google_cloud_unstable_storage_parallel_upload)]
     async fn mock_parallel_upload_session_success() -> anyhow::Result<()> {
-        use gcs::model_ext::{AbortSessionResponse, CreateObjectWriteSessionRequest, Segment};
+        use gcs::model_ext::{CreateObjectWriteSessionRequest, Segment};
         use gcs::parallel_upload_session::ParallelUploadSession;
         use std::sync::{Arc, Mutex};
 
@@ -408,13 +408,39 @@ mod tests {
             Some(bytes::Bytes::from_static(b"hello"))
         );
 
-        let mut abort_session = MockParallelUploadSession::new();
-        abort_session
+        let (_, mut p2) = captured.remove(0);
+        assert_eq!(
+            p2.next().await.transpose()?,
+            Some(bytes::Bytes::from_static(b"world"))
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[cfg(google_cloud_unstable_storage_parallel_upload)]
+    async fn mock_parallel_upload_session_abort() -> anyhow::Result<()> {
+        use gcs::model_ext::AbortSessionResponse;
+        use gcs::parallel_upload_session::ParallelUploadSession;
+
+        let mut mock_session = MockParallelUploadSession::new();
+        mock_session
             .expect_abort()
             .times(1)
             .return_once(|| Ok(AbortSessionResponse::new()));
-        let handle = ParallelUploadSession::new(abort_session);
-        assert_eq!(handle.abort().await?, AbortSessionResponse::new());
+
+        let mut mock_storage = MockStorage::new();
+        mock_storage
+            .expect_create_object_write_session()
+            .times(1)
+            .return_once(move |_, _| Ok(ParallelUploadSession::new(mock_session)));
+
+        let client = gcs::client::Storage::from_stub(mock_storage);
+        let session = client
+            .parallel_upload("projects/_/buckets/my-bucket", "my-object")
+            .create_session()
+            .await?;
+        assert_eq!(session.abort().await?, AbortSessionResponse::new());
 
         Ok(())
     }
