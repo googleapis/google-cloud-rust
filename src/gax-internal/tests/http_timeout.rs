@@ -19,6 +19,7 @@ mod tests {
     use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     use google_cloud_gax::retry_state::RetryState;
     use google_cloud_gax::retry_throttler::{CircuitBreaker, RetryThrottlerArg};
+    use google_cloud_gax_internal::attempt_info::AttemptInfo;
     use google_cloud_gax_internal::http::ReqwestClient;
     use google_cloud_gax_internal::options::ClientConfig;
     use serde_json::json;
@@ -172,15 +173,17 @@ mod tests {
         config.read_timeout = Some(timeout);
         let client = ReqwestClient::new(config, &endpoint).await?;
 
+        // Send `chunk-0`, then stall so the next read hits `read_timeout`.
         let mut response = client
             .builder(reqwest::Method::GET, "/stream".into())
             .query(&[("chunks", "2"), ("interval_ms", "5000")])
             .send()
             .await?;
+        // reqwest resets the per-read timer inside the poll that returns `chunk-0`.
+        let start = tokio::time::Instant::now();
         let first = response.chunk().await?;
         assert_eq!(first.as_deref(), Some(b"chunk-0\n".as_slice()));
 
-        let start = tokio::time::Instant::now();
         let err = response.chunk().await.expect_err("expected a read timeout");
         assert!(err.is_timeout(), "{err:?}");
         assert!(start.elapsed() >= timeout);
@@ -189,7 +192,8 @@ mod tests {
 
     #[tokio::test]
     async fn test_connect_timeout_expires() -> Result<()> {
-        // Accept TCP connections but never complete the TLS handshake.
+        // Accept TCP connections without completing TLS. Hold the sockets open so
+        // closing them doesn't end the attempt before `connect_timeout` fires.
         let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
         let endpoint = format!("https://{}", listener.local_addr()?);
         let _server = tokio::spawn(async move {
@@ -205,11 +209,14 @@ mod tests {
         let client = ReqwestClient::new(config, &endpoint).await?;
 
         let start = tokio::time::Instant::now();
-        let send = client.builder(reqwest::Method::GET, "/".into()).send();
+        let send = client
+            .http_builder(reqwest::Method::GET, "/")
+            .send(RequestOptions::default(), AttemptInfo::new(0));
         let err = tokio::time::timeout(Duration::from_secs(5), send)
             .await?
             .expect_err("expected a connect timeout");
-        assert!(err.is_connect() && err.is_timeout(), "{err:?}");
+        assert!(err.is_connect(), "{err:?}");
+        assert!(err.is_transient_and_before_rpc(), "{err:?}");
         assert!(start.elapsed() >= timeout);
         Ok(())
     }
