@@ -12,14 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Defines the session handle for [Storage::parallel_upload][crate::client::Storage::parallel_upload].
+//! Defines the session handle and segment payload for [Storage::parallel_upload][crate::client::Storage::parallel_upload].
 
 use crate::model::Object;
 use crate::model_ext::{AbortSessionResponse, Segment};
-pub use crate::storage::parallel_upload::segment_payload::SegmentPayload;
 use crate::storage::parallel_upload::stub::dynamic::ParallelUploadSession as ParallelUploadSessionStub;
 use crate::streaming_source::{Payload, Seek, StreamingSource};
 use std::sync::Arc;
+
+pub use crate::storage::parallel_upload::segment_payload::SegmentPayload;
 
 /// An active parallel upload session ready to write segments concurrently.
 #[cfg_attr(docsrs, doc(cfg(google_cloud_unstable_storage_parallel_upload)))]
