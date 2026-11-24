@@ -134,7 +134,7 @@ where
                 .await?
             {
                 ResumableUploadStatus::Finalized(object) => {
-                    return Ok(*object);
+                    return self.validate_response_object(*object).await;
                 }
                 ResumableUploadStatus::Partial(offset) => (offset, upload_url),
             }

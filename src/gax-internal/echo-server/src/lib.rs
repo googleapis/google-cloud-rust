@@ -164,30 +164,26 @@ async fn echo_impl(
 }
 
 /// Streams `chunks` chunks, sleeping `interval_ms` between them.
-async fn stream(Query(query): Query<HashMap<String, String>>) -> axum::body::Body {
-    let get = |k: &str| {
-        query
-            .get(k)
-            .and_then(|v| v.parse::<u64>().ok())
-            .unwrap_or(0)
-    };
-    let (chunks, interval) = (
-        get("chunks"),
-        tokio::time::Duration::from_millis(get("interval_ms")),
-    );
-    let stream = futures::stream::unfold(0, move |i| async move {
-        if i >= chunks {
-            return None;
-        }
+async fn stream(
+    Query(query): Query<HashMap<String, String>>,
+) -> Result<axum::body::Body, (StatusCode, String)> {
+    stream_impl(query).map_err(internal_error)
+}
+
+fn stream_impl(query: HashMap<String, String>) -> anyhow::Result<axum::body::Body> {
+    use futures::StreamExt;
+
+    let parse = |k: &str| query.get(k).map(|v| v.parse::<u64>()).transpose();
+    let chunks = parse("chunks")?.unwrap_or(0);
+    let interval = tokio::time::Duration::from_millis(parse("interval_ms")?.unwrap_or(0));
+    let stream = futures::stream::iter(0..chunks).then(move |i| async move {
+        // Send the first chunk right away so response headers flush.
         if i > 0 {
             tokio::time::sleep(interval).await;
         }
-        Some((
-            Ok::<_, std::convert::Infallible>(format!("chunk-{i}\n")),
-            i + 1,
-        ))
+        Ok::<_, std::convert::Infallible>(format!("chunk-{i}\n"))
     });
-    axum::body::Body::from_stream(stream)
+    Ok(axum::body::Body::from_stream(stream))
 }
 
 async fn error(

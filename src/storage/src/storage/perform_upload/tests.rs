@@ -18,10 +18,13 @@ use crate::model_ext::{KeyAes256, tests::create_key_helper};
 use crate::storage::client::tests::{test_builder, test_inner_client};
 use crate::streaming_source::Payload;
 use google_cloud_auth::credentials::testing::error_credentials;
+use google_cloud_gax::options::RequestOptions;
 use serde_json::{Value, json};
 use std::collections::BTreeMap;
 use std::sync::Arc;
+use std::time::Duration;
 use test_case::test_case;
+use tokio::io::{AsyncReadExt, AsyncWriteExt};
 
 type Result = anyhow::Result<()>;
 
@@ -328,6 +331,92 @@ async fn query_resumable_upload_finalized_deser() -> Result {
         .await
         .expect_err("bad response should return an error");
     assert!(err.is_deserialization(), "{err:?}");
+    Ok(())
+}
+
+#[tokio::test]
+async fn handle_object_response_read_timeout() -> Result {
+    // Arrange
+    // Send 200 OK headers and an incomplete JSON body, then hold the socket open.
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
+    let endpoint = format!("http://{}", listener.local_addr()?);
+    let _server = tokio::spawn(async move {
+        let (mut socket, _) = listener.accept().await.expect("accept succeeds");
+        let mut req = [0_u8; 1024];
+        let _ = socket.read(&mut req).await.expect("read succeeds");
+        socket
+            .write_all(
+                b"HTTP/1.1 200 OK\r\ncontent-type: application/json\r\ncontent-length: 100\r\n\r\n{",
+            )
+            .await
+            .expect("write succeeds");
+        tokio::time::sleep(Duration::from_secs(5)).await;
+    });
+
+    let inner = test_inner_client(
+        test_builder()
+            .with_endpoint(endpoint)
+            .with_read_timeout(Duration::from_millis(100)),
+    )
+    .await;
+
+    // Act
+    let response = inner
+        .client
+        .http_builder(Method::GET, "/")
+        .send(RequestOptions::default(), AttemptInfo::new(0))
+        .await?;
+    let err = super::handle_object_response(response)
+        .await
+        .expect_err("stalled JSON body should time out");
+
+    // Assert
+    assert!(err.is_timeout(), "{err:?}");
+    Ok(())
+}
+
+#[tokio::test]
+async fn handle_object_response_incomplete_body() -> Result {
+    // Arrange
+    // Close the socket after 1 byte of a 100-byte body.
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
+    let endpoint = format!("http://{}", listener.local_addr()?);
+    let _server = tokio::spawn(async move {
+        let (mut socket, _) = listener.accept().await.expect("accept succeeds");
+        // Read the whole request first so closing the socket sends a clean EOF
+        // instead of a connection reset.
+        let mut req = Vec::new();
+        let mut buf = [0_u8; 256];
+        while !req.windows(4).any(|w| w == b"\r\n\r\n") {
+            let n = socket.read(&mut buf).await.expect("read succeeds");
+            if n == 0 {
+                break;
+            }
+            req.extend_from_slice(&buf[..n]);
+        }
+        socket
+            .write_all(
+                b"HTTP/1.1 200 OK\r\ncontent-type: application/json\r\ncontent-length: 100\r\n\r\n{",
+            )
+            .await
+            .expect("write succeeds");
+        socket.shutdown().await.expect("shutdown succeeds");
+    });
+
+    let inner = test_inner_client(test_builder().with_endpoint(endpoint)).await;
+
+    // Act
+    let response = inner
+        .client
+        .http_builder(Method::GET, "/")
+        .send(RequestOptions::default(), AttemptInfo::new(0))
+        .await?;
+    let err = super::handle_object_response(response)
+        .await
+        .expect_err("truncated HTTP body should error");
+
+    // Assert
+    assert!(err.is_io(), "{err:?}");
     Ok(())
 }
 
