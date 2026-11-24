@@ -53,15 +53,15 @@ impl JwkClient {
         jwks_url: Option<String>,
     ) -> Result<DecodingKey> {
         let key_id_str = key_id.as_str();
-        let mut cache = self.cache.try_write().map_err(|_e| {
-            CredentialsError::from_msg(false, "failed to obtain lock to read certificate cache")
-        })?;
-        if let Some(entry) = cache.get(key_id_str)
+        // A read lock is shared, so concurrent lookups of cached keys don't wait for each other.
+        if let Some(entry) = self.cache.read().await.get(key_id_str)
             && entry.expires_at > Instant::now()
         {
             return Ok(entry.key.clone());
         }
 
+        // Fetch without holding the lock, so a slow fetch doesn't block lookups of cached keys.
+        // Concurrent misses for the same key may each fetch it, which is harmless.
         let jwks_url = self.resolve_jwks_url(alg, jwks_url)?;
         let jwk_set: JwkSet = self.fetch_certs(jwks_url).await?;
         let jwk = jwk_set.find(key_id_str).ok_or_else(|| {
@@ -75,7 +75,7 @@ impl JwkClient {
             key: key.clone(),
             expires_at: Instant::now() + self.ttl,
         };
-        cache.insert(key_id_str.to_string(), entry);
+        self.cache.write().await.insert(key_id, entry);
 
         Ok(key)
     }
@@ -205,6 +205,39 @@ pub(crate) mod tests {
         let _key = client
             .get_or_load_cert(TEST_KEY_ID.to_string(), Algorithm::RS256, Some(jwks_url))
             .await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_get_or_load_cert_concurrent_loads() -> TestResult {
+        let server = Server::run();
+        let response = create_rsa256_jwk_set_response();
+        // The delay keeps the first fetch in flight while the second call runs. Each call may
+        // fetch: neither finds the key cached when it starts.
+        server.expect(
+            Expectation::matching(all_of![request::path("/certs"),])
+                .times(1..=2)
+                .respond_with(httptest::responders::delay_and_then(
+                    Duration::from_millis(100),
+                    json_encoded(response),
+                )),
+        );
+
+        let client = JwkClient::new();
+        let jwks_url = format!("http://{}/certs", server.addr());
+
+        let (first, second) = tokio::join!(
+            client.get_or_load_cert(
+                TEST_KEY_ID.to_string(),
+                Algorithm::RS256,
+                Some(jwks_url.clone()),
+            ),
+            client.get_or_load_cert(TEST_KEY_ID.to_string(), Algorithm::RS256, Some(jwks_url)),
+        );
+        first?;
+        second?;
 
         Ok(())
     }
