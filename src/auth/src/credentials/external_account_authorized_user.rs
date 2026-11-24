@@ -61,7 +61,7 @@
 
 use crate::access_boundary::{CredentialsWithAccessBoundary, external_account_lookup_url};
 use crate::build_errors::Error as BuilderError;
-use crate::constants::STS_OAUTH_TOKEN_URL;
+use crate::constants::{DEFAULT_UNIVERSE_DOMAIN, STS_OAUTH_TOKEN_URL};
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::{self, CredentialsError};
@@ -117,8 +117,9 @@ impl Builder {
     /// Sets the URL of the STS endpoint used to refresh access tokens.
     ///
     /// Any value provided here overrides a `token_url` value from the input JSON.
-    /// Defaults to `https://sts.googleapis.com/v1/oauthtoken` if not
-    /// specified here or in the JSON.
+    /// Defaults to `https://sts.{universe_domain}/v1/oauthtoken` (using
+    /// `googleapis.com` when no universe domain is set) if not specified here
+    /// or in the JSON.
     ///
     /// # Example
     /// ```
@@ -308,11 +309,7 @@ impl Builder {
         Ok(self.build_credentials()?.into())
     }
 
-    fn build_credentials(
-        self,
-    ) -> BuildResult<
-        CredentialsWithAccessBoundary<ExternalAccountAuthorizedUserCredentials<TokenCache>>,
-    > {
+    fn build_components(self) -> BuildResult<ExternalAccountAuthorizedUserComponents> {
         let authorized_user =
             serde_json::from_value::<ExternalAccountAuthorizedUser>(self.authorized_user)
                 .map_err(BuilderError::parsing)?;
@@ -321,7 +318,12 @@ impl Builder {
         let token_url = self
             .token_url
             .or(authorized_user.token_url)
-            .unwrap_or_else(|| STS_OAUTH_TOKEN_URL.to_string());
+            .unwrap_or_else(|| match universe_domain.as_deref() {
+                Some(ud) if ud != DEFAULT_UNIVERSE_DOMAIN => {
+                    STS_OAUTH_TOKEN_URL.replace(DEFAULT_UNIVERSE_DOMAIN, ud)
+                }
+                _ => STS_OAUTH_TOKEN_URL.to_string(),
+            });
         let quota_project_id = self.quota_project_id.or(authorized_user.quota_project_id);
 
         let access_boundary_url = authorized_user.audience.as_deref().and_then(|audience| {
@@ -335,7 +337,29 @@ impl Builder {
             refresh_token: Mutex::new(authorized_user.refresh_token),
             token_url,
         };
-        let token_provider = TokenCache::new(self.retry_builder.build(token_provider));
+
+        Ok(ExternalAccountAuthorizedUserComponents {
+            token_provider,
+            quota_project_id,
+            universe_domain,
+            access_boundary_url,
+            retry_builder: self.retry_builder,
+        })
+    }
+
+    fn build_credentials(
+        self,
+    ) -> BuildResult<
+        CredentialsWithAccessBoundary<ExternalAccountAuthorizedUserCredentials<TokenCache>>,
+    > {
+        let ExternalAccountAuthorizedUserComponents {
+            token_provider,
+            quota_project_id,
+            universe_domain,
+            access_boundary_url,
+            retry_builder,
+        } = self.build_components()?;
+        let token_provider = TokenCache::new(retry_builder.build(token_provider));
 
         let creds = ExternalAccountAuthorizedUserCredentials {
             token_provider,
@@ -348,6 +372,14 @@ impl Builder {
             access_boundary_url,
         ))
     }
+}
+
+struct ExternalAccountAuthorizedUserComponents {
+    token_provider: ExternalAccountAuthorizedUserTokenProvider,
+    quota_project_id: Option<String>,
+    universe_domain: Option<String>,
+    access_boundary_url: Option<String>,
+    retry_builder: RetryTokenProviderBuilder,
 }
 
 struct ExternalAccountAuthorizedUserTokenProvider {
@@ -495,6 +527,7 @@ mod tests {
     use httptest::matchers::{all_of, contains, request, url_decoded};
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server, cycle};
+    use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
 
@@ -600,6 +633,45 @@ mod tests {
             creds.universe_domain().await.as_deref(),
             Some("my-override.com")
         );
+        Ok(())
+    }
+
+    #[test_case(None, None, None, None, "https://sts.googleapis.com/v1/oauthtoken"; "default")]
+    #[test_case(None, None, Some("my-custom-universe.com"), None, "https://sts.my-custom-universe.com/v1/oauthtoken"; "json universe_domain")]
+    #[test_case(None, None, None, Some("my-custom-universe.com"), "https://sts.my-custom-universe.com/v1/oauthtoken"; "builder universe_domain")]
+    #[test_case(None, None, Some("json-universe.com"), Some("override-universe.com"), "https://sts.override-universe.com/v1/oauthtoken"; "builder overrides json universe_domain")]
+    #[test_case(None, None, Some("json-universe.com"), Some("googleapis.com"), "https://sts.googleapis.com/v1/oauthtoken"; "builder overrides to default universe_domain")]
+    #[test_case(Some("https://sts-json.p.googleapis.com/v1/oauthtoken"), None, Some("my-custom-universe.com"), None, "https://sts-json.p.googleapis.com/v1/oauthtoken"; "explicit json token_url preserved")]
+    #[test_case(Some("https://sts-json.p.googleapis.com/v1/oauthtoken"), Some("https://sts-builder.p.googleapis.com/v1/oauthtoken"), Some("my-custom-universe.com"), Some("override.com"), "https://sts-builder.p.googleapis.com/v1/oauthtoken"; "explicit builder token_url preserved")]
+    fn default_token_url_uses_universe_domain(
+        json_token_url: Option<&str>,
+        builder_token_url: Option<&str>,
+        json_universe_domain: Option<&str>,
+        builder_universe_domain: Option<&str>,
+        expected_token_url: &str,
+    ) -> TestResult {
+        let mut json = serde_json::json!({
+            "type": "external_account_authorized_user",
+            "audience": "//iam.googleapis.com/locations/global/workforcePools/pool/providers/provider",
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+        });
+        if let Some(url) = json_token_url {
+            json["token_url"] = url.into();
+        }
+        if let Some(ud) = json_universe_domain {
+            json["universe_domain"] = ud.into();
+        }
+        let mut builder = Builder::new(json);
+        if let Some(url) = builder_token_url {
+            builder = builder.with_token_url(url);
+        }
+        if let Some(ud) = builder_universe_domain {
+            builder = builder.with_universe_domain(ud);
+        }
+        let components = builder.build_components()?;
+        assert_eq!(components.token_provider.token_url, expected_token_url);
         Ok(())
     }
 
