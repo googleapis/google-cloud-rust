@@ -23,6 +23,11 @@ use crate::{
     model_ext::{OpenObjectRequest, ReadRange},
     object_descriptor::ObjectDescriptor as Descriptor,
 };
+#[cfg(google_cloud_unstable_storage_parallel_upload)]
+use crate::{
+    model_ext::{AbortSessionResponse, CreateObjectWriteSessionRequest, Segment},
+    parallel_upload_session::SegmentPayload,
+};
 #[cfg(google_cloud_unstable_storage_bidi)]
 use bytes::Bytes;
 use gaxi::unimplemented::UNIMPLEMENTED;
@@ -124,10 +129,11 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
 
     #[cfg(google_cloud_unstable_storage_parallel_upload)]
     #[cfg_attr(docsrs, doc(cfg(google_cloud_unstable_storage_parallel_upload)))]
-    /// Implements [crate::client::Storage::parallel_upload].
+    /// Implements [crate::client::Storage::parallel_upload] via
+    /// [ParallelUpload::create_session][crate::builder::storage::ParallelUpload::create_session].
     fn create_object_write_session(
         &self,
-        _request: crate::model_ext::CreateObjectWriteSessionRequest,
+        _request: CreateObjectWriteSessionRequest,
         _options: RequestOptions,
     ) -> impl Future<Output = Result<crate::parallel_upload_session::ParallelUploadSession>> + Send
     {
@@ -188,9 +194,11 @@ pub trait AppendableObjectWriter: std::fmt::Debug + Send + Sync {
 /// Defines the trait used to implement [crate::parallel_upload_session::ParallelUploadSession].
 ///
 /// Application developers may need to implement this trait to mock
-/// `ParallelUploadSession`. In other use-cases, application developers
-/// should use `ParallelUploadSession` directly, and need not be concerned
-/// with this trait or its implementations.
+/// `ParallelUploadSession`. All methods provide default implementations that
+/// panic if called, so mock authors only need to implement the methods
+/// exercised by their tests. In other use-cases, application developers should
+/// use `ParallelUploadSession` directly, and need not be concerned with this
+/// trait or its implementations.
 #[cfg(google_cloud_unstable_storage_parallel_upload)]
 #[cfg_attr(docsrs, doc(cfg(google_cloud_unstable_storage_parallel_upload)))]
 pub trait ParallelUploadSession: std::fmt::Debug + Send + Sync {
@@ -208,21 +216,19 @@ pub trait ParallelUploadSession: std::fmt::Debug + Send + Sync {
     fn write_segment(
         &self,
         _segment_number: u32,
-        _segment_payload: crate::parallel_upload_session::SegmentPayload,
-    ) -> impl Future<Output = crate::Result<crate::model_ext::Segment>> + Send {
-        unimplemented_stub::<crate::model_ext::Segment>()
+        _segment_payload: SegmentPayload,
+    ) -> impl Future<Output = Result<Segment>> + Send {
+        unimplemented_stub::<Segment>()
     }
 
     /// The implementation for [ParallelUploadSession::finalize][crate::parallel_upload_session::ParallelUploadSession::finalize].
-    fn finalize(&self) -> impl Future<Output = crate::Result<crate::model::Object>> + Send {
-        unimplemented_stub::<crate::model::Object>()
+    fn finalize(&self) -> impl Future<Output = Result<Object>> + Send {
+        unimplemented_stub::<Object>()
     }
 
     /// The implementation for [ParallelUploadSession::abort][crate::parallel_upload_session::ParallelUploadSession::abort].
-    fn abort(
-        &self,
-    ) -> impl Future<Output = crate::Result<crate::model_ext::AbortSessionResponse>> + Send {
-        unimplemented_stub::<crate::model_ext::AbortSessionResponse>()
+    fn abort(&self) -> impl Future<Output = Result<AbortSessionResponse>> + Send {
+        unimplemented_stub::<AbortSessionResponse>()
     }
 }
 

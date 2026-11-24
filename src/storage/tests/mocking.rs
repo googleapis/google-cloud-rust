@@ -32,6 +32,12 @@ mod tests {
     use google_cloud_storage as gcs;
     use pastey::paste;
 
+    #[cfg(google_cloud_unstable_storage_parallel_upload)]
+    use gcs::{
+        model_ext::{AbortSessionResponse, CreateObjectWriteSessionRequest, Segment},
+        parallel_upload_session::{ParallelUploadSession, SegmentPayload},
+    };
+
     mockall::mock! {
         #[derive(Debug)]
         Storage {}
@@ -69,9 +75,9 @@ mod tests {
             #[cfg(google_cloud_unstable_storage_parallel_upload)]
             async fn create_object_write_session(
                 &self,
-                _request: gcs::model_ext::CreateObjectWriteSessionRequest,
+                _request: CreateObjectWriteSessionRequest,
                 _options: RequestOptions,
-            ) -> Result<gcs::parallel_upload_session::ParallelUploadSession>;
+            ) -> Result<ParallelUploadSession>;
         }
     }
 
@@ -85,10 +91,10 @@ mod tests {
             async fn write_segment(
                 &self,
                 segment_number: u32,
-                segment_payload: gcs::parallel_upload_session::SegmentPayload,
-            ) -> Result<gcs::model_ext::Segment>;
+                segment_payload: SegmentPayload,
+            ) -> Result<Segment>;
             async fn finalize(&self) -> Result<Object>;
-            async fn abort(&self) -> Result<gcs::model_ext::AbortSessionResponse>;
+            async fn abort(&self) -> Result<AbortSessionResponse>;
         }
     }
 
@@ -322,8 +328,6 @@ mod tests {
     #[tokio::test]
     #[cfg(google_cloud_unstable_storage_parallel_upload)]
     async fn mock_parallel_upload_session_success() -> anyhow::Result<()> {
-        use gcs::model_ext::{CreateObjectWriteSessionRequest, Segment};
-        use gcs::parallel_upload_session::ParallelUploadSession;
         use std::sync::{Arc, Mutex};
 
         const BUCKET: &str = "projects/_/buckets/my-bucket";
@@ -420,9 +424,6 @@ mod tests {
     #[tokio::test]
     #[cfg(google_cloud_unstable_storage_parallel_upload)]
     async fn mock_parallel_upload_session_abort() -> anyhow::Result<()> {
-        use gcs::model_ext::AbortSessionResponse;
-        use gcs::parallel_upload_session::ParallelUploadSession;
-
         let mut mock_session = MockParallelUploadSession::new();
         mock_session
             .expect_abort()
@@ -448,7 +449,6 @@ mod tests {
     #[cfg(google_cloud_unstable_storage_parallel_upload)]
     mod default_parallel_upload_stubs {
         use super::*;
-        use gcs::parallel_upload_session::ParallelUploadSession;
 
         #[derive(Debug)]
         struct EmptyStorage;
