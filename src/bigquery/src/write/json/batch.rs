@@ -138,9 +138,9 @@ mod tests {
 
         let batch = encoder
             .encode_rows(&[
-                String::from(r#"{"flag": false, "date": null}"#),
-                String::from("{}"),
-                String::from(r#"{"flag": true, "date": "2026-11-24"}"#),
+                r#"{"flag": false, "date": null}"#,
+                "{}",
+                r#"{"flag": true, "date": "2026-11-24"}"#,
             ])
             .map_err(|e| anyhow::anyhow!("{e:?}"))?;
         assert_eq!(batch.serialized_rows.len(), 3);
