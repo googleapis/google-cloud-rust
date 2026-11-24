@@ -26,6 +26,8 @@ use tokio::sync::mpsc::Receiver;
 pub(crate) mod builder;
 pub(crate) mod segment_payload;
 pub(crate) mod stub;
+#[allow(dead_code)]
+pub(crate) mod transport;
 
 #[allow(dead_code)]
 pub(crate) type GrpcClient = gaxi::grpc::Client;
