@@ -32,4 +32,31 @@ pub(crate) mod dynamic {
         async fn finalize(&self) -> crate::Result<Object>;
         async fn abort(&self) -> crate::Result<AbortSessionResponse>;
     }
+
+    #[async_trait::async_trait]
+    impl<T: crate::stub::ParallelUploadSession> ParallelUploadSession for T {
+        fn name(&self) -> &str {
+            T::name(self)
+        }
+
+        fn segment_size_bytes(&self) -> u64 {
+            T::segment_size_bytes(self)
+        }
+
+        async fn write_segment(
+            &self,
+            segment_number: u32,
+            segment_payload: SegmentPayload,
+        ) -> crate::Result<Segment> {
+            T::write_segment(self, segment_number, segment_payload).await
+        }
+
+        async fn finalize(&self) -> crate::Result<Object> {
+            T::finalize(self).await
+        }
+
+        async fn abort(&self) -> crate::Result<AbortSessionResponse> {
+            T::abort(self).await
+        }
+    }
 }

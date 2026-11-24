@@ -54,12 +54,14 @@ where
 /// Cloning a `SegmentPayload` preserves the current read offset rather than
 /// rewinding to `0`, while giving each clone an independent cursor from that
 /// point onward. Call [`Seek::seek`] with `0` to rewind before or after cloning.
-pub(crate) struct SegmentPayload {
+#[cfg_attr(docsrs, doc(cfg(google_cloud_unstable_storage_parallel_upload)))]
+pub struct SegmentPayload {
     inner: Box<dyn SegmentSource>,
 }
 
 impl SegmentPayload {
-    pub(crate) fn new<P>(payload: Payload<P>) -> Self
+    /// Creates a new [SegmentPayload] from a rewindable, cloneable [Payload].
+    pub fn new<P>(payload: Payload<P>) -> Self
     where
         P: StreamingSource + Seek + Clone + Send + Sync + 'static,
     {
