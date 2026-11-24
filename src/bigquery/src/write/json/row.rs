@@ -19,6 +19,7 @@ use super::value::ValueEncoder;
 use prost_reflect::{DynamicMessage, MessageDescriptor};
 use serde::de::{self, DeserializeSeed, Deserializer, MapAccess, SeqAccess, Visitor};
 use std::borrow::Cow;
+use std::collections::HashSet;
 use std::fmt;
 
 /// Borrows unescaped JSON object keys from the input slice and allocates only
@@ -59,6 +60,8 @@ impl<'de> Visitor<'de> for RowEncoder<'_> {
 
     fn visit_map<A: MapAccess<'de>>(self, mut map: A) -> Result<Self::Value, A::Error> {
         let mut message = DynamicMessage::new(self.descriptor.clone());
+        // Track seen fields separately because `null` leaves fields unset on `message`.
+        let mut seen_fields = HashSet::new();
         while let Some(ObjectKey(key)) = map.next_key()? {
             let Some(column) = self.columns.get(&key) else {
                 // Drain the value first so malformed JSON inside it still
@@ -66,6 +69,13 @@ impl<'de> Visitor<'de> for RowEncoder<'_> {
                 map.next_value::<de::IgnoredAny>()?;
                 return Err(de::Error::custom(format!("unknown field '{key}'")));
             };
+            if !seen_fields.insert(column.proto.number()) {
+                map.next_value::<de::IgnoredAny>()?;
+                return Err(de::Error::custom(format!(
+                    "duplicate field '{}'",
+                    column.proto.name()
+                )));
+            }
             // Repeated columns require `Value::List` (handled in a follow-up PR).
             if column.proto.is_list() {
                 map.next_value::<de::IgnoredAny>()?;
@@ -119,6 +129,7 @@ mod tests {
     use crate::write::schema::{build_message_descriptor, table_schema_to_descriptor};
     use prost_reflect::Value;
     use static_assertions::assert_impl_all;
+    use test_case::test_case;
 
     assert_impl_all!(RowEncoder<'static>: std::fmt::Debug, Send, Sync);
 
@@ -243,6 +254,7 @@ mod tests {
             "{1: true}",
             r#"{"active": t}"#,
             r#"{"unknown": ["secret_pii","#,
+            r#"{"active": true, "ACTIVE": ["secret_pii","#,
             r#"{"tags": ["secret_pii","#,
             r#"["secret_pii","#,
             r#"{} trailing"#,
@@ -251,6 +263,23 @@ mod tests {
             assert!(!err.is_data(), "{bad_json}: {err}");
             assert!(!err.to_string().contains("secret_pii"), "{bad_json}: {err}");
         }
+        Ok(())
+    }
+
+    #[test_case(r#"{"Date": "2026-11-23", "Date": "2026-11-24"}"#, "Date")]
+    #[test_case(r#"{"date": "2026-11-23", "DATE": "pii"}"#, "Date")]
+    #[test_case(r#"{"flag": null, "FLAG": true}"#, "flag")]
+    #[test_case(r#"{"flag": false, "Date": "", "FLAG": {"k": "pii"}}"#, "flag")]
+    fn rejects_duplicate_fields(row: &str, want_field: &str) -> anyhow::Result<()> {
+        let fields = [col("flag", Type::Bool), col("Date", Type::Date)];
+        let err = encode(&fields, row)?.expect_err(row);
+        assert!(err.is_data(), "{row}: {err}");
+        let msg = err.to_string();
+        assert!(
+            msg.starts_with(&format!("duplicate field '{want_field}'")),
+            "{row}: {msg}"
+        );
+        assert!(!msg.contains("pii"), "{row}: {msg}");
         Ok(())
     }
 }
