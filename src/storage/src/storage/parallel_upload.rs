@@ -26,10 +26,8 @@ use tokio::sync::mpsc::Receiver;
 pub(crate) mod builder;
 pub(crate) mod segment_payload;
 pub(crate) mod stub;
-#[allow(dead_code)]
 pub(crate) mod transport;
 
-#[allow(dead_code)]
 pub(crate) type GrpcClient = gaxi::grpc::Client;
 #[allow(dead_code)]
 pub(crate) type GrpcStream = Streaming<BidiWriteSegmentResponse>;
@@ -49,7 +47,6 @@ impl TonicStreaming for GrpcStream {
 }
 
 /// A trait to mock `gaxi::grpc::Client` for parallel upload session RPCs in unit tests.
-#[allow(dead_code)]
 pub(crate) trait Client: Clone + std::fmt::Debug + Send + Sync + 'static {
     type Stream: TonicStreaming;
 
@@ -63,6 +60,7 @@ pub(crate) trait Client: Clone + std::fmt::Debug + Send + Sync + 'static {
         request_params: &str,
     ) -> impl Future<Output = crate::Result<TonicResponse<ObjectWriteSession>>> + Send;
 
+    #[allow(dead_code)]
     fn bidi_write_segment(
         &self,
         extensions: Extensions,

@@ -45,6 +45,10 @@ impl ParallelUploadSession {
     /// # Errors
     ///
     /// Returns an error if reading from `segment_payload` fails or the segment upload RPC fails.
+    ///
+    /// # Panics
+    ///
+    /// Panics with the default transport until segment uploads are implemented.
     pub async fn write_segment<T, P>(
         &self,
         segment_number: u32,

@@ -31,6 +31,11 @@ use crate::{
         connector::Connector as BidiWriteConnector, transport::AppendableObjectWriterTransport,
     },
 };
+#[cfg(google_cloud_unstable_storage_parallel_upload)]
+use crate::{
+    model_ext::CreateObjectWriteSessionRequest, parallel_upload_session::ParallelUploadSession,
+    storage::parallel_upload::transport::ParallelUploadSessionTransport,
+};
 use crate::{
     model_ext::OpenObjectRequest, object_descriptor::ObjectDescriptor,
     storage::bidi::connector::Connector, storage::bidi::transport::ObjectDescriptorTransport,
@@ -413,6 +418,18 @@ impl Storage {
             super::tracing::TracingAppendableObjectWriter::new(writer.into_parts()),
         ))
     }
+
+    #[cfg(google_cloud_unstable_storage_parallel_upload)]
+    async fn create_object_write_session_plain(
+        &self,
+        request: CreateObjectWriteSessionRequest,
+        options: RequestOptions,
+    ) -> Result<ParallelUploadSession> {
+        let transport =
+            ParallelUploadSessionTransport::create(self.inner.grpc.clone(), request, options)
+                .await?;
+        Ok(ParallelUploadSession::new(transport))
+    }
 }
 
 impl super::stub::Storage for Storage {
@@ -517,6 +534,17 @@ impl super::stub::Storage for Storage {
                 .await;
         }
         self.reopen_appendable_object_plain(request, options).await
+    }
+
+    #[cfg(google_cloud_unstable_storage_parallel_upload)]
+    async fn create_object_write_session(
+        &self,
+        request: CreateObjectWriteSessionRequest,
+        options: RequestOptions,
+    ) -> Result<ParallelUploadSession> {
+        // Tracing is not implemented for parallel uploads yet.
+        self.create_object_write_session_plain(request, options)
+            .await
     }
 }
 
@@ -1311,6 +1339,66 @@ mod tests {
         check_bidi_write_span_attributes(&captured, "append", 12345, Some(5));
         check_bidi_write_span_attributes(&captured, "flush", 12345, Some(105));
         check_bidi_write_span_attributes(&captured, "finalize", 12345, Some(105));
+
+        Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_storage_parallel_upload)]
+    #[tokio::test]
+    async fn create_object_write_session() -> anyhow::Result<()> {
+        use google_cloud_gax::error::rpc::Code;
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/google.storage.v2.Storage/CreateObjectWriteSession"
+                ),
+                request::headers(contains((
+                    "x-goog-request-params",
+                    "bucket=projects%2F_%2Fbuckets%2Ftest-bucket"
+                ))),
+            ])
+            .times(1)
+            .respond_with(
+                status_code(200)
+                    .append_header("content-type", "application/grpc")
+                    .append_header("grpc-status", "5")
+                    .append_header("grpc-message", "not here"),
+            ),
+        );
+
+        let client = crate::client::Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let response = client
+            .parallel_upload("projects/_/buckets/test-bucket", "test-object")
+            .create_session()
+            .await;
+        assert!(
+            matches!(response, Err(ref e) if e.status().is_some_and(|s| s.code == Code::NotFound)),
+            "{response:?}"
+        );
+
+        Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_storage_parallel_upload)]
+    #[tokio::test]
+    async fn create_object_write_session_binding_error() -> anyhow::Result<()> {
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let err = client
+            .parallel_upload("", "test-object")
+            .create_session()
+            .await
+            .unwrap_err();
+        assert!(err.is_binding(), "{err:?}");
 
         Ok(())
     }
