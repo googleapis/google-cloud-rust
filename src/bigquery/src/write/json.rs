@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Encodes JSON row objects into `proto2` [`prost_reflect::DynamicMessage`]s.
+//! Encodes JSON rows into [`ProtoRows`][crate::model::ProtoRows].
 //!
-//! [`ColumnMap`] resolves JSON keys ignoring ASCII case, [`row::RowEncoder`]
-//! populates a row's [`prost_reflect::DynamicMessage`] from `{ "key": value }`,
-//! and [`value::ValueEncoder`] converts each column value according to its
-//! BigQuery [`Type`].
+//! [`BatchEncoder`][batch::BatchEncoder] encodes a batch of rows,
+//! [`RowEncoder`][row::RowEncoder] decodes one JSON object using [`ColumnMap`],
+//! and [`ValueEncoder`][value::ValueEncoder] converts individual column values.
 
+mod batch;
 mod row;
 mod value;
 
