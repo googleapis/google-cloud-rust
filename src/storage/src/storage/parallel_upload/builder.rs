@@ -291,58 +291,52 @@ mod tests {
         Ok(())
     }
 
-    #[test]
-    fn attributes() -> anyhow::Result<()> {
-        let key = KeyAes256::new(&[0x42; 32])?;
-        let custom_time = wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?;
-        let retain_until = wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?;
+    fn test_timestamps() -> anyhow::Result<(wkt::Timestamp, wkt::Timestamp)> {
+        Ok((
+            wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?,
+            wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?,
+        ))
+    }
 
-        let builder = ParallelUpload::new(
-            Arc::new(StorageStub),
-            BUCKET_NAME,
-            OBJECT_NAME,
-            RequestOptions::new(),
-        )
-        .set_acl([ObjectAccessControl::new()
-            .set_entity("allAuthenticatedUsers")
-            .set_role("READER")])
-        .set_cache_control("public; max-age=7200")
-        .set_content_disposition("inline")
-        .set_content_encoding("gzip")
-        .set_content_language("en")
-        .set_content_type("text/plain")
-        .set_contexts(ObjectContexts::new().set_custom([(
-            "context-key",
-            ObjectCustomContextPayload::new().set_value("context-value"),
-        )]))
-        .set_custom_time(custom_time)
-        .set_event_based_hold(true)
-        .set_key(key.clone())
-        .set_kms_key(
-            "projects/test-project/locations/us-central1/keyRings/test-ring/cryptoKeys/test-key",
-        )
-        .set_metadata([("k0", "v0"), ("k1", "v1")])
-        .set_predefined_acl("private")
-        .set_preferred_segment_size_bytes(64 * 1024 * 1024)
-        .set_retention(
-            Retention::new()
-                .set_mode(retention::Mode::Locked)
-                .set_retain_until_time(retain_until),
-        )
-        .set_storage_class("ARCHIVE")
-        .set_temporary_hold(true);
+    fn apply_test_attributes<S>(
+        builder: ParallelUpload<S>,
+        key: KeyAes256,
+        custom_time: wkt::Timestamp,
+        retain_until: wkt::Timestamp,
+    ) -> ParallelUpload<S> {
+        builder
+            .set_acl([ObjectAccessControl::new()
+                .set_entity("allAuthenticatedUsers")
+                .set_role("READER")])
+            .set_cache_control("public; max-age=7200")
+            .set_content_disposition("inline")
+            .set_content_encoding("gzip")
+            .set_content_language("en")
+            .set_content_type("text/plain")
+            .set_contexts(ObjectContexts::new().set_custom([(
+                "context-key",
+                ObjectCustomContextPayload::new().set_value("context-value"),
+            )]))
+            .set_custom_time(custom_time)
+            .set_event_based_hold(true)
+            .set_key(key)
+            .set_kms_key(
+                "projects/test-project/locations/us-central1/keyRings/test-ring/cryptoKeys/test-key",
+            )
+            .set_metadata([("k0", "v0"), ("k1", "v1")])
+            .set_predefined_acl("private")
+            .set_preferred_segment_size_bytes(64 * 1024 * 1024)
+            .set_retention(
+                Retention::new()
+                    .set_mode(retention::Mode::Locked)
+                    .set_retain_until_time(retain_until),
+            )
+            .set_storage_class("ARCHIVE")
+            .set_temporary_hold(true)
+    }
 
-        assert_eq!(builder.request.predefined_acl, "private");
-        assert_eq!(
-            builder.request.params,
-            Some(CommonObjectRequestParams::from(key))
-        );
-        assert_eq!(
-            builder.request.preferred_segment_size_bytes,
-            64 * 1024 * 1024
-        );
-
-        let want_resource = Object::new()
+    fn want_test_object(custom_time: wkt::Timestamp, retain_until: wkt::Timestamp) -> Object {
+        Object::new()
             .set_bucket(BUCKET_NAME)
             .set_name(OBJECT_NAME)
             .set_acl([ObjectAccessControl::new()
@@ -369,8 +363,58 @@ mod tests {
                     .set_retain_until_time(retain_until),
             )
             .set_storage_class("ARCHIVE")
-            .set_temporary_hold(true);
+            .set_temporary_hold(true)
+    }
 
+    fn apply_test_options<S>(builder: ParallelUpload<S>) -> ParallelUpload<S> {
+        builder
+            .with_max_concurrency(8)
+            .with_enable_hedging(true)
+            .with_user_agent("test-agent")
+            .with_quota_project("override-project")
+            .with_retry_policy(MockRetryPolicy::new())
+            .with_backoff_policy(MockBackoffPolicy::new())
+            .with_retry_throttler(MockRetryThrottler::new())
+    }
+
+    fn assert_test_options(options: &RequestOptions) {
+        assert_eq!(options.user_agent.as_deref(), Some("test-agent"));
+        assert_eq!(options.quota_project.as_deref(), Some("override-project"));
+
+        let gax_debug = format!("{:?}", options.gax());
+        assert!(gax_debug.contains("MockRetryPolicy"), "{gax_debug}");
+        assert!(gax_debug.contains("MockBackoffPolicy"), "{gax_debug}");
+        assert!(gax_debug.contains("MockRetryThrottler"), "{gax_debug}");
+    }
+
+    #[test]
+    fn attributes() -> anyhow::Result<()> {
+        let key = KeyAes256::new(&[0x42; 32])?;
+        let (custom_time, retain_until) = test_timestamps()?;
+
+        let builder = apply_test_attributes(
+            ParallelUpload::new(
+                Arc::new(StorageStub),
+                BUCKET_NAME,
+                OBJECT_NAME,
+                RequestOptions::new(),
+            ),
+            key.clone(),
+            custom_time,
+            retain_until,
+        );
+
+        assert_eq!(builder.request.predefined_acl, "private");
+        assert_eq!(
+            builder.request.params,
+            Some(CommonObjectRequestParams::from(key))
+        );
+        assert_eq!(
+            builder.request.preferred_segment_size_bytes,
+            64 * 1024 * 1024
+        );
+
+        let want_resource = want_test_object(custom_time, retain_until);
         assert_eq!(builder.request.resource, Some(want_resource));
         Ok(())
     }
@@ -404,27 +448,11 @@ mod tests {
             "{default_gax_debug}"
         );
 
-        let builder = default_builder
-            .with_max_concurrency(8)
-            .with_enable_hedging(true)
-            .with_user_agent("test-agent")
-            .with_quota_project("override-project")
-            .with_retry_policy(MockRetryPolicy::new())
-            .with_backoff_policy(MockBackoffPolicy::new())
-            .with_retry_throttler(MockRetryThrottler::new());
+        let builder = apply_test_options(default_builder);
 
         assert_eq!(builder.max_concurrency, Some(8));
         assert!(builder.enable_hedging);
-        assert_eq!(builder.options.user_agent.as_deref(), Some("test-agent"));
-        assert_eq!(
-            builder.options.quota_project.as_deref(),
-            Some("override-project")
-        );
-
-        let gax_debug = format!("{:?}", builder.options.gax());
-        assert!(gax_debug.contains("MockRetryPolicy"), "{gax_debug}");
-        assert!(gax_debug.contains("MockBackoffPolicy"), "{gax_debug}");
-        assert!(gax_debug.contains("MockRetryThrottler"), "{gax_debug}");
+        assert_test_options(&builder.options);
 
         Ok(())
     }
@@ -452,101 +480,31 @@ mod tests {
         }
 
         let key = KeyAes256::new(&[0x42; 32])?;
-        let custom_time = wkt::Timestamp::try_from("2025-07-07T18:11:00Z")?;
-        let retain_until = wkt::Timestamp::try_from("2035-07-07T18:14:00Z")?;
+        let (custom_time, retain_until) = test_timestamps()?;
 
         let want_request = CreateObjectWriteSessionRequest::new()
             .set_predefined_acl("private")
             .set_params(CommonObjectRequestParams::from(key.clone()))
             .set_preferred_segment_size_bytes(64 * 1024 * 1024)
-            .set_resource(
-                Object::new()
-                    .set_bucket(BUCKET_NAME)
-                    .set_name(OBJECT_NAME)
-                    .set_acl([ObjectAccessControl::new()
-                        .set_entity("allAuthenticatedUsers")
-                        .set_role("READER")])
-                    .set_cache_control("public; max-age=7200")
-                    .set_content_disposition("inline")
-                    .set_content_encoding("gzip")
-                    .set_content_language("en")
-                    .set_content_type("text/plain")
-                    .set_contexts(ObjectContexts::new().set_custom([(
-                        "context-key",
-                        ObjectCustomContextPayload::new().set_value("context-value"),
-                    )]))
-                    .set_custom_time(custom_time)
-                    .set_event_based_hold(true)
-                    .set_kms_key(
-                        "projects/test-project/locations/us-central1/keyRings/test-ring/cryptoKeys/test-key",
-                    )
-                    .set_metadata([("k0", "v0"), ("k1", "v1")])
-                    .set_retention(
-                        Retention::new()
-                            .set_mode(retention::Mode::Locked)
-                            .set_retain_until_time(retain_until),
-                    )
-                    .set_storage_class("ARCHIVE")
-                    .set_temporary_hold(true),
-            );
+            .set_resource(want_test_object(custom_time, retain_until));
 
         let mut mock = MockStorageStub::new();
         mock.expect_create_object_write_session()
             .times(1)
             .returning(move |got_request, got_options| {
                 assert_eq!(got_request, want_request);
-                assert_eq!(got_options.user_agent.as_deref(), Some("test-agent"));
-                assert_eq!(
-                    got_options.quota_project.as_deref(),
-                    Some("override-project")
-                );
-                let gax_debug = format!("{:?}", got_options.gax());
-                assert!(gax_debug.contains("MockRetryPolicy"), "{gax_debug}");
-                assert!(gax_debug.contains("MockBackoffPolicy"), "{gax_debug}");
-                assert!(gax_debug.contains("MockRetryThrottler"), "{gax_debug}");
+                assert_test_options(&got_options);
                 Ok(ParallelUploadSession::new(DummySession))
             });
 
         let client = Storage::from_stub(mock);
-        let session = client
-            .parallel_upload(BUCKET_NAME, OBJECT_NAME)
-            .set_acl([ObjectAccessControl::new()
-                .set_entity("allAuthenticatedUsers")
-                .set_role("READER")])
-            .set_cache_control("public; max-age=7200")
-            .set_content_disposition("inline")
-            .set_content_encoding("gzip")
-            .set_content_language("en")
-            .set_content_type("text/plain")
-            .set_contexts(ObjectContexts::new().set_custom([(
-                "context-key",
-                ObjectCustomContextPayload::new().set_value("context-value"),
-            )]))
-            .set_custom_time(custom_time)
-            .set_event_based_hold(true)
-            .set_key(key)
-            .set_kms_key(
-                "projects/test-project/locations/us-central1/keyRings/test-ring/cryptoKeys/test-key",
-            )
-            .set_metadata([("k0", "v0"), ("k1", "v1")])
-            .set_predefined_acl("private")
-            .set_preferred_segment_size_bytes(64 * 1024 * 1024)
-            .set_retention(
-                Retention::new()
-                    .set_mode(retention::Mode::Locked)
-                    .set_retain_until_time(retain_until),
-            )
-            .set_storage_class("ARCHIVE")
-            .set_temporary_hold(true)
-            .with_max_concurrency(8)
-            .with_enable_hedging(true)
-            .with_user_agent("test-agent")
-            .with_quota_project("override-project")
-            .with_retry_policy(MockRetryPolicy::new())
-            .with_backoff_policy(MockBackoffPolicy::new())
-            .with_retry_throttler(MockRetryThrottler::new())
-            .create_session()
-            .await?;
+        let builder = apply_test_attributes(
+            client.parallel_upload(BUCKET_NAME, OBJECT_NAME),
+            key,
+            custom_time,
+            retain_until,
+        );
+        let session = apply_test_options(builder).create_session().await?;
 
         assert_eq!(
             session.name(),
