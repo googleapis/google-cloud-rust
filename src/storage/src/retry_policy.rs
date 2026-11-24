@@ -250,6 +250,24 @@ mod tests {
     }
 
     #[test]
+    fn connect() {
+        let p = RetryableErrors;
+        // Connect errors happen before the RPC, so non-idempotent calls retry
+        // too.
+        assert!(
+            p.on_error(&RetryState::new(true), connect_error())
+                .is_continue()
+        );
+        assert!(
+            p.on_error(&RetryState::new(false), connect_error())
+                .is_continue()
+        );
+
+        let t = p.on_throttle(&RetryState::new(true), connect_error());
+        assert!(matches!(t, ThrottleResult::Continue(_)), "{t:?}");
+    }
+
+    #[test]
     fn authentication() {
         let p = RetryableErrors;
         // Transient credential errors happen before the RPC, so non-idempotent
@@ -319,6 +337,10 @@ mod tests {
 
     fn io_error() -> Error {
         Error::io(Status::unavailable("try again"))
+    }
+
+    fn connect_error() -> Error {
+        Error::connect(Status::unavailable("try again"))
     }
 
     fn credentials_error(retryable: bool) -> Error {

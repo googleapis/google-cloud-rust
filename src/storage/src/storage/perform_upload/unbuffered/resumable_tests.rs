@@ -1285,6 +1285,7 @@ async fn resumable_query_credentials_error(
         .times(1 + expected_query_attempts)
         .return_const(Duration::from_micros(1));
 
+    // The first `Continue` comes from the 429 PUT, not from a status query.
     let mut throttler_seq = mockall::Sequence::new();
     let mut throttler = MockRetryThrottler::new();
     throttler
@@ -1293,10 +1294,18 @@ async fn resumable_query_credentials_error(
         .return_const(false);
     throttler
         .expect_on_retry_failure()
-        .times(expected_query_attempts)
+        .once()
         .in_sequence(&mut throttler_seq)
         .withf(RetryResult::is_continue)
         .return_const(());
+    if retryable {
+        throttler
+            .expect_on_retry_failure()
+            .times(expected_query_attempts - 1)
+            .in_sequence(&mut throttler_seq)
+            .withf(RetryResult::is_continue)
+            .return_const(());
+    }
     throttler
         .expect_on_retry_failure()
         .once()

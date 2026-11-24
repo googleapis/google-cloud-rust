@@ -292,7 +292,7 @@ async fn resumable_upload_attempts_preserve_timeout_error() -> Result {
             let _ = socket.read(&mut req).await.expect("read succeeds");
             sockets.push(socket);
         }
-        tokio::time::sleep(Duration::from_secs(5)).await;
+        std::future::pending::<()>().await;
     });
 
     let inner = test_inner_client(
@@ -324,6 +324,36 @@ async fn resumable_upload_attempts_preserve_timeout_error() -> Result {
         .await
         .expect_err("stalled session query should time out");
     assert!(err.is_timeout(), "{err:?}");
+    Ok(())
+}
+
+#[tokio::test]
+async fn resumable_upload_attempts_preserve_connect_error() -> Result {
+    // Arrange
+    let inner = test_inner_client(test_builder().with_endpoint("http://127.0.0.1:1")).await;
+    let options = inner.options.clone();
+    let stub = crate::storage::transport::Storage::new_test(inner.clone());
+    let builder = WriteObject::new(
+        stub,
+        "projects/_/buckets/bucket",
+        "object",
+        "hello",
+        options,
+    );
+    let upload = perform_upload(inner, builder);
+
+    // Act & Assert
+    let err = upload
+        .start_resumable_upload_attempt(0, &RequestOptions::default())
+        .await
+        .expect_err("closed port should fail start_resumable_upload_attempt");
+    assert!(err.is_connect(), "{err:?}");
+
+    let err = upload
+        .query_resumable_upload_attempt("http://127.0.0.1:1/upload/session", 0)
+        .await
+        .expect_err("closed port should fail query_resumable_upload_attempt");
+    assert!(err.is_connect(), "{err:?}");
     Ok(())
 }
 
