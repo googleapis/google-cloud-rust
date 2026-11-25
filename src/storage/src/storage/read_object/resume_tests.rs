@@ -60,6 +60,7 @@ use google_cloud_gax::retry_policy::RetryPolicyExt;
 use google_cloud_gax::retry_result::RetryResult;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use std::time::Duration;
+use tokio::io::{AsyncReadExt, AsyncWriteExt};
 
 type Result = anyhow::Result<()>;
 
@@ -806,5 +807,159 @@ async fn client_resume_options() -> Result {
         got.extend_from_slice(&chunk);
     }
     assert_eq!(bytes::Bytes::from_owner(got), test_body(0..10));
+    Ok(())
+}
+
+async fn read_http_head(socket: &mut tokio::net::TcpStream) -> String {
+    let mut req = Vec::new();
+    let mut buf = [0_u8; 1024];
+    loop {
+        let n = socket.read(&mut buf).await.expect("read request head");
+        assert!(n > 0, "unexpected EOF before end of HTTP headers");
+        req.extend_from_slice(&buf[..n]);
+        if req.windows(4).any(|w| w == b"\r\n\r\n") {
+            return String::from_utf8_lossy(&req).into_owned();
+        }
+    }
+}
+
+#[tokio::test]
+async fn stalled_body_read_timeout_resumes() -> Result {
+    // Arrange
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
+    let addr = listener.local_addr()?;
+    let (done_tx, done_rx) = tokio::sync::oneshot::channel::<()>();
+    let server = tokio::spawn(async move {
+        // Attempt 1: send 5 of 10 bytes, then stall past read_timeout.
+        let (mut s1, _) = listener.accept().await.expect("accept 1 succeeds");
+        let _ = read_http_head(&mut s1).await;
+        let resp1 = concat!(
+            "HTTP/1.1 200 OK\r\n",
+            "x-goog-generation: 123456\r\n",
+            "content-length: 10\r\n",
+            "\r\n",
+            "hello",
+        );
+        s1.write_all(resp1.as_bytes())
+            .await
+            .expect("write 1 succeeds");
+
+        // Attempt 2: client resumes from byte 5 pinned to generation 123456.
+        let (mut s2, _) = listener.accept().await.expect("accept 2 succeeds");
+        let req_head = read_http_head(&mut s2).await.to_ascii_lowercase();
+        assert!(req_head.contains("range: bytes=5-9\r\n"), "{req_head}");
+        assert!(req_head.contains("generation=123456"), "{req_head}");
+
+        let resp2 = concat!(
+            "HTTP/1.1 206 Partial Content\r\n",
+            "x-goog-generation: 123456\r\n",
+            "content-range: bytes 5-9/10\r\n",
+            "content-length: 5\r\n",
+            "\r\n",
+            "world",
+        );
+        s2.write_all(resp2.as_bytes())
+            .await
+            .expect("write 2 succeeds");
+
+        // Keep s1 alive until the client finishes so Attempt 1 fails from read_timeout, not EOF.
+        let _ = done_rx.await;
+        drop(s1);
+    });
+
+    let client = test_builder()
+        .with_endpoint(format!("http://{addr}"))
+        .with_credentials(Anonymous::new().build())
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
+        .with_read_timeout(Duration::from_millis(100))
+        .build()
+        .await?;
+
+    // Act
+    let mut reader = client
+        .read_object("projects/_/buckets/test-bucket", "test-object")
+        .send()
+        .await?;
+    let mut got = Vec::new();
+    while let Some(chunk) = reader.next().await.transpose()? {
+        got.extend_from_slice(&chunk);
+    }
+
+    // Assert
+    assert_eq!(bytes::Bytes::from_owner(got), "helloworld");
+    let _ = done_tx.send(());
+    server.await?;
+    Ok(())
+}
+
+#[tokio::test]
+async fn stalled_body_read_timeout_exhausted_preserves_error_kind() -> Result {
+    // Arrange
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
+    let addr = listener.local_addr()?;
+    let (done_tx, done_rx) = tokio::sync::oneshot::channel::<()>();
+    let server = tokio::spawn(async move {
+        // Attempt 1: send 5 of 10 bytes, then stall past read_timeout.
+        let (mut s1, _) = listener.accept().await.expect("accept 1 succeeds");
+        let _ = read_http_head(&mut s1).await;
+        let resp1 = concat!(
+            "HTTP/1.1 200 OK\r\n",
+            "x-goog-generation: 123456\r\n",
+            "content-length: 10\r\n",
+            "\r\n",
+            "hello",
+        );
+        s1.write_all(resp1.as_bytes())
+            .await
+            .expect("write 1 succeeds");
+
+        // Attempt 2 (resume 1 of 2): send headers, then stall past read_timeout again.
+        let (mut s2, _) = listener.accept().await.expect("accept 2 succeeds");
+        let req_head = read_http_head(&mut s2).await.to_ascii_lowercase();
+        assert!(req_head.contains("range: bytes=5-9\r\n"), "{req_head}");
+        assert!(req_head.contains("generation=123456"), "{req_head}");
+        let resp2 = concat!(
+            "HTTP/1.1 206 Partial Content\r\n",
+            "x-goog-generation: 123456\r\n",
+            "content-range: bytes 5-9/10\r\n",
+            "content-length: 5\r\n",
+            "\r\n",
+        );
+        s2.write_all(resp2.as_bytes())
+            .await
+            .expect("write 2 succeeds");
+
+        let _ = done_rx.await;
+        drop((s1, s2));
+    });
+
+    let client = test_builder()
+        .with_endpoint(format!("http://{addr}"))
+        .with_credentials(Anonymous::new().build())
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
+        .with_read_timeout(Duration::from_millis(100))
+        .build()
+        .await?;
+
+    // Act
+    let mut reader = client
+        .read_object("projects/_/buckets/test-bucket", "test-object")
+        .with_read_resume_policy(Recommended.with_attempt_limit(2))
+        .send()
+        .await?;
+    let first = reader.next().await.transpose()?;
+    let second = reader.next().await;
+    let after_err = reader.next().await;
+
+    // Assert
+    assert_eq!(first, Some(bytes::Bytes::from_static(b"hello")));
+    let err = second
+        .expect("stream should yield timeout error once resumes are exhausted")
+        .expect_err("second read should time out");
+    assert!(err.is_timeout(), "{err:?}");
+    assert!(after_err.is_none(), "{after_err:?}");
+
+    let _ = done_tx.send(());
+    server.await?;
     Ok(())
 }

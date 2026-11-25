@@ -76,7 +76,10 @@ mod tests {
     use bytes::Bytes;
     use gaxi::http::reqwest::Body;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_gax::retry_policy::RetryPolicyExt;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
+    use std::time::Duration;
+    use tokio::io::{AsyncReadExt, AsyncWriteExt};
 
     type Result = anyhow::Result<()>;
 
@@ -157,6 +160,66 @@ mod tests {
         assert!(matches!(&chunk, Some(Err(_))), "{chunk:?}");
         let chunk = response.next().await;
         assert!(&chunk.is_none(), "{chunk:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn gunzipped_read_timeout_preserves_timeout_kind() -> Result {
+        // Arrange
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await?;
+        let addr = listener.local_addr()?;
+        let (done_tx, done_rx) = tokio::sync::oneshot::channel::<()>();
+        let server = tokio::spawn(async move {
+            let (mut socket, _) = listener.accept().await.expect("accept succeeds");
+            let mut req = Vec::new();
+            let mut buf = [0_u8; 1024];
+            while !req.windows(4).any(|w| w == b"\r\n\r\n") {
+                let n = socket.read(&mut buf).await.expect("read succeeds");
+                assert!(n > 0, "unexpected EOF reading request");
+                req.extend_from_slice(&buf[..n]);
+            }
+            let head = concat!(
+                "HTTP/1.1 200 OK\r\n",
+                "warning: 214 UploadServer gunzipped\r\n",
+                "x-goog-generation: 123456\r\n",
+                "content-length: 10\r\n",
+                "\r\n",
+                "hello",
+            );
+            socket
+                .write_all(head.as_bytes())
+                .await
+                .expect("write succeeds");
+            let _ = done_rx.await;
+        });
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{addr}"))
+            .with_credentials(Anonymous::new().build())
+            .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
+            .with_read_timeout(Duration::from_millis(100))
+            .build()
+            .await?;
+
+        // Act
+        let mut reader = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await?;
+        let first = reader.next().await.transpose()?;
+        let second = reader.next().await;
+        let after_err = reader.next().await;
+
+        // Assert
+        assert_eq!(first, Some(Bytes::from_static(b"hello")));
+        let err = second
+            .expect("stream should yield timeout error")
+            .expect_err("second chunk should time out");
+        assert!(err.is_timeout(), "{err:?}");
+        assert!(after_err.is_none(), "{after_err:?}");
+
+        let _ = done_tx.send(());
+        server.await?;
         Ok(())
     }
 }
