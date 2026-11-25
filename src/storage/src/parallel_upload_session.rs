@@ -23,6 +23,10 @@ use std::sync::Arc;
 pub use crate::storage::parallel_upload::segment_payload::SegmentPayload;
 
 /// An active parallel upload session ready to write segments concurrently.
+///
+/// Dropping a `ParallelUploadSession` does not abort the session. Call
+/// [`abort`](Self::abort) to discard uncommitted data if you abandon the
+/// upload before [`finalize`](Self::finalize).
 #[cfg_attr(docsrs, doc(cfg(google_cloud_unstable_storage_parallel_upload)))]
 #[derive(Clone, Debug)]
 pub struct ParallelUploadSession {

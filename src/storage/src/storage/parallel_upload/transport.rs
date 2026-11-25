@@ -64,6 +64,7 @@ where
         let request = v2::CreateObjectWriteSessionRequest::try_from(request)?;
         let params = request.common_object_request_params.clone();
 
+        // TODO: configure idempotency via `crate::idempotency` in a follow-up.
         let response = client
             .create_object_write_session(
                 method("CreateObjectWriteSession"),
@@ -94,33 +95,21 @@ where
 
     /// Validates the completed segments and returns their count.
     ///
-    /// A session can only be finalized if segments `1..=N` are complete, and
-    /// only the last one may be smaller than the session's segment size.
+    /// A session can only be finalized if segments `1..=N` are complete.
     fn validated_segment_count(&self) -> Result<i32> {
         // TODO: return a typed validation error instead of plain strings.
         let segments = self.completed_segments.lock().expect("never poisoned");
-        let Some((&last, _)) = segments.last_key_value() else {
-            return Err(Error::ser("cannot finalize a session without segments"));
-        };
-        for ((&number, &size), want) in segments.iter().zip(1_u32..) {
+        if segments.is_empty() {
+            return Err(Error::binding("cannot finalize a session without segments"));
+        }
+        for (&number, want) in segments.keys().zip(1_u32..) {
             if number != want {
-                return Err(Error::ser(format!(
+                return Err(Error::binding(format!(
                     "cannot finalize a session with missing segments: expected segment {want}, found segment {number}"
                 )));
             }
-            let limit = self.segment_size_bytes;
-            let valid = if number == last {
-                size <= limit
-            } else {
-                size == limit
-            };
-            if !valid {
-                return Err(Error::ser(format!(
-                    "segment {number} has {size} bytes, the session segment size is {limit} bytes"
-                )));
-            }
         }
-        i32::try_from(segments.len()).map_err(Error::ser)
+        i32::try_from(segments.len()).map_err(Error::binding)
     }
 }
 
@@ -153,6 +142,7 @@ where
             ..v2::FinalizeObjectWriteSessionRequest::default()
         };
 
+        // TODO: set `request_id` and configure idempotency via `crate::idempotency` in a follow-up.
         let response = self
             .client
             .finalize_object_write_session(
@@ -172,6 +162,7 @@ where
             name: self.session_name.clone(),
         };
 
+        // TODO: configure idempotency via `crate::idempotency` in a follow-up.
         self.client
             .abort_object_write_session(
                 method("AbortObjectWriteSession"),
@@ -507,6 +498,7 @@ mod tests {
     #[test_case(&[(1, 0)], 1; "a single empty segment")]
     #[test_case(&[(1, SEGMENT_SIZE)], 1; "a single full segment")]
     #[test_case(&[(1, SEGMENT_SIZE), (2, SEGMENT_SIZE)], 2; "only full segments")]
+    #[test_case(&[(1, 5), (2, 5)], 2; "segment sizes left to the server")]
     #[tokio::test]
     async fn finalize_segment_count(segments: &[(u32, u64)], want: i32) -> anyhow::Result<()> {
         let mut mock = MockTestClient::new();
@@ -598,9 +590,6 @@ mod tests {
     #[test_case(&[(2, 5)]; "missing first segment")]
     #[test_case(&[(1, SEGMENT_SIZE), (3, 5)]; "missing middle segment")]
     #[test_case(&[(0, SEGMENT_SIZE), (1, 5)]; "segment zero")]
-    #[test_case(&[(1, SEGMENT_SIZE - 1), (2, 5)]; "short segment before the last")]
-    #[test_case(&[(1, SEGMENT_SIZE + 1), (2, 5)]; "long segment before the last")]
-    #[test_case(&[(1, SEGMENT_SIZE), (2, SEGMENT_SIZE + 1)]; "long last segment")]
     #[tokio::test]
     async fn finalize_invalid_segments(segments: &[(u32, u64)]) {
         let mut mock = MockTestClient::new();
@@ -609,7 +598,7 @@ mod tests {
 
         let transport = transport(mock, SESSION, segments);
         let err = transport.finalize().await.unwrap_err();
-        assert!(err.is_serialization(), "{err:?}");
+        assert!(err.is_binding(), "{err:?}");
     }
 
     #[tokio::test]
