@@ -41,7 +41,11 @@ impl NonResumableResponse {
 
     async fn next_attempt(&mut self) -> Option<Result<bytes::Bytes>> {
         let response = self.response.as_mut()?;
-        response.chunk().await.map_err(Error::io).transpose()
+        response
+            .chunk()
+            .await
+            .map_err(gaxi::http::map_send_error)
+            .transpose()
     }
 }
 

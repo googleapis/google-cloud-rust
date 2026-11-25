@@ -88,7 +88,7 @@ impl crate::read_object::dynamic::ReadObjectResponse for ResumableResponse {
 impl ResumableResponse {
     async fn next_attempt(&mut self) -> Option<Result<bytes::Bytes>> {
         let response = self.response.as_mut()?;
-        let res = response.chunk().await.map_err(Error::io);
+        let res = response.chunk().await.map_err(gaxi::http::map_send_error);
         match res {
             Ok(Some(chunk)) => {
                 self.reader
