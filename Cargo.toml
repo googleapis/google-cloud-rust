@@ -453,7 +453,7 @@ hex                   = { default-features = false, version = "0.4.3" }
 http                  = { default-features = false, version = "1.1", features = ["std"] }
 http-body             = { default-features = false, version = "1.1" }
 hyper                 = { default-features = false, version = "1.10" }
-jiff                  = { default-features = false, version = "0.2.32" }
+jiff                  = { default-features = false, version = "1.0.1" }
 jsonwebtoken          = { default-features = false, version = "11" }
 libc                  = { default-features = false, version = "0.2.183" }
 markdown              = { default-features = false, version = "1.0" }
