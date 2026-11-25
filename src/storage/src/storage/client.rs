@@ -1164,6 +1164,22 @@ pub(crate) mod tests {
         }
     }
 
+    mockall::mock! {
+        #[derive(Debug)]
+        pub Credentials {}
+
+        impl google_cloud_auth::credentials::CredentialsProvider for Credentials {
+            async fn headers(
+                &self,
+                extensions: http::Extensions,
+            ) -> std::result::Result<
+                google_cloud_auth::credentials::CacheableResource<http::HeaderMap>,
+                google_cloud_gax::error::CredentialsError,
+            >;
+            async fn universe_domain(&self) -> Option<String>;
+        }
+    }
+
     #[test]
     fn enc_only_keeps_unreserved_ascii() {
         // Arrange
