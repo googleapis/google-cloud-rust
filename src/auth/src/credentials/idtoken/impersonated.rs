@@ -77,7 +77,7 @@ use crate::{
     },
     errors,
     headers_util::{self, ID_TOKEN_REQUEST_TYPE, metrics_header_value},
-    retry::Builder as RetryTokenProviderBuilder,
+    retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry},
     token::{CachedTokenProvider, Token, TokenProvider},
     token_cache::TokenCache,
 };
@@ -316,6 +316,17 @@ impl Builder {
     ///
     /// [use service account impersonation]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#adc
     pub fn build(self) -> BuildResult<IDTokenCredentials> {
+        let token_provider = self.build_token_provider()?;
+        Ok(IDTokenCredentials {
+            inner: Arc::new(ImpersonatedServiceAccount {
+                token_provider: TokenCache::new(token_provider),
+            }),
+        })
+    }
+
+    fn build_token_provider(
+        self,
+    ) -> BuildResult<TokenProviderWithRetry<ImpersonatedTokenProvider>> {
         let components = match self.source {
             BuilderSource::FromJson(json) => build_components_from_json(json, None)?,
             BuilderSource::FromCredentials(source_credentials) => {
@@ -332,12 +343,7 @@ impl Builder {
             include_email: self.include_email,
             target_audience: self.target_audience,
         };
-        let token_provider = self.retry_builder.build(token_provider);
-        Ok(IDTokenCredentials {
-            inner: Arc::new(ImpersonatedServiceAccount {
-                token_provider: TokenCache::new(token_provider),
-            }),
-        })
+        Ok(self.retry_builder.build(token_provider))
     }
 }
 
@@ -1042,16 +1048,16 @@ mod tests {
             "universe_domain": "outer-universe.com",
             "source_credentials": source_without_ud,
         });
-        let components = build_components_from_json(valid_json.clone(), None)?;
+        let token_provider = Builder::new("test-audience", valid_json).build_token_provider()?;
         assert_eq!(
-            components
+            token_provider
+                .inner
                 .source_credentials
                 .universe_domain()
                 .await
                 .as_deref(),
             Some("outer-universe.com")
         );
-        let _creds = Builder::new("test-audience", valid_json).build()?;
 
         let conflicting_json = json!({
             "type": "impersonated_service_account",

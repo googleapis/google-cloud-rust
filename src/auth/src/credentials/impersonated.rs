@@ -233,20 +233,22 @@ impl ImpersonationUrl {
         principal: &str,
         method: &str,
     ) -> String {
-        let endpoint = match &self.endpoint {
-            Some(endpoint) => endpoint.to_string(),
-            None => {
-                let universe_domain = match universe_domain_override {
-                    Some(ud) => ud.to_string(),
-                    None => crate::universe_domain::resolve(creds).await,
-                };
-                format!("https://iamcredentials.{}", universe_domain)
+        match (&self.endpoint, universe_domain_override) {
+            (Some(endpoint), _) => {
+                format!("{endpoint}/v1/projects/-/serviceAccounts/{principal}:{method}")
             }
-        };
-        format!(
-            "{}/v1/projects/-/serviceAccounts/{}:{}",
-            endpoint, principal, method
-        )
+            (None, Some(ud)) => {
+                format!(
+                    "https://iamcredentials.{ud}/v1/projects/-/serviceAccounts/{principal}:{method}"
+                )
+            }
+            (None, None) => {
+                let ud = crate::universe_domain::resolve(creds).await;
+                format!(
+                    "https://iamcredentials.{ud}/v1/projects/-/serviceAccounts/{principal}:{method}"
+                )
+            }
+        }
     }
 
     pub(crate) fn client_email(self) -> BuildResult<String> {
@@ -1646,7 +1648,7 @@ mod tests {
             delegates: Some(vec!["delegate1".to_string()]),
             scopes: vec!["scope1".to_string()],
             lifetime: Duration::from_secs(3600),
-            universe_domain: None,
+            universe_domain: Some("my-custom-universe.com".to_string()),
         };
         let fmt = format!("{expected:?}");
         assert!(fmt.contains("UserCredentials"), "{fmt}");
@@ -1654,6 +1656,7 @@ mod tests {
         assert!(fmt.contains("delegate1"), "{fmt}");
         assert!(fmt.contains("scope1"), "{fmt}");
         assert!(fmt.contains("3600s"), "{fmt}");
+        assert!(fmt.contains("my-custom-universe.com"), "{fmt}");
     }
 
     #[test]
@@ -1671,6 +1674,7 @@ mod tests {
             "delegates": ["delegate1"],
             "quota_project_id": "test-project-id",
             "scopes": ["scope1"],
+            "universe_domain": "my-custom-universe.com",
         });
 
         let expected = ImpersonatedConfig {
@@ -1679,7 +1683,7 @@ mod tests {
             delegates: Some(vec!["delegate1".to_string()]),
             quota_project_id: Some("test-project-id".to_string()),
             scopes: Some(vec!["scope1".to_string()]),
-            universe_domain: None,
+            universe_domain: Some("my-custom-universe.com".to_string()),
         };
         let actual: ImpersonatedConfig = serde_json::from_value(json).unwrap();
         assert_eq!(actual, expected);
@@ -2215,6 +2219,7 @@ mod tests {
         impersonated
     }
 
+    #[test_case(None, None, None, None; "omitted everywhere")]
     #[test_case(Some("outer.com"), None, None, Some("outer.com"); "outer only")]
     #[test_case(Some("outer.com"), Some(None), None, Some("outer.com"); "outer with null source")]
     #[test_case(Some("same.com"), Some(Some("same.com")), None, Some("same.com"); "matching outer and source")]
@@ -2224,6 +2229,7 @@ mod tests {
     #[test_case(None, Some(Some("source.com")), Some("builder.com"), Some("builder.com"); "builder overrides explicit source")]
     #[test_case(None, None, Some("builder.com"), Some("builder.com"); "builder only when json omits both")]
     #[tokio::test]
+    #[parallel]
     async fn json_universe_domain_resolution(
         outer_ud: Option<&str>,
         source_ud: Option<Option<&str>>,
@@ -2242,8 +2248,10 @@ mod tests {
     #[test_case(Some("outer.com"), None, None, Some("outer.com"); "omitted source inherits outer")]
     #[test_case(Some("outer.com"), Some(None), None, Some("outer.com"); "null source inherits outer")]
     #[test_case(Some("same.com"), Some(Some("same.com")), None, Some("same.com"); "matching source preserved")]
+    #[test_case(Some("outer.com"), None, Some("builder.com"), Some("builder.com"); "builder override overrides outer")]
     #[test_case(None, None, Some("builder.com"), Some("builder.com"); "builder override propagates when json omits both")]
     #[test_case(None, Some(Some("source.com")), Some("builder.com"), Some("builder.com"); "builder override overrides explicit source")]
+    #[parallel]
     #[tokio::test]
     async fn build_components_from_json_propagates_universe_domain_to_source(
         outer_ud: Option<&str>,
@@ -2267,17 +2275,31 @@ mod tests {
     #[test_case("outer.com", "source.com"; "distinct custom domains")]
     #[test_case("outer.com", "googleapis.com"; "custom outer with default source")]
     #[test_case("googleapis.com", "source.com"; "default outer with custom source")]
+    #[parallel]
     fn json_conflicting_universe_domains_rejected(outer_ud: &str, source_ud: &str) {
         let json = impersonated_json(Some(outer_ud), Some(Some(source_ud)));
 
         let err = Builder::new(json.clone()).build().unwrap_err();
         assert!(err.is_parsing(), "{err:?}");
 
-        let err = Builder::new(json).build_signer().unwrap_err();
+        let err = Builder::new(json.clone()).build_signer().unwrap_err();
+        assert!(err.is_parsing(), "{err:?}");
+
+        let err = Builder::new(json.clone())
+            .with_universe_domain("builder.com")
+            .build()
+            .unwrap_err();
+        assert!(err.is_parsing(), "{err:?}");
+
+        let err = Builder::new(json)
+            .with_universe_domain("builder.com")
+            .build_signer()
+            .unwrap_err();
         assert!(err.is_parsing(), "{err:?}");
     }
 
     #[test]
+    #[parallel]
     fn json_non_string_source_universe_domain_is_parsing_error() {
         let mut json = impersonated_json(Some("outer.com"), None);
         json["source_credentials"]["universe_domain"] = json!(123);
