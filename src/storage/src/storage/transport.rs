@@ -1386,6 +1386,104 @@ mod tests {
         Ok(())
     }
 
+    #[cfg(google_cloud_unstable_storage_parallel_upload)]
+    #[tokio::test]
+    async fn create_object_write_session_and_abort() -> anyhow::Result<()> {
+        use crate::google::storage::v2::{
+            AbortObjectWriteSessionRequest, CreateObjectWriteSessionRequest, Object,
+            ObjectWriteSession, ObjectWriteSessionSpec,
+        };
+        use crate::model_ext::AbortSessionResponse;
+
+        fn grpc_frame(message: &impl prost::Message) -> Vec<u8> {
+            let payload = message.encode_to_vec();
+            let mut body = Vec::with_capacity(5 + payload.len());
+            body.push(0);
+            body.extend_from_slice(&(payload.len() as u32).to_be_bytes());
+            body.extend_from_slice(&payload);
+            body
+        }
+
+        const SESSION_NAME: &str =
+            "projects/123/buckets/test-bucket/objectWriteSessions/test-session";
+
+        let want_create = CreateObjectWriteSessionRequest {
+            object_write_session_spec: Some(ObjectWriteSessionSpec {
+                resource: Some(Object {
+                    bucket: "projects/_/buckets/test-bucket".to_string(),
+                    name: "test-object".to_string(),
+                    ..Object::default()
+                }),
+                ..ObjectWriteSessionSpec::default()
+            }),
+            ..CreateObjectWriteSessionRequest::default()
+        };
+        let session_proto = ObjectWriteSession {
+            name: SESSION_NAME.to_string(),
+            segment_size_bytes: 1024,
+            ..ObjectWriteSession::default()
+        };
+        let want_abort = AbortObjectWriteSessionRequest {
+            name: SESSION_NAME.to_string(),
+        };
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/google.storage.v2.Storage/CreateObjectWriteSession"
+                ),
+                request::headers(contains((
+                    "x-goog-request-params",
+                    "bucket=projects%2F_%2Fbuckets%2Ftest-bucket"
+                ))),
+                request::body(grpc_frame(&want_create)),
+            ])
+            .times(1)
+            .respond_with(
+                status_code(200)
+                    .append_header("content-type", "application/grpc")
+                    .append_header("grpc-status", "0")
+                    .body(grpc_frame(&session_proto)),
+            ),
+        );
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/google.storage.v2.Storage/AbortObjectWriteSession"),
+                request::headers(contains((
+                    "x-goog-request-params",
+                    "bucket=projects%2F123%2Fbuckets%2Ftest-bucket"
+                ))),
+                request::body(grpc_frame(&want_abort)),
+            ])
+            .times(1)
+            .respond_with(
+                status_code(200)
+                    .append_header("content-type", "application/grpc")
+                    .append_header("grpc-status", "0")
+                    .body(grpc_frame(&())),
+            ),
+        );
+
+        let client = crate::client::Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let session = client
+            .parallel_upload("projects/_/buckets/test-bucket", "test-object")
+            .create_session()
+            .await?;
+        assert_eq!(session.name(), SESSION_NAME);
+        assert_eq!(session.segment_size_bytes(), 1024);
+
+        let abort = session.abort().await?;
+        assert_eq!(abort, AbortSessionResponse::new());
+
+        Ok(())
+    }
+
     #[track_caller]
     fn check_debug_log(captured: &Vec<CapturedSpan>, method: &'static str) {
         let span = captured
