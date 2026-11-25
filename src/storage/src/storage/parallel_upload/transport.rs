@@ -257,7 +257,6 @@ mod tests {
     use super::super::tests::{permanent_error, test_options};
     use super::*;
     use crate::model::CommonObjectRequestParams;
-    use crate::streaming_source::Payload;
     use gaxi::grpc::tonic::Response as TonicResponse;
     use google_cloud_gax::error::binding::{PathMismatch, SubstitutionFail, SubstitutionMismatch};
     use static_assertions::assert_impl_all;
@@ -410,6 +409,7 @@ mod tests {
                 .await?;
         assert_eq!(transport.name(), SESSION);
         assert_eq!(transport.segment_size_bytes(), SEGMENT_SIZE);
+        assert_eq!(transport.options.user_agent.as_deref(), Some("test-agent"));
         Ok(())
     }
 
@@ -473,10 +473,11 @@ mod tests {
         let mut mock = MockTestClient::new();
         mock.expect_finalize_object_write_session()
             .times(1)
-            .return_once(|extensions, path, request, _options, header, params| {
+            .return_once(|extensions, path, request, options, header, params| {
                 assert_method(&extensions, &path, "FinalizeObjectWriteSession");
                 assert_eq!(header, X_GOOG_API_CLIENT_HEADER.as_str());
                 assert_eq!(params, ROUTING);
+                assert_eq!(options.user_agent().as_deref(), Some("test-agent"));
                 let want = v2::FinalizeObjectWriteSessionRequest {
                     name: SESSION.to_string(),
                     total_segment_count: 3,
@@ -492,7 +493,8 @@ mod tests {
             });
 
         let segments = [(1, SEGMENT_SIZE), (2, SEGMENT_SIZE), (3, 5)];
-        let transport = transport(mock, SESSION, &segments);
+        let mut transport = transport(mock, SESSION, &segments);
+        transport.options.with_user_agent("test-agent");
         let got = transport.finalize().await?;
         let want = Object::new()
             .set_bucket(BUCKET)
@@ -525,6 +527,14 @@ mod tests {
         const NAME: &str = "projects/123/buckets/test-bucket/objectWriteSessions/test-session";
 
         let mut mock = MockTestClient::new();
+        mock.expect_create_object_write_session()
+            .times(1)
+            .return_once(|_, _, _, _, _, params| {
+                assert_eq!(params, ROUTING);
+                let mut session = proto_session(SEGMENT_SIZE as i64);
+                session.name = NAME.to_string();
+                Ok(TonicResponse::new(session))
+            });
         mock.expect_finalize_object_write_session()
             .times(1)
             .return_once(|_, _, request, _, _, params| {
@@ -533,7 +543,12 @@ mod tests {
                 Ok(TonicResponse::new(v2::Object::default()))
             });
 
-        let transport = transport(mock, NAME, &[(1, 5)]);
+        let transport = create(mock, create_request()).await?;
+        transport
+            .completed_segments
+            .lock()
+            .expect("never poisoned")
+            .insert(1, 5);
         let _ = transport.finalize().await?;
         Ok(())
     }
@@ -614,10 +629,11 @@ mod tests {
         let mut mock = MockTestClient::new();
         mock.expect_abort_object_write_session()
             .times(1)
-            .return_once(|extensions, path, request, _options, header, params| {
+            .return_once(|extensions, path, request, options, header, params| {
                 assert_method(&extensions, &path, "AbortObjectWriteSession");
                 assert_eq!(header, X_GOOG_API_CLIENT_HEADER.as_str());
                 assert_eq!(params, ROUTING);
+                assert_eq!(options.user_agent().as_deref(), Some("test-agent"));
                 let want = v2::AbortObjectWriteSessionRequest {
                     name: SESSION.to_string(),
                 };
@@ -626,7 +642,8 @@ mod tests {
             });
 
         // A session can be aborted before any segment is complete.
-        let transport = transport(mock, SESSION, &[]);
+        let mut transport = transport(mock, SESSION, &[]);
+        transport.options.with_user_agent("test-agent");
         let got = transport.abort().await?;
         assert_eq!(got, AbortSessionResponse::new());
         Ok(())
@@ -642,13 +659,5 @@ mod tests {
         let transport = transport(mock, SESSION, &[]);
         let err = transport.abort().await.unwrap_err();
         assert_eq!(err.status(), permanent_error().status(), "{err:?}");
-    }
-
-    #[tokio::test]
-    #[should_panic(expected = "not implemented")]
-    async fn write_segment_unimplemented() {
-        let transport = transport(MockTestClient::new(), SESSION, &[]);
-        let payload = SegmentPayload::new(Payload::from("hello"));
-        let _ = transport.write_segment(1, payload).await;
     }
 }

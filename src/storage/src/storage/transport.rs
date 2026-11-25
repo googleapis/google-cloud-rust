@@ -1386,23 +1386,6 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_storage_parallel_upload)]
-    #[tokio::test]
-    async fn create_object_write_session_binding_error() -> anyhow::Result<()> {
-        let client = crate::client::Storage::builder()
-            .with_credentials(Anonymous::new().build())
-            .build()
-            .await?;
-        let err = client
-            .parallel_upload("", "test-object")
-            .create_session()
-            .await
-            .unwrap_err();
-        assert!(err.is_binding(), "{err:?}");
-
-        Ok(())
-    }
-
     #[track_caller]
     fn check_debug_log(captured: &Vec<CapturedSpan>, method: &'static str) {
         let span = captured
