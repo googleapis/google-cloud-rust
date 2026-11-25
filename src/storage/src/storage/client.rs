@@ -388,6 +388,7 @@ impl Storage {
 }
 
 impl StorageInner {
+    /// Builds a client assuming `config.cred` and `config.endpoint` are initialized, panics otherwise.
     pub(self) fn new(
         client: gaxi::http::ReqwestClient,
         options: RequestOptions,
@@ -949,11 +950,20 @@ impl ClientBuilder {
         Ok(())
     }
 
-    // Breaks the builder into its parts, with default credentials applied.
+    pub(crate) fn apply_default_endpoint(&mut self) -> BuilderResult<()> {
+        let _ = self
+            .config
+            .endpoint
+            .get_or_insert_with(|| super::DEFAULT_HOST.to_string());
+        Ok(())
+    }
+
+    // Breaks the builder into its parts, with defaults applied.
     pub(crate) fn into_parts(
         mut self,
     ) -> google_cloud_gax::client_builder::Result<(ClientConfig, RequestOptions)> {
         self.apply_default_credentials()?;
+        self.apply_default_endpoint()?;
         let request_options =
             RequestOptions::new_with_client_config(&self.config, self.common_options);
         Ok((self.config, request_options))
@@ -1005,14 +1015,10 @@ pub(crate) fn apply_customer_supplied_encryption_headers(
 pub(crate) mod tests {
     use super::*;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-    use google_cloud_auth::credentials::{CacheableResource, CredentialsProvider, EntityTag};
-    use google_cloud_auth::errors::CredentialsError;
     use google_cloud_gax::retry_result::RetryResult;
     use google_cloud_gax::retry_state::RetryState;
-    use google_cloud_test_utils::test_layer::TestLayer;
     use pretty_assertions::assert_eq;
     use std::{sync::Arc, time::Duration};
-    use test_case::test_case;
 
     #[test]
     fn default_settings() {
@@ -1051,204 +1057,6 @@ pub(crate) mod tests {
             Some("my-universe.com"),
             "{config:?}"
         );
-    }
-
-    mockall::mock! {
-        #[derive(Debug)]
-        Credentials {}
-
-        impl CredentialsProvider for Credentials {
-            async fn headers(
-                &self,
-                extensions: http::Extensions,
-            ) -> std::result::Result<CacheableResource<http::HeaderMap>, CredentialsError>;
-            async fn universe_domain(&self) -> Option<String>;
-        }
-    }
-
-    fn mock_credentials(universe_domain: Option<&str>, fail_headers: bool) -> Credentials {
-        let mut mock = MockCredentials::new();
-        let ud = universe_domain.map(str::to_string);
-        mock.expect_universe_domain().returning(move || ud.clone());
-        mock.expect_headers().returning(move |_| {
-            if fail_headers {
-                Err(CredentialsError::from_msg(false, "stop before network"))
-            } else {
-                Ok(CacheableResource::New {
-                    data: http::HeaderMap::new(),
-                    entity_tag: EntityTag::default(),
-                })
-            }
-        });
-        Credentials::from(mock)
-    }
-
-    #[test]
-    fn into_parts_preserves_unset_endpoint() -> anyhow::Result<()> {
-        let builder = Storage::builder().with_credentials(Anonymous::new().build());
-        let (config, _options) = builder.into_parts()?;
-        assert_eq!(config.endpoint, None, "{config:?}");
-
-        let builder = Storage::builder()
-            .with_credentials(Anonymous::new().build())
-            .with_endpoint("https://custom.example.com");
-        let (config, _options) = builder.into_parts()?;
-        assert_eq!(
-            config.endpoint.as_deref(),
-            Some("https://custom.example.com"),
-            "{config:?}"
-        );
-        Ok(())
-    }
-
-    #[test_case(
-        None,
-        None,
-        "https://storage.googleapis.com/storage/v1/b/bucket/o/object",
-        "storage.googleapis.com";
-        "default universe domain"
-    )]
-    #[test_case(
-        Some("my-universe.com"),
-        None,
-        "https://storage.my-universe.com/storage/v1/b/bucket/o/object",
-        "storage.my-universe.com";
-        "custom universe domain via builder"
-    )]
-    #[test_case(
-        None,
-        Some("https://private.googleapis.com"),
-        "https://private.googleapis.com/storage/v1/b/bucket/o/object",
-        "storage.googleapis.com";
-        "explicit VPC-SC endpoint with default universe domain"
-    )]
-    #[test_case(
-        Some("my-universe.com"),
-        Some("https://private.my-universe.com"),
-        "https://private.my-universe.com/storage/v1/b/bucket/o/object",
-        "storage.my-universe.com";
-        "explicit VPC-SC endpoint with custom universe domain"
-    )]
-    #[test_case(
-        Some("my-universe.com"),
-        Some("https://storage.us-central1.rep.my-universe.com"),
-        "https://storage.us-central1.rep.my-universe.com/storage/v1/b/bucket/o/object",
-        "storage.us-central1.rep.my-universe.com";
-        "explicit regional endpoint with custom universe domain"
-    )]
-    #[test_case(
-        Some("my-universe.com"),
-        Some("https://custom.example.com"),
-        "https://custom.example.com/storage/v1/b/bucket/o/object",
-        "custom.example.com";
-        "explicit custom endpoint with custom universe domain"
-    )]
-    #[tokio::test]
-    async fn http_endpoint(
-        universe_domain: Option<&str>,
-        endpoint_override: Option<&str>,
-        want_url: &str,
-        want_host: &str,
-    ) -> anyhow::Result<()> {
-        let mut builder =
-            Storage::builder().with_credentials(mock_credentials(universe_domain, false));
-        if let Some(ud) = universe_domain {
-            builder = builder.with_universe_domain(ud);
-        }
-        if let Some(ep) = endpoint_override {
-            builder = builder.with_endpoint(ep);
-        }
-        let inner = StorageInner::from_parts(builder).await?;
-        let request = inner
-            .client
-            .http_builder(
-                gaxi::http::reqwest::Method::GET,
-                "/storage/v1/b/bucket/o/object",
-            )
-            .build_for_tests()
-            .await?;
-
-        assert_eq!(request.url().as_str(), want_url, "{request:?}");
-        assert_eq!(
-            request
-                .headers()
-                .get(http::header::HOST)
-                .and_then(|v| v.to_str().ok()),
-            Some(want_host),
-            "{request:?}"
-        );
-        Ok(())
-    }
-
-    #[test_case(None, None, "storage.googleapis.com"; "default universe domain")]
-    #[test_case(Some("my-universe.com"), None, "storage.my-universe.com"; "custom universe domain via builder")]
-    #[test_case(
-        None,
-        Some("https://private.googleapis.com"),
-        "private.googleapis.com";
-        "explicit VPC-SC endpoint with default universe domain"
-    )]
-    #[test_case(
-        Some("my-universe.com"),
-        Some("https://private.my-universe.com"),
-        "private.my-universe.com";
-        "explicit VPC-SC endpoint with custom universe domain"
-    )]
-    #[test_case(
-        Some("my-universe.com"),
-        Some("https://custom.example.com"),
-        "custom.example.com";
-        "explicit custom endpoint with custom universe domain"
-    )]
-    #[tokio::test]
-    async fn grpc_endpoint(
-        universe_domain: Option<&str>,
-        endpoint_override: Option<&str>,
-        want_server_address: &str,
-    ) -> anyhow::Result<()> {
-        let guard = TestLayer::initialize();
-
-        let mut builder = Storage::builder()
-            .with_credentials(mock_credentials(universe_domain, true))
-            .with_tracing();
-        if let Some(ud) = universe_domain {
-            builder = builder.with_universe_domain(ud);
-        }
-        if let Some(ep) = endpoint_override {
-            builder = builder.with_endpoint(ep);
-        }
-        let inner = StorageInner::from_parts(builder).await?;
-
-        let result = inner
-            .grpc
-            .execute::<
-                crate::google::storage::v2::BidiReadObjectRequest,
-                crate::google::storage::v2::BidiReadObjectResponse,
-            >(
-                gaxi::grpc::tonic::Extensions::new(),
-                http::uri::PathAndQuery::from_static("/google.storage.v2.Storage/BidiReadObject"),
-                crate::google::storage::v2::BidiReadObjectRequest::default(),
-                google_cloud_gax::options::RequestOptions::default(),
-                "test-client",
-                "",
-            )
-            .await;
-        assert!(
-            matches!(result, Err(ref e) if e.is_authentication()),
-            "{result:?}"
-        );
-
-        let captured = TestLayer::capture(&guard);
-        let span = captured
-            .iter()
-            .find(|s| s.name == "grpc.request")
-            .unwrap_or_else(|| panic!("missing `grpc.request` span in capture: {captured:#?}"));
-        assert_eq!(
-            span.attributes.get("server.address"),
-            Some(&want_server_address.to_string().into()),
-            "{span:?}"
-        );
-        Ok(())
     }
 
     #[test]
