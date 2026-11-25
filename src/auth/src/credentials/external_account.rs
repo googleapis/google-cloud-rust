@@ -853,6 +853,7 @@ impl Builder {
 /// [SubjectTokenProvider]: crate::credentials::subject_token::SubjectTokenProvider
 pub struct ProgrammaticBuilder {
     quota_project_id: Option<String>,
+    target_principal: Option<String>,
     config: ExternalAccountConfigBuilder,
     retry_builder: RetryTokenProviderBuilder,
 }
@@ -898,6 +899,7 @@ impl ProgrammaticBuilder {
         );
         Self {
             quota_project_id: None,
+            target_principal: None,
             config,
             retry_builder: RetryTokenProviderBuilder::default(),
         }
@@ -1243,11 +1245,7 @@ impl ProgrammaticBuilder {
     ///     .with_target_principal("test-principal");
     /// ```
     pub fn with_target_principal<S: Into<String>>(mut self, target_principal: S) -> Self {
-        let url = format!(
-            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{}:generateAccessToken",
-            target_principal.into()
-        );
-        self.config = self.config.with_service_account_impersonation_url(url);
+        self.target_principal = Some(target_principal.into());
         self
     }
 
@@ -1451,6 +1449,7 @@ impl ProgrammaticBuilder {
     )> {
         let Self {
             quota_project_id,
+            target_principal,
             config,
             retry_builder,
         } = self;
@@ -1467,6 +1466,16 @@ impl ProgrammaticBuilder {
                 token_url = token_url.replace(DEFAULT_UNIVERSE_DOMAIN, ud);
             }
             config_builder = config_builder.with_token_url(token_url);
+        }
+        if let Some(target_principal) = target_principal {
+            let universe_domain = config_builder
+                .universe_domain
+                .as_deref()
+                .unwrap_or(DEFAULT_UNIVERSE_DOMAIN);
+            let url = format!(
+                "https://iamcredentials.{universe_domain}/v1/projects/-/serviceAccounts/{target_principal}:generateAccessToken"
+            );
+            config_builder = config_builder.with_service_account_impersonation_url(url);
         }
         let final_config = config_builder.build()?;
 
@@ -1663,6 +1672,52 @@ mod tests {
             config.token_url,
             "https://sts.my-custom-universe.com/v1/token"
         );
+    }
+
+    #[test_case(
+        Some("my-custom-universe.com"),
+        "https://iamcredentials.my-custom-universe.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken";
+        "custom universe_domain"
+    )]
+    #[test_case(
+        Some("googleapis.com"),
+        "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken";
+        "explicit default universe_domain"
+    )]
+    #[test_case(
+        None,
+        "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken";
+        "omitted universe_domain"
+    )]
+    fn test_programmatic_builder_target_principal_updates_with_universe_domain(
+        universe_domain: Option<&str>,
+        expected_url: &str,
+    ) {
+        let base = || {
+            ProgrammaticBuilder::new(Arc::new(TestSubjectTokenProvider))
+                .with_audience("test-audience")
+                .with_subject_token_type("test-token-type")
+        };
+
+        let builders = match universe_domain {
+            Some(ud) => vec![
+                base()
+                    .with_target_principal("test-principal")
+                    .with_universe_domain(ud),
+                base()
+                    .with_universe_domain(ud)
+                    .with_target_principal("test-principal"),
+            ],
+            None => vec![base().with_target_principal("test-principal")],
+        };
+
+        for builder in builders {
+            let (config, _, _) = builder.build_components().unwrap();
+            assert_eq!(
+                config.service_account_impersonation_url.as_deref(),
+                Some(expected_url)
+            );
+        }
     }
 
     #[tokio::test]

@@ -172,6 +172,7 @@ pub async fn run_publisher_samples(topic_names: &mut Vec<String>) -> anyhow::Res
     publisher::publish_custom_attributes::sample(&project, &topic_id).await?;
     publisher::publish_with_batch_settings::sample(&project, &topic_id).await?;
     publisher::publish_with_error_handler::sample(&project, &topic_id).await?;
+    publisher::publish_with_hedging_settings::sample(&project, &topic_id).await?;
     publisher::publish_with_ordering_keys::sample(&project, &topic_id).await?;
     publisher::publish_with_retry_settings::sample(&project, &topic_id).await?;
     publisher::resume_publish_with_ordering_keys::sample(&project, &topic_id).await?;

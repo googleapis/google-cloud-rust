@@ -136,8 +136,7 @@ mod tests {
     use std::collections::BTreeSet;
     use std::future::ready;
 
-    #[tokio::test(start_paused = true)]
-    #[ignore = "TODO(#6077) - disabled because it is flaky"]
+    #[tokio::test]
     async fn poll_ok() -> anyhow::Result<()> {
         let providers = SignalProviders::new();
 
@@ -208,8 +207,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
-    #[ignore = "TODO(#6077) - disabled because it is flaky"]
+    #[tokio::test]
     async fn poll_err() -> anyhow::Result<()> {
         let providers = SignalProviders::new();
 

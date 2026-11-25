@@ -56,7 +56,7 @@ impl super::stub::Grafeas for Grafeas {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -135,8 +135,8 @@ impl super::stub::Grafeas for Grafeas {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("grafeas.v1.Grafeas/GetOccurrence")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -161,7 +161,7 @@ impl super::stub::Grafeas for Grafeas {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -236,8 +236,8 @@ impl super::stub::Grafeas for Grafeas {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("grafeas.v1.Grafeas/ListOccurrences")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -262,7 +262,7 @@ impl super::stub::Grafeas for Grafeas {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -341,8 +341,8 @@ impl super::stub::Grafeas for Grafeas {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("grafeas.v1.Grafeas/DeleteOccurrence")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -373,7 +373,7 @@ impl super::stub::Grafeas for Grafeas {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -438,8 +438,8 @@ impl super::stub::Grafeas for Grafeas {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("grafeas.v1.Grafeas/CreateOccurrence")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -465,7 +465,7 @@ impl super::stub::Grafeas for Grafeas {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -532,8 +532,8 @@ impl super::stub::Grafeas for Grafeas {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("grafeas.v1.Grafeas/BatchCreateOccurrences")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -558,7 +558,7 @@ impl super::stub::Grafeas for Grafeas {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -661,8 +661,8 @@ impl super::stub::Grafeas for Grafeas {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("grafeas.v1.Grafeas/UpdateOccurrence")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -687,7 +687,7 @@ impl super::stub::Grafeas for Grafeas {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -766,8 +766,8 @@ impl super::stub::Grafeas for Grafeas {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("grafeas.v1.Grafeas/GetOccurrenceNote")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -792,7 +792,7 @@ impl super::stub::Grafeas for Grafeas {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -871,8 +871,8 @@ impl super::stub::Grafeas for Grafeas {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("grafeas.v1.Grafeas/GetNote")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -897,7 +897,7 @@ impl super::stub::Grafeas for Grafeas {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -972,8 +972,8 @@ impl super::stub::Grafeas for Grafeas {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("grafeas.v1.Grafeas/ListNotes")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -998,7 +998,7 @@ impl super::stub::Grafeas for Grafeas {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1077,8 +1077,8 @@ impl super::stub::Grafeas for Grafeas {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("grafeas.v1.Grafeas/DeleteNote")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1109,7 +1109,7 @@ impl super::stub::Grafeas for Grafeas {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1176,8 +1176,8 @@ impl super::stub::Grafeas for Grafeas {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("grafeas.v1.Grafeas/CreateNote")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1203,7 +1203,7 @@ impl super::stub::Grafeas for Grafeas {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1270,8 +1270,8 @@ impl super::stub::Grafeas for Grafeas {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("grafeas.v1.Grafeas/BatchCreateNotes")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1296,7 +1296,7 @@ impl super::stub::Grafeas for Grafeas {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1399,8 +1399,8 @@ impl super::stub::Grafeas for Grafeas {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("grafeas.v1.Grafeas/UpdateNote")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1425,7 +1425,7 @@ impl super::stub::Grafeas for Grafeas {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1510,8 +1510,8 @@ impl super::stub::Grafeas for Grafeas {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("grafeas.v1.Grafeas/ListNoteOccurrences")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(

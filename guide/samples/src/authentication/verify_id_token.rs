@@ -33,4 +33,4 @@ pub async fn sample(token: &str, audience: &str) -> anyhow::Result<()> {
     // [END rust_auth_id_verify_token_verify_call] ANCHOR_END: verify_id_token_verify_call
     Ok(())
 }
-// [END rust_auth_id_verify_token] ANCHOR_END: all
+// [END rust_auth_verify_id_token] ANCHOR_END: all

@@ -18281,6 +18281,7 @@ impl DataDocumentationResult {
     /// let x = DataDocumentationResult::new().set_dataset_result(DatasetResult::default()/* use setters */);
     /// assert!(x.dataset_result().is_some());
     /// assert!(x.table_result().is_none());
+    /// assert!(x.data_product_result().is_none());
     /// ```
     pub fn set_dataset_result<
         T: std::convert::Into<std::boxed::Box<crate::model::data_documentation_result::DatasetResult>>,
@@ -18323,6 +18324,7 @@ impl DataDocumentationResult {
     /// let x = DataDocumentationResult::new().set_table_result(TableResult::default()/* use setters */);
     /// assert!(x.table_result().is_some());
     /// assert!(x.dataset_result().is_none());
+    /// assert!(x.data_product_result().is_none());
     /// ```
     pub fn set_table_result<
         T: std::convert::Into<std::boxed::Box<crate::model::data_documentation_result::TableResult>>,
@@ -18332,6 +18334,52 @@ impl DataDocumentationResult {
     ) -> Self {
         self.result = std::option::Option::Some(
             crate::model::data_documentation_result::Result::TableResult(v.into()),
+        );
+        self
+    }
+
+    /// The value of [result][crate::model::DataDocumentationResult::result]
+    /// if it holds a `DataProductResult`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn data_product_result(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::data_documentation_result::DataProductResult>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::data_documentation_result::Result::DataProductResult(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::DataDocumentationResult::result]
+    /// to hold a `DataProductResult`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataDocumentationResult;
+    /// use google_cloud_dataplex_v1::model::data_documentation_result::DataProductResult;
+    /// let x = DataDocumentationResult::new().set_data_product_result(DataProductResult::default()/* use setters */);
+    /// assert!(x.data_product_result().is_some());
+    /// assert!(x.dataset_result().is_none());
+    /// assert!(x.table_result().is_none());
+    /// ```
+    pub fn set_data_product_result<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::data_documentation_result::DataProductResult>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = std::option::Option::Some(
+            crate::model::data_documentation_result::Result::DataProductResult(v.into()),
         );
         self
     }
@@ -18546,6 +18594,161 @@ pub mod data_documentation_result {
     impl wkt::message::Message for TableResult {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dataplex.v1.DataDocumentationResult.TableResult"
+        }
+    }
+
+    /// Generated metadata about a data product.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DataProductResult {
+        /// Output only. A detailed description for the data product.
+        pub overview: std::string::String,
+
+        /// Output only. Unordered list. Sample SQL queries for the data product.
+        pub queries: std::vec::Vec<crate::model::data_documentation_result::Query>,
+
+        /// Output only. Unordered list. Generated descriptions for assets in the
+        /// data product. Note that some assets may not have a generated description.
+        /// Such assets will not be included in this list.
+        pub asset_descriptions: std::vec::Vec<
+            crate::model::data_documentation_result::data_product_result::AssetDescription,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DataProductResult {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [overview][crate::model::data_documentation_result::DataProductResult::overview].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::DataProductResult;
+        /// let x = DataProductResult::new().set_overview("example");
+        /// ```
+        pub fn set_overview<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.overview = v.into();
+            self
+        }
+
+        /// Sets the value of [queries][crate::model::data_documentation_result::DataProductResult::queries].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::DataProductResult;
+        /// use google_cloud_dataplex_v1::model::data_documentation_result::Query;
+        /// let x = DataProductResult::new()
+        ///     .set_queries([
+        ///         Query::default()/* use setters */,
+        ///         Query::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_queries<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::data_documentation_result::Query>,
+        {
+            use std::iter::Iterator;
+            self.queries = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [asset_descriptions][crate::model::data_documentation_result::DataProductResult::asset_descriptions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::DataProductResult;
+        /// use google_cloud_dataplex_v1::model::data_documentation_result::data_product_result::AssetDescription;
+        /// let x = DataProductResult::new()
+        ///     .set_asset_descriptions([
+        ///         AssetDescription::default()/* use setters */,
+        ///         AssetDescription::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_asset_descriptions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::data_documentation_result::data_product_result::AssetDescription,
+                >,
+        {
+            use std::iter::Iterator;
+            self.asset_descriptions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for DataProductResult {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataplex.v1.DataDocumentationResult.DataProductResult"
+        }
+    }
+
+    /// Defines additional types related to [DataProductResult].
+    pub mod data_product_result {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Description for an asset in the data product.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct AssetDescription {
+            /// Output only. The service-qualified full resource name of the asset.
+            /// Example:
+            /// //bigquery.googleapis.com/projects/PROJECT_ID/datasets/DATASET_ID/tables/TABLE_ID
+            pub resource: std::string::String,
+
+            /// Output only. A generated description for the asset.
+            pub overview: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl AssetDescription {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [resource][crate::model::data_documentation_result::data_product_result::AssetDescription::resource].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dataplex_v1::model::data_documentation_result::data_product_result::AssetDescription;
+            /// let x = AssetDescription::new().set_resource("example");
+            /// ```
+            pub fn set_resource<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.resource = v.into();
+                self
+            }
+
+            /// Sets the value of [overview][crate::model::data_documentation_result::data_product_result::AssetDescription::overview].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dataplex_v1::model::data_documentation_result::data_product_result::AssetDescription;
+            /// let x = AssetDescription::new().set_overview("example");
+            /// ```
+            pub fn set_overview<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.overview = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for AssetDescription {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dataplex.v1.DataDocumentationResult.DataProductResult.AssetDescription"
+            }
         }
     }
 
@@ -19226,6 +19429,10 @@ pub mod data_documentation_result {
         DatasetResult(std::boxed::Box<crate::model::data_documentation_result::DatasetResult>),
         /// Output only. Insights for a Table resource.
         TableResult(std::boxed::Box<crate::model::data_documentation_result::TableResult>),
+        /// Output only. Insights for a data product.
+        DataProductResult(
+            std::boxed::Box<crate::model::data_documentation_result::DataProductResult>,
+        ),
     }
 }
 

@@ -56,7 +56,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -100,8 +100,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/CreateConversation")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -127,7 +127,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -171,8 +171,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/UploadConversation")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -197,7 +197,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_conversation_name = try_match(
                     Some(&req)
@@ -260,7 +260,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/UpdateConversation")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -285,7 +285,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -332,8 +332,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetConversation")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -358,7 +358,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -406,8 +406,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/ListConversations")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -432,7 +432,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -479,8 +479,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeleteConversation")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -511,7 +511,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -558,8 +558,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/CreateAnalysis")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -584,7 +584,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -636,8 +636,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                     .set_rpc_method(
                         "google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetAnalysis",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -662,7 +662,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -714,8 +714,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                     .set_rpc_method(
                         "google.cloud.contactcenterinsights.v1.ContactCenterInsights/ListAnalyses",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -740,7 +740,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -790,8 +790,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeleteAnalysis")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -823,7 +823,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -867,8 +867,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/BulkAnalyzeConversations")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -894,7 +894,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -938,8 +938,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/BulkDeleteConversations")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -965,7 +965,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1009,8 +1009,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/IngestConversations")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1036,7 +1036,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1080,8 +1080,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/ExportInsightsData")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1106,7 +1106,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1149,8 +1149,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/CreateIssueModel")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1175,7 +1175,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_issue_model_name = try_match(
                     Some(&req)
@@ -1238,7 +1238,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/UpdateIssueModel")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1263,7 +1263,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1311,8 +1311,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                     .set_rpc_method(
                         "google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetIssueModel",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1337,7 +1337,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1380,8 +1380,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/ListIssueModels")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1406,7 +1406,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1452,8 +1452,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeleteIssueModel")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1479,7 +1479,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1526,8 +1526,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeployIssueModel")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1553,7 +1553,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1600,8 +1600,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/UndeployIssueModel")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1627,7 +1627,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1674,8 +1674,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/ExportIssueModel")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1701,7 +1701,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1745,8 +1745,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/ImportIssueModel")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1771,7 +1771,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1823,8 +1823,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                     .set_rpc_method(
                         "google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetIssue",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1849,7 +1849,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1898,8 +1898,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                     .set_rpc_method(
                         "google.cloud.contactcenterinsights.v1.ContactCenterInsights/ListIssues",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1924,7 +1924,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_issue_name = try_match(
                     Some(&req)
@@ -1993,7 +1993,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                     .set_rpc_method(
                         "google.cloud.contactcenterinsights.v1.ContactCenterInsights/UpdateIssue",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2018,7 +2018,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2070,8 +2070,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                     .set_rpc_method(
                         "google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeleteIssue",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2102,7 +2102,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_issue_model = try_match(
                     Some(&req).map(|m| &m.issue_model).map(|s| s.as_str()),
@@ -2149,8 +2149,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/CalculateIssueModelStats")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2175,7 +2175,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2218,8 +2218,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/CreatePhraseMatcher")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2244,7 +2244,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2290,8 +2290,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetPhraseMatcher")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2316,7 +2316,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2362,8 +2362,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/ListPhraseMatchers")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2388,7 +2388,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2434,8 +2434,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeletePhraseMatcher")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2466,7 +2466,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_phrase_matcher_name = try_match(
                     Some(&req)
@@ -2529,7 +2529,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/UpdatePhraseMatcher")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2554,7 +2554,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_location = try_match(
                     Some(&req).map(|m| &m.location).map(|s| s.as_str()),
@@ -2641,8 +2641,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/CalculateStats")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2667,7 +2667,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2713,8 +2713,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                     .set_rpc_method(
                         "google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetSettings",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2739,7 +2739,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_settings_name = try_match(
                     Some(&req)
@@ -2800,7 +2800,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/UpdateSettings")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2825,7 +2825,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2868,8 +2868,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/CreateAnalysisRule")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2894,7 +2894,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2940,8 +2940,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetAnalysisRule")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2966,7 +2966,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3011,8 +3011,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/ListAnalysisRules")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3037,7 +3037,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_analysis_rule_name = try_match(
                     Some(&req)
@@ -3100,7 +3100,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/UpdateAnalysisRule")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3125,7 +3125,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3171,8 +3171,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeleteAnalysisRule")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3203,7 +3203,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3247,8 +3247,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetEncryptionSpec")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3274,7 +3274,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_encryption_spec_name = try_match(
                     Some(&req)
@@ -3326,7 +3326,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/InitializeEncryptionSpec")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3351,7 +3351,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3396,8 +3396,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                     .set_rpc_method(
                         "google.cloud.contactcenterinsights.v1.ContactCenterInsights/CreateView",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3422,7 +3422,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3470,8 +3470,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                     .set_rpc_method(
                         "google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetView",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3496,7 +3496,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3543,8 +3543,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                     .set_rpc_method(
                         "google.cloud.contactcenterinsights.v1.ContactCenterInsights/ListViews",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3569,7 +3569,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_view_name = try_match(
                     Some(&req)
@@ -3634,7 +3634,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                     .set_rpc_method(
                         "google.cloud.contactcenterinsights.v1.ContactCenterInsights/UpdateView",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3659,7 +3659,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3707,8 +3707,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                     .set_rpc_method(
                         "google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeleteView",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3740,7 +3740,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_location = try_match(
                     Some(&req).map(|m| &m.location).map(|s| s.as_str()),
@@ -3829,8 +3829,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                     .set_rpc_method(
                         "google.cloud.contactcenterinsights.v1.ContactCenterInsights/QueryMetrics",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3855,7 +3855,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3907,8 +3907,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/CreateQaQuestion")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3933,7 +3933,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3989,8 +3989,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
                     .set_rpc_method(
                         "google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetQaQuestion",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4015,7 +4015,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_qa_question_name = try_match(
                     Some(&req)
@@ -4086,7 +4086,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/UpdateQaQuestion")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4111,7 +4111,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4165,8 +4165,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeleteQaQuestion")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4197,7 +4197,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4250,8 +4250,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/ListQaQuestions")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4276,7 +4276,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4320,8 +4320,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/CreateQaScorecard")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4346,7 +4346,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4392,8 +4392,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetQaScorecard")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4418,7 +4418,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_qa_scorecard_name = try_match(
                     Some(&req)
@@ -4481,7 +4481,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/UpdateQaScorecard")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4506,7 +4506,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4553,8 +4553,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeleteQaScorecard")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4585,7 +4585,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4630,8 +4630,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/ListQaScorecards")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4656,7 +4656,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4705,8 +4705,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/CreateQaScorecardRevision")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4731,7 +4731,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4781,8 +4781,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetQaScorecardRevision")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4808,7 +4808,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4860,8 +4860,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/TuneQaScorecardRevision")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4887,7 +4887,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4938,8 +4938,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeployQaScorecardRevision")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4965,7 +4965,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5016,8 +5016,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/UndeployQaScorecardRevision")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5042,7 +5042,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5093,8 +5093,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeleteQaScorecardRevision")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5125,7 +5125,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5175,8 +5175,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/ListQaScorecardRevisions")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5201,7 +5201,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5249,8 +5249,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/CreateFeedbackLabel")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5275,7 +5275,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5325,8 +5325,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/ListFeedbackLabels")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5351,7 +5351,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5401,8 +5401,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetFeedbackLabel")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5427,7 +5427,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_feedback_label_name = try_match(
                     Some(&req)
@@ -5494,7 +5494,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/UpdateFeedbackLabel")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5519,7 +5519,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5569,8 +5569,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeleteFeedbackLabel")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5601,7 +5601,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5647,8 +5647,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/ListAllFeedbackLabels")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5674,7 +5674,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5718,8 +5718,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/BulkUploadFeedbackLabels")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5745,7 +5745,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5789,8 +5789,8 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.contactcenterinsights.v1.ContactCenterInsights/BulkDownloadFeedbackLabels")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5815,7 +5815,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5861,7 +5861,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5886,7 +5886,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5931,7 +5931,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5956,7 +5956,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6001,7 +6001,7 @@ impl super::stub::ContactCenterInsights for ContactCenterInsights {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(

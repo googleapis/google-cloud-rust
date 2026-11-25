@@ -94,6 +94,12 @@ impl ReqwestClient {
         if config.disable_follow_redirects {
             builder = builder.redirect(::reqwest::redirect::Policy::none());
         }
+        if let Some(timeout) = config.connect_timeout {
+            builder = builder.connect_timeout(timeout);
+        }
+        if let Some(timeout) = config.read_timeout {
+            builder = builder.read_timeout(timeout);
+        }
 
         if let Some(custom_headers) = config.extensions.get::<http::HeaderMap>() {
             let mut sanitized = custom_headers.clone();

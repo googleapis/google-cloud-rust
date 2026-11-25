@@ -30,6 +30,7 @@
 //! * [IngestionService](client/struct.IngestionService.html)
 //! * [MarketingDataInsightsService](client/struct.MarketingDataInsightsService.html)
 //! * [PartnerLinkService](client/struct.PartnerLinkService.html)
+//! * [ReportingService](client/struct.ReportingService.html)
 //! * [UserListDirectLicenseService](client/struct.UserListDirectLicenseService.html)
 //! * [UserListGlobalLicenseService](client/struct.UserListGlobalLicenseService.html)
 //! * [UserListService](client/struct.UserListService.html)

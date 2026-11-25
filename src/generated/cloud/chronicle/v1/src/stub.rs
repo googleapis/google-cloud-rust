@@ -1851,3 +1851,114 @@ pub trait RuleExecutionErrorService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 }
+
+/// Defines the trait used to implement [super::client::SearchService].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::SearchService`.  In other use-cases, application developers only
+/// use `client::SearchService` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait SearchService: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::SearchService::search].
+    fn search(
+        &self,
+        _req: crate::model::SearchRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SearchService::list_searched_results].
+    fn list_searched_results(
+        &self,
+        _req: crate::model::ListSearchedResultsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListSearchedResultsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SearchService::list_operations].
+    fn list_operations(
+        &self,
+        _req: google_cloud_longrunning::model::ListOperationsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            crate::Response<google_cloud_longrunning::model::ListOperationsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SearchService::get_operation].
+    fn get_operation(
+        &self,
+        _req: google_cloud_longrunning::model::GetOperationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SearchService::delete_operation].
+    fn delete_operation(
+        &self,
+        _req: google_cloud_longrunning::model::DeleteOperationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SearchService::cancel_operation].
+    fn cancel_operation(
+        &self,
+        _req: google_cloud_longrunning::model::CancelOperationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<()>>> + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
+    }
+
+    #[doc(hidden)]
+    /// Returns the poller options.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_poller_options(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> google_cloud_lro::PollerOptions {
+        google_cloud_lro::PollerOptions::default()
+    }
+}

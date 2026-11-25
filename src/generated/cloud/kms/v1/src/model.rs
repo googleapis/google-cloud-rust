@@ -7497,6 +7497,7 @@ impl KeyOperationAttestation {
     /// use google_cloud_kms_v1::model::key_operation_attestation::AttestationFormat;
     /// let x0 = KeyOperationAttestation::new().set_format(AttestationFormat::CaviumV1Compressed);
     /// let x1 = KeyOperationAttestation::new().set_format(AttestationFormat::CaviumV2Compressed);
+    /// let x2 = KeyOperationAttestation::new().set_format(AttestationFormat::CaviumV209);
     /// ```
     pub fn set_format<
         T: std::convert::Into<crate::model::key_operation_attestation::AttestationFormat>,
@@ -7676,6 +7677,8 @@ pub mod key_operation_attestation {
         /// Cavium HSM attestation V2 compressed with gzip. This is a new format
         /// introduced in Cavium's version 3.2-08.
         CaviumV2Compressed,
+        /// Cavium HSM attestation V209, introduced in Cavium's version 2.09-0702.
+        CaviumV209,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [AttestationFormat::value] or
@@ -7701,6 +7704,7 @@ pub mod key_operation_attestation {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::CaviumV1Compressed => std::option::Option::Some(3),
                 Self::CaviumV2Compressed => std::option::Option::Some(4),
+                Self::CaviumV209 => std::option::Option::Some(5),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -7714,6 +7718,7 @@ pub mod key_operation_attestation {
                 Self::Unspecified => std::option::Option::Some("ATTESTATION_FORMAT_UNSPECIFIED"),
                 Self::CaviumV1Compressed => std::option::Option::Some("CAVIUM_V1_COMPRESSED"),
                 Self::CaviumV2Compressed => std::option::Option::Some("CAVIUM_V2_COMPRESSED"),
+                Self::CaviumV209 => std::option::Option::Some("CAVIUM_V209"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -7738,6 +7743,7 @@ pub mod key_operation_attestation {
                 0 => Self::Unspecified,
                 3 => Self::CaviumV1Compressed,
                 4 => Self::CaviumV2Compressed,
+                5 => Self::CaviumV209,
                 _ => Self::UnknownValue(attestation_format::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -7752,6 +7758,7 @@ pub mod key_operation_attestation {
                 "ATTESTATION_FORMAT_UNSPECIFIED" => Self::Unspecified,
                 "CAVIUM_V1_COMPRESSED" => Self::CaviumV1Compressed,
                 "CAVIUM_V2_COMPRESSED" => Self::CaviumV2Compressed,
+                "CAVIUM_V209" => Self::CaviumV209,
                 _ => Self::UnknownValue(attestation_format::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -7768,6 +7775,7 @@ pub mod key_operation_attestation {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::CaviumV1Compressed => serializer.serialize_i32(3),
                 Self::CaviumV2Compressed => serializer.serialize_i32(4),
+                Self::CaviumV209 => serializer.serialize_i32(5),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

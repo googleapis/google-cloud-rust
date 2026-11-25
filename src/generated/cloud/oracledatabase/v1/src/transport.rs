@@ -56,7 +56,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -102,8 +102,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListCloudExadataInfrastructures")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -128,7 +128,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -174,8 +174,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/GetCloudExadataInfrastructure")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -200,7 +200,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -247,8 +247,97 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/CreateCloudExadataInfrastructure")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.cloud_exadata_infrastructure, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_cloud_exadata_infrastructure(
+        &self,
+        req: crate::model::UpdateCloudExadataInfrastructureRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, path_template) = None
+            .or_else(|| {
+                let var_cloud_exadata_infrastructure_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.cloud_exadata_infrastructure.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/cloudExadataInfrastructures/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_cloud_exadata_infrastructure_name,);
+                let path_template = "/v1/{cloud_exadata_infrastructure.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.cloud_exadata_infrastructure.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/cloudExadataInfrastructures/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "cloud_exadata_infrastructure.name",
+                        "projects/*/locations/*/cloudExadataInfrastructures/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/UpdateCloudExadataInfrastructure")
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -273,7 +362,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -321,8 +410,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/DeleteCloudExadataInfrastructure")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -348,7 +437,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -395,8 +484,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ConfigureExascaleCloudExadataInfrastructure")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -421,7 +510,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -468,8 +557,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/ListCloudVmClusters",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -494,7 +583,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -542,8 +631,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/GetCloudVmCluster",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -568,7 +657,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -614,8 +703,99 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/CreateCloudVmCluster",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.cloud_vm_cluster, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_cloud_vm_cluster(
+        &self,
+        req: crate::model::UpdateCloudVmClusterRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, path_template) = None
+            .or_else(|| {
+                let var_cloud_vm_cluster_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.cloud_vm_cluster.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/cloudVmClusters/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_cloud_vm_cluster_name,);
+                let path_template = "/v1/{cloud_vm_cluster.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.cloud_vm_cluster.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/cloudVmClusters/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "cloud_vm_cluster.name",
+                        "projects/*/locations/*/cloudVmClusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.oracledatabase.v1.OracleDatabase/UpdateCloudVmCluster",
+                    )
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -640,7 +820,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -690,8 +870,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/DeleteCloudVmCluster",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -706,6 +886,302 @@ impl super::stub::OracleDatabase for OracleDatabase {
         self.inner.execute(builder, body, options).await
     }
 
+    async fn enable_cloud_vm_cluster_identity_connector(
+        &self,
+        req: crate::model::EnableCloudVmClusterIdentityConnectorRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
+        let (builder, method, path_template, resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/cloudVmClusters/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:enableIdentityConnector", var_name,);
+                let path_template = "/v1/{name}:enableIdentityConnector";
+
+                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/cloudVmClusters/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/cloudVmClusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/EnableCloudVmClusterIdentityConnector")
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn disable_cloud_vm_cluster_identity_connector(
+        &self,
+        req: crate::model::DisableCloudVmClusterIdentityConnectorRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
+        let (builder, method, path_template, resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/cloudVmClusters/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:disableIdentityConnector", var_name,);
+                let path_template = "/v1/{name}:disableIdentityConnector";
+
+                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/cloudVmClusters/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/cloudVmClusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/DisableCloudVmClusterIdentityConnector")
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn enable_exadb_vm_cluster_identity_connector(
+        &self,
+        req: crate::model::EnableExadbVmClusterIdentityConnectorRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
+        let (builder, method, path_template, resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exadbVmClusters/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:enableIdentityConnector", var_name,);
+                let path_template = "/v1/{name}:enableIdentityConnector";
+
+                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/exadbVmClusters/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/exadbVmClusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/EnableExadbVmClusterIdentityConnector")
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn disable_exadb_vm_cluster_identity_connector(
+        &self,
+        req: crate::model::DisableExadbVmClusterIdentityConnectorRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
+        let (builder, method, path_template, resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exadbVmClusters/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:disableIdentityConnector", var_name,);
+                let path_template = "/v1/{name}:disableIdentityConnector";
+
+                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/exadbVmClusters/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/exadbVmClusters/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/DisableExadbVmClusterIdentityConnector")
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
     async fn list_entitlements(
         &self,
         req: crate::model::ListEntitlementsRequest,
@@ -716,7 +1192,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -762,8 +1238,81 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/ListEntitlements",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_flex_components(
+        &self,
+        req: crate::model::ListFlexComponentsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListFlexComponentsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, path_template, resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/flexComponents", var_parent,);
+                let path_template = "/v1/{parent}/flexComponents";
+
+                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.oracledatabase.v1.OracleDatabase/ListFlexComponents",
+                    )
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -788,7 +1337,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -836,8 +1385,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListDbServers")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -862,7 +1411,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -949,8 +1498,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListDbNodes")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -975,7 +1524,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1020,8 +1569,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListGiVersions")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1046,7 +1595,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1097,8 +1646,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/ListMinorVersions",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1123,7 +1672,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1170,8 +1719,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/ListDbSystemShapes",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1196,7 +1745,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1244,8 +1793,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/ListAutonomousDatabases",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1270,7 +1819,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1318,8 +1867,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/GetAutonomousDatabase",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1344,7 +1893,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1391,8 +1940,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/CreateAutonomousDatabase",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1417,7 +1966,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_autonomous_database_name = try_match(
                     Some(&req)
@@ -1483,7 +2032,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/UpdateAutonomousDatabase",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1508,7 +2057,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1557,8 +2106,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/DeleteAutonomousDatabase",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1584,7 +2133,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1633,8 +2182,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/RestoreAutonomousDatabase",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1660,7 +2209,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1707,8 +2256,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/GenerateAutonomousDatabaseWallet")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1733,7 +2282,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1779,8 +2328,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/ListAutonomousDbVersions",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1805,7 +2354,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1850,8 +2399,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListAutonomousDatabaseCharacterSets")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1876,7 +2425,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1921,8 +2470,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListAutonomousDatabaseBackups")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1948,7 +2497,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1997,8 +2546,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/StopAutonomousDatabase",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2024,7 +2573,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2073,8 +2622,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/StartAutonomousDatabase",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2100,7 +2649,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2149,8 +2698,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/RestartAutonomousDatabase",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2176,7 +2725,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2223,8 +2772,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/SwitchoverAutonomousDatabase")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2250,7 +2799,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2299,8 +2848,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/FailoverAutonomousDatabase",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2326,7 +2875,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2375,8 +2924,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/RefreshAutonomousDatabase",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2401,7 +2950,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2447,8 +2996,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/GetAutonomousDatabaseRefreshableClones")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2473,7 +3022,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2519,8 +3068,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListOdbNetworks")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2545,7 +3094,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2591,8 +3140,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/GetOdbNetwork")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2617,7 +3166,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2663,8 +3212,99 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/CreateOdbNetwork",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.odb_network, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_odb_network(
+        &self,
+        req: crate::model::UpdateOdbNetworkRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, path_template) = None
+            .or_else(|| {
+                let var_odb_network_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.odb_network.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/odbNetworks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_odb_network_name,);
+                let path_template = "/v1/{odb_network.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.odb_network.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/odbNetworks/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "odb_network.name",
+                        "projects/*/locations/*/odbNetworks/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.oracledatabase.v1.OracleDatabase/UpdateOdbNetwork",
+                    )
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2689,7 +3329,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2738,8 +3378,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/DeleteOdbNetwork",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2764,7 +3404,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2814,8 +3454,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListOdbSubnets")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2840,7 +3480,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2890,8 +3530,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/GetOdbSubnet")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2916,7 +3556,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2964,8 +3604,101 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/CreateOdbSubnet")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.odb_subnet, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_odb_subnet(
+        &self,
+        req: crate::model::UpdateOdbSubnetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, path_template) = None
+            .or_else(|| {
+                let var_odb_subnet_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.odb_subnet.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/odbNetworks/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/odbSubnets/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_odb_subnet_name,);
+                let path_template = "/v1/{odb_subnet.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.odb_subnet.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/odbNetworks/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/odbSubnets/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "odb_subnet.name",
+                        "projects/*/locations/*/odbNetworks/*/odbSubnets/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/UpdateOdbSubnet")
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2990,7 +3723,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3041,8 +3774,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/DeleteOdbSubnet")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3067,7 +3800,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3117,8 +3850,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListOdbDnsZones")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3143,7 +3876,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3193,8 +3926,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/GetOdbDnsZone")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3219,7 +3952,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3269,8 +4002,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/CreateOdbDnsZone",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3295,7 +4028,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3348,8 +4081,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/DeleteOdbDnsZone",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3374,7 +4107,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3422,8 +4155,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/ListExadbVmClusters",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3448,7 +4181,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3496,8 +4229,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/GetExadbVmCluster",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3522,7 +4255,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3568,8 +4301,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/CreateExadbVmCluster",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3594,7 +4327,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3643,8 +4376,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/DeleteExadbVmCluster",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3669,7 +4402,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_exadb_vm_cluster_name = try_match(
                     Some(&req)
@@ -3735,7 +4468,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/UpdateExadbVmCluster",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3761,7 +4494,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3808,8 +4541,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/RemoveVirtualMachineExadbVmCluster")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3834,7 +4567,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3882,8 +4615,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/ListExascaleDbStorageVaults",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3908,7 +4641,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3956,8 +4689,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/GetExascaleDbStorageVault",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3982,7 +4715,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4029,8 +4762,97 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/CreateExascaleDbStorageVault")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.exascale_db_storage_vault, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_exascale_db_storage_vault(
+        &self,
+        req: crate::model::UpdateExascaleDbStorageVaultRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, path_template) = None
+            .or_else(|| {
+                let var_exascale_db_storage_vault_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.exascale_db_storage_vault.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/exascaleDbStorageVaults/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_exascale_db_storage_vault_name,);
+                let path_template = "/v1/{exascale_db_storage_vault.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.exascale_db_storage_vault.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/exascaleDbStorageVaults/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "exascale_db_storage_vault.name",
+                        "projects/*/locations/*/exascaleDbStorageVaults/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/UpdateExascaleDbStorageVault")
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4055,7 +4877,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4102,8 +4924,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/DeleteExascaleDbStorageVault")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4128,7 +4950,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4172,8 +4994,79 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListDbSystemInitialStorageSizes")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_db_system_compute_performances(
+        &self,
+        req: crate::model::ListDbSystemComputePerformancesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDbSystemComputePerformancesResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, path_template, resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/dbSystemComputePerformances", var_parent,);
+                let path_template = "/v1/{parent}/dbSystemComputePerformances";
+
+                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListDbSystemComputePerformances")
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4198,7 +5091,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4243,8 +5136,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListDatabases")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4269,7 +5162,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4315,8 +5208,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/GetDatabase")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4341,7 +5234,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4388,8 +5281,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/ListPluggableDatabases",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4414,7 +5307,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4462,8 +5355,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/GetPluggableDatabase",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4488,7 +5381,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4534,8 +5427,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListDbSystems")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4560,7 +5453,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4606,8 +5499,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/GetDbSystem")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4632,7 +5525,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4676,8 +5569,97 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/CreateDbSystem")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.db_system, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_db_system(
+        &self,
+        req: crate::model::UpdateDbSystemRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, path_template) = None
+            .or_else(|| {
+                let var_db_system_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.db_system.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dbSystems/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_db_system_name,);
+                let path_template = "/v1/{db_system.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.db_system.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dbSystems/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "db_system.name",
+                        "projects/*/locations/*/dbSystems/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/UpdateDbSystem")
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4702,7 +5684,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4749,8 +5731,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/DeleteDbSystem")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4775,7 +5757,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4823,8 +5805,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/ListGoldengateDeployments",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4849,7 +5831,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4897,8 +5879,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/GetGoldengateDeployment",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4923,7 +5905,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4970,8 +5952,99 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/CreateGoldengateDeployment",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.goldengate_deployment, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_goldengate_deployment(
+        &self,
+        req: crate::model::UpdateGoldengateDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, path_template) = None
+            .or_else(|| {
+                let var_goldengate_deployment_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.goldengate_deployment.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/goldengateDeployments/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_goldengate_deployment_name,);
+                let path_template = "/v1/{goldengate_deployment.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.goldengate_deployment.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/goldengateDeployments/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "goldengate_deployment.name",
+                        "projects/*/locations/*/goldengateDeployments/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.oracledatabase.v1.OracleDatabase/UpdateGoldengateDeployment",
+                    )
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4996,7 +6069,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5045,8 +6118,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/DeleteGoldengateDeployment",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5072,7 +6145,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5121,8 +6194,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/StopGoldengateDeployment",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5148,7 +6221,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5197,8 +6270,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/StartGoldengateDeployment",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5223,7 +6296,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5271,8 +6344,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/ListGoldengateConnections",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5297,7 +6370,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5345,8 +6418,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/GetGoldengateConnection",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5371,7 +6444,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5418,8 +6491,99 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/CreateGoldengateConnection",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.goldengate_connection, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_goldengate_connection(
+        &self,
+        req: crate::model::UpdateGoldengateConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, path_template) = None
+            .or_else(|| {
+                let var_goldengate_connection_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.goldengate_connection.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/goldengateConnections/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_goldengate_connection_name,);
+                let path_template = "/v1/{goldengate_connection.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.goldengate_connection.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/goldengateConnections/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "goldengate_connection.name",
+                        "projects/*/locations/*/goldengateConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.oracledatabase.v1.OracleDatabase/UpdateGoldengateConnection",
+                    )
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5444,7 +6608,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5493,8 +6657,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/DeleteGoldengateConnection",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5519,7 +6683,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5564,8 +6728,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListGoldengateDeploymentVersions")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5590,7 +6754,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5636,8 +6800,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListGoldengateDeploymentTypes")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5662,7 +6826,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5706,8 +6870,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListGoldengateDeploymentEnvironments")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5732,7 +6896,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5777,8 +6941,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListGoldengateConnectionTypes")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5803,7 +6967,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5848,8 +7012,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListDbVersions")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5874,7 +7038,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5921,8 +7085,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
                     .set_rpc_method(
                         "google.cloud.oracledatabase.v1.OracleDatabase/ListDatabaseCharacterSets",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5947,7 +7111,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5993,8 +7157,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ListGoldengateConnectionAssignments")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6019,7 +7183,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6065,8 +7229,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/GetGoldengateConnectionAssignment")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6091,7 +7255,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6138,8 +7302,97 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/CreateGoldengateConnectionAssignment")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.goldengate_connection_assignment, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_goldengate_connection_assignment(
+        &self,
+        req: crate::model::UpdateGoldengateConnectionAssignmentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, path_template) = None
+            .or_else(|| {
+                let var_goldengate_connection_assignment_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.goldengate_connection_assignment.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/goldengateConnectionAssignments/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_goldengate_connection_assignment_name,);
+                let path_template = "/v1/{goldengate_connection_assignment.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.goldengate_connection_assignment.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/goldengateConnectionAssignments/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "goldengate_connection_assignment.name",
+                        "projects/*/locations/*/goldengateConnectionAssignments/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/UpdateGoldengateConnectionAssignment")
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6164,7 +7417,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6211,8 +7464,8 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/DeleteGoldengateConnectionAssignment")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6238,7 +7491,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6285,8 +7538,545 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/TestGoldengateConnectionAssignment")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_database_connections(
+        &self,
+        req: crate::model::ListDatabaseConnectionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDatabaseConnectionsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, path_template, resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/databaseConnections", var_parent,);
+                let path_template = "/v1/{parent}/databaseConnections";
+
+                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("orderBy", &req.order_by)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.oracledatabase.v1.OracleDatabase/ListDatabaseConnections",
+                    )
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_database_connection(
+        &self,
+        req: crate::model::GetDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DatabaseConnection>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, path_template, resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/databaseConnections/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databaseConnections/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/databaseConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.oracledatabase.v1.OracleDatabase/GetDatabaseConnection",
+                    )
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_database_connection(
+        &self,
+        req: crate::model::CreateDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, path_template, resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/databaseConnections", var_parent,);
+                let path_template = "/v1/{parent}/databaseConnections";
+
+                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder =
+                    builder.query(&[("databaseConnectionId", &req.database_connection_id)]);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.oracledatabase.v1.OracleDatabase/CreateDatabaseConnection",
+                    )
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.database_connection, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_database_connection(
+        &self,
+        req: crate::model::UpdateDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, path_template) = None
+            .or_else(|| {
+                let var_database_connection_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.database_connection.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/databaseConnections/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_database_connection_name,);
+                let path_template = "/v1/{database_connection.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.database_connection.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databaseConnections/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "database_connection.name",
+                        "projects/*/locations/*/databaseConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.oracledatabase.v1.OracleDatabase/UpdateDatabaseConnection",
+                    )
+                    .set_url_template(path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.database_connection, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_database_connection(
+        &self,
+        req: crate::model::DeleteDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, path_template, resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/databaseConnections/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databaseConnections/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/databaseConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.oracledatabase.v1.OracleDatabase/DeleteDatabaseConnection",
+                    )
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn test_database_connection(
+        &self,
+        req: crate::model::TestDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestDatabaseConnectionResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
+        let (builder, method, path_template, resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/databaseConnections/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:test", var_name,);
+                let path_template = "/v1/{name}:test";
+
+                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databaseConnections/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/databaseConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.oracledatabase.v1.OracleDatabase/TestDatabaseConnection",
+                    )
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn execute_sql(
+        &self,
+        req: crate::model::ExecuteSqlRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ExecuteSqlResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let mut req = req;
+        let (builder, method, path_template, resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/databaseConnections/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:executeSql", var_name,);
+                let path_template = "/v1/{name}:executeSql";
+
+                let resource_name = format!("//oracledatabase.googleapis.com/{}", var_name,);
+                let _ = Some(&mut req).map(|m| std::mem::take(&mut m.name));
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/databaseConnections/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/databaseConnections/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.oracledatabase.v1.OracleDatabase/ExecuteSql")
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6311,7 +8101,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6345,7 +8135,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/ListLocations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6370,7 +8160,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6411,7 +8201,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/GetLocation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6436,7 +8226,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6482,7 +8272,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6507,7 +8297,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6552,7 +8342,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6577,7 +8367,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6622,7 +8412,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6654,7 +8444,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6700,7 +8490,7 @@ impl super::stub::OracleDatabase for OracleDatabase {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(

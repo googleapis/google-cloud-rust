@@ -141,20 +141,18 @@ mod compute {
             .inspect_err(anydump)
     }
 
-    #[ignore = "TODO(#4894) - disabled because it was flaky"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_compute_instances() -> anyhow::Result<()> {
+    async fn run_compute_instance_groups() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_discovery::instances()
+        integration_tests_discovery::instance_groups()
             .await
             .inspect_err(anydump)
     }
 
-    #[ignore = "TODO(#4894) - disabled because it was flaky"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_compute_region_instances() -> anyhow::Result<()> {
+    async fn run_compute_region_health_checks() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_discovery::region_instances()
+        integration_tests_discovery::region_health_checks()
             .await
             .inspect_err(anydump)
     }

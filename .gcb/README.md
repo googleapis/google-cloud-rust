@@ -3,10 +3,12 @@
 This directory contains configuration files and scripts to support GCB (Google
 Cloud Build) builds.
 
-We generally prefer GHA (GitHub Actions) for CI (Continuous Integration):
-building the code, running unit test, run any linters or formatters.
-
-We use GCB for integration tests against production.
+While GHA (GitHub Actions) handles macOS and Windows builds, version checks, and
+user guide deployments, we run most Linux CI builds (unit tests, linters,
+formatters, feature matrices, MSRV, and docs) as well as integration tests
+against production on GCB. See
+[Howto-Guide: Update CI builds on Google Cloud Build](../doc/contributor/howto-guide-update-builds.md)
+for instructions on testing and adding new GCB builds.
 
 GCB can perform these operations with relatively simple management for
 authentication and authorization: the builds run using a service account
@@ -15,7 +17,7 @@ permissions to act on the test resources.
 
 In contrast, if we wanted to use GHA for the same role, we would need to either
 (1) download a service account key file and install it as a GHA secret, and
-manually rotate this secret, or (2) configure workload identify federation
+manually rotate this secret, or (2) configure workload identity federation
 between GitHub and our project. Neither approach is very easy to reason about
 from a security perspective.
 

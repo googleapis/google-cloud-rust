@@ -28,8 +28,8 @@ anyhow.workspace                 = true
 clap                             = { workspace = true, features = ["derive", "env", "help", "std", "usage"] }
 google-cloud-auth.workspace      = true
 google-cloud-bigquery            = { workspace = true, features = ["default-rustls-provider"] }
-humantime.workspace              = true
 integration-tests-o11y.workspace = true
+jiff                             = { workspace = true, features = ["std"] }
 opentelemetry                    = { workspace = true, features = ["metrics", "trace"] }
 opentelemetry_sdk                = { workspace = true, features = ["metrics", "rt-tokio", "trace"] }
 serde                            = { workspace = true, features = ["derive"] }

@@ -1,0 +1,52 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[package]
+description       = "Detects ToProto/FromProto changes that would break published crates."
+name              = "integration-tests-convert-canary"
+publish           = false
+version           = "0.0.0"
+edition.workspace = true
+license.workspace = true
+
+# Keep these dependencies minimal. Do not add any crate that implements
+# `ToProto` or `FromProto` for the types checked here (e.g. storage, logging-v2,
+# aiplatform-v1). Their impls are legitimate and would make the canary fail.
+#
+# Do include every crate that a published converter depends on and that can
+# reach `gaxi::prost` (today or by enabling `_internal-grpc-client`). The canary
+# only sees impls added by crates in its own dependency graph.
+[dev-dependencies]
+bytes.workspace = true
+# Enable every non-deprecated feature, so impls added behind any of them are visible.
+gaxi = { workspace = true, features = [
+  "_default-rustls-provider",
+  "_internal-grpc-client",
+  "_internal-http-client",
+  "_internal-http-multipart",
+  "_internal-http-stream",
+] }
+google-cloud-api.workspace = true
+google-cloud-iam-v1 = { workspace = true, features = ["default"] }
+google-cloud-location = { workspace = true, features = ["default"] }
+google-cloud-logging-type.workspace = true
+google-cloud-longrunning = { workspace = true, features = ["default"] }
+google-cloud-lro.workspace = true
+google-cloud-rpc.workspace = true
+google-cloud-type.workspace = true
+google-cloud-wkt.workspace = true
+prost-types.workspace = true
+
+[lints]
+workspace = true

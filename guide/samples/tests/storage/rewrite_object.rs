@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ANCHOR: all
+// [START rust_storage_rewrite_object_all] ANCHOR: all
 use gcs::Result;
 use gcs::builder::storage_control::RewriteObject;
 use gcs::client::StorageControl;
@@ -25,14 +25,14 @@ use google_cloud_storage as gcs;
 pub async fn rewrite_object(bucket_name: &str) -> anyhow::Result<()> {
     let source_object = upload(bucket_name).await?;
 
-    // ANCHOR: client
+    // [START rust_storage_rewrite_object_client] ANCHOR: client
     let control = StorageControl::builder()
         .with_retry_policy(RetryableErrors.with_attempt_limit(5))
         .build()
         .await?;
-    // ANCHOR_END: client
+    // [END rust_storage_rewrite_object_client] ANCHOR_END: client
 
-    // ANCHOR: builder
+    // [START rust_storage_rewrite_object_builder] ANCHOR: builder
     let mut builder = control
         .rewrite_object()
         .with_idempotency(true) // retry transient errors
@@ -40,38 +40,38 @@ pub async fn rewrite_object(bucket_name: &str) -> anyhow::Result<()> {
         .set_source_object(&source_object.name)
         .set_destination_bucket(bucket_name)
         .set_destination_name("rewrite-object-clone");
-    // ANCHOR_END: builder
+    // [END rust_storage_rewrite_object_builder] ANCHOR_END: builder
 
     // Optionally limit the max bytes written per request.
-    // ANCHOR: limit-bytes-per-call
+    // [START rust_storage_rewrite_object_limit_bytes_per_call] ANCHOR: limit-bytes-per-call
     builder = builder.set_max_bytes_rewritten_per_call(1024 * 1024);
-    // ANCHOR_END: limit-bytes-per-call
+    // [END rust_storage_rewrite_object_limit_bytes_per_call] ANCHOR_END: limit-bytes-per-call
 
     // Optionally change the storage class to force GCS to copy bytes
-    // ANCHOR: change-storage-class
+    // [START rust_storage_rewrite_object_change_storage_class] ANCHOR: change-storage-class
     builder = builder.set_destination(Object::new().set_storage_class("NEARLINE"));
-    // ANCHOR_END: change-storage-class
+    // [END rust_storage_rewrite_object_change_storage_class] ANCHOR_END: change-storage-class
 
-    // ANCHOR: loop
+    // [START rust_storage_rewrite_object_loop] ANCHOR: loop
     let dest_object = loop {
         let progress = make_one_request(builder.clone()).await?;
         match progress {
-            // ANCHOR: set-rewrite-token
+            // [START rust_storage_rewrite_object_set_rewrite_token] ANCHOR: set-rewrite-token
             RewriteProgress::Incomplete(rewrite_token) => {
                 builder = builder.set_rewrite_token(rewrite_token);
             }
-            // ANCHOR_END: set-rewrite-token
+            // [END rust_storage_rewrite_object_set_rewrite_token] ANCHOR_END: set-rewrite-token
             RewriteProgress::Done(object) => break object,
         };
     };
     println!("dest_object={dest_object:?}");
-    // ANCHOR_END: loop
+    // [END rust_storage_rewrite_object_loop] ANCHOR_END: loop
 
     cleanup(control, bucket_name, &source_object.name, &dest_object.name).await;
     Ok(())
 }
 
-// ANCHOR: make-one-request
+// [START rust_storage_rewrite_object_make_one_request] ANCHOR: make-one-request
 enum RewriteProgress {
     // This holds the rewrite token
     Incomplete(String),
@@ -96,7 +96,7 @@ async fn make_one_request(builder: RewriteObject) -> Result<RewriteProgress> {
     );
     Ok(RewriteProgress::Incomplete(resp.rewrite_token))
 }
-// ANCHOR_END: make-one-request
+// [END rust_storage_rewrite_object_make_one_request] ANCHOR_END: make-one-request
 
 // Upload an object to rewrite
 async fn upload(bucket_name: &str) -> anyhow::Result<Object> {
@@ -126,7 +126,7 @@ async fn cleanup(control: StorageControl, bucket_name: &str, o1: &str, o2: &str)
         .await;
     let _ = control.delete_bucket().set_name(bucket_name).send().await;
 }
-// ANCHOR_END: all
+// [END rust_storage_rewrite_object_all] ANCHOR_END: all
 
 pub async fn rewrite_object_until_done(bucket_name: &str) -> anyhow::Result<()> {
     let source_object = upload(bucket_name).await?;
@@ -144,10 +144,10 @@ pub async fn rewrite_object_until_done(bucket_name: &str) -> anyhow::Result<()> 
         .set_destination_bucket(bucket_name)
         .set_destination_name("rewrite-object-clone");
 
-    // ANCHOR: rewrite-until-done
+    // [START rust_storage_rewrite_object_rewrite_until_done] ANCHOR: rewrite-until-done
     use google_cloud_storage::builder_ext::RewriteObjectExt;
     let dest_object = builder.rewrite_until_done().await?;
     println!("dest_object={dest_object:?}");
-    // ANCHOR_END: rewrite-until-done
+    // [END rust_storage_rewrite_object_rewrite_until_done] ANCHOR_END: rewrite-until-done
     Ok(())
 }

@@ -911,6 +911,10 @@ impl FromValue for bool {
     }
 }
 
+/// Deserializes a 64-bit floating-point value from a Spanner [`Value`].
+///
+/// Accepts Spanner `TypeCode::Float64` and `TypeCode::Float32`.
+/// Values from `TypeCode::Float32` columns are widened to `f64` losslessly.
 impl FromValue for f64 {
     fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
         if spanner_type.code() != TypeCode::Float64 && spanner_type.code() != TypeCode::Float32 {
@@ -921,12 +925,7 @@ impl FromValue for f64 {
         }
         match &value.0.kind {
             Some(ProtoKind::NumberValue(n)) => Ok(*n),
-            Some(ProtoKind::StringValue(s)) => match s.as_str() {
-                "NaN" => Ok(f64::NAN),
-                "Infinity" => Ok(f64::INFINITY),
-                "-Infinity" => Ok(f64::NEG_INFINITY),
-                _ => s.parse().map_err(ConvertError::custom),
-            },
+            Some(ProtoKind::StringValue(s)) => s.parse().map_err(ConvertError::custom),
             Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
                 want: Kind::Number,
@@ -936,6 +935,25 @@ impl FromValue for f64 {
     }
 }
 
+fn is_infinity_literal(value: &str) -> bool {
+    let trimmed = value.trim();
+    let body = trimmed.strip_prefix(['+', '-']).unwrap_or(trimmed);
+    body.eq_ignore_ascii_case("inf") || body.eq_ignore_ascii_case("infinity")
+}
+
+/// Deserializes a 32-bit floating-point value from a Spanner [`Value`].
+///
+/// Accepts Spanner `TypeCode::Float32` and `TypeCode::Float64`.
+///
+/// # Precision & Range Limitations
+///
+/// When deserializing from a Spanner `TypeCode::Float64` column, 64-bit IEEE 754
+/// floating-point numbers are narrowed to 32-bit `f32`.
+///
+/// If a finite float value exceeds the representable range of `f32`
+/// (greater than [`f32::MAX`] or less than [`f32::MIN`] / `-f32::MAX`), this conversion
+/// returns a `ConvertError::Convert`. Non-finite values (`NaN`, `Infinity`,
+/// `+Infinity`, and `-Infinity`) are preserved.
 impl FromValue for f32 {
     fn from_value(value: &Value, spanner_type: &Type) -> Result<Self, ConvertError> {
         if spanner_type.code() != TypeCode::Float32 && spanner_type.code() != TypeCode::Float64 {
@@ -945,13 +963,24 @@ impl FromValue for f32 {
             });
         }
         match &value.0.kind {
-            Some(ProtoKind::NumberValue(n)) => Ok(*n as f32),
-            Some(ProtoKind::StringValue(s)) => match s.as_str() {
-                "NaN" => Ok(f32::NAN),
-                "Infinity" => Ok(f32::INFINITY),
-                "-Infinity" => Ok(f32::NEG_INFINITY),
-                _ => s.parse().map_err(ConvertError::custom),
-            },
+            Some(ProtoKind::NumberValue(number_value)) => {
+                let converted_value = *number_value as f32;
+                if number_value.is_finite() && converted_value.is_infinite() {
+                    return Err(ConvertError::message(format!(
+                        "float value '{number_value}' exceeds f32 range"
+                    )));
+                }
+                Ok(converted_value)
+            }
+            Some(ProtoKind::StringValue(string_value)) => {
+                let parsed_value: f32 = string_value.parse().map_err(ConvertError::custom)?;
+                if parsed_value.is_infinite() && !is_infinity_literal(string_value) {
+                    return Err(ConvertError::message(format!(
+                        "float value '{string_value}' exceeds f32 range"
+                    )));
+                }
+                Ok(parsed_value)
+            }
             Some(ProtoKind::NullValue(_)) | None => Err(ConvertError::NotNull),
             _ => Err(ConvertError::KindMismatch {
                 want: Kind::Number,
@@ -1337,6 +1366,454 @@ mod tests {
     }
 
     #[test]
+    fn from_value_f32_overflow_rejected() {
+        let test_cases = [
+            (
+                Value::from(1e300_f64),
+                types::float64(),
+                "positive f64 overflow in NumberValue",
+            ),
+            (
+                Value::from(-1e300_f64),
+                types::float64(),
+                "negative f64 overflow in NumberValue",
+            ),
+            (
+                Value::from(1e39_f64),
+                types::float64(),
+                "moderate positive overflow in NumberValue",
+            ),
+            (
+                Value::from(-1e39_f64),
+                types::float64(),
+                "moderate negative overflow in NumberValue",
+            ),
+            (
+                Value::from(f64::MAX),
+                types::float64(),
+                "extreme positive boundary f64::MAX in NumberValue",
+            ),
+            (
+                Value::from(f64::MIN),
+                types::float64(),
+                "extreme negative boundary f64::MIN in NumberValue",
+            ),
+            (
+                Value::from(3.4028236e38_f64),
+                types::float64(),
+                "positive float just above f32::MAX",
+            ),
+            (
+                Value::from(-3.4028236e38_f64),
+                types::float64(),
+                "negative float just below f32::MIN",
+            ),
+            (
+                "1e300".to_string().to_value(),
+                types::float32(),
+                "positive overflow in StringValue for FLOAT32",
+            ),
+            (
+                "-1e300".to_string().to_value(),
+                types::float32(),
+                "negative overflow in StringValue for FLOAT32",
+            ),
+            (
+                "1e300".to_string().to_value(),
+                types::float64(),
+                "positive overflow in StringValue for FLOAT64",
+            ),
+            (
+                "-1e300".to_string().to_value(),
+                types::float64(),
+                "negative overflow in StringValue for FLOAT64",
+            ),
+            (
+                "3.4028236e38".to_string().to_value(),
+                types::float32(),
+                "StringValue just above f32::MAX for FLOAT32",
+            ),
+            (
+                "-3.4028236e38".to_string().to_value(),
+                types::float32(),
+                "StringValue just below f32::MIN for FLOAT32",
+            ),
+            (
+                "3.4028236e38".to_string().to_value(),
+                types::float64(),
+                "StringValue just above f32::MAX for FLOAT64",
+            ),
+            (
+                "-3.4028236e38".to_string().to_value(),
+                types::float64(),
+                "StringValue just below f32::MIN for FLOAT64",
+            ),
+            (
+                "1e500".to_string().to_value(),
+                types::float32(),
+                "extreme positive overflow in StringValue for FLOAT32",
+            ),
+            (
+                "-1e500".to_string().to_value(),
+                types::float32(),
+                "extreme negative overflow in StringValue for FLOAT32",
+            ),
+            (
+                "1e500".to_string().to_value(),
+                types::float64(),
+                "extreme positive overflow in StringValue for FLOAT64",
+            ),
+            (
+                "-1e500".to_string().to_value(),
+                types::float64(),
+                "extreme negative overflow in StringValue for FLOAT64",
+            ),
+        ];
+
+        for (value, spanner_type, description) in test_cases {
+            let error = f32::from_value(&value, &spanner_type)
+                .expect_err(&format!("{description} must return ConvertError"));
+            let error_message = error.to_string();
+            assert!(
+                error_message.contains("exceeds f32 range"),
+                "expected 'exceeds f32 range' in error message for {description}, got: {error_message}"
+            );
+        }
+
+        // Verify boundary values within f32 range succeed
+        let max_f32_as_f64 = Value::from(f32::MAX as f64);
+        let parsed_max_f32 = f32::from_value(&max_f32_as_f64, &types::float64())
+            .expect("f32::MAX as f64 must convert successfully");
+        assert_eq!(parsed_max_f32, f32::MAX, "expected f32::MAX");
+
+        let min_f32_as_f64 = Value::from(f32::MIN as f64);
+        let parsed_min_f32 = f32::from_value(&min_f32_as_f64, &types::float64())
+            .expect("f32::MIN as f64 must convert successfully");
+        assert_eq!(parsed_min_f32, f32::MIN, "expected f32::MIN");
+
+        let zero_f64 = Value::from(0.0_f64);
+        let parsed_zero_f32 = f32::from_value(&zero_f64, &types::float64())
+            .expect("0.0 as f64 must convert successfully");
+        assert_eq!(parsed_zero_f32, 0.0_f32, "expected 0.0");
+
+        let negative_zero_f64 = Value::from(-0.0_f64);
+        let parsed_negative_zero_f32 = f32::from_value(&negative_zero_f64, &types::float64())
+            .expect("-0.0 as f64 must convert successfully");
+        assert_eq!(parsed_negative_zero_f32, -0.0_f32, "expected -0.0");
+        assert!(
+            parsed_negative_zero_f32.is_sign_negative(),
+            "expected negative zero to retain sign"
+        );
+
+        let string_max_value = "3.4028234e38".to_string().to_value();
+        let parsed_string_max = f32::from_value(&string_max_value, &types::float32())
+            .expect("valid string at f32 upper boundary must succeed");
+        assert_eq!(
+            parsed_string_max, 3.4028234e38_f32,
+            "expected valid f32 boundary representation for string max"
+        );
+
+        let string_min_value = "-3.4028234e38".to_string().to_value();
+        let parsed_string_min = f32::from_value(&string_min_value, &types::float32())
+            .expect("valid string at f32 lower boundary must succeed");
+        assert_eq!(
+            parsed_string_min, -3.4028234e38_f32,
+            "expected valid f32 boundary representation for string min"
+        );
+
+        let string_max_f64_value = "3.4028234e38".to_string().to_value();
+        let parsed_string_max_f64 = f32::from_value(&string_max_f64_value, &types::float64())
+            .expect("valid string at f32 upper boundary on FLOAT64 column must succeed");
+        assert_eq!(
+            parsed_string_max_f64, 3.4028234e38_f32,
+            "expected valid f32 upper boundary from FLOAT64 string"
+        );
+
+        let string_min_f64_value = "-3.4028234e38".to_string().to_value();
+        let parsed_string_min_f64 = f32::from_value(&string_min_f64_value, &types::float64())
+            .expect("valid string at f32 lower boundary on FLOAT64 column must succeed");
+        assert_eq!(
+            parsed_string_min_f64, -3.4028234e38_f32,
+            "expected valid f32 lower boundary from FLOAT64 string"
+        );
+
+        // Verify gradual underflow to zero
+        let underflow_f64 = Value::from(1e-50_f64);
+        let parsed_underflow_f32 = f32::from_value(&underflow_f64, &types::float64())
+            .expect("underflow f64 must convert to 0.0 without error");
+        assert_eq!(parsed_underflow_f32, 0.0_f32, "expected 0.0 on underflow");
+
+        let string_underflow_value = "1e-50".to_string().to_value();
+        let parsed_string_underflow = f32::from_value(&string_underflow_value, &types::float32())
+            .expect("underflow string must convert to 0.0 without error");
+        assert_eq!(
+            parsed_string_underflow, 0.0_f32,
+            "expected 0.0 on string underflow"
+        );
+
+        let string_underflow_f64_value = "1e-50".to_string().to_value();
+        let parsed_string_underflow_f64 =
+            f32::from_value(&string_underflow_f64_value, &types::float64())
+                .expect("underflow string on FLOAT64 column must convert to 0.0 without error");
+        assert_eq!(
+            parsed_string_underflow_f64, 0.0_f32,
+            "expected 0.0 on string underflow from FLOAT64"
+        );
+    }
+
+    #[test]
+    fn from_value_f32_non_finite_and_edge_cases() {
+        // "+Infinity" explicitly accepted across FLOAT32 and FLOAT64
+        let plus_infinity_value = "+Infinity".to_string().to_value();
+        let f32_plus_infinity = f32::from_value(&plus_infinity_value, &types::float32())
+            .expect("+Infinity must succeed for FLOAT32");
+        assert_eq!(
+            f32_plus_infinity,
+            f32::INFINITY,
+            "expected Infinity for +Infinity"
+        );
+
+        let f32_plus_infinity_f64 = f32::from_value(&plus_infinity_value, &types::float64())
+            .expect("+Infinity must succeed for FLOAT64");
+        assert_eq!(
+            f32_plus_infinity_f64,
+            f32::INFINITY,
+            "expected Infinity for +Infinity on FLOAT64"
+        );
+
+        let f64_plus_infinity = f64::from_value(&plus_infinity_value, &types::float64())
+            .expect("+Infinity must succeed for f64 on FLOAT64");
+        assert_eq!(
+            f64_plus_infinity,
+            f64::INFINITY,
+            "expected Infinity for +Infinity on f64 FLOAT64"
+        );
+
+        let f64_plus_infinity_from_f32 = f64::from_value(&plus_infinity_value, &types::float32())
+            .expect("+Infinity must succeed for f64 on FLOAT32");
+        assert_eq!(
+            f64_plus_infinity_from_f32,
+            f64::INFINITY,
+            "expected Infinity for +Infinity on f64 FLOAT32"
+        );
+
+        // FLOAT64 column non-finite strings into f32
+        let infinity_value = "Infinity".to_string().to_value();
+        let f32_infinity_f64 = f32::from_value(&infinity_value, &types::float64())
+            .expect("Infinity must succeed for FLOAT64");
+        assert_eq!(
+            f32_infinity_f64,
+            f32::INFINITY,
+            "expected Infinity for f32 on FLOAT64 column"
+        );
+
+        let negative_infinity_value = "-Infinity".to_string().to_value();
+        let f32_negative_infinity_f64 =
+            f32::from_value(&negative_infinity_value, &types::float64())
+                .expect("-Infinity must succeed for FLOAT64");
+        assert_eq!(
+            f32_negative_infinity_f64,
+            f32::NEG_INFINITY,
+            "expected -Infinity for f32 on FLOAT64 column"
+        );
+
+        let nan_value = "NaN".to_string().to_value();
+        let f32_nan_f64 =
+            f32::from_value(&nan_value, &types::float64()).expect("NaN must succeed for FLOAT64");
+        assert!(
+            f32_nan_f64.is_nan(),
+            "expected NaN for f32 on FLOAT64 column"
+        );
+
+        // Non-finite ProtoKind::NumberValue passes through
+        let number_infinity = Value(ProtoValue {
+            kind: Some(ProtoKind::NumberValue(f64::INFINITY)),
+        });
+        let parsed_number_infinity = f32::from_value(&number_infinity, &types::float64())
+            .expect("NumberValue(INFINITY) must pass through");
+        assert_eq!(
+            parsed_number_infinity,
+            f32::INFINITY,
+            "expected Infinity for NumberValue(f64::INFINITY)"
+        );
+
+        let number_negative_infinity = Value(ProtoValue {
+            kind: Some(ProtoKind::NumberValue(f64::NEG_INFINITY)),
+        });
+        let parsed_number_negative_infinity =
+            f32::from_value(&number_negative_infinity, &types::float64())
+                .expect("NumberValue(-INFINITY) must pass through");
+        assert_eq!(
+            parsed_number_negative_infinity,
+            f32::NEG_INFINITY,
+            "expected -Infinity for NumberValue(f64::NEG_INFINITY)"
+        );
+
+        let number_nan = Value(ProtoValue {
+            kind: Some(ProtoKind::NumberValue(f64::NAN)),
+        });
+        let parsed_number_nan = f32::from_value(&number_nan, &types::float64())
+            .expect("NumberValue(NAN) must pass through");
+        assert!(
+            parsed_number_nan.is_nan(),
+            "expected NaN for NumberValue(f64::NAN)"
+        );
+
+        // Type mismatches
+        let type_mismatch_int64 = f32::from_value(&42.5f32.to_value(), &types::int64())
+            .expect_err("f32 must reject INT64 column");
+        assert_eq!(
+            type_mismatch_int64.to_string(),
+            "type mismatch, expected Float32, got Int64",
+            "expected type mismatch for Int64"
+        );
+
+        let type_mismatch_numeric = f32::from_value(&42.5f32.to_value(), &types::numeric())
+            .expect_err("f32 must reject NUMERIC column");
+        assert_eq!(
+            type_mismatch_numeric.to_string(),
+            "type mismatch, expected Float32, got Numeric",
+            "expected type mismatch for Numeric"
+        );
+
+        let type_mismatch_bool = f32::from_value(&42.5f32.to_value(), &types::bool())
+            .expect_err("f32 must reject BOOL column");
+        assert_eq!(
+            type_mismatch_bool.to_string(),
+            "type mismatch, expected Float32, got Bool",
+            "expected type mismatch for Bool"
+        );
+
+        // Kind mismatch on FLOAT64 column
+        let kind_mismatch_error = f32::from_value(&Value::from(true), &types::float64())
+            .expect_err("f32 must reject boolean Value on FLOAT64 column");
+        assert!(
+            matches!(
+                kind_mismatch_error,
+                ConvertError::KindMismatch {
+                    want: Kind::Number,
+                    got: Kind::Bool,
+                }
+            ),
+            "expected KindMismatch {{ want: Kind::Number, got: Kind::Bool }} for bool Value on FLOAT64, got: {kind_mismatch_error}"
+        );
+
+        // Null checks: Value::null() (NullValue) and Value::default() (None kind)
+        let not_null_error = f32::from_value(&Value::null(), &types::float64())
+            .expect_err("f32 must reject null on FLOAT64 column");
+        assert_eq!(
+            not_null_error.to_string(),
+            "expected non-null value, got null",
+            "expected NotNull error for null on FLOAT64"
+        );
+
+        let default_none_error = f32::from_value(&Value::default(), &types::float64())
+            .expect_err("f32 must reject Value::default() with None kind on FLOAT64 column");
+        assert_eq!(
+            default_none_error.to_string(),
+            "expected non-null value, got null",
+            "expected NotNull error for default Value (None kind) on FLOAT64"
+        );
+
+        // Alternative infinity strings across FLOAT32 and FLOAT64
+        let alternative_infinities = vec![
+            ("inf", f32::INFINITY, f64::INFINITY),
+            ("+inf", f32::INFINITY, f64::INFINITY),
+            ("-inf", f32::NEG_INFINITY, f64::NEG_INFINITY),
+            ("infinity", f32::INFINITY, f64::INFINITY),
+            ("+infinity", f32::INFINITY, f64::INFINITY),
+            ("-infinity", f32::NEG_INFINITY, f64::NEG_INFINITY),
+            ("INF", f32::INFINITY, f64::INFINITY),
+            ("+INF", f32::INFINITY, f64::INFINITY),
+            ("-INF", f32::NEG_INFINITY, f64::NEG_INFINITY),
+            ("INFINITY", f32::INFINITY, f64::INFINITY),
+            ("-INFINITY", f32::NEG_INFINITY, f64::NEG_INFINITY),
+        ];
+
+        for (infinity_str, expected_f32, expected_f64) in alternative_infinities {
+            let value = infinity_str.to_string().to_value();
+            let parsed_f32_from_f32 = f32::from_value(&value, &types::float32())
+                .expect("infinity string must parse to f32 on FLOAT32");
+            assert_eq!(
+                parsed_f32_from_f32, expected_f32,
+                "expected {expected_f32} for '{infinity_str}' on FLOAT32"
+            );
+
+            let parsed_f32_from_f64 = f32::from_value(&value, &types::float64())
+                .expect("infinity string must parse to f32 on FLOAT64");
+            assert_eq!(
+                parsed_f32_from_f64, expected_f32,
+                "expected {expected_f32} for '{infinity_str}' on FLOAT64"
+            );
+
+            let parsed_f64_from_f64 = f64::from_value(&value, &types::float64())
+                .expect("infinity string must parse to f64 on FLOAT64");
+            assert_eq!(
+                parsed_f64_from_f64, expected_f64,
+                "expected {expected_f64} for '{infinity_str}' on FLOAT64"
+            );
+        }
+
+        // Non-numeric string on FLOAT64 column
+        let invalid_string_error =
+            f32::from_value(&"not-a-number".to_string().to_value(), &types::float64())
+                .expect_err("f32 must reject arbitrary string representation");
+        assert!(
+            format!("{invalid_string_error}").contains("invalid float literal"),
+            "expected invalid float literal error for f32 on FLOAT64"
+        );
+
+        // Malformed infinity strings
+        let invalid_inf_error =
+            f32::from_value(&"invalid inf".to_string().to_value(), &types::float64())
+                .expect_err("f32 must reject 'invalid inf'");
+        assert!(
+            format!("{invalid_inf_error}").contains("invalid float literal"),
+            "expected invalid float literal error for 'invalid inf', got: {invalid_inf_error}"
+        );
+
+        let inff_error = f32::from_value(&"inff".to_string().to_value(), &types::float64())
+            .expect_err("f32 must reject 'inff'");
+        assert!(
+            format!("{inff_error}").contains("invalid float literal"),
+            "expected invalid float literal error for 'inff', got: {inff_error}"
+        );
+    }
+
+    #[test]
+    fn is_infinity_literal_cases() {
+        let test_cases = [
+            ("inf", true),
+            ("INF", true),
+            ("Inf", true),
+            ("+inf", true),
+            ("-inf", true),
+            ("infinity", true),
+            ("Infinity", true),
+            ("INFINITY", true),
+            ("+Infinity", true),
+            ("-Infinity", true),
+            ("  inf  ", true),
+            ("  +infinity  ", true),
+            ("1e300", false),
+            ("-1e300", false),
+            ("1e500", false),
+            ("NaN", false),
+            ("inff", false),
+            ("invalid inf", false),
+            ("0.0", false),
+        ];
+
+        for (input_literal, expected_result) in test_cases {
+            assert_eq!(
+                is_infinity_literal(input_literal),
+                expected_result,
+                "mismatch for '{input_literal}'"
+            );
+        }
+    }
+
+    #[test]
     fn from_value_non_finite_float_containers() {
         // Option<f64>
         let nan_val = "NaN".to_string().to_value();
@@ -1419,6 +1896,161 @@ mod tests {
             "expected -Infinity in Vec<f32>[2]"
         );
         assert_eq!(parsed_f32_vec[3], 12.5, "expected 12.5 in Vec<f32>[3]");
+    }
+
+    #[test]
+    fn from_value_f32_containers_from_float64() {
+        // Vec<f32> from ARRAY<FLOAT64>
+        let float64_for_f32_vec = vec![1.5_f64, 2.5_f64];
+        let value_float64_for_f32 = float64_for_f32_vec.to_value();
+        let parsed_float32_from_float64 =
+            Vec::<f32>::from_value(&value_float64_for_f32, &types::array(types::float64()))
+                .expect("parse Vec<f32> from ARRAY<FLOAT64>");
+        assert_eq!(
+            parsed_float32_from_float64,
+            vec![1.5_f32, 2.5_f32],
+            "expected parsed Vec<f32> elements from FLOAT64"
+        );
+
+        // Vec<f32> from ARRAY<FLOAT64> with non-finite values
+        let float64_non_finite_vec = vec![f64::NAN, f64::INFINITY, f64::NEG_INFINITY];
+        let value_non_finite = float64_non_finite_vec.to_value();
+        let parsed_non_finite_f32 =
+            Vec::<f32>::from_value(&value_non_finite, &types::array(types::float64()))
+                .expect("parse Vec<f32> with non-finite values from ARRAY<FLOAT64>");
+        assert_eq!(
+            parsed_non_finite_f32.len(),
+            3,
+            "expected 3 non-finite elements"
+        );
+        assert!(
+            parsed_non_finite_f32[0].is_nan(),
+            "expected NaN in parsed non-finite Vec<f32>[0]"
+        );
+        assert_eq!(
+            parsed_non_finite_f32[1],
+            f32::INFINITY,
+            "expected Infinity in parsed non-finite Vec<f32>[1]"
+        );
+        assert_eq!(
+            parsed_non_finite_f32[2],
+            f32::NEG_INFINITY,
+            "expected -Infinity in parsed non-finite Vec<f32>[2]"
+        );
+
+        // Vec<Option<f32>> from ARRAY<FLOAT64> containing null, finite, and non-finite floats
+        let optional_float64_for_f32_vec = vec![
+            Some(1.5_f64),
+            None,
+            Some(f64::NAN),
+            Some(f64::INFINITY),
+            Some(f64::NEG_INFINITY),
+        ];
+        let value_optional_float64_for_f32 = optional_float64_for_f32_vec.to_value();
+        let parsed_optional_f32_from_f64 = Vec::<Option<f32>>::from_value(
+            &value_optional_float64_for_f32,
+            &types::array(types::float64()),
+        )
+        .expect("parse Vec<Option<f32>> from ARRAY<FLOAT64>");
+        assert_eq!(
+            parsed_optional_f32_from_f64.len(),
+            5,
+            "expected 5 elements in Vec<Option<f32>>"
+        );
+        assert_eq!(
+            parsed_optional_f32_from_f64[0],
+            Some(1.5_f32),
+            "expected Some(1.5) in Vec<Option<f32>>[0]"
+        );
+        assert_eq!(
+            parsed_optional_f32_from_f64[1], None,
+            "expected None in Vec<Option<f32>>[1]"
+        );
+        assert!(
+            parsed_optional_f32_from_f64[2].is_some_and(|value| value.is_nan()),
+            "expected Some(NaN) in Vec<Option<f32>>[2]"
+        );
+        assert_eq!(
+            parsed_optional_f32_from_f64[3],
+            Some(f32::INFINITY),
+            "expected Some(Infinity) in Vec<Option<f32>>[3]"
+        );
+        assert_eq!(
+            parsed_optional_f32_from_f64[4],
+            Some(f32::NEG_INFINITY),
+            "expected Some(-Infinity) in Vec<Option<f32>>[4]"
+        );
+
+        // Vec<Option<f32>> from ARRAY<FLOAT64> with overflowing value
+        let optional_float64_overflow_vec = vec![Some(1.0_f64), Some(1e300_f64)];
+        let value_optional_overflow = optional_float64_overflow_vec.to_value();
+        let optional_overflow_error = Vec::<Option<f32>>::from_value(
+            &value_optional_overflow,
+            &types::array(types::float64()),
+        )
+        .expect_err("Vec<Option<f32>> must reject overflowing FLOAT64 element");
+        assert!(
+            optional_overflow_error
+                .to_string()
+                .contains("exceeds f32 range"),
+            "expected 'exceeds f32 range' in Vec<Option<f32>> error, got: {optional_overflow_error}"
+        );
+
+        // Option<Vec<f32>> from ARRAY<FLOAT64>
+        let optional_vector_null =
+            Option::<Vec<f32>>::from_value(&Value::null(), &types::array(types::float64()))
+                .expect("Option<Vec<f32>> from null ARRAY<FLOAT64> must be Ok(None)");
+        assert_eq!(
+            optional_vector_null, None,
+            "expected None for null Option<Vec<f32>>"
+        );
+
+        let optional_vector_value =
+            Option::<Vec<f32>>::from_value(&value_float64_for_f32, &types::array(types::float64()))
+                .expect("Option<Vec<f32>> from populated ARRAY<FLOAT64> must succeed");
+        assert_eq!(
+            optional_vector_value,
+            Some(vec![1.5_f32, 2.5_f32]),
+            "expected Some([1.5, 2.5]) for Option<Vec<f32>>"
+        );
+
+        // Vec<f32> from ARRAY<FLOAT64> with overflowing value
+        let float64_overflow_vec = vec![1.0_f64, 1e300_f64];
+        let value_overflow = float64_overflow_vec.to_value();
+        let overflow_error =
+            Vec::<f32>::from_value(&value_overflow, &types::array(types::float64()))
+                .expect_err("Vec<f32> must reject overflowing FLOAT64 element");
+        assert!(
+            overflow_error.to_string().contains("exceeds f32 range"),
+            "expected 'exceeds f32 range' in Vec<f32> error, got: {overflow_error}"
+        );
+
+        // Option<f32> from FLOAT64
+        let optional_f32_null = Option::<f32>::from_value(&Value::null(), &types::float64())
+            .expect("Option<f32> from null FLOAT64 must be Ok(None)");
+        assert_eq!(
+            optional_f32_null, None,
+            "expected None for null Option<f32> from FLOAT64"
+        );
+
+        let optional_f32_value =
+            Option::<f32>::from_value(&Value::from(42.5_f64), &types::float64())
+                .expect("Option<f32> from 42.5 FLOAT64 must succeed");
+        assert_eq!(
+            optional_f32_value,
+            Some(42.5_f32),
+            "expected Some(42.5) for Option<f32> from FLOAT64"
+        );
+
+        let optional_f32_overflow_error =
+            Option::<f32>::from_value(&Value::from(1e300_f64), &types::float64())
+                .expect_err("Option<f32> must propagate overflow error");
+        assert!(
+            optional_f32_overflow_error
+                .to_string()
+                .contains("exceeds f32 range"),
+            "expected 'exceeds f32 range' in Option<f32> error, got: {optional_f32_overflow_error}"
+        );
     }
 
     #[test]

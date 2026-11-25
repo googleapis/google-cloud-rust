@@ -23,10 +23,17 @@ use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use std::future::Future;
 use tokio::sync::mpsc::Receiver;
 
+pub(crate) mod builder;
+pub(crate) mod segment_payload;
+pub(crate) mod stub;
+
+#[allow(dead_code)]
 pub(crate) type GrpcClient = gaxi::grpc::Client;
+#[allow(dead_code)]
 pub(crate) type GrpcStream = Streaming<BidiWriteSegmentResponse>;
 
 /// A trait to mock `Streaming<BidiWriteSegmentResponse>` in unit tests.
+#[allow(dead_code)]
 pub(crate) trait TonicStreaming: std::fmt::Debug + Send + 'static {
     fn next_message(
         &mut self,
@@ -40,6 +47,7 @@ impl TonicStreaming for GrpcStream {
 }
 
 /// A trait to mock `gaxi::grpc::Client` for parallel upload session RPCs in unit tests.
+#[allow(dead_code)]
 pub(crate) trait Client: Clone + std::fmt::Debug + Send + Sync + 'static {
     type Stream: TonicStreaming;
 

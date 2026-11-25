@@ -14,7 +14,7 @@
 
 //! Examples showing how to simulate LROs in tests.
 
-// ANCHOR: all
+// [START rust_mocking_lros_manual_all] ANCHOR: all
 use gax::Result;
 use gax::response::Response;
 use google_cloud_gax as gax;
@@ -29,7 +29,7 @@ use speech::model::{BatchRecognizeRequest, BatchRecognizeResponse, OperationMeta
 mod my_application {
     use super::*;
 
-    // ANCHOR: app-fn
+    // [START rust_mocking_lros_manual_app_fn] ANCHOR: app-fn
     pub struct BatchRecognizeResult {
         pub progress_updates: Vec<i32>,
         pub billed_duration: Result<Option<wkt::Duration>>,
@@ -88,7 +88,7 @@ mod my_application {
         // is never reached.
         unreachable!("loop should exit via the `Completed` branch.");
     }
-    // ANCHOR_END: app-fn
+    // [END rust_mocking_lros_manual_app_fn] ANCHOR_END: app-fn
 }
 
 #[cfg(test)]
@@ -96,7 +96,7 @@ mod tests {
     use super::my_application::*;
     use super::*;
 
-    // ANCHOR: mockall-macro
+    // [START rust_mocking_lros_manual_mockall_macro] ANCHOR: mockall-macro
     mockall::mock! {
         #[derive(Debug)]
         Speech {}
@@ -105,7 +105,7 @@ mod tests {
             async fn get_operation(&self, req: GetOperationRequest, _options: gax::options::RequestOptions) -> Result<Response<Operation>>;
         }
     }
-    // ANCHOR_END: mockall-macro
+    // [END rust_mocking_lros_manual_mockall_macro] ANCHOR_END: mockall-macro
 
     fn expected_duration() -> Option<wkt::Duration> {
         Some(wkt::Duration::clamp(100, 0))
@@ -125,18 +125,18 @@ mod tests {
         Ok(Response::from(operation))
     }
 
-    // ANCHOR: partial-op
+    // [START rust_mocking_lros_manual_partial_op] ANCHOR: partial-op
     fn make_partial_operation(progress: i32) -> Result<Response<Operation>> {
         let metadata = OperationMetadata::new().set_progress_percent(progress);
         let any = wkt::Any::from_msg(&metadata).expect("test message should succeed");
         let operation = Operation::new().set_metadata(any);
         Ok(Response::from(operation))
     }
-    // ANCHOR_END: partial-op
+    // [END rust_mocking_lros_manual_partial_op] ANCHOR_END: partial-op
 
     #[tokio::test]
     async fn manual_polling_with_metadata() -> Result<()> {
-        // ANCHOR: mock-expectations
+        // [START rust_mocking_lros_manual_mock_expectations] ANCHOR: mock-expectations
         let mut seq = mockall::Sequence::new();
         let mut mock = MockSpeech::new();
         mock.expect_batch_recognize()
@@ -155,9 +155,9 @@ mod tests {
             .once()
             .in_sequence(&mut seq)
             .returning(|_, _| make_finished_operation(&expected_response()));
-        // ANCHOR_END: mock-expectations
+        // [END rust_mocking_lros_manual_mock_expectations] ANCHOR_END: mock-expectations
 
-        // ANCHOR: client-call
+        // [START rust_mocking_lros_manual_client_call] ANCHOR: client-call
         // Create a client, implemented by our mock.
         let client = speech::client::Speech::from_stub(mock);
 
@@ -167,9 +167,9 @@ mod tests {
         // Verify the partial metadata updates, and the final result.
         assert_eq!(result.progress_updates, [25, 50, 75]);
         assert_eq!(result.billed_duration?, expected_duration());
-        // ANCHOR_END: client-call
+        // [END rust_mocking_lros_manual_client_call] ANCHOR_END: client-call
 
         Ok(())
     }
 }
-// ANCHOR_END: all
+// [END rust_mocking_lros_manual_all] ANCHOR_END: all

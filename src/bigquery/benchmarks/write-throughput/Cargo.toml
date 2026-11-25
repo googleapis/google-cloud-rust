@@ -32,6 +32,6 @@ bytes.workspace          = true
 clap                     = { workspace = true, features = ["derive", "env", "help", "std"] }
 google-cloud-bigquery    = { workspace = true, features = ["default-rustls-provider"] }
 google-cloud-bigquery-v2 = { workspace = true, features = ["default"] }
-humantime.workspace      = true
+jiff                     = { workspace = true, features = ["std"] }
 rand                     = { workspace = true }
 tokio                    = { workspace = true, features = ["full"] }

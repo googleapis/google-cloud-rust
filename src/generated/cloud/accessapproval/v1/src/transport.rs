@@ -56,7 +56,7 @@ impl super::stub::AccessApproval for AccessApproval {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -145,8 +145,8 @@ impl super::stub::AccessApproval for AccessApproval {
                     .set_rpc_method(
                         "google.cloud.accessapproval.v1.AccessApproval/ListApprovalRequests",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -171,7 +171,7 @@ impl super::stub::AccessApproval for AccessApproval {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -281,8 +281,8 @@ impl super::stub::AccessApproval for AccessApproval {
                     .set_rpc_method(
                         "google.cloud.accessapproval.v1.AccessApproval/GetApprovalRequest",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -308,7 +308,7 @@ impl super::stub::AccessApproval for AccessApproval {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -421,8 +421,8 @@ impl super::stub::AccessApproval for AccessApproval {
                     .set_rpc_method(
                         "google.cloud.accessapproval.v1.AccessApproval/ApproveApprovalRequest",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -448,7 +448,7 @@ impl super::stub::AccessApproval for AccessApproval {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -561,8 +561,8 @@ impl super::stub::AccessApproval for AccessApproval {
                     .set_rpc_method(
                         "google.cloud.accessapproval.v1.AccessApproval/DismissApprovalRequest",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -588,7 +588,7 @@ impl super::stub::AccessApproval for AccessApproval {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -701,8 +701,8 @@ impl super::stub::AccessApproval for AccessApproval {
                     .set_rpc_method(
                         "google.cloud.accessapproval.v1.AccessApproval/InvalidateApprovalRequest",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -727,7 +727,7 @@ impl super::stub::AccessApproval for AccessApproval {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -831,8 +831,8 @@ impl super::stub::AccessApproval for AccessApproval {
                     .set_rpc_method(
                         "google.cloud.accessapproval.v1.AccessApproval/GetAccessApprovalSettings",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -857,7 +857,7 @@ impl super::stub::AccessApproval for AccessApproval {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_settings_name = try_match(
                     Some(&req)
@@ -1016,8 +1016,8 @@ impl super::stub::AccessApproval for AccessApproval {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.accessapproval.v1.AccessApproval/UpdateAccessApprovalSettings")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1042,7 +1042,7 @@ impl super::stub::AccessApproval for AccessApproval {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1144,8 +1144,8 @@ impl super::stub::AccessApproval for AccessApproval {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.accessapproval.v1.AccessApproval/DeleteAccessApprovalSettings")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1176,7 +1176,7 @@ impl super::stub::AccessApproval for AccessApproval {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1275,7 +1275,7 @@ impl super::stub::AccessApproval for AccessApproval {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.accessapproval.v1.AccessApproval/GetAccessApprovalServiceAccount")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(

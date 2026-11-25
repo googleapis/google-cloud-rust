@@ -12,53 +12,53 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ANCHOR: quickstart
+// [START rust_storage_quickstart] ANCHOR: quickstart
 pub async fn sample(project_id: &str, bucket_id: &str) -> anyhow::Result<()> {
-    // ANCHOR: control-client
+    // [START rust_storage_quickstart_control_client] ANCHOR: control-client
     use google_cloud_storage as gcs;
     use google_cloud_storage::client::StorageControl;
     let control = StorageControl::builder().build().await?;
-    // ANCHOR_END: control-client
-    // ANCHOR: control-bucket-required
+    // [END rust_storage_quickstart_control_client] ANCHOR_END: control-client
+    // [START rust_storage_quickstart_control_bucket_required] ANCHOR: control-bucket-required
     let bucket = control
         .create_bucket()
         .set_parent("projects/_")
         .set_bucket_id(bucket_id)
         .set_bucket(
-            // ANCHOR: control-bucket-ubla
+            // [START rust_storage_quickstart_control_bucket_ubla] ANCHOR: control-bucket-ubla
             gcs::model::Bucket::new()
                 .set_project(format!("projects/{project_id}"))
-                // ANCHOR_END: control-bucket-required
+                // [END rust_storage_quickstart_control_bucket_required] ANCHOR_END: control-bucket-required
                 .set_iam_config(
                     gcs::model::bucket::IamConfig::new().set_uniform_bucket_level_access(
                         gcs::model::bucket::iam_config::UniformBucketLevelAccess::new()
                             .set_enabled(true),
                     ),
                 ),
-            // ANCHOR_END: control-bucket-ubla
-            // ANCHOR: control-bucket-required
+            // [END rust_storage_quickstart_control_bucket_ubla] ANCHOR_END: control-bucket-ubla
+            // [START rust_storage_quickstart_control_bucket_required] ANCHOR: control-bucket-required
         )
-        // ANCHOR_END: control-bucket-required
-        // ANCHOR: control-bucket-send
+        // [END rust_storage_quickstart_control_bucket_required] ANCHOR_END: control-bucket-required
+        // [START rust_storage_quickstart_control_bucket_send] ANCHOR: control-bucket-send
         .send()
         .await?;
     println!("bucket successfully created {bucket:?}");
-    // ANCHOR_END: control-bucket-send
+    // [END rust_storage_quickstart_control_bucket_send] ANCHOR_END: control-bucket-send
 
-    // ANCHOR: client
+    // [START rust_storage_quickstart_client] ANCHOR: client
     use google_cloud_storage::client::Storage;
     let client = Storage::builder().build().await?;
-    // ANCHOR_END: client
+    // [END rust_storage_quickstart_client] ANCHOR_END: client
 
-    // ANCHOR: upload
+    // [START rust_storage_quickstart_upload] ANCHOR: upload
     let object = client
         .write_object(&bucket.name, "hello.txt", "Hello World!")
         .send_buffered()
         .await?;
     println!("object successfully uploaded {object:?}");
-    // ANCHOR_END: upload
+    // [END rust_storage_quickstart_upload] ANCHOR_END: upload
 
-    // ANCHOR: download
+    // [START rust_storage_quickstart_download] ANCHOR: download
     let mut reader = client.read_object(&bucket.name, "hello.txt").send().await?;
     let mut contents = Vec::new();
     while let Some(chunk) = reader.next().await.transpose()? {
@@ -68,9 +68,9 @@ pub async fn sample(project_id: &str, bucket_id: &str) -> anyhow::Result<()> {
         "object contents successfully downloaded {:?}",
         bytes::Bytes::from_owner(contents)
     );
-    // ANCHOR_END: download
+    // [END rust_storage_quickstart_download] ANCHOR_END: download
 
-    // ANCHOR: cleanup
+    // [START rust_storage_quickstart_cleanup] ANCHOR: cleanup
     control
         .delete_object()
         .set_bucket(&bucket.name)
@@ -83,8 +83,8 @@ pub async fn sample(project_id: &str, bucket_id: &str) -> anyhow::Result<()> {
         .set_name(&bucket.name)
         .send()
         .await?;
-    // ANCHOR_END: cleanup
+    // [END rust_storage_quickstart_cleanup] ANCHOR_END: cleanup
 
     Ok(())
 }
-// ANCHOR_END: quickstart
+// [END rust_storage_quickstart] ANCHOR_END: quickstart

@@ -54,7 +54,7 @@ impl super::stub::DeveloperKnowledge for DeveloperKnowledge {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/documents:searchDocumentChunks".to_string();
                 let path_template = "/v1/documents:searchDocumentChunks";
@@ -81,7 +81,7 @@ impl super::stub::DeveloperKnowledge for DeveloperKnowledge {
                     .set_rpc_method(
                         "google.developers.knowledge.v1.DeveloperKnowledge/SearchDocumentChunks",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -106,7 +106,7 @@ impl super::stub::DeveloperKnowledge for DeveloperKnowledge {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -145,8 +145,8 @@ impl super::stub::DeveloperKnowledge for DeveloperKnowledge {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.developers.knowledge.v1.DeveloperKnowledge/GetDocument")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -169,7 +169,7 @@ impl super::stub::DeveloperKnowledge for DeveloperKnowledge {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1/documents:batchGet".to_string();
                 let path_template = "/v1/documents:batchGet";
@@ -197,7 +197,7 @@ impl super::stub::DeveloperKnowledge for DeveloperKnowledge {
                     .set_rpc_method(
                         "google.developers.knowledge.v1.DeveloperKnowledge/BatchGetDocuments",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -220,7 +220,7 @@ impl super::stub::DeveloperKnowledge for DeveloperKnowledge {
         use gaxi::http::reqwest::{HeaderValue, Method};
         use gaxi::path_parameter::PathMismatchBuilder;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let path = "/v1:answerQuery".to_string();
                 let path_template = "/v1:answerQuery";
@@ -241,7 +241,7 @@ impl super::stub::DeveloperKnowledge for DeveloperKnowledge {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.developers.knowledge.v1.DeveloperKnowledge/AnswerQuery")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(

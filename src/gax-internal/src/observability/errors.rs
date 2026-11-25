@@ -282,7 +282,7 @@ pub(crate) mod tests {
                 }
             }
 
-            let _ = TestLayer::initialize();
+            TestLayer::ensure_max_level_trace();
             let output = Arc::new(Mutex::new(Vec::new()));
             let subscriber = tracing_subscriber::fmt()
                 .json()

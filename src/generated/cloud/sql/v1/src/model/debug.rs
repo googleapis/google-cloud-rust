@@ -911,6 +911,32 @@ impl std::fmt::Debug for super::SqlInstancesRestartRequest {
     }
 }
 
+impl std::fmt::Debug for super::SqlInstancesStartRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SqlInstancesStartRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SqlInstancesStopRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SqlInstancesStopRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::SqlInstancesRestoreBackupRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SqlInstancesRestoreBackupRequest");
@@ -1630,6 +1656,8 @@ impl std::fmt::Debug for super::DatabaseInstance {
             "database_center_integration",
             &self.database_center_integration,
         );
+        debug_struct.field("workload_replay_config", &self.workload_replay_config);
+        debug_struct.field("workload_capture_config", &self.workload_capture_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1727,6 +1755,41 @@ impl std::fmt::Debug for super::blue_green_deployment_info::TargetRole {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TargetRole");
         debug_struct.field("source_id", &self.source_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::WorkloadReplayConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkloadReplayConfig");
+        debug_struct.field("workload_id", &self.workload_id);
+        debug_struct.field("source_instance", &self.source_instance);
+        debug_struct.field("replay_mode", &self.replay_mode);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::WorkloadCaptureConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkloadCaptureConfig");
+        debug_struct.field("workload_id", &self.workload_id);
+        debug_struct.field("capture_mode", &self.capture_mode);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("replay_instance", &self.replay_instance);
+        debug_struct.field("retention_days", &self.retention_days);
+        debug_struct.field("backup_id", &self.backup_id);
+        debug_struct.field("max_capture_duration", &self.max_capture_duration);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1972,6 +2035,20 @@ impl std::fmt::Debug for super::ReplicaConfiguration {
     }
 }
 
+impl std::fmt::Debug for super::SqlInstancesExecuteSqlReadOnlyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SqlInstancesExecuteSqlReadOnlyRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("body", &self.body);
+        debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::SqlInstancesExecuteSqlRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SqlInstancesExecuteSqlRequest");
@@ -1979,6 +2056,21 @@ impl std::fmt::Debug for super::SqlInstancesExecuteSqlRequest {
         debug_struct.field("project", &self.project);
         debug_struct.field("body", &self.body);
         debug_struct.field("location", &self.location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExecuteSqlReadOnlyPayload {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecuteSqlReadOnlyPayload");
+        debug_struct.field("user", &self.user);
+        debug_struct.field("sql_statement", &self.sql_statement);
+        debug_struct.field("database", &self.database);
+        debug_struct.field("row_limit", &self.row_limit);
+        debug_struct.field("user_password", &self.user_password);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1996,6 +2088,20 @@ impl std::fmt::Debug for super::ExecuteSqlPayload {
         debug_struct.field("partial_result_mode", &self.partial_result_mode);
         debug_struct.field("application", &self.application);
         debug_struct.field("user_password", &self.user_password);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SqlInstancesExecuteSqlReadOnlyResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SqlInstancesExecuteSqlReadOnlyResponse");
+        debug_struct.field("messages", &self.messages);
+        debug_struct.field("metadata", &self.metadata);
+        debug_struct.field("results", &self.results);
+        debug_struct.field("status", &self.status);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2147,6 +2253,32 @@ impl std::fmt::Debug for super::SqlInstancesPointInTimeRestoreRequest {
         let mut debug_struct = f.debug_struct("SqlInstancesPointInTimeRestoreRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("context", &self.context);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SqlInstancesReconcileNetworkingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SqlInstancesReconcileNetworkingRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("location", &self.location);
+        debug_struct.field("reconcile_data", &self.reconcile_data);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PscDnsReconcileNetworkingRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PscDnsReconcileNetworkingRequest");
+        debug_struct.field("networks", &self.networks);
+        debug_struct.field("force", &self.force);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3022,6 +3154,8 @@ impl std::fmt::Debug for super::Settings {
         debug_struct.field("collation", &self.collation);
         debug_struct.field("deny_maintenance_periods", &self.deny_maintenance_periods);
         debug_struct.field("insights_config", &self.insights_config);
+        debug_struct.field("msdtc_enabled", &self.msdtc_enabled);
+        debug_struct.field("msdtc_rpc_auth_mode", &self.msdtc_rpc_auth_mode);
         debug_struct.field(
             "password_validation_policy",
             &self.password_validation_policy,
@@ -3071,6 +3205,7 @@ impl std::fmt::Debug for super::Settings {
             "performance_capture_config",
             &self.performance_capture_config,
         );
+        debug_struct.field("initial_users_config", &self.initial_users_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3231,6 +3366,48 @@ impl std::fmt::Debug for super::SslCertDetail {
     }
 }
 
+impl std::fmt::Debug for super::DNSEntry {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DNSEntry");
+        debug_struct.field("dns", &self.dns);
+        debug_struct.field("ipv4_address", &self.ipv4_address);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CustomerManagedCertificate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomerManagedCertificate");
+        debug_struct.field("certificate_type", &self.certificate_type);
+        debug_struct.field("content", &self.content);
+        debug_struct.field("file_path", &self.file_path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CustomerManagedCertificateConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomerManagedCertificateConfig");
+        debug_struct.field("bundle", &self.bundle);
+        debug_struct.field("intent", &self.intent);
+        debug_struct.field("primary_dns_record", &self.primary_dns_record);
+        debug_struct.field(
+            "customer_managed_certificates",
+            &self.customer_managed_certificates,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::SqlActiveDirectoryConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SqlActiveDirectoryConfig");
@@ -3270,6 +3447,30 @@ impl std::fmt::Debug for super::SqlServerEntraIdConfig {
         debug_struct.field("kind", &self.kind);
         debug_struct.field("tenant_id", &self.tenant_id);
         debug_struct.field("application_id", &self.application_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::InitialUsersConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InitialUsersConfig");
+        debug_struct.field("initial_users", &self.initial_users);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::initial_users_config::InitialUser {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InitialUser");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("roles", &self.roles);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3333,6 +3534,7 @@ impl std::fmt::Debug for super::StartWorkloadReplayContext {
         let mut debug_struct = f.debug_struct("StartWorkloadReplayContext");
         debug_struct.field("replay_instance", &self.replay_instance);
         debug_struct.field("workload_id", &self.workload_id);
+        debug_struct.field("source_instance", &self.source_instance);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3431,6 +3633,64 @@ impl std::fmt::Debug for super::SslCertsListResponse {
         let mut debug_struct = f.debug_struct("SslCertsListResponse");
         debug_struct.field("kind", &self.kind);
         debug_struct.field("items", &self.items);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdateCustomerManagedCertificateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateCustomerManagedCertificateRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field(
+            "customer_managed_certificate_config",
+            &self.customer_managed_certificate_config,
+        );
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("certificate_bundle", &self.certificate_bundle);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteCustomerManagedCertificateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCustomerManagedCertificateRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("certificate_bundle", &self.certificate_bundle);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListCustomerManagedCertificatesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCustomerManagedCertificatesRequest");
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("project", &self.project);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListCustomerManagedCertificatesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListCustomerManagedCertificatesResponse");
+        debug_struct.field(
+            "customer_managed_certificates",
+            &self.customer_managed_certificates,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3742,6 +4002,7 @@ impl std::fmt::Debug for super::WorkloadCapture {
         debug_struct.field("replay_instance", &self.replay_instance);
         debug_struct.field("retention_days", &self.retention_days);
         debug_struct.field("backup_id", &self.backup_id);
+        debug_struct.field("capture_mode", &self.capture_mode);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

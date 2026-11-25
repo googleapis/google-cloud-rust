@@ -37,7 +37,7 @@ mod info {
 /// Implements [StorageControl](super::stub::StorageControl) using a gRPC client.
 #[derive(Clone)]
 pub struct StorageControl {
-    inner: gaxi::grpc::Client,
+    pub(crate) inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for StorageControl {
@@ -140,7 +140,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::CreateFolderRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -183,7 +184,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -202,7 +203,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -235,7 +236,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::DeleteFolderRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -278,7 +280,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -297,7 +299,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -330,7 +332,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::GetFolderRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -414,7 +417,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::ListFoldersRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -457,7 +461,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -476,7 +480,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -509,7 +513,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::RenameFolderRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -552,7 +557,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -571,7 +576,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -604,7 +609,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::DeleteFolderRecursiveRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -647,7 +652,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -666,7 +671,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -699,7 +704,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::GetStorageLayoutRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -772,7 +780,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::CreateManagedFolderRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -815,7 +823,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -834,7 +842,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -856,7 +864,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::DeleteManagedFolderRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -899,7 +907,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -918,7 +926,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -940,7 +948,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::GetManagedFolderRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1013,7 +1024,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::ListManagedFoldersRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1059,7 +1070,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -1081,7 +1092,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "managed_folder.name",
                     "projects/*/buckets/*/**",
@@ -1103,7 +1114,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::UpdateManagedFolderRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1176,7 +1187,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::CreateAnywhereCacheRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1222,7 +1233,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -1244,7 +1255,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "anywhere_cache.name",
                     "projects/*/buckets/*/**",
@@ -1266,7 +1277,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::UpdateAnywhereCacheRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1309,7 +1320,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -1328,7 +1339,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -1350,7 +1361,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::DisableAnywhereCacheRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1393,7 +1404,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -1412,7 +1423,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -1434,7 +1445,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::PauseAnywhereCacheRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1477,7 +1488,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -1496,7 +1507,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -1518,7 +1529,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::ResumeAnywhereCacheRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1561,7 +1572,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -1580,7 +1591,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -1602,7 +1613,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::GetAnywhereCacheRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1675,7 +1689,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::ListAnywhereCachesRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1748,7 +1762,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::CreateRapidCacheRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1794,7 +1811,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -1816,7 +1833,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "rapid_cache.name",
                     "projects/*/buckets/*/**",
@@ -1838,7 +1855,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::UpdateRapidCacheRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1881,7 +1901,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -1900,7 +1920,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -1922,7 +1942,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::DisableRapidCacheRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -1965,7 +1988,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -1984,7 +2007,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -2006,7 +2029,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::GetRapidCacheRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2079,7 +2103,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::ListRapidCachesRequest>::to_proto(
+                    req,
+                )
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2109,13 +2136,11 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/GetProjectIntelligenceConfig",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -2140,7 +2165,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::GetProjectIntelligenceConfigRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2170,14 +2195,12 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/UpdateProjectIntelligenceConfig",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .and_then(|m| m.intelligence_config.as_ref())
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("intelligence_config.name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("intelligence_config.name", v))]);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -2205,7 +2228,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<
+                    crate::google::storage::control::v2::UpdateProjectIntelligenceConfigRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2235,13 +2261,11 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/GetFolderIntelligenceConfig",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -2266,7 +2290,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::GetFolderIntelligenceConfigRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2296,14 +2320,12 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/UpdateFolderIntelligenceConfig",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .and_then(|m| m.intelligence_config.as_ref())
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("intelligence_config.name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("intelligence_config.name", v))]);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -2331,7 +2353,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::UpdateFolderIntelligenceConfigRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2361,13 +2383,11 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/GetOrganizationIntelligenceConfig",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -2392,7 +2412,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<
+                    crate::google::storage::control::v2::GetOrganizationIntelligenceConfigRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2422,14 +2445,12 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/UpdateOrganizationIntelligenceConfig",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .and_then(|m| m.intelligence_config.as_ref())
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("intelligence_config.name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("intelligence_config.name", v))]);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -2457,7 +2478,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::UpdateOrganizationIntelligenceConfigRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2500,7 +2521,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .or_else(|| {
@@ -2527,7 +2548,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "resource",
                     "projects/*/buckets/*/**",
@@ -2559,7 +2580,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::iam::v1::GetIamPolicyRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2602,7 +2624,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .or_else(|| {
@@ -2629,7 +2651,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "resource",
                     "projects/*/buckets/*/**",
@@ -2661,7 +2683,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::iam::v1::SetIamPolicyRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2705,7 +2728,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::SingleWildcard,
                         ],
                         &[
-                            Segment::Literal("managedFolders"),
+                            Segment::Literal("/managedFolders"),
                             Segment::TrailingMultiWildcard,
                         ],
                     )
@@ -2720,7 +2743,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::Literal("objects"), Segment::TrailingMultiWildcard],
+                        &[Segment::Literal("/objects"), Segment::TrailingMultiWildcard],
                     )
                 })
                 .or_else(|| {
@@ -2747,7 +2770,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("managedFolders"),
+                        Segment::Literal("/managedFolders"),
                         Segment::TrailingMultiWildcard,
                     ],
                     "resource",
@@ -2764,7 +2787,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::Literal("objects"),
+                        Segment::Literal("/objects"),
                         Segment::TrailingMultiWildcard,
                     ],
                     "resource",
@@ -2797,7 +2820,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::iam::v1::TestIamPermissionsRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2832,13 +2856,11 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/GetIntelligenceFinding",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = crate::google::storage::control::v2::IntelligenceFinding;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -2861,7 +2883,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::GetIntelligenceFindingRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -2891,13 +2913,11 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/ListIntelligenceFindings",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.parent)
             .map(|s| s.as_str())
-            .map(|v| format!("parent={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("parent", v))]);
 
         type TR = crate::google::storage::control::v2::ListIntelligenceFindingsResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -2922,15 +2942,13 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::ListIntelligenceFindingsRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .and_then(
-                gaxi::grpc::to_gax_response::<TR, crate::model::ListIntelligenceFindingsResponse>,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ListIntelligenceFindingsResponse>)
     }
 
     async fn summarize_intelligence_findings(
@@ -2954,13 +2972,11 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/SummarizeIntelligenceFindings",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.parent)
             .map(|s| s.as_str())
-            .map(|v| format!("parent={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("parent", v))]);
 
         type TR = crate::google::storage::control::v2::SummarizeIntelligenceFindingsResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -2985,18 +3001,13 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::SummarizeIntelligenceFindingsRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .and_then(
-                gaxi::grpc::to_gax_response::<
-                    TR,
-                    crate::model::SummarizeIntelligenceFindingsResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::SummarizeIntelligenceFindingsResponse>)
     }
 
     async fn get_intelligence_finding_revision(
@@ -3020,13 +3031,11 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/GetIntelligenceFindingRevision",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = crate::google::storage::control::v2::IntelligenceFindingRevision;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -3051,7 +3060,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::GetIntelligenceFindingRevisionRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -3081,13 +3090,11 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/ListIntelligenceFindingRevisions",
         );
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.parent)
             .map(|s| s.as_str())
-            .map(|v| format!("parent={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("parent", v))]);
 
         type TR = crate::google::storage::control::v2::ListIntelligenceFindingRevisionsResponse;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -3112,7 +3119,10 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<
+                    crate::google::storage::control::v2::ListIntelligenceFindingRevisionsRequest,
+                >::to_proto(req)
+                .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -3160,7 +3170,7 @@ impl super::stub::StorageControl for StorageControl {
                             Segment::Literal("/buckets/"),
                             Segment::SingleWildcard,
                         ],
-                        &[Segment::MultiWildcard],
+                        &[Segment::TrailingMultiWildcard],
                     )
                 })
                 .map(|v| ("bucket", v))])
@@ -3179,7 +3189,7 @@ impl super::stub::StorageControl for StorageControl {
                         Segment::SingleWildcard,
                         Segment::Literal("/buckets/"),
                         Segment::SingleWildcard,
-                        Segment::MultiWildcard,
+                        Segment::TrailingMultiWildcard,
                     ],
                     "name",
                     "projects/*/buckets/*/**",
@@ -3212,7 +3222,7 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::storage::control::v2::ViewObjectFullContextRequest>::to_proto(req).map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -3241,13 +3251,11 @@ impl super::stub::StorageControl for StorageControl {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.longrunning.Operations/GetOperation");
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         type TR = crate::google::longrunning::Operation;
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
@@ -3270,7 +3278,8 @@ impl super::stub::StorageControl for StorageControl {
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::deser)?,
+                ToProto::<crate::google::longrunning::GetOperationRequest>::to_proto(req)
+                    .map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
@@ -3306,78 +3315,78 @@ pub(crate) fn lro_any_to_prost(
         "" => Ok(prost_types::Any::default()),
         "type.googleapis.com/google.storage.control.v2.RenameFolderMetadata" => value
             .to_msg::<crate::model::RenameFolderMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::RenameFolderMetadata>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.Folder" => value
             .to_msg::<crate::model::Folder>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::Folder>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.DeleteFolderRecursiveMetadata" => value
             .to_msg::<crate::model::DeleteFolderRecursiveMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::DeleteFolderRecursiveMetadata>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.protobuf.Empty" => value
             .to_msg::<wkt::Empty>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::protobuf::Empty>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata" => value
             .to_msg::<crate::model::CreateAnywhereCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::CreateAnywhereCacheMetadata>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.AnywhereCache" => value
             .to_msg::<crate::model::AnywhereCache>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::AnywhereCache>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata" => value
             .to_msg::<crate::model::UpdateAnywhereCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::UpdateAnywhereCacheMetadata>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.CreateRapidCacheMetadata" => value
             .to_msg::<crate::model::CreateRapidCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::CreateRapidCacheMetadata>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.RapidCache" => value
             .to_msg::<crate::model::RapidCache>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::RapidCache>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.UpdateRapidCacheMetadata" => value
             .to_msg::<crate::model::UpdateRapidCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::UpdateRapidCacheMetadata>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
         "type.googleapis.com/google.storage.control.v2.DisableRapidCacheMetadata" => value
             .to_msg::<crate::model::DisableRapidCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .to_proto()
+            .map_err(ConvertError::other)
+            .and_then(ToProto::<crate::google::storage::control::v2::DisableRapidCacheMetadata>::to_proto)
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
@@ -3396,58 +3405,58 @@ pub(crate) fn lro_any_from_prost(
         "" => Ok(wkt::Any::default()),
         "type.googleapis.com/google.storage.control.v2.RenameFolderMetadata" => value
             .to_msg::<crate::google::storage::control::v2::RenameFolderMetadata>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::RenameFolderMetadata>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.Folder" => value
             .to_msg::<crate::google::storage::control::v2::Folder>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::Folder>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.DeleteFolderRecursiveMetadata" => value
             .to_msg::<crate::google::storage::control::v2::DeleteFolderRecursiveMetadata>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::DeleteFolderRecursiveMetadata>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.protobuf.Empty" => value
             .to_msg::<crate::google::protobuf::Empty>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<wkt::Empty>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata" => value
             .to_msg::<crate::google::storage::control::v2::CreateAnywhereCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::CreateAnywhereCacheMetadata>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.AnywhereCache" => value
             .to_msg::<crate::google::storage::control::v2::AnywhereCache>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::AnywhereCache>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.UpdateAnywhereCacheMetadata" => value
             .to_msg::<crate::google::storage::control::v2::UpdateAnywhereCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::UpdateAnywhereCacheMetadata>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.CreateRapidCacheMetadata" => value
             .to_msg::<crate::google::storage::control::v2::CreateRapidCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::CreateRapidCacheMetadata>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.RapidCache" => value
             .to_msg::<crate::google::storage::control::v2::RapidCache>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::RapidCache>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.UpdateRapidCacheMetadata" => value
             .to_msg::<crate::google::storage::control::v2::UpdateRapidCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::UpdateRapidCacheMetadata>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.DisableRapidCacheMetadata" => value
             .to_msg::<crate::google::storage::control::v2::DisableRapidCacheMetadata>()
-            .map_err(ConvertError::other)?
-            .cnv()
+            .map_err(ConvertError::other)
+            .and_then(FromProto::<crate::model::DisableRapidCacheMetadata>::cnv)
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         type_url => Err(ConvertError::UnexpectedTypeUrl(type_url.to_string())),
     }

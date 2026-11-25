@@ -27,9 +27,15 @@ use crate::routing::prepared_operation::{
 use bytes::Bytes;
 use std::collections::HashMap;
 use std::fmt::{self, Debug, Formatter};
-use std::mem::take;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, PoisonError, RwLock, RwLockReadGuard, RwLockWriteGuard};
+
+/// Default maximum number of table and index key recipes cached simultaneously.
+///
+/// Table and index recipe stores are each independently bounded to this limit (allowing up to
+/// 1,000 table recipes and up to 1,000 index recipes). Limits in-memory schema key recipe
+/// growth in large databases with many tables or dynamic schemas.
+pub(crate) const DEFAULT_SCHEMA_RECIPE_CACHE_CAPACITY: usize = 1_000;
 
 /// Default maximum number of SQL query recipes cached simultaneously.
 ///
@@ -39,9 +45,9 @@ pub(crate) const DEFAULT_QUERY_RECIPE_CACHE_CAPACITY: usize = 2_000;
 
 /// A concurrent, thread-safe cache for Spanner key recipes.
 ///
-/// Backed by [`RwLock`] around separate hash maps for tables, indexes, and queries, enabling
+/// Backed by [`RwLock`] around separate bounded stores for tables, indexes, and queries, enabling
 /// zero-allocation `&str` lookups, non-blocking concurrent reads across Tokio tasks, and
-/// scan-resistant CLOCK (Second-Chance) eviction for query recipes.
+/// scan-resistant CLOCK (Second-Chance) eviction.
 pub(crate) struct KeyRecipeCache {
     store: RwLock<RecipeStore>,
     next_operation_uid: AtomicU64,
@@ -64,15 +70,10 @@ impl Debug for KeyRecipeCache {
 }
 
 impl KeyRecipeCache {
-    /// Creates a new, empty [`KeyRecipeCache`] with the default query recipe capacity (`2,000`).
+    /// Creates a new, empty [`KeyRecipeCache`] with default schema (`1,000`) and query (`2,000`) recipe capacities.
     pub(crate) fn new() -> Self {
-        Self::with_query_capacity(DEFAULT_QUERY_RECIPE_CACHE_CAPACITY)
-    }
-
-    /// Creates a new, empty [`KeyRecipeCache`] with the specified query recipe capacity limit.
-    pub(crate) fn with_query_capacity(query_capacity: usize) -> Self {
         Self {
-            store: RwLock::new(RecipeStore::with_query_capacity(query_capacity)),
+            store: RwLock::new(RecipeStore::default()),
             next_operation_uid: AtomicU64::new(1),
         }
     }
@@ -108,25 +109,27 @@ impl KeyRecipeCache {
     /// Returns the cached recipe for a given database table name (`Read` RPC), if present.
     ///
     /// Accepts a `&str` slice with zero heap allocations on lookup.
-    /// Returning `Option<Arc<KeyRecipe>>` performs an inexpensive atomic reference count increment
-    /// (`Arc::clone`), which is necessary to release the underlying [`RwLock`] read guard immediately.
+    /// Marks the entry as recently referenced using a lock-free atomic store (`Ordering::Relaxed`),
+    /// granting it a second chance during CLOCK cache eviction without acquiring an exclusive write lock.
     ///
     /// Note on naming: Intentionally uses the `get_` prefix because fetching an item by key from a cache
     /// is a lookup operation, consistent with `HashMap::get`, `ConnectionCache::get_if_present`, and
     /// `KeyRangeCache::get_group`.
     pub(crate) fn get_table_recipe(&self, table_name: &str) -> Option<Arc<KeyRecipe>> {
-        self.read_store().tables.get(table_name).map(Arc::clone)
+        self.read_store().tables.get(table_name)
     }
 
     /// Returns the cached recipe for a given database index name (`Read` RPC on an index), if present.
     ///
     /// Accepts a `&str` slice with zero heap allocations on lookup.
+    /// Marks the entry as recently referenced using a lock-free atomic store (`Ordering::Relaxed`),
+    /// granting it a second chance during CLOCK cache eviction without acquiring an exclusive write lock.
     ///
     /// Note on naming: Intentionally uses the `get_` prefix because fetching an item by key from a cache
     /// is a lookup operation, consistent with `HashMap::get`, `ConnectionCache::get_if_present`, and
     /// `KeyRangeCache::get_group`.
     pub(crate) fn get_index_recipe(&self, index_name: &str) -> Option<Arc<KeyRecipe>> {
-        self.read_store().indexes.get(index_name).map(Arc::clone)
+        self.read_store().indexes.get(index_name)
     }
 
     /// Returns the cached recipe for a given SQL query operation UID, if present.
@@ -355,27 +358,36 @@ impl PreparedOperation for PreparedRead {
 /// to allow dropping memory allocations outside the write lock.
 #[allow(dead_code)] // Retained for deallocation outside write lock upon drop
 struct InvalidatedEntries {
-    tables: HashMap<String, Arc<KeyRecipe>>,
-    indexes: HashMap<String, Arc<KeyRecipe>>,
+    tables: HashMap<String, ClockEntry<Arc<KeyRecipe>>>,
+    indexes: HashMap<String, ClockEntry<Arc<KeyRecipe>>>,
     queries: HashMap<u64, ClockEntry<Arc<KeyRecipe>>>,
 }
 
 /// Internal storage for key recipes, separated by target type to allow zero-allocation
-/// `&str` lookups for tables and indexes, and bounded CLOCK (Second-Chance) storage for query recipes.
+/// `&str` lookups, and bounded CLOCK (Second-Chance) storage for tables, indexes, and query recipes.
 struct RecipeStore {
-    tables: HashMap<String, Arc<KeyRecipe>>,
-    indexes: HashMap<String, Arc<KeyRecipe>>,
+    tables: ClockStore<String, Arc<KeyRecipe>>,
+    indexes: ClockStore<String, Arc<KeyRecipe>>,
     queries: ClockStore<u64, Arc<KeyRecipe>>,
     prepared_queries: ClockStore<u64, PreparedQuery>,
     prepared_reads: ClockStore<u64, PreparedRead>,
     schema_generation: Option<Bytes>,
 }
 
+impl Default for RecipeStore {
+    fn default() -> Self {
+        Self::with_capacities(
+            DEFAULT_SCHEMA_RECIPE_CACHE_CAPACITY,
+            DEFAULT_QUERY_RECIPE_CACHE_CAPACITY,
+        )
+    }
+}
+
 impl RecipeStore {
-    fn with_query_capacity(query_capacity: usize) -> Self {
+    fn with_capacities(schema_capacity: usize, query_capacity: usize) -> Self {
         Self {
-            tables: HashMap::new(),
-            indexes: HashMap::new(),
+            tables: ClockStore::with_capacity(schema_capacity),
+            indexes: ClockStore::with_capacity(schema_capacity),
             queries: ClockStore::with_capacity(query_capacity),
             prepared_queries: ClockStore::with_capacity(query_capacity),
             prepared_reads: ClockStore::with_capacity(query_capacity),
@@ -396,10 +408,10 @@ impl RecipeStore {
     /// them allows the client to immediately re-request updated recipes under the new schema generation
     /// using their existing operation UIDs without thrashing or reallocation.
     ///
-    /// Returns the previous collections using [`take`] so deallocation can occur outside the write lock.
+    /// Returns the previous collections using [`ClockStore::take_all`] so deallocation can occur outside the write lock.
     fn invalidate_all(&mut self, new_schema_generation: Option<Bytes>) -> InvalidatedEntries {
-        let tables = take(&mut self.tables);
-        let indexes = take(&mut self.indexes);
+        let tables = self.tables.take_all();
+        let indexes = self.indexes.take_all();
         let queries = self.queries.take_all();
         self.schema_generation = new_schema_generation;
         InvalidatedEntries {
@@ -412,11 +424,35 @@ impl RecipeStore {
 
 #[cfg(test)]
 impl KeyRecipeCache {
+    /// Creates a new, empty [`KeyRecipeCache`] with the specified schema recipe capacity limit
+    /// and default query recipe capacity (`2,000`).
+    pub(crate) fn with_schema_capacity(schema_capacity: usize) -> Self {
+        Self {
+            store: RwLock::new(RecipeStore::with_capacities(
+                schema_capacity,
+                DEFAULT_QUERY_RECIPE_CACHE_CAPACITY,
+            )),
+            next_operation_uid: AtomicU64::new(1),
+        }
+    }
+
+    /// Creates a new, empty [`KeyRecipeCache`] with the specified query recipe capacity limit
+    /// and default schema recipe capacity (`1,000`).
+    pub(crate) fn with_query_capacity(query_capacity: usize) -> Self {
+        Self {
+            store: RwLock::new(RecipeStore::with_capacities(
+                DEFAULT_SCHEMA_RECIPE_CACHE_CAPACITY,
+                query_capacity,
+            )),
+            next_operation_uid: AtomicU64::new(1),
+        }
+    }
+
     /// Ingests a single [`KeyRecipe`] into the cache under a write lock.
     ///
     /// The lock guard is explicitly dropped before any displaced overwritten recipe is deallocated,
     /// ensuring heap deallocations for overwritten entries occur outside the critical section.
-    /// (Evicted entries from bounded query store capacity limits are dropped on removal under the write guard,
+    /// (Evicted entries from bounded schema or query store capacity limits are dropped on removal under the write guard,
     /// which is an $O(1)$ atomic reference counter decrement).
     ///
     /// Returns `true` if the recipe contained a target and was stored in the cache;
@@ -1202,6 +1238,494 @@ mod tests {
         assert!(
             cache.get_query_recipe(100).is_none(),
             "earlier ad-hoc query 100 must have been evicted"
+        );
+    }
+
+    #[test]
+    fn schema_table_recipe_cache_is_bounded_on_insert() {
+        let cache = KeyRecipeCache::with_schema_capacity(3);
+
+        for index in 1..=5 {
+            let table_name = format!("Table{index}");
+            let recipe = KeyRecipe::new().set_table_name(table_name);
+            assert!(cache.insert(recipe), "insert table recipe must succeed");
+        }
+
+        assert_eq!(
+            cache.len(),
+            3,
+            "cache length must not exceed configured schema capacity 3"
+        );
+
+        assert!(
+            cache.get_table_recipe("Table1").is_none(),
+            "Table1 must be evicted"
+        );
+        assert!(
+            cache.get_table_recipe("Table2").is_none(),
+            "Table2 must be evicted"
+        );
+        assert!(
+            cache.get_table_recipe("Table3").is_some(),
+            "Table3 must remain cached"
+        );
+        assert!(
+            cache.get_table_recipe("Table4").is_some(),
+            "Table4 must remain cached"
+        );
+        assert!(
+            cache.get_table_recipe("Table5").is_some(),
+            "Table5 must remain cached"
+        );
+    }
+
+    #[test]
+    fn schema_index_recipe_cache_is_bounded_on_insert() {
+        let cache = KeyRecipeCache::with_schema_capacity(2);
+
+        for index in 1..=3 {
+            let index_name = format!("Index{index}");
+            let recipe = KeyRecipe::new().set_index_name(index_name);
+            assert!(cache.insert(recipe), "insert index recipe must succeed");
+        }
+
+        assert_eq!(
+            cache.len(),
+            2,
+            "cache length must not exceed configured index capacity 2"
+        );
+
+        assert!(
+            cache.get_index_recipe("Index1").is_none(),
+            "Index1 must be evicted"
+        );
+        assert!(
+            cache.get_index_recipe("Index2").is_some(),
+            "Index2 must remain cached"
+        );
+        assert!(
+            cache.get_index_recipe("Index3").is_some(),
+            "Index3 must remain cached"
+        );
+    }
+
+    #[test]
+    fn schema_table_recipe_cache_clock_second_chance_eviction() {
+        let cache = KeyRecipeCache::with_schema_capacity(2);
+
+        assert!(
+            cache.insert(KeyRecipe::new().set_table_name("Table1")),
+            "insert Table1 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_table_name("Table2")),
+            "insert Table2 must succeed"
+        );
+
+        // Access Table1 (marks referenced = true)
+        let table_1 = cache.get_table_recipe("Table1");
+        assert!(table_1.is_some(), "Table1 must be retrieved");
+
+        // Table2 is not accessed (referenced = false)
+
+        // Insert Table3 (triggers CLOCK eviction)
+        assert!(
+            cache.insert(KeyRecipe::new().set_table_name("Table3")),
+            "insert Table3 must succeed"
+        );
+
+        assert_eq!(cache.len(), 2, "cache length must remain at capacity 2");
+        assert!(
+            cache.get_table_recipe("Table1").is_some(),
+            "Table1 received a second chance and must remain cached"
+        );
+        assert!(
+            cache.get_table_recipe("Table2").is_none(),
+            "unreferenced Table2 must be evicted"
+        );
+        assert!(
+            cache.get_table_recipe("Table3").is_some(),
+            "Table3 must be cached"
+        );
+    }
+
+    #[test]
+    fn schema_recipe_cache_zero_capacity() {
+        let cache = KeyRecipeCache::with_schema_capacity(0);
+
+        assert!(
+            cache.insert(KeyRecipe::new().set_table_name("Users")),
+            "insert table recipe returns true for valid target"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_index_name("UsersByEmail")),
+            "insert index recipe returns true for valid target"
+        );
+        assert_eq!(
+            cache.len(),
+            0,
+            "cache with zero schema capacity must store 0 schema recipes"
+        );
+        assert!(
+            cache.get_table_recipe("Users").is_none(),
+            "table Users must not be stored"
+        );
+        assert!(
+            cache.get_index_recipe("UsersByEmail").is_none(),
+            "index UsersByEmail must not be stored"
+        );
+
+        // Queries can still be stored up to query capacity
+        assert!(
+            cache.insert(KeyRecipe::new().set_operation_uid(42u64)),
+            "insert query recipe must succeed"
+        );
+        assert_eq!(cache.len(), 1, "query recipe must be stored");
+        assert!(
+            cache.get_query_recipe(42).is_some(),
+            "query recipe must be retrieved"
+        );
+    }
+
+    #[test]
+    fn clear_preserves_schema_capacity() {
+        let cache = KeyRecipeCache::with_schema_capacity(2);
+        assert!(
+            cache.insert(KeyRecipe::new().set_table_name("Table1")),
+            "insert Table1 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_table_name("Table2")),
+            "insert Table2 must succeed"
+        );
+        assert_eq!(cache.len(), 2, "cache length must be 2");
+
+        cache.clear();
+        assert!(cache.is_empty(), "cache must be empty after clear");
+
+        // Insert 3 new tables, schema capacity limit of 2 must still be enforced
+        assert!(
+            cache.insert(KeyRecipe::new().set_table_name("TableA")),
+            "insert TableA must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_table_name("TableB")),
+            "insert TableB must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_table_name("TableC")),
+            "insert TableC must succeed"
+        );
+
+        assert_eq!(
+            cache.len(),
+            2,
+            "schema capacity limit of 2 must be preserved after clear"
+        );
+        assert!(
+            cache.get_table_recipe("TableA").is_none(),
+            "TableA must be evicted"
+        );
+        assert!(
+            cache.get_table_recipe("TableB").is_some(),
+            "TableB must be present"
+        );
+        assert!(
+            cache.get_table_recipe("TableC").is_some(),
+            "TableC must be present"
+        );
+    }
+
+    #[test]
+    fn update_from_recipe_list_is_bounded_by_schema_capacity() {
+        let cache = KeyRecipeCache::with_schema_capacity(3);
+
+        let recipe_list = RecipeList::new()
+            .set_schema_generation(Bytes::from_static(b"gen1"))
+            .set_recipe(vec![
+                KeyRecipe::new().set_table_name("Table1"),
+                KeyRecipe::new().set_table_name("Table2"),
+                KeyRecipe::new().set_table_name("Table3"),
+                KeyRecipe::new().set_table_name("Table4"),
+                KeyRecipe::new().set_table_name("Table5"),
+            ]);
+        cache.update_from_recipe_list(recipe_list);
+
+        assert_eq!(
+            cache.len(),
+            3,
+            "cache must only retain up to schema capacity (3) recipes"
+        );
+        assert!(
+            cache.get_table_recipe("Table1").is_none(),
+            "Table1 must be evicted"
+        );
+        assert!(
+            cache.get_table_recipe("Table2").is_none(),
+            "Table2 must be evicted"
+        );
+        assert!(
+            cache.get_table_recipe("Table3").is_some(),
+            "Table3 must remain cached"
+        );
+        assert!(
+            cache.get_table_recipe("Table4").is_some(),
+            "Table4 must remain cached"
+        );
+        assert!(
+            cache.get_table_recipe("Table5").is_some(),
+            "Table5 must remain cached"
+        );
+    }
+
+    #[test]
+    fn schema_recipe_cache_is_bounded_on_insert_batch() {
+        let cache = KeyRecipeCache::with_schema_capacity(2);
+
+        cache.insert_batch(vec![
+            KeyRecipe::new().set_table_name("Table1"),
+            KeyRecipe::new().set_table_name("Table2"),
+            KeyRecipe::new().set_table_name("Table3"),
+        ]);
+
+        assert_eq!(
+            cache.len(),
+            2,
+            "schema table cache must not exceed capacity 2 on insert_batch"
+        );
+        assert!(
+            cache.get_table_recipe("Table1").is_none(),
+            "Table1 must be evicted"
+        );
+        assert!(
+            cache.get_table_recipe("Table2").is_some(),
+            "Table2 must be present"
+        );
+        assert!(
+            cache.get_table_recipe("Table3").is_some(),
+            "Table3 must be present"
+        );
+    }
+
+    #[test]
+    fn schema_index_recipe_cache_clock_second_chance_eviction() {
+        let cache = KeyRecipeCache::with_schema_capacity(2);
+
+        assert!(
+            cache.insert(KeyRecipe::new().set_index_name("Index1")),
+            "insert Index1 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_index_name("Index2")),
+            "insert Index2 must succeed"
+        );
+
+        // Access Index1 to mark referenced = true
+        let index_1 = cache.get_index_recipe("Index1");
+        assert!(index_1.is_some(), "Index1 must be retrieved");
+
+        // Insert Index3 (evicts unreferenced Index2, grants Index1 a second chance)
+        assert!(
+            cache.insert(KeyRecipe::new().set_index_name("Index3")),
+            "insert Index3 must succeed"
+        );
+
+        assert_eq!(cache.len(), 2, "cache length must remain at capacity 2");
+        assert!(
+            cache.get_index_recipe("Index1").is_some(),
+            "Index1 received a second chance and must remain cached"
+        );
+        assert!(
+            cache.get_index_recipe("Index2").is_none(),
+            "unreferenced Index2 must be evicted"
+        );
+        assert!(
+            cache.get_index_recipe("Index3").is_some(),
+            "Index3 must be cached"
+        );
+    }
+
+    #[test]
+    fn schema_recipe_cache_overwrite_does_not_evict() {
+        let cache = KeyRecipeCache::with_schema_capacity(2);
+
+        assert!(
+            cache.insert(KeyRecipe::new().set_table_name("Table1")),
+            "insert Table1 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_table_name("Table2")),
+            "insert Table2 must succeed"
+        );
+
+        // Overwrite Table1 with an updated recipe
+        let updated_table1 = KeyRecipe::new().set_table_name("Table1");
+        assert!(
+            cache.insert(updated_table1),
+            "overwrite Table1 must succeed"
+        );
+
+        // Both Table1 and Table2 must remain because an overwrite modifies existing entry, no eviction
+        assert_eq!(cache.len(), 2, "cache length must remain 2 after overwrite");
+        assert!(
+            cache.get_table_recipe("Table1").is_some(),
+            "Table1 must still be present"
+        );
+        assert!(
+            cache.get_table_recipe("Table2").is_some(),
+            "Table2 must still be present"
+        );
+    }
+
+    #[test]
+    fn schema_recipe_cache_extreme_capacity_bounds() {
+        let cache = KeyRecipeCache::with_schema_capacity(usize::MAX);
+        assert!(
+            cache.insert(KeyRecipe::new().set_table_name("Table1")),
+            "insert into cache with usize::MAX capacity must succeed"
+        );
+        assert_eq!(cache.len(), 1, "entry must be cached");
+        assert!(
+            cache.get_table_recipe("Table1").is_some(),
+            "Table1 must be retrieved"
+        );
+    }
+
+    #[test]
+    fn schema_table_and_index_stores_have_independent_capacities() {
+        let cache = KeyRecipeCache::with_schema_capacity(2);
+
+        // Ingest mixed RecipeList with 2 indexes and 3 tables
+        let recipe_list = RecipeList::new()
+            .set_schema_generation(Bytes::from_static(b"v1"))
+            .set_recipe(vec![
+                KeyRecipe::new().set_index_name("Index1"),
+                KeyRecipe::new().set_index_name("Index2"),
+                KeyRecipe::new().set_table_name("Table1"),
+                KeyRecipe::new().set_table_name("Table2"),
+                KeyRecipe::new().set_table_name("Table3"),
+            ]);
+        cache.update_from_recipe_list(recipe_list);
+
+        // Table1 was evicted because table capacity is 2; Index1 and Index2 are both intact
+        assert_eq!(
+            cache.len(),
+            4,
+            "cache should hold 2 tables and 2 indexes with independent limits"
+        );
+        assert!(
+            cache.get_table_recipe("Table1").is_none(),
+            "Table1 must be evicted from table store"
+        );
+        assert!(
+            cache.get_table_recipe("Table2").is_some(),
+            "Table2 must remain cached in table store"
+        );
+        assert!(
+            cache.get_table_recipe("Table3").is_some(),
+            "Table3 must remain cached in table store"
+        );
+        assert!(
+            cache.get_index_recipe("Index1").is_some(),
+            "Index1 must remain cached and unaffected by table churn"
+        );
+        assert!(
+            cache.get_index_recipe("Index2").is_some(),
+            "Index2 must remain cached and unaffected by table churn"
+        );
+
+        // Ingest 2 new indexes, churning the index store beyond its capacity
+        let index_churn = RecipeList::new()
+            .set_schema_generation(Bytes::from_static(b"v1"))
+            .set_recipe(vec![
+                KeyRecipe::new().set_index_name("Index3"),
+                KeyRecipe::new().set_index_name("Index4"),
+            ]);
+        cache.update_from_recipe_list(index_churn);
+
+        // Index store evicted Index1 and Index2; table store remains completely unaffected
+        assert_eq!(
+            cache.len(),
+            4,
+            "cache should still hold 2 tables and 2 indexes"
+        );
+        assert!(
+            cache.get_index_recipe("Index1").is_none(),
+            "Index1 must be evicted from index store"
+        );
+        assert!(
+            cache.get_index_recipe("Index2").is_none(),
+            "Index2 must be evicted from index store"
+        );
+        assert!(
+            cache.get_index_recipe("Index3").is_some(),
+            "Index3 must be present in index store"
+        );
+        assert!(
+            cache.get_index_recipe("Index4").is_some(),
+            "Index4 must be present in index store"
+        );
+        assert!(
+            cache.get_table_recipe("Table2").is_some(),
+            "Table2 must remain intact despite index churn"
+        );
+        assert!(
+            cache.get_table_recipe("Table3").is_some(),
+            "Table3 must remain intact despite index churn"
+        );
+    }
+
+    #[test]
+    fn schema_table_recipe_cache_overwrite_marks_referenced_for_second_chance() {
+        let cache = KeyRecipeCache::with_schema_capacity(2);
+
+        // Insert Table1 and Table2
+        assert!(
+            cache.insert(KeyRecipe::new().set_table_name("Table1")),
+            "insert Table1 must succeed"
+        );
+        assert!(
+            cache.insert(KeyRecipe::new().set_table_name("Table2")),
+            "insert Table2 must succeed"
+        );
+
+        // Overwrite Table1 with updated recipe (refreshes referenced bit)
+        let updated_table1 = KeyRecipe::new()
+            .set_table_name("Table1")
+            .set_part(vec![Part::new()]);
+        assert!(
+            cache.insert(updated_table1),
+            "overwrite Table1 must succeed"
+        );
+
+        // Insert Table3 (capacity limit 2 triggers eviction)
+        assert!(
+            cache.insert(KeyRecipe::new().set_table_name("Table3")),
+            "insert Table3 must succeed"
+        );
+
+        assert_eq!(cache.len(), 2, "cache length must remain at capacity 2");
+
+        // Table1 was overwritten, giving it a second chance to survive
+        let cached_table_1 = cache
+            .get_table_recipe("Table1")
+            .expect("overwritten Table1 must survive eviction via second chance");
+        assert_eq!(
+            cached_table_1.part.len(),
+            1,
+            "updated parts must be present"
+        );
+
+        // Table2 was older and unreferenced, so it must have been evicted
+        assert!(
+            cache.get_table_recipe("Table2").is_none(),
+            "unreferenced Table2 must be evicted"
+        );
+
+        // Table3 must be cached
+        assert!(
+            cache.get_table_recipe("Table3").is_some(),
+            "new Table3 must be cached"
         );
     }
 

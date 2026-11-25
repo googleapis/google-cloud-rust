@@ -211,6 +211,8 @@ impl std::fmt::Debug for super::Execution {
         debug_struct.field("retried_count", &self.retried_count);
         debug_struct.field("log_uri", &self.log_uri);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("client", &self.client);
+        debug_struct.field("client_version", &self.client_version);
         debug_struct.field("etag", &self.etag);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -227,6 +229,9 @@ impl std::fmt::Debug for super::ExecutionTemplate {
         debug_struct.field("parallelism", &self.parallelism);
         debug_struct.field("task_count", &self.task_count);
         debug_struct.field("template", &self.template);
+        debug_struct.field("delay_execution", &self.delay_execution);
+        debug_struct.field("client", &self.client);
+        debug_struct.field("client_version", &self.client_version);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -241,6 +246,20 @@ impl std::fmt::Debug for super::CreateInstanceRequest {
         debug_struct.field("instance", &self.instance);
         debug_struct.field("instance_id", &self.instance_id);
         debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdateInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateInstanceRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("allow_missing", &self.allow_missing);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -346,6 +365,7 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("vpc_access", &self.vpc_access);
         debug_struct.field("service_account", &self.service_account);
         debug_struct.field("containers", &self.containers);
+        debug_struct.field("sandboxes", &self.sandboxes);
         debug_struct.field("volumes", &self.volumes);
         debug_struct.field("encryption_key", &self.encryption_key);
         debug_struct.field(
@@ -363,7 +383,10 @@ impl std::fmt::Debug for super::Instance {
         );
         debug_struct.field("ingress", &self.ingress);
         debug_struct.field("invoker_iam_disabled", &self.invoker_iam_disabled);
+        debug_struct.field("default_uri_disabled", &self.default_uri_disabled);
         debug_struct.field("iap_enabled", &self.iap_enabled);
+        debug_struct.field("ssh_enabled", &self.ssh_enabled);
+        debug_struct.field("restart_policy", &self.restart_policy);
         debug_struct.field("observed_generation", &self.observed_generation);
         debug_struct.field("log_uri", &self.log_uri);
         debug_struct.field("terminal_condition", &self.terminal_condition);
@@ -503,6 +526,7 @@ impl std::fmt::Debug for super::run_job_request::Overrides {
         debug_struct.field("container_overrides", &self.container_overrides);
         debug_struct.field("task_count", &self.task_count);
         debug_struct.field("timeout", &self.timeout);
+        debug_struct.field("delay_execution", &self.delay_execution);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -550,6 +574,7 @@ impl std::fmt::Debug for super::Job {
         debug_struct.field("latest_created_execution", &self.latest_created_execution);
         debug_struct.field("reconciling", &self.reconciling);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("functional_type", &self.functional_type);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("create_execution", &self.create_execution);
         if !self._unknown_fields.is_empty() {
@@ -593,6 +618,7 @@ impl std::fmt::Debug for super::Container {
         debug_struct.field("depends_on", &self.depends_on);
         debug_struct.field("base_image_uri", &self.base_image_uri);
         debug_struct.field("build_info", &self.build_info);
+        debug_struct.field("sandbox_launcher", &self.sandbox_launcher);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -859,6 +885,29 @@ impl std::fmt::Debug for super::source_code::CloudStorageSource {
     }
 }
 
+impl std::fmt::Debug for super::source_code::SourceFile {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SourceFile");
+        debug_struct.field("filename", &self.filename);
+        debug_struct.field("content", &self.content);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::source_code::InlinedSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InlinedSource");
+        debug_struct.field("sources", &self.sources);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::GetRevisionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetRevisionRequest");
@@ -932,6 +981,7 @@ impl std::fmt::Debug for super::Revision {
         debug_struct.field("timeout", &self.timeout);
         debug_struct.field("service_account", &self.service_account);
         debug_struct.field("containers", &self.containers);
+        debug_struct.field("sandboxes", &self.sandboxes);
         debug_struct.field("volumes", &self.volumes);
         debug_struct.field("execution_environment", &self.execution_environment);
         debug_struct.field("encryption_key", &self.encryption_key);
@@ -952,11 +1002,15 @@ impl std::fmt::Debug for super::Revision {
         debug_struct.field("session_affinity", &self.session_affinity);
         debug_struct.field("scaling_status", &self.scaling_status);
         debug_struct.field("node_selector", &self.node_selector);
+        debug_struct.field("workload_identity_config", &self.workload_identity_config);
         debug_struct.field(
             "gpu_zonal_redundancy_disabled",
             &self.gpu_zonal_redundancy_disabled,
         );
         debug_struct.field("creator", &self.creator);
+        debug_struct.field("client", &self.client);
+        debug_struct.field("client_version", &self.client_version);
+        debug_struct.field("ambient_networking", &self.ambient_networking);
         debug_struct.field("etag", &self.etag);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -976,6 +1030,7 @@ impl std::fmt::Debug for super::RevisionTemplate {
         debug_struct.field("timeout", &self.timeout);
         debug_struct.field("service_account", &self.service_account);
         debug_struct.field("containers", &self.containers);
+        debug_struct.field("sandboxes", &self.sandboxes);
         debug_struct.field("volumes", &self.volumes);
         debug_struct.field("execution_environment", &self.execution_environment);
         debug_struct.field("encryption_key", &self.encryption_key);
@@ -995,10 +1050,42 @@ impl std::fmt::Debug for super::RevisionTemplate {
         debug_struct.field("session_affinity", &self.session_affinity);
         debug_struct.field("health_check_disabled", &self.health_check_disabled);
         debug_struct.field("node_selector", &self.node_selector);
+        debug_struct.field("workload_identity_config", &self.workload_identity_config);
         debug_struct.field(
             "gpu_zonal_redundancy_disabled",
             &self.gpu_zonal_redundancy_disabled,
         );
+        debug_struct.field("client", &self.client);
+        debug_struct.field("client_version", &self.client_version);
+        debug_struct.field("ambient_networking", &self.ambient_networking);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SandboxConfiguration {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SandboxConfiguration");
+        debug_struct.field("templates", &self.templates);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SandboxTemplate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SandboxTemplate");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("image", &self.image);
+        debug_struct.field("command", &self.command);
+        debug_struct.field("args", &self.args);
+        debug_struct.field("env", &self.env);
+        debug_struct.field("volume_mounts", &self.volume_mounts);
+        debug_struct.field("working_dir", &self.working_dir);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1027,6 +1114,7 @@ impl std::fmt::Debug for super::UpdateServiceRequest {
         debug_struct.field("service", &self.service);
         debug_struct.field("validate_only", &self.validate_only);
         debug_struct.field("allow_missing", &self.allow_missing);
+        debug_struct.field("force_new_revision", &self.force_new_revision);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1112,6 +1200,7 @@ impl std::fmt::Debug for super::Service {
         debug_struct.field("default_uri_disabled", &self.default_uri_disabled);
         debug_struct.field("urls", &self.urls);
         debug_struct.field("iap_enabled", &self.iap_enabled);
+        debug_struct.field("ssh_enabled", &self.ssh_enabled);
         debug_struct.field("multi_region_settings", &self.multi_region_settings);
         debug_struct.field("custom_audiences", &self.custom_audiences);
         debug_struct.field("observed_generation", &self.observed_generation);
@@ -1124,6 +1213,7 @@ impl std::fmt::Debug for super::Service {
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("threat_detection_enabled", &self.threat_detection_enabled);
         debug_struct.field("build_config", &self.build_config);
+        debug_struct.field("functional_type", &self.functional_type);
         debug_struct.field("reconciling", &self.reconciling);
         debug_struct.field("etag", &self.etag);
         if !self._unknown_fields.is_empty() {
@@ -1138,6 +1228,29 @@ impl std::fmt::Debug for super::service::MultiRegionSettings {
         let mut debug_struct = f.debug_struct("MultiRegionSettings");
         debug_struct.field("regions", &self.regions);
         debug_struct.field("multi_region_id", &self.multi_region_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UploadSourceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UploadSourceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("target", &self.target);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UploadSourceResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UploadSourceResponse");
+        debug_struct.field("cloud_storage_source", &self.cloud_storage_source);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1214,6 +1327,7 @@ impl std::fmt::Debug for super::Task {
         debug_struct.field("job", &self.job);
         debug_struct.field("execution", &self.execution);
         debug_struct.field("containers", &self.containers);
+        debug_struct.field("sandboxes", &self.sandboxes);
         debug_struct.field("volumes", &self.volumes);
         debug_struct.field("max_retries", &self.max_retries);
         debug_struct.field("timeout", &self.timeout);
@@ -1234,6 +1348,7 @@ impl std::fmt::Debug for super::Task {
             "gpu_zonal_redundancy_disabled",
             &self.gpu_zonal_redundancy_disabled,
         );
+        debug_struct.field("workload_identity_config", &self.workload_identity_config);
         debug_struct.field("etag", &self.etag);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1259,6 +1374,7 @@ impl std::fmt::Debug for super::TaskTemplate {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TaskTemplate");
         debug_struct.field("containers", &self.containers);
+        debug_struct.field("sandboxes", &self.sandboxes);
         debug_struct.field("volumes", &self.volumes);
         debug_struct.field("timeout", &self.timeout);
         debug_struct.field("service_account", &self.service_account);
@@ -1270,6 +1386,7 @@ impl std::fmt::Debug for super::TaskTemplate {
             "gpu_zonal_redundancy_disabled",
             &self.gpu_zonal_redundancy_disabled,
         );
+        debug_struct.field("workload_identity_config", &self.workload_identity_config);
         debug_struct.field("retries", &self.retries);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1350,6 +1467,8 @@ impl std::fmt::Debug for super::RevisionScaling {
         let mut debug_struct = f.debug_struct("RevisionScaling");
         debug_struct.field("min_instance_count", &self.min_instance_count);
         debug_struct.field("max_instance_count", &self.max_instance_count);
+        debug_struct.field("cpu_utilization", &self.cpu_utilization);
+        debug_struct.field("concurrency_utilization", &self.concurrency_utilization);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1361,6 +1480,18 @@ impl std::fmt::Debug for super::ServiceMesh {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServiceMesh");
         debug_struct.field("mesh", &self.mesh);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AmbientNetworking {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AmbientNetworking");
+        debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("ambient_scope", &self.ambient_scope);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1416,6 +1547,22 @@ impl std::fmt::Debug for super::BuildConfig {
         debug_struct.field("worker_pool", &self.worker_pool);
         debug_struct.field("environment_variables", &self.environment_variables);
         debug_struct.field("service_account", &self.service_account);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::WorkloadIdentityConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("WorkloadIdentityConfig");
+        debug_struct.field("identity", &self.identity);
+        debug_struct.field("identity_type", &self.identity_type);
+        debug_struct.field(
+            "identity_certificate_enabled",
+            &self.identity_certificate_enabled,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1551,6 +1698,7 @@ impl std::fmt::Debug for super::WorkerPoolRevisionTemplate {
         debug_struct.field("vpc_access", &self.vpc_access);
         debug_struct.field("service_account", &self.service_account);
         debug_struct.field("containers", &self.containers);
+        debug_struct.field("sandboxes", &self.sandboxes);
         debug_struct.field("volumes", &self.volumes);
         debug_struct.field("encryption_key", &self.encryption_key);
         debug_struct.field("service_mesh", &self.service_mesh);
@@ -1567,6 +1715,8 @@ impl std::fmt::Debug for super::WorkerPoolRevisionTemplate {
             "gpu_zonal_redundancy_disabled",
             &self.gpu_zonal_redundancy_disabled,
         );
+        debug_struct.field("client", &self.client);
+        debug_struct.field("client_version", &self.client_version);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

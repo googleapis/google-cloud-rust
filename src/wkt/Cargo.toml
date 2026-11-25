@@ -19,7 +19,7 @@ name        = "google-cloud-wkt"
 #     version of all downstream dependencies. For details see:
 #         https://github.com/googleapis/google-cloud-rust/issues/3237
 #         https://github.com/googleapis/google-cloud-rust/issues/3265
-version = "1.10.0"
+version = "1.11.0"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
 categories.workspace   = true
@@ -30,11 +30,14 @@ repository.workspace   = true
 rust-version.workspace = true
 
 [package.metadata.docs.rs]
-# Generate documentation for some of the optional conversions. It is too early
-# for `prost`.
+# Generate documentation for some of the optional conversions.
 features = ["chrono", "time"]
 
 [features]
+# DEPRECATED: The `chrono` crate is no longer maintained. Please move off of the
+# APIs gated by this feature.
+#
+# <https://rustsec.org/advisories/RUSTSEC-2026-0543.html>
 chrono = ["dep:chrono"]
 time   = []
 # DO NOT USE: this allows us to detect semver changes in types used in the
@@ -60,3 +63,6 @@ test-case.workspace = true
 time                = { workspace = true, features = ["formatting", "macros", "parsing"] }
 google-cloud-wkt    = { path = ".", features = ["chrono", "time"] }
 common              = { path = "tests/common" }
+
+[lints]
+workspace = true

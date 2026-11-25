@@ -57,7 +57,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -124,8 +124,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.securitycenter.v2.SecurityCenter/BatchCreateResourceValueConfigs")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -151,7 +151,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -336,8 +336,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/BulkMuteFindings",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -362,7 +362,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -475,8 +475,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/CreateBigQueryExport",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -501,7 +501,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -582,8 +582,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.securitycenter.v2.SecurityCenter/CreateFinding")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -608,7 +608,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -793,8 +793,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/CreateMuteConfig",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -819,7 +819,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -932,8 +932,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/CreateNotificationConfig",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -958,7 +958,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -990,8 +990,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.securitycenter.v2.SecurityCenter/CreateSource")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1016,7 +1016,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1138,8 +1138,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/DeleteBigQueryExport",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1170,7 +1170,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1391,8 +1391,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/DeleteMuteConfig",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1423,7 +1423,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1545,8 +1545,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/DeleteNotificationConfig",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1577,7 +1577,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1658,8 +1658,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/DeleteResourceValueConfig",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1690,7 +1690,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1812,8 +1812,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/GetBigQueryExport",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1838,7 +1838,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1917,8 +1917,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.securitycenter.v2.SecurityCenter/GetSimulation")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1943,7 +1943,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2032,8 +2032,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/GetValuedResource",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2059,7 +2059,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -2102,8 +2102,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.securitycenter.v2.SecurityCenter/GetIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2128,7 +2128,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2347,8 +2347,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.securitycenter.v2.SecurityCenter/GetMuteConfig")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2373,7 +2373,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2495,8 +2495,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/GetNotificationConfig",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2521,7 +2521,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2602,8 +2602,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/GetResourceValueConfig",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2628,7 +2628,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2670,8 +2670,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.securitycenter.v2.SecurityCenter/GetSource")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2697,7 +2697,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2922,8 +2922,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.securitycenter.v2.SecurityCenter/GroupFindings")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2948,7 +2948,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3187,8 +3187,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.securitycenter.v2.SecurityCenter/ListAttackPaths")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3213,7 +3213,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3329,8 +3329,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/ListBigQueryExports",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3355,7 +3355,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3670,8 +3670,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.securitycenter.v2.SecurityCenter/ListFindings")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3696,7 +3696,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3885,8 +3885,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.securitycenter.v2.SecurityCenter/ListMuteConfigs")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3911,7 +3911,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4027,8 +4027,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/ListNotificationConfigs",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4053,7 +4053,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4124,8 +4124,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/ListResourceValueConfigs",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4150,7 +4150,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4234,8 +4234,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.securitycenter.v2.SecurityCenter/ListSources")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4260,7 +4260,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4376,8 +4376,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/ListValuedResources",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4403,7 +4403,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4652,8 +4652,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.securitycenter.v2.SecurityCenter/SetFindingState")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4679,7 +4679,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -4722,8 +4722,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.securitycenter.v2.SecurityCenter/SetIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4749,7 +4749,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4998,8 +4998,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.securitycenter.v2.SecurityCenter/SetMute")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5025,7 +5025,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -5070,8 +5070,8 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/TestIamPermissions",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5096,7 +5096,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_big_query_export_name = try_match(
                     Some(&req)
@@ -5269,7 +5269,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/UpdateBigQueryExport",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5294,7 +5294,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_external_system_name = try_match(
                     Some(&req)
@@ -5665,7 +5665,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/UpdateExternalSystem",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5690,7 +5690,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_finding_name = try_match(
                     Some(&req)
@@ -6035,7 +6035,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.securitycenter.v2.SecurityCenter/UpdateFinding")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6060,7 +6060,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_mute_config_name = try_match(
                     Some(&req)
@@ -6383,7 +6383,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/UpdateMuteConfig",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6408,7 +6408,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_notification_config_name = try_match(
                     Some(&req)
@@ -6581,7 +6581,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/UpdateNotificationConfig",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6606,7 +6606,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_resource_value_config_name = try_match(
                     Some(&req)
@@ -6721,7 +6721,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/UpdateResourceValueConfig",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6746,7 +6746,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_security_marks_name = try_match(
                     Some(&req)
@@ -7261,7 +7261,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
                     .set_rpc_method(
                         "google.cloud.securitycenter.v2.SecurityCenter/UpdateSecurityMarks",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -7286,7 +7286,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_source_name = try_match(
                     Some(&req)
@@ -7345,7 +7345,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.securitycenter.v2.SecurityCenter/UpdateSource")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -7370,7 +7370,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7414,7 +7414,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -7439,7 +7439,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7480,7 +7480,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -7505,7 +7505,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7546,7 +7546,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/DeleteOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -7577,7 +7577,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7618,7 +7618,7 @@ impl super::stub::SecurityCenter for SecurityCenter {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(

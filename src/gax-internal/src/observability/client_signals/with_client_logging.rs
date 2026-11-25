@@ -303,7 +303,7 @@ mod tests {
     }
 
     fn capture_logs() -> (DefaultGuard, Buffer) {
-        let _ = TestLayer::initialize();
+        TestLayer::ensure_max_level_trace();
         let buffer = Buffer::default();
         let make_writer = {
             let shared = buffer.clone();

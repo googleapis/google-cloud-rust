@@ -90,7 +90,9 @@ impl ApiHub {
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
-    /// client's behavior.
+    /// client's behavior. See the [mocking guide] for more information.
+    ///
+    /// [mocking guide]: https://docs.cloud.google.com/rust/docs/mocking
     pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::ApiHub + 'static,
@@ -1435,7 +1437,9 @@ impl ApiHubDependencies {
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
-    /// client's behavior.
+    /// client's behavior. See the [mocking guide] for more information.
+    ///
+    /// [mocking guide]: https://docs.cloud.google.com/rust/docs/mocking
     pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::ApiHubDependencies + 'static,
@@ -1801,7 +1805,9 @@ impl ApiHubCollect {
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
-    /// client's behavior.
+    /// client's behavior. See the [mocking guide] for more information.
+    ///
+    /// [mocking guide]: https://docs.cloud.google.com/rust/docs/mocking
     pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::ApiHubCollect + 'static,
@@ -2076,7 +2082,9 @@ impl ApiHubCurate {
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
-    /// client's behavior.
+    /// client's behavior. See the [mocking guide] for more information.
+    ///
+    /// [mocking guide]: https://docs.cloud.google.com/rust/docs/mocking
     pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::ApiHubCurate + 'static,
@@ -2448,7 +2456,9 @@ impl ApiHubDiscovery {
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
-    /// client's behavior.
+    /// client's behavior. See the [mocking guide] for more information.
+    ///
+    /// [mocking guide]: https://docs.cloud.google.com/rust/docs/mocking
     pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::ApiHubDiscovery + 'static,
@@ -2790,7 +2800,9 @@ impl HostProjectRegistrationService {
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
-    /// client's behavior.
+    /// client's behavior. See the [mocking guide] for more information.
+    ///
+    /// [mocking guide]: https://docs.cloud.google.com/rust/docs/mocking
     pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::HostProjectRegistrationService + 'static,
@@ -3124,7 +3136,9 @@ impl LintingService {
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
-    /// client's behavior.
+    /// client's behavior. See the [mocking guide] for more information.
+    ///
+    /// [mocking guide]: https://docs.cloud.google.com/rust/docs/mocking
     pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::LintingService + 'static,
@@ -3456,7 +3470,9 @@ impl ApiHubPlugin {
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
-    /// client's behavior.
+    /// client's behavior. See the [mocking guide] for more information.
+    ///
+    /// [mocking guide]: https://docs.cloud.google.com/rust/docs/mocking
     pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::ApiHubPlugin + 'static,
@@ -4096,7 +4112,9 @@ impl Provisioning {
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
-    /// client's behavior.
+    /// client's behavior. See the [mocking guide] for more information.
+    ///
+    /// [mocking guide]: https://docs.cloud.google.com/rust/docs/mocking
     pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::Provisioning + 'static,
@@ -4447,7 +4465,9 @@ impl RuntimeProjectAttachmentService {
     /// Creates a new client from the provided stub.
     ///
     /// The most common case for calling this function is in tests mocking the
-    /// client's behavior.
+    /// client's behavior. See the [mocking guide] for more information.
+    ///
+    /// [mocking guide]: https://docs.cloud.google.com/rust/docs/mocking
     pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::RuntimeProjectAttachmentService + 'static,

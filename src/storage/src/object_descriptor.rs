@@ -54,6 +54,14 @@ use std::sync::Arc;
 /// You should actively read from all concurrent reads: the client library uses
 /// separate buffers for each `read_range()` call, but once a buffer is full the
 /// library will stop delivering data to **all** the concurrent reads.
+///
+/// The client library can automatically resume reads interrupted by transient
+/// errors. If the underlying stream closes unexpectedly or fails with an
+/// unrecoverable error, the reads in progress and any later reads return an
+/// error with [ReadError::UnrecoverableBidiReadInterrupt] as its source. Open a
+/// new `ObjectDescriptor` to continue reading.
+///
+/// [ReadError::UnrecoverableBidiReadInterrupt]: crate::error::ReadError::UnrecoverableBidiReadInterrupt
 #[derive(Debug, Clone)]
 pub struct ObjectDescriptor {
     inner: Arc<dyn ObjectDescriptorStub>,

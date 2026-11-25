@@ -56,7 +56,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -137,8 +137,8 @@ impl super::stub::DataTransferService for DataTransferService {
                     .set_rpc_method(
                         "google.cloud.bigquery.datatransfer.v1.DataTransferService/GetDataSource",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -163,7 +163,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -236,8 +236,8 @@ impl super::stub::DataTransferService for DataTransferService {
                     .set_rpc_method(
                         "google.cloud.bigquery.datatransfer.v1.DataTransferService/ListDataSources",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -262,7 +262,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -335,8 +335,8 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.bigquery.datatransfer.v1.DataTransferService/CreateTransferConfig")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -361,7 +361,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_transfer_config_name = try_match(
                     Some(&req)
@@ -482,7 +482,7 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.bigquery.datatransfer.v1.DataTransferService/UpdateTransferConfig")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -507,7 +507,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -586,8 +586,8 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.bigquery.datatransfer.v1.DataTransferService/DeleteTransferConfig")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -618,7 +618,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -697,8 +697,8 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.bigquery.datatransfer.v1.DataTransferService/GetTransferConfig")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -723,7 +723,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -802,8 +802,8 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.bigquery.datatransfer.v1.DataTransferService/ListTransferConfigs")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -829,7 +829,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -912,8 +912,8 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.bigquery.datatransfer.v1.DataTransferService/ScheduleTransferRuns")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -939,7 +939,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1022,8 +1022,8 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.bigquery.datatransfer.v1.DataTransferService/StartManualTransferRuns")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1048,7 +1048,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1137,8 +1137,8 @@ impl super::stub::DataTransferService for DataTransferService {
                     .set_rpc_method(
                         "google.cloud.bigquery.datatransfer.v1.DataTransferService/GetTransferRun",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1163,7 +1163,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1250,8 +1250,8 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.bigquery.datatransfer.v1.DataTransferService/DeleteTransferRun")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1282,7 +1282,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1377,8 +1377,8 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.bigquery.datatransfer.v1.DataTransferService/ListTransferRuns")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1403,7 +1403,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1504,8 +1504,8 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.bigquery.datatransfer.v1.DataTransferService/ListTransferLogs")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1531,7 +1531,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1614,8 +1614,8 @@ impl super::stub::DataTransferService for DataTransferService {
                     .set_rpc_method(
                         "google.cloud.bigquery.datatransfer.v1.DataTransferService/CheckValidCreds",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1641,7 +1641,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1706,7 +1706,7 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.bigquery.datatransfer.v1.DataTransferService/EnrollDataSources")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1738,7 +1738,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1780,7 +1780,7 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.bigquery.datatransfer.v1.DataTransferService/UnenrollDataSources")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1811,7 +1811,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1845,7 +1845,7 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/ListLocations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1870,7 +1870,7 @@ impl super::stub::DataTransferService for DataTransferService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1911,7 +1911,7 @@ impl super::stub::DataTransferService for DataTransferService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.location.Locations/GetLocation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(

@@ -816,4 +816,58 @@ mod tests {
 
         Ok(())
     }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn basic_lease_expiration() -> anyhow::Result<()> {
+        const MAX_LEASE_EXTENSION: Duration = Duration::from_secs(10);
+        const MAX_LEASE: Duration = Duration::from_secs(30);
+
+        let (extend_tx, mut extend_rx) = unbounded_channel();
+        let mut mock = MockLeaser::new();
+        mock.expect_extend().returning(move |ack_ids| {
+            extend_tx
+                .send(ack_ids.clone())
+                .expect("sending on channel always succeeds");
+            ack_ids
+        });
+        mock.expect_nack().times(0);
+
+        let (_confirmed_tx, confirmed_rx) = unbounded_channel();
+        let (_eo_extend_tx, eo_extend_rx) = unbounded_channel();
+        let options = LeaseOptions {
+            max_lease: MAX_LEASE,
+            max_lease_extension: MAX_LEASE_EXTENSION,
+            shutdown_behavior: ShutdownBehavior::NackImmediately,
+            ..Default::default()
+        };
+        let lease_loop = LeaseLoop::new(Arc::new(mock), confirmed_rx, eo_extend_rx, options);
+        tokio::task::yield_now().await;
+
+        let start_time = Instant::now();
+        lease_loop.strong_message_tx().send(test_message(0))?;
+
+        // Advance the clock well past the expected message expiration,
+        // recording the time at which we sent the last lease extension.
+        let mut latest = None;
+        for _ in 0..MAX_LEASE.as_secs() * 2 {
+            while let Ok(ack_ids) = extend_rx.try_recv() {
+                assert_eq!(ack_ids, test_ids(0..1));
+                latest = Some(start_time.elapsed());
+            }
+            tokio::time::advance(Duration::from_secs(1)).await;
+            tokio::task::yield_now().await;
+        }
+
+        // Verify when we stop sending lease extensions.
+        let expected_range = (MAX_LEASE - MAX_LEASE_EXTENSION)..=MAX_LEASE;
+        assert!(
+            latest.is_some_and(|t| expected_range.contains(&t)),
+            "{latest:?}"
+        );
+
+        lease_loop.cancel.cancel();
+        lease_loop.handle.await?;
+
+        Ok(())
+    }
 }

@@ -35,6 +35,12 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn update_cloud_exadata_infrastructure(
+        &self,
+        req: crate::model::UpdateCloudExadataInfrastructureRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn delete_cloud_exadata_infrastructure(
         &self,
         req: crate::model::DeleteCloudExadataInfrastructureRequest,
@@ -65,9 +71,39 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn update_cloud_vm_cluster(
+        &self,
+        req: crate::model::UpdateCloudVmClusterRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn delete_cloud_vm_cluster(
         &self,
         req: crate::model::DeleteCloudVmClusterRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn enable_cloud_vm_cluster_identity_connector(
+        &self,
+        req: crate::model::EnableCloudVmClusterIdentityConnectorRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn disable_cloud_vm_cluster_identity_connector(
+        &self,
+        req: crate::model::DisableCloudVmClusterIdentityConnectorRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn enable_exadb_vm_cluster_identity_connector(
+        &self,
+        req: crate::model::EnableExadbVmClusterIdentityConnectorRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn disable_exadb_vm_cluster_identity_connector(
+        &self,
+        req: crate::model::DisableExadbVmClusterIdentityConnectorRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
@@ -76,6 +112,12 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         req: crate::model::ListEntitlementsRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListEntitlementsResponse>>;
+
+    async fn list_flex_components(
+        &self,
+        req: crate::model::ListFlexComponentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListFlexComponentsResponse>>;
 
     async fn list_db_servers(
         &self,
@@ -227,6 +269,12 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn update_odb_network(
+        &self,
+        req: crate::model::UpdateOdbNetworkRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn delete_odb_network(
         &self,
         req: crate::model::DeleteOdbNetworkRequest,
@@ -248,6 +296,12 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
     async fn create_odb_subnet(
         &self,
         req: crate::model::CreateOdbSubnetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn update_odb_subnet(
+        &self,
+        req: crate::model::UpdateOdbSubnetRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
@@ -335,6 +389,12 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn update_exascale_db_storage_vault(
+        &self,
+        req: crate::model::UpdateExascaleDbStorageVaultRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn delete_exascale_db_storage_vault(
         &self,
         req: crate::model::DeleteExascaleDbStorageVaultRequest,
@@ -346,6 +406,12 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         req: crate::model::ListDbSystemInitialStorageSizesRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListDbSystemInitialStorageSizesResponse>>;
+
+    async fn list_db_system_compute_performances(
+        &self,
+        req: crate::model::ListDbSystemComputePerformancesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDbSystemComputePerformancesResponse>>;
 
     async fn list_databases(
         &self,
@@ -389,6 +455,12 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn update_db_system(
+        &self,
+        req: crate::model::UpdateDbSystemRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn delete_db_system(
         &self,
         req: crate::model::DeleteDbSystemRequest,
@@ -410,6 +482,12 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
     async fn create_goldengate_deployment(
         &self,
         req: crate::model::CreateGoldengateDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn update_goldengate_deployment(
+        &self,
+        req: crate::model::UpdateGoldengateDeploymentRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
@@ -446,6 +524,12 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
     async fn create_goldengate_connection(
         &self,
         req: crate::model::CreateGoldengateConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn update_goldengate_connection(
+        &self,
+        req: crate::model::UpdateGoldengateConnectionRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
@@ -509,6 +593,12 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn update_goldengate_connection_assignment(
+        &self,
+        req: crate::model::UpdateGoldengateConnectionAssignmentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn delete_goldengate_connection_assignment(
         &self,
         req: crate::model::DeleteGoldengateConnectionAssignmentRequest,
@@ -520,6 +610,48 @@ pub trait OracleDatabase: std::fmt::Debug + Send + Sync {
         req: crate::model::TestGoldengateConnectionAssignmentRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::TestGoldengateConnectionAssignmentResponse>>;
+
+    async fn list_database_connections(
+        &self,
+        req: crate::model::ListDatabaseConnectionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDatabaseConnectionsResponse>>;
+
+    async fn get_database_connection(
+        &self,
+        req: crate::model::GetDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DatabaseConnection>>;
+
+    async fn create_database_connection(
+        &self,
+        req: crate::model::CreateDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn update_database_connection(
+        &self,
+        req: crate::model::UpdateDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_database_connection(
+        &self,
+        req: crate::model::DeleteDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn test_database_connection(
+        &self,
+        req: crate::model::TestDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TestDatabaseConnectionResponse>>;
+
+    async fn execute_sql(
+        &self,
+        req: crate::model::ExecuteSqlRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExecuteSqlResponse>>;
 
     async fn list_locations(
         &self,
@@ -604,6 +736,15 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn update_cloud_exadata_infrastructure(
+        &self,
+        req: crate::model::UpdateCloudExadataInfrastructureRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_cloud_exadata_infrastructure(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn delete_cloud_exadata_infrastructure(
         &self,
         req: crate::model::DeleteCloudExadataInfrastructureRequest,
@@ -649,6 +790,15 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn update_cloud_vm_cluster(
+        &self,
+        req: crate::model::UpdateCloudVmClusterRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_cloud_vm_cluster(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn delete_cloud_vm_cluster(
         &self,
         req: crate::model::DeleteCloudVmClusterRequest,
@@ -658,12 +808,57 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn enable_cloud_vm_cluster_identity_connector(
+        &self,
+        req: crate::model::EnableCloudVmClusterIdentityConnectorRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::enable_cloud_vm_cluster_identity_connector(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn disable_cloud_vm_cluster_identity_connector(
+        &self,
+        req: crate::model::DisableCloudVmClusterIdentityConnectorRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::disable_cloud_vm_cluster_identity_connector(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn enable_exadb_vm_cluster_identity_connector(
+        &self,
+        req: crate::model::EnableExadbVmClusterIdentityConnectorRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::enable_exadb_vm_cluster_identity_connector(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn disable_exadb_vm_cluster_identity_connector(
+        &self,
+        req: crate::model::DisableExadbVmClusterIdentityConnectorRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::disable_exadb_vm_cluster_identity_connector(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn list_entitlements(
         &self,
         req: crate::model::ListEntitlementsRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListEntitlementsResponse>> {
         T::list_entitlements(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_flex_components(
+        &self,
+        req: crate::model::ListFlexComponentsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListFlexComponentsResponse>> {
+        T::list_flex_components(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -894,6 +1089,15 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn update_odb_network(
+        &self,
+        req: crate::model::UpdateOdbNetworkRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_odb_network(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn delete_odb_network(
         &self,
         req: crate::model::DeleteOdbNetworkRequest,
@@ -927,6 +1131,15 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_odb_subnet(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_odb_subnet(
+        &self,
+        req: crate::model::UpdateOdbSubnetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_odb_subnet(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -1056,6 +1269,15 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn update_exascale_db_storage_vault(
+        &self,
+        req: crate::model::UpdateExascaleDbStorageVaultRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_exascale_db_storage_vault(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn delete_exascale_db_storage_vault(
         &self,
         req: crate::model::DeleteExascaleDbStorageVaultRequest,
@@ -1071,6 +1293,15 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::ListDbSystemInitialStorageSizesResponse>> {
         T::list_db_system_initial_storage_sizes(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_db_system_compute_performances(
+        &self,
+        req: crate::model::ListDbSystemComputePerformancesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDbSystemComputePerformancesResponse>> {
+        T::list_db_system_compute_performances(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -1137,6 +1368,15 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn update_db_system(
+        &self,
+        req: crate::model::UpdateDbSystemRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_db_system(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn delete_db_system(
         &self,
         req: crate::model::DeleteDbSystemRequest,
@@ -1170,6 +1410,15 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_goldengate_deployment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_goldengate_deployment(
+        &self,
+        req: crate::model::UpdateGoldengateDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_goldengate_deployment(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -1224,6 +1473,15 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_goldengate_connection(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_goldengate_connection(
+        &self,
+        req: crate::model::UpdateGoldengateConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_goldengate_connection(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -1320,6 +1578,15 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn update_goldengate_connection_assignment(
+        &self,
+        req: crate::model::UpdateGoldengateConnectionAssignmentRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_goldengate_connection_assignment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn delete_goldengate_connection_assignment(
         &self,
         req: crate::model::DeleteGoldengateConnectionAssignmentRequest,
@@ -1336,6 +1603,69 @@ impl<T: super::OracleDatabase> OracleDatabase for T {
     ) -> crate::Result<crate::Response<crate::model::TestGoldengateConnectionAssignmentResponse>>
     {
         T::test_goldengate_connection_assignment(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_database_connections(
+        &self,
+        req: crate::model::ListDatabaseConnectionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDatabaseConnectionsResponse>> {
+        T::list_database_connections(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_database_connection(
+        &self,
+        req: crate::model::GetDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DatabaseConnection>> {
+        T::get_database_connection(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_database_connection(
+        &self,
+        req: crate::model::CreateDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_database_connection(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_database_connection(
+        &self,
+        req: crate::model::UpdateDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_database_connection(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_database_connection(
+        &self,
+        req: crate::model::DeleteDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_database_connection(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_database_connection(
+        &self,
+        req: crate::model::TestDatabaseConnectionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TestDatabaseConnectionResponse>> {
+        T::test_database_connection(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn execute_sql(
+        &self,
+        req: crate::model::ExecuteSqlRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ExecuteSqlResponse>> {
+        T::execute_sql(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

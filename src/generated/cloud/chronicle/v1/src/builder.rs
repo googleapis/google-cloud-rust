@@ -13519,3 +13519,685 @@ pub mod rule_execution_error_service {
         }
     }
 }
+
+/// Request and client builders for [SearchService][crate::client::SearchService].
+pub mod search_service {
+    use crate::Result;
+
+    /// A builder for [SearchService][crate::client::SearchService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_chronicle_v1::*;
+    /// # use builder::search_service::ClientBuilder;
+    /// # use client::SearchService;
+    /// let builder : ClientBuilder = SearchService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://chronicle.googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SearchService;
+        pub struct Factory;
+        impl crate::ClientFactory for Factory {
+            type Client = SearchService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> crate::ClientBuilderResult<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::SearchService] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SearchService>,
+        request: R,
+        options: crate::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SearchService>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [SearchService::search][crate::client::SearchService::search] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::search_service::Search;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> Search {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Search(RequestBuilder<crate::model::SearchRequest>);
+
+    impl Search {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SearchService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::SearchRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [search][crate::client::SearchService::search].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .search(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `search`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::SearchSession,
+            crate::model::SearchOperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::SearchSession,
+                crate::model::SearchOperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+            let mut poller_options = self.0.stub.get_poller_options(&self.0.options);
+            if let Some(ref mut details) = poller_options.tracing {
+                details.method_name =
+                    "google_cloud_chronicle_v1::client::SearchService::search::until_done";
+            }
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            use google_cloud_lro::internal::PollerExt;
+            {
+                google_cloud_lro::internal::new_poller(
+                    polling_error_policy,
+                    polling_backoff_policy,
+                    start,
+                    query,
+                )
+            }
+            .with_options(poller_options)
+        }
+
+        /// Sets the value of [parent][crate::model::SearchRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [query][crate::model::SearchRequest::query].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_query<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.query = v.into();
+            self
+        }
+
+        /// Sets the value of [time_range][crate::model::SearchRequest::time_range].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_time_range<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_type::model::Interval>,
+        {
+            self.0.request.time_range = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [time_range][crate::model::SearchRequest::time_range].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_time_range<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_type::model::Interval>,
+        {
+            self.0.request.time_range = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [dialect][crate::model::SearchRequest::dialect].
+        pub fn set_dialect<T: Into<crate::model::QueryDialect>>(mut self, v: T) -> Self {
+            self.0.request.dialect = v.into();
+            self
+        }
+
+        /// Sets the value of [draft_data_access_scope][crate::model::SearchRequest::draft_data_access_scope].
+        pub fn set_draft_data_access_scope<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAccessScope>,
+        {
+            self.0.request.draft_data_access_scope = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [draft_data_access_scope][crate::model::SearchRequest::draft_data_access_scope].
+        pub fn set_or_clear_draft_data_access_scope<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAccessScope>,
+        {
+            self.0.request.draft_data_access_scope = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [result_limit][crate::model::SearchRequest::result_limit].
+        pub fn set_result_limit<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.result_limit = v.into();
+            self
+        }
+
+        /// Sets the value of [simulated_data_visibility][crate::model::SearchRequest::simulated_data_visibility].
+        pub fn set_simulated_data_visibility<T: Into<crate::model::SimulatedDataVisibility>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.simulated_data_visibility = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for Search {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SearchService::list_searched_results][crate::client::SearchService::list_searched_results] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::search_service::ListSearchedResults;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListSearchedResults {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListSearchedResults(RequestBuilder<crate::model::ListSearchedResultsRequest>);
+
+    impl ListSearchedResults {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SearchService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListSearchedResultsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListSearchedResultsResponse> {
+            (*self.0.stub)
+                .list_searched_results(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListSearchedResultsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListSearchedResultsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListSearchedResultsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListSearchedResultsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListSearchedResultsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListSearchedResultsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+
+        /// Sets the value of [skip][crate::model::ListSearchedResultsRequest::skip].
+        pub fn set_skip<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.skip = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListSearchedResults {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SearchService::list_operations][crate::client::SearchService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::search_service::ListOperations;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
+
+    impl ListOperations {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SearchService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SearchService::get_operation][crate::client::SearchService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::search_service::GetOperation;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+
+    impl GetOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SearchService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SearchService::delete_operation][crate::client::SearchService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::search_service::DeleteOperation;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
+
+    impl DeleteOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SearchService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SearchService::cancel_operation][crate::client::SearchService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::builder::search_service::CancelOperation;
+    /// # async fn sample() -> google_cloud_chronicle_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
+
+    impl CancelOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SearchService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}

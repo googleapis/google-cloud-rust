@@ -5723,6 +5723,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListMessagesRequest {
             __page_size,
             __page_token,
             __filter,
+            __pending_write_wait_skipped,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -5749,6 +5750,12 @@ impl<'de> serde::de::Deserialize<'de> for super::ListMessagesRequest {
                             "pageToken" => Ok(__FieldTag::__page_token),
                             "page_token" => Ok(__FieldTag::__page_token),
                             "filter" => Ok(__FieldTag::__filter),
+                            "pendingWriteWaitSkipped" => {
+                                Ok(__FieldTag::__pending_write_wait_skipped)
+                            }
+                            "pending_write_wait_skipped" => {
+                                Ok(__FieldTag::__pending_write_wait_skipped)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5821,6 +5828,16 @@ impl<'de> serde::de::Deserialize<'de> for super::ListMessagesRequest {
                             }
                             result.filter = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__pending_write_wait_skipped => {
+                            if !fields.insert(__FieldTag::__pending_write_wait_skipped) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pending_write_wait_skipped",
+                                ));
+                            }
+                            result.pending_write_wait_skipped = map
+                                .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

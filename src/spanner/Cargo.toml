@@ -118,6 +118,7 @@ spanner-grpc-mock                  = { path = "grpc-mock" }
 static_assertions.workspace        = true
 test-case.workspace                = true
 rustls                             = { workspace = true, features = ["aws_lc_rs", "std"] }
+google-cloud-spanner               = { default-features = false, path = ".", features = ["default-rustls-provider"] }
 tokio                              = { workspace = true, features = ["test-util"] }
 
 [lints]

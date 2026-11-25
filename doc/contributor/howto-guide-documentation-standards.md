@@ -29,6 +29,13 @@ Each item's documentation should follow this basic structure:
 See the [Developer Documentation Style Guide] for additional guidance on writing
 documentation.
 
+## Hand-written Crates
+
+Hand-written crates have additional requirements, such as `# Errors` sections,
+warnings for closures that may run more than once, and crate-level sections on
+mocking, retries, and observability. See the "Documentation" section in
+[Designing Hand-written Client APIs](howto-guide-handwritten-client-api.md#documentation).
+
 ## Doc Sample Tags (`ignore`, `no_rust`, `no_run`)
 
 When writing code blocks in documentation, you can use tags to control how

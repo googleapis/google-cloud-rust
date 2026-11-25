@@ -1478,6 +1478,7 @@ impl<'de> serde::de::Deserialize<'de> for super::TextSearch {
             __output_fields,
             __top_k,
             __filter,
+            __structured_query,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1507,6 +1508,8 @@ impl<'de> serde::de::Deserialize<'de> for super::TextSearch {
                             "topK" => Ok(__FieldTag::__top_k),
                             "top_k" => Ok(__FieldTag::__top_k),
                             "filter" => Ok(__FieldTag::__filter),
+                            "structuredQuery" => Ok(__FieldTag::__structured_query),
+                            "structured_query" => Ok(__FieldTag::__structured_query),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1585,6 +1588,562 @@ impl<'de> serde::de::Deserialize<'de> for super::TextSearch {
                                 ));
                             }
                             result.filter = map.next_value::<std::option::Option<wkt::Struct>>()?;
+                        }
+                        __FieldTag::__structured_query => {
+                            if !fields.insert(__FieldTag::__structured_query) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for structured_query",
+                                ));
+                            }
+                            result.structured_query = map
+                                .next_value::<std::option::Option<crate::model::StructuredQuery>>(
+                                )?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::StructuredQuery {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __text,
+            __unary,
+            __combine,
+            __boost,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for StructuredQuery")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "text" => Ok(__FieldTag::__text),
+                            "unary" => Ok(__FieldTag::__unary),
+                            "combine" => Ok(__FieldTag::__combine),
+                            "boost" => Ok(__FieldTag::__boost),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::StructuredQuery;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct StructuredQuery")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__text => {
+                            if !fields.insert(__FieldTag::__text) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for text",
+                                ));
+                            }
+                            if result.query_type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `query_type`, a oneof with full ID .google.cloud.vectorsearch.v1.StructuredQuery.text, latest field was text",
+                                ));
+                            }
+                            result.query_type = std::option::Option::Some(
+                                crate::model::structured_query::QueryType::Text(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::TextQuery>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__unary => {
+                            if !fields.insert(__FieldTag::__unary) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unary",
+                                ));
+                            }
+                            if result.query_type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `query_type`, a oneof with full ID .google.cloud.vectorsearch.v1.StructuredQuery.unary, latest field was unary",
+                                ));
+                            }
+                            result.query_type = std::option::Option::Some(
+                                crate::model::structured_query::QueryType::Unary(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::UnaryQuery>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__combine => {
+                            if !fields.insert(__FieldTag::__combine) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for combine",
+                                ));
+                            }
+                            if result.query_type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `query_type`, a oneof with full ID .google.cloud.vectorsearch.v1.StructuredQuery.combine, latest field was combine",
+                                ));
+                            }
+                            result.query_type = std::option::Option::Some(
+                                crate::model::structured_query::QueryType::Combine(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::CombinedQuery>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__boost => {
+                            if !fields.insert(__FieldTag::__boost) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for boost",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.boost = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::TextQuery {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __text,
+            __fields,
+            __match_type,
+            __query_enhancement,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TextQuery")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "text" => Ok(__FieldTag::__text),
+                            "fields" => Ok(__FieldTag::__fields),
+                            "matchType" => Ok(__FieldTag::__match_type),
+                            "match_type" => Ok(__FieldTag::__match_type),
+                            "queryEnhancement" => Ok(__FieldTag::__query_enhancement),
+                            "query_enhancement" => Ok(__FieldTag::__query_enhancement),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::TextQuery;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TextQuery")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__text => {
+                            if !fields.insert(__FieldTag::__text) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for text",
+                                ));
+                            }
+                            result.text = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__fields => {
+                            if !fields.insert(__FieldTag::__fields) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for fields",
+                                ));
+                            }
+                            result.fields = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__match_type => {
+                            if !fields.insert(__FieldTag::__match_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for match_type",
+                                ));
+                            }
+                            result.match_type = map.next_value::<std::option::Option<crate::model::text_query::MatchType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__query_enhancement => {
+                            if !fields.insert(__FieldTag::__query_enhancement) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for query_enhancement",
+                                ));
+                            }
+                            result.query_enhancement = map
+                                .next_value::<std::option::Option<crate::model::QueryEnhancement>>(
+                                )?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::QueryEnhancement {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __enabled,
+            __language_code,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for QueryEnhancement")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "enabled" => Ok(__FieldTag::__enabled),
+                            "languageCode" => Ok(__FieldTag::__language_code),
+                            "language_code" => Ok(__FieldTag::__language_code),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::QueryEnhancement;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct QueryEnhancement")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__enabled => {
+                            if !fields.insert(__FieldTag::__enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enabled",
+                                ));
+                            }
+                            result.enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__language_code => {
+                            if !fields.insert(__FieldTag::__language_code) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for language_code",
+                                ));
+                            }
+                            result.language_code = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::UnaryQuery {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __op,
+            __sub_query,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UnaryQuery")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "op" => Ok(__FieldTag::__op),
+                            "subQuery" => Ok(__FieldTag::__sub_query),
+                            "sub_query" => Ok(__FieldTag::__sub_query),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::UnaryQuery;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UnaryQuery")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__op => {
+                            if !fields.insert(__FieldTag::__op) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for op",
+                                ));
+                            }
+                            result.op = map.next_value::<std::option::Option<crate::model::unary_query::Operator>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__sub_query => {
+                            if !fields.insert(__FieldTag::__sub_query) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for sub_query",
+                                ));
+                            }
+                            result.sub_query = map.next_value::<std::option::Option<
+                                std::boxed::Box<crate::model::StructuredQuery>,
+                            >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::CombinedQuery {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __op,
+            __sub_queries,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CombinedQuery")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "op" => Ok(__FieldTag::__op),
+                            "subQueries" => Ok(__FieldTag::__sub_queries),
+                            "sub_queries" => Ok(__FieldTag::__sub_queries),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::CombinedQuery;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CombinedQuery")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__op => {
+                            if !fields.insert(__FieldTag::__op) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for op",
+                                ));
+                            }
+                            result.op = map.next_value::<std::option::Option<crate::model::combined_query::Operator>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__sub_queries => {
+                            if !fields.insert(__FieldTag::__sub_queries) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for sub_queries",
+                                ));
+                            }
+                            result.sub_queries =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::StructuredQuery>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

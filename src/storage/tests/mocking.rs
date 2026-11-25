@@ -32,6 +32,12 @@ mod tests {
     use google_cloud_storage as gcs;
     use pastey::paste;
 
+    #[cfg(google_cloud_unstable_storage_parallel_upload)]
+    use gcs::{
+        model_ext::{AbortSessionResponse, CreateObjectWriteSessionRequest, Segment},
+        parallel_upload_session::{ParallelUploadSession, SegmentPayload},
+    };
+
     mockall::mock! {
         #[derive(Debug)]
         Storage {}
@@ -66,6 +72,29 @@ mod tests {
                 _request: gcs::model_ext::ReopenAppendableObjectRequest,
                 _options: RequestOptions,
             ) -> Result<gcs::appendable_object_writer::AppendableObjectWriter>;
+            #[cfg(google_cloud_unstable_storage_parallel_upload)]
+            async fn create_object_write_session(
+                &self,
+                _request: CreateObjectWriteSessionRequest,
+                _options: RequestOptions,
+            ) -> Result<ParallelUploadSession>;
+        }
+    }
+
+    #[cfg(google_cloud_unstable_storage_parallel_upload)]
+    mockall::mock! {
+        #[derive(Debug)]
+        ParallelUploadSession {}
+        impl gcs::stub::ParallelUploadSession for ParallelUploadSession {
+            fn name(&self) -> &str;
+            fn segment_size_bytes(&self) -> u64;
+            async fn write_segment(
+                &self,
+                segment_number: u32,
+                segment_payload: SegmentPayload,
+            ) -> Result<Segment>;
+            async fn finalize(&self) -> Result<Object>;
+            async fn abort(&self) -> Result<AbortSessionResponse>;
         }
     }
 
@@ -276,6 +305,203 @@ mod tests {
         let contents = bytes::Bytes::from_owner(contents);
         assert_eq!(contents, LAZY);
         Ok(())
+    }
+
+    #[tokio::test]
+    #[cfg(google_cloud_unstable_storage_parallel_upload)]
+    async fn mock_parallel_upload_create_session_fail() {
+        let status = Status::default().set_code(Code::Aborted);
+        let want = status.clone();
+        let mut mock = MockStorage::new();
+        mock.expect_create_object_write_session()
+            .times(1)
+            .return_once(move |_, _| Err(Error::service(status)));
+        let client = gcs::client::Storage::from_stub(mock);
+        let err = client
+            .parallel_upload("projects/_/buckets/my-bucket", "my-object")
+            .create_session()
+            .await
+            .unwrap_err();
+        assert_eq!(err.status(), Some(&want), "{err:?}");
+    }
+
+    #[tokio::test]
+    #[cfg(google_cloud_unstable_storage_parallel_upload)]
+    async fn mock_parallel_upload_session_success() -> anyhow::Result<()> {
+        use std::sync::{Arc, Mutex};
+
+        const BUCKET: &str = "projects/_/buckets/my-bucket";
+        const OBJECT: &str = "my-object";
+        const SESSION_NAME: &str = "projects/_/buckets/my-bucket/objectWriteSessions/s-123";
+
+        let captured_payloads = Arc::new(Mutex::new(Vec::new()));
+        let captured = captured_payloads.clone();
+
+        let mut mock_session = MockParallelUploadSession::new();
+        mock_session
+            .expect_name()
+            .times(1)
+            .return_const(SESSION_NAME.to_string());
+        mock_session
+            .expect_segment_size_bytes()
+            .times(1)
+            .return_const(32 * 1024 * 1024_u64);
+        mock_session
+            .expect_write_segment()
+            .times(2)
+            .returning(move |num, payload| {
+                captured
+                    .lock()
+                    .expect("never poisoned")
+                    .push((num, payload));
+                Ok(Segment::new()
+                    .set_name(format!("{SESSION_NAME}/segments/{num}"))
+                    .set_size_bytes(5)
+                    .set_segment_crc32c(num * 10))
+            });
+        mock_session.expect_finalize().times(1).return_once(|| {
+            Ok(Object::new()
+                .set_bucket(BUCKET)
+                .set_name(OBJECT)
+                .set_size(10))
+        });
+
+        let want_request = CreateObjectWriteSessionRequest::new()
+            .set_resource(Object::new().set_bucket(BUCKET).set_name(OBJECT));
+
+        let mut mock_storage = MockStorage::new();
+        mock_storage
+            .expect_create_object_write_session()
+            .times(1)
+            .withf(move |req, _| req == &want_request)
+            .return_once(move |_, _| Ok(ParallelUploadSession::new(mock_session)));
+
+        let client = gcs::client::Storage::from_stub(mock_storage);
+        let session = client
+            .parallel_upload(BUCKET, OBJECT)
+            .create_session()
+            .await?;
+        assert_eq!(session.name(), SESSION_NAME);
+        assert_eq!(session.segment_size_bytes(), 32 * 1024 * 1024);
+
+        let s1 = session.clone();
+        let t1 = tokio::spawn(async move { s1.write_segment(1, "hello").await });
+        let s2 = session.clone();
+        let t2 = tokio::spawn(async move { s2.write_segment(2, "world").await });
+
+        let seg1 = t1.await??;
+        let seg2 = t2.await??;
+        assert_eq!(seg1.name, format!("{SESSION_NAME}/segments/1"));
+        assert_eq!(seg2.name, format!("{SESSION_NAME}/segments/2"));
+
+        let finalized = session.finalize().await?;
+        assert_eq!(finalized.size, 10);
+
+        let mut captured = std::mem::take(&mut *captured_payloads.lock().expect("never poisoned"));
+        captured.sort_by_key(|(num, _)| *num);
+        assert_eq!(captured.len(), 2);
+
+        let (_, mut p1) = captured.remove(0);
+        assert_eq!(
+            p1.next().await.transpose()?,
+            Some(bytes::Bytes::from_static(b"hello"))
+        );
+        p1.seek(0).await?;
+        assert_eq!(
+            p1.next().await.transpose()?,
+            Some(bytes::Bytes::from_static(b"hello"))
+        );
+
+        let (_, mut p2) = captured.remove(0);
+        assert_eq!(
+            p2.next().await.transpose()?,
+            Some(bytes::Bytes::from_static(b"world"))
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[cfg(google_cloud_unstable_storage_parallel_upload)]
+    async fn mock_parallel_upload_session_abort() -> anyhow::Result<()> {
+        let mut mock_session = MockParallelUploadSession::new();
+        mock_session
+            .expect_abort()
+            .times(1)
+            .return_once(|| Ok(AbortSessionResponse::new()));
+
+        let mut mock_storage = MockStorage::new();
+        mock_storage
+            .expect_create_object_write_session()
+            .times(1)
+            .return_once(move |_, _| Ok(ParallelUploadSession::new(mock_session)));
+
+        let client = gcs::client::Storage::from_stub(mock_storage);
+        let session = client
+            .parallel_upload("projects/_/buckets/my-bucket", "my-object")
+            .create_session()
+            .await?;
+        assert_eq!(session.abort().await?, AbortSessionResponse::new());
+
+        Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_storage_parallel_upload)]
+    mod default_parallel_upload_stubs {
+        use super::*;
+
+        #[derive(Debug)]
+        struct EmptyStorage;
+        impl gcs::stub::Storage for EmptyStorage {}
+
+        #[derive(Debug)]
+        struct EmptySession;
+        impl gcs::stub::ParallelUploadSession for EmptySession {}
+
+        #[tokio::test]
+        #[should_panic]
+        async fn default_create_session_panics() {
+            let client = gcs::client::Storage::from_stub(EmptyStorage);
+            let _ = client
+                .parallel_upload("projects/_/buckets/b", "o")
+                .create_session()
+                .await;
+        }
+
+        #[test]
+        #[should_panic]
+        fn default_session_name_panics() {
+            let session = ParallelUploadSession::new(EmptySession);
+            let _ = session.name();
+        }
+
+        #[test]
+        #[should_panic]
+        fn default_session_segment_size_panics() {
+            let session = ParallelUploadSession::new(EmptySession);
+            let _ = session.segment_size_bytes();
+        }
+
+        #[tokio::test]
+        #[should_panic]
+        async fn default_session_write_segment_panics() {
+            let session = ParallelUploadSession::new(EmptySession);
+            let _ = session.write_segment(1, "hello").await;
+        }
+
+        #[tokio::test]
+        #[should_panic]
+        async fn default_session_finalize_panics() {
+            let session = ParallelUploadSession::new(EmptySession);
+            let _ = session.finalize().await;
+        }
+
+        #[tokio::test]
+        #[should_panic]
+        async fn default_session_abort_panics() {
+            let session = ParallelUploadSession::new(EmptySession);
+            let _ = session.abort().await;
+        }
     }
 
     #[derive(Debug)]

@@ -39,3 +39,6 @@ path             = "../../../src/storage"
 
 [features]
 with-default = ["google-cloud-storage/default"]
+
+[lints]
+workspace = true

@@ -119,10 +119,12 @@ jobs:
             cat << EOF > /tmp/msrv_issue_body.md
           Rust ${ELIGIBLE_MSRV} is now eligible to become the new Minimum Supported Rust Version (MSRV) under the 1-year policy.
 
-          The current MSRV is configured in [Cargo.toml](https://github.com/googleapis/google-cloud-rust/blob/main/Cargo.toml) (${CURRENT_MSRV}).
-          There are other places in the repo that will also need to be updated. Searching for the number that is specified in \`rust-version\` should help you find them all (e.g. \`git grep "${CURRENT_MSRV}"\` or \`git grep "1.${CURRENT_MINOR}"\`).
-
-          Make any corresponding cleanups and submit a PR with the update.
+          ### Steps to update:
+          1. Run the MSRV update script from the repository root:
+             \`\`\`bash
+             ./scripts/bump-msrv.sh
+             \`\`\`
+          2. Submit a PR with the resulting changes.
 
           cc @googleapis/cloud-sdk-rust-team
           EOF

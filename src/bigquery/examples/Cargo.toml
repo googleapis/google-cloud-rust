@@ -39,3 +39,6 @@ tracing.workspace          = true
 
 [features]
 run-integration-tests = []
+
+[lints]
+workspace = true

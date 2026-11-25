@@ -848,6 +848,34 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn start(
+        &self,
+        req: crate::model::SqlInstancesStartRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::start",
+            self.inner.start(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn stop(
+        &self,
+        req: crate::model::SqlInstancesStopRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::stop",
+            self.inner.stop(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn restore_backup(
         &self,
         req: crate::model::SqlInstancesRestoreBackupRequest,
@@ -1072,6 +1100,20 @@ where
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn execute_sql_read_only(
+        &self,
+        req: crate::model::SqlInstancesExecuteSqlReadOnlyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SqlInstancesExecuteSqlReadOnlyResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::execute_sql_read_only",
+            self.inner.execute_sql_read_only(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn execute_sql(
         &self,
         req: crate::model::SqlInstancesExecuteSqlRequest,
@@ -1138,6 +1180,20 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::SqlInstancesService::point_in_time_restore",
             self.inner.point_in_time_restore(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn reconcile_networking(
+        &self,
+        req: crate::model::SqlInstancesReconcileNetworkingRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::reconcile_networking",
+            self.inner.reconcile_networking(req, options));
         pending.await
     }
 }
@@ -1290,6 +1346,48 @@ where
             info: *info::INSTRUMENTATION_CLIENT_INFO,
             method: "client::SqlSslCertsService::list",
             self.inner.list(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_customer_managed_certificate(
+        &self,
+        req: crate::model::UpdateCustomerManagedCertificateRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlSslCertsService::update_customer_managed_certificate",
+            self.inner.update_customer_managed_certificate(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_customer_managed_certificate(
+        &self,
+        req: crate::model::DeleteCustomerManagedCertificateRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlSslCertsService::delete_customer_managed_certificate",
+            self.inner.delete_customer_managed_certificate(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_customer_managed_certificates(
+        &self,
+        req: crate::model::ListCustomerManagedCertificatesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListCustomerManagedCertificatesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlSslCertsService::list_customer_managed_certificates",
+            self.inner.list_customer_managed_certificates(req, options));
         pending.await
     }
 }

@@ -30,3 +30,6 @@ serde_with.workspace = true
 # Local dependencies
 wkt.workspace = true
 gaxi          = { workspace = true, features = ["_internal-grpc-client"] }
+
+[lints]
+workspace = true

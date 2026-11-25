@@ -21,8 +21,8 @@ use crate::google::spanner::v1::PartialResultSet;
 use crate::google::spanner::v1::result_set_stats::RowCount::RowCountLowerBound;
 use crate::model::transaction_options::PartitionedDml;
 use crate::model::{
-    BeginTransactionRequest, ExecuteSqlRequest, TransactionOptions, TransactionSelector,
-    transaction_selector,
+    BeginTransactionRequest, CacheUpdate, ExecuteSqlRequest, TransactionOptions,
+    TransactionSelector, transaction_selector,
 };
 use crate::request_id_interceptor::update_request_id_attempt;
 use crate::retry_policy::SpannerRetryPolicy;
@@ -385,7 +385,7 @@ impl PartitionedDmlStreamRunner {
         let cache_update = partial_result_set
             .cache_update
             .take()
-            .and_then(|update| update.cnv().ok());
+            .and_then(|update| FromProto::<CacheUpdate>::cnv(update).ok());
         self.client.observe_cache_update(cache_update);
         if let Some(RowCountLowerBound(row_count)) =
             partial_result_set.stats.and_then(|stats| stats.row_count)

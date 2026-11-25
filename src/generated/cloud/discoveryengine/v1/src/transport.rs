@@ -89,7 +89,7 @@ impl super::stub::AclConfigService for AclConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_acl_config_name = try_match(
                     Some(&req)
@@ -140,7 +140,7 @@ impl super::stub::AclConfigService for AclConfigService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.AclConfigService/UpdateAclConfig",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -165,7 +165,7 @@ impl super::stub::AclConfigService for AclConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -209,8 +209,8 @@ impl super::stub::AclConfigService for AclConfigService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.AclConfigService/GetAclConfig")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -235,7 +235,7 @@ impl super::stub::AclConfigService for AclConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -644,7 +644,7 @@ impl super::stub::AclConfigService for AclConfigService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -669,7 +669,7 @@ impl super::stub::AclConfigService for AclConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -1035,7 +1035,7 @@ impl super::stub::AclConfigService for AclConfigService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1061,7 +1061,7 @@ impl super::stub::AclConfigService for AclConfigService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1242,7 +1242,7 @@ impl super::stub::AclConfigService for AclConfigService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1314,13 +1314,11 @@ impl super::stub::AssistantService for AssistantService {
         options: crate::RequestOptions,
     ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::StreamAssistResponse>>
     {
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("name", v))]);
 
         let extensions = {
             let mut e = gaxi::grpc::tonic::Extensions::new();
@@ -1361,7 +1359,7 @@ impl super::stub::AssistantService for AssistantService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1414,8 +1412,8 @@ impl super::stub::AssistantService for AssistantService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.AssistantService/CreateAssistant",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1440,7 +1438,7 @@ impl super::stub::AssistantService for AssistantService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1496,8 +1494,8 @@ impl super::stub::AssistantService for AssistantService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.AssistantService/DeleteAssistant",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1528,7 +1526,7 @@ impl super::stub::AssistantService for AssistantService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_assistant_name = try_match(
                     Some(&req)
@@ -1601,7 +1599,7 @@ impl super::stub::AssistantService for AssistantService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.AssistantService/UpdateAssistant",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1626,7 +1624,7 @@ impl super::stub::AssistantService for AssistantService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1680,8 +1678,8 @@ impl super::stub::AssistantService for AssistantService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.AssistantService/GetAssistant")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1706,7 +1704,7 @@ impl super::stub::AssistantService for AssistantService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1760,8 +1758,8 @@ impl super::stub::AssistantService for AssistantService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.AssistantService/ListAssistants",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -1786,7 +1784,7 @@ impl super::stub::AssistantService for AssistantService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -2195,7 +2193,7 @@ impl super::stub::AssistantService for AssistantService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2220,7 +2218,7 @@ impl super::stub::AssistantService for AssistantService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -2586,7 +2584,7 @@ impl super::stub::AssistantService for AssistantService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2612,7 +2610,7 @@ impl super::stub::AssistantService for AssistantService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2793,7 +2791,7 @@ impl super::stub::AssistantService for AssistantService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2857,7 +2855,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_config_name = try_match(
                     Some(&req)
@@ -2952,7 +2950,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.CmekConfigService/UpdateCmekConfig",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -2977,7 +2975,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3060,8 +3058,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.CmekConfigService/GetCmekConfig",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3086,7 +3084,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3130,8 +3128,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.CmekConfigService/ListCmekConfigs",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3156,7 +3154,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3204,8 +3202,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.CmekConfigService/DeleteCmekConfig",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3230,7 +3228,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -3639,7 +3637,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -3664,7 +3662,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -4030,7 +4028,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4056,7 +4054,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4237,7 +4235,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4315,7 +4313,7 @@ impl super::stub::CollectionService for CollectionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4363,8 +4361,8 @@ impl super::stub::CollectionService for CollectionService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.CollectionService/DeleteCollection",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4389,7 +4387,7 @@ impl super::stub::CollectionService for CollectionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -4449,8 +4447,8 @@ impl super::stub::CollectionService for CollectionService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.CollectionService/GetIamPolicy",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4476,7 +4474,7 @@ impl super::stub::CollectionService for CollectionService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -4525,8 +4523,8 @@ impl super::stub::CollectionService for CollectionService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.CollectionService/SetIamPolicy",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4551,7 +4549,7 @@ impl super::stub::CollectionService for CollectionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -4960,7 +4958,7 @@ impl super::stub::CollectionService for CollectionService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -4985,7 +4983,7 @@ impl super::stub::CollectionService for CollectionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -5351,7 +5349,7 @@ impl super::stub::CollectionService for CollectionService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5377,7 +5375,7 @@ impl super::stub::CollectionService for CollectionService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5558,7 +5556,7 @@ impl super::stub::CollectionService for CollectionService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5636,7 +5634,7 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_data_store = try_match(
                     Some(&req).map(|m| &m.data_store).map(|s| s.as_str()),
@@ -5735,8 +5733,8 @@ impl super::stub::CompletionService for CompletionService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.CompletionService/CompleteQuery",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5762,7 +5760,7 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_completion_config = try_match(
                     Some(&req).map(|m| &m.completion_config).map(|s| s.as_str()),
@@ -5904,8 +5902,8 @@ impl super::stub::CompletionService for CompletionService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.CompletionService/AdvancedCompleteQuery",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -5931,7 +5929,7 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6020,8 +6018,8 @@ impl super::stub::CompletionService for CompletionService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.CompletionService/ImportSuggestionDenyListEntries")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6047,7 +6045,7 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6136,8 +6134,8 @@ impl super::stub::CompletionService for CompletionService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.CompletionService/PurgeSuggestionDenyListEntries")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6163,7 +6161,7 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6252,8 +6250,8 @@ impl super::stub::CompletionService for CompletionService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.CompletionService/ImportCompletionSuggestions")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6279,7 +6277,7 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6368,8 +6366,8 @@ impl super::stub::CompletionService for CompletionService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.CompletionService/PurgeCompletionSuggestions")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6394,7 +6392,7 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -6803,7 +6801,7 @@ impl super::stub::CompletionService for CompletionService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -6828,7 +6826,7 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -7194,7 +7192,7 @@ impl super::stub::CompletionService for CompletionService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -7220,7 +7218,7 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7401,7 +7399,7 @@ impl super::stub::CompletionService for CompletionService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -7479,7 +7477,7 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -7610,8 +7608,8 @@ impl super::stub::ControlService for ControlService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.ControlService/CreateControl")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -7636,7 +7634,7 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7776,8 +7774,8 @@ impl super::stub::ControlService for ControlService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.ControlService/DeleteControl")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -7808,7 +7806,7 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_control_name = try_match(
                     Some(&req)
@@ -7999,7 +7997,7 @@ impl super::stub::ControlService for ControlService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.ControlService/UpdateControl")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -8024,7 +8022,7 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8164,8 +8162,8 @@ impl super::stub::ControlService for ControlService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.ControlService/GetControl")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -8190,7 +8188,7 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -8327,8 +8325,8 @@ impl super::stub::ControlService for ControlService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.ControlService/ListControls")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -8353,7 +8351,7 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -8762,7 +8760,7 @@ impl super::stub::ControlService for ControlService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -8787,7 +8785,7 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -9153,7 +9151,7 @@ impl super::stub::ControlService for ControlService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -9179,7 +9177,7 @@ impl super::stub::ControlService for ControlService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9360,7 +9358,7 @@ impl super::stub::ControlService for ControlService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -9437,7 +9435,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9580,8 +9578,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.ConversationalSearchService/ConverseConversation")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -9606,7 +9604,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -9734,8 +9732,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.ConversationalSearchService/CreateConversation")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -9760,7 +9758,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9900,8 +9898,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.ConversationalSearchService/DeleteConversation")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -9932,7 +9930,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_conversation_name = try_match(
                     Some(&req)
@@ -10123,7 +10121,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.ConversationalSearchService/UpdateConversation")
-                    .set_url_template(_path_template)
+                    .set_url_template(path_template)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -10148,7 +10146,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10288,8 +10286,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.ConversationalSearchService/GetConversation")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -10314,7 +10312,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10454,8 +10452,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.ConversationalSearchService/ListConversations")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -10481,7 +10479,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_serving_config = try_match(
                     Some(&req).map(|m| &m.serving_config).map(|s| s.as_str()),
@@ -10629,8 +10627,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.ConversationalSearchService/AnswerQuery",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -10651,13 +10649,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         options: crate::RequestOptions,
     ) -> Result<google_cloud_gax::streaming::ResponseStream<crate::model::AnswerQueryResponse>>
     {
-        let x_goog_request_params = [Some(&req)
+        let x_goog_request_params = gaxi::routing_parameter::format(&[Some(&req)
             .map(|m| &m.serving_config)
             .map(|s| s.as_str())
-            .map(|v| format!("serving_config={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
+            .filter(|v| !v.is_empty())
+            .map(|v| ("serving_config", v))]);
 
         let extensions = {
             let mut e = gaxi::grpc::tonic::Extensions::new();
@@ -10698,7 +10694,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10852,8 +10848,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.ConversationalSearchService/GetAnswer",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -10878,7 +10874,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -11011,8 +11007,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.ConversationalSearchService/CreateSession",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -11037,7 +11033,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11179,8 +11175,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.ConversationalSearchService/DeleteSession",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -11211,7 +11207,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_session_name = try_match(
                     Some(&req)
@@ -11404,7 +11400,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.ConversationalSearchService/UpdateSession",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -11429,7 +11425,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11577,8 +11573,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.ConversationalSearchService/GetSession",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -11603,7 +11599,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -11745,8 +11741,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.ConversationalSearchService/ListSessions",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -11771,7 +11767,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -12180,7 +12176,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -12205,7 +12201,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -12571,7 +12567,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -12597,7 +12593,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12778,7 +12774,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -12843,7 +12839,7 @@ impl super::stub::DataConnectorService for DataConnectorService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -12925,8 +12921,8 @@ impl super::stub::DataConnectorService for DataConnectorService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.DataConnectorService/SetUpDataConnector",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -12951,7 +12947,7 @@ impl super::stub::DataConnectorService for DataConnectorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -13001,8 +12997,8 @@ impl super::stub::DataConnectorService for DataConnectorService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.DataConnectorService/GetDataConnector",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -13027,7 +13023,7 @@ impl super::stub::DataConnectorService for DataConnectorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_data_connector_name = try_match(
                     Some(&req)
@@ -13094,7 +13090,7 @@ impl super::stub::DataConnectorService for DataConnectorService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.DataConnectorService/UpdateDataConnector",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -13119,7 +13115,7 @@ impl super::stub::DataConnectorService for DataConnectorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -13528,7 +13524,7 @@ impl super::stub::DataConnectorService for DataConnectorService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -13553,7 +13549,7 @@ impl super::stub::DataConnectorService for DataConnectorService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -13919,7 +13915,7 @@ impl super::stub::DataConnectorService for DataConnectorService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -13945,7 +13941,7 @@ impl super::stub::DataConnectorService for DataConnectorService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -14126,7 +14122,7 @@ impl super::stub::DataConnectorService for DataConnectorService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -14204,7 +14200,7 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -14313,8 +14309,8 @@ impl super::stub::DataStoreService for DataStoreService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.DataStoreService/CreateDataStore",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -14339,7 +14335,7 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -14426,8 +14422,8 @@ impl super::stub::DataStoreService for DataStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.DataStoreService/GetDataStore")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -14452,7 +14448,7 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -14539,8 +14535,8 @@ impl super::stub::DataStoreService for DataStoreService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.DataStoreService/ListDataStores",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -14565,7 +14561,7 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -14654,8 +14650,8 @@ impl super::stub::DataStoreService for DataStoreService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.DataStoreService/DeleteDataStore",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -14680,7 +14676,7 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_data_store_name = try_match(
                     Some(&req)
@@ -14803,7 +14799,7 @@ impl super::stub::DataStoreService for DataStoreService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.DataStoreService/UpdateDataStore",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -14828,7 +14824,7 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -14939,8 +14935,8 @@ impl super::stub::DataStoreService for DataStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.DataStoreService/GetIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -14966,7 +14962,7 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -15055,8 +15051,8 @@ impl super::stub::DataStoreService for DataStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.DataStoreService/SetIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -15081,7 +15077,7 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -15490,7 +15486,7 @@ impl super::stub::DataStoreService for DataStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -15515,7 +15511,7 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -15881,7 +15877,7 @@ impl super::stub::DataStoreService for DataStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -15907,7 +15903,7 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -16088,7 +16084,7 @@ impl super::stub::DataStoreService for DataStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -16166,7 +16162,7 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -16269,8 +16265,8 @@ impl super::stub::DocumentService for DocumentService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.DocumentService/GetDocument")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -16295,7 +16291,7 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -16394,8 +16390,8 @@ impl super::stub::DocumentService for DocumentService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.DocumentService/ListDocuments")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -16420,7 +16416,7 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -16519,8 +16515,8 @@ impl super::stub::DocumentService for DocumentService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.DocumentService/CreateDocument",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -16545,7 +16541,7 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_document_name = try_match(
                     Some(&req)
@@ -16686,7 +16682,7 @@ impl super::stub::DocumentService for DocumentService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.DocumentService/UpdateDocument",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -16711,7 +16707,7 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -16816,8 +16812,8 @@ impl super::stub::DocumentService for DocumentService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.DocumentService/DeleteDocument",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -16849,7 +16845,7 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -16948,8 +16944,8 @@ impl super::stub::DocumentService for DocumentService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.DocumentService/ImportDocuments",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -16975,7 +16971,7 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -17074,8 +17070,8 @@ impl super::stub::DocumentService for DocumentService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.DocumentService/PurgeDocuments",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -17100,7 +17096,7 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -17221,8 +17217,8 @@ impl super::stub::DocumentService for DocumentService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.DocumentService/BatchGetDocumentsMetadata",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -17247,7 +17243,7 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -17656,7 +17652,7 @@ impl super::stub::DocumentService for DocumentService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -17681,7 +17677,7 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -18047,7 +18043,7 @@ impl super::stub::DocumentService for DocumentService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -18073,7 +18069,7 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -18254,7 +18250,7 @@ impl super::stub::DocumentService for DocumentService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -18332,7 +18328,7 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -18379,8 +18375,8 @@ impl super::stub::EngineService for EngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.EngineService/CreateEngine")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -18405,7 +18401,7 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -18455,8 +18451,8 @@ impl super::stub::EngineService for EngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.EngineService/DeleteEngine")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -18481,7 +18477,7 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_engine_name = try_match(
                     Some(&req)
@@ -18548,7 +18544,7 @@ impl super::stub::EngineService for EngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.EngineService/UpdateEngine")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -18573,7 +18569,7 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -18623,8 +18619,8 @@ impl super::stub::EngineService for EngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.EngineService/GetEngine")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -18649,7 +18645,7 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -18698,8 +18694,8 @@ impl super::stub::EngineService for EngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.EngineService/ListEngines")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -18724,7 +18720,7 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -18786,8 +18782,8 @@ impl super::stub::EngineService for EngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.EngineService/GetIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -18813,7 +18809,7 @@ impl super::stub::EngineService for EngineService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -18864,8 +18860,8 @@ impl super::stub::EngineService for EngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.EngineService/SetIamPolicy")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -18890,7 +18886,7 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -19299,7 +19295,7 @@ impl super::stub::EngineService for EngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -19324,7 +19320,7 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -19690,7 +19686,7 @@ impl super::stub::EngineService for EngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -19716,7 +19712,7 @@ impl super::stub::EngineService for EngineService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -19897,7 +19893,7 @@ impl super::stub::EngineService for EngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -20024,7 +20020,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_location = try_match(
                     Some(&req).map(|m| &m.location).map(|s| s.as_str()),
@@ -20067,8 +20063,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.GroundedGenerationService/GenerateGroundedContent")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -20094,7 +20090,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_grounding_config = try_match(
                     Some(&req).map(|m| &m.grounding_config).map(|s| s.as_str()),
@@ -20144,8 +20140,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.GroundedGenerationService/CheckGrounding",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -20170,7 +20166,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -20579,7 +20575,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -20604,7 +20600,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -20970,7 +20966,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -20996,7 +20992,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -21177,7 +21173,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -21241,7 +21237,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -21292,8 +21288,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.IdentityMappingStoreService/CreateIdentityMappingStore")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -21318,7 +21314,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -21364,8 +21360,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.IdentityMappingStoreService/GetIdentityMappingStore")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -21390,7 +21386,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -21436,8 +21432,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.IdentityMappingStoreService/DeleteIdentityMappingStore")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -21463,7 +21459,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_identity_mapping_store = try_match(
                     Some(&req)
@@ -21517,8 +21513,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.IdentityMappingStoreService/ImportIdentityMappings")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -21544,7 +21540,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_identity_mapping_store = try_match(
                     Some(&req)
@@ -21598,8 +21594,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.IdentityMappingStoreService/PurgeIdentityMappings")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -21624,7 +21620,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_identity_mapping_store = try_match(
                     Some(&req)
@@ -21679,8 +21675,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.IdentityMappingStoreService/ListIdentityMappings")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -21705,7 +21701,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -21749,8 +21745,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.IdentityMappingStoreService/ListIdentityMappingStores")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -21775,7 +21771,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -22184,7 +22180,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -22209,7 +22205,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -22575,7 +22571,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -22601,7 +22597,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -22782,7 +22778,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -22860,7 +22856,7 @@ impl super::stub::LicenseConfigService for LicenseConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -22905,8 +22901,8 @@ impl super::stub::LicenseConfigService for LicenseConfigService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.LicenseConfigService/CreateLicenseConfig",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -22931,7 +22927,7 @@ impl super::stub::LicenseConfigService for LicenseConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_license_config_name = try_match(
                     Some(&req)
@@ -22996,7 +22992,7 @@ impl super::stub::LicenseConfigService for LicenseConfigService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.LicenseConfigService/UpdateLicenseConfig",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -23021,7 +23017,7 @@ impl super::stub::LicenseConfigService for LicenseConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -23069,8 +23065,8 @@ impl super::stub::LicenseConfigService for LicenseConfigService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.LicenseConfigService/GetLicenseConfig",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -23095,7 +23091,7 @@ impl super::stub::LicenseConfigService for LicenseConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -23142,8 +23138,8 @@ impl super::stub::LicenseConfigService for LicenseConfigService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.LicenseConfigService/ListLicenseConfigs",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -23169,7 +23165,7 @@ impl super::stub::LicenseConfigService for LicenseConfigService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_billing_account_license_config = try_match(
                     Some(&req)
@@ -23223,8 +23219,8 @@ impl super::stub::LicenseConfigService for LicenseConfigService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.LicenseConfigService/DistributeLicenseConfig")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -23250,7 +23246,7 @@ impl super::stub::LicenseConfigService for LicenseConfigService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_billing_account_license_config = try_match(
                     Some(&req)
@@ -23306,8 +23302,8 @@ impl super::stub::LicenseConfigService for LicenseConfigService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.LicenseConfigService/RetractLicenseConfig",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -23332,7 +23328,7 @@ impl super::stub::LicenseConfigService for LicenseConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -23741,7 +23737,7 @@ impl super::stub::LicenseConfigService for LicenseConfigService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -23766,7 +23762,7 @@ impl super::stub::LicenseConfigService for LicenseConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -24132,7 +24128,7 @@ impl super::stub::LicenseConfigService for LicenseConfigService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -24158,7 +24154,7 @@ impl super::stub::LicenseConfigService for LicenseConfigService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -24339,7 +24335,7 @@ impl super::stub::LicenseConfigService for LicenseConfigService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -24404,7 +24400,7 @@ impl super::stub::ProjectService for ProjectService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -24473,8 +24469,8 @@ impl super::stub::ProjectService for ProjectService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.ProjectService/ProvisionProject",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -24499,7 +24495,7 @@ impl super::stub::ProjectService for ProjectService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -24908,7 +24904,7 @@ impl super::stub::ProjectService for ProjectService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -24933,7 +24929,7 @@ impl super::stub::ProjectService for ProjectService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -25299,7 +25295,7 @@ impl super::stub::ProjectService for ProjectService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -25325,7 +25321,7 @@ impl super::stub::ProjectService for ProjectService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -25506,7 +25502,7 @@ impl super::stub::ProjectService for ProjectService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -25585,7 +25581,7 @@ impl super::stub::RankService for RankService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_ranking_config = try_match(
                     Some(&req).map(|m| &m.ranking_config).map(|s| s.as_str()),
@@ -25633,8 +25629,8 @@ impl super::stub::RankService for RankService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.RankService/Rank")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -25659,7 +25655,7 @@ impl super::stub::RankService for RankService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -26068,7 +26064,7 @@ impl super::stub::RankService for RankService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -26093,7 +26089,7 @@ impl super::stub::RankService for RankService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -26459,7 +26455,7 @@ impl super::stub::RankService for RankService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -26485,7 +26481,7 @@ impl super::stub::RankService for RankService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -26666,7 +26662,7 @@ impl super::stub::RankService for RankService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -26731,7 +26727,7 @@ impl super::stub::RecommendationService for RecommendationService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_serving_config = try_match(
                     Some(&req).map(|m| &m.serving_config).map(|s| s.as_str()),
@@ -26879,8 +26875,8 @@ impl super::stub::RecommendationService for RecommendationService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.RecommendationService/Recommend",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -26905,7 +26901,7 @@ impl super::stub::RecommendationService for RecommendationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -27314,7 +27310,7 @@ impl super::stub::RecommendationService for RecommendationService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -27339,7 +27335,7 @@ impl super::stub::RecommendationService for RecommendationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -27705,7 +27701,7 @@ impl super::stub::RecommendationService for RecommendationService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -27731,7 +27727,7 @@ impl super::stub::RecommendationService for RecommendationService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -27912,7 +27908,7 @@ impl super::stub::RecommendationService for RecommendationService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -27976,7 +27972,7 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -28071,8 +28067,8 @@ impl super::stub::SchemaService for SchemaService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.SchemaService/GetSchema")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -28097,7 +28093,7 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -28188,8 +28184,8 @@ impl super::stub::SchemaService for SchemaService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.SchemaService/ListSchemas")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -28214,7 +28210,7 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -28303,8 +28299,8 @@ impl super::stub::SchemaService for SchemaService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.SchemaService/CreateSchema")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -28329,7 +28325,7 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_schema_name = try_match(
                     Some(&req)
@@ -28436,7 +28432,7 @@ impl super::stub::SchemaService for SchemaService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.SchemaService/UpdateSchema")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -28461,7 +28457,7 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -28556,8 +28552,8 @@ impl super::stub::SchemaService for SchemaService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.SchemaService/DeleteSchema")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -28582,7 +28578,7 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -28991,7 +28987,7 @@ impl super::stub::SchemaService for SchemaService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -29016,7 +29012,7 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -29382,7 +29378,7 @@ impl super::stub::SchemaService for SchemaService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -29408,7 +29404,7 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -29589,7 +29585,7 @@ impl super::stub::SchemaService for SchemaService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -29668,7 +29664,7 @@ impl super::stub::SearchService for SearchService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_serving_config = try_match(
                     Some(&req).map(|m| &m.serving_config).map(|s| s.as_str()),
@@ -29814,8 +29810,8 @@ impl super::stub::SearchService for SearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.SearchService/Search")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -29841,7 +29837,7 @@ impl super::stub::SearchService for SearchService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_serving_config = try_match(
                     Some(&req).map(|m| &m.serving_config).map(|s| s.as_str()),
@@ -29987,8 +29983,8 @@ impl super::stub::SearchService for SearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.SearchService/SearchLite")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -30013,7 +30009,7 @@ impl super::stub::SearchService for SearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -30422,7 +30418,7 @@ impl super::stub::SearchService for SearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -30447,7 +30443,7 @@ impl super::stub::SearchService for SearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -30813,7 +30809,7 @@ impl super::stub::SearchService for SearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -30839,7 +30835,7 @@ impl super::stub::SearchService for SearchService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -31020,7 +31016,7 @@ impl super::stub::SearchService for SearchService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -31085,7 +31081,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_data_store = try_match(
                     Some(&req).map(|m| &m.data_store).map(|s| s.as_str()),
@@ -31138,8 +31134,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.SearchTuningService/TrainCustomModel",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -31164,7 +31160,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_data_store = try_match(
                     Some(&req).map(|m| &m.data_store).map(|s| s.as_str()),
@@ -31216,8 +31212,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.SearchTuningService/ListCustomModels",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -31242,7 +31238,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -31651,7 +31647,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -31676,7 +31672,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -32042,7 +32038,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -32068,7 +32064,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -32249,7 +32245,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -32327,7 +32323,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -32460,8 +32456,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.ServingConfigService/CreateServingConfig",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -32486,7 +32482,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -32628,8 +32624,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.ServingConfigService/DeleteServingConfig",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -32660,7 +32656,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_serving_config_name = try_match(
                     Some(&req)
@@ -32853,7 +32849,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.ServingConfigService/UpdateServingConfig",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -32878,7 +32874,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -33020,8 +33016,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.ServingConfigService/GetServingConfig",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -33046,7 +33042,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -33182,8 +33178,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.ServingConfigService/ListServingConfigs",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -33208,7 +33204,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -33617,7 +33613,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -33642,7 +33638,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -34008,7 +34004,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -34034,7 +34030,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -34215,7 +34211,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -34279,7 +34275,7 @@ impl super::stub::SessionService for SessionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -34410,8 +34406,8 @@ impl super::stub::SessionService for SessionService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.SessionService/CreateSession")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -34436,7 +34432,7 @@ impl super::stub::SessionService for SessionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -34576,8 +34572,8 @@ impl super::stub::SessionService for SessionService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.SessionService/DeleteSession")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -34608,7 +34604,7 @@ impl super::stub::SessionService for SessionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_session_name = try_match(
                     Some(&req)
@@ -34799,7 +34795,7 @@ impl super::stub::SessionService for SessionService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.SessionService/UpdateSession")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -34824,7 +34820,7 @@ impl super::stub::SessionService for SessionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -34970,8 +34966,8 @@ impl super::stub::SessionService for SessionService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.SessionService/GetSession")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -34996,7 +34992,7 @@ impl super::stub::SessionService for SessionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -35136,8 +35132,8 @@ impl super::stub::SessionService for SessionService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.SessionService/ListSessions")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -35162,7 +35158,7 @@ impl super::stub::SessionService for SessionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -35571,7 +35567,7 @@ impl super::stub::SessionService for SessionService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -35596,7 +35592,7 @@ impl super::stub::SessionService for SessionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -35962,7 +35958,7 @@ impl super::stub::SessionService for SessionService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -35988,7 +35984,7 @@ impl super::stub::SessionService for SessionService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -36169,7 +36165,7 @@ impl super::stub::SessionService for SessionService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -36233,7 +36229,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -36324,8 +36320,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.SiteSearchEngineService/GetSiteSearchEngine")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -36350,7 +36346,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -36443,8 +36439,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.SiteSearchEngineService/CreateTargetSite",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -36470,7 +36466,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -36563,8 +36559,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.SiteSearchEngineService/BatchCreateTargetSites")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -36589,7 +36585,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -36650,8 +36646,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.SiteSearchEngineService/GetTargetSite",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -36676,7 +36672,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_target_site_name = try_match(Some(&req).and_then(|m| m.target_site.as_ref()).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -36729,7 +36725,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.SiteSearchEngineService/UpdateTargetSite",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -36754,7 +36750,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -36815,8 +36811,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.SiteSearchEngineService/DeleteTargetSite",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -36841,7 +36837,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -36938,8 +36934,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.SiteSearchEngineService/ListTargetSites",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -36964,7 +36960,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -37057,8 +37053,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.SiteSearchEngineService/CreateSitemap",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -37083,7 +37079,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/sitemaps/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -37144,8 +37140,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.SiteSearchEngineService/DeleteSitemap",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -37170,7 +37166,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -37287,8 +37283,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.SiteSearchEngineService/FetchSitemaps",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -37314,7 +37310,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_site_search_engine = try_match(
                     Some(&req)
@@ -37421,8 +37417,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.SiteSearchEngineService/EnableAdvancedSiteSearch")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -37448,7 +37444,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_site_search_engine = try_match(
                     Some(&req)
@@ -37555,8 +37551,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.SiteSearchEngineService/DisableAdvancedSiteSearch")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -37582,7 +37578,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_site_search_engine = try_match(
                     Some(&req)
@@ -37691,8 +37687,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.SiteSearchEngineService/RecrawlUris",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -37718,7 +37714,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -37771,8 +37767,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.SiteSearchEngineService/BatchVerifyTargetSites")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -37797,7 +37793,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_site_search_engine = try_match(
                     Some(&req)
@@ -37861,8 +37857,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.SiteSearchEngineService/FetchDomainVerificationStatus")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -37887,7 +37883,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -38296,7 +38292,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -38321,7 +38317,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -38687,7 +38683,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -38713,7 +38709,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -38894,7 +38890,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -38972,7 +38968,7 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -39097,8 +39093,8 @@ impl super::stub::UserEventService for UserEventService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.UserEventService/WriteUserEvent",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -39123,7 +39119,7 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -39272,8 +39268,8 @@ impl super::stub::UserEventService for UserEventService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.UserEventService/CollectUserEvent",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -39299,7 +39295,7 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -39390,8 +39386,8 @@ impl super::stub::UserEventService for UserEventService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.UserEventService/PurgeUserEvents",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -39417,7 +39413,7 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -39542,8 +39538,8 @@ impl super::stub::UserEventService for UserEventService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.UserEventService/ImportUserEvents",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -39568,7 +39564,7 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -39977,7 +39973,7 @@ impl super::stub::UserEventService for UserEventService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -40002,7 +39998,7 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -40368,7 +40364,7 @@ impl super::stub::UserEventService for UserEventService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -40394,7 +40390,7 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -40575,7 +40571,7 @@ impl super::stub::UserEventService for UserEventService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -40653,7 +40649,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -40705,8 +40701,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.UserLicenseService/ListUserLicenses",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -40731,7 +40727,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -40777,8 +40773,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.UserLicenseService/ListLicenseConfigsUsageStats")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -40804,7 +40800,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -40851,8 +40847,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.UserLicenseService/BatchUpdateUserLicenses")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name)
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name)
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -40877,7 +40873,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -41286,7 +41282,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -41311,7 +41307,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -41677,7 +41673,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -41703,7 +41699,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -41884,7 +41880,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -41962,7 +41958,7 @@ impl super::stub::UserStoreService for UserStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -42008,8 +42004,8 @@ impl super::stub::UserStoreService for UserStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.cloud.discoveryengine.v1.UserStoreService/GetUserStore")
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -42034,7 +42030,7 @@ impl super::stub::UserStoreService for UserStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_user_store_name = try_match(
                     Some(&req)
@@ -42099,7 +42095,7 @@ impl super::stub::UserStoreService for UserStoreService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.UserStoreService/UpdateUserStore",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -42124,7 +42120,7 @@ impl super::stub::UserStoreService for UserStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -42533,7 +42529,7 @@ impl super::stub::UserStoreService for UserStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -42558,7 +42554,7 @@ impl super::stub::UserStoreService for UserStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -42924,7 +42920,7 @@ impl super::stub::UserStoreService for UserStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -42950,7 +42946,7 @@ impl super::stub::UserStoreService for UserStoreService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -43131,7 +43127,7 @@ impl super::stub::UserStoreService for UserStoreService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -43195,7 +43191,7 @@ impl super::stub::WidgetConfigService for WidgetConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template, _resource_name) = None
+        let (builder, method, path_template, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -43382,8 +43378,8 @@ impl super::stub::WidgetConfigService for WidgetConfigService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.WidgetConfigService/GetWidgetConfig",
                     )
-                    .set_url_template(_path_template)
-                    .set_resource_name(_resource_name),
+                    .set_url_template(path_template)
+                    .set_resource_name(resource_name),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -43408,7 +43404,7 @@ impl super::stub::WidgetConfigService for WidgetConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_widget_config_name = try_match(
                     Some(&req)
@@ -43601,7 +43597,7 @@ impl super::stub::WidgetConfigService for WidgetConfigService {
                     .set_rpc_method(
                         "google.cloud.discoveryengine.v1.WidgetConfigService/UpdateWidgetConfig",
                     )
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -43626,7 +43622,7 @@ impl super::stub::WidgetConfigService for WidgetConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -44035,7 +44031,7 @@ impl super::stub::WidgetConfigService for WidgetConfigService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/ListOperations")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -44060,7 +44056,7 @@ impl super::stub::WidgetConfigService for WidgetConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/operations/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -44426,7 +44422,7 @@ impl super::stub::WidgetConfigService for WidgetConfigService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/GetOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
@@ -44452,7 +44448,7 @@ impl super::stub::WidgetConfigService for WidgetConfigService {
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
         let mut req = req;
-        let (builder, method, _path_template) = None
+        let (builder, method, path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -44633,7 +44629,7 @@ impl super::stub::WidgetConfigService for WidgetConfigService {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
                     .set_rpc_method("google.longrunning.Operations/CancelOperation")
-                    .set_url_template(_path_template),
+                    .set_url_template(path_template),
             );
         }
         let options = google_cloud_gax::options::internal::set_default_idempotency(

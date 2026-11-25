@@ -551,6 +551,7 @@ impl std::fmt::Debug for super::LookupMapTileRequest {
         debug_struct.field("zoom", &self.zoom);
         debug_struct.field("x", &self.x);
         debug_struct.field("y", &self.y);
+        debug_struct.field("forecast_time", &self.forecast_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
