@@ -28,6 +28,7 @@ mod tests {
     use http::HeaderMap;
     use pretty_assertions::assert_eq;
     use std::sync::Arc;
+    use std::time::Duration;
 
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
@@ -266,34 +267,109 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
-    async fn credentials_error() -> anyhow::Result<()> {
+    both_transports!(credentials_error);
+    async fn credentials_error<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-
-        let client = builder(endpoint)
+        let client = transport_builder::<C>(endpoint)
             .with_credentials(error_credentials(false))
             .build()
             .await?;
         let (tx, rx) = tokio::sync::mpsc::channel(100);
         tx.send(simple_request("msg0")).await?;
+
+        // Act
         let response = send_streaming_request(client.clone(), rx, "").await;
-        let err = response.unwrap_err();
+
+        // Assert
+        let err = response
+            .err()
+            .expect("the credentials error should be returned");
         assert!(err.is_authentication(), "{err:?}");
         Ok(())
     }
 
-    #[tokio::test]
-    async fn connection_error() -> anyhow::Result<()> {
-        let client = builder("http://127.0.0.1:1")
+    both_transports!(connection_error);
+    async fn connection_error<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
+        let client = transport_builder::<C>("http://127.0.0.1:1")
             .with_credentials(test_credentials())
             .build()
             .await;
         let client = client.expect("clients should use lazy connections");
         let (tx, rx) = tokio::sync::mpsc::channel(100);
         tx.send(simple_request("msg0")).await?;
+
+        // Act
         let response = send_streaming_request(client.clone(), rx, "").await;
-        let err = response.unwrap_err();
+
+        // Assert
+        let err = response.err().expect("the connection should fail");
         assert!(err.is_connect(), "{err:?}");
+        Ok(())
+    }
+
+    both_transports!(remains_usable_after_cancellation);
+    async fn remains_usable_after_cancellation<C: EchoTransport>() -> anyhow::Result<()> {
+        // Arrange
+        let (endpoint, _server) = start_echo_server().await?;
+        let client = transport_builder::<C>(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
+        let (tx, rx) = tokio::sync::mpsc::channel(100);
+        let mut stream = send_streaming_request(client.clone(), rx, "")
+            .await?
+            .into_inner();
+
+        // Act
+        // Nothing was sent yet, so this receive times out and is cancelled.
+        let timeout = Duration::from_millis(50);
+        let cancelled = tokio::time::timeout(timeout, stream.message()).await;
+
+        // Assert
+        assert!(
+            cancelled.is_err(),
+            "the first receive should time out: {cancelled:?}"
+        );
+
+        // Act
+        tx.send(simple_request("msg0")).await?;
+        let r = stream.message().await;
+
+        // Assert
+        assert!(matches!(r, Ok(Some(ref m)) if m.message == "msg0"), "{r:?}");
+        Ok(())
+    }
+
+    // NOTE(#5991): Only `GrpcRustClient` closes the request stream when the
+    // response stream is dropped. With Tonic, dropping the response releases
+    // only the receiving half of the HTTP/2 stream, and hyper keeps sending
+    // the requests until they end, so the request stream stays open.
+    #[cfg(google_cloud_unstable_grpc_rust)]
+    #[tokio::test]
+    async fn drop_closes_channel() -> anyhow::Result<()> {
+        // Arrange
+        let (endpoint, _server) = start_echo_server().await?;
+        let client = transport_builder::<grpc::GrpcRustClient>(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
+        let (tx, rx) = tokio::sync::mpsc::channel(100);
+        tx.send(simple_request("msg0")).await?;
+        let mut stream = send_streaming_request(client.clone(), rx, "")
+            .await?
+            .into_inner();
+        let r = stream.message().await;
+        assert!(matches!(r, Ok(Some(ref m)) if m.message == "msg0"), "{r:?}");
+
+        // Act
+        drop(stream);
+
+        // Assert
+        tokio::time::timeout(Duration::from_secs(5), tx.closed())
+            .await
+            .expect("dropping the stream should close the request channel");
         Ok(())
     }
 
