@@ -63,6 +63,9 @@ pub mod object_descriptor;
 #[cfg(google_cloud_unstable_storage_parallel_upload)]
 #[cfg_attr(docsrs, doc(cfg(google_cloud_unstable_storage_parallel_upload)))]
 pub mod parallel_upload_session;
+#[cfg(google_cloud_unstable_storage_parallel_upload)]
+#[cfg_attr(docsrs, doc(cfg(google_cloud_unstable_storage_parallel_upload)))]
+pub mod parallel_upload_source;
 pub mod read_object;
 pub mod read_resume_policy;
 pub mod retry_policy;
