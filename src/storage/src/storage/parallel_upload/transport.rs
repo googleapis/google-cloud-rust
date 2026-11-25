@@ -184,15 +184,19 @@ where
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         // The parameters may include an encryption key.
         let params = self.params.as_ref().map(|_| "[censored]");
-        f.debug_struct("ParallelUploadSessionTransport")
+        let mut debug = f.debug_struct("ParallelUploadSessionTransport");
+        debug
             .field("client", &self.client)
             .field("options", &self.options)
             .field("session_name", &self.session_name)
             .field("request_params", &self.request_params)
             .field("segment_size_bytes", &self.segment_size_bytes)
-            .field("params", &params)
-            .field("completed_segments", &self.completed_segments)
-            .finish()
+            .field("params", &params);
+        match self.completed_segments.try_lock() {
+            Ok(segments) => debug.field("completed_segments", &segments.len()),
+            Err(_) => debug.field("completed_segments", &"<locked>"),
+        };
+        debug.finish()
     }
 }
 
@@ -362,6 +366,25 @@ mod tests {
         let with_params = format!("{t:?}");
         assert!(with_params.contains("[censored]"), "{with_params}");
         assert!(!with_params.contains("test-only-key"), "{with_params}");
+    }
+
+    #[test]
+    fn debug_formats_completed_segments() {
+        let t = transport(
+            MockTestClient::new(),
+            SESSION,
+            &[(1, SEGMENT_SIZE), (2, 123)],
+        );
+        let unlocked = format!("{t:?}");
+        assert!(unlocked.contains("completed_segments: 2"), "{unlocked}");
+        assert!(!unlocked.contains("123"), "{unlocked}");
+
+        let _guard = t.completed_segments.lock().expect("never poisoned");
+        let locked = format!("{t:?}");
+        assert!(
+            locked.contains("completed_segments: \"<locked>\""),
+            "{locked}"
+        );
     }
 
     #[tokio::test]
