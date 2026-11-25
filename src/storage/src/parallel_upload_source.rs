@@ -26,6 +26,11 @@ use std::io::{Error as IoError, ErrorKind};
 #[cfg_attr(docsrs, doc(cfg(google_cloud_unstable_storage_parallel_upload)))]
 pub trait ParallelUploadSource: Send + Sync + 'static {
     /// The segment reader returned by [`slice`][Self::slice].
+    ///
+    /// Implementations must treat [`Seek::seek`] offsets as relative to the
+    /// segment (`0..=len`), report the segment length (`len`) from
+    /// [`StreamingSource::size_hint`], and give each [`Clone`] an independent
+    /// cursor starting at the cloned read offset.
     type SegmentSource: StreamingSource<Error = Self::Error>
         + Seek<Error = Self::Error>
         + Clone
@@ -44,6 +49,10 @@ pub trait ParallelUploadSource: Send + Sync + 'static {
     fn total_size(&self) -> impl Future<Output = Result<u64, Self::Error>> + Send;
 
     /// Returns an independent segment reader covering `[offset, offset + len)`.
+    ///
+    /// Zero-length slices (`len == 0` with `offset <= total_size`, including
+    /// `slice(0, 0)` on an empty source) must succeed and yield `None` from
+    /// [`StreamingSource::next`].
     ///
     /// # Errors
     ///
@@ -281,7 +290,7 @@ mod tests {
     fn assert_send<T: Send>(_: &T) {}
     fn assert_static<T: 'static>(_: &T) {}
 
-    async fn read_all<S>(mut source: S) -> anyhow::Result<Vec<u8>>
+    async fn read_all<S>(source: &mut S) -> anyhow::Result<Vec<u8>>
     where
         S: StreamingSource,
     {
@@ -309,6 +318,18 @@ mod tests {
         let len = source.total_size().await?;
         let segment = source.slice(0, len)?;
         Ok(session.write_segment(1, segment).await?)
+    }
+
+    fn assert_generic_futures_are_send<P, S>(
+        payload: P,
+        session: &ParallelUploadSession,
+        source: &S,
+    ) where
+        P: IntoParallelUploadSource,
+        S: ParallelUploadSource,
+    {
+        assert_send(&generic_into_source(payload));
+        assert_send(&generic_write_first_segment(session, source));
     }
 
     mock! {
@@ -356,6 +377,9 @@ mod tests {
         let mut segment = source.slice(0, 5)?;
 
         // Act & Assert.
+        let session = ParallelUploadSession::new(MockSession::new());
+        assert_generic_futures_are_send(Bytes::from_static(b"hello"), &session, &source);
+
         let into_fut = generic_into_source(Bytes::from_static(b"hello"));
         assert_send(&into_fut);
         assert_static(&into_fut);
@@ -414,8 +438,8 @@ mod tests {
         ] {
             let total = src.total_size().await?;
             assert_eq!(total, want.len() as u64);
-            let seg = src.slice(0, total)?;
-            assert_eq!(read_all(seg).await?, want);
+            let mut seg = src.slice(0, total)?;
+            assert_eq!(read_all(&mut seg).await?, want);
         }
         Ok(())
     }
@@ -667,10 +691,10 @@ mod tests {
         let fut = generic_into_source(Borrowed(&local));
         assert_send(&fut);
         let source = fut.await?;
-        let segment = source.slice(0, local.len() as u64)?;
+        let mut segment = source.slice(0, local.len() as u64)?;
 
         // Assert.
-        assert_eq!(read_all(segment).await?, local);
+        assert_eq!(read_all(&mut segment).await?, local);
         Ok(())
     }
 
@@ -687,19 +711,22 @@ mod tests {
             let src = Arc::clone(&source);
             handles.push(tokio::spawn(async move {
                 let mut seg = src.slice(offset, len)?;
-                let first = read_all(seg.clone()).await?;
+                let mut cloned = seg.clone();
+                let first = read_all(&mut seg).await?;
+                let from_clone = read_all(&mut cloned).await?;
                 seg.seek(0).await?;
-                let second = read_all(seg).await?;
-                anyhow::Ok((offset, len, first, second))
+                let rewound = read_all(&mut seg).await?;
+                anyhow::Ok((offset, len, first, from_clone, rewound))
             }));
         }
 
         // Assert.
         for handle in handles {
-            let (offset, len, first, second) = handle.await??;
+            let (offset, len, first, from_clone, rewound) = handle.await??;
             let want = &data[offset as usize..(offset + len) as usize];
             assert_eq!(first, want);
-            assert_eq!(second, want);
+            assert_eq!(from_clone, want);
+            assert_eq!(rewound, want);
         }
         Ok(())
     }
