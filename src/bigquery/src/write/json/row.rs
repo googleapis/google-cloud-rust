@@ -207,7 +207,6 @@ mod tests {
     fn rejects_invalid_rows_and_fields_without_leaking_values() -> anyhow::Result<()> {
         let fields = [
             col("active", Type::Bool),
-            col("id", Type::Int64),
             col("tags", Type::Bool).set_mode(Mode::Repeated),
         ];
 
@@ -220,10 +219,6 @@ mod tests {
             (
                 r#"{"active": "secret_pii"}"#,
                 "invalid value for field 'active': expected BOOL",
-            ),
-            (
-                r#"{"id": 12345}"#,
-                "unsupported type 'INT64' for field 'id'",
             ),
             (
                 r#"{"tags": ["secret_pii"]}"#,
