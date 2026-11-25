@@ -108,8 +108,8 @@ impl ResumeQuery {
 
 /// The recommended policy when reading objects from Cloud Storage.
 ///
-/// This policy resumes any read that fails due to I/O errors, and stops on any
-/// other error kind.
+/// This policy resumes reads that fail due to transient I/O, transport,
+/// timeout, or server errors, and stops on permanent errors.
 ///
 /// # Example
 /// ```
@@ -142,7 +142,7 @@ impl ReadResumePolicy for Recommended {
 
 fn is_transient(error: &Error) -> bool {
     match error {
-        // When using HTTP the only error after the read starts are I/O errors.
+        // HTTP reads produce I/O or client timeout errors after the read starts.
         e if e.is_io() => true,
         // When using gRPC the errors may include more information.
         e if e.is_transport() => true,
