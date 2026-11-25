@@ -28,6 +28,7 @@ mod tests {
     use http::HeaderMap;
     use pretty_assertions::assert_eq;
     use std::sync::Arc;
+    use std::time::Duration;
 
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
@@ -323,7 +324,7 @@ mod tests {
 
         // Act
         // Nothing was sent yet, so this receive times out and is cancelled.
-        let timeout = std::time::Duration::from_millis(50);
+        let timeout = Duration::from_millis(50);
         let cancelled = tokio::time::timeout(timeout, stream.message()).await;
 
         // Assert
@@ -350,7 +351,7 @@ mod tests {
     async fn drop_closes_channel() -> anyhow::Result<()> {
         // Arrange
         let (endpoint, _server) = start_echo_server().await?;
-        let client = transport_builder::<grpc_server::transport::GrpcRustClient>(endpoint)
+        let client = transport_builder::<grpc::GrpcRustClient>(endpoint)
             .with_credentials(test_credentials())
             .build()
             .await?;
@@ -366,7 +367,7 @@ mod tests {
         drop(stream);
 
         // Assert
-        tokio::time::timeout(std::time::Duration::from_secs(5), tx.closed())
+        tokio::time::timeout(Duration::from_secs(5), tx.closed())
             .await
             .expect("dropping the stream should close the request channel");
         Ok(())
