@@ -542,7 +542,7 @@ impl super::stub::Storage for Storage {
         request: CreateObjectWriteSessionRequest,
         options: RequestOptions,
     ) -> Result<ParallelUploadSession> {
-        // Tracing is not implemented for parallel uploads yet.
+        // TODO: implement tracing for parallel uploads.
         self.create_object_write_session_plain(request, options)
             .await
     }
@@ -1345,7 +1345,7 @@ mod tests {
 
     #[cfg(google_cloud_unstable_storage_parallel_upload)]
     #[tokio::test]
-    async fn create_object_write_session() -> anyhow::Result<()> {
+    async fn create_object_write_session_not_found() -> anyhow::Result<()> {
         use google_cloud_gax::error::rpc::Code;
 
         let server = Server::run();

@@ -21,6 +21,7 @@ use crate::model::Object;
 use crate::model_ext::{AbortSessionResponse, CreateObjectWriteSessionRequest, Segment};
 use crate::request_options::RequestOptions;
 use crate::storage::info::X_GOOG_API_CLIENT_HEADER;
+use crate::stub::ParallelUploadSession;
 use crate::{Error, Result};
 use gaxi::grpc::tonic::{Extensions, GrpcMethod};
 use gaxi::path_parameter::PathMismatchBuilder;
@@ -39,6 +40,7 @@ pub(crate) struct ParallelUploadSessionTransport<T = GrpcClient> {
     client: T,
     options: RequestOptions,
     session_name: String,
+    request_params: String,
     segment_size_bytes: u64,
     /// The parameters from the request that created the session. They apply to
     /// the requests that write and finalize the object too.
@@ -73,25 +75,31 @@ where
             )
             .await?;
         let session = response.into_inner();
+        let request_params = session_request_params(&session.name)?;
         let segment_size_bytes = u64::try_from(session.segment_size_bytes).map_err(Error::deser)?;
+        if segment_size_bytes == 0 {
+            return Err(Error::deser("the service returned a zero segment size"));
+        }
 
         Ok(Self {
             client,
             options,
             session_name: session.name,
+            request_params,
             segment_size_bytes,
             params,
             completed_segments: Mutex::default(),
         })
     }
 
-    /// Returns the number of completed segments.
+    /// Validates the completed segments and returns their count.
     ///
     /// A session can only be finalized if segments `1..=N` are complete, and
-    /// only the last one is smaller than the session's segment size.
-    fn total_segment_count(&self) -> Result<i32> {
+    /// only the last one may be smaller than the session's segment size.
+    fn validated_segment_count(&self) -> Result<i32> {
+        // TODO: return a typed validation error instead of plain strings.
         let segments = self.completed_segments.lock().expect("never poisoned");
-        let Some(last) = segments.keys().next_back().copied() else {
+        let Some((&last, _)) = segments.last_key_value() else {
             return Err(Error::ser("cannot finalize a session without segments"));
         };
         for ((&number, &size), want) in segments.iter().zip(1_u32..) {
@@ -116,7 +124,7 @@ where
     }
 }
 
-impl<T> crate::stub::ParallelUploadSession for ParallelUploadSessionTransport<T>
+impl<T> ParallelUploadSession for ParallelUploadSessionTransport<T>
 where
     T: Client,
 {
@@ -137,8 +145,7 @@ where
     }
 
     async fn finalize(&self) -> Result<Object> {
-        let total_segment_count = self.total_segment_count()?;
-        let request_params = session_request_params(&self.session_name)?;
+        let total_segment_count = self.validated_segment_count()?;
         let request = v2::FinalizeObjectWriteSessionRequest {
             name: self.session_name.clone(),
             common_object_request_params: self.params.clone(),
@@ -154,14 +161,13 @@ where
                 request,
                 self.options.gax(),
                 &X_GOOG_API_CLIENT_HEADER,
-                &request_params,
+                &self.request_params,
             )
             .await?;
         FromProto::<Object>::cnv(response.into_inner()).map_err(Error::deser)
     }
 
     async fn abort(&self) -> Result<AbortSessionResponse> {
-        let request_params = session_request_params(&self.session_name)?;
         let request = v2::AbortObjectWriteSessionRequest {
             name: self.session_name.clone(),
         };
@@ -173,7 +179,7 @@ where
                 request,
                 self.options.gax(),
                 &X_GOOG_API_CLIENT_HEADER,
-                &request_params,
+                &self.request_params,
             )
             .await?;
         Ok(AbortSessionResponse::new())
@@ -191,6 +197,7 @@ where
             .field("client", &self.client)
             .field("options", &self.options)
             .field("session_name", &self.session_name)
+            .field("request_params", &self.request_params)
             .field("segment_size_bytes", &self.segment_size_bytes)
             .field("params", &params)
             .field("completed_segments", &self.completed_segments)
@@ -198,7 +205,7 @@ where
     }
 }
 
-fn method(name: &'static str) -> Extensions {
+pub(super) fn method(name: &'static str) -> Extensions {
     let mut extensions = Extensions::new();
     extensions.insert(GrpcMethod::new("google.storage.v2.Storage", name));
     extensions
@@ -241,23 +248,7 @@ fn session_request_params(name: &str) -> Result<String> {
     if let Some(bucket) = bucket {
         return Ok(routing_parameter::format(&[Some(("bucket", bucket))]));
     }
-    let mismatch = PathMismatchBuilder::default()
-        .maybe_add(
-            Some(name),
-            &[
-                Literal("projects/"),
-                SingleWildcard,
-                Literal("/buckets/"),
-                SingleWildcard,
-                TrailingMultiWildcard,
-            ],
-            "name",
-            "projects/*/buckets/*/**",
-        )
-        .build();
-    Err(Error::binding(BindingError {
-        paths: vec![mismatch],
-    }))
+    Err(Error::deser(format!("invalid session name: {name}")))
 }
 
 #[cfg(test)]
@@ -267,7 +258,6 @@ mod tests {
     use super::*;
     use crate::model::CommonObjectRequestParams;
     use crate::streaming_source::Payload;
-    use crate::stub::ParallelUploadSession as _;
     use gaxi::grpc::tonic::Response as TonicResponse;
     use google_cloud_gax::error::binding::{PathMismatch, SubstitutionFail, SubstitutionMismatch};
     use static_assertions::assert_impl_all;
@@ -293,6 +283,14 @@ mod tests {
         }
     }
 
+    async fn create(
+        mock: MockTestClient,
+        request: CreateObjectWriteSessionRequest,
+    ) -> Result<ParallelUploadSessionTransport<SharedMockClient>> {
+        ParallelUploadSessionTransport::create(SharedMockClient::new(mock), request, test_options())
+            .await
+    }
+
     fn transport(
         mock: MockTestClient,
         session_name: &str,
@@ -302,6 +300,7 @@ mod tests {
             client: SharedMockClient::new(mock),
             options: test_options(),
             session_name: session_name.to_string(),
+            request_params: session_request_params(session_name).expect("valid test session name"),
             segment_size_bytes: SEGMENT_SIZE,
             params: None,
             completed_segments: Mutex::new(segments.iter().copied().collect()),
@@ -339,11 +338,11 @@ mod tests {
     #[test]
     fn assertions() {
         assert_impl_all!(ParallelUploadSessionTransport: std::fmt::Debug, Send, Sync);
-        assert_impl_all!(ParallelUploadSessionTransport: crate::stub::ParallelUploadSession);
+        assert_impl_all!(ParallelUploadSessionTransport: ParallelUploadSession);
     }
 
-    #[tokio::test]
-    async fn futures_are_send() {
+    #[test]
+    fn futures_are_send() {
         fn need_send<T: Send>(_val: &T) {}
 
         let client = SharedMockClient::new(MockTestClient::new());
@@ -356,6 +355,23 @@ mod tests {
         need_send(&finalize);
         let abort = transport.abort();
         need_send(&abort);
+    }
+
+    #[test]
+    fn debug_redacts_params() {
+        let mut t = transport(MockTestClient::new(), SESSION, &[]);
+        let without_params = format!("{t:?}");
+        assert!(without_params.contains("params: None"), "{without_params}");
+        assert!(!without_params.contains("[censored]"), "{without_params}");
+
+        t.params = Some(v2::CommonObjectRequestParams {
+            encryption_algorithm: "AES256".to_string(),
+            encryption_key_bytes: bytes::Bytes::from_static(b"test-only-key"),
+            ..v2::CommonObjectRequestParams::default()
+        });
+        let with_params = format!("{t:?}");
+        assert!(with_params.contains("[censored]"), "{with_params}");
+        assert!(!with_params.contains("test-only-key"), "{with_params}");
     }
 
     #[tokio::test]
@@ -405,13 +421,7 @@ mod tests {
         // Binding errors are detected before a request is sent.
         mock.expect_create_object_write_session().never();
 
-        let err = ParallelUploadSessionTransport::create(
-            SharedMockClient::new(mock),
-            request,
-            test_options(),
-        )
-        .await
-        .unwrap_err();
+        let err = create(mock, request).await.unwrap_err();
         assert_binding_error(
             err,
             "resource.bucket",
@@ -426,30 +436,35 @@ mod tests {
             .times(1)
             .return_once(|_, _, _, _, _, _| Err(permanent_error()));
 
-        let err = ParallelUploadSessionTransport::create(
-            SharedMockClient::new(mock),
-            create_request(),
-            test_options(),
-        )
-        .await
-        .unwrap_err();
+        let err = create(mock, create_request()).await.unwrap_err();
         assert_eq!(err.status(), permanent_error().status(), "{err:?}");
     }
 
+    #[test_case(-1; "negative")]
+    #[test_case(0; "zero")]
     #[tokio::test]
-    async fn create_negative_segment_size() {
+    async fn create_invalid_segment_size(size: i64) {
         let mut mock = MockTestClient::new();
         mock.expect_create_object_write_session()
             .times(1)
-            .return_once(|_, _, _, _, _, _| Ok(TonicResponse::new(proto_session(-1))));
+            .return_once(move |_, _, _, _, _, _| Ok(TonicResponse::new(proto_session(size))));
 
-        let err = ParallelUploadSessionTransport::create(
-            SharedMockClient::new(mock),
-            create_request(),
-            test_options(),
-        )
-        .await
-        .unwrap_err();
+        let err = create(mock, create_request()).await.unwrap_err();
+        assert!(err.is_deserialization(), "{err:?}");
+    }
+
+    #[test_case(""; "empty")]
+    #[test_case("bad-session-name"; "malformed")]
+    #[tokio::test]
+    async fn create_invalid_session_name(name: &str) {
+        let mut session = proto_session(SEGMENT_SIZE as i64);
+        session.name = name.to_string();
+        let mut mock = MockTestClient::new();
+        mock.expect_create_object_write_session()
+            .times(1)
+            .return_once(move |_, _, _, _, _, _| Ok(TonicResponse::new(session)));
+
+        let err = create(mock, create_request()).await.unwrap_err();
         assert!(err.is_deserialization(), "{err:?}");
     }
 
@@ -553,16 +568,7 @@ mod tests {
                 .set_encryption_algorithm("AES256")
                 .set_encryption_key_bytes(bytes::Bytes::from_static(b"test-only-key")),
         );
-        let transport = ParallelUploadSessionTransport::create(
-            SharedMockClient::new(mock),
-            request,
-            test_options(),
-        )
-        .await?;
-
-        let fmt = format!("{transport:?}");
-        assert!(fmt.contains("[censored]"), "{fmt}");
-        assert!(!fmt.contains("test-only-key"), "{fmt}");
+        let transport = create(mock, request).await?;
 
         transport
             .completed_segments
@@ -604,24 +610,6 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn finalize_binding_error() {
-        let mut mock = MockTestClient::new();
-        // Binding errors are detected before a request is sent.
-        mock.expect_finalize_object_write_session().never();
-
-        let transport = transport(mock, "bad-session-name", &[(1, 5)]);
-        let err = transport.finalize().await.unwrap_err();
-        assert_binding_error(
-            err,
-            "name",
-            SubstitutionFail::MismatchExpecting(
-                "bad-session-name".to_string(),
-                "projects/*/buckets/*/**",
-            ),
-        );
-    }
-
-    #[tokio::test]
     async fn abort_success() -> anyhow::Result<()> {
         let mut mock = MockTestClient::new();
         mock.expect_abort_object_write_session()
@@ -654,21 +642,6 @@ mod tests {
         let transport = transport(mock, SESSION, &[]);
         let err = transport.abort().await.unwrap_err();
         assert_eq!(err.status(), permanent_error().status(), "{err:?}");
-    }
-
-    #[tokio::test]
-    async fn abort_binding_error() {
-        let mut mock = MockTestClient::new();
-        // Binding errors are detected before a request is sent.
-        mock.expect_abort_object_write_session().never();
-
-        let transport = transport(mock, "", &[]);
-        let err = transport.abort().await.unwrap_err();
-        assert_binding_error(
-            err,
-            "name",
-            SubstitutionFail::UnsetExpecting("projects/*/buckets/*/**"),
-        );
     }
 
     #[tokio::test]

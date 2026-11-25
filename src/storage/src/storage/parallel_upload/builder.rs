@@ -228,7 +228,7 @@ where
     ///
     /// # Errors
     ///
-    /// Returns an error if the session creation RPC fails.
+    /// Returns an error if the bucket name is missing or the session creation RPC fails.
     pub async fn create_session(self) -> Result<ParallelUploadSession> {
         // `max_concurrency` only applies to whole-object uploads;
         // TODO: plumb `enable_hedging` via `RequestOptions` once hedging is implemented.
