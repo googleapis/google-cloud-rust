@@ -15,6 +15,7 @@
 pub mod publish_custom_attributes;
 pub mod publish_with_batch_settings;
 pub mod publish_with_error_handler;
+pub mod publish_with_hedging_settings;
 pub mod publish_with_ordering_keys;
 pub mod publish_with_retry_settings;
 pub mod quickstart_publisher;

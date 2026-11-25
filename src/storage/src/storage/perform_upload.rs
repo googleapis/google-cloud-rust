@@ -92,8 +92,7 @@ impl<S> PerformUpload<S> {
             )));
         let response = builder
             .send(options, AttemptInfo::new(attempt_count))
-            .await
-            .map_err(Error::io)?;
+            .await?;
         self::handle_start_resumable_upload_response(response).await
     }
 
@@ -149,8 +148,7 @@ impl<S> PerformUpload<S> {
             );
         let response = builder
             .send(options, AttemptInfo::new(attempt_count))
-            .await
-            .map_err(Error::io)?;
+            .await?;
         self::query_resumable_upload_handle_response(response).await
     }
 

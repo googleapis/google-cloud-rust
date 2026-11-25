@@ -12,8 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Column lookup and value encoding for JSON rows.
+//! Encodes JSON rows into [`ProtoRows`][crate::model::ProtoRows].
+//!
+//! [`BatchEncoder`][batch::BatchEncoder] encodes a batch of rows,
+//! [`RowEncoder`][row::RowEncoder] decodes one JSON object using [`ColumnMap`],
+//! and [`ValueEncoder`][value::ValueEncoder] converts individual column values.
 
+mod batch;
+mod row;
 mod value;
 
 use crate::model::TableFieldSchema;

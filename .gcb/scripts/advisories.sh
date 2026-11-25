@@ -18,7 +18,10 @@
 #
 # Usage:
 #   advisories.sh [fix] [cargo-deny check args...]
-#       Update the affected crates, then re-run the advisory check. Exits
+#       Update the affected crates, then re-run the advisory check. If
+#       advisories remain, falls back to `cargo update --recursive` on the
+#       affected crates and finally a full `cargo update`, restoring
+#       `Cargo.lock` if none of the attempts resolves the advisories. Exits
 #       non-zero if any advisory remains (e.g. it needs a semver-incompatible
 #       bump or an ignore in `deny.toml`). This modifies `Cargo.lock`.
 #   advisories.sh report [cargo-deny check args...]
@@ -48,18 +51,47 @@ failing_json() {
       | {id: ($f.advisory.id // $f.code), name, version, solution: $solution}'
 }
 
-# Runs `cargo update` on every crate listed in the given `failing_json` output.
-update() {
-  local specs
-  mapfile -t specs < <(jq -r 'select(.version) | "\(.name)@\(.version)"' <<<"$1" | sort -u)
-  if [[ ${#specs[@]} -eq 0 ]]; then
-    return 0
-  fi
-  cargo update "${specs[@]}"
-}
-
 fix() {
-  update "$(failing_json "$@")"
+  local -a specs
+  mapfile -t specs < <(jq -r 'select(.version) | "\(.name)@\(.version)"' <<<"$(failing_json "$@")" | sort -u)
+
+  if [[ ${#specs[@]} -gt 0 ]]; then
+    local -a recheck_args=("$@")
+    if [[ " $* " != *" --disable-fetch "* && " $* " != *" -d "* ]]; then
+      recheck_args+=("--disable-fetch")
+    fi
+
+    local resolved=false strategy
+    for strategy in targeted recursive full; do
+      git checkout -- Cargo.lock
+      case "${strategy}" in
+        targeted)
+          echo "Trying: cargo update ${specs[*]}" >&2
+          cargo update "${specs[@]}" || continue
+          ;;
+        recursive)
+          echo "Trying: cargo update --recursive ${specs[*]}" >&2
+          cargo update --recursive "${specs[@]}" || continue
+          ;;
+        full)
+          echo "Trying: cargo update" >&2
+          cargo update || continue
+          ;;
+      esac
+      if git diff --quiet -- Cargo.lock; then
+        continue
+      fi
+      if cargo deny check "${recheck_args[@]}" advisories >/dev/null 2>&1; then
+        resolved=true
+        break
+      fi
+    done
+
+    if [[ "${resolved}" == false ]]; then
+      git checkout -- Cargo.lock
+    fi
+  fi
+
   # Always finish with the unfiltered check, so its exit code is the result.
   cargo deny check "$@" --hide-inclusion-graph advisories
 }
@@ -84,7 +116,7 @@ report() {
     echo "Could not determine the affected crates automatically."
   fi
   echo
-  echo "- To try a fix: \`.gcb/scripts/advisories.sh\` (runs \`cargo update\` on the affected crates and re-checks)"
+  echo "- To try a fix: \`.gcb/scripts/advisories.sh\` (updates affected crates, falling back to \`--recursive\` and full \`cargo update\` if needed, and re-checks)"
   echo "- To see details: \`cargo deny check advisories --hide-inclusion-graph\`"
   echo "- If an upgrade is blocked, find what pulls the crate in: \`cargo tree -i <crate>@<version>\`"
   echo "- If no fix is available, ignore the advisory in \`deny.toml\` with a reason."
