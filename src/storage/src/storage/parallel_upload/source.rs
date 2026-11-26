@@ -12,9 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Defines multi-cursor data sources for [Storage::parallel_upload][crate::client::Storage::parallel_upload].
+//! Defines multi-cursor data sources for
+//! [Storage::parallel_upload][crate::client::Storage::parallel_upload].
 
-use crate::streaming_source::{Seek, SizeHint, StreamingSource};
+use crate::streaming_source::{BytesSource, Seek, StreamingSource};
 use bytes::Bytes;
 use std::convert::Infallible;
 use std::fmt;
@@ -23,6 +24,10 @@ use std::io::{Error as IoError, ErrorKind};
 
 /// A data source of known size that can be sliced into independent, rewindable
 /// segment readers for concurrent parallel uploads.
+///
+/// Unlike [`StreamingSource`], which reads sequentially in a single pass,
+/// `ParallelUploadSource` knows its total byte length upfront and produces
+/// independent segment readers for arbitrary byte ranges.
 #[cfg_attr(docsrs, doc(cfg(google_cloud_unstable_storage_parallel_upload)))]
 pub trait ParallelUploadSource: Send + Sync + 'static {
     /// The segment reader returned by [`slice`][Self::slice].
@@ -31,28 +36,18 @@ pub trait ParallelUploadSource: Send + Sync + 'static {
     /// segment (`0..=len`), report the segment length (`len`) from
     /// [`StreamingSource::size_hint`], and give each [`Clone`] an independent
     /// cursor starting at the cloned read offset.
-    type SegmentSource: StreamingSource<Error = Self::Error>
-        + Seek<Error = Self::Error>
-        + Clone
-        + Send
-        + Sync
-        + 'static;
+    type SegmentSource: StreamingSource + Seek + Clone + Send + Sync + 'static;
 
-    /// The error type returned when querying size or reading segments.
+    /// The error type returned by [`slice`][Self::slice].
     type Error: std::error::Error + Send + Sync + 'static;
 
     /// Returns the total size of the upload payload in bytes.
-    ///
-    /// # Errors
-    ///
-    /// Returns an error if the total size cannot be determined.
-    fn total_size(&self) -> impl Future<Output = Result<u64, Self::Error>> + Send;
+    fn total_size(&self) -> u64;
 
     /// Returns an independent segment reader covering `[offset, offset + len)`.
     ///
     /// Zero-length slices (`len == 0` with `offset <= total_size`, including
-    /// `slice(0, 0)` on an empty source) must succeed and yield `None` from
-    /// [`StreamingSource::next`].
+    /// `slice(0, 0)` on an empty source) must succeed and yield no bytes.
     ///
     /// # Errors
     ///
@@ -119,11 +114,11 @@ impl fmt::Debug for BytesParallelUploadSource {
 }
 
 impl ParallelUploadSource for BytesParallelUploadSource {
-    type SegmentSource = BytesSegmentSource;
+    type SegmentSource = BytesSource;
     type Error = IoError;
 
-    fn total_size(&self) -> impl Future<Output = Result<u64, Self::Error>> + Send {
-        ready(Ok(self.contents.len() as u64))
+    fn total_size(&self) -> u64 {
+        self.contents.len() as u64
     }
 
     fn slice(&self, offset: u64, len: u64) -> Result<Self::SegmentSource, Self::Error> {
@@ -142,70 +137,7 @@ impl ParallelUploadSource for BytesParallelUploadSource {
         // `offset <= end <= self.contents.len() <= usize::MAX` holds on all platforms.
         let start = offset as usize;
         let end = end as usize;
-        Ok(BytesSegmentSource::new(self.contents.slice(start..end)))
-    }
-}
-
-/// A zero-copy, rewindable, cloneable segment reader backed by [`Bytes`].
-///
-/// Cloning preserves the current read offset while giving each clone an
-/// independent cursor.
-#[cfg_attr(docsrs, doc(cfg(google_cloud_unstable_storage_parallel_upload)))]
-#[derive(Clone)]
-pub struct BytesSegmentSource {
-    contents: Bytes,
-    offset: usize,
-}
-
-impl BytesSegmentSource {
-    pub(crate) fn new(contents: Bytes) -> Self {
-        Self {
-            contents,
-            offset: 0,
-        }
-    }
-}
-
-impl fmt::Debug for BytesSegmentSource {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.debug_struct("BytesSegmentSource")
-            .field("len", &self.contents.len())
-            .field("offset", &self.offset)
-            .finish_non_exhaustive()
-    }
-}
-
-impl StreamingSource for BytesSegmentSource {
-    type Error = IoError;
-
-    async fn next(&mut self) -> Option<Result<Bytes, Self::Error>> {
-        if self.offset >= self.contents.len() {
-            return None;
-        }
-        let chunk = self.contents.slice(self.offset..);
-        self.offset = self.contents.len();
-        Some(Ok(chunk))
-    }
-
-    async fn size_hint(&self) -> Result<SizeHint, Self::Error> {
-        Ok(SizeHint::with_exact(self.contents.len() as u64))
-    }
-}
-
-impl Seek for BytesSegmentSource {
-    type Error = IoError;
-
-    async fn seek(&mut self, offset: u64) -> Result<(), Self::Error> {
-        let len = self.contents.len() as u64;
-        if offset > len {
-            return Err(IoError::new(
-                ErrorKind::InvalidInput,
-                format!("seek offset {offset} exceeds segment length {len}"),
-            ));
-        }
-        // `offset <= self.contents.len() <= usize::MAX` holds on all platforms.
-        self.offset = offset as usize;
-        Ok(())
+        Ok(BytesSource::new(self.contents.slice(start..end)))
     }
 }
 
@@ -221,17 +153,6 @@ impl IntoParallelUploadSource for Bytes {
 }
 
 impl IntoParallelUploadSource for Vec<u8> {
-    type Source = BytesParallelUploadSource;
-    type Error = Infallible;
-
-    fn into_parallel_upload_source(
-        self,
-    ) -> impl Future<Output = Result<Self::Source, Self::Error>> + Send {
-        ready(Ok(BytesParallelUploadSource::new(self)))
-    }
-}
-
-impl IntoParallelUploadSource for String {
     type Source = BytesParallelUploadSource;
     type Error = Infallible;
 
@@ -264,25 +185,12 @@ impl<const N: usize> IntoParallelUploadSource for &'static [u8; N] {
     }
 }
 
-impl IntoParallelUploadSource for &'static str {
-    type Source = BytesParallelUploadSource;
-    type Error = Infallible;
-
-    fn into_parallel_upload_source(
-        self,
-    ) -> impl Future<Output = Result<Self::Source, Self::Error>> + Send {
-        ready(Ok(BytesParallelUploadSource::new(Bytes::from_static(
-            self.as_bytes(),
-        ))))
-    }
-}
-
 #[cfg(test)]
 mod tests {
+    use super::super::mocks::MockSession;
     use super::*;
     use crate::model_ext::Segment;
-    use crate::parallel_upload_session::{ParallelUploadSession, SegmentPayload};
-    use mockall::mock;
+    use crate::parallel_upload_session::ParallelUploadSession;
     use static_assertions::assert_impl_all;
     use std::sync::{Arc, Mutex};
     use test_case::test_case;
@@ -315,7 +223,7 @@ mod tests {
     where
         S: ParallelUploadSource,
     {
-        let len = source.total_size().await?;
+        let len = source.total_size();
         let segment = source.slice(0, len)?;
         Ok(session.write_segment(1, segment).await?)
     }
@@ -332,24 +240,11 @@ mod tests {
         assert_send(&generic_write_first_segment(session, source));
     }
 
-    mock! {
-        #[derive(Debug)]
-        Session {}
-
-        impl crate::stub::ParallelUploadSession for Session {
-            async fn write_segment(
-                &self,
-                segment_number: u32,
-                segment_payload: SegmentPayload,
-            ) -> crate::Result<Segment>;
-        }
-    }
-
     #[test]
     fn traits_and_debug() {
         // Arrange.
         assert_impl_all!(BytesParallelUploadSource: Clone, fmt::Debug, Send, Sync);
-        assert_impl_all!(BytesSegmentSource: Clone, fmt::Debug, Send, Sync);
+        assert_impl_all!(BytesSource: Clone, fmt::Debug, Send, Sync);
         let secret_bytes = Bytes::from_static(b"sensitive-payload-content");
         let source = BytesParallelUploadSource::new(secret_bytes);
         let segment = source.slice(0, 9).expect("valid slice");
@@ -364,14 +259,13 @@ mod tests {
         assert!(source_debug.contains("BytesParallelUploadSource"));
         assert!(source_debug.contains("len: 25"));
         assert!(!source_debug.contains("sensitive-payload-content"));
-        assert!(segment_debug.contains("BytesSegmentSource"));
+        assert!(segment_debug.contains("BytesSource"));
         assert!(segment_debug.contains("len: 9"));
-        assert!(segment_debug.contains("offset: 0"));
         assert!(!segment_debug.contains("sensitive"));
     }
 
-    #[tokio::test]
-    async fn futures_are_send() -> anyhow::Result<()> {
+    #[test]
+    fn futures_are_send() -> anyhow::Result<()> {
         // Arrange.
         let source = BytesParallelUploadSource::new(Bytes::from_static(b"hello"));
         let mut segment = source.slice(0, 5)?;
@@ -384,10 +278,6 @@ mod tests {
         assert_send(&into_fut);
         assert_static(&into_fut);
         drop(into_fut);
-
-        let total_fut = source.total_size();
-        assert_send(&total_fut);
-        drop(total_fut);
 
         let hint_fut = segment.size_hint();
         assert_send(&hint_fut);
@@ -414,29 +304,15 @@ mod tests {
             .into_parallel_upload_source()
             .await?;
         let from_vec = want.to_vec().into_parallel_upload_source().await?;
-        let from_string = String::from_utf8(want.to_vec())?
-            .into_parallel_upload_source()
-            .await?;
         let from_slice = want.as_slice().into_parallel_upload_source().await?;
         let from_array = want.into_parallel_upload_source().await?;
-        let from_str = std::str::from_utf8(want)?
-            .into_parallel_upload_source()
-            .await?;
         let from_source = BytesParallelUploadSource::new(Bytes::from_static(want))
             .into_parallel_upload_source()
             .await?;
 
         // Assert.
-        for src in [
-            from_bytes,
-            from_vec,
-            from_string,
-            from_slice,
-            from_array,
-            from_str,
-            from_source,
-        ] {
-            let total = src.total_size().await?;
+        for src in [from_bytes, from_vec, from_slice, from_array, from_source] {
+            let total = src.total_size();
             assert_eq!(total, want.len() as u64);
             let mut seg = src.slice(0, total)?;
             assert_eq!(read_all(&mut seg).await?, want);
@@ -446,28 +322,83 @@ mod tests {
 
     #[tokio::test]
     async fn zero_copy_slicing() -> anyhow::Result<()> {
-        // Arrange.
-        let backing = Bytes::from(b"0123456789abcdef".to_vec());
-        let base_ptr = backing.as_ptr();
-        let source = backing.into_parallel_upload_source().await?;
+        // Arrange: verify zero-copy pointer preservation across all input conversions.
+        let backing_bytes = Bytes::from(b"0123456789abcdef".to_vec());
+        let bytes_ptr = backing_bytes.as_ptr();
+        let source = backing_bytes.into_parallel_upload_source().await?;
+
+        let exact_vec = b"0123456789abcdef".to_vec();
+        assert_eq!(exact_vec.capacity(), exact_vec.len());
+        let exact_vec_ptr = exact_vec.as_ptr();
+        let exact_vec_src = exact_vec.into_parallel_upload_source().await?;
+
+        let mut spare_vec = Vec::with_capacity(64);
+        spare_vec.extend_from_slice(b"0123456789abcdef");
+        assert!(spare_vec.capacity() > spare_vec.len());
+        let spare_vec_ptr = spare_vec.as_ptr();
+        let spare_vec_src = spare_vec.into_parallel_upload_source().await?;
+
+        let static_array: &'static [u8; 16] = b"0123456789abcdef";
+        let static_slice: &'static [u8] = static_array.as_slice();
+        let static_ptr = static_array.as_ptr();
+        let slice_src = static_slice.into_parallel_upload_source().await?;
+        let array_src = static_array.into_parallel_upload_source().await?;
 
         // Act.
         let cloned_source = source.clone();
         let mut s1 = source.slice(0, 6)?;
+        let mut s1_clone = s1.clone();
         let mut s2 = cloned_source.slice(6, 10)?;
         let mut overlap = source.slice(4, 4)?;
         let c1 = s1.next().await.transpose()?.expect("chunk 1");
+        let c1_clone = s1_clone.next().await.transpose()?.expect("chunk 1 clone");
         let c2 = s2.next().await.transpose()?.expect("chunk 2");
         let c3 = overlap.next().await.transpose()?.expect("overlap chunk");
 
+        let exact_chunk = exact_vec_src
+            .slice(3, 5)?
+            .next()
+            .await
+            .transpose()?
+            .expect("exact vec chunk");
+        let spare_chunk = spare_vec_src
+            .slice(3, 5)?
+            .next()
+            .await
+            .transpose()?
+            .expect("spare vec chunk");
+        let slice_chunk = slice_src
+            .slice(3, 5)?
+            .next()
+            .await
+            .transpose()?
+            .expect("static slice chunk");
+        let array_chunk = array_src
+            .slice(3, 5)?
+            .next()
+            .await
+            .transpose()?
+            .expect("static array chunk");
+
         // Assert.
         assert_eq!(c1.as_ref(), b"012345");
+        assert_eq!(c1_clone.as_ref(), b"012345");
         assert_eq!(c2.as_ref(), b"6789abcdef");
         assert_eq!(c3.as_ref(), b"4567");
-        assert_eq!(c1.as_ptr(), base_ptr);
-        assert_eq!(c2.as_ptr(), base_ptr.wrapping_add(6));
-        assert_eq!(c3.as_ptr(), base_ptr.wrapping_add(4));
+        assert_eq!(c1.as_ptr(), bytes_ptr);
+        assert_eq!(c1_clone.as_ptr(), bytes_ptr);
+        assert_eq!(c2.as_ptr(), bytes_ptr.wrapping_add(6));
+        assert_eq!(c3.as_ptr(), bytes_ptr.wrapping_add(4));
+        assert_eq!(exact_chunk.as_ref(), b"34567");
+        assert_eq!(spare_chunk.as_ref(), b"34567");
+        assert_eq!(slice_chunk.as_ref(), b"34567");
+        assert_eq!(array_chunk.as_ref(), b"34567");
+        assert_eq!(exact_chunk.as_ptr(), exact_vec_ptr.wrapping_add(3));
+        assert_eq!(spare_chunk.as_ptr(), spare_vec_ptr.wrapping_add(3));
+        assert_eq!(slice_chunk.as_ptr(), static_ptr.wrapping_add(3));
+        assert_eq!(array_chunk.as_ptr(), static_ptr.wrapping_add(3));
         assert_eq!(s1.next().await.transpose()?, None);
+        assert_eq!(s1_clone.next().await.transpose()?, None);
         assert_eq!(s2.next().await.transpose()?, None);
         assert_eq!(overlap.next().await.transpose()?, None);
         Ok(())
@@ -487,7 +418,7 @@ mod tests {
         let mut s_end = non_empty.slice(4, 0)?;
 
         // Assert.
-        assert_eq!(empty.total_size().await?, 0);
+        assert_eq!(empty.total_size(), 0);
         assert_eq!(
             empty.slice(0, 1).unwrap_err().kind(),
             ErrorKind::InvalidInput
@@ -498,11 +429,9 @@ mod tests {
         );
         for seg in [&mut s_empty, &mut s_mid, &mut s_end] {
             assert_eq!(seg.size_hint().await?.exact(), Some(0));
-            assert_eq!(seg.next().await.transpose()?, None);
+            assert!(read_all(seg).await?.is_empty());
             seg.seek(0).await?;
-            assert_eq!(seg.next().await.transpose()?, None);
-            let err = seg.seek(1).await.unwrap_err();
-            assert_eq!(err.kind(), ErrorKind::InvalidInput);
+            assert!(read_all(seg).await?.is_empty());
         }
         Ok(())
     }
@@ -532,88 +461,48 @@ mod tests {
 
         // Act & Assert.
         assert_eq!(seg.size_hint().await?.exact(), Some(6));
-        assert_eq!(
-            seg.next().await.transpose()?,
-            Some(Bytes::from_static(b"cdefgh"))
-        );
-        assert_eq!(seg.next().await.transpose()?, None);
+        assert_eq!(read_all(&mut seg).await?, b"cdefgh");
         // `size_hint()` stays equal to the total segment length after exhaustion.
         assert_eq!(seg.size_hint().await?.exact(), Some(6));
 
         // Rewind to mid-segment.
         seg.seek(2).await?;
         assert_eq!(seg.size_hint().await?.exact(), Some(6));
-        assert_eq!(
-            seg.next().await.transpose()?,
-            Some(Bytes::from_static(b"efgh"))
-        );
-        assert_eq!(seg.next().await.transpose()?, None);
+        assert_eq!(read_all(&mut seg).await?, b"efgh");
 
-        // Seek to exact end yields None.
+        // Seek to exact end yields no bytes.
         seg.seek(6).await?;
-        assert_eq!(seg.next().await.transpose()?, None);
+        assert!(read_all(&mut seg).await?.is_empty());
 
-        // Rewind to start.
+        // Rewind to segment start (offset 0 relative to the slice, not the object).
         seg.seek(0).await?;
-        assert_eq!(
-            seg.next().await.transpose()?,
-            Some(Bytes::from_static(b"cdefgh"))
-        );
-
-        // Out-of-bounds seek fails and preserves current offset.
-        seg.seek(2).await?;
-        assert_eq!(
-            seg.seek(7).await.unwrap_err().kind(),
-            ErrorKind::InvalidInput
-        );
-        assert_eq!(
-            seg.seek(u64::MAX).await.unwrap_err().kind(),
-            ErrorKind::InvalidInput
-        );
-        assert_eq!(
-            seg.next().await.transpose()?,
-            Some(Bytes::from_static(b"efgh"))
-        );
+        assert_eq!(read_all(&mut seg).await?, b"cdefgh");
 
         Ok(())
     }
 
     #[tokio::test]
     async fn segment_clone_preserves_independent_cursors() -> anyhow::Result<()> {
-        // Arrange.
-        let source = BytesParallelUploadSource::new(Bytes::from_static(b"hello world"));
-        let mut seg = source.slice(0, 11)?;
+        // Arrange: slice at a non-zero offset so `seek(0)` tests segment-relative rewind.
+        let source = BytesParallelUploadSource::new(Bytes::from_static(b"xxhello world"));
+        let mut seg = source.slice(2, 11)?;
 
-        // Act & Assert: clone at offset 0.
+        // Act & Assert: clone at segment offset 0.
         let mut clone_at_start = seg.clone();
-        assert_eq!(
-            seg.next().await.transpose()?,
-            Some(Bytes::from_static(b"hello world"))
-        );
-        assert_eq!(
-            clone_at_start.next().await.transpose()?,
-            Some(Bytes::from_static(b"hello world"))
-        );
+        assert_eq!(read_all(&mut seg).await?, b"hello world");
+        assert_eq!(read_all(&mut clone_at_start).await?, b"hello world");
 
-        // Act & Assert: clone mid-stream preserves offset 6 independently.
+        // Act & Assert: clone mid-stream preserves segment offset 6 independently.
         seg.seek(6).await?;
         let mut clone_mid = seg.clone();
-        assert_eq!(
-            seg.next().await.transpose()?,
-            Some(Bytes::from_static(b"world"))
-        );
-        assert_eq!(
-            clone_mid.next().await.transpose()?,
-            Some(Bytes::from_static(b"world"))
-        );
+        assert_eq!(read_all(&mut seg).await?, b"world");
+        assert_eq!(read_all(&mut clone_mid).await?, b"world");
 
-        // Act & Assert: clone while exhausted stays exhausted; rewinding one leaves the other unaffected.
+        // Act & Assert: clone while exhausted stays exhausted; rewinding one leaves the other
+        // unaffected.
         let mut clone_exhausted = seg.clone();
         seg.seek(0).await?;
-        assert_eq!(
-            seg.next().await.transpose()?,
-            Some(Bytes::from_static(b"hello world"))
-        );
+        assert_eq!(read_all(&mut seg).await?, b"hello world");
         assert_eq!(clone_exhausted.next().await.transpose()?, None);
 
         Ok(())
@@ -637,7 +526,7 @@ mod tests {
         let session = ParallelUploadSession::new(mock);
         let source = BytesParallelUploadSource::new(Bytes::from_static(b"hello world"));
 
-        // Act: test both concrete `BytesSegmentSource` and generic `S: ParallelUploadSource`.
+        // Act: test both concrete `BytesSource` and generic `S: ParallelUploadSource`.
         let concrete_seg = source.slice(6, 5)?;
         let r1 = session.write_segment(2, concrete_seg).await?;
         let r2 = generic_write_first_segment(&session, &source).await?;
@@ -650,28 +539,20 @@ mod tests {
 
         let (n1, mut p1) = recorded.remove(0);
         assert_eq!(n1, 2);
-        assert_eq!(
-            p1.next().await.transpose()?,
-            Some(Bytes::from_static(b"world"))
-        );
+        assert_eq!(read_all(&mut p1).await?, b"world");
         p1.seek(0).await?;
-        assert_eq!(
-            p1.next().await.transpose()?,
-            Some(Bytes::from_static(b"world"))
-        );
+        assert_eq!(read_all(&mut p1).await?, b"world");
 
         let (n2, mut p2) = recorded.remove(0);
         assert_eq!(n2, 1);
-        assert_eq!(
-            p2.next().await.transpose()?,
-            Some(Bytes::from_static(b"hello world"))
-        );
+        assert_eq!(read_all(&mut p2).await?, b"hello world");
         Ok(())
     }
 
     #[tokio::test]
     async fn non_static_into_parallel_upload_source() -> anyhow::Result<()> {
-        // Arrange: a borrowed input verifies `IntoParallelUploadSource` does not require `'static`.
+        // Arrange: a borrowed input verifies `IntoParallelUploadSource` does not require
+        // `'static`.
         struct Borrowed<'a>(&'a [u8]);
 
         impl IntoParallelUploadSource for Borrowed<'_> {
@@ -698,7 +579,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 4)]
     async fn concurrent_reads_across_tasks() -> anyhow::Result<()> {
         // Arrange.
         let data: Vec<u8> = (0..1024).map(|i| (i % 251) as u8).collect();

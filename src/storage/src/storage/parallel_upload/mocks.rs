@@ -17,7 +17,11 @@ use crate::google::storage::v2::{
     AbortObjectWriteSessionRequest, BidiWriteSegmentRequest, BidiWriteSegmentResponse,
     CreateObjectWriteSessionRequest, FinalizeObjectWriteSessionRequest, Object, ObjectWriteSession,
 };
+use crate::model::Object as PublicObject;
+use crate::model_ext::{AbortSessionResponse, Segment};
+use crate::parallel_upload_session::SegmentPayload;
 use gaxi::grpc::tonic::{Extensions, Response as TonicResponse, Result as TonicResult};
+use mockall::mock;
 use std::sync::Arc;
 use tokio::sync::mpsc::Sender;
 
@@ -162,3 +166,20 @@ pub(crate) trait TestClient: std::fmt::Debug {
 
 pub(crate) type MockStream = Receiver<TonicResult<BidiWriteSegmentResponse>>;
 pub(crate) type MockStreamSender = Sender<TonicResult<BidiWriteSegmentResponse>>;
+
+mock! {
+    #[derive(Debug)]
+    pub(crate) Session {}
+
+    impl crate::stub::ParallelUploadSession for Session {
+        fn name(&self) -> &str;
+        fn segment_size_bytes(&self) -> u64;
+        async fn write_segment(
+            &self,
+            segment_number: u32,
+            segment_payload: SegmentPayload,
+        ) -> crate::Result<Segment>;
+        async fn finalize(&self) -> crate::Result<PublicObject>;
+        async fn abort(&self) -> crate::Result<AbortSessionResponse>;
+    }
+}

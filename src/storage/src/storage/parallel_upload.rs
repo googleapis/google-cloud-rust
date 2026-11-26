@@ -25,6 +25,7 @@ use tokio::sync::mpsc::Receiver;
 
 pub(crate) mod builder;
 pub(crate) mod segment_payload;
+pub mod source;
 pub(crate) mod stub;
 
 #[allow(dead_code)]
