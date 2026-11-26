@@ -958,7 +958,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn debug_token_cache() {
+    async fn debug_token_cache() -> TestResult {
         let mut mock_provider = MockTokenProvider::new();
         mock_provider.expect_token().return_const(Ok(Token {
             token: "test-token".to_string(),
@@ -973,9 +973,10 @@ mod tests {
         assert!(debug_output.contains("TokenCache"), "{debug_output}");
         assert!(debug_output.contains("running"), "{debug_output}");
 
-        let _ = cache.token(Extensions::new()).await.unwrap();
+        let _ = cache.token(Extensions::new()).await?;
         let debug_output = format!("{cache:?}");
         assert!(debug_output.contains("rx_token"), "{debug_output}");
+        Ok(())
     }
 
     #[tokio::test(start_paused = true)]
