@@ -26,8 +26,8 @@ use tokio::sync::mpsc::Receiver;
 pub(crate) mod builder;
 pub(crate) mod segment_payload;
 pub(crate) mod stub;
+pub(crate) mod transport;
 
-#[allow(dead_code)]
 pub(crate) type GrpcClient = gaxi::grpc::Client;
 #[allow(dead_code)]
 pub(crate) type GrpcStream = Streaming<BidiWriteSegmentResponse>;
@@ -47,7 +47,6 @@ impl TonicStreaming for GrpcStream {
 }
 
 /// A trait to mock `gaxi::grpc::Client` for parallel upload session RPCs in unit tests.
-#[allow(dead_code)]
 pub(crate) trait Client: Clone + std::fmt::Debug + Send + Sync + 'static {
     type Stream: TonicStreaming;
 
@@ -61,6 +60,7 @@ pub(crate) trait Client: Clone + std::fmt::Debug + Send + Sync + 'static {
         request_params: &str,
     ) -> impl Future<Output = crate::Result<TonicResponse<ObjectWriteSession>>> + Send;
 
+    #[allow(dead_code)]
     fn bidi_write_segment(
         &self,
         extensions: Extensions,
@@ -189,7 +189,7 @@ pub(crate) mod tests {
     use crate::Error;
     use crate::request_options::RequestOptions;
     use crate::storage::info::X_GOOG_API_CLIENT_HEADER;
-    use gaxi::grpc::tonic::{GrpcMethod, Status as TonicStatus};
+    use gaxi::grpc::tonic::Status as TonicStatus;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::error::rpc::{Code, Status};
     use google_cloud_gax::retry_policy::NeverRetry;
@@ -232,12 +232,6 @@ pub(crate) mod tests {
             .expect("a valid backoff policy")
     }
 
-    fn method_extensions(method: &'static str) -> Extensions {
-        let mut extensions = Extensions::new();
-        extensions.insert(GrpcMethod::new("google.storage.v2.Storage", method));
-        extensions
-    }
-
     #[test]
     fn assertions() {
         assert_impl_all!(GrpcClient: Client, Clone, std::fmt::Debug, Send, Sync);
@@ -255,7 +249,7 @@ pub(crate) mod tests {
 
         let err = client
             .create_object_write_session(
-                method_extensions("CreateObjectWriteSession"),
+                transport::method("CreateObjectWriteSession"),
                 PathAndQuery::from_static("/google.storage.v2.Storage/CreateObjectWriteSession"),
                 CreateObjectWriteSessionRequest::default(),
                 options.gax(),
@@ -269,7 +263,7 @@ pub(crate) mod tests {
         let (_tx, rx) = tokio::sync::mpsc::channel(1);
         let err = client
             .bidi_write_segment(
-                method_extensions("BidiWriteSegment"),
+                transport::method("BidiWriteSegment"),
                 PathAndQuery::from_static("/google.storage.v2.Storage/BidiWriteSegment"),
                 rx,
                 options.gax(),
@@ -283,7 +277,7 @@ pub(crate) mod tests {
 
         let err = client
             .finalize_object_write_session(
-                method_extensions("FinalizeObjectWriteSession"),
+                transport::method("FinalizeObjectWriteSession"),
                 PathAndQuery::from_static("/google.storage.v2.Storage/FinalizeObjectWriteSession"),
                 FinalizeObjectWriteSessionRequest::default(),
                 options.gax(),
@@ -296,7 +290,7 @@ pub(crate) mod tests {
 
         let err = client
             .abort_object_write_session(
-                method_extensions("AbortObjectWriteSession"),
+                transport::method("AbortObjectWriteSession"),
                 PathAndQuery::from_static("/google.storage.v2.Storage/AbortObjectWriteSession"),
                 AbortObjectWriteSessionRequest::default(),
                 options.gax(),
