@@ -1642,13 +1642,13 @@ mod tests {
 
         let handle = tokio::spawn(async move { transport.flush().await });
 
-        let intent = rx.recv().await.unwrap();
+        let intent = rx.recv().await.expect("expected an upload intent");
         if let UploadIntent::Flush(_, sender) = intent {
             let resp = BidiWriteObjectResponse {
                 write_status: Some(WriteStatus::PersistedSize(-5)),
                 ..Default::default()
             };
-            sender.send(Ok(resp)).unwrap();
+            sender.send(Ok(resp)).expect("failed to send response");
         } else {
             panic!("expected Flush");
         }
