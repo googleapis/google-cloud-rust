@@ -106,26 +106,9 @@ impl ParallelUploadSession {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::storage::parallel_upload::mocks::MockSession;
     use bytes::Bytes;
-    use mockall::mock;
     use static_assertions::assert_impl_all;
-
-    mock! {
-        #[derive(Debug)]
-        Session {}
-
-        impl crate::stub::ParallelUploadSession for Session {
-            fn name(&self) -> &str;
-            fn segment_size_bytes(&self) -> u64;
-            async fn write_segment(
-                &self,
-                segment_number: u32,
-                segment_payload: SegmentPayload,
-            ) -> crate::Result<Segment>;
-            async fn finalize(&self) -> crate::Result<Object>;
-            async fn abort(&self) -> crate::Result<AbortSessionResponse>;
-        }
-    }
 
     #[test]
     fn impls() {

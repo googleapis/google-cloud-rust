@@ -249,6 +249,15 @@ impl BytesSource {
     }
 }
 
+impl std::fmt::Debug for BytesSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("BytesSource")
+            .field("len", &self.contents.len())
+            .field("remaining", &self.current.as_ref().map(bytes::Bytes::len))
+            .finish_non_exhaustive()
+    }
+}
+
 impl StreamingSource for BytesSource {
     type Error = crate::Error;
 
@@ -266,7 +275,8 @@ impl Seek for BytesSource {
     type Error = crate::Error;
 
     async fn seek(&mut self, offset: u64) -> Result<(), Self::Error> {
-        let pos = std::cmp::min(offset as usize, self.contents.len());
+        let pos =
+            usize::try_from(offset).map_or(self.contents.len(), |o| o.min(self.contents.len()));
         self.current = Some(self.contents.slice(pos..));
         Ok(())
     }
@@ -597,6 +607,42 @@ pub(crate) mod tests {
 
         assert_eq!(collect(original).await?, CONTENTS[13..]);
         assert_eq!(collect(cloned).await?, CONTENTS[24..]);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn debug_bytes_source_redacts_contents() -> Result {
+        // Arrange.
+        let mut source = BytesSource::new(bytes::Bytes::from_static(b"sensitive-payload"));
+
+        // Act.
+        let before = format!("{source:?}");
+        let _ = source.next().await.transpose()?;
+        let after = format!("{source:?}");
+
+        // Assert.
+        assert!(before.contains("BytesSource"), "{before}");
+        assert!(before.contains("len: 17"), "{before}");
+        assert!(before.contains("remaining: Some(17)"), "{before}");
+        assert!(!before.contains("sensitive-payload"), "{before}");
+        assert!(after.contains("remaining: None"), "{after}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn seek_bytes_clamps_out_of_bounds() -> Result {
+        // Arrange.
+        let mut source = BytesSource::new(bytes::Bytes::from_static(CONTENTS));
+
+        // Act & Assert: offsets past end (including `u64::MAX`) clamp to the end.
+        for offset in [CONTENTS.len() as u64 + 10, u64::MAX] {
+            source.seek(offset).await?;
+            assert_eq!(collect_mut(&mut source).await?, b"");
+        }
+
+        // Rewinding back to 0 restores the full payload.
+        source.seek(0).await?;
+        assert_eq!(collect(source).await?, CONTENTS);
         Ok(())
     }
 }
