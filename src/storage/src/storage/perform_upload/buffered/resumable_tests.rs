@@ -1079,3 +1079,108 @@ async fn query_credentials_error(retryable: bool, expected_query_attempts: usize
     assert!(err.is_authentication(), "{err:?}");
     Ok(())
 }
+
+#[tokio::test]
+async fn put_timeout_and_recover() -> Result {
+    // Arrange
+    const QUANTUM: usize = RESUMABLE_UPLOAD_QUANTUM;
+    const TARGET: usize = 2 * QUANTUM;
+    const FULL: usize = 3 * QUANTUM + QUANTUM / 2;
+
+    let data: Vec<u8> = (0..FULL).map(|i| (i % 251) as u8).collect();
+    let payload = bytes::Bytes::from_owner(data);
+    let want_crc_u32 = crc32c::crc32c(&payload);
+    let want_crc = BASE64_STANDARD.encode(want_crc_u32.to_be_bytes());
+    let final_body = json!({
+        "name": "test-object",
+        "bucket": "test-bucket",
+        "crc32c": want_crc,
+        "metadata": {
+            "is-test-object": "true",
+        }
+    });
+
+    let server = Server::run();
+    let session = server.url("/upload/session/test-timeout-001");
+
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+            request::query(url_decoded(contains(("name", "test-object")))),
+            request::query(url_decoded(contains(("ifGenerationMatch", "0")))),
+            request::query(url_decoded(contains(("uploadType", "resumable")))),
+        ])
+        .respond_with(status_code(200).append_header("location", session.to_string())),
+    );
+    // First chunk PUT stalls past read_timeout (200ms), so builder.send() returns Err(timeout).
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("PUT", session.path().to_string()),
+            request::headers(contains((
+                "content-range",
+                format!("bytes 0-{}/*", TARGET - 1)
+            ))),
+            request::body(payload.slice(0..TARGET).to_vec()),
+        ])
+        .respond_with(delay_and_then(Duration::from_secs(5), status_code(200))),
+    );
+    // Retry must query persisted bytes instead of overwriting the unpersisted buffer.
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("PUT", session.path().to_string()),
+            request::headers(contains(("content-range", "bytes */*"))),
+            request::headers(contains(("content-length", "0"))),
+        ])
+        .respond_with(status_code(308).append_header("range", format!("bytes=0-{}", QUANTUM - 1))),
+    );
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("PUT", session.path().to_string()),
+            request::headers(contains((
+                "content-range",
+                format!("bytes {QUANTUM}-{}/*", QUANTUM + TARGET - 1)
+            ))),
+            request::body(payload.slice(QUANTUM..QUANTUM + TARGET).to_vec()),
+        ])
+        .respond_with(
+            status_code(308).append_header("range", format!("bytes=0-{}", 3 * QUANTUM - 1)),
+        ),
+    );
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("PUT", session.path().to_string()),
+            request::headers(contains((
+                "content-range",
+                format!("bytes {}-{}/{FULL}", QUANTUM + TARGET, FULL - 1)
+            ))),
+            request::body(payload.slice(QUANTUM + TARGET..FULL).to_vec()),
+        ])
+        .respond_with(status_code(200).body(final_body.to_string())),
+    );
+
+    let payload = UnknownSize::new(BytesSource::new(payload));
+    let client = test_builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_read_timeout(Duration::from_millis(200))
+        .with_resumable_upload_threshold(0_usize)
+        .with_resumable_upload_buffer_size(TARGET)
+        .build()
+        .await?;
+
+    // Act
+    let response = client
+        .write_object("projects/_/buckets/test-bucket", "test-object", payload)
+        .with_retry_policy(crate::retry_policy::RetryableErrors.with_attempt_limit(3))
+        .set_if_generation_match(0_i64)
+        .send_buffered()
+        .await?;
+
+    // Assert
+    assert_eq!(response.name, "test-object");
+    assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
+    assert_eq!(
+        response.checksums.and_then(|c| c.crc32c),
+        Some(want_crc_u32)
+    );
+    Ok(())
+}
