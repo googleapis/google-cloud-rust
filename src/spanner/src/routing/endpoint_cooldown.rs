@@ -54,6 +54,18 @@ const DEFAULT_SUCCESSES_PER_REPAIR: usize = 3;
 /// Maximum failure tier cap for hinted escalation.
 const DEFAULT_MAX_FAILURE_TIER: usize = 6;
 
+/// Maximum exponential bitshift exponent for hinted client floor escalation (`2^5 = 32x`).
+const MAX_HINTED_EXPONENTIAL_SHIFT: usize = DEFAULT_MAX_FAILURE_TIER - 1;
+
+/// Maximum failure tier cap for unhinted exponential backoff.
+///
+/// Limits the exponential shift to 31 (`1u32 << 31`), preventing shift overflow while
+/// allowing unhinted cooldown durations to scale up to any configured `max_cooldown`.
+const MAX_UNHINTED_FAILURE_TIER: usize = 32;
+
+/// Maximum exponential bitshift exponent for unhinted backoff (`2^31`), preventing integer overflow in `1u32 << shift`.
+const MAX_UNHINTED_EXPONENTIAL_SHIFT: usize = MAX_UNHINTED_FAILURE_TIER - 1;
+
 /// Maximum fallback cooldown duration (10 minutes) used to cap arithmetic overflow when computing cooldown deadlines.
 /// This matches `DEFAULT_RESET_AFTER` so an endpoint is never blacklisted longer than the failure reset window.
 const MAX_OVERFLOW_FALLBACK_COOLDOWN: Duration = DEFAULT_RESET_AFTER;
@@ -74,6 +86,7 @@ pub(crate) struct EndpointCooldownTracker {
     initial_cooldown: Duration,
     max_cooldown: Duration,
     reset_after: Duration,
+    max_failure_tier: usize,
     tracked_entry_count: AtomicUsize,
     state: RwLock<HashMap<String, EndpointCooldownState>>,
 }
@@ -100,16 +113,21 @@ impl EndpointCooldownTracker {
     /// Creates a new `EndpointCooldownTracker` with customizable durations.
     ///
     /// `max_cooldown` is defensively clamped to be at least `initial_cooldown` to guard against
-    /// inverted configuration parameters.
+    /// inverted configuration parameters. The maximum failure tier is dynamically computed to allow
+    /// unhinted backoff to scale up to `max_cooldown` while ensuring at least `DEFAULT_MAX_FAILURE_TIER`
+    /// (6 tiers) for hinted overload backoff floor escalation.
     pub(crate) fn with_options(
         initial_cooldown: Duration,
         max_cooldown: Duration,
         reset_after: Duration,
     ) -> Self {
+        let effective_max_cooldown = max_cooldown.max(initial_cooldown);
+        let max_failure_tier = compute_max_failure_tier(initial_cooldown, effective_max_cooldown);
         Self {
             initial_cooldown,
-            max_cooldown: max_cooldown.max(initial_cooldown),
+            max_cooldown: effective_max_cooldown,
             reset_after,
+            max_failure_tier,
             tracked_entry_count: AtomicUsize::new(0),
             state: RwLock::new(HashMap::new()),
         }
@@ -229,7 +247,10 @@ impl EndpointCooldownTracker {
     ) -> Duration {
         match status_code {
             Code::ResourceExhausted => {
-                let failures = state.overload.next_failure_tier(now, self.reset_after);
+                let failures =
+                    state
+                        .overload
+                        .next_failure_tier(now, self.reset_after, self.max_failure_tier);
                 let cooldown = match server_retry_delay {
                     Some(delay) => Self::calculate_hinted_cooldown(failures, delay),
                     None => self.calculate_unhinted_cooldown(failures),
@@ -239,7 +260,11 @@ impl EndpointCooldownTracker {
                     .record_failure(failures, cooldown, now, self.reset_after);
             }
             Code::Unavailable => {
-                let failures = state.unavailable.next_failure_tier(now, self.reset_after);
+                let failures = state.unavailable.next_failure_tier(
+                    now,
+                    self.reset_after,
+                    self.max_failure_tier,
+                );
                 let cooldown = self.calculate_unhinted_cooldown(failures);
                 state
                     .unavailable
@@ -360,7 +385,7 @@ impl EndpointCooldownTracker {
         let server_floor = server_retry_delay.max(DEFAULT_MIN_HINTED_COOLDOWN);
         let shift = consecutive_failures
             .saturating_sub(1)
-            .min(DEFAULT_MAX_FAILURE_TIER) as u32;
+            .min(MAX_HINTED_EXPONENTIAL_SHIFT) as u32;
         let client_floor = DEFAULT_MIN_HINTED_COOLDOWN
             .saturating_mul(1u32 << shift)
             .min(DEFAULT_MAX_HINTED_CLIENT_FLOOR);
@@ -386,7 +411,9 @@ impl EndpointCooldownTracker {
     ///    Unlike full jitter in `[0, capped_cooldown]`, the half-jitter lower bound prevents
     ///    unlucky retries from selecting a near-zero backoff on heavily overloaded endpoints.
     fn calculate_unhinted_cooldown(&self, consecutive_failures: usize) -> Duration {
-        let shift = consecutive_failures.saturating_sub(1).min(31) as u32;
+        let shift = consecutive_failures
+            .saturating_sub(1)
+            .min(MAX_UNHINTED_EXPONENTIAL_SHIFT) as u32;
         let base_cooldown = self.initial_cooldown.saturating_mul(1u32 << shift);
         let capped_cooldown = base_cooldown.min(self.max_cooldown);
 
@@ -498,8 +525,14 @@ impl FailureLane {
 
     /// Returns the next failure tier for this lane based on elapsed time since `last_failure_at`.
     #[inline]
-    fn next_failure_tier(&self, now: Instant, reset_after: Duration) -> usize {
-        next_failure_tier(self.failures, self.last_failure_at, now, reset_after)
+    fn next_failure_tier(&self, now: Instant, reset_after: Duration, max_tier: usize) -> usize {
+        next_failure_tier(
+            self.failures,
+            self.last_failure_at,
+            now,
+            reset_after,
+            max_tier,
+        )
     }
 
     /// Records a failure in this lane, updating consecutive failures, monotonic deadline, and timestamp.
@@ -606,12 +639,11 @@ fn next_failure_tier(
     last_failure_at: Option<Instant>,
     now: Instant,
     reset_after: Duration,
+    max_tier: usize,
 ) -> usize {
     match last_failure_at {
         Some(timestamp) if now.saturating_duration_since(timestamp) < reset_after => {
-            previous_failures
-                .saturating_add(1)
-                .min(DEFAULT_MAX_FAILURE_TIER)
+            previous_failures.saturating_add(1).min(max_tier)
         }
         _ => 1,
     }
@@ -621,6 +653,25 @@ fn compute_cooldown_deadline(now: Instant, cooldown: Duration) -> Instant {
     now.checked_add(cooldown)
         .or_else(|| now.checked_add(MAX_OVERFLOW_FALLBACK_COOLDOWN))
         .unwrap_or(now)
+}
+
+/// Computes the maximum failure tier for an endpoint cooldown tracker.
+///
+/// Ensures failure tiers scale high enough to reach `max_cooldown` during unhinted backoff,
+/// while providing at least `DEFAULT_MAX_FAILURE_TIER` (6) so hinted overload backoff can reach
+/// its 2-second client escalation floor cap (`100ms * 2^5 = 3.2s >= 2s`).
+/// The result is clamped to `MAX_UNHINTED_FAILURE_TIER` (32) to prevent exponential shift overflow.
+fn compute_max_failure_tier(initial_cooldown: Duration, max_cooldown: Duration) -> usize {
+    if initial_cooldown.is_zero() || initial_cooldown >= max_cooldown {
+        return DEFAULT_MAX_FAILURE_TIER;
+    }
+    let mut tier = 1usize;
+    let mut current = initial_cooldown;
+    while current < max_cooldown && tier < MAX_UNHINTED_FAILURE_TIER {
+        tier = tier.saturating_add(1);
+        current = current.saturating_mul(2);
+    }
+    DEFAULT_MAX_FAILURE_TIER.max(tier)
 }
 
 #[cfg(test)]
@@ -1219,7 +1270,7 @@ mod tests {
             assert_eq!(
                 tracker.consecutive_failures(&endpoint),
                 DEFAULT_MAX_FAILURE_TIER,
-                "each endpoint must reach max failure tier 6"
+                "each endpoint must reach max failure tier 6 under default options"
             );
         }
     }
@@ -1373,6 +1424,82 @@ mod tests {
         assert!(
             duration <= Duration::from_secs(10),
             "unhinted cooldown {duration:?} must be <= 10s base cooldown"
+        );
+    }
+
+    #[test]
+    fn unhinted_backoff_escalates_past_tier_6_and_reaches_max_cooldown() {
+        let now = Instant::now();
+        let tracker = EndpointCooldownTracker::with_options(
+            Duration::from_millis(10),
+            Duration::from_millis(10_000),
+            Duration::from_secs(600),
+        );
+
+        // Failures 1 through 11:
+        // Tier 1: base = 10ms
+        // Tier 2: base = 20ms
+        // Tier 3: base = 40ms
+        // Tier 4: base = 80ms
+        // Tier 5: base = 160ms
+        // Tier 6: base = 320ms (previously unhinted backoff was capped here at 320ms)
+        // Tier 7: base = 640ms
+        // Tier 8: base = 1280ms
+        // Tier 9: base = 2560ms
+        // Tier 10: base = 5120ms
+        // Tier 11: base = 10240ms -> capped at max_cooldown (10000ms)
+        for failure_index in 1..=11 {
+            let duration = tracker.record_failure_at(
+                "endpoint-unhinted-escalate",
+                now + Duration::from_millis(failure_index as u64),
+            );
+            assert!(
+                duration <= Duration::from_millis(10_000),
+                "unhinted cooldown {duration:?} at attempt {failure_index} must not exceed 10s max cap"
+            );
+            if failure_index == 7 {
+                assert!(
+                    duration >= Duration::from_millis(320),
+                    "unhinted cooldown {duration:?} at attempt 7 must exceed tier-6 floor (320ms / 2 = 160ms)"
+                );
+            }
+            if failure_index >= 11 {
+                assert!(
+                    duration >= Duration::from_millis(5000),
+                    "unhinted cooldown {duration:?} at attempt {failure_index} must meet half-jitter floor of 10s max cap (5000ms)"
+                );
+            }
+        }
+        assert_eq!(
+            tracker.consecutive_failures("endpoint-unhinted-escalate"),
+            11,
+            "consecutive unhinted failures should escalate past tier 6 to tier 11"
+        );
+    }
+
+    #[test]
+    fn unavailable_backoff_escalates_past_tier_6() {
+        let now = Instant::now();
+        let tracker = EndpointCooldownTracker::with_options(
+            Duration::from_millis(10),
+            Duration::from_millis(5000),
+            Duration::from_secs(600),
+        );
+
+        for failure_index in 1..=8 {
+            let duration = tracker.record_unavailable_failure_at(
+                "endpoint-unavailable-escalate",
+                now + Duration::from_millis(failure_index as u64),
+            );
+            assert!(
+                duration <= Duration::from_millis(5000),
+                "unavailable cooldown {duration:?} at attempt {failure_index} must not exceed 5s max cap"
+            );
+        }
+        assert_eq!(
+            tracker.consecutive_failures("endpoint-unavailable-escalate"),
+            8,
+            "consecutive unavailable failures should escalate past tier 6 to tier 8"
         );
     }
 
@@ -2016,6 +2143,191 @@ mod tests {
         assert!(
             tracker.is_empty(),
             "tracker is_empty must be true after clear on poisoned lock"
+        );
+    }
+
+    #[test]
+    fn mixed_failure_sequence_does_not_regress_failure_tier() {
+        let base_timestamp = Instant::now();
+        let tracker = EndpointCooldownTracker::with_options(
+            Duration::from_millis(10),
+            Duration::from_millis(10_000),
+            Duration::from_secs(600),
+        );
+
+        let endpoint_name = "endpoint-mixed-sequence";
+
+        // Record 8 unhinted failures.
+        for failure_index in 1..=8 {
+            tracker.record_failure_at(
+                endpoint_name,
+                base_timestamp + Duration::from_millis(failure_index as u64 * 10),
+            );
+        }
+        assert_eq!(
+            tracker.consecutive_failures(endpoint_name),
+            8,
+            "consecutive failures must reach 8 after 8 unhinted failures"
+        );
+
+        // Record a hinted failure with a small server delay (50ms).
+        // A hinted failure MUST NOT regress consecutive failures from 8 to 6.
+        let hinted_cooldown = tracker.record_failure_with_delay_at(
+            endpoint_name,
+            Some(Duration::from_millis(50)),
+            base_timestamp + Duration::from_millis(90),
+        );
+        assert_eq!(
+            tracker.consecutive_failures(endpoint_name),
+            9,
+            "hinted failure following unhinted failures must monotonically increment tier without regressing"
+        );
+        assert!(
+            hinted_cooldown >= Duration::from_millis(2000),
+            "hinted cooldown {hinted_cooldown:?} must meet the 2s client floor cap at tier 9"
+        );
+        assert!(
+            hinted_cooldown <= Duration::from_millis(2500),
+            "hinted cooldown {hinted_cooldown:?} must not exceed 2s floor + 500ms max jitter"
+        );
+
+        // Record another unhinted failure. Escalation must continue monotonically.
+        tracker.record_failure_at(endpoint_name, base_timestamp + Duration::from_millis(100));
+        assert_eq!(
+            tracker.consecutive_failures(endpoint_name),
+            10,
+            "consecutive failures must advance to tier 10 on subsequent unhinted failure"
+        );
+    }
+
+    #[test]
+    fn compute_max_failure_tier_edge_cases() {
+        assert_eq!(
+            compute_max_failure_tier(Duration::from_secs(10), Duration::from_secs(60)),
+            6,
+            "default options must have max failure tier 6 to ensure full hinted client floor escalation"
+        );
+        assert_eq!(
+            compute_max_failure_tier(Duration::from_secs(1), Duration::from_secs(120)),
+            8,
+            "1s to 120s must compute tier 8 (1s * 2^7 = 128s >= 120s)"
+        );
+        assert_eq!(
+            compute_max_failure_tier(Duration::from_millis(10), Duration::from_millis(10_000)),
+            11,
+            "10ms to 10s must compute tier 11 (10ms * 2^10 = 10240ms >= 10000ms)"
+        );
+        assert_eq!(
+            compute_max_failure_tier(Duration::ZERO, Duration::from_secs(60)),
+            6,
+            "zero initial cooldown must fall back to at least DEFAULT_MAX_FAILURE_TIER"
+        );
+        assert_eq!(
+            compute_max_failure_tier(Duration::from_secs(100), Duration::from_secs(10)),
+            6,
+            "inverted cooldowns must fall back to at least DEFAULT_MAX_FAILURE_TIER"
+        );
+        assert_eq!(
+            compute_max_failure_tier(Duration::from_nanos(1), Duration::MAX),
+            32,
+            "extreme duration ranges must cap at MAX_UNHINTED_FAILURE_TIER (32)"
+        );
+    }
+
+    #[test]
+    fn hinted_shift_calculation_caps_at_tier_6_client_floor() {
+        let server_hint = Duration::from_millis(10);
+        // At tier 1: shift = 0, client_floor = 100ms
+        let cooldown_tier_1 = EndpointCooldownTracker::calculate_hinted_cooldown(1, server_hint);
+        assert!(
+            cooldown_tier_1 >= Duration::from_millis(100)
+                && cooldown_tier_1 <= Duration::from_millis(125),
+            "tier 1 hinted cooldown must use 100ms client floor"
+        );
+
+        // At tier 6: shift = 5, client_floor = min(100ms * 32, 2s) = 2s
+        let cooldown_tier_6 = EndpointCooldownTracker::calculate_hinted_cooldown(6, server_hint);
+        assert!(
+            cooldown_tier_6 >= Duration::from_millis(2000)
+                && cooldown_tier_6 <= Duration::from_millis(2500),
+            "tier 6 hinted cooldown must reach 2s client floor"
+        );
+
+        // At tier 10: shift = min(9, 5) = 5, client_floor = 2s
+        let cooldown_tier_10 = EndpointCooldownTracker::calculate_hinted_cooldown(10, server_hint);
+        assert!(
+            cooldown_tier_10 >= Duration::from_millis(2000)
+                && cooldown_tier_10 <= Duration::from_millis(2500),
+            "tier 10 hinted cooldown must clamp shift to 5 and maintain 2s client floor"
+        );
+
+        // At extremely large failure counts exceeding 32-bit integer boundaries (e.g. 2^32 + 1, usize::MAX):
+        // Clamping in usize before cast ensures no 32-bit truncation resets the shift to 0.
+        let extreme_failures = (1usize << 32).saturating_add(1);
+        let cooldown_extreme =
+            EndpointCooldownTracker::calculate_hinted_cooldown(extreme_failures, server_hint);
+        assert!(
+            cooldown_extreme >= Duration::from_millis(2000)
+                && cooldown_extreme <= Duration::from_millis(2500),
+            "extreme failure count (2^32 + 1) must not truncate to 0 and must maintain 2s client floor"
+        );
+
+        let cooldown_max =
+            EndpointCooldownTracker::calculate_hinted_cooldown(usize::MAX, server_hint);
+        assert!(
+            cooldown_max >= Duration::from_millis(2000)
+                && cooldown_max <= Duration::from_millis(2500),
+            "usize::MAX failure count must clamp shift to 5 and maintain 2s client floor"
+        );
+    }
+
+    #[test]
+    fn dynamic_tier_repair_reduces_probation_gradually() {
+        let base_timestamp = Instant::now();
+        let tracker = EndpointCooldownTracker::with_options(
+            Duration::from_secs(1),
+            Duration::from_secs(120),
+            Duration::from_secs(600),
+        );
+        let endpoint_name = "endpoint-dynamic-repair";
+
+        // Escalate to max tier 8.
+        for failure_index in 1..=8 {
+            tracker.record_failure_at(
+                endpoint_name,
+                base_timestamp + Duration::from_millis(failure_index as u64 * 10),
+            );
+        }
+        assert_eq!(
+            tracker.consecutive_failures(endpoint_name),
+            8,
+            "consecutive failures should be at dynamic tier 8"
+        );
+
+        // 3 consecutive successes decrement tier from 8 to 7.
+        for success_index in 1..=3 {
+            tracker.record_success_at(
+                endpoint_name,
+                base_timestamp + Duration::from_secs(150 + success_index),
+            );
+        }
+        assert_eq!(
+            tracker.consecutive_failures(endpoint_name),
+            7,
+            "3 consecutive successes must decrement failure tier from 8 to 7"
+        );
+
+        // 3 more consecutive successes decrement tier from 7 to 6.
+        for success_index in 4..=6 {
+            tracker.record_success_at(
+                endpoint_name,
+                base_timestamp + Duration::from_secs(150 + success_index),
+            );
+        }
+        assert_eq!(
+            tracker.consecutive_failures(endpoint_name),
+            6,
+            "3 consecutive successes must decrement failure tier from 7 to 6"
         );
     }
 }
