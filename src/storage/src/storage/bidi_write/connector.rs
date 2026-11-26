@@ -288,6 +288,11 @@ where
         let sleep = async |backoff| tokio::time::sleep(backoff).await;
         let default_timeout = self.options.bidi_attempt_timeout;
 
+        let idempotent = self
+            .options
+            .idempotency
+            .unwrap_or_else(|| self.spec.lock().expect("never poisoned").is_idempotent());
+
         let inner = async move |d: Option<Duration>| {
             let attempt_timeout = std::cmp::min(default_timeout, d.unwrap_or(default_timeout));
             let attempt =
@@ -298,7 +303,7 @@ where
             }
         };
         google_cloud_gax::retry_loop_internal::retry_loop(
-            inner, sleep, true, throttler, retry, backoff,
+            inner, sleep, idempotent, throttler, retry, backoff,
         )
         .await
     }
@@ -855,6 +860,7 @@ mod tests {
                 name: "test-object".into(),
                 ..Default::default()
             }),
+            if_generation_match: Some(0),
             ..Default::default()
         };
 
@@ -1677,6 +1683,143 @@ mod tests {
 
         connector.reconnect(transient_error(), 0).await?;
         assert_eq!(start.elapsed(), Duration::from_secs(3));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn connect_open_without_precondition_does_not_retry() -> Result<()> {
+        let (tx1, rx1) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream1 = TonicResponse::from(rx1);
+        drop(tx1);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream1)));
+        let mut connector = Connector::new(test_options(), SharedMockClient::new(mock));
+
+        let req = OpenAppendableObjectRequest {
+            spec: crate::model::WriteObjectSpec {
+                resource: Some(crate::model::Object {
+                    bucket: "projects/_/buckets/test-bucket".into(),
+                    name: "test-object".into(),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            },
+            params: None,
+        };
+
+        let err = connector.connect_open(req).await.unwrap_err();
+        assert!(err.is_io(), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn connect_open_without_precondition_does_not_retry_transient_error() -> Result<()> {
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, _, _, _, _| Err(transient_error()));
+        let mut connector = Connector::new(test_options(), SharedMockClient::new(mock));
+
+        let req = OpenAppendableObjectRequest {
+            spec: crate::model::WriteObjectSpec {
+                resource: Some(crate::model::Object {
+                    bucket: "projects/_/buckets/test-bucket".into(),
+                    name: "test-object".into(),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            },
+            params: None,
+        };
+
+        let err = connector.connect_open(req).await.unwrap_err();
+        assert_eq!(err.status(), transient_error().status(), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn connect_open_with_if_generation_match_retries_transient_error() -> Result<()> {
+        let (tx2, rx2) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream2 = TonicResponse::from(rx2);
+        let initial = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::Resource(crate::google::storage::v2::Object {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                name: "test-object".into(),
+                generation: 42,
+                ..Default::default()
+            })),
+            ..Default::default()
+        };
+        tx2.send(Ok(initial.clone())).await?;
+
+        let mut seq = mockall::Sequence::new();
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(move |_, _, _, _, _, _| Err(transient_error()));
+        mock.expect_start()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream2)));
+        let mut connector = Connector::new(test_options(), SharedMockClient::new(mock));
+
+        let req = OpenAppendableObjectRequest {
+            spec: crate::model::WriteObjectSpec {
+                resource: Some(crate::model::Object {
+                    bucket: "projects/_/buckets/test-bucket".into(),
+                    name: "test-object".into(),
+                    ..Default::default()
+                }),
+                if_generation_match: Some(0),
+                ..Default::default()
+            },
+            params: None,
+        };
+
+        let (resp, _conn) = connector.connect_open(req).await?;
+        assert_eq!(resp, initial);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn connect_reopen_retries_transient_error() -> Result<()> {
+        let (tx2, rx2) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream2 = TonicResponse::from(rx2);
+        let initial = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(10)),
+            ..Default::default()
+        };
+        tx2.send(Ok(initial.clone())).await?;
+
+        let mut seq = mockall::Sequence::new();
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(move |_, _, _, _, _, _| Err(transient_error()));
+        mock.expect_start()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream2)));
+        let mut connector = Connector::new(test_options(), SharedMockClient::new(mock));
+
+        let req = crate::model_ext::ReopenAppendableObjectRequest {
+            bucket: "projects/_/buckets/test-bucket".into(),
+            object: "test-object".into(),
+            generation: 123456,
+            routing_token: None,
+            if_metageneration_match: None,
+            if_metageneration_not_match: None,
+            params: None,
+            write_handle: None,
+        };
+
+        let (resp, _conn) = connector.connect_reopen(req).await?;
+        assert_eq!(resp, initial);
         Ok(())
     }
 }
