@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::transport_policies::TransportPolicies;
 use crate::headers::{
     X_GOOG_API_CLIENT, X_GOOG_REQUEST_PARAMS, X_GOOG_USER_PROJECT, sanitize_custom_headers,
 };
@@ -26,9 +27,11 @@ use google_cloud_gax::client_builder::{Error as BuilderError, Result as ClientBu
 use google_cloud_gax::error::Error;
 use google_cloud_gax::options::RequestOptions;
 use google_cloud_gax::options::internal::RequestOptionsExt as _;
+use google_cloud_gax::retry_loop_internal::retry_loop;
 use http::HeaderMap;
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use std::future::Future;
+use std::time::Duration;
 
 /// Extends the supplied `headers` map with authentication headers from a
 /// `Credentials` object. For entries with the same header name, the one in
@@ -249,12 +252,55 @@ where
     }
 }
 
+/// Runs `attempt` in a retry loop configured from `policies` and `options`.
+///
+/// Each call to `attempt` receives `options`, the zero-based count of prior
+/// attempts, and the time left before the retry policy expires, if it has a
+/// time limit. Requests are treated as non-idempotent unless `options` says
+/// otherwise.
+///
+/// Callers should pass an `async move` closure that owns what it captures. If
+/// the closure borrows from the caller, rustc cannot prove that the caller's
+/// future is `Send` (it reports E0477).
+pub(crate) async fn run_retry_loop<T, F>(
+    policies: &TransportPolicies,
+    options: RequestOptions,
+    mut attempt: F,
+) -> Result<T>
+where
+    F: AsyncFnMut(&RequestOptions, i64, Option<Duration>) -> Result<T> + Send,
+{
+    let idempotent = options.idempotent().unwrap_or(false);
+    let retry_throttler = policies.get_retry_throttler(&options);
+    let retry_policy = policies.get_retry_policy(&options);
+    let backoff_policy = policies.get_backoff_policy(&options);
+    let mut prior_attempt_count: i64 = 0;
+    let inner = async move |remaining_time: Option<Duration>| {
+        let current_attempt = prior_attempt_count;
+        prior_attempt_count += 1;
+        attempt(&options, current_attempt, remaining_time).await
+    };
+    let sleep = async |d| tokio::time::sleep(d).await;
+    retry_loop(
+        inner,
+        sleep,
+        idempotent,
+        retry_throttler,
+        retry_policy,
+        backoff_policy,
+    )
+    .await
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::headers::X_GOOG_API_KEY;
     use google_cloud_auth::credentials::{CacheableResource, CredentialsProvider, EntityTag};
     use google_cloud_auth::errors::CredentialsError;
+    use google_cloud_gax::error::rpc::{Code, Status};
+    use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt as _};
+    use google_cloud_gax::retry_throttler::CircuitBreaker;
     use http::{Extensions, header::HeaderName, header::HeaderValue};
     use pretty_assertions::assert_eq;
 
@@ -743,5 +789,110 @@ mod tests {
         .map(|(k, v)| (k.to_string(), v))
         .collect();
         assert_eq!(span.attributes, expected_attributes);
+    }
+
+    /// Runs a retry loop whose attempts always fail with `UNAVAILABLE`, and
+    /// returns the prior attempt count passed to each attempt.
+    async fn prior_attempt_counts(options: RequestOptions) -> Vec<i64> {
+        let policies = TransportPolicies::from_config(&ClientConfig::default());
+        let unavailable = Status::default().set_code(Code::Unavailable);
+        let mut counts = Vec::new();
+        let result: Result<()> = run_retry_loop(&policies, options, async |_, count, _| {
+            counts.push(count);
+            Err(Error::service(unavailable.clone()))
+        })
+        .await;
+        assert!(result.is_err(), "{result:?}");
+        counts
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn run_retry_loop_passes_prior_attempt_count() {
+        // Arrange
+        let mut options = RequestOptions::default();
+        options.set_idempotency(true);
+        options.set_retry_policy(Aip194Strict.with_attempt_limit(3));
+        options.set_retry_throttler(CircuitBreaker::clamp(1000, 0, 0)); // Never throttles.
+
+        // Act
+        let counts = prior_attempt_counts(options).await;
+
+        // Assert
+        assert_eq!(counts, [0, 1, 2]);
+    }
+
+    #[tokio::test]
+    async fn run_retry_loop_does_not_retry_non_idempotent() {
+        // Arrange
+        let options = RequestOptions::default();
+
+        // Act
+        let counts = prior_attempt_counts(options).await;
+
+        // Assert
+        assert_eq!(counts, [0]);
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn run_retry_loop_passes_options_and_remaining_time() -> TestResult {
+        use google_cloud_gax::backoff_policy::BackoffPolicy;
+        use google_cloud_gax::retry_state::RetryState;
+        use std::sync::Arc;
+
+        #[derive(Debug)]
+        struct FixedBackoff(Duration);
+
+        impl BackoffPolicy for FixedBackoff {
+            fn on_failure(&self, _state: &RetryState) -> Duration {
+                self.0
+            }
+        }
+
+        // Arrange
+        let unavailable = Status::default().set_code(Code::Unavailable);
+        let attempt_timeout = Duration::from_secs(1);
+        let time_limit = Duration::from_secs(5);
+        let backoff = Duration::from_secs(2);
+
+        // Split policies across `ClientConfig` and `RequestOptions` to exercise both.
+        let mut config = ClientConfig::default();
+        config.backoff_policy = Some(Arc::new(FixedBackoff(backoff)));
+        let policies = TransportPolicies::from_config(&config);
+
+        let mut options = RequestOptions::default();
+        options.set_idempotency(true);
+        options.set_attempt_timeout(attempt_timeout);
+        options.set_retry_policy(Aip194Strict.with_time_limit(time_limit));
+        options.set_retry_throttler(CircuitBreaker::clamp(1000, 0, 0)); // Never throttles.
+
+        // Act
+        let start = tokio::time::Instant::now();
+        let mut attempts = Vec::new();
+        let response = run_retry_loop(
+            &policies,
+            options,
+            async |attempt_options, count, remaining_time| {
+                attempts.push((*attempt_options.attempt_timeout(), count, remaining_time));
+                match count {
+                    0 | 1 => Err(Error::service(unavailable.clone())),
+                    _ => Ok("recovered"),
+                }
+            },
+        )
+        .await?;
+
+        // Assert
+        assert_eq!(response, "recovered");
+        assert_eq!(start.elapsed(), Duration::from_secs(4));
+        // `gax::retry_loop` measures `remaining_time` before sleeping for backoff.
+        assert_eq!(
+            attempts,
+            [
+                (Some(attempt_timeout), 0, Some(Duration::from_secs(5))),
+                (Some(attempt_timeout), 1, Some(Duration::from_secs(5))),
+                (Some(attempt_timeout), 2, Some(Duration::from_secs(3))),
+            ]
+        );
+        Ok(())
     }
 }
