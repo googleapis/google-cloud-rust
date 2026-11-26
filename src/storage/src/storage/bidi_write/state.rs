@@ -36,15 +36,6 @@ pub enum AppendObjectSpecState {
 }
 
 impl AppendObjectSpecState {
-    pub(crate) fn is_idempotent(&self) -> bool {
-        match self {
-            AppendObjectSpecState::Write { spec, .. } => spec.if_generation_match.is_some(),
-            AppendObjectSpecState::Append { spec, .. } => {
-                spec.generation > 0 || spec.write_handle.is_some()
-            }
-        }
-    }
-
     pub(crate) fn handle_response(&mut self, m: &BidiWriteObjectResponse) {
         let mut new_generation = None;
         if let Some(WriteStatus::Resource(resource)) = &m.write_status {
@@ -474,38 +465,5 @@ mod tests {
         } else {
             panic!("Expected AppendObjectSpecState::Write");
         }
-    }
-
-    #[test_case(None, false; "write without if_generation_match")]
-    #[test_case(Some(0), true; "write with if_generation_match 0")]
-    #[test_case(Some(42), true; "write with if_generation_match non-zero")]
-    fn is_idempotent_write(if_generation_match: Option<i64>, want: bool) {
-        let state = AppendObjectSpecState::Write {
-            spec: Box::new(WriteObjectSpec {
-                if_generation_match,
-                ..Default::default()
-            }),
-            routing_token: None,
-            initial_chunk: None,
-        };
-        assert_eq!(state.is_idempotent(), want);
-    }
-
-    #[test_case(0, None, false; "append without generation or write_handle")]
-    #[test_case(42, None, true; "append with generation")]
-    #[test_case(0, Some("handle"), true; "append with write_handle")]
-    #[test_case(42, Some("handle"), true; "append with generation and write_handle")]
-    fn is_idempotent_append(generation: i64, write_handle: Option<&str>, want: bool) {
-        let state = AppendObjectSpecState::Append {
-            spec: AppendObjectSpec {
-                generation,
-                write_handle: write_handle.map(|h| BidiWriteHandle {
-                    handle: bytes::Bytes::from_owner(h.to_string()),
-                }),
-                ..Default::default()
-            },
-            initial_chunk: None,
-        };
-        assert_eq!(state.is_idempotent(), want);
     }
 }

@@ -33,8 +33,8 @@ pub(crate) mod transport;
 mod worker;
 
 use crate::google::storage::v2::{BidiWriteObjectRequest, BidiWriteObjectResponse};
-use crate::request_options::RequestOptions;
 use gaxi::grpc::tonic::{Extensions, Response as TonicResponse, Result as TonicResult, Streaming};
+use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use std::future::Future;
 use tokio::sync::mpsc::Receiver;
 
@@ -96,7 +96,7 @@ pub(crate) trait Client: std::fmt::Debug + Send + 'static {
         extensions: Extensions,
         path: http::uri::PathAndQuery,
         rx: Receiver<BidiWriteObjectRequest>,
-        options: &RequestOptions,
+        options: &GaxRequestOptions,
         api_client_header: &'static str,
         request_params: &str,
     ) -> impl Future<Output = crate::Result<TonicResult<TonicResponse<Self::Stream>>>> + Send;
@@ -109,7 +109,7 @@ impl Client for gaxi::grpc::Client {
         extensions: Extensions,
         path: http::uri::PathAndQuery,
         rx: Receiver<BidiWriteObjectRequest>,
-        options: &RequestOptions,
+        options: &GaxRequestOptions,
         api_client_header: &'static str,
         request_params: &str,
     ) -> crate::Result<TonicResult<TonicResponse<Self::Stream>>> {
@@ -118,7 +118,7 @@ impl Client for gaxi::grpc::Client {
             extensions,
             path,
             request,
-            options.gax(),
+            options.clone(),
             api_client_header,
             request_params,
         )

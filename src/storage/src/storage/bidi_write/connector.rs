@@ -282,21 +282,18 @@ where
         let throttler = self.options.retry_throttler.clone();
         let backoff = self.options.backoff_policy.clone();
         let client = self.client.clone();
-        let options = self.options.clone();
+        let default_idempotent = self.spec.lock().expect("never poisoned").is_idempotent();
+        let gax_options = crate::idempotency::mutation(self.options.gax(), default_idempotent);
+        let idempotent = gax_options.idempotent().unwrap_or(false);
         let spec = self.spec.clone();
         let params = self.params.clone();
         let sleep = async |backoff| tokio::time::sleep(backoff).await;
         let default_timeout = self.options.bidi_attempt_timeout;
 
-        let idempotent = self
-            .options
-            .idempotency
-            .unwrap_or_else(|| self.spec.lock().expect("never poisoned").is_idempotent());
-
         let inner = async move |d: Option<Duration>| {
             let attempt_timeout = std::cmp::min(default_timeout, d.unwrap_or(default_timeout));
             let attempt =
-                Self::connect_attempt(client.clone(), spec.clone(), &options, params.clone());
+                Self::connect_attempt(client.clone(), spec.clone(), &gax_options, params.clone());
             match tokio::time::timeout(attempt_timeout, attempt).await {
                 Ok(r) => r,
                 Err(e) => Err(Error::timeout(e)),
@@ -311,7 +308,7 @@ where
     async fn connect_attempt(
         client: T,
         spec: Arc<Mutex<AppendObjectSpecState>>,
-        options: &RequestOptions,
+        options: &google_cloud_gax::options::RequestOptions,
         params: Option<CommonObjectRequestParams>,
     ) -> Result<(BidiWriteObjectResponse, Connection<T::Stream>)> {
         let (request, x_goog_request_params) = {
@@ -1715,12 +1712,28 @@ mod tests {
         Ok(())
     }
 
+    fn idempotency_token(
+        options: &google_cloud_gax::options::RequestOptions,
+    ) -> Option<http::HeaderValue> {
+        use google_cloud_gax::options::internal::RequestOptionsExt;
+        options
+            .get_extension::<http::HeaderMap>()
+            .and_then(|h| h.get(crate::idempotency::IDEMPOTENCY_TOKEN_HEADER))
+            .cloned()
+    }
+
     #[tokio::test]
     async fn connect_open_without_precondition_does_not_retry_transient_error() -> Result<()> {
         let mut mock = MockTestClient::new();
         mock.expect_start()
             .times(1)
-            .return_once(move |_, _, _, _, _, _| Err(transient_error()));
+            .return_once(move |_, _, _, options, _, _| {
+                assert!(
+                    idempotency_token(options).is_none(),
+                    "non-idempotent open must not carry an idempotency token"
+                );
+                Err(transient_error())
+            });
         let mut connector = Connector::new(test_options(), SharedMockClient::new(mock));
 
         let req = OpenAppendableObjectRequest {
@@ -1755,16 +1768,32 @@ mod tests {
         };
         tx2.send(Ok(initial.clone())).await?;
 
+        let tokens = Arc::new(Mutex::new(Vec::new()));
+        let tokens1 = tokens.clone();
+        let tokens2 = tokens.clone();
+
         let mut seq = mockall::Sequence::new();
         let mut mock = MockTestClient::new();
         mock.expect_start()
             .times(1)
             .in_sequence(&mut seq)
-            .return_once(move |_, _, _, _, _, _| Err(transient_error()));
+            .return_once(move |_, _, _, options, _, _| {
+                tokens1
+                    .lock()
+                    .expect("never poisoned")
+                    .push(idempotency_token(options));
+                Err(transient_error())
+            });
         mock.expect_start()
             .times(1)
             .in_sequence(&mut seq)
-            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream2)));
+            .return_once(move |_, _, _, options, _, _| {
+                tokens2
+                    .lock()
+                    .expect("never poisoned")
+                    .push(idempotency_token(options));
+                Ok(Ok(stream2))
+            });
         let mut connector = Connector::new(test_options(), SharedMockClient::new(mock));
 
         let req = OpenAppendableObjectRequest {
@@ -1782,6 +1811,14 @@ mod tests {
 
         let (resp, _conn) = connector.connect_open(req).await?;
         assert_eq!(resp, initial);
+
+        let recorded = tokens.lock().expect("never poisoned");
+        assert_eq!(recorded.len(), 2);
+        assert!(recorded[0].is_some(), "expected idempotency token");
+        assert_eq!(
+            recorded[0], recorded[1],
+            "retried attempts must reuse the same idempotency token"
+        );
         Ok(())
     }
 
@@ -1795,16 +1832,32 @@ mod tests {
         };
         tx2.send(Ok(initial.clone())).await?;
 
+        let tokens = Arc::new(Mutex::new(Vec::new()));
+        let tokens1 = tokens.clone();
+        let tokens2 = tokens.clone();
+
         let mut seq = mockall::Sequence::new();
         let mut mock = MockTestClient::new();
         mock.expect_start()
             .times(1)
             .in_sequence(&mut seq)
-            .return_once(move |_, _, _, _, _, _| Err(transient_error()));
+            .return_once(move |_, _, _, options, _, _| {
+                tokens1
+                    .lock()
+                    .expect("never poisoned")
+                    .push(idempotency_token(options));
+                Err(transient_error())
+            });
         mock.expect_start()
             .times(1)
             .in_sequence(&mut seq)
-            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream2)));
+            .return_once(move |_, _, _, options, _, _| {
+                tokens2
+                    .lock()
+                    .expect("never poisoned")
+                    .push(idempotency_token(options));
+                Ok(Ok(stream2))
+            });
         let mut connector = Connector::new(test_options(), SharedMockClient::new(mock));
 
         let req = crate::model_ext::ReopenAppendableObjectRequest {
@@ -1820,6 +1873,14 @@ mod tests {
 
         let (resp, _conn) = connector.connect_reopen(req).await?;
         assert_eq!(resp, initial);
+
+        let recorded = tokens.lock().expect("never poisoned");
+        assert_eq!(recorded.len(), 2);
+        assert!(recorded[0].is_some(), "expected idempotency token");
+        assert_eq!(
+            recorded[0], recorded[1],
+            "retried attempts must reuse the same idempotency token"
+        );
         Ok(())
     }
 }
