@@ -398,7 +398,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio::test]
     async fn initial_response_many_chunks_does_not_deadlock() -> anyhow::Result<()> {
         use std::time::Duration;
 

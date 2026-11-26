@@ -251,21 +251,19 @@ where
             .ok_or(ReadError::InvalidBidiStreamingReadResponse(
                 "missing range".into(),
             ))?;
-        let handler = if response.range_end {
-            let mut pending = ranges.lock().await.remove(&range.read_id).ok_or(
+        let handler = {
+            let mut guard = ranges.lock().await;
+            let pending = guard.get_mut(&range.read_id).ok_or(
                 ReadError::InvalidBidiStreamingReadResponse(
                     format!("unknown read id ({})", range.read_id).into(),
                 ),
             )?;
-            pending.handle_data(response.checksummed_data, range, true)?
-        } else {
-            let mut guard = ranges.lock().await;
-            let pending = guard.get_mut(&range.read_id).ok_or(
-                ReadError::InvalidBidiStreamingReadResponse(
-                    format!("unknown read id ({}", range.read_id).into(),
-                ),
-            )?;
-            pending.handle_data(response.checksummed_data, range, false)?
+            let handler =
+                pending.handle_data(response.checksummed_data, range, response.range_end)?;
+            if response.range_end {
+                guard.remove(&range.read_id);
+            }
+            handler
         };
         handler.send().await;
         Ok(())

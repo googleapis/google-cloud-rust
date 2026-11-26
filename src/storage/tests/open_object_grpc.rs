@@ -1111,21 +1111,34 @@ mod conformance {
         let (client, _server) = start_test_server(mock).await?;
 
         // Act: Request 10 bytes, but server completes with range_end: true and 0 bytes
-        let result = client
+        let (_descriptor, mut reader) = client
             .open_object(BUCKET_NAME, OBJECT_NAME)
             .with_read_resume_policy(NeverResume)
             .send_and_read(ReadRange::segment(0, 10))
-            .await;
+            .await?;
 
-        // Assert: Client detects short read and returns an error
-        let err = result.expect_err("expected error when server completes without requested data");
+        // Assert: Client detects short read and returns an error on the reader
+        let err = reader
+            .next()
+            .await
+            .transpose()
+            .expect_err("expected error when server completes without requested data");
         assert!(err.is_io(), "{err:?}");
         let read_err = err
             .source()
-            .and_then(|e| e.source())
             .and_then(|e| e.downcast_ref::<ReadError>())
-            .expect("expected ReadError::ShortRead source");
-        assert!(matches!(read_err, ReadError::ShortRead(10)), "{read_err:?}");
+            .expect("expected ReadError::UnrecoverableBidiReadInterrupt source");
+        assert!(
+            matches!(
+                read_err,
+                ReadError::UnrecoverableBidiReadInterrupt(inner)
+                    if matches!(
+                        inner.source().and_then(|e| e.downcast_ref::<ReadError>()),
+                        Some(ReadError::ShortRead(10))
+                    )
+            ),
+            "{read_err:?}"
+        );
 
         Ok(())
     }
