@@ -10,6 +10,7 @@ checksum = "0fca89247609239eeb6915e6991111866b92d7b31025e69302bbf430cc4d2c38"
 dependencies = [
  "cfg-if",
  "const-random",
+ "getrandom 0.3.4",
  "getrandom 0.4.3",
  "once_cell",
  "version_check",
@@ -452,7 +453,7 @@ dependencies = [
  "google-cloud-auth",
  "google-cloud-bigquery",
  "integration-tests-o11y",
- "jiff 0.2.46",
+ "jiff 1.0.2",
  "opentelemetry",
  "opentelemetry_sdk",
  "serde",
@@ -510,7 +511,7 @@ dependencies = [
  "clap",
  "google-cloud-bigquery",
  "google-cloud-bigquery-v2",
- "jiff 0.2.46",
+ "jiff 1.0.2",
  "rand 0.10.4",
  "tokio",
 ]
@@ -2178,7 +2179,7 @@ dependencies = [
  "http",
  "httptest",
  "hyper",
- "jiff 0.2.46",
+ "jiff 1.0.2",
  "jsonwebtoken",
  "mockall",
  "mutants",
@@ -5523,7 +5524,7 @@ dependencies = [
  "http-body",
  "http-body-util",
  "httptest",
- "jiff 0.2.46",
+ "jiff 1.0.2",
  "md5",
  "mockall",
  "multer",
@@ -7337,7 +7338,7 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-lro",
  "google-cloud-test-utils",
- "jiff 0.2.46",
+ "jiff 1.0.2",
  "tokio",
  "tracing",
  "tracing-subscriber",
@@ -7418,7 +7419,7 @@ dependencies = [
  "google-cloud-wkt",
  "http",
  "httptest",
- "jiff 0.2.46",
+ "jiff 1.0.2",
  "opentelemetry",
  "opentelemetry-appender-tracing",
  "opentelemetry-otlp",
@@ -7790,17 +7791,17 @@ dependencies = [
 
 [[package]]
 name = "jsonwebtoken"
-version = "11.1.0"
+version = "12.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e75fe14a82d81e5f5af639997db37d8b96045938a7ac6ab18cdbe1c7467e05e1"
+checksum = "f347a975eb5fa8f5c4eadce6c1152c11c326cf32cf839fb64ff12d5cb8f4ce8b"
 dependencies = [
  "aws-lc-rs",
- "base64 0.22.1",
- "getrandom 0.2.17",
+ "base64 0.23.1",
+ "getrandom 0.4.3",
  "js-sys",
  "serde",
  "serde_json",
- "signature 2.2.0",
+ "signature 3.0.0",
  "zeroize",
 ]
 
@@ -8674,7 +8675,7 @@ dependencies = [
  "clap",
  "google-cloud-auth",
  "google-cloud-pubsub",
- "jiff 0.2.46",
+ "jiff 1.0.2",
  "prost",
  "pubsub-grpc-mock",
  "rand 0.10.4",
@@ -8694,7 +8695,7 @@ dependencies = [
  "google-cloud-pubsub",
  "google-cloud-test-utils",
  "google-cloud-wkt",
- "jiff 0.2.46",
+ "jiff 1.0.2",
  "rand 0.10.4",
  "tokio",
  "tracing",
@@ -8708,7 +8709,7 @@ dependencies = [
  "bytes",
  "clap",
  "google-cloud-pubsub",
- "jiff 0.2.46",
+ "jiff 1.0.2",
  "tokio",
 ]
 
@@ -9717,7 +9718,7 @@ dependencies = [
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-storage",
- "jiff 0.2.46",
+ "jiff 1.0.2",
  "parse-size",
  "rand 0.10.4",
  "test-case",
@@ -9765,7 +9766,7 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-storage",
  "http",
- "jiff 0.2.46",
+ "jiff 1.0.2",
  "rand 0.10.4",
  "test-case",
  "tokio",
@@ -9785,7 +9786,7 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-storage",
  "integration-tests-o11y",
- "jiff 0.2.46",
+ "jiff 1.0.2",
  "opentelemetry_sdk",
  "parse-size",
  "pin-project",
@@ -9891,7 +9892,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32497e9a4c7b38532efcdebeef879707aa9f794296a4f0244f6f69e9bc8574bd"
 dependencies = [
  "fastrand",
- "getrandom 0.4.3",
+ "getrandom 0.3.4",
  "once_cell",
  "rustix",
  "windows-sys 0.61.2",
