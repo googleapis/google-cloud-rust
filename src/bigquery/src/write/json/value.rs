@@ -45,6 +45,7 @@ impl<'de> DeserializeSeed<'de> for ValueEncoder<'_> {
     fn deserialize<D: Deserializer<'de>>(self, deserializer: D) -> Result<Self::Value, D::Error> {
         match self.0.r#type {
             Type::Bool
+            | Type::Int64
             | Type::Date
             | Type::Datetime
             | Type::Time
@@ -81,6 +82,10 @@ impl<'de> Visitor<'de> for ValueEncoder<'_> {
         match self.0.r#type {
             Type::Bool if v.eq_ignore_ascii_case("true") => Ok(Some(Value::Bool(true))),
             Type::Bool if v.eq_ignore_ascii_case("false") => Ok(Some(Value::Bool(false))),
+            Type::Int64 => match v.parse::<i64>() {
+                Ok(n) => Ok(Some(Value::I64(n))),
+                Err(_) => self.invalid_value(),
+            },
             Type::Date | Type::Datetime | Type::Time | Type::Geography | Type::Interval => {
                 Ok(Some(Value::String(v.to_owned())))
             }
@@ -88,12 +93,21 @@ impl<'de> Visitor<'de> for ValueEncoder<'_> {
         }
     }
 
-    fn visit_i64<E: de::Error>(self, _: i64) -> Result<Self::Value, E> {
-        self.invalid_value()
+    fn visit_i64<E: de::Error>(self, v: i64) -> Result<Self::Value, E> {
+        match self.0.r#type {
+            Type::Int64 => Ok(Some(Value::I64(v))),
+            _ => self.invalid_value(),
+        }
     }
 
-    fn visit_u64<E: de::Error>(self, _: u64) -> Result<Self::Value, E> {
-        self.invalid_value()
+    fn visit_u64<E: de::Error>(self, v: u64) -> Result<Self::Value, E> {
+        match self.0.r#type {
+            Type::Int64 => match i64::try_from(v) {
+                Ok(n) => Ok(Some(Value::I64(n))),
+                Err(_) => self.invalid_value(),
+            },
+            _ => self.invalid_value(),
+        }
     }
 
     fn visit_f64<E: de::Error>(self, _: f64) -> Result<Self::Value, E> {
@@ -193,14 +207,56 @@ mod tests {
 
     #[test]
     fn unsupported_type() -> anyhow::Result<()> {
-        let map = column_map("id", Type::Int64)?;
-        let col = map.get("id").context("column present")?;
+        let map = column_map("ts", Type::Timestamp)?;
+        let col = map.get("ts").context("column present")?;
         let err = encode(col, "42").expect_err("unsupported type should fail");
         assert!(
             err.to_string()
-                .starts_with("unsupported type 'INT64' for field 'id'"),
+                .starts_with("unsupported type 'TIMESTAMP' for field 'ts'"),
             "{err}"
         );
+        Ok(())
+    }
+
+    #[test_case("0", Some(0))]
+    #[test_case("9223372036854775807", Some(i64::MAX))]
+    #[test_case("-9223372036854775808", Some(i64::MIN))]
+    #[test_case(r#""42""#, Some(42))]
+    #[test_case(r#""\u00342""#, Some(42))]
+    #[test_case(r#""9223372036854775807""#, Some(i64::MAX))]
+    #[test_case(r#""-9223372036854775808""#, Some(i64::MIN))]
+    #[test_case("null", None)]
+    fn int64_values(json: &str, want: Option<i64>) -> anyhow::Result<()> {
+        let map = column_map("n", Type::Int64)?;
+        let col = map.get("n").context("column present")?;
+        assert_eq!(encode(col, json)?, want.map(Value::I64));
+        Ok(())
+    }
+
+    #[test_case("9223372036854775808")]
+    #[test_case("-9223372036854775809")]
+    #[test_case("1.0")]
+    #[test_case("1e3")]
+    #[test_case("true")]
+    #[test_case(r#""""#)]
+    #[test_case(r#"" 42 ""#)]
+    #[test_case(r#""9223372036854775808""#)]
+    #[test_case(r#""-9223372036854775809""#)]
+    #[test_case(r#""1e3""#)]
+    #[test_case(r#""secret_pii""#)]
+    #[test_case(r#"["secret_pii"]"#)]
+    #[test_case(r#"{"k": "secret_pii"}"#)]
+    fn int64_rejects_invalid_values(json: &str) -> anyhow::Result<()> {
+        let map = column_map("n", Type::Int64)?;
+        let col = map.get("n").context("column present")?;
+        let err = encode(col, json).expect_err(json);
+        assert!(err.is_data(), "{json}: {err}");
+        let msg = err.to_string();
+        assert!(
+            msg.starts_with("invalid value for field 'n': expected INT64 at line 1 column "),
+            "{json}: {msg}"
+        );
+        assert!(!msg.contains("secret_pii"), "{msg}");
         Ok(())
     }
 
