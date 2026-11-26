@@ -18,9 +18,11 @@ use crate::Result;
 use crate::credentials::{CacheableResource, EntityTag};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use http::Extensions;
-use std::sync::Arc;
+use std::sync::{Arc, OnceLock};
 use tokio::sync::watch;
 use tokio::time::{Duration, Instant, sleep};
+
+type TokenChannel = Option<Result<(Token, EntityTag)>>;
 
 // Different MDS(Metadata Service) backends have different policies to
 // determine when to refresh a token. Most MDS' refresh token 5 mins before
@@ -38,10 +40,21 @@ impl Drop for AbortOnDrop {
     }
 }
 
+#[derive(Debug)]
+struct RunningRefresh {
+    rx_token: watch::Receiver<TokenChannel>,
+    _abort_guard: AbortOnDrop,
+}
+
+#[derive(Debug)]
+struct TokenCacheInner {
+    token_provider: Arc<dyn TokenProvider>,
+    running: OnceLock<RunningRefresh>,
+}
+
 #[derive(Debug, Clone)]
 pub(crate) struct TokenCache {
-    rx_token: watch::Receiver<Option<Result<(Token, EntityTag)>>>,
-    _abort_guard: Arc<AbortOnDrop>,
+    inner: Arc<TokenCacheInner>,
 }
 
 impl TokenCache {
@@ -49,19 +62,33 @@ impl TokenCache {
     where
         T: TokenProvider + Send + Sync + 'static,
     {
-        let (tx_token, rx_token) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
-        let token_provider = Arc::new(inner);
-
-        let handle = tokio::spawn(refresh_task(token_provider, tx_token)).abort_handle();
-
         Self {
-            rx_token,
-            _abort_guard: Arc::new(AbortOnDrop(handle)),
+            inner: Arc::new(TokenCacheInner {
+                token_provider: Arc::new(inner),
+                running: OnceLock::new(),
+            }),
         }
     }
 
+    fn receiver(&self) -> watch::Receiver<TokenChannel> {
+        self.inner
+            .running
+            .get_or_init(|| {
+                let (tx_token, rx_token) = watch::channel::<TokenChannel>(None);
+                let handle =
+                    tokio::spawn(refresh_task(self.inner.token_provider.clone(), tx_token))
+                        .abort_handle();
+                RunningRefresh {
+                    rx_token,
+                    _abort_guard: AbortOnDrop(handle),
+                }
+            })
+            .rx_token
+            .clone()
+    }
+
     async fn latest_token_and_entity_tag(&self) -> Result<(Token, EntityTag)> {
-        let mut rx = self.rx_token.clone();
+        let mut rx = self.receiver();
         let token_result = rx.borrow_and_update().clone();
         if let Some(token_result) = token_result {
             match token_result {
@@ -116,11 +143,9 @@ fn current_expiration(
         .and_then(|(token, _)| token.expires_at)
 }
 
-async fn refresh_task<T>(
-    token_provider: Arc<T>,
-    tx_token: watch::Sender<Option<Result<(Token, EntityTag)>>>,
-) where
-    T: TokenProvider + Send + Sync + 'static,
+async fn refresh_task<T>(token_provider: Arc<T>, tx_token: watch::Sender<TokenChannel>)
+where
+    T: TokenProvider + ?Sized + Send + Sync + 'static,
 {
     loop {
         if tx_token.receiver_count() == 0 {
@@ -945,8 +970,12 @@ mod tests {
         let cache = TokenCache::new(mock_provider);
         let debug_output = format!("{cache:?}");
 
-        assert!(debug_output.contains("TokenCache"));
-        assert!(debug_output.contains("rx_token"));
+        assert!(debug_output.contains("TokenCache"), "{debug_output}");
+        assert!(debug_output.contains("running"), "{debug_output}");
+
+        let _ = cache.token(Extensions::new()).await.unwrap();
+        let debug_output = format!("{cache:?}");
+        assert!(debug_output.contains("rx_token"), "{debug_output}");
     }
 
     #[tokio::test(start_paused = true)]
@@ -990,5 +1019,53 @@ mod tests {
         tokio::time::advance(2 * TOKEN_VALID_DURATION).await;
         tokio::task::yield_now().await;
         Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn new_does_not_fetch_token_eagerly() {
+        let mut mock = MockTokenProvider::new();
+        mock.expect_token().times(0);
+
+        let cache = TokenCache::new(mock);
+        tokio::task::yield_now().await;
+        tokio::time::advance(2 * TOKEN_VALID_DURATION).await;
+        tokio::task::yield_now().await;
+        drop(cache);
+    }
+
+    #[test]
+    fn new_works_without_tokio_runtime() {
+        let mut mock = MockTokenProvider::new();
+        mock.expect_token().times(0);
+
+        let cache = TokenCache::new(mock);
+        drop(cache);
+    }
+
+    #[tokio::test]
+    async fn dropping_unused_token_cache_drops_provider() {
+        let sentinel = Arc::new(());
+        let weak_sentinel = Arc::downgrade(&sentinel);
+
+        let mut mock = MockTokenProvider::new();
+        mock.expect_token().times(0).returning(move || {
+            let _keep_alive = &sentinel;
+            unreachable!("token() should never be called")
+        });
+
+        let cache = TokenCache::new(mock);
+        let cache_clone = cache.clone();
+
+        drop(cache);
+        assert!(
+            weak_sentinel.upgrade().is_some(),
+            "provider should stay alive while a TokenCache clone exists"
+        );
+
+        drop(cache_clone);
+        assert!(
+            weak_sentinel.upgrade().is_none(),
+            "provider should be dropped when the last unused TokenCache clone is dropped"
+        );
     }
 }
