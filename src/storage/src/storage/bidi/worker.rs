@@ -56,8 +56,27 @@ where
     C: Client + Clone + 'static,
     <C as Client>::Stream: TonicStreaming,
 {
+    #[cfg(test)]
     pub async fn run(
+        self,
+        connection: Connection<C::Stream>,
+        requests: Receiver<ActiveRead>,
+    ) -> LoopResult<()> {
+        self.run_inner(None, connection, requests).await
+    }
+
+    pub async fn run_with_initial(
+        self,
+        initial: BidiReadObjectResponse,
+        connection: Connection<C::Stream>,
+        requests: Receiver<ActiveRead>,
+    ) -> LoopResult<()> {
+        self.run_inner(Some(initial), connection, requests).await
+    }
+
+    async fn run_inner(
         mut self,
+        initial: Option<BidiReadObjectResponse>,
         connection: Connection<C::Stream>,
         mut requests: Receiver<ActiveRead>,
     ) -> LoopResult<()> {
@@ -66,30 +85,37 @@ where
         // Keep `requests` open until the `ObjectDescriptor` and all readers are
         // dropped, even after an unrecoverable stream error. Exiting early would
         // close the channel and cause later `read_range()` calls to panic.
-        let error = loop {
-            tokio::select! {
-                m = rx.next_message() => {
-                    match self.handle_response(m).await {
-                        // An unrecoverable in the stream or its data, return
-                        // the error.
-                        Err(e) => break Some(e),
-                        // New message on the stream handled successfully,
-                        // continue.
-                        Ok(None) => {},
-                        // The stream reconnected successfully, update the local
-                        // variables and continue.
-                        Ok(Some(connection)) => {
-                            (rx, tx) = (connection.rx, connection.tx);
-                        }
-                    };
-                },
-                r = requests.recv_many(&mut ranges, 16) => {
-                    if r == 0 {
-                        break None;
-                    };
-                    self.insert_ranges(tx.clone(), std::mem::take(&mut ranges)).await;
-                },
-            }
+        let initial_error = match initial {
+            Some(initial) => self.handle_response_success(initial).await.err(),
+            None => None,
+        };
+        let error = match initial_error {
+            Some(e) => Some(e),
+            None => loop {
+                tokio::select! {
+                    m = rx.next_message() => {
+                        match self.handle_response(m).await {
+                            // An unrecoverable in the stream or its data, return
+                            // the error.
+                            Err(e) => break Some(e),
+                            // New message on the stream handled successfully,
+                            // continue.
+                            Ok(None) => {},
+                            // The stream reconnected successfully, update the local
+                            // variables and continue.
+                            Ok(Some(connection)) => {
+                                (rx, tx) = (connection.rx, connection.tx);
+                            }
+                        };
+                    },
+                    r = requests.recv_many(&mut ranges, 16) => {
+                        if r == 0 {
+                            break None;
+                        };
+                        self.insert_ranges(tx.clone(), std::mem::take(&mut ranges)).await;
+                    },
+                }
+            },
         };
         drop(rx);
         drop(tx);

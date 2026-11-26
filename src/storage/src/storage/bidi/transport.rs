@@ -68,13 +68,10 @@ impl ObjectDescriptorTransport {
             .map(|r| Self::map_range(r, &tx, &object, checksum.clone()))
             .unzip();
 
-        // Process any data ranges in the initial response and spawn the worker task.
-        let mut worker = super::worker::Worker::new(connector, actives);
-        worker
-            .handle_response_success(initial)
-            .await
-            .map_err(Error::io)?;
-        let _handle = tokio::spawn(worker.run(connection, rx));
+        // Spawn the worker task to dispatch any data ranges in the initial response
+        // without blocking before returning the readers to the caller.
+        let worker = super::worker::Worker::new(connector, actives);
+        let _handle = tokio::spawn(worker.run_with_initial(initial, connection, rx));
 
         Ok((
             Self {
@@ -398,6 +395,85 @@ mod tests {
             .await
             .unwrap_err();
         assert!(err.is_deserialization(), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn initial_response_many_chunks_does_not_deadlock() -> anyhow::Result<()> {
+        use std::time::Duration;
+
+        const CHUNK_COUNT: usize = 150;
+        let (connector, test_context) = BidiTestContext::new();
+
+        // Build an initial response with more than 100 chunks for a single range so that
+        // dispatching all chunks before returning the reader overflows the bounded channel (100).
+        let mut initial = base_response();
+        initial.object_data_ranges = (0..CHUNK_COUNT)
+            .map(|i| ObjectRangeData {
+                checksummed_data: Some(ChecksummedData {
+                    content: bytes::Bytes::from(vec![(i % 251) as u8]),
+                    ..ChecksummedData::default()
+                }),
+                read_range: Some(proto_range_id(i as i64, 1, 0)),
+                range_end: i + 1 == CHUNK_COUNT,
+            })
+            .collect();
+        test_context.connect_tx.send(Ok(initial)).await?;
+
+        let ranges = vec![ReadRange::segment(0, CHUNK_COUNT as u64)];
+        let (_transport, mut readers) = tokio::time::timeout(
+            Duration::from_secs(5),
+            ObjectDescriptorTransport::new(connector, ranges),
+        )
+        .await
+        .expect("ObjectDescriptorTransport::new deadlocked on >100 initial chunks")?;
+
+        assert_eq!(readers.len(), 1);
+        let mut received = Vec::with_capacity(CHUNK_COUNT);
+        while let Some(chunk) = tokio::time::timeout(Duration::from_secs(5), readers[0].next())
+            .await
+            .expect("reader timed out draining initial chunks")
+            .transpose()?
+        {
+            received.extend_from_slice(&chunk);
+        }
+
+        let expected: Vec<u8> = (0..CHUNK_COUNT).map(|i| (i % 251) as u8).collect();
+        assert_eq!(received, expected);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn initial_response_error_notifies_readers() -> anyhow::Result<()> {
+        use std::error::Error as _;
+
+        let (connector, test_context) = BidiTestContext::new();
+        let mut initial = base_response();
+        initial.object_data_ranges = vec![ObjectRangeData {
+            read_range: Some(proto_range_id(0, 10, 999)),
+            range_end: true,
+            ..ObjectRangeData::default()
+        }];
+        test_context.connect_tx.send(Ok(initial)).await?;
+
+        let (transport, mut readers) =
+            ObjectDescriptorTransport::new(connector, vec![ReadRange::segment(0, 10)]).await?;
+        assert_eq!(readers.len(), 1);
+
+        let err = readers[0].next().await.transpose().unwrap_err();
+        let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
+        assert!(
+            matches!(source, Some(ReadError::UnrecoverableBidiReadInterrupt(_))),
+            "{err:?}"
+        );
+
+        let mut later = transport.read_range(ReadRange::segment(0, 10)).await;
+        let err = later.next().await.transpose().unwrap_err();
+        let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
+        assert!(
+            matches!(source, Some(ReadError::UnrecoverableBidiReadInterrupt(_))),
+            "{err:?}"
+        );
         Ok(())
     }
 
