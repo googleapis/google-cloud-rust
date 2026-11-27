@@ -642,7 +642,7 @@ mod tests {
 
         t.params = Some(v2::CommonObjectRequestParams {
             encryption_algorithm: "AES256".to_string(),
-            encryption_key_bytes: bytes::Bytes::from_static(b"test-only-key"),
+            encryption_key_bytes: Bytes::from_static(b"test-only-key"),
             ..v2::CommonObjectRequestParams::default()
         });
         let with_params = format!("{t:?}");
@@ -1096,7 +1096,7 @@ mod tests {
     async fn finalize_sends_params_from_create() -> anyhow::Result<()> {
         let want = v2::CommonObjectRequestParams {
             encryption_algorithm: "AES256".to_string(),
-            encryption_key_bytes: bytes::Bytes::from_static(b"test-only-key"),
+            encryption_key_bytes: Bytes::from_static(b"test-only-key"),
             ..v2::CommonObjectRequestParams::default()
         };
 
@@ -1120,7 +1120,7 @@ mod tests {
         let request = create_request().set_params(
             CommonObjectRequestParams::new()
                 .set_encryption_algorithm("AES256")
-                .set_encryption_key_bytes(bytes::Bytes::from_static(b"test-only-key")),
+                .set_encryption_key_bytes(Bytes::from_static(b"test-only-key")),
         );
         let transport = create(mock, request).await?;
 
