@@ -44,7 +44,7 @@ impl ParallelUploadSession {
         self.inner.segment_size_bytes()
     }
 
-    /// Uploads a single segment to the session.
+    /// Uploads a single 1-based segment (`segment_number >= 1`) to the session.
     ///
     /// # Errors
     ///
