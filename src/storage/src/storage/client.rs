@@ -288,12 +288,21 @@ where
     ///
     /// This method allows you to incrementally append data to a single object.
     ///
+    /// By default, opening a new appendable object without a
+    /// [`set_if_generation_match`][OpenAppendableObject::set_if_generation_match]
+    /// precondition is treated as non-idempotent, so transient errors during the
+    /// initial open handshake are not retried. Set `set_if_generation_match(0)`
+    /// when creating a brand-new object so the client can safely retry opening
+    /// the stream. Once opened, mid-stream reconnections target the created
+    /// object's generation and write handle and are retried automatically.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let mut writer = client
     ///     .open_appendable_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .set_if_generation_match(0)
     ///     .send()
     ///     .await?;
     ///
