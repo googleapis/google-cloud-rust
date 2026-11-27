@@ -21,6 +21,7 @@ use crate::model::{
     read_rows_response::Schema as ReadRowsResponseSchema,
     read_session::Schema as ReadSessionSchema, read_session::TableReadOptions,
 };
+use crate::query::arrow::{ArrowStreamDecoder, RecordBatchSource};
 use crate::query::query_handle::build_get_job;
 use arrow::record_batch::RecordBatch;
 use google_cloud_bigquery_v2::client::JobService;
@@ -39,12 +40,77 @@ pub(crate) fn rest_row_threshold() -> u64 {
         .unwrap_or(DEFAULT_REST_ROW_THRESHOLD)
 }
 
+/// Reads and decodes Arrow [`RecordBatch`]es from a single Storage Read API stream.
+#[derive(Debug)]
+pub(crate) struct SingleStreamReader {
+    stream: ResponseStream<ReadRowsResponse>,
+    decoder: ArrowStreamDecoder,
+    schema_loaded: bool,
+}
+
+impl SingleStreamReader {
+    pub(crate) async fn open(
+        read_client: &ReadClient,
+        stream_name: String,
+        session_schema: Option<&bytes::Bytes>,
+        options: &RequestOptions,
+    ) -> Result<Self, RowError> {
+        let mut decoder = ArrowStreamDecoder::new();
+        let mut schema_loaded = false;
+        if let Some(schema_bytes) = session_schema
+            && !schema_bytes.is_empty()
+        {
+            decoder.set_schema_bytes(schema_bytes.clone())?;
+            schema_loaded = true;
+        }
+
+        let stream = read_client
+            .read_rows()
+            .with_options(options.clone())
+            .set_read_stream(stream_name)
+            .set_offset(0)
+            .send()
+            .await?;
+
+        Ok(Self {
+            stream,
+            decoder,
+            schema_loaded,
+        })
+    }
+}
+
+impl RecordBatchSource for SingleStreamReader {
+    async fn next_record_batch(&mut self) -> Result<Option<RecordBatch>, RowError> {
+        while let Some(response) = self.stream.next().await {
+            let response = response?;
+
+            if !self.schema_loaded
+                && let Some(ReadRowsResponseSchema::ArrowSchema(arrow_schema)) = response.schema
+                && !arrow_schema.serialized_schema.is_empty()
+            {
+                self.decoder
+                    .set_schema_bytes(arrow_schema.serialized_schema)?;
+                self.schema_loaded = true;
+            }
+
+            if let Some(Rows::ArrowRecordBatch(batch)) = response.rows
+                && let Some(record_batch) =
+                    self.decoder.decode_batch(batch.serialized_record_batch)?
+                && record_batch.num_rows() > 0
+            {
+                return Ok(Some(record_batch));
+            }
+        }
+
+        Ok(None)
+    }
+}
+
 #[derive(Debug)]
 pub(crate) enum ReaderState {
     Unopened,
-    Streaming {
-        stream: ResponseStream<ReadRowsResponse>,
-    },
+    Streaming(SingleStreamReader),
     Completed,
 }
 
@@ -53,7 +119,6 @@ pub(crate) enum ReaderState {
 pub(crate) struct StorageReader {
     pub(crate) read_client: Arc<ReadClient>,
     pub(crate) job_ref: JobReference,
-    pub(crate) decoder: crate::query::arrow::ArrowStreamDecoder,
     pub(crate) state: ReaderState,
 }
 
@@ -62,13 +127,12 @@ impl StorageReader {
         Self {
             read_client,
             job_ref,
-            decoder: crate::query::arrow::ArrowStreamDecoder::new(),
             state: ReaderState::Unopened,
         }
     }
 }
 
-impl crate::query::arrow::RecordBatchSource for StorageReader {
+impl RecordBatchSource for StorageReader {
     async fn next_record_batch(&mut self) -> Result<Option<RecordBatch>, RowError> {
         loop {
             match &mut self.state {
@@ -80,57 +144,32 @@ impl crate::query::arrow::RecordBatchSource for StorageReader {
                     let stream_name = format!(
                         "projects/{project}/locations/{location}/jobs/{job_id}/streams/_default"
                     );
-                    let stream = match self
-                        .read_client
-                        .read_rows()
-                        .set_read_stream(stream_name)
-                        .set_offset(0)
-                        .send()
-                        .await
+                    let reader = match SingleStreamReader::open(
+                        &self.read_client,
+                        stream_name,
+                        None,
+                        &RequestOptions::default(),
+                    )
+                    .await
                     {
-                        Ok(stream) => stream,
+                        Ok(reader) => reader,
                         Err(err) => {
-                            self.state = ReaderState::Completed;
-                            return Err(RowError::Rpc { source: err });
-                        }
-                    };
-
-                    self.state = ReaderState::Streaming { stream };
-                }
-                ReaderState::Streaming { stream } => match stream.next().await {
-                    Some(Ok(response)) => {
-                        if let Some(ReadRowsResponseSchema::ArrowSchema(arrow_schema)) =
-                            response.schema
-                            && let Err(err) = self
-                                .decoder
-                                .set_schema_bytes(arrow_schema.serialized_schema)
-                        {
                             self.state = ReaderState::Completed;
                             return Err(err);
                         }
+                    };
 
-                        if let Some(Rows::ArrowRecordBatch(batch)) = response.rows {
-                            match self.decoder.decode_batch(batch.serialized_record_batch) {
-                                Ok(Some(record_batch)) => {
-                                    if record_batch.num_rows() > 0 {
-                                        return Ok(Some(record_batch));
-                                    }
-                                }
-                                Ok(None) => {}
-                                Err(err) => {
-                                    self.state = ReaderState::Completed;
-                                    return Err(err);
-                                }
-                            }
-                        }
-                    }
-                    None => {
+                    self.state = ReaderState::Streaming(reader);
+                }
+                ReaderState::Streaming(reader) => match reader.next_record_batch().await {
+                    Ok(Some(batch)) => return Ok(Some(batch)),
+                    Ok(None) => {
                         self.state = ReaderState::Completed;
                         return Ok(None);
                     }
-                    Some(Err(err)) => {
+                    Err(err) => {
                         self.state = ReaderState::Completed;
-                        return Err(RowError::Rpc { source: err });
+                        return Err(err);
                     }
                 },
             }
@@ -599,6 +638,104 @@ mod tests {
         .expect_err("should propagate RPC error");
 
         assert!(matches!(err, RowError::Rpc { .. }), "{err:?}");
+        Ok(())
+    }
+
+    fn encode_int64_schema_and_batch(
+        values: Vec<i64>,
+    ) -> Result<(bytes::Bytes, bytes::Bytes), Box<dyn std::error::Error>> {
+        let arrow_schema = Arc::new(ArrowSchemaDef::new(vec![Field::new(
+            "number",
+            DataType::Int64,
+            false,
+        )]));
+
+        let mut schema_buf = Vec::new();
+        let _ = StreamWriter::try_new(&mut schema_buf, &arrow_schema)?;
+
+        let col = Int64Array::from(values);
+        let batch = RecordBatch::try_new(arrow_schema.clone(), vec![Arc::new(col)])?;
+
+        let mut batch_buf = Vec::new();
+        let mut writer = StreamWriter::try_new(&mut batch_buf, &arrow_schema)?;
+        writer.write(&batch)?;
+        let batch_bytes = batch_buf[schema_buf.len()..].to_vec();
+
+        Ok((
+            bytes::Bytes::from(schema_buf),
+            bytes::Bytes::from(batch_bytes),
+        ))
+    }
+
+    #[test]
+    fn test_single_stream_reader_is_send() {
+        fn assert_send<T: Send>(_: T) {}
+
+        static_assertions::assert_impl_all!(SingleStreamReader: Send);
+
+        let _check_futures = |read_client: &ReadClient,
+                              single: &mut SingleStreamReader,
+                              options: &RequestOptions| {
+            assert_send(SingleStreamReader::open(
+                read_client,
+                String::new(),
+                None,
+                options,
+            ));
+            assert_send(single.next_record_batch());
+        };
+    }
+
+    #[tokio::test]
+    async fn test_single_stream_reader_uses_session_schema_and_options() -> TestResult {
+        let (schema_bytes, batch_bytes) = encode_int64_schema_and_batch(vec![10, 20])?;
+
+        let (tx, rx) = mpsc::channel(1);
+        tx.send(Ok(ReadRowsResponse::default().set_rows(
+            Rows::ArrowRecordBatch(Box::new(
+                ArrowRecordBatch::default().set_serialized_record_batch(batch_bytes),
+            )),
+        )))
+        .await?;
+        drop(tx);
+
+        let mut mock_read = MockRead::new();
+        mock_read
+            .expect_read_rows()
+            .times(1)
+            .return_once(move |req, opts| {
+                assert_eq!(req.read_stream, "sessions/s1/streams/0");
+                assert_eq!(req.offset, 0);
+                assert_eq!(opts.quota_project().as_deref(), Some("quota-proj"));
+                Ok(ResponseStream::from(rx))
+            });
+
+        let read_client = crate::client::Read::from_stub(mock_read);
+        let mut options = RequestOptions::default();
+        options.set_quota_project("quota-proj");
+
+        let mut reader = SingleStreamReader::open(
+            &read_client,
+            "sessions/s1/streams/0".to_string(),
+            Some(&schema_bytes),
+            &options,
+        )
+        .await?;
+
+        let batch = reader
+            .next_record_batch()
+            .await?
+            .expect("should yield batch");
+        assert_eq!(
+            batch
+                .column(0)
+                .as_any()
+                .downcast_ref::<Int64Array>()
+                .expect("Int64Array column")
+                .values(),
+            &[10, 20]
+        );
+        assert!(reader.next_record_batch().await?.is_none());
         Ok(())
     }
 }
