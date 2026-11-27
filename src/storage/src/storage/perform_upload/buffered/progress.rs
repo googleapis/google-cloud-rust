@@ -208,9 +208,9 @@ impl InProgressUpload {
                     skip -= n;
                     None
                 }
-                (s, n) => {
+                (s, _) => {
                     skip = 0;
-                    Some(b.split_off(n - s))
+                    Some(b.split_off(s))
                 }
             })
             .chain(self.remainder.drain(0..))
@@ -587,8 +587,10 @@ mod tests {
         Ok(())
     }
 
+    #[test_case(24)]
+    #[test_case(32)]
     #[tokio::test]
-    async fn handle_partial_partial_with_remainder() -> Result {
+    async fn handle_partial_partial_with_remainder(persisted: usize) -> Result {
         const LEN: usize = 32;
         let stream = IterSource::new((0..8).map(|i| new_line(i, 4 * LEN)));
         let mut payload = Payload::from(stream);
@@ -600,15 +602,15 @@ mod tests {
             vec![new_line(0, 4 * LEN).split_off(2 * LEN)],
             "{upload:?}"
         );
-        upload.handle_partial(LEN as u64)?;
-        assert_eq!(upload.persisted_size, Some(LEN as u64));
-        assert_eq!(upload.offset, LEN as u64);
+        upload.handle_partial(persisted as u64)?;
+        assert_eq!(upload.persisted_size, Some(persisted as u64));
+        assert_eq!(upload.offset, persisted as u64);
         assert!(upload.buffer.is_empty(), "{upload:?}");
         assert_eq!(upload.buffer_size, 0, "{upload:?}");
         assert_eq!(
             upload.remainder,
             vec![
-                new_line(0, 4 * LEN).split_to(2 * LEN).split_off(LEN),
+                new_line(0, 4 * LEN).split_to(2 * LEN).split_off(persisted),
                 new_line(0, 4 * LEN).split_off(2 * LEN)
             ]
         );
@@ -616,13 +618,13 @@ mod tests {
         assert_eq!(
             upload.buffer,
             vec![
-                new_line(0, 4 * LEN).split_to(2 * LEN).split_off(LEN),
-                new_line(0, 4 * LEN).split_off(2 * LEN).split_to(LEN),
+                new_line(0, 4 * LEN).split_to(2 * LEN).split_off(persisted),
+                new_line(0, 4 * LEN).split_off(2 * LEN).split_to(persisted),
             ]
         );
         assert_eq!(
             upload.remainder,
-            vec![new_line(0, 4 * LEN).split_off(3 * LEN)],
+            vec![new_line(0, 4 * LEN).split_off(2 * LEN + persisted)],
             "{upload:?}"
         );
 
