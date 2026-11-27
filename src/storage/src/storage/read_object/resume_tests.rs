@@ -48,6 +48,7 @@
 //! policies in the request, the policies set in the client are used for the
 //! retry loop.
 
+use crate::error::ReadError;
 use crate::model_ext::ReadRange;
 use crate::{
     read_resume_policy::{ReadResumePolicyExt, Recommended},
@@ -59,7 +60,9 @@ use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use google_cloud_gax::retry_policy::RetryPolicyExt;
 use google_cloud_gax::retry_result::RetryResult;
 use httptest::{Expectation, Server, matchers::*, responders::*};
+use std::error::Error as _;
 use std::time::Duration;
+use test_case::test_case;
 
 type Result = anyhow::Result<()>;
 
@@ -806,5 +809,130 @@ async fn client_resume_options() -> Result {
         got.extend_from_slice(&chunk);
     }
     assert_eq!(bytes::Bytes::from_owner(got), test_body(0..10));
+    Ok(())
+}
+
+#[tokio::test]
+async fn resume_near_i64_max() -> Result {
+    // Arrange
+    let start = (i64::MAX as u64) - 11;
+    let end = (i64::MAX as u64) - 1;
+    let total = i64::MAX as u64;
+    let fragment0 = "hello ";
+    let fragment1 = "world";
+    let resume_start = start + fragment0.len() as u64;
+
+    let server = Server::run();
+    // The first response returns a partial body to trigger a resume.
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
+            request::query(url_decoded(contains(("alt", "media")))),
+            request::query(url_decoded(not(contains(("generation", any()))))),
+            request::headers(contains((
+                "range",
+                "bytes=9223372036854775796-9223372036854775807"
+            ))),
+        ])
+        .times(1)
+        .respond_with(
+            status_code(206)
+                .append_header("content-range", format!("bytes {start}-{end}/{total}"))
+                .append_header("x-goog-generation", 123456)
+                .body(fragment0),
+        ),
+    );
+    // The resumed request pins the generation and reads the remaining bytes.
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
+            request::query(url_decoded(all_of![
+                contains(("alt", "media")),
+                contains(("generation", "123456")),
+            ])),
+            request::headers(contains((
+                "range",
+                "bytes=9223372036854775802-9223372036854775806"
+            ))),
+        ])
+        .times(1)
+        .respond_with(
+            status_code(206)
+                .append_header(
+                    "content-range",
+                    format!("bytes {resume_start}-{end}/{total}"),
+                )
+                .append_header("x-goog-generation", 123456)
+                .body(fragment1),
+        ),
+    );
+
+    let client = test_builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    // Act
+    let mut reader = client
+        .read_object("projects/_/buckets/test-bucket", "test-object")
+        .set_read_range(ReadRange::segment(start, u64::MAX))
+        .send()
+        .await?;
+    let mut got = Vec::new();
+    while let Some(chunk) = reader.next().await.transpose()? {
+        got.extend_from_slice(&chunk);
+    }
+
+    // Assert
+    assert_eq!(bytes::Bytes::from_owner(got), "hello world");
+    Ok(())
+}
+
+#[test_case("bytes 0-9223372036854775807/9223372036854775808"; "end equals i64::MAX")]
+#[test_case("bytes 0-18446744073709551615/*"; "end equals u64::MAX")]
+#[test_case("bytes 10-9/100"; "start equals end plus one")]
+#[tokio::test]
+async fn reject_invalid_content_range(content_range: &'static str) -> Result {
+    // Arrange
+    let server = Server::run();
+    server.expect(
+        Expectation::matching(all_of![
+            request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
+            request::query(url_decoded(contains(("alt", "media")))),
+        ])
+        .times(1)
+        .respond_with(
+            status_code(206)
+                .append_header("content-range", content_range)
+                .append_header("x-goog-generation", 123456)
+                .body(""),
+        ),
+    );
+
+    let client = test_builder()
+        .with_endpoint(format!("http://{}", server.addr()))
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    // Act
+    let err = client
+        .read_object("projects/_/buckets/test-bucket", "test-object")
+        .send()
+        .await
+        .expect_err("invalid content-range should fail");
+
+    // Assert
+    assert!(err.is_deserialization(), "{err:?}");
+    let source = err
+        .source()
+        .and_then(|e| e.downcast_ref::<ReadError>())
+        .expect("error source should be ReadError");
+    assert!(
+        matches!(source, ReadError::BadHeaderFormat("content-range", _)),
+        "{source:?}"
+    );
+    assert!(source.source().is_some(), "{source:?}");
     Ok(())
 }
