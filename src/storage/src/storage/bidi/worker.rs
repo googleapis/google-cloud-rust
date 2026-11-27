@@ -58,6 +58,7 @@ where
 {
     pub async fn run(
         mut self,
+        initial: BidiReadObjectResponse,
         connection: Connection<C::Stream>,
         mut requests: Receiver<ActiveRead>,
     ) -> LoopResult<()> {
@@ -66,30 +67,33 @@ where
         // Keep `requests` open until the `ObjectDescriptor` and all readers are
         // dropped, even after an unrecoverable stream error. Exiting early would
         // close the channel and cause later `read_range()` calls to panic.
-        let error = loop {
-            tokio::select! {
-                m = rx.next_message() => {
-                    match self.handle_response(m).await {
-                        // An unrecoverable in the stream or its data, return
-                        // the error.
-                        Err(e) => break Some(e),
-                        // New message on the stream handled successfully,
-                        // continue.
-                        Ok(None) => {},
-                        // The stream reconnected successfully, update the local
-                        // variables and continue.
-                        Ok(Some(connection)) => {
-                            (rx, tx) = (connection.rx, connection.tx);
-                        }
-                    };
-                },
-                r = requests.recv_many(&mut ranges, 16) => {
-                    if r == 0 {
-                        break None;
-                    };
-                    self.insert_ranges(tx.clone(), std::mem::take(&mut ranges)).await;
-                },
-            }
+        let error = match self.handle_response_success(initial).await {
+            Err(e) => Some(e),
+            Ok(()) => loop {
+                tokio::select! {
+                    m = rx.next_message() => {
+                        match self.handle_response(m).await {
+                            // An unrecoverable in the stream or its data, return
+                            // the error.
+                            Err(e) => break Some(e),
+                            // New message on the stream handled successfully,
+                            // continue.
+                            Ok(None) => {},
+                            // The stream reconnected successfully, update the local
+                            // variables and continue.
+                            Ok(Some(connection)) => {
+                                (rx, tx) = (connection.rx, connection.tx);
+                            }
+                        };
+                    },
+                    r = requests.recv_many(&mut ranges, 16) => {
+                        if r == 0 {
+                            break None;
+                        };
+                        self.insert_ranges(tx.clone(), std::mem::take(&mut ranges)).await;
+                    },
+                }
+            },
         };
         drop(rx);
         drop(tx);
@@ -141,19 +145,14 @@ where
     }
 
     async fn handle_ranges(&self, data: Vec<ObjectRangeData>) -> crate::Result<()> {
-        let mut result = Ok(());
         // TODO(#3848) - maybe parallelize this loop, as long as each range_id group is serialized.
         for response in data {
-            if let Err(e) = Self::handle_range_data(self.ranges.clone(), response).await {
-                // Capture the first error. An error here is rare, it indicates
-                // service sent an invalid response. Trying to capture all the
-                // failures is too much complexity for something that may never
-                // happen.
-                result = result.and(Err(e));
-            }
+            // TODO(#3626) - reconsider the error kind.
+            Self::handle_range_data(self.ranges.clone(), response)
+                .await
+                .map_err(crate::Error::io)?;
         }
-        // TODO(#3626) - reconsider the error kind.
-        result.map_err(crate::Error::io)
+        Ok(())
     }
 
     async fn reconnect(&mut self, status: Status) -> LoopResult<Option<Connection<C::Stream>>> {
@@ -225,21 +224,19 @@ where
             .ok_or(ReadError::InvalidBidiStreamingReadResponse(
                 "missing range".into(),
             ))?;
-        let handler = if response.range_end {
-            let mut pending = ranges.lock().await.remove(&range.read_id).ok_or(
+        let handler = {
+            let mut guard = ranges.lock().await;
+            let pending = guard.get_mut(&range.read_id).ok_or(
                 ReadError::InvalidBidiStreamingReadResponse(
                     format!("unknown read id ({})", range.read_id).into(),
                 ),
             )?;
-            pending.handle_data(response.checksummed_data, range, true)?
-        } else {
-            let mut guard = ranges.lock().await;
-            let pending = guard.get_mut(&range.read_id).ok_or(
-                ReadError::InvalidBidiStreamingReadResponse(
-                    format!("unknown read id ({}", range.read_id).into(),
-                ),
-            )?;
-            pending.handle_data(response.checksummed_data, range, false)?
+            let handler =
+                pending.handle_data(response.checksummed_data, range, response.range_end)?;
+            if response.range_end {
+                guard.remove(&range.read_id);
+            }
+            handler
         };
         handler.send().await;
         Ok(())
@@ -272,7 +269,7 @@ mod tests {
 
         let connector = mock_connector(mock);
         let worker = Worker::new(connector, Vec::new());
-        let handle = tokio::spawn(worker.run(connection, rx));
+        let handle = tokio::spawn(worker.run(BidiReadObjectResponse::default(), connection, rx));
         // Closing the stream without an error should not attempt a reconnect.
         drop(response_tx);
         // Wait until the worker gives up on the stream and drops its sender.
@@ -321,7 +318,7 @@ mod tests {
 
         let connector = mock_connector(mock);
         let worker = Worker::new(connector, Vec::new());
-        let handle = tokio::spawn(worker.run(connection, rx));
+        let handle = tokio::spawn(worker.run(BidiReadObjectResponse::default(), connection, rx));
         // Wait until the response_tx/response_rx pair is closed, then close the
         // request queue to terminate the worker thread.
         response_tx.closed().await;
@@ -356,7 +353,7 @@ mod tests {
 
         let connector = mock_connector(mock);
         let worker = Worker::new(connector, Vec::new());
-        let handle = tokio::spawn(worker.run(connection, rx));
+        let handle = tokio::spawn(worker.run(BidiReadObjectResponse::default(), connection, rx));
         // Wait until the reconnect call is made, then close the
         // request queue to terminate the worker thread.
         reconnected_rx.await?;
@@ -379,7 +376,9 @@ mod tests {
         let connector = mock_connector(mock);
         let worker = Worker::new(connector, Vec::new());
         drop(tx);
-        worker.run(connection, rx).await?;
+        worker
+            .run(BidiReadObjectResponse::default(), connection, rx)
+            .await?;
         Ok(())
     }
 
@@ -659,7 +658,11 @@ mod tests {
         mock.expect_start().never();
         let connector = mock_connector(mock);
         let worker = Worker::new(connector, Vec::new());
-        let join = tokio::spawn(async move { worker.run(connection, rx).await });
+        let join = tokio::spawn(async move {
+            worker
+                .run(BidiReadObjectResponse::default(), connection, rx)
+                .await
+        });
 
         MockSetup {
             join,
@@ -689,7 +692,11 @@ mod tests {
         // Launch the worker.
         let connector = mock_connector(mock);
         let worker = Worker::new(connector, Vec::new());
-        let worker = tokio::spawn(async move { worker.run(connection, rx).await });
+        let worker = tokio::spawn(async move {
+            worker
+                .run(BidiReadObjectResponse::default(), connection, rx)
+                .await
+        });
 
         // Populate a reader.
         let mut reader = mock_reader(&tx, ReadRange::tail(100)).await;
@@ -804,7 +811,11 @@ mod tests {
         // Launch the worker.
         let connector = mock_connector(mock);
         let worker = Worker::new(connector, Vec::new());
-        let worker = tokio::spawn(async move { worker.run(connection, rx).await });
+        let worker = tokio::spawn(async move {
+            worker
+                .run(BidiReadObjectResponse::default(), connection, rx)
+                .await
+        });
 
         // Populate a reader.
         let mut reader = mock_reader(&tx, ReadRange::offset(100)).await;
@@ -917,7 +928,11 @@ mod tests {
         // Launch the worker.
         let connector = mock_connector(mock);
         let worker = Worker::new(connector, Vec::new());
-        let worker = tokio::spawn(async move { worker.run(connection, rx).await });
+        let worker = tokio::spawn(async move {
+            worker
+                .run(BidiReadObjectResponse::default(), connection, rx)
+                .await
+        });
 
         // Populate a reader.
         let mut reader = mock_reader(&tx, ReadRange::offset(100)).await;
@@ -1001,5 +1016,114 @@ mod tests {
             .await
             .expect("requests queue is not closed in tests");
         rx
+    }
+
+    #[test_case(
+        ObjectRangeData {
+            read_range: Some(proto_range_id(0, 0, 0)),
+            range_end: true,
+            checksummed_data: None,
+        };
+        "short_read_on_range_end"
+    )]
+    #[test_case(
+        ObjectRangeData {
+            read_range: Some(proto_range_id(0, 10, 0)),
+            range_end: true,
+            checksummed_data: Some(ChecksummedData {
+                content: bytes::Bytes::from_static(b"0123456789"),
+                crc32c: Some(0),
+            }),
+        };
+        "bad_crc32c_on_range_end"
+    )]
+    #[tokio::test]
+    async fn run_range_end_error_in_main_loop_notifies_reader(
+        bad_chunk: ObjectRangeData,
+    ) -> anyhow::Result<()> {
+        let mut setup = set_up_mock().await;
+        let mut reader = mock_reader(&setup.tx, ReadRange::segment(0, 10)).await;
+        let req = setup
+            .request_rx
+            .recv()
+            .await
+            .expect("expected range request");
+        assert_eq!(req.read_ranges.first().map(|r| r.read_id), Some(0));
+
+        setup
+            .response_tx
+            .send(Ok(BidiReadObjectResponse {
+                object_data_ranges: vec![bad_chunk],
+                ..BidiReadObjectResponse::default()
+            }))
+            .await?;
+
+        let got = reader.recv().await;
+        assert!(
+            matches!(got, Some(Err(ReadError::UnrecoverableBidiReadInterrupt(_)))),
+            "{got:?}"
+        );
+        assert!(reader.recv().await.is_none());
+
+        drop(setup.tx);
+        let err = setup.join.await?.expect_err("worker should return error");
+        assert!(err.is_io(), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn run_bad_crc_followed_by_range_end_in_same_message_notifies_reader()
+    -> anyhow::Result<()> {
+        let mut setup = set_up_mock().await;
+        let mut reader = mock_reader(&setup.tx, ReadRange::segment(0, 10)).await;
+        let req = setup
+            .request_rx
+            .recv()
+            .await
+            .expect("expected range request");
+        assert_eq!(req.read_ranges.first().map(|r| r.read_id), Some(0));
+
+        let part2 = b"56789";
+        let response = BidiReadObjectResponse {
+            object_data_ranges: vec![
+                ObjectRangeData {
+                    read_range: Some(proto_range_id(0, 5, 0)),
+                    range_end: false,
+                    checksummed_data: Some(ChecksummedData {
+                        content: bytes::Bytes::from_static(b"01234"),
+                        crc32c: Some(0),
+                    }),
+                },
+                ObjectRangeData {
+                    read_range: Some(proto_range_id(5, 5, 0)),
+                    range_end: true,
+                    checksummed_data: Some(ChecksummedData {
+                        content: bytes::Bytes::from_static(part2),
+                        crc32c: Some(crc32c::crc32c(part2)),
+                    }),
+                },
+            ],
+            ..BidiReadObjectResponse::default()
+        };
+        setup.response_tx.send(Ok(response)).await?;
+
+        let got = reader.recv().await;
+        assert!(
+            matches!(
+                got,
+                Some(Err(ReadError::UnrecoverableBidiReadInterrupt(ref inner)))
+                    if matches!(
+                        inner.source().and_then(|e| e.downcast_ref::<ReadError>()),
+                        Some(ReadError::ChecksumMismatch(_))
+                    )
+            ),
+            "{got:?}"
+        );
+        assert!(reader.recv().await.is_none());
+
+        drop(setup.tx);
+        let err = setup.join.await?.expect_err("worker should return error");
+        assert!(err.is_io(), "{err:?}");
+        Ok(())
     }
 }
