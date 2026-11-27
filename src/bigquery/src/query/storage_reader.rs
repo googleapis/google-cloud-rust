@@ -21,12 +21,16 @@ use crate::model::{
     read_rows_response::Schema as ReadRowsResponseSchema,
     read_session::Schema as ReadSessionSchema, read_session::TableReadOptions,
 };
+use crate::query::arrow::{ArrowStreamDecoder, RecordBatchSource};
 use crate::query::query_handle::build_get_job;
 use arrow::record_batch::RecordBatch;
 use google_cloud_bigquery_v2::client::JobService;
 use google_cloud_bigquery_v2::model::JobReference;
 use google_cloud_gax::streaming::ResponseStream;
-use std::sync::Arc;
+use std::collections::VecDeque;
+use std::sync::{Arc, Mutex};
+use tokio::sync::mpsc;
+use tokio::task::JoinSet;
 
 /// Default threshold below which queries stick to REST pagination.
 pub(crate) const DEFAULT_REST_ROW_THRESHOLD: u64 = 10_000;
@@ -39,12 +43,77 @@ pub(crate) fn rest_row_threshold() -> u64 {
         .unwrap_or(DEFAULT_REST_ROW_THRESHOLD)
 }
 
+/// Reads and decodes Arrow [`RecordBatch`]es from a single Storage Read API stream.
+#[derive(Debug)]
+pub(crate) struct SingleStreamReader {
+    stream: ResponseStream<ReadRowsResponse>,
+    decoder: ArrowStreamDecoder,
+    schema_loaded: bool,
+}
+
+impl SingleStreamReader {
+    pub(crate) async fn open(
+        read_client: &ReadClient,
+        stream_name: String,
+        session_schema: Option<&bytes::Bytes>,
+        options: &RequestOptions,
+    ) -> Result<Self, RowError> {
+        let mut decoder = ArrowStreamDecoder::new();
+        let mut schema_loaded = false;
+        if let Some(schema_bytes) = session_schema
+            && !schema_bytes.is_empty()
+        {
+            decoder.set_schema_bytes(schema_bytes.clone())?;
+            schema_loaded = true;
+        }
+
+        let stream = read_client
+            .read_rows()
+            .with_options(options.clone())
+            .set_read_stream(stream_name)
+            .set_offset(0)
+            .send()
+            .await?;
+
+        Ok(Self {
+            stream,
+            decoder,
+            schema_loaded,
+        })
+    }
+}
+
+impl RecordBatchSource for SingleStreamReader {
+    async fn next_record_batch(&mut self) -> Result<Option<RecordBatch>, RowError> {
+        while let Some(response) = self.stream.next().await {
+            let response = response?;
+
+            if !self.schema_loaded
+                && let Some(ReadRowsResponseSchema::ArrowSchema(arrow_schema)) = response.schema
+                && !arrow_schema.serialized_schema.is_empty()
+            {
+                self.decoder
+                    .set_schema_bytes(arrow_schema.serialized_schema)?;
+                self.schema_loaded = true;
+            }
+
+            if let Some(Rows::ArrowRecordBatch(batch)) = response.rows
+                && let Some(record_batch) =
+                    self.decoder.decode_batch(batch.serialized_record_batch)?
+                && record_batch.num_rows() > 0
+            {
+                return Ok(Some(record_batch));
+            }
+        }
+
+        Ok(None)
+    }
+}
+
 #[derive(Debug)]
 pub(crate) enum ReaderState {
     Unopened,
-    Streaming {
-        stream: ResponseStream<ReadRowsResponse>,
-    },
+    Streaming(SingleStreamReader),
     Completed,
 }
 
@@ -53,7 +122,6 @@ pub(crate) enum ReaderState {
 pub(crate) struct StorageReader {
     pub(crate) read_client: Arc<ReadClient>,
     pub(crate) job_ref: JobReference,
-    pub(crate) decoder: crate::query::arrow::ArrowStreamDecoder,
     pub(crate) state: ReaderState,
 }
 
@@ -62,13 +130,12 @@ impl StorageReader {
         Self {
             read_client,
             job_ref,
-            decoder: crate::query::arrow::ArrowStreamDecoder::new(),
             state: ReaderState::Unopened,
         }
     }
 }
 
-impl crate::query::arrow::RecordBatchSource for StorageReader {
+impl RecordBatchSource for StorageReader {
     async fn next_record_batch(&mut self) -> Result<Option<RecordBatch>, RowError> {
         loop {
             match &mut self.state {
@@ -80,57 +147,32 @@ impl crate::query::arrow::RecordBatchSource for StorageReader {
                     let stream_name = format!(
                         "projects/{project}/locations/{location}/jobs/{job_id}/streams/_default"
                     );
-                    let stream = match self
-                        .read_client
-                        .read_rows()
-                        .set_read_stream(stream_name)
-                        .set_offset(0)
-                        .send()
-                        .await
+                    let reader = match SingleStreamReader::open(
+                        &self.read_client,
+                        stream_name,
+                        None,
+                        &RequestOptions::default(),
+                    )
+                    .await
                     {
-                        Ok(stream) => stream,
+                        Ok(reader) => reader,
                         Err(err) => {
-                            self.state = ReaderState::Completed;
-                            return Err(RowError::Rpc { source: err });
-                        }
-                    };
-
-                    self.state = ReaderState::Streaming { stream };
-                }
-                ReaderState::Streaming { stream } => match stream.next().await {
-                    Some(Ok(response)) => {
-                        if let Some(ReadRowsResponseSchema::ArrowSchema(arrow_schema)) =
-                            response.schema
-                            && let Err(err) = self
-                                .decoder
-                                .set_schema_bytes(arrow_schema.serialized_schema)
-                        {
                             self.state = ReaderState::Completed;
                             return Err(err);
                         }
+                    };
 
-                        if let Some(Rows::ArrowRecordBatch(batch)) = response.rows {
-                            match self.decoder.decode_batch(batch.serialized_record_batch) {
-                                Ok(Some(record_batch)) => {
-                                    if record_batch.num_rows() > 0 {
-                                        return Ok(Some(record_batch));
-                                    }
-                                }
-                                Ok(None) => {}
-                                Err(err) => {
-                                    self.state = ReaderState::Completed;
-                                    return Err(err);
-                                }
-                            }
-                        }
-                    }
-                    None => {
+                    self.state = ReaderState::Streaming(reader);
+                }
+                ReaderState::Streaming(reader) => match reader.next_record_batch().await {
+                    Ok(Some(batch)) => return Ok(Some(batch)),
+                    Ok(None) => {
                         self.state = ReaderState::Completed;
                         return Ok(None);
                     }
-                    Some(Err(err)) => {
+                    Err(err) => {
                         self.state = ReaderState::Completed;
-                        return Err(RowError::Rpc { source: err });
+                        return Err(err);
                     }
                 },
             }
@@ -210,6 +252,147 @@ pub(crate) async fn try_create_read_session(
         streams,
         arrow_schema,
     }))
+}
+
+/// Maximum number of Storage Read API streams read concurrently.
+#[allow(dead_code)]
+const MAX_CONCURRENT_STREAMS: usize = 16;
+
+/// Number of decoded Arrow [`RecordBatch`]es buffered per concurrent stream worker.
+#[allow(dead_code)]
+const BATCH_BUFFER_PER_STREAM: usize = 2;
+
+/// Reads Arrow [`RecordBatch`]es concurrently from a [`ReadSessionInfo`]'s streams.
+///
+/// Worker tasks push decoded batches into a bounded channel for backpressure and
+/// are aborted automatically when [`MultiStreamReader`] is dropped or encounters
+/// an error.
+// TODO(#7039): wire into StorageReader.
+#[allow(dead_code)]
+#[derive(Debug)]
+pub(crate) struct MultiStreamReader {
+    rx: mpsc::Receiver<Result<RecordBatch, RowError>>,
+    tasks: JoinSet<()>,
+    completed: bool,
+}
+
+#[allow(dead_code)]
+impl MultiStreamReader {
+    pub(crate) fn open(
+        read_client: Arc<ReadClient>,
+        session: ReadSessionInfo,
+        options: RequestOptions,
+    ) -> Self {
+        Self::with_concurrency(read_client, session, options, MAX_CONCURRENT_STREAMS)
+    }
+
+    fn with_concurrency(
+        read_client: Arc<ReadClient>,
+        session: ReadSessionInfo,
+        options: RequestOptions,
+        max_concurrency: usize,
+    ) -> Self {
+        let worker_count = session.streams.len().min(max_concurrency.max(1));
+        if worker_count == 0 {
+            let (_tx, rx) = mpsc::channel(1);
+            return Self {
+                rx,
+                tasks: JoinSet::new(),
+                completed: true,
+            };
+        }
+
+        let channel_capacity = worker_count.saturating_mul(BATCH_BUFFER_PER_STREAM).max(1);
+        let (tx, rx) = mpsc::channel(channel_capacity);
+        let queue = Arc::new(Mutex::new(VecDeque::from(session.streams)));
+        let session_schema = session.arrow_schema;
+        let options = Arc::new(options);
+
+        let mut tasks = JoinSet::new();
+        for _ in 0..worker_count {
+            let read_client = Arc::clone(&read_client);
+            let queue = Arc::clone(&queue);
+            let session_schema = session_schema.clone();
+            let options = Arc::clone(&options);
+            let tx = tx.clone();
+
+            tasks.spawn(async move {
+                loop {
+                    if tx.is_closed() {
+                        break;
+                    }
+                    let stream_name = {
+                        let mut guard = queue.lock().unwrap_or_else(|e| e.into_inner());
+                        guard.pop_front()
+                    };
+                    let Some(stream_name) = stream_name else {
+                        break;
+                    };
+
+                    if let Err(err) = forward_stream(
+                        &read_client,
+                        stream_name,
+                        session_schema.as_ref(),
+                        &options,
+                        &tx,
+                    )
+                    .await
+                    {
+                        let _ = tx.send(Err(err)).await;
+                        break;
+                    }
+                }
+            });
+        }
+
+        Self {
+            rx,
+            tasks,
+            completed: false,
+        }
+    }
+}
+
+/// Opens a single `ReadRows` stream and forwards decoded [`RecordBatch`]es into
+/// `tx`, stopping early if the receiver is dropped or closed.
+#[allow(dead_code)]
+async fn forward_stream(
+    read_client: &ReadClient,
+    stream_name: String,
+    session_schema: Option<&bytes::Bytes>,
+    options: &RequestOptions,
+    tx: &mpsc::Sender<Result<RecordBatch, RowError>>,
+) -> Result<(), RowError> {
+    let mut reader =
+        SingleStreamReader::open(read_client, stream_name, session_schema, options).await?;
+    while let Some(batch) = reader.next_record_batch().await? {
+        if tx.send(Ok(batch)).await.is_err() {
+            return Ok(());
+        }
+    }
+    Ok(())
+}
+
+impl RecordBatchSource for MultiStreamReader {
+    async fn next_record_batch(&mut self) -> Result<Option<RecordBatch>, RowError> {
+        if self.completed {
+            return Ok(None);
+        }
+
+        match self.rx.recv().await {
+            Some(Ok(batch)) => Ok(Some(batch)),
+            Some(Err(err)) => {
+                self.completed = true;
+                self.tasks.abort_all();
+                self.rx.close();
+                Err(err)
+            }
+            None => {
+                self.completed = true;
+                Ok(None)
+            }
+        }
+    }
 }
 
 #[cfg(test)]
@@ -599,6 +782,431 @@ mod tests {
         .expect_err("should propagate RPC error");
 
         assert!(matches!(err, RowError::Rpc { .. }), "{err:?}");
+        Ok(())
+    }
+
+    fn encode_int64_schema_and_batch(
+        values: Vec<i64>,
+    ) -> Result<(bytes::Bytes, bytes::Bytes), Box<dyn std::error::Error>> {
+        let arrow_schema = Arc::new(ArrowSchemaDef::new(vec![Field::new(
+            "number",
+            DataType::Int64,
+            false,
+        )]));
+
+        let mut schema_buf = Vec::new();
+        let _ = StreamWriter::try_new(&mut schema_buf, &arrow_schema)?;
+
+        let col = Int64Array::from(values);
+        let batch = RecordBatch::try_new(arrow_schema.clone(), vec![Arc::new(col)])?;
+
+        let mut batch_buf = Vec::new();
+        let mut writer = StreamWriter::try_new(&mut batch_buf, &arrow_schema)?;
+        writer.write(&batch)?;
+        let batch_bytes = batch_buf[schema_buf.len()..].to_vec();
+
+        Ok((
+            bytes::Bytes::from(schema_buf),
+            bytes::Bytes::from(batch_bytes),
+        ))
+    }
+
+    #[test]
+    fn test_single_stream_reader_is_send() {
+        fn assert_send<T: Send>(_: T) {}
+
+        static_assertions::assert_impl_all!(SingleStreamReader: Send);
+
+        let _check_futures = |read_client: &ReadClient,
+                              single: &mut SingleStreamReader,
+                              options: &RequestOptions| {
+            assert_send(SingleStreamReader::open(
+                read_client,
+                String::new(),
+                None,
+                options,
+            ));
+            assert_send(single.next_record_batch());
+        };
+    }
+
+    #[tokio::test]
+    async fn test_single_stream_reader_uses_session_schema_and_options() -> TestResult {
+        let (schema_bytes, batch_bytes) = encode_int64_schema_and_batch(vec![10, 20])?;
+
+        let (tx, rx) = mpsc::channel(1);
+        tx.send(Ok(ReadRowsResponse::default().set_rows(
+            Rows::ArrowRecordBatch(Box::new(
+                ArrowRecordBatch::default().set_serialized_record_batch(batch_bytes),
+            )),
+        )))
+        .await?;
+        drop(tx);
+
+        let mut mock_read = MockRead::new();
+        mock_read
+            .expect_read_rows()
+            .times(1)
+            .return_once(move |req, opts| {
+                assert_eq!(req.read_stream, "sessions/s1/streams/0");
+                assert_eq!(req.offset, 0);
+                assert_eq!(opts.quota_project().as_deref(), Some("quota-proj"));
+                Ok(ResponseStream::from(rx))
+            });
+
+        let read_client = crate::client::Read::from_stub(mock_read);
+        let mut options = RequestOptions::default();
+        options.set_quota_project("quota-proj");
+
+        let mut reader = SingleStreamReader::open(
+            &read_client,
+            "sessions/s1/streams/0".to_string(),
+            Some(&schema_bytes),
+            &options,
+        )
+        .await?;
+
+        let batch = reader
+            .next_record_batch()
+            .await?
+            .expect("should yield batch");
+        assert_eq!(
+            batch
+                .column(0)
+                .as_any()
+                .downcast_ref::<Int64Array>()
+                .expect("Int64Array column")
+                .values(),
+            &[10, 20]
+        );
+        assert!(reader.next_record_batch().await?.is_none());
+        Ok(())
+    }
+
+    #[test]
+    fn test_multi_stream_reader_is_send() {
+        fn assert_send<T: Send>(_: T) {}
+
+        static_assertions::assert_impl_all!(MultiStreamReader: Send);
+
+        let _check_futures = |multi: &mut MultiStreamReader| {
+            assert_send(multi.next_record_batch());
+        };
+    }
+
+    #[tokio::test]
+    async fn test_multi_stream_reader_zero_streams_completes_immediately() -> TestResult {
+        let mut mock_read = MockRead::new();
+        mock_read.expect_read_rows().never();
+
+        let read_client = Arc::new(crate::client::Read::from_stub(mock_read));
+        let session = ReadSessionInfo {
+            streams: vec![],
+            arrow_schema: None,
+        };
+        let mut reader = MultiStreamReader::open(read_client, session, RequestOptions::default());
+
+        assert!(reader.next_record_batch().await?.is_none());
+        assert!(reader.next_record_batch().await?.is_none());
+        Ok(())
+    }
+
+    #[test_case::test_case(1, true; "single stream with session schema")]
+    #[test_case::test_case(3, true; "multiple streams with session schema")]
+    #[test_case::test_case(2, false; "multiple streams with inline stream schema")]
+    #[tokio::test]
+    async fn test_multi_stream_reader_reads_all_streams(
+        stream_count: usize,
+        schema_in_session: bool,
+    ) -> TestResult {
+        let (schema_bytes, _) = encode_int64_schema_and_batch(vec![])?;
+        let mut batches_by_stream = std::collections::HashMap::new();
+        let mut stream_names = Vec::new();
+        let mut expected_values = Vec::new();
+
+        for i in 0..stream_count {
+            let name = format!("sessions/s1/streams/{i}");
+            let base = (i as i64) * 10;
+            let values = vec![base + 1, base + 2];
+            expected_values.extend_from_slice(&values);
+            let (_, batch_bytes) = encode_int64_schema_and_batch(values)?;
+            batches_by_stream.insert(name.clone(), batch_bytes);
+            stream_names.push(name);
+        }
+
+        let schema_for_mock = schema_bytes.clone();
+        let mut mock_read = MockRead::new();
+        mock_read
+            .expect_read_rows()
+            .times(stream_count)
+            .returning(move |req, opts| {
+                assert_eq!(req.offset, 0);
+                assert_eq!(opts.quota_project().as_deref(), Some("quota-proj"));
+                let batch_bytes = batches_by_stream
+                    .get(&req.read_stream)
+                    .expect("unexpected stream name")
+                    .clone();
+                let (tx, rx) = mpsc::channel(2);
+                if !schema_in_session {
+                    tx.try_send(Ok(ReadRowsResponse::default().set_schema(
+                        ReadRowsResponseSchema::ArrowSchema(Box::new(
+                            ArrowSchema::default().set_serialized_schema(schema_for_mock.clone()),
+                        )),
+                    )))
+                    .expect("channel has capacity");
+                }
+                tx.try_send(Ok(ReadRowsResponse::default().set_rows(
+                    Rows::ArrowRecordBatch(Box::new(
+                        ArrowRecordBatch::default().set_serialized_record_batch(batch_bytes),
+                    )),
+                )))
+                .expect("channel has capacity");
+                Ok(ResponseStream::from(rx))
+            });
+
+        let read_client = Arc::new(crate::client::Read::from_stub(mock_read));
+        let session = ReadSessionInfo {
+            streams: stream_names,
+            arrow_schema: schema_in_session.then_some(schema_bytes),
+        };
+        let mut options = RequestOptions::default();
+        options.set_quota_project("quota-proj");
+
+        let mut reader = MultiStreamReader::open(read_client, session, options);
+        let mut got_values: Vec<i64> = Vec::new();
+        while let Some(batch) = reader.next_record_batch().await? {
+            let col = batch
+                .column(0)
+                .as_any()
+                .downcast_ref::<Int64Array>()
+                .expect("Int64Array column");
+            got_values.extend_from_slice(col.values());
+        }
+        got_values.sort_unstable();
+        expected_values.sort_unstable();
+        assert_eq!(got_values, expected_values);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_multi_stream_reader_respects_concurrency_limit() -> TestResult {
+        use std::sync::atomic::{AtomicUsize, Ordering};
+
+        let (schema_bytes, batch_bytes) = encode_int64_schema_and_batch(vec![42])?;
+        let active = Arc::new(AtomicUsize::new(0));
+        let peak = Arc::new(AtomicUsize::new(0));
+
+        let active_for_mock = Arc::clone(&active);
+        let peak_for_mock = Arc::clone(&peak);
+        let mut mock_read = MockRead::new();
+        mock_read
+            .expect_read_rows()
+            .times(4)
+            .returning(move |_, _| {
+                let current = active_for_mock.fetch_add(1, Ordering::SeqCst) + 1;
+                peak_for_mock.fetch_max(current, Ordering::SeqCst);
+
+                let (tx, rx) = mpsc::channel(1);
+                let batch = batch_bytes.clone();
+                let active_done = Arc::clone(&active_for_mock);
+                tokio::spawn(async move {
+                    tokio::task::yield_now().await;
+                    let _ = tx
+                        .send(Ok(ReadRowsResponse::default().set_rows(
+                            Rows::ArrowRecordBatch(Box::new(
+                                ArrowRecordBatch::default().set_serialized_record_batch(batch),
+                            )),
+                        )))
+                        .await;
+                    active_done.fetch_sub(1, Ordering::SeqCst);
+                });
+                Ok(ResponseStream::from(rx))
+            });
+
+        let read_client = Arc::new(crate::client::Read::from_stub(mock_read));
+        let session = ReadSessionInfo {
+            streams: (0..4).map(|i| format!("sessions/s1/streams/{i}")).collect(),
+            arrow_schema: Some(schema_bytes),
+        };
+        let mut reader =
+            MultiStreamReader::with_concurrency(read_client, session, RequestOptions::default(), 2);
+
+        let mut total_rows = 0;
+        while let Some(batch) = reader.next_record_batch().await? {
+            total_rows += batch.num_rows();
+        }
+        assert_eq!(total_rows, 4);
+        assert!(peak.load(Ordering::SeqCst) <= 2);
+        Ok(())
+    }
+
+    #[test_case::test_case("open_rpc"; "read_rows open rpc error")]
+    #[test_case::test_case("stream_rpc"; "mid-stream rpc error")]
+    #[test_case::test_case("decode"; "invalid arrow batch decoding error")]
+    #[tokio::test]
+    async fn test_multi_stream_reader_propagates_errors_and_completes(kind: &str) -> TestResult {
+        let (schema_bytes, _) = encode_int64_schema_and_batch(vec![])?;
+        let kind_for_mock = kind.to_string();
+
+        let mut mock_read = MockRead::new();
+        mock_read
+            .expect_read_rows()
+            .times(1)
+            .returning(move |_, _| {
+                let denied = || {
+                    GaxError::service(
+                        Status::default()
+                            .set_code(Code::PermissionDenied)
+                            .set_message("stream failed"),
+                    )
+                };
+                match kind_for_mock.as_str() {
+                    "open_rpc" => Err(denied()),
+                    "stream_rpc" => {
+                        let (tx, rx) = mpsc::channel(1);
+                        tx.try_send(Err(denied())).expect("channel has capacity");
+                        Ok(ResponseStream::from(rx))
+                    }
+                    _ => {
+                        let (tx, rx) = mpsc::channel(1);
+                        tx.try_send(Ok(ReadRowsResponse::default().set_rows(
+                            Rows::ArrowRecordBatch(Box::new(
+                                ArrowRecordBatch::default().set_serialized_record_batch(
+                                    bytes::Bytes::from_static(
+                                        b"\xff\xff\xff\xff\x08\x00\x00\x00invalid_batch",
+                                    ),
+                                ),
+                            )),
+                        )))
+                        .expect("channel has capacity");
+                        Ok(ResponseStream::from(rx))
+                    }
+                }
+            });
+
+        let read_client = Arc::new(crate::client::Read::from_stub(mock_read));
+        let session = ReadSessionInfo {
+            streams: vec!["sessions/s1/streams/0".to_string()],
+            arrow_schema: Some(schema_bytes),
+        };
+        let mut reader = MultiStreamReader::open(read_client, session, RequestOptions::default());
+
+        let err = reader
+            .next_record_batch()
+            .await
+            .expect_err("should surface stream error");
+        match kind {
+            "open_rpc" | "stream_rpc" => {
+                assert!(matches!(err, RowError::Rpc { .. }), "{err:?}");
+                assert!(err.to_string().contains("stream failed"));
+            }
+            "decode" => {
+                assert!(matches!(err, RowError::InvalidRowFormat(_)), "{err:?}");
+            }
+            other => panic!("unexpected test kind: {other}"),
+        }
+
+        // Subsequent calls must return Ok(None).
+        assert!(reader.next_record_batch().await?.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_multi_stream_reader_aborts_sibling_streams_on_error() -> TestResult {
+        let (schema_bytes, _) = encode_int64_schema_and_batch(vec![])?;
+        let (sibling_tx, sibling_rx) = mpsc::channel(1);
+        let sibling_rx = Mutex::new(Some(sibling_rx));
+        let sibling_opened = Arc::new(tokio::sync::Notify::new());
+        let opened_for_mock = Arc::clone(&sibling_opened);
+
+        let mut mock_read = MockRead::new();
+        mock_read
+            .expect_read_rows()
+            .times(2)
+            .returning(move |req, _| {
+                if req.read_stream.ends_with("/0") {
+                    let rx = sibling_rx
+                        .lock()
+                        .unwrap()
+                        .take()
+                        .expect("sibling stream opened once");
+                    opened_for_mock.notify_one();
+                    return Ok(ResponseStream::from(rx));
+                }
+
+                let (err_tx, err_rx) = mpsc::channel(1);
+                let opened = Arc::clone(&opened_for_mock);
+                tokio::spawn(async move {
+                    opened.notified().await;
+                    let _ = err_tx
+                        .send(Err(GaxError::service(
+                            Status::default()
+                                .set_code(Code::PermissionDenied)
+                                .set_message("sibling error"),
+                        )))
+                        .await;
+                });
+                Ok(ResponseStream::from(err_rx))
+            });
+
+        let read_client = Arc::new(crate::client::Read::from_stub(mock_read));
+        let session = ReadSessionInfo {
+            streams: vec![
+                "sessions/s1/streams/0".to_string(),
+                "sessions/s1/streams/1".to_string(),
+            ],
+            arrow_schema: Some(schema_bytes),
+        };
+        let mut reader = MultiStreamReader::open(read_client, session, RequestOptions::default());
+
+        let err = reader
+            .next_record_batch()
+            .await
+            .expect_err("should surface stream error");
+        assert!(matches!(err, RowError::Rpc { .. }), "{err:?}");
+
+        // The sibling stream worker must be aborted and drop its receiver.
+        tokio::time::timeout(std::time::Duration::from_secs(2), sibling_tx.closed()).await?;
+        assert!(sibling_tx.is_closed());
+        assert!(reader.next_record_batch().await?.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_multi_stream_reader_cancels_tasks_on_drop() -> TestResult {
+        let (schema_bytes, batch_bytes) = encode_int64_schema_and_batch(vec![1, 2])?;
+        let (stream_tx, stream_rx) = mpsc::channel(2);
+        stream_tx
+            .send(Ok(ReadRowsResponse::default().set_rows(
+                Rows::ArrowRecordBatch(Box::new(
+                    ArrowRecordBatch::default().set_serialized_record_batch(batch_bytes),
+                )),
+            )))
+            .await?;
+
+        let mut mock_read = MockRead::new();
+        mock_read
+            .expect_read_rows()
+            .times(1)
+            .return_once(move |_, _| Ok(ResponseStream::from(stream_rx)));
+
+        let read_client = Arc::new(crate::client::Read::from_stub(mock_read));
+        let session = ReadSessionInfo {
+            streams: vec!["sessions/s1/streams/0".to_string()],
+            arrow_schema: Some(schema_bytes),
+        };
+        let mut reader = MultiStreamReader::open(read_client, session, RequestOptions::default());
+
+        let first = reader
+            .next_record_batch()
+            .await?
+            .expect("first batch should be yielded");
+        assert_eq!(first.num_rows(), 2);
+
+        // Dropping the reader must abort the background worker and drop its stream receiver.
+        drop(reader);
+        tokio::time::timeout(std::time::Duration::from_secs(2), stream_tx.closed()).await?;
+        assert!(stream_tx.is_closed());
         Ok(())
     }
 }
