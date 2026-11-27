@@ -178,20 +178,17 @@ where
                 let piece = chunk.split_to(split_at);
                 let piece_len = piece.len() as u64;
 
-                let write_offset = i64::try_from(bytes_written).map_err(Error::binding)?;
-                let (name, common_object_request_params) =
-                    self.take_first_segment_fields(segment_number, &mut is_first);
-                let request = v2::BidiWriteSegmentRequest {
-                    name,
-                    write_offset,
-                    checksummed_data: Some(v2::ChecksummedData {
+                let request = self.build_segment_request(
+                    segment_number,
+                    &mut is_first,
+                    bytes_written,
+                    Some(v2::ChecksummedData {
                         content: piece,
                         // TODO: compute per-chunk CRC32C.
                         crc32c: None,
                     }),
-                    finish_write: false,
-                    common_object_request_params,
-                };
+                    false,
+                )?;
                 if tx.send(request).await.is_err() {
                     return Ok(SendOutcome::StreamClosed);
                 }
@@ -199,16 +196,8 @@ where
             }
         }
 
-        let write_offset = i64::try_from(bytes_written).map_err(Error::binding)?;
-        let (name, common_object_request_params) =
-            self.take_first_segment_fields(segment_number, &mut is_first);
-        let final_request = v2::BidiWriteSegmentRequest {
-            name,
-            write_offset,
-            checksummed_data: None,
-            finish_write: true,
-            common_object_request_params,
-        };
+        let final_request =
+            self.build_segment_request(segment_number, &mut is_first, bytes_written, None, true)?;
         if tx.send(final_request).await.is_err() {
             return Ok(SendOutcome::StreamClosed);
         }
@@ -240,19 +229,30 @@ where
             .ok_or_else(|| Error::io("segment write response missing segment metadata"))
     }
 
-    fn take_first_segment_fields(
+    fn build_segment_request(
         &self,
         segment_number: u32,
         is_first: &mut bool,
-    ) -> (String, Option<v2::CommonObjectRequestParams>) {
-        if std::mem::take(is_first) {
+        bytes_written: u64,
+        checksummed_data: Option<v2::ChecksummedData>,
+        finish_write: bool,
+    ) -> Result<v2::BidiWriteSegmentRequest> {
+        let write_offset = i64::try_from(bytes_written).map_err(Error::binding)?;
+        let (name, common_object_request_params) = if std::mem::take(is_first) {
             (
                 format!("{}/segments/{segment_number}", self.session_name),
                 self.params.clone(),
             )
         } else {
             (String::new(), None)
-        }
+        };
+        Ok(v2::BidiWriteSegmentRequest {
+            name,
+            write_offset,
+            checksummed_data,
+            finish_write,
+            common_object_request_params,
+        })
     }
 }
 
