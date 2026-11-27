@@ -53,7 +53,7 @@ impl SingleStreamReader {
         read_client: &ReadClient,
         stream_name: String,
         session_schema: Option<&bytes::Bytes>,
-        options: &RequestOptions,
+        options: RequestOptions,
     ) -> Result<Self, RowError> {
         let mut decoder = ArrowStreamDecoder::new();
         let mut schema_loaded = false;
@@ -66,7 +66,7 @@ impl SingleStreamReader {
 
         let stream = read_client
             .read_rows()
-            .with_options(options.clone())
+            .with_options(options)
             .set_read_stream(stream_name)
             .set_offset(0)
             .send()
@@ -148,7 +148,7 @@ impl RecordBatchSource for StorageReader {
                         &self.read_client,
                         stream_name,
                         None,
-                        &RequestOptions::default(),
+                        RequestOptions::default(),
                     )
                     .await
                     {
@@ -673,17 +673,16 @@ mod tests {
 
         static_assertions::assert_impl_all!(SingleStreamReader: Send);
 
-        let _check_futures = |read_client: &ReadClient,
-                              single: &mut SingleStreamReader,
-                              options: &RequestOptions| {
-            assert_send(SingleStreamReader::open(
-                read_client,
-                String::new(),
-                None,
-                options,
-            ));
-            assert_send(single.next_record_batch());
-        };
+        let _check_futures =
+            |read_client: &ReadClient, single: &mut SingleStreamReader, options: RequestOptions| {
+                assert_send(SingleStreamReader::open(
+                    read_client,
+                    String::new(),
+                    None,
+                    options,
+                ));
+                assert_send(single.next_record_batch());
+            };
     }
 
     #[tokio::test]
@@ -718,7 +717,7 @@ mod tests {
             &read_client,
             "sessions/s1/streams/0".to_string(),
             Some(&schema_bytes),
-            &options,
+            options,
         )
         .await?;
 
