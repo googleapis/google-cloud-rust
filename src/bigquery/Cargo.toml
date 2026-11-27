@@ -52,7 +52,7 @@ google-cloud-type.workspace  = true
 wkt.workspace                = true
 thiserror.workspace          = true
 time                         = { workspace = true, features = ["formatting", "macros", "parsing"] }
-tokio                        = { workspace = true, features = ["time"] }
+tokio                        = { workspace = true, features = ["rt", "sync", "time"] }
 tokio-stream.workspace       = true
 tracing.workspace            = true
 rust_decimal.workspace       = true
