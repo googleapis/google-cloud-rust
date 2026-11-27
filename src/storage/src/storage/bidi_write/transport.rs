@@ -155,6 +155,11 @@ impl AppendableObjectWriterTransport {
             return Err(Error::io("object is already finalized"));
         }
         let persisted_size = persisted_size(&initial).unwrap_or(0);
+        if persisted_size < 0 {
+            return Err(Error::io(format!(
+                "server returned negative persisted_size ({persisted_size})"
+            )));
+        }
         let generation = match initial.write_status.as_ref() {
             Some(WriteStatus::Resource(r)) => r.generation,
             _ => generation,
@@ -184,6 +189,12 @@ impl AppendableObjectWriterTransport {
         // we can't reliably continue a running checksum, so it remains `None`.
 
         let initial_len = initial_payload.as_ref().map_or(0, |p| p.data.len() as i64);
+        if initial_payload.is_some() && persisted_size > initial_len {
+            return Err(Error::io(format!(
+                "server persisted_size ({persisted_size}) exceeded \
+                 highest sent write offset ({initial_len})"
+            )));
+        }
 
         // Seed the replay buffer with the opening payload so that a stream failure before the
         // server acknowledges it is recovered like any other append. Acknowledge the bytes the
@@ -251,7 +262,12 @@ impl AppendableObjectWriterTransport {
     }
 
     async fn append_sub_chunk(&mut self, chunk: Bytes) -> Result<()> {
-        let length = chunk.len() as i64;
+        let length =
+            i64::try_from(chunk.len()).map_err(|_| Error::io("chunk length exceeds i64::MAX"))?;
+        let next_write_offset = self
+            .write_offset
+            .checked_add(length)
+            .ok_or_else(|| Error::io("write_offset overflow"))?;
         let crc32c = crc32c::crc32c(&chunk);
 
         let new_running_crc32c = self
@@ -271,7 +287,7 @@ impl AppendableObjectWriterTransport {
             return Err(self.extract_worker_error(&e.to_string()).await);
         }
 
-        self.write_offset += length;
+        self.write_offset = next_write_offset;
         self.running_crc32c = new_running_crc32c;
 
         Ok(())
@@ -282,6 +298,16 @@ impl AppendableObjectWriter for AppendableObjectWriterTransport {
     async fn append(&mut self, chunk: Bytes) -> Result<()> {
         if chunk.is_empty() {
             return Ok(());
+        }
+
+        let pending_len = self
+            .coalescing_buffer
+            .len()
+            .checked_add(chunk.len())
+            .and_then(|n| i64::try_from(n).ok())
+            .ok_or_else(|| Error::io("chunk length exceeds i64::MAX"))?;
+        if self.write_offset.checked_add(pending_len).is_none() {
+            return Err(Error::io("write_offset overflow"));
         }
 
         let ready_chunks = self.coalescing_buffer.push(chunk);
@@ -315,6 +341,11 @@ impl AppendableObjectWriter for AppendableObjectWriterTransport {
         };
         let size = persisted_size(&response)
             .ok_or_else(|| Error::io("flush response missing write_status"))?;
+        if size < 0 {
+            return Err(Error::io(format!(
+                "server returned negative persisted_size ({size})"
+            )));
+        }
         self.persisted_size = size;
 
         Ok(size)
@@ -1518,6 +1549,210 @@ mod tests {
         let persisted = flush_task.await??;
         assert_eq!(persisted, len);
         assert!(stream2_req_rx.try_recv().is_err());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn reopen_negative_persisted_size_error() -> anyhow::Result<()> {
+        let (tx1, rx1) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream1 = TonicResponse::from(rx1);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream1)));
+        let connector = mock_connector(mock);
+
+        let req = ReopenAppendableObjectRequest {
+            bucket: "projects/_/buckets/test-bucket".into(),
+            object: "test-object".into(),
+            generation: 123456,
+            if_metageneration_match: None,
+            if_metageneration_not_match: None,
+            routing_token: None,
+            write_handle: None,
+            params: None,
+        };
+
+        let initial_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(-1)),
+            ..Default::default()
+        };
+        tx1.send(Ok(initial_response)).await?;
+
+        let err = AppendableObjectWriterTransport::new_reopen(connector, req)
+            .await
+            .unwrap_err();
+        assert!(err.is_io(), "{err:?}");
+        assert!(err.to_string().contains("negative persisted_size"), "{err}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn open_negative_resource_size_error() -> anyhow::Result<()> {
+        let (tx1, rx1) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream1 = TonicResponse::from(rx1);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream1)));
+        let connector = mock_connector(mock);
+
+        let initial_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::Resource(Object {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                name: "test-object".into(),
+                size: -10,
+                generation: 987654321,
+                finalize_time: None,
+                ..Default::default()
+            })),
+            ..Default::default()
+        };
+        tx1.send(Ok(initial_response)).await?;
+
+        let err = AppendableObjectWriterTransport::new_open(connector, test_open_request())
+            .await
+            .unwrap_err();
+        assert!(err.is_io(), "{err:?}");
+        assert!(err.to_string().contains("negative persisted_size"), "{err}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn append_write_offset_overflow_error() -> anyhow::Result<()> {
+        let (tx, mut rx) = mpsc::channel(4);
+        let mut transport = AppendableObjectWriterTransport {
+            tx,
+            write_offset: i64::MAX - 4,
+            running_crc32c: Some(0),
+            generation: 123456,
+            persisted_size: i64::MAX - 4,
+            coalescing_buffer: CoalescingBuffer::new(),
+            worker_handle: None,
+        };
+
+        // Buffer 3 bytes within the remaining 4-byte headroom below `i64::MAX`.
+        transport.append(bytes::Bytes::from_static(b"abc")).await?;
+        assert_eq!(transport.coalescing_buffer.len(), 3);
+        assert_eq!(transport.write_offset, i64::MAX - 4);
+
+        // Appending 2 more bytes (`3 + 2 = 5 > 4`) must fail before mutating `coalescing_buffer`.
+        let err = transport
+            .append(bytes::Bytes::from_static(b"de"))
+            .await
+            .expect_err("expected write_offset overflow");
+        assert!(err.is_io(), "{err:?}");
+        assert!(err.to_string().contains("write_offset overflow"), "{err}");
+        assert_eq!(transport.coalescing_buffer.len(), 3);
+        assert_eq!(transport.write_offset, i64::MAX - 4);
+        assert_eq!(transport.running_crc32c, Some(0));
+        assert!(rx.try_recv().is_err());
+
+        // The previously buffered 3 bytes remain intact and flush cleanly.
+        let flush_handle = tokio::spawn(async move {
+            let size = transport.flush().await?;
+            Ok::<_, crate::Error>((transport, size))
+        });
+
+        let intent = rx.recv().await.expect("expected Append intent");
+        if let UploadIntent::Append(req) = intent {
+            assert_eq!(req.write_offset, i64::MAX - 4);
+            if let Some(Data::ChecksummedData(data)) = req.data {
+                assert_eq!(data.content.as_ref(), b"abc");
+            } else {
+                panic!("expected ChecksummedData");
+            }
+        } else {
+            panic!("expected Append");
+        }
+
+        let intent = rx.recv().await.expect("expected Flush intent");
+        if let UploadIntent::Flush(req, sender) = intent {
+            assert_eq!(req.write_offset, i64::MAX - 1);
+            let resp = BidiWriteObjectResponse {
+                write_status: Some(WriteStatus::PersistedSize(i64::MAX - 1)),
+                ..Default::default()
+            };
+            sender.send(Ok(resp)).expect("failed to send response");
+        } else {
+            panic!("expected Flush");
+        }
+
+        let (transport, size) = flush_handle.await??;
+        assert_eq!(size, i64::MAX - 1);
+        assert_eq!(transport.write_offset, i64::MAX - 1);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn open_and_append_excessive_persisted_size_error() -> anyhow::Result<()> {
+        let (tx1, rx1) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream1 = TonicResponse::from(rx1);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream1)));
+        let connector = mock_connector(mock);
+
+        let chunk = bytes::Bytes::from_static(b"hello");
+        let initial_response = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::Resource(Object {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                name: "test-object".into(),
+                size: 6,
+                generation: 987654321,
+                finalize_time: None,
+                ..Default::default()
+            })),
+            ..Default::default()
+        };
+        tx1.send(Ok(initial_response)).await?;
+
+        let err = AppendableObjectWriterTransport::new_open_and_append(
+            connector,
+            test_open_request(),
+            chunk,
+        )
+        .await
+        .expect_err("expected error when persisted_size exceeds initial chunk length");
+        assert!(err.is_io(), "{err:?}");
+        assert!(
+            err.to_string()
+                .contains("exceeded highest sent write offset"),
+            "{err}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn flush_negative_persisted_size_error() -> anyhow::Result<()> {
+        let (tx, mut rx) = mpsc::channel(1);
+        let mut transport = AppendableObjectWriterTransport {
+            tx,
+            write_offset: 0,
+            running_crc32c: Some(0),
+            generation: 123456,
+            persisted_size: 0,
+            coalescing_buffer: CoalescingBuffer::new(),
+            worker_handle: None,
+        };
+
+        let handle = tokio::spawn(async move { transport.flush().await });
+
+        let intent = rx.recv().await.expect("expected an upload intent");
+        if let UploadIntent::Flush(_, sender) = intent {
+            let resp = BidiWriteObjectResponse {
+                write_status: Some(WriteStatus::PersistedSize(-5)),
+                ..Default::default()
+            };
+            sender.send(Ok(resp)).expect("failed to send response");
+        } else {
+            panic!("expected Flush");
+        }
+
+        let err = handle.await?.unwrap_err();
+        assert!(err.is_io(), "{err:?}");
+        assert!(err.to_string().contains("negative persisted_size"), "{err}");
         Ok(())
     }
 }
