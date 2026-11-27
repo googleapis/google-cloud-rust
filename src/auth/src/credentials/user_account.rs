@@ -1119,6 +1119,37 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn build_and_universe_domain_do_not_send_token_requests() -> TestResult {
+        let mut server = Server::run();
+        server.expect(
+            Expectation::matching(httptest::matchers::any())
+                .times(0)
+                .respond_with(status_code(500)),
+        );
+
+        let json = serde_json::json!({
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
+            "token_uri": server.url("/token").to_string(),
+        });
+
+        let cred = Builder::new(json).build()?;
+        assert_eq!(
+            cred.universe_domain().await.as_deref(),
+            Some(DEFAULT_UNIVERSE_DOMAIN)
+        );
+
+        // Give any mistakenly spawned background task time to hit the server.
+        tokio::time::sleep(Duration::from_millis(50)).await;
+        drop(cred);
+
+        server.verify_and_clear();
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn credential_provider_partial() -> TestResult {
         let server = Server::run();
         let response = Oauth2RefreshResponse {
