@@ -29,11 +29,9 @@ pub(crate) mod stub;
 pub(crate) mod transport;
 
 pub(crate) type GrpcClient = gaxi::grpc::Client;
-#[allow(dead_code)]
 pub(crate) type GrpcStream = Streaming<BidiWriteSegmentResponse>;
 
 /// A trait to mock `Streaming<BidiWriteSegmentResponse>` in unit tests.
-#[allow(dead_code)]
 pub(crate) trait TonicStreaming: std::fmt::Debug + Send + 'static {
     fn next_message(
         &mut self,
@@ -60,7 +58,6 @@ pub(crate) trait Client: Clone + std::fmt::Debug + Send + Sync + 'static {
         request_params: &str,
     ) -> impl Future<Output = crate::Result<TonicResponse<ObjectWriteSession>>> + Send;
 
-    #[allow(dead_code)]
     fn bidi_write_segment(
         &self,
         extensions: Extensions,

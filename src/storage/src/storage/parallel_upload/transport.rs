@@ -15,14 +15,16 @@
 //! Implements parallel upload sessions over gRPC.
 
 use super::segment_payload::SegmentPayload;
-use super::{Client, GrpcClient};
+use super::{Client, GrpcClient, TonicStreaming};
 use crate::google::storage::v2;
 use crate::model::Object;
 use crate::model_ext::{AbortSessionResponse, CreateObjectWriteSessionRequest, Segment};
 use crate::request_options::RequestOptions;
 use crate::storage::info::X_GOOG_API_CLIENT_HEADER;
+use crate::streaming_source::StreamingSource;
 use crate::stub::ParallelUploadSession;
 use crate::{Error, Result};
+use gaxi::grpc::from_status::to_gax_error;
 use gaxi::grpc::tonic::{Extensions, GrpcMethod};
 use gaxi::path_parameter::PathMismatchBuilder;
 use gaxi::prost::FromProto;
@@ -31,6 +33,21 @@ use google_cloud_gax::error::binding::BindingError;
 use http::uri::PathAndQuery;
 use std::collections::BTreeMap;
 use std::sync::Mutex;
+use tokio::sync::mpsc::{self, Receiver, Sender};
+
+/// Maximum payload size per `BidiWriteSegmentRequest` message (2 MiB).
+const MAX_WRITE_CHUNK_SIZE: usize = 2 * 1024 * 1024;
+/// Bounded request queue depth per segment stream.
+const WRITE_CHANNEL_CAPACITY: usize = 2;
+
+/// The result of sending the requests for one segment.
+enum SendOutcome {
+    /// All the requests were sent. Holds the number of bytes sent.
+    Sent(u64),
+    /// The stream closed before all the requests were sent. This is not an
+    /// error on its own, so that an error in the response takes precedence.
+    StreamClosed,
+}
 
 /// Implements [crate::stub::ParallelUploadSession] using gRPC.
 ///
@@ -111,6 +128,132 @@ where
         }
         i32::try_from(segments.len()).map_err(Error::binding)
     }
+
+    /// Makes a single attempt to write a segment.
+    async fn write_segment_once(
+        &self,
+        segment_number: u32,
+        segment_payload: &mut SegmentPayload,
+    ) -> Result<Segment> {
+        let (tx, rx) = mpsc::channel(WRITE_CHANNEL_CAPACITY);
+        // Send the requests while waiting for the response. The response may
+        // not arrive until the service receives `finish_write`.
+        let (outcome, segment) = tokio::try_join!(
+            self.send_segment_requests(segment_number, segment_payload, tx),
+            self.recv_segment_response(rx),
+        )?;
+        let SendOutcome::Sent(bytes_written) = outcome else {
+            return Err(Error::io(
+                "segment write stream closed before finish_write was sent",
+            ));
+        };
+        if u64::try_from(segment.size_bytes).ok() != Some(bytes_written) {
+            return Err(Error::io(format!(
+                "segment {segment_number} size mismatch: sent {bytes_written} bytes, server acknowledged {} bytes",
+                segment.size_bytes
+            )));
+        }
+
+        // Allow overwriting an existing entry for re-uploads and hedged attempts.
+        self.completed_segments
+            .lock()
+            .expect("never poisoned")
+            .insert(segment_number, bytes_written);
+        Ok(Segment::from(segment))
+    }
+
+    async fn send_segment_requests(
+        &self,
+        segment_number: u32,
+        segment_payload: &mut SegmentPayload,
+        tx: Sender<v2::BidiWriteSegmentRequest>,
+    ) -> Result<SendOutcome> {
+        let mut bytes_written: u64 = 0;
+        let mut is_first = true;
+
+        while let Some(chunk) = segment_payload.next().await {
+            let mut chunk = chunk?;
+            while !chunk.is_empty() {
+                let split_at = chunk.len().min(MAX_WRITE_CHUNK_SIZE);
+                let piece = chunk.split_to(split_at);
+                let piece_len = piece.len() as u64;
+
+                let write_offset = i64::try_from(bytes_written).map_err(Error::binding)?;
+                let (name, common_object_request_params) =
+                    self.take_first_segment_fields(segment_number, &mut is_first);
+                let request = v2::BidiWriteSegmentRequest {
+                    name,
+                    write_offset,
+                    checksummed_data: Some(v2::ChecksummedData {
+                        content: piece,
+                        // TODO: compute per-chunk CRC32C.
+                        crc32c: None,
+                    }),
+                    finish_write: false,
+                    common_object_request_params,
+                };
+                if tx.send(request).await.is_err() {
+                    return Ok(SendOutcome::StreamClosed);
+                }
+                bytes_written += piece_len;
+            }
+        }
+
+        let write_offset = i64::try_from(bytes_written).map_err(Error::binding)?;
+        let (name, common_object_request_params) =
+            self.take_first_segment_fields(segment_number, &mut is_first);
+        let final_request = v2::BidiWriteSegmentRequest {
+            name,
+            write_offset,
+            checksummed_data: None,
+            finish_write: true,
+            common_object_request_params,
+        };
+        if tx.send(final_request).await.is_err() {
+            return Ok(SendOutcome::StreamClosed);
+        }
+        Ok(SendOutcome::Sent(bytes_written))
+    }
+
+    async fn recv_segment_response(
+        &self,
+        rx: Receiver<v2::BidiWriteSegmentRequest>,
+    ) -> Result<v2::Segment> {
+        let response = self
+            .client
+            .bidi_write_segment(
+                method("BidiWriteSegment"),
+                PathAndQuery::from_static("/google.storage.v2.Storage/BidiWriteSegment"),
+                rx,
+                self.options.gax(),
+                &X_GOOG_API_CLIENT_HEADER,
+                &self.request_params,
+            )
+            .await?
+            .map_err(to_gax_error)?;
+        let mut stream = response.into_inner();
+        let Some(message) = stream.next_message().await.map_err(to_gax_error)? else {
+            return Err(Error::io("segment write stream closed without a response"));
+        };
+        message
+            .segment
+            .ok_or_else(|| Error::io("segment write response missing segment metadata"))
+    }
+
+    fn take_first_segment_fields(
+        &self,
+        segment_number: u32,
+        is_first: &mut bool,
+    ) -> (String, Option<v2::CommonObjectRequestParams>) {
+        if std::mem::take(is_first) {
+            (
+                format!("{}/segments/{segment_number}", self.session_name),
+                self.params.clone(),
+            )
+        } else {
+            (String::new(), None)
+        }
+    }
 }
 
 impl<T> ParallelUploadSession for ParallelUploadSessionTransport<T>
@@ -127,10 +270,12 @@ where
 
     async fn write_segment(
         &self,
-        _segment_number: u32,
-        _segment_payload: SegmentPayload,
+        segment_number: u32,
+        mut segment_payload: SegmentPayload,
     ) -> Result<Segment> {
-        unimplemented!("writing segments is not implemented yet")
+        // TODO: add per-segment retries, redirects, and hedging in follow-ups.
+        self.write_segment_once(segment_number, &mut segment_payload)
+            .await
     }
 
     async fn finalize(&self) -> Result<Object> {
@@ -248,15 +393,23 @@ fn session_request_params(name: &str) -> Result<String> {
 
 #[cfg(test)]
 mod tests {
-    use super::super::mocks::{MockTestClient, SharedMockClient};
-    use super::super::tests::{permanent_error, test_options};
+    use super::super::mocks::{MockStream, MockTestClient, SharedMockClient};
+    use super::super::tests::{permanent_error, test_options, transient_status};
     use super::*;
     use crate::model::CommonObjectRequestParams;
-    use gaxi::grpc::tonic::Response as TonicResponse;
+    use crate::streaming_source::{Payload, Seek};
+    use bytes::Bytes;
+    use gaxi::grpc::tonic::{
+        Response as TonicResponse, Result as TonicResult, Status as TonicStatus,
+    };
     use google_cloud_gax::error::binding::{PathMismatch, SubstitutionFail, SubstitutionMismatch};
+    use google_cloud_gax::error::rpc::Code;
     use static_assertions::assert_impl_all;
+    use std::collections::VecDeque;
     use std::error::Error as _;
+    use std::io::{Error as IoError, ErrorKind};
     use test_case::test_case;
+    use tokio::sync::oneshot;
 
     const BUCKET: &str = "projects/_/buckets/test-bucket";
     const OBJECT: &str = "test-object";
@@ -299,6 +452,133 @@ mod tests {
             params: None,
             completed_segments: Mutex::new(segments.iter().copied().collect()),
         }
+    }
+
+    fn segment_response(
+        segment_number: u32,
+        size_bytes: i64,
+        crc32c: u32,
+    ) -> v2::BidiWriteSegmentResponse {
+        v2::BidiWriteSegmentResponse {
+            segment: Some(v2::Segment {
+                name: format!("{SESSION}/segments/{segment_number}"),
+                size_bytes,
+                segment_crc32c: crc32c,
+            }),
+        }
+    }
+
+    fn completed(
+        transport: &ParallelUploadSessionTransport<SharedMockClient>,
+    ) -> BTreeMap<u32, u64> {
+        transport
+            .completed_segments
+            .lock()
+            .expect("never poisoned")
+            .clone()
+    }
+
+    /// Simulates the service side of a segment stream.
+    ///
+    /// Replies with `response`, if any, once it receives `finish_write`. Sends
+    /// the requests it received to `captured` once the client closes the stream.
+    fn collect_and_respond(
+        mut rx: Receiver<v2::BidiWriteSegmentRequest>,
+        response: Option<v2::BidiWriteSegmentResponse>,
+        captured: oneshot::Sender<Vec<v2::BidiWriteSegmentRequest>>,
+    ) -> TonicResponse<MockStream> {
+        let (resp_tx, resp_rx) = mpsc::channel(1);
+        tokio::spawn(async move {
+            let mut requests = Vec::new();
+            while let Some(request) = rx.recv().await {
+                let finished = request.finish_write;
+                requests.push(request);
+                if finished {
+                    break;
+                }
+            }
+            if let Some(response) = response {
+                let _ = resp_tx.send(Ok(response)).await;
+            }
+            while let Some(request) = rx.recv().await {
+                requests.push(request);
+            }
+            let _ = captured.send(requests);
+        });
+        TonicResponse::new(resp_rx)
+    }
+
+    /// Expects one segment stream served by `collect_and_respond` and returns
+    /// the receiver for the requests.
+    fn expect_segment_stream(
+        mock: &mut MockTestClient,
+        response: Option<v2::BidiWriteSegmentResponse>,
+    ) -> oneshot::Receiver<Vec<v2::BidiWriteSegmentRequest>> {
+        let (captured_tx, captured_rx) = oneshot::channel();
+        mock.expect_bidi_write_segment()
+            .times(1)
+            .return_once(move |_, _, rx, _, _, _| {
+                Ok(Ok(collect_and_respond(rx, response, captured_tx)))
+            });
+        captured_rx
+    }
+
+    /// Expects one segment stream where the service stops reading after the
+    /// first request and then replies with `reply`.
+    fn expect_early_reply(
+        mock: &mut MockTestClient,
+        reply: TonicResult<v2::BidiWriteSegmentResponse>,
+        yield_first: bool,
+    ) {
+        mock.expect_bidi_write_segment()
+            .times(1)
+            .return_once(move |_, _, mut rx, _, _, _| {
+                let (resp_tx, resp_rx) = mpsc::channel(1);
+                tokio::spawn(async move {
+                    let _ = rx.recv().await;
+                    drop(rx);
+                    if yield_first {
+                        // Let the sender find the closed stream before the reply.
+                        tokio::task::yield_now().await;
+                    }
+                    let _ = resp_tx.send(reply).await;
+                });
+                Ok(Ok(TonicResponse::new(resp_rx)))
+            });
+    }
+
+    /// Returns a payload with more chunks than the request channel can hold, so
+    /// the sender is still running when the stream fails.
+    fn many_chunks() -> SegmentPayload {
+        let chunks = vec![Bytes::from_static(b"x"); WRITE_CHANNEL_CAPACITY + 3];
+        SegmentPayload::new(Payload::from(chunks))
+    }
+
+    type ScriptedItem = std::result::Result<Bytes, ErrorKind>;
+
+    /// A source of unknown size that yields scripted chunks and errors.
+    #[derive(Clone)]
+    struct ScriptedSource(VecDeque<ScriptedItem>);
+
+    impl StreamingSource for ScriptedSource {
+        type Error = IoError;
+
+        async fn next(&mut self) -> Option<std::io::Result<Bytes>> {
+            self.0.pop_front().map(|item| item.map_err(IoError::from))
+        }
+    }
+
+    impl Seek for ScriptedSource {
+        type Error = IoError;
+
+        async fn seek(&mut self, _offset: u64) -> std::io::Result<()> {
+            Err(ErrorKind::Unsupported.into())
+        }
+    }
+
+    fn scripted_payload(items: impl IntoIterator<Item = ScriptedItem>) -> SegmentPayload {
+        let source = ScriptedSource(items.into_iter().collect());
+        SegmentPayload::new(Payload::from_stream(source))
     }
 
     #[track_caller]
@@ -345,6 +625,8 @@ mod tests {
         need_send(&create);
 
         let transport = transport(MockTestClient::new(), SESSION, &[]);
+        let write = transport.write_segment(1, SegmentPayload::new(Payload::from("hello")));
+        need_send(&write);
         let finalize = transport.finalize();
         need_send(&finalize);
         let abort = transport.abort();
@@ -480,6 +762,248 @@ mod tests {
 
         let err = create(mock, create_request()).await.unwrap_err();
         assert!(err.is_deserialization(), "{err:?}");
+    }
+
+    #[tokio::test]
+    async fn write_segment_success() -> anyhow::Result<()> {
+        let params = v2::CommonObjectRequestParams {
+            encryption_algorithm: "AES256".to_string(),
+            encryption_key_bytes: Bytes::from_static(b"test-only-key"),
+            ..v2::CommonObjectRequestParams::default()
+        };
+        let (captured_tx, captured_rx) = oneshot::channel();
+
+        let mut mock = MockTestClient::new();
+        mock.expect_bidi_write_segment().times(1).return_once(
+            move |extensions, path, rx, options, header, routing| {
+                assert_method(&extensions, &path, "BidiWriteSegment");
+                assert_eq!(header, X_GOOG_API_CLIENT_HEADER.as_str());
+                assert_eq!(routing, ROUTING);
+                assert_eq!(options.user_agent().as_deref(), Some("test-agent"));
+                let response = segment_response(1, 11, 42);
+                Ok(Ok(collect_and_respond(rx, Some(response), captured_tx)))
+            },
+        );
+
+        let mut transport = transport(mock, SESSION, &[]);
+        transport.params = Some(params.clone());
+        transport.options.with_user_agent("test-agent");
+
+        // The empty chunk is skipped.
+        let payload = SegmentPayload::new(Payload::from(vec![
+            Bytes::from_static(b"hello"),
+            Bytes::new(),
+            Bytes::from_static(b" world"),
+        ]));
+        let got = transport.write_segment(1, payload).await?;
+        let want = Segment::new()
+            .set_name(format!("{SESSION}/segments/1"))
+            .set_size_bytes(11)
+            .set_segment_crc32c(42);
+        assert_eq!(got, want);
+        assert_eq!(completed(&transport), BTreeMap::from([(1, 11)]));
+
+        // Only the first request includes the name and the parameters.
+        let want = vec![
+            v2::BidiWriteSegmentRequest {
+                name: format!("{SESSION}/segments/1"),
+                checksummed_data: Some(v2::ChecksummedData {
+                    content: Bytes::from_static(b"hello"),
+                    crc32c: None,
+                }),
+                common_object_request_params: Some(params),
+                ..v2::BidiWriteSegmentRequest::default()
+            },
+            v2::BidiWriteSegmentRequest {
+                write_offset: 5,
+                checksummed_data: Some(v2::ChecksummedData {
+                    content: Bytes::from_static(b" world"),
+                    crc32c: None,
+                }),
+                ..v2::BidiWriteSegmentRequest::default()
+            },
+            v2::BidiWriteSegmentRequest {
+                write_offset: 11,
+                finish_write: true,
+                ..v2::BidiWriteSegmentRequest::default()
+            },
+        ];
+        assert_eq!(captured_rx.await?, want);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn write_segment_splits_large_chunks() -> anyhow::Result<()> {
+        const MAX: usize = MAX_WRITE_CHUNK_SIZE;
+        let data = (0..2 * MAX + 5).map(|i| (i % 251) as u8).collect::<Bytes>();
+        let size = data.len() as i64;
+
+        let mut mock = MockTestClient::new();
+        let requests = expect_segment_stream(&mut mock, Some(segment_response(2, size, 99)));
+
+        let transport = transport(mock, SESSION, &[]);
+        let payload = SegmentPayload::new(Payload::from(data.clone()));
+        let got = transport.write_segment(2, payload).await?;
+        assert_eq!(got.size_bytes, size);
+
+        let requests = requests.await?;
+        let got = requests
+            .iter()
+            .map(|r| {
+                let len = r.checksummed_data.as_ref().map(|d| d.content.len());
+                (r.write_offset, len, r.finish_write)
+            })
+            .collect::<Vec<_>>();
+        let max = MAX as i64;
+        let want = vec![
+            (0, Some(MAX), false),
+            (max, Some(MAX), false),
+            (2 * max, Some(5), false),
+            (size, None, true),
+        ];
+        assert_eq!(got, want);
+        let sent = requests
+            .into_iter()
+            .filter_map(|r| r.checksummed_data)
+            .flat_map(|d| d.content)
+            .collect::<Bytes>();
+        assert!(sent == data, "the chunks must add up to the payload");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn write_segment_empty_payload() -> anyhow::Result<()> {
+        let params = v2::CommonObjectRequestParams {
+            encryption_algorithm: "AES256".to_string(),
+            ..v2::CommonObjectRequestParams::default()
+        };
+        let mut mock = MockTestClient::new();
+        let requests = expect_segment_stream(&mut mock, Some(segment_response(1, 0, 0)));
+
+        let mut transport = transport(mock, SESSION, &[]);
+        transport.params = Some(params.clone());
+        let payload = SegmentPayload::new(Payload::from(Bytes::new()));
+        let got = transport.write_segment(1, payload).await?;
+        assert_eq!(got.size_bytes, 0);
+        assert_eq!(completed(&transport), BTreeMap::from([(1, 0)]));
+
+        // A single request has the name, the parameters, and `finish_write`.
+        let want = v2::BidiWriteSegmentRequest {
+            name: format!("{SESSION}/segments/1"),
+            finish_write: true,
+            common_object_request_params: Some(params),
+            ..v2::BidiWriteSegmentRequest::default()
+        };
+        assert_eq!(requests.await?, vec![want]);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn write_segment_overwrites_existing_entry() -> anyhow::Result<()> {
+        let mut mock = MockTestClient::new();
+        let _requests = expect_segment_stream(&mut mock, Some(segment_response(1, 8, 20)));
+
+        let transport = transport(mock, SESSION, &[(1, 5)]);
+        let payload = SegmentPayload::new(Payload::from("override"));
+        let got = transport.write_segment(1, payload).await?;
+        assert_eq!(got.size_bytes, 8);
+        assert_eq!(completed(&transport), BTreeMap::from([(1, 8)]));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn write_segment_source_read_error() -> anyhow::Result<()> {
+        let mut mock = MockTestClient::new();
+        let requests = expect_segment_stream(&mut mock, None);
+
+        // The first three chunks fill the request channel, so the stream is
+        // open by the time the source fails.
+        let payload = scripted_payload([
+            Ok(Bytes::from_static(b"chunk-1")),
+            Ok(Bytes::from_static(b"chunk-2")),
+            Ok(Bytes::from_static(b"chunk-3")),
+            Err(ErrorKind::BrokenPipe),
+        ]);
+        let transport = transport(mock, SESSION, &[]);
+        let err = transport.write_segment(1, payload).await.unwrap_err();
+        assert!(err.is_serialization(), "{err:?}");
+        assert!(completed(&transport).is_empty());
+        let requests = requests.await?;
+        assert!(!requests.is_empty());
+        assert!(requests.iter().all(|r| !r.finish_write), "{requests:?}");
+        Ok(())
+    }
+
+    #[test_case(true; "client error")]
+    #[test_case(false; "initial grpc status")]
+    #[tokio::test]
+    async fn write_segment_open_error(client_error: bool) {
+        let mut mock = MockTestClient::new();
+        mock.expect_bidi_write_segment()
+            .times(1)
+            .return_once(move |_, _, _, _, _, _| {
+                if client_error {
+                    Err(permanent_error())
+                } else {
+                    Ok(Err(TonicStatus::permission_denied("uh-oh")))
+                }
+            });
+
+        let transport = transport(mock, SESSION, &[]);
+        let err = transport.write_segment(1, many_chunks()).await.unwrap_err();
+        assert_eq!(
+            err.status().map(|s| s.code),
+            Some(Code::PermissionDenied),
+            "{err:?}"
+        );
+        assert!(completed(&transport).is_empty());
+    }
+
+    #[test_case(false; "immediate status")]
+    #[test_case(true; "status after sender sees closed stream")]
+    #[tokio::test]
+    async fn write_segment_mid_stream_server_error(yield_first: bool) {
+        let mut mock = MockTestClient::new();
+        expect_early_reply(&mut mock, Err(transient_status()), yield_first);
+
+        let transport = transport(mock, SESSION, &[]);
+        let err = transport.write_segment(1, many_chunks()).await.unwrap_err();
+        assert_eq!(
+            err.status().map(|s| s.code),
+            Some(Code::Unavailable),
+            "{err:?}"
+        );
+        assert!(completed(&transport).is_empty());
+    }
+
+    #[tokio::test]
+    async fn write_segment_premature_response() {
+        let mut mock = MockTestClient::new();
+        // The service acknowledges the segment without waiting for `finish_write`.
+        let size = WRITE_CHANNEL_CAPACITY as i64 + 3;
+        expect_early_reply(&mut mock, Ok(segment_response(1, size, 0)), false);
+
+        let transport = transport(mock, SESSION, &[]);
+        let err = transport.write_segment(1, many_chunks()).await.unwrap_err();
+        assert!(err.is_io(), "{err:?}");
+        assert!(completed(&transport).is_empty());
+    }
+
+    #[test_case(None; "stream closed without response")]
+    #[test_case(Some(v2::BidiWriteSegmentResponse::default()); "missing segment metadata")]
+    #[test_case(Some(segment_response(1, 4, 0)); "short ack")]
+    #[test_case(Some(segment_response(1, 6, 0)); "long ack")]
+    #[test_case(Some(segment_response(1, -1, 0)); "negative ack")]
+    #[tokio::test]
+    async fn write_segment_invalid_response(response: Option<v2::BidiWriteSegmentResponse>) {
+        let mut mock = MockTestClient::new();
+        let _requests = expect_segment_stream(&mut mock, response);
+
+        let transport = transport(mock, SESSION, &[]);
+        let payload = SegmentPayload::new(Payload::from("hello"));
+        let err = transport.write_segment(1, payload).await.unwrap_err();
+        assert!(err.is_io(), "{err:?}");
+        assert!(completed(&transport).is_empty());
     }
 
     #[tokio::test]
