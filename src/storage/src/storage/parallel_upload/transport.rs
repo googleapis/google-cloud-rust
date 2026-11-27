@@ -38,6 +38,10 @@ use tokio::sync::mpsc::{self, Receiver, Sender};
 /// Maximum payload size per `BidiWriteSegmentRequest` message (2 MiB).
 const MAX_WRITE_CHUNK_SIZE: usize = 2 * 1024 * 1024;
 /// Bounded request queue depth per segment stream.
+///
+/// Keeps the producer up to two chunks ahead of the transport while capping
+/// queued payload memory to `WRITE_CHANNEL_CAPACITY * MAX_WRITE_CHUNK_SIZE`
+/// (4 MiB) per active segment stream.
 const WRITE_CHANNEL_CAPACITY: usize = 2;
 
 /// The result of sending the requests for one segment.
