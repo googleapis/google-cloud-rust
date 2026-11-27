@@ -915,17 +915,22 @@ mod tests {
         let mut mock = MockTestClient::new();
         let requests = expect_segment_stream(&mut mock, None);
 
-        // The first three chunks fill the request channel, so the stream is
-        // open by the time the source fails.
-        let payload = scripted_payload([
-            Ok(Bytes::from_static(b"chunk-1")),
-            Ok(Bytes::from_static(b"chunk-2")),
-            Ok(Bytes::from_static(b"chunk-3")),
-            Err(ErrorKind::BrokenPipe),
-        ]);
+        // More than `WRITE_CHANNEL_CAPACITY` chunks precede the error, so the
+        // stream is open by the time the source fails.
+        let items =
+            std::iter::repeat_n(Ok(Bytes::from_static(b"chunk")), WRITE_CHANNEL_CAPACITY + 1)
+                .chain([Err(ErrorKind::BrokenPipe)]);
+        let payload = scripted_payload(items);
         let transport = transport(mock, SESSION, &[]);
         let err = transport.write_segment(1, payload).await.unwrap_err();
         assert!(err.is_serialization(), "{err:?}");
+        assert_eq!(
+            err.source()
+                .and_then(|e| e.downcast_ref::<IoError>())
+                .map(IoError::kind),
+            Some(ErrorKind::BrokenPipe),
+            "{err:?}"
+        );
         assert!(completed(&transport).is_empty());
         let requests = requests.await?;
         assert!(!requests.is_empty());
