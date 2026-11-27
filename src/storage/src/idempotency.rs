@@ -174,6 +174,17 @@ impl crate::model::WriteObjectSpec {
     }
 }
 
+#[cfg(google_cloud_unstable_storage_bidi)]
+impl crate::storage::bidi_write::state::AppendObjectSpecState {
+    /// Returns `true` if opening or reconnecting the appendable object stream is idempotent.
+    pub(crate) fn is_idempotent(&self) -> bool {
+        match self {
+            Self::Write { spec, .. } => spec.if_generation_match.is_some(),
+            Self::Append { spec, .. } => spec.generation > 0 || spec.write_handle.is_some(),
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -280,6 +291,45 @@ mod tests {
     #[test_case(WriteObjectSpec::new().set_if_metageneration_match(1), false; "if_metageneration_match alone")]
     fn write_object_spec(spec: WriteObjectSpec, want: bool) {
         assert_eq!(spec.is_idempotent(), want);
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[test_case(None, false; "write without if_generation_match")]
+    #[test_case(Some(0), true; "write with if_generation_match 0")]
+    #[test_case(Some(42), true; "write with if_generation_match non-zero")]
+    fn append_object_spec_state_write(if_generation_match: Option<i64>, want: bool) {
+        use crate::google::storage::v2::WriteObjectSpec as ProtoWriteObjectSpec;
+        use crate::storage::bidi_write::state::AppendObjectSpecState;
+        let state = AppendObjectSpecState::Write {
+            spec: Box::new(ProtoWriteObjectSpec {
+                if_generation_match,
+                ..Default::default()
+            }),
+            routing_token: None,
+            initial_chunk: None,
+        };
+        assert_eq!(state.is_idempotent(), want);
+    }
+
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    #[test_case(0, None, false; "append without generation or write_handle")]
+    #[test_case(42, None, true; "append with generation")]
+    #[test_case(0, Some("handle"), true; "append with write_handle")]
+    #[test_case(42, Some("handle"), true; "append with generation and write_handle")]
+    fn append_object_spec_state_append(generation: i64, write_handle: Option<&str>, want: bool) {
+        use crate::google::storage::v2::{AppendObjectSpec, BidiWriteHandle};
+        use crate::storage::bidi_write::state::AppendObjectSpecState;
+        let state = AppendObjectSpecState::Append {
+            spec: AppendObjectSpec {
+                generation,
+                write_handle: write_handle.map(|h| BidiWriteHandle {
+                    handle: bytes::Bytes::from_owner(h.to_string()),
+                }),
+                ..Default::default()
+            },
+            initial_chunk: None,
+        };
+        assert_eq!(state.is_idempotent(), want);
     }
 
     #[test_case(true, false; "with_idempotency(true) on unconditioned")]

@@ -19,6 +19,7 @@ use google_cloud_storage::client::Storage;
 pub async fn sample(client: &Storage, bucket: &str, object: &str) -> Result<(), anyhow::Error> {
     let writer = client
         .open_appendable_object(format!("projects/_/buckets/{bucket}"), object)
+        .set_if_generation_match(0)
         .send_and_append(Bytes::from("Hello World!"))
         .await?;
 

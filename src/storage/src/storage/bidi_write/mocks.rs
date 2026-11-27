@@ -14,7 +14,7 @@
 
 use super::connector::Connector;
 use super::tests::test_options;
-use super::{Client, Receiver, RequestOptions, TonicStreaming};
+use super::{Client, GaxRequestOptions, Receiver, TonicStreaming};
 use crate::google::storage::v2::{BidiWriteObjectRequest, BidiWriteObjectResponse};
 use gaxi::grpc::tonic::{Extensions, Response as TonicResponse, Result as TonicResult};
 use std::sync::Arc;
@@ -39,7 +39,7 @@ impl Client for SharedMockClient {
         extensions: Extensions,
         path: http::uri::PathAndQuery,
         rx: Receiver<BidiWriteObjectRequest>,
-        options: &RequestOptions,
+        options: &GaxRequestOptions,
         api_client_header: &'static str,
         request_params: &str,
     ) -> crate::Result<TonicResult<TonicResponse<Self::Stream>>> {
@@ -67,7 +67,7 @@ pub trait TestClient: std::fmt::Debug {
         extensions: Extensions,
         path: http::uri::PathAndQuery,
         rx: Receiver<BidiWriteObjectRequest>,
-        options: &RequestOptions,
+        options: &GaxRequestOptions,
         api_client_header: &'static str,
         request_params: &str,
     ) -> crate::Result<TonicResult<TonicResponse<MockStream>>>;

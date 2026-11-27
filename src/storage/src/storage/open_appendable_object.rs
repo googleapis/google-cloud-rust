@@ -23,6 +23,12 @@ use std::time::Duration;
 #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
 /// A request builder for [Storage::open_appendable_object][crate::client::Storage::open_appendable_object].
 ///
+/// By default, opening a new appendable object without a
+/// [`set_if_generation_match`][Self::set_if_generation_match] precondition is
+/// treated as non-idempotent, so transient errors during the initial open
+/// handshake are not retried. Set `set_if_generation_match(0)` when creating a
+/// new object so the client can safely retry opening the stream.
+///
 /// # Example
 /// ```
 /// use google_cloud_storage::client::Storage;
@@ -31,6 +37,7 @@ use std::time::Duration;
 ///     let builder: OpenAppendableObject = client
 ///         .open_appendable_object("projects/_/buckets/my-bucket", "my-object");
 ///     let mut writer = builder
+///         .set_if_generation_match(0)
 ///         .send()
 ///         .await?;
 ///     writer.append("hello").await?;
@@ -57,6 +64,7 @@ where
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let mut writer = client
     ///     .open_appendable_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .set_if_generation_match(0)
     ///     .send()
     ///     .await?;
     /// writer.append("world").await?;
@@ -78,6 +86,7 @@ where
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let mut writer = client
     ///     .open_appendable_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .set_if_generation_match(0)
     ///     .send_and_append("hello world")
     ///     .await?;
     /// writer.finalize().await?;

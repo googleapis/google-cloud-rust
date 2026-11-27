@@ -282,7 +282,14 @@ where
         let throttler = self.options.retry_throttler.clone();
         let backoff = self.options.backoff_policy.clone();
         let client = self.client.clone();
-        let options = self.options.clone();
+        // Resolve idempotency and stamp `x-goog-gcs-idempotency-token` once for the entire
+        // connect loop. If an unconditioned `Write` open receives a redirect carrying a
+        // `generation`, `handle_redirect` transitions `self.spec` to `Append` and `RetryRedirect`
+        // follows the redirect, while non-redirect transient errors in this initial open loop
+        // remain non-retried.
+        let default_idempotent = self.spec.lock().expect("never poisoned").is_idempotent();
+        let gax_options = crate::idempotency::mutation(self.options.gax(), default_idempotent);
+        let idempotent = gax_options.idempotent().unwrap_or(false);
         let spec = self.spec.clone();
         let params = self.params.clone();
         let sleep = async |backoff| tokio::time::sleep(backoff).await;
@@ -291,14 +298,14 @@ where
         let inner = async move |d: Option<Duration>| {
             let attempt_timeout = std::cmp::min(default_timeout, d.unwrap_or(default_timeout));
             let attempt =
-                Self::connect_attempt(client.clone(), spec.clone(), &options, params.clone());
+                Self::connect_attempt(client.clone(), spec.clone(), &gax_options, params.clone());
             match tokio::time::timeout(attempt_timeout, attempt).await {
                 Ok(r) => r,
                 Err(e) => Err(Error::timeout(e)),
             }
         };
         google_cloud_gax::retry_loop_internal::retry_loop(
-            inner, sleep, true, throttler, retry, backoff,
+            inner, sleep, idempotent, throttler, retry, backoff,
         )
         .await
     }
@@ -306,7 +313,7 @@ where
     async fn connect_attempt(
         client: T,
         spec: Arc<Mutex<AppendObjectSpecState>>,
-        options: &RequestOptions,
+        options: &google_cloud_gax::options::RequestOptions,
         params: Option<CommonObjectRequestParams>,
     ) -> Result<(BidiWriteObjectResponse, Connection<T::Stream>)> {
         let (request, x_goog_request_params) = {
@@ -855,6 +862,7 @@ mod tests {
                 name: "test-object".into(),
                 ..Default::default()
             }),
+            if_generation_match: Some(0),
             ..Default::default()
         };
 
@@ -1677,6 +1685,298 @@ mod tests {
 
         connector.reconnect(transient_error(), 0).await?;
         assert_eq!(start.elapsed(), Duration::from_secs(3));
+        Ok(())
+    }
+
+    fn open_request(if_generation_match: Option<i64>) -> OpenAppendableObjectRequest {
+        OpenAppendableObjectRequest {
+            spec: crate::model::WriteObjectSpec {
+                resource: Some(crate::model::Object {
+                    bucket: "projects/_/buckets/test-bucket".into(),
+                    name: "test-object".into(),
+                    ..Default::default()
+                }),
+                if_generation_match,
+                ..Default::default()
+            },
+            params: None,
+        }
+    }
+
+    fn idempotency_token(
+        options: &google_cloud_gax::options::RequestOptions,
+    ) -> Option<http::HeaderValue> {
+        use google_cloud_gax::options::internal::RequestOptionsExt;
+        options
+            .get_extension::<http::HeaderMap>()
+            .and_then(|h| h.get(crate::idempotency::IDEMPOTENCY_TOKEN_HEADER))
+            .cloned()
+    }
+
+    type RecordedTokens = Arc<Mutex<Vec<Option<http::HeaderValue>>>>;
+
+    async fn transient_then_success_connector(
+        options: RequestOptions,
+        initial: BidiWriteObjectResponse,
+    ) -> Result<(Connector<SharedMockClient>, RecordedTokens)> {
+        let (tx2, rx2) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream2 = TonicResponse::from(rx2);
+        tx2.send(Ok(initial)).await?;
+
+        let tokens: RecordedTokens = Arc::new(Mutex::new(Vec::new()));
+        let tokens1 = tokens.clone();
+        let tokens2 = tokens.clone();
+
+        let mut seq = mockall::Sequence::new();
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(move |_, _, _, opts, _, _| {
+                tokens1
+                    .lock()
+                    .expect("never poisoned")
+                    .push(idempotency_token(opts));
+                Err(transient_error())
+            });
+        mock.expect_start()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(move |_, _, _, opts, _, _| {
+                tokens2
+                    .lock()
+                    .expect("never poisoned")
+                    .push(idempotency_token(opts));
+                Ok(Ok(stream2))
+            });
+
+        Ok((Connector::new(options, SharedMockClient::new(mock)), tokens))
+    }
+
+    fn assert_reused_idempotency_token(tokens: &RecordedTokens) {
+        let recorded = tokens.lock().expect("never poisoned");
+        assert_eq!(recorded.len(), 2);
+        assert!(recorded[0].is_some(), "expected idempotency token");
+        assert_eq!(
+            recorded[0], recorded[1],
+            "retried attempts must reuse the same idempotency token"
+        );
+    }
+
+    #[tokio::test]
+    async fn connect_open_without_precondition_does_not_retry() -> Result<()> {
+        let (tx1, rx1) = tokio::sync::mpsc::channel::<TonicResult<BidiWriteObjectResponse>>(5);
+        let stream1 = TonicResponse::from(rx1);
+        drop(tx1);
+
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, _, _, _, _| Ok(Ok(stream1)));
+        let mut connector = Connector::new(test_options(), SharedMockClient::new(mock));
+
+        let err = connector
+            .connect_open(open_request(None))
+            .await
+            .expect_err("expected closed stream error");
+        assert!(err.is_io(), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn connect_open_without_precondition_does_not_retry_transient_error() -> Result<()> {
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, _, options, _, _| {
+                assert!(
+                    idempotency_token(options).is_none(),
+                    "non-idempotent open must not carry an idempotency token"
+                );
+                Err(transient_error())
+            });
+        let mut connector = Connector::new(test_options(), SharedMockClient::new(mock));
+
+        let err = connector
+            .connect_open(open_request(None))
+            .await
+            .expect_err("expected transient error without retry");
+        assert_eq!(err.status(), transient_error().status(), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn connect_open_with_if_generation_match_retries_transient_error() -> Result<()> {
+        let initial = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::Resource(crate::google::storage::v2::Object {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                name: "test-object".into(),
+                generation: 42,
+                ..Default::default()
+            })),
+            ..Default::default()
+        };
+        let (mut connector, tokens) =
+            transient_then_success_connector(test_options(), initial.clone()).await?;
+
+        let (resp, _conn) = connector.connect_open(open_request(Some(0))).await?;
+        assert_eq!(resp, initial);
+        assert_reused_idempotency_token(&tokens);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn connect_open_idempotency_override_true_retries_without_precondition() -> Result<()> {
+        let initial = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::Resource(crate::google::storage::v2::Object {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                name: "test-object".into(),
+                generation: 42,
+                ..Default::default()
+            })),
+            ..Default::default()
+        };
+        let mut options = test_options();
+        options.idempotency = Some(true);
+        let (mut connector, tokens) =
+            transient_then_success_connector(options, initial.clone()).await?;
+
+        let (resp, _conn) = connector.connect_open(open_request(None)).await?;
+        assert_eq!(resp, initial);
+        assert_reused_idempotency_token(&tokens);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn connect_open_idempotency_override_false_disables_retry() -> Result<()> {
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, _, options, _, _| {
+                assert!(
+                    idempotency_token(options).is_none(),
+                    "explicit non-idempotent override must omit idempotency token"
+                );
+                Err(transient_error())
+            });
+        let mut options = test_options();
+        options.idempotency = Some(false);
+        let mut connector = Connector::new(options, SharedMockClient::new(mock));
+
+        let err = connector
+            .connect_open(open_request(Some(0)))
+            .await
+            .expect_err("expected transient error without retry");
+        assert_eq!(err.status(), transient_error().status(), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn connect_reopen_retries_transient_error() -> Result<()> {
+        let initial = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(10)),
+            ..Default::default()
+        };
+        let (mut connector, tokens) =
+            transient_then_success_connector(test_options(), initial.clone()).await?;
+
+        let req = crate::model_ext::ReopenAppendableObjectRequest {
+            bucket: "projects/_/buckets/test-bucket".into(),
+            object: "test-object".into(),
+            generation: 123456,
+            routing_token: None,
+            if_metageneration_match: None,
+            if_metageneration_not_match: None,
+            params: None,
+            write_handle: None,
+        };
+
+        let (resp, _conn) = connector.connect_reopen(req).await?;
+        assert_eq!(resp, initial);
+        assert_reused_idempotency_token(&tokens);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn connect_reopen_generation_zero_with_write_handle_retries() -> Result<()> {
+        let initial = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(10)),
+            ..Default::default()
+        };
+        let (mut connector, tokens) =
+            transient_then_success_connector(test_options(), initial.clone()).await?;
+
+        let req = crate::model_ext::ReopenAppendableObjectRequest {
+            bucket: "projects/_/buckets/test-bucket".into(),
+            object: "test-object".into(),
+            generation: 0,
+            routing_token: None,
+            if_metageneration_match: None,
+            if_metageneration_not_match: None,
+            params: None,
+            write_handle: Some(bytes::Bytes::from_static(b"test-write-handle")),
+        };
+
+        let (resp, _conn) = connector.connect_reopen(req).await?;
+        assert_eq!(resp, initial);
+        assert_reused_idempotency_token(&tokens);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn connect_reopen_generation_zero_without_write_handle_does_not_retry() -> Result<()> {
+        let mut mock = MockTestClient::new();
+        mock.expect_start()
+            .times(1)
+            .return_once(move |_, _, _, options, _, _| {
+                assert!(
+                    idempotency_token(options).is_none(),
+                    "reopen without generation or write_handle must omit idempotency token"
+                );
+                Err(transient_error())
+            });
+        let mut connector = Connector::new(test_options(), SharedMockClient::new(mock));
+
+        let req = crate::model_ext::ReopenAppendableObjectRequest {
+            bucket: "projects/_/buckets/test-bucket".into(),
+            object: "test-object".into(),
+            generation: 0,
+            routing_token: None,
+            if_metageneration_match: None,
+            if_metageneration_not_match: None,
+            params: None,
+            write_handle: None,
+        };
+
+        let err = connector
+            .connect_reopen(req)
+            .await
+            .expect_err("expected transient error without retry");
+        assert_eq!(err.status(), transient_error().status(), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn reconnect_reuses_idempotency_token_across_retries() -> Result<()> {
+        let initial = BidiWriteObjectResponse {
+            write_status: Some(WriteStatus::PersistedSize(64)),
+            ..Default::default()
+        };
+        let (mut connector, tokens) =
+            transient_then_success_connector(test_options(), initial.clone()).await?;
+        connector.set_spec_state(AppendObjectSpecState::Append {
+            spec: AppendObjectSpec {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                object: "test-object".into(),
+                generation: 123456,
+                ..Default::default()
+            },
+            initial_chunk: None,
+        });
+
+        let (resp, _conn) = connector.reconnect(transient_error(), 0).await?;
+        assert_eq!(resp, initial);
+        assert_reused_idempotency_token(&tokens);
         Ok(())
     }
 }

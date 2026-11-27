@@ -25,6 +25,7 @@ pub async fn sample(client: &Storage, bucket: &str, object: &str) -> Result<(), 
     let bucket_name = format!("projects/_/buckets/{bucket}");
     let mut writer = client
         .open_appendable_object(&bucket_name, object)
+        .set_if_generation_match(0)
         .send()
         .await?;
 
