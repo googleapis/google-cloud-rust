@@ -44,15 +44,11 @@ impl ParallelUploadSession {
         self.inner.segment_size_bytes()
     }
 
-    /// Uploads a single segment to the session.
+    /// Uploads a single 1-based segment (`segment_number >= 1`) to the session.
     ///
     /// # Errors
     ///
     /// Returns an error if reading from `segment_payload` fails or the segment upload RPC fails.
-    ///
-    /// # Panics
-    ///
-    /// Panics with the default transport until segment uploads are implemented.
     pub async fn write_segment<T, P>(
         &self,
         segment_number: u32,
