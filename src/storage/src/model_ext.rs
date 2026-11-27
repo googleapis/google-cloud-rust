@@ -298,11 +298,13 @@ impl crate::model::ReadObjectRequest {
         match range.0 {
             RequestedRange::Offset(o) => {
                 self.read_offset = o.clamp(0, i64::MAX as u64) as i64;
+                self.read_limit = 0;
             }
             RequestedRange::Tail(t) => {
                 // Yes, -i64::MAX is different from i64::MIN, but both are
                 // safe in this context.
                 self.read_offset = -(t.clamp(0, i64::MAX as u64) as i64);
+                self.read_limit = 0;
             }
             RequestedRange::Segment { offset, limit } => {
                 self.read_offset = offset.clamp(0, i64::MAX as u64) as i64;
@@ -446,6 +448,17 @@ pub(crate) mod tests {
         request.with_range(range);
         assert_eq!(request.read_offset, 1000);
         assert_eq!(request.read_limit, want);
+    }
+
+    #[test_case(ReadRange::tail(5), -5, 0; "tail clears limit")]
+    #[test_case(ReadRange::offset(5), 5, 0; "offset clears limit")]
+    #[test_case(ReadRange::all(), 0, 0; "all clears limit")]
+    fn overwrite_segment_range(second: ReadRange, want_offset: i64, want_limit: i64) {
+        let mut request = ReadObjectRequest::new();
+        request.with_range(ReadRange::segment(10, 20));
+        request.with_range(second);
+        assert_eq!(request.read_offset, want_offset);
+        assert_eq!(request.read_limit, want_limit);
     }
 
     #[test]

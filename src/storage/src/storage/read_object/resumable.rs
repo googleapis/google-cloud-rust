@@ -127,7 +127,7 @@ impl ResumableResponse {
 
         // The existing read is no longer valid.
         self.response = None;
-        self.resume_count += 1;
+        self.resume_count = self.resume_count.saturating_add(1);
         let query = ResumeQuery::new(self.resume_count);
         match self
             .reader
@@ -139,8 +139,17 @@ impl ResumableResponse {
             ResumeResult::Permanent(e) => return Some(Err(e)),
             ResumeResult::Exhausted(e) => return Some(Err(e)),
         };
-        self.reader.request.read_offset = self.range.start as i64;
-        self.reader.request.read_limit = self.range.limit as i64;
+        // `response_range` should already reject values above `i64::MAX`.
+        let read_offset = match i64::try_from(self.range.start) {
+            Ok(v) => v,
+            Err(e) => return Some(Err(Error::ser(e))),
+        };
+        let read_limit = match i64::try_from(self.range.limit) {
+            Ok(v) => v,
+            Err(e) => return Some(Err(Error::ser(e))),
+        };
+        self.reader.request.read_offset = read_offset;
+        self.reader.request.read_limit = read_limit;
         self.reader.request.generation = self.generation;
         self.response = match self.reader.clone().read().await {
             Ok(r) => Some(r),
@@ -158,18 +167,19 @@ struct ReadRange {
 
 fn response_range(response: &Response) -> std::result::Result<ReadRange, ReadError> {
     match response.status() {
-        StatusCode::OK => {
-            match (
-                read_limit("content-length", response),
-                read_limit("x-goog-stored-content-length", response),
-            ) {
-                (Ok(limit), _) => Ok(ReadRange { start: 0, limit }),
-                (Err(_), Ok(limit)) => Ok(ReadRange { start: 0, limit }),
-                (Err(e), Err(ReadError::MissingHeader(_))) => Err(e),
-                (Err(ReadError::MissingHeader(_)), Err(e)) => Err(e),
-                (Err(e), Err(_)) => Err(e),
+        StatusCode::OK => match read_limit("content-length", response) {
+            Ok(limit) => Ok(ReadRange { start: 0, limit }),
+            // Fall back to the stored length only when content-length is
+            // absent, such as on chunked responses.
+            Err(ReadError::MissingHeader(missing)) => {
+                match read_limit("x-goog-stored-content-length", response) {
+                    Ok(limit) => Ok(ReadRange { start: 0, limit }),
+                    Err(ReadError::MissingHeader(_)) => Err(ReadError::MissingHeader(missing)),
+                    Err(e) => Err(e),
+                }
             }
-        }
+            Err(e) => Err(e),
+        },
         StatusCode::PARTIAL_CONTENT => {
             let header = parse_http_response::required_header(response, "content-range")?;
             let header = header.strip_prefix("bytes ").ok_or_else(|| {
@@ -187,12 +197,27 @@ fn response_range(response: &Response) -> std::result::Result<ReadRange, ReadErr
             let end = end
                 .parse::<u64>()
                 .map_err(|e| ReadError::BadHeaderFormat("content-range", e.into()))?;
-            // HTTP ranges are inclusive, we need to compute the number of bytes
-            // in the range:
-            let end = end + 1;
-            let limit = end
-                .checked_sub(start)
-                .ok_or_else(|| ReadError::BadHeaderFormat("content-range", format!("range start ({start}) should be less than or equal to the range end ({end})").into()))?;
+            if start > end {
+                return Err(ReadError::BadHeaderFormat(
+                    "content-range",
+                    format!(
+                        "range start ({start}) should be less than or equal to the range end ({end})"
+                    )
+                    .into(),
+                ));
+            }
+            // HTTP byte ranges are inclusive, and resumed requests store
+            // offsets and limits as non-negative `i64`.
+            let exclusive_end = end
+                .checked_add(1)
+                .filter(|&e| i64::try_from(e).is_ok())
+                .ok_or_else(|| {
+                    ReadError::BadHeaderFormat(
+                        "content-range",
+                        format!("range end ({end}) must be less than {}", i64::MAX).into(),
+                    )
+                })?;
+            let limit = exclusive_end - start;
             Ok(ReadRange { start, limit })
         }
         s => Err(ReadError::UnexpectedSuccessCode(s.as_u16())),
@@ -201,9 +226,12 @@ fn response_range(response: &Response) -> std::result::Result<ReadRange, ReadErr
 
 fn read_limit(name: &'static str, response: &Response) -> std::result::Result<u64, ReadError> {
     let header = parse_http_response::required_header(response, name)?;
-    header
+    let limit = header
         .parse::<u64>()
-        .map_err(|e| ReadError::BadHeaderFormat(name, e.into()))
+        .map_err(|e| ReadError::BadHeaderFormat(name, e.into()))?;
+    // Resumed requests store `read_limit` as a non-negative `i64`.
+    i64::try_from(limit).map_err(|e| ReadError::BadHeaderFormat(name, e.into()))?;
+    Ok(limit)
 }
 
 /// Returns the object checksums to validate against.
@@ -324,9 +352,15 @@ mod tests {
     }
 
     #[test_case("content-length", 0)]
+    #[test_case("content-length", 1)]
     #[test_case("content-length", 1024)]
+    #[test_case("content-length", (i64::MAX - 1) as u64)]
+    #[test_case("content-length", i64::MAX as u64)]
     #[test_case("x-goog-stored-content-length", 0)]
+    #[test_case("x-goog-stored-content-length", 1)]
     #[test_case("x-goog-stored-content-length", 1024)]
+    #[test_case("x-goog-stored-content-length", (i64::MAX - 1) as u64)]
+    #[test_case("x-goog-stored-content-length", i64::MAX as u64)]
     fn response_range_success(name: &'static str, limit: u64) -> Result {
         let response = http::Response::builder()
             .status(200)
@@ -352,10 +386,18 @@ mod tests {
 
     #[test_case("content-length", "")]
     #[test_case("content-length", "abc")]
+    #[test_case("content-length", "-1")]
     #[test_case("content-length", "-123")]
+    #[test_case("content-length", "9223372036854775808")]
+    #[test_case("content-length", "18446744073709551615")]
+    #[test_case("content-length", "18446744073709551616")]
     #[test_case("x-goog-stored-content-length", "")]
     #[test_case("x-goog-stored-content-length", "abc")]
+    #[test_case("x-goog-stored-content-length", "-1")]
     #[test_case("x-goog-stored-content-length", "-123")]
+    #[test_case("x-goog-stored-content-length", "9223372036854775808")]
+    #[test_case("x-goog-stored-content-length", "18446744073709551615")]
+    #[test_case("x-goog-stored-content-length", "18446744073709551616")]
     fn response_range_format(name: &'static str, value: &'static str) -> Result {
         let response = http::Response::builder()
             .status(200)
@@ -368,6 +410,38 @@ mod tests {
             "{err:?}"
         );
         assert!(err.source().is_some(), "{err:?}");
+        Ok(())
+    }
+
+    #[test_case("10", "9223372036854775808", Some(10); "valid content-length wins")]
+    #[test_case("9223372036854775808", "10", None; "overflow content-length not masked")]
+    #[test_case("abc", "10", None; "malformed content-length not masked")]
+    fn response_range_fallback(
+        content_length: &'static str,
+        stored_content_length: &'static str,
+        want: Option<u64>,
+    ) -> Result {
+        let response = http::Response::builder()
+            .status(200)
+            .header("content-length", content_length)
+            .header("x-goog-stored-content-length", stored_content_length)
+            .body(Vec::new())?;
+        let response = Response::from(response);
+        match want {
+            Some(limit) => {
+                let range = response_range(&response)?;
+                assert_eq!(range, super::ReadRange { start: 0, limit });
+            }
+            None => {
+                let err =
+                    response_range(&response).expect_err("invalid content-length should fail");
+                assert!(
+                    matches!(err, ReadError::BadHeaderFormat(h, _) if h == "content-length"),
+                    "{err:?}"
+                );
+                assert!(err.source().is_some(), "{err:?}");
+            }
+        }
         Ok(())
     }
 
@@ -385,8 +459,11 @@ mod tests {
         Ok(())
     }
 
+    #[test_case(0, 0)]
     #[test_case(0, 123)]
     #[test_case(123, 456)]
+    #[test_case(0, i64::MAX as u64 - 1)]
+    #[test_case(i64::MAX as u64 - 1, i64::MAX as u64 - 1)]
     fn response_range_partial_success(start: u64, end: u64) -> Result {
         let response = http::Response::builder()
             .status(206)
@@ -426,6 +503,15 @@ mod tests {
     #[test_case("bytes abc-456/457"; "start is not numbers")]
     #[test_case("bytes 123-cde/457"; "end is not numbers")]
     #[test_case("bytes 123-0/457"; "invalid range")]
+    #[test_case("bytes 10-9/100"; "start equals end plus one")]
+    #[test_case("bytes -1-10/100"; "negative start")]
+    #[test_case("bytes 0--1/100"; "negative end")]
+    #[test_case("bytes 0-9223372036854775807/9223372036854775808"; "end equals i64::MAX")]
+    #[test_case("bytes 100-9223372036854775807/*"; "non-zero start with end equals i64::MAX")]
+    #[test_case("bytes 9223372036854775807-9223372036854775807/*"; "start and end equal i64::MAX")]
+    #[test_case("bytes 0-18446744073709551615/*"; "end equals u64::MAX")]
+    #[test_case("bytes 18446744073709551615-18446744073709551615/*"; "start and end equal u64::MAX")]
+    #[test_case("bytes 0-18446744073709551616/*"; "end exceeds u64::MAX")]
     fn response_range_partial_format(value: &'static str) -> Result {
         let response = http::Response::builder()
             .status(206)
@@ -437,6 +523,70 @@ mod tests {
             matches!(err, ReadError::BadHeaderFormat(h, _) if h == "content-range"),
             "{err:?}"
         );
+        assert!(err.source().is_some(), "{err:?}");
+        Ok(())
+    }
+
+    #[test_case("bytes 123-0/457", 123, 0; "start greater than zero end")]
+    #[test_case("bytes 10-9/100", 10, 9; "start equals end plus one")]
+    fn response_range_partial_inverted_message(
+        value: &'static str,
+        start: u64,
+        end: u64,
+    ) -> Result {
+        let response = http::Response::builder()
+            .status(206)
+            .header("content-range", value)
+            .body(Vec::new())?;
+        let response = Response::from(response);
+        let err = response_range(&response).expect_err("inverted range should fail");
+        assert!(
+            matches!(err, ReadError::BadHeaderFormat(h, _) if h == "content-range"),
+            "{err:?}"
+        );
+        let msg = err
+            .source()
+            .expect("error should include source")
+            .to_string();
+        assert!(msg.contains(&format!("range start ({start})")), "{msg:?}");
+        assert!(msg.contains(&format!("range end ({end})")), "{msg:?}");
+        Ok(())
+    }
+
+    #[test_case(i64::MAX as u64 + 1, 1; "start exceeds i64::MAX")]
+    #[test_case(0, i64::MAX as u64 + 1; "limit exceeds i64::MAX")]
+    #[tokio::test]
+    async fn resume_out_of_range(start: u64, limit: u64) -> Result {
+        use crate::storage::client::tests::{test_builder, test_inner_client};
+
+        // Arrange
+        let inner = test_inner_client(test_builder()).await;
+        let reader = Reader {
+            inner,
+            request: crate::model::ReadObjectRequest::new()
+                .set_bucket("projects/_/buckets/bucket")
+                .set_object("object"),
+            options: crate::storage::request_options::RequestOptions::new(),
+        };
+        let mut res = ResumableResponse {
+            reader,
+            response: None,
+            highlights: ObjectHighlights::default(),
+            response_checksums: ObjectChecksums::new(),
+            range: super::ReadRange { start, limit },
+            generation: 123,
+            resume_count: 0,
+        };
+
+        // Act
+        let err = res
+            .resume(Error::io("transient"))
+            .await
+            .expect("resume should return an error")
+            .expect_err("out-of-range state should fail");
+
+        // Assert
+        assert!(err.is_serialization(), "{err:?}");
         assert!(err.source().is_some(), "{err:?}");
         Ok(())
     }

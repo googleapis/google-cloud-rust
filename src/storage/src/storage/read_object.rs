@@ -631,7 +631,7 @@ impl Reader {
             (o, 0) => builder.header("range", format!("bytes={o}-")),
             // General case: non-negative offset and positive limit.
             // This covers cases like (0, 100) -> "bytes=0-99", (5, 100) -> "bytes=5-104"
-            (o, l) => builder.header("range", format!("bytes={o}-{}", o + l - 1)),
+            (o, l) => builder.header("range", format!("bytes={o}-{}", o.saturating_add(l - 1))),
         };
 
         Ok(builder)
@@ -1508,8 +1508,15 @@ mod tests {
     #[test_case(ReadRange::all(), None; "no headers needed")]
     #[test_case(ReadRange::offset(10), Some(&http::HeaderValue::from_static("bytes=10-")); "offset only")]
     #[test_case(ReadRange::tail(2000), Some(&http::HeaderValue::from_static("bytes=-2000")); "negative offset")]
+    #[test_case(ReadRange::segment(0, 1), Some(&http::HeaderValue::from_static("bytes=0-0")); "single byte")]
     #[test_case(ReadRange::segment(0, 100), Some(&http::HeaderValue::from_static("bytes=0-99")); "limit only")]
     #[test_case(ReadRange::segment(1000, 100), Some(&http::HeaderValue::from_static("bytes=1000-1099")); "offset and limit")]
+    #[test_case(ReadRange::segment(0, i64::MAX as u64), Some(&http::HeaderValue::from_static("bytes=0-9223372036854775806")); "zero offset i64::MAX limit")]
+    #[test_case(ReadRange::segment(0, u64::MAX), Some(&http::HeaderValue::from_static("bytes=0-9223372036854775806")); "zero offset u64::MAX limit")]
+    #[test_case(ReadRange::segment(1, i64::MAX as u64), Some(&http::HeaderValue::from_static("bytes=1-9223372036854775807")); "offset 1 i64::MAX limit")]
+    #[test_case(ReadRange::segment(100, u64::MAX), Some(&http::HeaderValue::from_static("bytes=100-9223372036854775807")); "offset 100 u64::MAX limit")]
+    #[test_case(ReadRange::segment(i64::MAX as u64, 1), Some(&http::HeaderValue::from_static("bytes=9223372036854775807-9223372036854775807")); "i64::MAX offset limit 1")]
+    #[test_case(ReadRange::segment(u64::MAX, u64::MAX), Some(&http::HeaderValue::from_static("bytes=9223372036854775807-9223372036854775807")); "u64::MAX offset and limit")]
     #[tokio::test]
     async fn range_header(input: ReadRange, want: Option<&http::HeaderValue>) -> Result {
         let inner = test_inner_client(test_builder()).await;
@@ -1531,6 +1538,30 @@ mod tests {
             request.url().as_str(),
             "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
         );
+
+        assert_eq!(request.headers().get("range"), want);
+        Ok(())
+    }
+
+    #[test_case(ReadRange::tail(5), Some(&http::HeaderValue::from_static("bytes=-5")); "segment then tail")]
+    #[test_case(ReadRange::offset(5), Some(&http::HeaderValue::from_static("bytes=5-")); "segment then offset")]
+    #[test_case(ReadRange::all(), None; "segment then all")]
+    #[tokio::test]
+    async fn range_header_overwrite(second: ReadRange, want: Option<&http::HeaderValue>) -> Result {
+        let inner = test_inner_client(test_builder()).await;
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
+        let builder = ReadObject::new(
+            stub,
+            "projects/_/buckets/bucket",
+            "object",
+            inner.options.clone(),
+        )
+        .set_read_range(ReadRange::segment(10, 20))
+        .set_read_range(second);
+        let request = http_request_builder(inner, builder)
+            .await?
+            .build_for_tests()
+            .await?;
 
         assert_eq!(request.headers().get("range"), want);
         Ok(())
