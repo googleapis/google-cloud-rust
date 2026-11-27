@@ -23,6 +23,8 @@ use http::HeaderMap;
 use std::sync::Arc;
 use tokio::sync::mpsc::Sender;
 
+const READER_CHANNEL_CAPACITY: usize = 100;
+
 #[derive(Debug)]
 pub struct ObjectDescriptorTransport {
     object: Arc<Object>,
@@ -71,7 +73,7 @@ impl ObjectDescriptorTransport {
         // Spawn the worker task to dispatch any data ranges in the initial response
         // without blocking before returning the readers to the caller.
         let worker = super::worker::Worker::new(connector, actives);
-        let _handle = tokio::spawn(worker.run_with_initial(initial, connection, rx));
+        let _handle = tokio::spawn(worker.run(initial, connection, rx));
 
         Ok((
             Self {
@@ -97,7 +99,7 @@ impl ObjectDescriptorTransport {
         object: &Arc<Object>,
         checksum: crate::storage::checksum::details::Checksum,
     ) -> (ActiveRead, ReadObjectResponse) {
-        let (tx, rx) = tokio::sync::mpsc::channel(100);
+        let (tx, rx) = tokio::sync::mpsc::channel(READER_CHANNEL_CAPACITY);
         let active = ActiveRead::new(tx, range);
 
         // Skip checksums for partial ranged reads.
@@ -402,11 +404,11 @@ mod tests {
     async fn initial_response_many_chunks_does_not_deadlock() -> anyhow::Result<()> {
         use std::time::Duration;
 
-        const CHUNK_COUNT: usize = 150;
+        const CHUNK_COUNT: usize = READER_CHANNEL_CAPACITY + 50;
         let (connector, test_context) = BidiTestContext::new();
 
-        // Build an initial response with more than 100 chunks for a single range so that
-        // dispatching all chunks before returning the reader overflows the bounded channel (100).
+        // Build an initial response with more than `READER_CHANNEL_CAPACITY` chunks for a single
+        // range so dispatching all chunks before returning the reader overflows the bounded channel.
         let mut initial = base_response();
         initial.object_data_ranges = (0..CHUNK_COUNT)
             .map(|i| ObjectRangeData {
@@ -426,7 +428,7 @@ mod tests {
             ObjectDescriptorTransport::new(connector, ranges),
         )
         .await
-        .expect("ObjectDescriptorTransport::new deadlocked on >100 initial chunks")?;
+        .expect("ObjectDescriptorTransport::new deadlocked on initial chunks")?;
 
         assert_eq!(readers.len(), 1);
         let mut received = Vec::with_capacity(CHUNK_COUNT);
