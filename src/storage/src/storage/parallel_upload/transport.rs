@@ -832,10 +832,12 @@ mod tests {
         Ok(())
     }
 
+    #[test_case(&[MAX_WRITE_CHUNK_SIZE]; "exact max chunk boundary")]
+    #[test_case(&[MAX_WRITE_CHUNK_SIZE, MAX_WRITE_CHUNK_SIZE, 5]; "multiple chunks with remainder")]
     #[tokio::test]
-    async fn write_segment_splits_large_chunks() -> anyhow::Result<()> {
-        const MAX: usize = MAX_WRITE_CHUNK_SIZE;
-        let data = (0..2 * MAX + 5).map(|i| (i % 251) as u8).collect::<Bytes>();
+    async fn write_segment_splits_large_chunks(expected_lens: &[usize]) -> anyhow::Result<()> {
+        let total_len: usize = expected_lens.iter().sum();
+        let data = (0..total_len).map(|i| (i % 251) as u8).collect::<Bytes>();
         let size = data.len() as i64;
 
         let mut mock = MockTestClient::new();
@@ -854,13 +856,13 @@ mod tests {
                 (r.write_offset, len, r.finish_write)
             })
             .collect::<Vec<_>>();
-        let max = MAX as i64;
-        let want = vec![
-            (0, Some(MAX), false),
-            (max, Some(MAX), false),
-            (2 * max, Some(5), false),
-            (size, None, true),
-        ];
+        let mut offset = 0_i64;
+        let mut want = Vec::with_capacity(expected_lens.len() + 1);
+        for &len in expected_lens {
+            want.push((offset, Some(len), false));
+            offset += len as i64;
+        }
+        want.push((size, None, true));
         assert_eq!(got, want);
         let sent = requests
             .into_iter()
