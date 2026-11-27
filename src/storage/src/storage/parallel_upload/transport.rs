@@ -430,6 +430,14 @@ mod tests {
         }
     }
 
+    fn proto_params() -> v2::CommonObjectRequestParams {
+        v2::CommonObjectRequestParams {
+            encryption_algorithm: "AES256".to_string(),
+            encryption_key_bytes: Bytes::from_static(b"test-only-key"),
+            ..v2::CommonObjectRequestParams::default()
+        }
+    }
+
     async fn create(
         mock: MockTestClient,
         request: CreateObjectWriteSessionRequest,
@@ -640,11 +648,7 @@ mod tests {
         assert!(without_params.contains("params: None"), "{without_params}");
         assert!(!without_params.contains("[censored]"), "{without_params}");
 
-        t.params = Some(v2::CommonObjectRequestParams {
-            encryption_algorithm: "AES256".to_string(),
-            encryption_key_bytes: Bytes::from_static(b"test-only-key"),
-            ..v2::CommonObjectRequestParams::default()
-        });
+        t.params = Some(proto_params());
         let with_params = format!("{t:?}");
         assert!(with_params.contains("[censored]"), "{with_params}");
         assert!(!with_params.contains("test-only-key"), "{with_params}");
@@ -766,11 +770,7 @@ mod tests {
 
     #[tokio::test]
     async fn write_segment_success() -> anyhow::Result<()> {
-        let params = v2::CommonObjectRequestParams {
-            encryption_algorithm: "AES256".to_string(),
-            encryption_key_bytes: Bytes::from_static(b"test-only-key"),
-            ..v2::CommonObjectRequestParams::default()
-        };
+        let params = proto_params();
         let (captured_tx, captured_rx) = oneshot::channel();
 
         let mut mock = MockTestClient::new();
@@ -873,10 +873,7 @@ mod tests {
 
     #[tokio::test]
     async fn write_segment_empty_payload() -> anyhow::Result<()> {
-        let params = v2::CommonObjectRequestParams {
-            encryption_algorithm: "AES256".to_string(),
-            ..v2::CommonObjectRequestParams::default()
-        };
+        let params = proto_params();
         let mut mock = MockTestClient::new();
         let requests = expect_segment_stream(&mut mock, Some(segment_response(1, 0, 0)));
 
@@ -1094,11 +1091,7 @@ mod tests {
 
     #[tokio::test]
     async fn finalize_sends_params_from_create() -> anyhow::Result<()> {
-        let want = v2::CommonObjectRequestParams {
-            encryption_algorithm: "AES256".to_string(),
-            encryption_key_bytes: Bytes::from_static(b"test-only-key"),
-            ..v2::CommonObjectRequestParams::default()
-        };
+        let want = proto_params();
 
         let mut mock = MockTestClient::new();
         mock.expect_create_object_write_session()
